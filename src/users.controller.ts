@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Res, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Res, Render, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { UserDTO } from './user.dto';
@@ -15,6 +15,11 @@ export class UsersController {
         user.is_active = true;
         const savedUser = await this.serv.save(user);
         return res.redirect(`/user?id=${savedUser.id}`);
+    }
+
+    @Get(':id')
+    getById(@Param() params) {
+        return this.serv.get(params.id);
     }
 
     @Get()

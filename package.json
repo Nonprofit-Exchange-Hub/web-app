@@ -23,9 +23,11 @@
   "dependencies": {
     "-": "0.0.1",
     "@nestjs/common": "^7.6.13",
+    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.13",
     "@nestjs/platform-express": "^7.6.13",
     "@nestjs/typeorm": "^7.1.5",
+    "config": "^3.3.6",
     "hbs": "^4.1.1",
     "pg": "^8.5.1",
     "pg-promise": "^10.9.5",
