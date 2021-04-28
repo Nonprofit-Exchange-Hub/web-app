@@ -16,8 +16,8 @@ export class AppController {
     }
 
     @UseGuards(LocalAuthGuard)
-    @Post('auth_test')
-    authTest() {
+    @Post('auth/test')
+    async authTest() {
         return {
             message: 'ヽ(•‿•)ノ',
         };
