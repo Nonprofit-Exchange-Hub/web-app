@@ -21,7 +21,7 @@ export class UserService {
     }
 
     getByUsername(username: string): Promise<User> {
-        return this.userRepo.find({ where: { first_name: username } });
+        return this.userRepo.findOne({ first_name: username });
     }
 
     remove(id: string): Promise<DeleteResult> {
