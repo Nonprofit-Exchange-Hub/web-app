@@ -1,11 +1,11 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
 
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import { LoginAuthGuard } from './guards/login-auth.guard';
 
 @Controller('auth')
 export class AuthController {
     @Post('test')
-    @UseGuards(LocalAuthGuard)
+    @UseGuards(LoginAuthGuard)
     async authTest() {
         return {
             message: 'ヽ(•‿•)ノ',
