@@ -1,11 +1,22 @@
-import { Body, Controller, Get, Post, Query, Res, Render, Param } from '@nestjs/common';
-import { UserService } from './user.service';
-import { User } from './user.entity';
-import { UserDTO } from './user.dto';
+import {
+    Body,
+    Controller,
+    Get,
+    Post,
+    Query,
+    Res,
+    Render,
+    Param,
+    UseGuards,
+} from '@nestjs/common';
 
-@Controller('user')
+import { UsersService } from './users.service';
+import { User } from './user.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+
+@Controller('users')
 export class UsersController {
-    constructor(private serv: UserService) { }
+    constructor(private serv: UsersService) { }
 
     @Post()
     async create(@Res() res, @Body('first_name') firstName, @Body('last_name') lastName) {
@@ -17,11 +28,13 @@ export class UsersController {
         return res.redirect(`/user?id=${savedUser.id}`);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     getById(@Param() params) {
         return this.serv.get(params.id);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     @Render('user')
     get(@Query('id') id) {
