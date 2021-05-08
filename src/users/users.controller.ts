@@ -7,10 +7,12 @@ import {
     Res,
     Render,
     Param,
+    UseGuards,
 } from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { UserDTO } from './user.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -26,11 +28,13 @@ export class UsersController {
         return res.redirect(`/user?id=${savedUser.id}`);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     getById(@Param() params) {
         return this.serv.get(params.id);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     @Render('user')
     get(@Query('id') id) {
