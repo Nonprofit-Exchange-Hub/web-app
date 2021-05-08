@@ -1,24 +1,23 @@
-import React from "react";
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
+import Routes from './Routes';
+
 function App() {
-  const [data, setData] = React.useState(null);
+	const [ data, setData ] = React.useState(null);
 
-  React.useEffect(() => {
-    fetch("http://localhost:3001/user/8")
-      .then((res) => res.json())
-      .then((data) => setData(JSON.stringify(data)));
-  }, []);
+	React.useEffect(() => {
+		fetch('http://localhost:3001/user/8').then((res) => res.json()).then((data) => setData(JSON.stringify(data)));
+	}, []);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<div className="App">
+				<Routes />
+			</div>
+		</BrowserRouter>
+	);
 }
 
 export default App;
