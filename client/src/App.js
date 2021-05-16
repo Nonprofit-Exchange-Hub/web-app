@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider, useTheme } from '@material-ui/core/styles';
+
 import Footer from "./Footer.js";
 import Header from "./Header.js";
-import logo from './logo.svg';
-import './App.css';
-
 import Routes from './Routes';
 
+import './App.css';
+
+
 function App() {
+	const theme = useTheme();
 	// const [ data, setData ] = React.useState(null);
 
 	// React.useEffect(() => {
@@ -15,13 +18,15 @@ function App() {
 	// }, []);
 
 	return (
-		<BrowserRouter>
-			<div className="App">
-        <Header />
-				  <Routes />
-        <Footer />
-			</div>
-		</BrowserRouter>
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				<div className="App">
+					<Header />
+					<Routes />
+					<Footer />
+				</div>
+			</BrowserRouter>
+		</ThemeProvider>
 	);
 }
 
