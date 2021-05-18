@@ -7,23 +7,24 @@ import { makeStyles } from '@material-ui/core/styles';
  * Styled Link with RouterLink set as component for Browser Router.
  * Sets links to have black text, and default behavior of showing line on hover.
  */
-const useStyles = makeStyles((theme) => {
-	return {
-		link : {
-			color     : '#000000',
-			textAlign : 'left'
-		}
-	};
+
+const useStyles = makeStyles(() => {
+    return {
+        link : {
+            color     : '#000000',
+            textAlign : 'left'
+        }
+    };
 });
 
 function StyledLink(props) {
-	const classes = useStyles();
+    const classes = useStyles();
 
-	return (
-		<Link className={classes.link} component={RouterLink} to={props.to}>
-			{props.children}
-		</Link>
-	);
+    return (
+        <Link className={classes.link} component={RouterLink} to={props.to}>
+            {props.children}
+        </Link>
+    );
 }
 
 export default StyledLink;
