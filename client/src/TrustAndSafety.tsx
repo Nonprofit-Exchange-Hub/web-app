@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 function TrustAndSafety() {
     return <div>TrustAndSafety</div>;
