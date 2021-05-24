@@ -128,7 +128,7 @@ function Login() {
                                             <IconButton
                                                 aria-label="toggle password visibility"
                                                 onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
+                                                // onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
                                                 {showPassword ? <Visibility /> : <VisibilityOff />}

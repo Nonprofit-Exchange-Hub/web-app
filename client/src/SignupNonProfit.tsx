@@ -1,38 +1,36 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+
+interface SignupData {
+    org_name: string;
+    city: string;
+    state: string;
+    ein: string;
+    tax_exempt_id: string;
+    nonprofit_classification: string;
+    first_name: string;
+    last_name: string;
+    role_or_title: string;
+    email: string;
+    password: string;
+    accept_terms: string;
+}
+
+const initialFormData: SignupData = {
+    org_name: '',
+    city: '',
+    state: '',
+    ein: '',
+    tax_exempt_id: '',
+    nonprofit_classification: '',
+    first_name: '',
+    last_name: '',
+    role_or_title: '',
+    email: '',
+    password: '',
+    accept_terms: 'false'
+};
 
 function SignupNonProfit() {
-    interface SignupData {
-        org_name: string;
-        city: string;
-        state: string;
-        ein: string;
-        tax_exempt_id: string;
-        nonprofit_classification: string;
-        first_name: string;
-        last_name: string;
-        role_or_title: string;
-        email: string;
-        password: string;
-        accept_terms: string;
-    }
-
-    const initialFormData: SignupData = {
-        org_name: '',
-        city: '',
-        state: '',
-        ein: '',
-        tax_exempt_id: '',
-        nonprofit_classification: '',
-        first_name: '',
-        last_name: '',
-        role_or_title: '',
-        email: '',
-        password: '',
-        accept_terms: 'false'
-    };
-
     const [ formData, setFormData ] = React.useState(initialFormData);
     const [ pageNum, setPageNum ] = React.useState(1);
 
