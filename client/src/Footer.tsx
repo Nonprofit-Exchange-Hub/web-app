@@ -1,25 +1,24 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import StyledLink from './StyledLink';
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles((theme: Theme) => {
     return {
-        main      : {
-            backgroundColor : '#C4C4C4',
-            padding         : theme.spacing(5)
+        main: {
+            backgroundColor: '#C4C4C4',
+            padding: theme.spacing(5)
         },
-        linkBlock : {
-            '& > *' : {
-                marginBottom : theme.spacing(1)
+        linkBlock: {
+            '& > *': {
+                marginBottom: theme.spacing(1)
             }
         },
-        header    : {
-            fontWeight : 'bold'
+        header: {
+            fontWeight: 'bold'
         },
-        bottom    : {
-            marginTop : theme.spacing(4)
+        bottom: {
+            marginTop: theme.spacing(4)
         }
     };
 });
@@ -30,7 +29,7 @@ function Footer() {
     return (
         <footer className="Footer">
             <Grid className={classes.main} container>
-                <Grid container xs={12}>
+                <Grid container>
                     <Grid
                         className={classes.linkBlock}
                         container

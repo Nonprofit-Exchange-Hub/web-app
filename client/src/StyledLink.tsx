@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,19 +9,24 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => {
     return {
-        link : {
-            color     : '#000000',
-            textAlign : 'left'
+        link: {
+            color: '#000000',
+            textAlign: 'left'
         }
     };
 });
 
-function StyledLink(props) {
+interface StyledLinkProps {
+    to: string;
+    children: string;
+}
+
+function StyledLink({ to, children }: StyledLinkProps) {
     const classes = useStyles();
 
     return (
-        <Link className={classes.link} component={RouterLink} to={props.to}>
-            {props.children}
+        <Link className={classes.link} component={RouterLink} to={to}>
+            {children}
         </Link>
     );
 }
