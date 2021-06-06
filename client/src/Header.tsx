@@ -37,13 +37,16 @@ const useStyles = makeStyles((theme: Theme) => ({
         textDecoration: 'none',
         color: 'black',
     },
+    appBar: {
+        backgroundColor: 'white',
+    },
 }));
 
 function Header() {
     const classes = useStyles();
 
     return (
-        <AppBar position="sticky" color="transparent">
+        <AppBar position="sticky" className={classes.appBar}>
             <Toolbar>
                 <div className={classes.mainNav}>
                     <NavLink to="/" className={classes.home}>
