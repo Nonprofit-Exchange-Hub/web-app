@@ -2,9 +2,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-import Logo from './assets/logo.svg';
+import type { Theme } from '@material-ui/core/styles';
+
+import Logo from './assets/logo.svg'; // placeholder
 
 
 const useStyles = makeStyles((theme: Theme) => ({
