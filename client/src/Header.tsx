@@ -4,12 +4,20 @@ import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
+import Logo from './assets/logo.svg';
+
+
 const useStyles = makeStyles((theme: Theme) => ({
-    home: { flexGrow: 1 },
+    home: {
+        maxWidth: '100px',
+        flexGrow: 1
+    },
     mainNav: {
         display: 'flex',
         justifyContent: 'space-around',
-        flexGrow: 1
+        alignItems: 'center',
+        flexGrow: 1,
+        margin: '10px',
     },
     userButtons: {
         flexGrow: 1,
@@ -20,8 +28,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(1),
             width: 'auto'
-        }
-    }
+        },
+    },
+    navLink: {
+        fontWeight: 'bold',
+        textDecoration: 'none',
+        color: 'black',
+    },
 }));
 
 function Header() {
@@ -30,20 +43,20 @@ function Header() {
     return (
         <AppBar position="sticky" color="transparent">
             <Toolbar>
-                <NavLink to="/" className={classes.home}>
-                    Home
-                </NavLink>
                 <div className={classes.mainNav}>
-                    <NavLink to="/about_us">About Us</NavLink>
-                    <NavLink to="/how_it_works">How It Works</NavLink>
-                    <NavLink to="/library_and_forum">Library & Forum</NavLink>
-                    <NavLink to="/contact_us">Contact Us</NavLink>
+                    <NavLink to="/" className={classes.home}>
+                        <img src={Logo} alt="NEH logo placeholder" />
+                    </NavLink>
+                    <NavLink className={classes.navLink} to="/about_us">About Us</NavLink>
+                    <NavLink className={classes.navLink} to="/how_it_works">How It Works</NavLink>
+                    <NavLink className={classes.navLink} to="/library_and_forum">Library & Forum</NavLink>
+                    <NavLink className={classes.navLink} to="/contact_us">Contact Us</NavLink>
                 </div>
                 <div className={classes.userButtons}>
-                    <NavLink to="/signup">
-                        <Button>Sign Up</Button>
+                    <NavLink className={classes.navLink} to="/signup">
+                        <Button color="primary" variant="contained">Sign Up</Button>
                     </NavLink>
-                    <NavLink to="/login">
+                    <NavLink className={classes.navLink} to="/login">
                         <Button>Login</Button>
                     </NavLink>
                 </div>
