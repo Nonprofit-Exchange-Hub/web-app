@@ -118,8 +118,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     needsAndOffers: {
         padding: '10%',
     },
-    heading: {
-    },
     faqs: {
         padding: '10%',
     },
@@ -207,7 +205,7 @@ function Home(): JSX.Element {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography className={classes.heading}>How does it work?</Typography>
+                            <Typography>How does it work?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
@@ -222,7 +220,7 @@ function Home(): JSX.Element {
                             aria-controls="panel2a-content"
                             id="panel2a-header"
                         >
-                        <Typography className={classes.heading}>Who can use the platform?</Typography>
+                        <Typography>Who can use the platform?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
@@ -237,7 +235,7 @@ function Home(): JSX.Element {
                             aria-controls="panel2a-content"
                             id="panel2a-header"
                         >
-                        <Typography className={classes.heading}>Who can use this platform?</Typography>
+                        <Typography>Who can use this platform?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
