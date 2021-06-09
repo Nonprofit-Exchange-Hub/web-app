@@ -63,14 +63,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         background: 'white',
         borderRadius: '10px',
         marginTop: '20px',
-        width: '50%',
+        width: '80%',
     },
     heroText: {
         margin: 'auto',
         textAlign: 'left',
     },
     heroContent: {
-        width: '60%',
+        width: '50%',
         marginLeft: '10%',
     },
     formControl: {
