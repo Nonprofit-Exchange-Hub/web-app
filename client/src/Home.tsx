@@ -8,13 +8,29 @@ import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+
+import NeedsAndOffers from './NeedsAndOffers';
 
 import type { Theme } from '@material-ui/core/styles';
+import type { Assets } from './types';
 
+
+const placeholderImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
+const dumbyData: Assets = [1, 2, 3].map(num => ({
+    title: `title ${num}`,
+    category: `category ${num}`,
+    datePosted: `datePosted ${num}`,
+    location: `location ${num}`,
+    img: placeholderImg,
+}));
 
 const useStyles = makeStyles((theme: Theme) => ({
     hero: {
-        backgroundImage: 'url("https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png")',
+        backgroundImage: `url("${placeholderImg}")`,
         backgroundSize: '100%',
         backgroundPosition: 'center center',
         minHeight: '500px',
@@ -44,14 +60,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         background: 'white',
         borderRadius: '10px',
         marginTop: '20px',
-        width: '50%',
+        width: '80%',
     },
     heroText: {
         margin: 'auto',
         textAlign: 'left',
     },
     heroContent: {
-        width: '60%',
+        width: '50%',
         marginLeft: '10%',
     },
     formControl: {
@@ -65,6 +81,54 @@ const useStyles = makeStyles((theme: Theme) => ({
         '&:hover:not(.Mui-disabled):before': {
             borderBottom: 'none',
         }
+    },
+    videoSection: {
+        backgroundColor: '#1fc8db',
+        backgroundImage: 'linear-gradient(140deg, #ffffff 0%, #66ffff 50%, #000000 75%)',
+        padding: '10%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    videoSectionText: {
+        color: 'white',
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        fontSize: '30px',
+        lineHeight: '45px',
+    },
+    videoSectionVideo: {},
+    needsAndOffersSub: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    card: {
+        margin: '3%',
+    },
+    cardImg: {
+        borderRadius: '5px',
+        margin: '10%',
+        maxWidth: '80%',
+    },
+    needsAndOffersHeader: {
+        textAlign: 'left',
+    },
+    needsAndOffers: {
+        padding: '10%',
+    },
+    faqs: {
+        padding: '10%',
+    },
+    faqsHeader: {
+        paddingBottom: '30px',
+    },
+    cardText1: {
+        padding: '0 10%',
+    },
+    cardText2: {
+        padding: '0 10% 10%',
     },
 }));
 
@@ -112,6 +176,74 @@ function Home(): JSX.Element {
                         </IconButton>
                     </div>
                 </div>
+            </div>
+            <div className={classes.needsAndOffers}>
+                <NeedsAndOffers
+                    headerText="Nonprofit Needs"
+                    cards={dumbyData}
+                />
+                <NeedsAndOffers
+                    headerText="Offers"
+                    cards={dumbyData}
+                />
+            </div>
+            <div className={classes.videoSection}>
+                <div className={classes.videoSectionVideo}>
+                    <img src={placeholderImg} alt="video placeholder" />
+                </div>
+                <div className={classes.videoSectionText}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum semper et purus vestibulum consequat.
+                </div>
+            </div>
+            <div className={classes.faqs}>
+                <Typography variant="h4" component="h4" className={classes.faqsHeader}>
+                    FAQs
+                </Typography>
+                    <Accordion>
+                        <AccordionSummary
+                            expandIcon={<AddCircleTwoToneIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>How does it work?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                                sit amet blandit leo lobortis eget.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary
+                            expandIcon={<AddCircleTwoToneIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                        >
+                        <Typography>Who can use the platform?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                            sit amet blandit leo lobortis eget.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary
+                            expandIcon={<AddCircleTwoToneIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                        >
+                        <Typography>Who can use this platform?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                            sit amet blandit leo lobortis eget.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
             </div>
         </>
     );
