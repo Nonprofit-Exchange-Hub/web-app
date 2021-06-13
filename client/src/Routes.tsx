@@ -15,6 +15,7 @@ import Help from './Help';
 import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
 import CookiePolicy from './CookiePolicy';
+import Assets from './Assets';
 
 function Routes() {
     return (
@@ -63,6 +64,9 @@ function Routes() {
             </Route>
             <Route exact path="/cookie_policy">
                 <CookiePolicy />
+            </Route>
+            <Route exact path="/assets">
+                <Assets />
             </Route>
         </Switch>
     );

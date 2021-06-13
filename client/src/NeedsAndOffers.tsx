@@ -14,9 +14,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     needsAndOffersSub: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     card: {
-        margin: '3%',
+        marginBottom: '30px',
+        '&:not(:last-child)': {
+            marginRight: '20px',
+        },
     },
     cardImg: {
         borderRadius: '5px',
@@ -25,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     needsAndOffersHeader: {
         textAlign: 'left',
+        paddingBottom: '20px',
     },
     needsAndOffers: {
         padding: '10%',
@@ -54,7 +59,7 @@ function NeedsAndOffers(props: Props): JSX.Element {
             </Typography>
             <div className={classes.needsAndOffersSub}>
                 {cards.map(card => (
-                    <Card className={classes.card} variant="outlined">
+                    <Card className={classes.card} variant="outlined" key={card.id}>
                         <img src={card.img} className={classes.cardImg} alt={card.title} />
                         <Typography variant="h6" component="h4" className={classes.cardText1}>
                             {card.title}, {card.category}
