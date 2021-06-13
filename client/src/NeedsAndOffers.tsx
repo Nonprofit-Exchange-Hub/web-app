@@ -54,7 +54,7 @@ function NeedsAndOffers(props: Props): JSX.Element {
             </Typography>
             <div className={classes.needsAndOffersSub}>
                 {cards.map(card => (
-                    <Card className={classes.card} variant="outlined">
+                    <Card className={classes.card} variant="outlined" key={card.id}>
                         <img src={card.img} className={classes.cardImg} alt={card.title} />
                         <Typography variant="h6" component="h4" className={classes.cardText1}>
                             {card.title}, {card.category}

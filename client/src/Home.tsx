@@ -2,7 +2,6 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
@@ -12,6 +11,7 @@ import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
+import { NavLink } from 'react-router-dom';
 
 import NeedsAndOffers from './NeedsAndOffers';
 
@@ -21,6 +21,7 @@ import type { Assets } from './types';
 
 const placeholderImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
 const dumbyData: Assets = [1, 2, 3].map(num => ({
+    id: num,
     title: `title ${num}`,
     category: `category ${num}`,
     datePosted: `datePosted ${num}`,
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: 10,
         '&:hover': {
             backgroundColor: 'inherit',
+            borderRadius: '10px',
         },
     },
     divider: {
@@ -136,6 +138,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 function Home(): JSX.Element {
     const classes = useStyles();
     const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('');
+    const [searchText, setSearchText] = React.useState<string>('');
 
     const selectSearchCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
         setSelectedSearchCategory(event.target.value as string);
@@ -166,14 +169,13 @@ function Home(): JSX.Element {
                             className={classes.input}
                             placeholder="ex. diapers"
                             inputProps={{ 'aria-label': 'ex. diapers' }}
+                            type="text"
+                            value={searchText}
+                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setSearchText(e.target.value)}
                         />
-                        <IconButton
-                            type="submit"
-                            className={classes.iconButton}
-                            aria-label="search"
-                        >
+                        <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
                             <SearchIcon />
-                        </IconButton>
+                        </NavLink>
                     </div>
                 </div>
             </div>
