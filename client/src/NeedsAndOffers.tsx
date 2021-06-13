@@ -14,9 +14,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     needsAndOffersSub: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     card: {
-        margin: '3%',
+        marginBottom: '30px',
+        '&:not(:last-child)': {
+            marginRight: '20px',
+        },
     },
     cardImg: {
         borderRadius: '5px',
@@ -25,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     needsAndOffersHeader: {
         textAlign: 'left',
+        paddingBottom: '20px',
     },
     needsAndOffers: {
         padding: '10%',
