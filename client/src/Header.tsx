@@ -16,21 +16,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     mainNav: {
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexGrow: 1,
-        margin: '10px',
     },
     userButtons: {
-        flexGrow: 1,
-        position: 'relative',
         borderRadius: theme.shape.borderRadius,
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto'
-        },
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
     },
     navLink: {
         fontWeight: 'bold',
@@ -41,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: 'white',
         boxShadow: theme.shadows[1],
     },
+    toolbar: {
+        padding: '5px 5%',
+    },
 }));
 
 function Header() {
@@ -48,7 +46,7 @@ function Header() {
 
     return (
         <AppBar position="sticky" className={classes.appBar}>
-            <Toolbar>
+            <Toolbar className={classes.toolbar}>
                 <div className={classes.mainNav}>
                     <NavLink to="/" className={classes.home}>
                         <img src={Logo} alt="NEH logo placeholder" />
