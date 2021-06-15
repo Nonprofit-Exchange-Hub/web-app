@@ -109,21 +109,21 @@ function Login() {
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        console.log('handleSubmit - formData: ', formData);
+        console.debug('handleSubmit - formData: ', formData);
         try {
-            const res = await window.fetch('http://localhost:3001/');
-            console.log('RES', res);
+            const res = await window.fetch('http://localhost:3001/api/user');
+            console.debug('handleSubmit - res', res);
         } catch (error) {
-            console.log('err', error);
+            console.debug('handleSubmit - err', error);
         }
     };
 
     const googleSignIn = (evt: React.MouseEvent) => {
-        console.log('googleSignIn - evt.currentTarget:', evt.currentTarget);
+        console.debug('googleSignIn - evt.currentTarget:', evt.currentTarget);
     };
 
     const facebookSignIn = (evt: React.MouseEvent) => {
-        console.log('facebookSignIn - evt.currentTarget:', evt.currentTarget);
+        console.debug('facebookSignIn - evt.currentTarget:', evt.currentTarget);
     };
 
     return (

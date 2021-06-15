@@ -12,7 +12,7 @@ import { AuthModule } from './auth/auth.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            envFilePath: '.env',
+            envFilePath: '.env'
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
@@ -20,14 +20,14 @@ import { AuthModule } from './auth/auth.module';
             port: 5432,
             username: process.env.PG_USERNAME,
             password: process.env.PG_PASSWORD,
-            database: 'postgres',
-            entities: [User],
-            autoLoadEntities: true,
+            database: process.env.DATABASE_NAME || 'tbd-test-db',
+            entities: [ User ],
+            autoLoadEntities: true
         }),
         UsersModule,
-        AuthModule,
+        AuthModule
     ],
-    controllers: [AppController],
-    providers: [AppService],
+    controllers: [ AppController ],
+    providers: [ AppService ]
 })
 export class AppModule {}
