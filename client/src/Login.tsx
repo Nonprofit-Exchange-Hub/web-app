@@ -111,7 +111,7 @@ function Login() {
         evt.preventDefault();
         console.debug('handleSubmit - formData: ', formData);
         try {
-            const res = await window.fetch('http://localhost:3001/api/user');
+            const res = await window.fetch('http://localhost:3001/api');
             console.debug('handleSubmit - res', res);
         } catch (error) {
             console.debug('handleSubmit - err', error);
