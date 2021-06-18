@@ -16,11 +16,11 @@ import { NavLink } from 'react-router-dom';
 import NeedsAndOffers from './NeedsAndOffers';
 
 import type { Theme } from '@material-ui/core/styles';
-import type { Assets } from './types';
+import type { Asset } from './types';
 
 
 const placeholderImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
-const dumbyData: Assets = [1, 2, 3].map(num => ({
+const dumbyData: Asset[] = [1, 2, 3].map(num => ({
     id: num,
     title: `title ${num}`,
     category: `category ${num}`,

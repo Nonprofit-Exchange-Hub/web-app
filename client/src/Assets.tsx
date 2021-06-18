@@ -12,11 +12,11 @@ import NeedsAndOffers from './NeedsAndOffers';
 import FilterGroup from './FilterGroup';
 
 import type { Theme } from '@material-ui/core/styles';
-import type { Assets as AssetsT } from './types';
+import type { Asset as AssetT } from './types';
 
 
 const placeholderImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
-const dumbyData: AssetsT = [1, 2, 3].map(num => ({
+const dumbyData: AssetT[] = [1, 2, 3].map(num => ({
     id: num,
     title: `title ${num}`,
     category: `category ${num}`,
