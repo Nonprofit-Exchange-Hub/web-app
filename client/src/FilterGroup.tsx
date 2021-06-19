@@ -1,38 +1,32 @@
+import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 
-import type { Theme } from '@material-ui/core/styles';
-
+import { Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
     wrapper: {
-        paddingTop: '20px',
+        paddingTop: '20px'
     },
     filtersList: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-    },
+        alignItems: 'center'
+    }
 }));
 
 type Props = {
-  filters: string[],
-  header: string,
-  onHandleCheck: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  selectedFilters: { [key: string]: boolean },
-}
-
+    filters: string[];
+    header: string;
+    onHandleCheck: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    selectedFilters: { [key: string]: boolean };
+};
 
 function FilterGroup(props: Props): JSX.Element {
     const classes = useStyles();
-    const {
-        filters,
-        header,
-        onHandleCheck,
-        selectedFilters,
-    } = props;
+    const { filters, header, onHandleCheck, selectedFilters } = props;
 
     return (
         <div className={classes.wrapper}>
@@ -40,7 +34,7 @@ function FilterGroup(props: Props): JSX.Element {
                 {header}
             </Typography>
             <div className={classes.filtersList}>
-                {filters.map(f => (
+                {filters.map((f) => (
                     <FormControlLabel
                         key={f}
                         control={

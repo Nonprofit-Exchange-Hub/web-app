@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseConnectionService } from './database-connection.service';
 
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
@@ -12,22 +13,13 @@ import { AuthModule } from './auth/auth.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            envFilePath: '.env',
+            envFilePath: '.env'
         }),
-        TypeOrmModule.forRoot({
-            type: 'postgres',
-            host: 'localhost',
-            port: 5432,
-            username: process.env.PG_USERNAME,
-            password: process.env.PG_PASSWORD,
-            database: 'postgres',
-            entities: [User],
-            autoLoadEntities: true,
-        }),
+        TypeOrmModule.forRootAsync({ useClass: DatabaseConnectionService }),
         UsersModule,
-        AuthModule,
+        AuthModule
     ],
-    controllers: [AppController],
-    providers: [AppService],
+    controllers: [ AppController ],
+    providers: [ AppService ]
 })
 export class AppModule {}
