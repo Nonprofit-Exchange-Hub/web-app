@@ -10,23 +10,10 @@ import Button from '@material-ui/core/Button';
 
 import NeedsAndOffers from './NeedsAndOffers';
 import FilterGroup from './FilterGroup';
+import { dumbyData, filters1, filters2, filters3 } from './assets/temp';
 
 import type { Theme } from '@material-ui/core/styles';
-import type { Asset as AssetT } from './types';
 
-
-const placeholderImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
-const dumbyData: AssetT[] = [1, 2, 3].map(num => ({
-    id: num,
-    title: `title ${num}`,
-    category: `category ${num}`,
-    datePosted: `datePosted ${num}`,
-    location: `location ${num}`,
-    img: placeholderImg,
-}));
-const filters1 = ['filter 1', 'filter 2', 'filter 3'];
-const filters2 = ['filter 4', 'filter 5', 'filter 6'];
-const filters3 = ['filter 7', 'filter 8', 'filter 9'];
 
 const useStyles = makeStyles((theme: Theme) => ({
     searchBar: {

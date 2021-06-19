@@ -1,27 +1,21 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from "react-router-dom";
-// import * as queryString from 'query-string';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import { NavLink } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import Typography from '@material-ui/core/Typography';
+import TodayOutlined from '@material-ui/icons/TodayOutlined';
+import RoomOutlined from '@material-ui/icons/RoomOutlined';
+
+import { dumbyData } from './assets/temp';
 
 import type { Theme } from '@material-ui/core/styles';
 import type { Asset as AssetT } from './types';
 
-
-const placeholderImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
-const dumbyData: AssetT[] = [1, 2, 3].map(num => ({
-    id: num,
-    title: `title ${num}`,
-    category: `category ${num}`,
-    datePosted: `datePosted ${num}`,
-    location: `location ${num}`,
-    img: placeholderImg,
-}));
 
 const useStyles = makeStyles((theme: Theme) => ({
     topBar: {
@@ -52,19 +46,56 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        padding: '10px 5%',
+        padding: '20px 15% 60px',
     },
     leftPanel: {
-      width: '50%',
-      flexGrow: 1,
-      display: 'flex',
-      flexDirection: 'column',
+        width: '60%',
+        marginRight: '5%',
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
     },
     rightPanel: {
-      width: '50%',
-      flexGrow: 1,
-      display: 'flex',
-      flexDirection: 'column',
+        width: '35%',
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        textAlign: 'left',
+    },
+    imgs: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    miniImgs: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        width: '25%',
+    },
+    bigImg: {
+        minHeight: '300px',
+        minWidth: '300px',
+        marginRight: '5px',
+        borderRadius: '5px',
+        objectFit: 'cover',
+    },
+    miniImg: {
+        height: '50px',
+        width: '50px',
+        objectFit: 'cover',
+        borderRadius: '5px',
+        marginBottom: '10px',
+        cursor: 'pointer',
+    },
+    subText: {
+        display: 'flex',
+        paddingTop: '10px',
+        alignItems: 'center',
+    },
+    claimButton: {
+        marginTop: '20px',
+        width: '70%',
     },
 }));
 
@@ -87,15 +118,26 @@ function Offer(): JSX.Element {
     const classes = useStyles();
     const { offerId } = useParams<{ offerId?: string }>();
     const offer = useOffer(offerId);
+
     const [searchText, setSearchText] = React.useState<string>('');
+    const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
+
+    const handleClaim = () => {
+      // TODOs
+      // post request to claim this offer for this user
+      // history.push to move us to confirmation page?
+      // trigger top banner to drop down that says 'claimed'?
+    }
 
     if (!offer) {
       return <>offer not found</>;
     }
 
+    const bigImg = offer.imgs[selectedImgInd];
+
     return (
         <>
-            <Paper className={classes.topBar}>
+            <Paper elevation={0} className={classes.topBar}>
                 <NavLink to="/assets" className={classes.iconButton}>
                     <Button><ArrowBackRoundedIcon />Go Back</Button>
                 </NavLink>
@@ -114,10 +156,47 @@ function Offer(): JSX.Element {
             </Paper>
             <div className={classes.contentWrapper}>
                 <div className={classes.leftPanel}>
-                    left
+                    <div className={classes.imgs}>
+                        <img src={bigImg} alt={offer.title} className={classes.bigImg} />
+                        <div className={classes.miniImgs}>
+                            {offer.imgs.map((img, ind) => ind !== selectedImgInd ? (
+                                <img
+                                    src={img}
+                                    alt={offer.title}
+                                    className={classes.miniImg}
+                                    onClick={() => setSelectedImgInd(ind)}
+                                />
+                            ) : null)}
+                        </div>
+                    </div>
+                    <p style={{ textAlign: 'left', padding: '20px 0' }}>
+                        {offer.description}
+                    </p>
                 </div>
                 <div className={classes.rightPanel}>
-                    right
+                    <Typography variant="h3">
+                        {offer.title}
+                    </Typography>
+                    <Typography className={classes.subText} variant="subtitle1">
+                        {offer.categories.join(', ')}
+                    </Typography>
+                    <Typography className={classes.subText} variant="subtitle1">
+                        Posted By {offer.postedBy}
+                    </Typography>
+                    <Typography className={classes.subText} variant="subtitle1">
+                        <RoomOutlined />{offer.location}
+                    </Typography>
+                    <Typography className={classes.subText} variant="subtitle1">
+                        <TodayOutlined />{offer.datePosted}
+                    </Typography>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={handleClaim}
+                        className={classes.claimButton}
+                    >
+                        Message to claim!
+                    </Button>
                 </div>
             </div>
         </>

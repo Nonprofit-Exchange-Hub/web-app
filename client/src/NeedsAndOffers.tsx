@@ -63,9 +63,9 @@ function NeedsAndOffers(props: Props): JSX.Element {
                 {cards.map(card => (
                     <NavLink to={`/offer/${card.id}`} key={card.id} className={classes.card}>
                         <Card variant="outlined">
-                            <img src={card.img} className={classes.cardImg} alt={card.title} />
+                            <img src={card.imgs[0]} className={classes.cardImg} alt={card.title} />
                             <Typography variant="h6" component="h4" className={classes.cardText1}>
-                                {card.title}, {card.category}
+                                {card.title}, {card.categories[0]}
                             </Typography>
                             <div className={classes.cardText2}>
                                 <RoomOutlined />{card.location}<TodayOutlined />{card.datePosted}
