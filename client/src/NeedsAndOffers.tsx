@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         '&:not(:last-child)': {
             marginRight: '20px',
         },
-        // marginRight: '20px',
     },
     cardImg: {
         borderRadius: '5px',

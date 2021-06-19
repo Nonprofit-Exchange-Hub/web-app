@@ -32,8 +32,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         paddingLeft: '10px',
     },
-    // TODO i'm just copying these from other files,
-    // either make them a component or make the styles shared objects somewhere
     iconButton: {
         padding: 10,
         '&:hover': {
