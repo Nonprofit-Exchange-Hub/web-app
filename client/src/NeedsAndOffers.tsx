@@ -4,10 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import TodayOutlined from '@material-ui/icons/TodayOutlined';
 import RoomOutlined from '@material-ui/icons/RoomOutlined';
+import { NavLink } from 'react-router-dom';
 
 import type { Theme } from '@material-ui/core/styles';
 
-import type { Assets } from './types';
+import type { Asset } from './types';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type Props = {
   headerText: string,
-  cards: Assets,
+  cards: Asset[],
 };
 
 function NeedsAndOffers(props: Props): JSX.Element {
@@ -59,15 +60,17 @@ function NeedsAndOffers(props: Props): JSX.Element {
             </Typography>
             <div className={classes.needsAndOffersSub}>
                 {cards.map(card => (
-                    <Card className={classes.card} variant="outlined" key={card.id}>
-                        <img src={card.img} className={classes.cardImg} alt={card.title} />
-                        <Typography variant="h6" component="h4" className={classes.cardText1}>
-                            {card.title}, {card.category}
-                        </Typography>
-                        <div className={classes.cardText2}>
-                            <RoomOutlined />{card.location}<TodayOutlined />{card.datePosted}
-                        </div>
-                    </Card>
+                    <NavLink to={`/offer/${card.id}`} key={card.id} className={classes.card}>
+                        <Card variant="outlined">
+                            <img src={card.imgs[0]} className={classes.cardImg} alt={card.title} />
+                            <Typography variant="h6" component="h4" className={classes.cardText1}>
+                                {card.title}, {card.categories[0]}
+                            </Typography>
+                            <div className={classes.cardText2}>
+                                <RoomOutlined />{card.location}<TodayOutlined />{card.datePosted}
+                            </div>
+                        </Card>
+                    </NavLink>
                 ))}
             </div>
         </>
