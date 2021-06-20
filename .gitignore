@@ -2,7 +2,6 @@
 /dist
 **/node_modules
 client/build
-client/node_modules
 
 # Logs
 logs
@@ -16,7 +15,7 @@ lerna-debug.log*
 .DS_Store
 
 # Tests
-/coverage
+**/coverage
 /.nyc_output
 
 # IDEs and editors
@@ -35,6 +34,12 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 #test data
 pgdata/
+
+
