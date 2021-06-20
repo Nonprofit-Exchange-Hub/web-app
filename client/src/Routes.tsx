@@ -16,6 +16,7 @@ import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
 import CookiePolicy from './CookiePolicy';
 import Assets from './Assets';
+import Offer from './Offer';
 
 function Routes() {
     return (
@@ -67,6 +68,9 @@ function Routes() {
             </Route>
             <Route exact path="/assets">
                 <Assets />
+            </Route>
+            <Route exact path="/offer/:offerId">
+                <Offer />
             </Route>
         </Switch>
     );
