@@ -1,17 +1,37 @@
-## Description
+# Nonprofit Exchange Hub (working name)
 
-Nonprofit Exchange Hub Nestjs and Postgres backend
+## Description 
+Platform for non-profits and citizens to collaborate in a giving economy.
 
-## Installation
+Primary tech stack: PostgreSQL, Nest, and React
 
-1. install postgres (https://www.postgresql.org/download/)
-2. create `.env` file in root and get contents from another dev
+## Installation and Setup
 
+1. Setup PostgreSQL Database locally or via a Docker container
+    * [Local Installation](https://www.postgresql.org/download/)
+    * Docker Installation - Follow instuctions for your specific platform:
+        * [Docker](https://docs.docker.com/get-docker/)
+        * [Docker Compose](https://docs.docker.com/compose/install/)
+2. Download or [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) repository.
+4. Install required dependencies by running `npm install` from within base directory and from the `/client` directory.
+3. Environmental variables required in base directory - defaults provided can be changed out at will:
 
-## Running the app
+```
+    PORT=3001
+    DATABASE_HOST=localhost
+    DATABASE_PORT=8080
+    DATABASE_USER=postgres
+    DATABASE_PASSWORD=your_password
+    DATABASE_DB=test_db
+```
 
-1. `psql -U postgres`
-2. `npm start`
+## Startup
+
+1. If going the docker route for PostgreSQL, and docker and docker-compose are installed, ensure the specified `DATABASE_PORT` is free and run `npm run start:dev:db` from base directory to start up PostgreSQL docker container.
+    * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker ps` in terminal to view all running containers. One should match the name of `container_name` from `docker-compose.yml` file
+    * Otherwise make sure PostgreSQL is running locally.
+2. To start Nest backend in watch mode: From base directory, `npm run start:dev`.
+3. To start up React frontend: `cd client` and `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.
 
 ## Test
 

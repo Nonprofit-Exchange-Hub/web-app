@@ -8,13 +8,13 @@ import { Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
     wrapper: {
-        paddingTop: '20px'
+        paddingTop: '20px',
     },
     filtersList: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 }));
 
 type Props = {
