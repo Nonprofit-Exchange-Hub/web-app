@@ -1,5 +1,5 @@
 # compiled output
-/dist
+**/dist
 **/node_modules
 client/build
 
@@ -40,6 +40,6 @@ lerna-debug.log*
 .env.production.local
 
 #test data
-pgdata/
+**/pgdata/
 
 
