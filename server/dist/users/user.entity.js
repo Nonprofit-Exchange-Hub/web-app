@@ -26,9 +26,13 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "last_name", void 0);
 __decorate([
-    typeorm_1.Column({ default: true }),
-    __metadata("design:type", Boolean)
-], User.prototype, "is_active", void 0);
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
 User = __decorate([
     typeorm_1.Entity({ name: "users" })
 ], User);

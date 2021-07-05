@@ -2,5 +2,6 @@ export declare class User {
     id: number;
     first_name: string;
     last_name: string;
-    is_active: boolean;
+    email: string;
+    password: string;
 }
