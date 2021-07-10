@@ -38,5 +38,4 @@ export class UsersController {
   }
 }
 
-// curl -X POST http://localhost:3001/api/auth/test -d '{ "username": "TestFirst", "password": "anything" }' -H "Content-Type: application/json"
 
