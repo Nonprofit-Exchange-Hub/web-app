@@ -41,12 +41,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     // rows need break point
     buttonRow: {
         width: '100%',
-        maxWidth: '800px',
+        // maxWidth: '800px',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         paddingTop: '50px',
         paddingBottom: '50px',
+        maxWidth: '1200px',
     },
     bigSpacer: {
         height: '400px',
@@ -84,6 +85,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     trustText: {
         fontSize: '1.4rem',
         textAlign: 'left',
+    },
+    smallDisplayCard: {
+        margin: '10px',
     },
 }));
 
