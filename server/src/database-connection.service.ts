@@ -12,10 +12,10 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
             username: process.env.DATABASE_USER,
             password: process.env.DATABASE_PASSWORD,
             database: process.env.DATABASE_DB,
-            synchronize: true,
+            synchronize: true, //shouldn't be used in production
             dropSchema: false, //toggle to true to clear database schema
             logging: true,
-            entities: [ 'dist/**/*.entity.js' ]
+            autoLoadEntities: true 
         };
     }
 }
