@@ -33,6 +33,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     guidelinesContainer: {
         backgroundColor: '#EBEBEB',
+        overflow: 'hidden',
+    },
+    guidelinesContent: {
+        position: 'relative',
+        zIndex: 10,
+    },
+    guidelinesBGWrapper: {
+        position: 'relative',
+        width: '100%',
+        height: '0',
+        zIndex: 2,
+        '& svg': {
+            position: 'absolute',
+            top: '-300px',
+            bottom: '0',
+            left: '0',
+            width: '100%',
+            height: '300px',
+            fill: '#F8F8F8',
+        },
     },
     whyCreatedContainer: {
     },
@@ -103,26 +123,33 @@ function TrustAndSafety() {
                     {loremIpsum}
                 </Typography>
             </Box>
-            <Box className={`${classes.guidelinesContainer} ${classes.mainPageSection}`}>
-                <Typography className={classes.header} variant="h3" component="h3" align="center">
-                    Our Community Guidelines
-                </Typography>
-                <Typography className={classes.headerText} variant="body1" component="div">
-                    {loremIpsum}
-                </Typography>
-                <Box className={classes.buttonRow}>
-                    <SmallDisplayCard
-                        headerText="Trust"
-                        bodyText={loremIpsum.slice(0,56)}
-                    />
-                    <SmallDisplayCard
-                        headerText="Safety"
-                        bodyText={loremIpsum.slice(0,56)}
-                    />
-                    <SmallDisplayCard
-                        headerText="Privacy"
-                        bodyText={loremIpsum.slice(0,56)}
-                    />
+            <Box className={`${classes.guidelinesContainer}`}>
+                <Box className={`${classes.guidelinesContent} ${classes.mainPageSection}`}>
+                    <Typography className={classes.header} variant="h3" component="h3" align="center">
+                        Our Community Guidelines
+                    </Typography>
+                    <Typography className={classes.headerText} variant="body1" component="div">
+                        {loremIpsum}
+                    </Typography>
+                    <Box className={classes.buttonRow}>
+                        <SmallDisplayCard
+                            headerText="Trust"
+                            bodyText={loremIpsum.slice(0,56)}
+                        />
+                        <SmallDisplayCard
+                            headerText="Safety"
+                            bodyText={loremIpsum.slice(0,56)}
+                        />
+                        <SmallDisplayCard
+                            headerText="Privacy"
+                            bodyText={loremIpsum.slice(0,56)}
+                        />
+                    </Box>
+                </Box>
+                <Box className={classes.guidelinesBGWrapper}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <polygon points="0,100 100,0 100,100"/>
+                    </svg>
                 </Box>
             </Box>
             <Box className={`${classes.whyCreatedContainer} ${classes.mainPageSection}`}>
