@@ -10,8 +10,6 @@ import type { Theme } from '@material-ui/core/styles';
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-    },
     header: {
         fontWeight: 'bold',
         marginBottom: 15
@@ -47,9 +45,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: '50px',
-        paddingBottom: '50px',
+        margin: '50px 10px 50px 10px',
         maxWidth: '1200px',
+        '& > div': {
+            margin: '10px',
+        }
     },
     bigSpacer: {
         height: '400px',
@@ -87,9 +87,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     trustText: {
         fontSize: '1.4rem',
         textAlign: 'left',
-    },
-    smallDisplayCard: {
-        margin: '10px',
     },
 }));
 
