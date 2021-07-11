@@ -7,6 +7,8 @@ import SmallDisplayCard from './SmallDisplayCard';
 
 import type { Theme } from '@material-ui/core/styles';
 
+const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
+
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
     },
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     trustContainer: {
     },
-    // rows need break point
+    // rows need break point for small screens
     buttonRow: {
         width: '100%',
         // maxWidth: '800px',
@@ -101,7 +103,7 @@ function TrustAndSafety() {
                     Trust, Safety, & Privacy
                 </Typography>
                 <Typography className={classes.headerText} variant="body1" component="div">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    {loremIpsum}
                 </Typography>
             </Box>
             <Box className={`${classes.guidelinesContainer} ${classes.mainPageSection}`}>
@@ -109,7 +111,7 @@ function TrustAndSafety() {
                     Our Community Guidelines
                 </Typography>
                 <Typography className={classes.headerText} variant="body1" component="div">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    {loremIpsum}
                 </Typography>
                 <Box className={classes.buttonRow}>
                     <SmallDisplayCard />
@@ -122,8 +124,8 @@ function TrustAndSafety() {
                     Why was NEH created?
                 </Typography>
                 <Typography className={classes.headerText} variant="body1" component="div">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.
+                    {loremIpsum}
+                    {loremIpsum}
                 </Typography>
             </Box>
             <Box className={classes.bigSpacer}></Box>
@@ -138,7 +140,7 @@ function TrustAndSafety() {
                             No Scams
                         </Typography>
                         <Typography className={classes.trustText} variant="body1" component="div">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            {loremIpsum.slice(0,50)}.
                         </Typography>
                     </Box>
                     <Box className={classes.trustListItem}>
@@ -147,7 +149,7 @@ function TrustAndSafety() {
                             Always be honest
                         </Typography>
                         <Typography className={classes.trustText} variant="body1" component="div">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            {loremIpsum.slice(0,50)}.
                         </Typography>
                     </Box>
                     <Box className={classes.trustListItem}>
@@ -156,7 +158,7 @@ function TrustAndSafety() {
                             No misrepresentation
                         </Typography>
                         <Typography className={classes.trustText} variant="body1" component="div">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            {loremIpsum.slice(0,50)}.
                         </Typography>
                     </Box>
                 </Box>
