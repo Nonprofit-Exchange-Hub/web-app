@@ -114,9 +114,18 @@ function TrustAndSafety() {
                     {loremIpsum}
                 </Typography>
                 <Box className={classes.buttonRow}>
-                    <SmallDisplayCard />
-                    <SmallDisplayCard />
-                    <SmallDisplayCard />
+                    <SmallDisplayCard
+                        headerText="Trust"
+                        bodyText={loremIpsum.slice(0,56)}
+                    />
+                    <SmallDisplayCard
+                        headerText="Safety"
+                        bodyText={loremIpsum.slice(0,56)}
+                    />
+                    <SmallDisplayCard
+                        headerText="Privacy"
+                        bodyText={loremIpsum.slice(0,56)}
+                    />
                 </Box>
             </Box>
             <Box className={`${classes.whyCreatedContainer} ${classes.mainPageSection}`}>

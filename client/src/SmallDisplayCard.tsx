@@ -5,13 +5,13 @@ import { Card, Box } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
 
+// Should probably move the width and height out of the component, maybe pass it in
 const circleSize = 76;
 const width = 325;
 const height = 133;
 
 const useStyles = makeStyles((theme: Theme) => ({
     smallDisplayCard: {
-        // Should probably move the sizing out of the component, maybe pass it in
         maxWidth: `${width}px`,
         height: `${height}px`,
         display: 'flex',
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     content: {
         height: '100%',
         paddingLeft: '50px',
+        paddingRight: '10px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     cardBody: {
         fontSize: '15px',
         textAlign: 'left',
+        maxHeight: `${height-40}px`,
     },
     circleWrapper: {
         width: '1px',
@@ -57,8 +59,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-function SmallDisplayCard() {
+type Props = {
+    headerText: string,
+    bodyText: string,
+};  
+
+function SmallDisplayCard(props: Props): JSX.Element {
     const classes = useStyles();
+    const { headerText, bodyText } = props;
 
     return (
         <Card className={classes.smallDisplayCard}>
@@ -67,10 +75,10 @@ function SmallDisplayCard() {
             </Box>
             <Box className={classes.content}>
                 <Typography className={classes.cardTitle} variant="body1" component="div">
-                    Card
+                    {headerText}
                 </Typography>
                 <Typography className={classes.cardBody} variant="body1" component="div">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {bodyText}
                 </Typography>
             </Box>
         </Card>
