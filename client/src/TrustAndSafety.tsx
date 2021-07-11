@@ -54,34 +54,20 @@ const useStyles = makeStyles((theme: Theme) => ({
             fill: '#F8F8F8',
         },
     },
-    whyCreatedContainer: {
-    },
-    trustContainer: {
-    },
-    // rows need break point for small screens
-    buttonRow: {
-        width: '100%',
-        // maxWidth: '800px',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        margin: '50px 10px 50px 10px',
-        maxWidth: '1200px',
-        '& > div': {
-            margin: '10px',
-        }
-    },
-    bigSpacer: {
-        height: '400px',
-    },
-    trustRow: {
+    row: {
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
+        flexWrap: 'wrap',
         paddingTop: '50px',
         paddingBottom: '50px',
         maxWidth: '1200px',
+    },
+    buttonRow: {
+        '& > div': {
+            margin: '10px',
+        }
     },
     trustListItem: {
         display: 'flex',
@@ -89,8 +75,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         justifyContent: 'flex-start',
         maxWidth: '400px',
-        marginLeft: '15px',
-        marginRight: '15px',
+        '& > div': {
+            marginLeft: '10px',
+            marginRight: '10px',
+        }
     },
     imagePlaceholder: {
         width: '168px',
@@ -102,11 +90,15 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontWeight: 'bold',
         fontSize: '1.4rem',
         marginBottom: '7px',
-        marginTop: '65px',
+        marginTop: '50px',
     },
     trustText: {
         fontSize: '1.4rem',
         textAlign: 'left',
+        paddingBottom: '50px',
+    },
+    bigSpacer: {
+        height: '400px',
     },
 }));
 
@@ -131,7 +123,7 @@ function TrustAndSafety() {
                     <Typography className={classes.headerText} variant="body1" component="div">
                         {loremIpsum}
                     </Typography>
-                    <Box className={classes.buttonRow}>
+                    <Box className={`${classes.row} ${classes.buttonRow}`}>
                         <SmallDisplayCard
                             headerText="Trust"
                             bodyText={loremIpsum.slice(0,56)}
@@ -152,7 +144,7 @@ function TrustAndSafety() {
                     </svg>
                 </Box>
             </Box>
-            <Box className={`${classes.whyCreatedContainer} ${classes.mainPageSection}`}>
+            <Box className={`${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
                     Why was NEH created?
                 </Typography>
@@ -162,11 +154,11 @@ function TrustAndSafety() {
                 </Typography>
             </Box>
             <Box className={classes.bigSpacer}></Box>
-            <Box className={`${classes.trustContainer} ${classes.mainPageSection}`}>
+            <Box className={`${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
                     Trust
                 </Typography>
-                <Box className={classes.trustRow}>
+                <Box className={`${classes.row}`}>
                     <Box className={classes.trustListItem}>
                         <Box className={classes.imagePlaceholder}></Box>
                         <Typography className={classes.trustTitle} variant="body1" component="div">
