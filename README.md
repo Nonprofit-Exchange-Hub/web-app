@@ -42,7 +42,9 @@ Primary tech stack: PostgreSQL, Nest, and React
 3. To start up React frontend: From `/client` directory, run `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.
 
 ## Test
-
+Most tests are still in development.
+### Backend
+From the `/server` directory.
 ```bash
 # unit tests
 $ npm run test
@@ -52,6 +54,12 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+### Frontend
+From the `/client` directory.
+```bash
+# unit tests
+$ npm run test
 ```
 
 ## Support

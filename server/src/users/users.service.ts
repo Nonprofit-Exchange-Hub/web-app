@@ -1,34 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { User } from './entities/user.entity';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult } from 'typeorm';
-import { User } from './user.entity';
-import { UserDTO } from './user.dto';
 
 @Injectable()
 export class UsersService {
-    constructor(
-        @InjectRepository(User)
-        private userRepo: Repository<User>
-    ) {}
-
-    async getAll(): Promise<UserDTO[]> {
-        const items = await this.userRepo.find();
-        return items.map(e => UserDTO.fromEntity(e));
+    constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
+    create(createUserDto: CreateUserDto) {
+        return this.usersRepository.save(createUserDto)
     }
 
-    get(id: string): Promise<User> {
-        return this.userRepo.findOne(id);
+    findAll() {
+        return this.usersRepository.find();
     }
 
-    getByUsername(username: string): Promise<User> {
-        return this.userRepo.findOne({ first_name: username });
+    findOne(id: number) {
+        return this.usersRepository.findOne(id);
+    }
+    //Change to whatever the display name ends up being.
+    findByUsername(first_name: string) {
+        return this.usersRepository.findOne({first_name});
     }
 
-    remove(id: string): Promise<DeleteResult> {
-        return this.userRepo.delete(id);
+    //TODO: Assess if there is a better way than making two requests.
+    async update(id: number, updateUserDto: UpdateUserDto) {
+        await this.usersRepository.update(id, updateUserDto)
+        return this.usersRepository.findOne(id)
     }
 
-    save(user: User): Promise<User> {
-        return this.userRepo.save(user);
+    remove(id: number) {
+        return this.usersRepository.delete(id);
     }
 }

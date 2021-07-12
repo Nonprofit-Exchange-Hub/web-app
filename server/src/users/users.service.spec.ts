@@ -1,17 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from './auth.service';
+import { UsersService } from './users.service';
 
-describe('AuthService', () => {
-  let service: AuthService;
+
+
+describe('UsersService', () => {
+  let service: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       //TODO I put a empty mock for UserService. For real testing we'll need
       // to create a mock since we are using TypeORM
-      providers:[{provide:AuthService, useValue:{}}],
+      providers: [{provide:UsersService, useValue:{}}],
     }).compile();
 
-    service = module.get<AuthService>(AuthService);
+    service = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
