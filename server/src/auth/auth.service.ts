@@ -1,30 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
-  ) {}
+    constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findByUsername(username);
+    async validateUser(email: string, pass: string): Promise<any> {
+        // Check if user with email exists in database
+        const user = await this.usersService.findByEmail(email);
 
-    // TODO password check
-    // if (user && user.password === pass) {
-    //   const { password, ...result } = user;
-    //   return result;
-    // }
-    // return null;
-    return user || null;
-  }
+        // Check if password from client matches password associated with
+        // the user retrieved from database
+        const isMatch = await bcrypt.compare(pass, user.password);
+        if (isMatch) {
+            const { password, ...result } = user;
+            return result;
+        }
+        else {
+            throw new HttpException(
+                {
+                    status: HttpStatus.UNAUTHORIZED,
+                    error: 'Invalid password',
+                },
+                HttpStatus.UNAUTHORIZED,
+            );
+        }
+    }
 
-  async createJwt(user: any) {
-    const payload = { username: user.username, sub: user.userId };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
+    async createJwt(user: any) {
+        const payload = { username: user.username, sub: user.userId };
+        return {
+            access_token: this.jwtService.sign(payload),
+        };
+    }
 }
