@@ -30,6 +30,7 @@
         "@nestjs/mapped-types": "^0.4.1",
         "@nestjs/passport": "^7.1.5",
         "@nestjs/platform-express": "^7.6.13",
+        "@nestjs/serve-static": "^2.2.2",
         "@nestjs/typeorm": "^7.1.5",
         "bcrypt": "^5.0.1",
         "config": "^3.3.6",
