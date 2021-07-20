@@ -107,6 +107,47 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: '15px',
     },
     trustContainer: {
+        backgroundColor: '#EBEBEB',
+    },
+    trustContent: {
+        position: 'relative',
+        zIndex: 10,
+    },
+    trustImage: {
+        width: '90%',
+        maxWidth: '1100px',
+        height: '389px',
+        border: '1px solid black',
+        backgroundColor: '#C4C4C4',
+        margin: '20px 10px 20px 10px',
+    },
+    buttonRow: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        flexWrap: 'wrap',
+        paddingTop: '30px',
+        paddingBottom: '10px',
+        maxWidth: '1200px',
+        '& > div': {
+            margin: '10px',
+        }
+    },
+    guidelinesBGWrapper: {
+        position: 'relative',
+        width: '100%',
+        height: '0',
+        zIndex: 2,
+        '& svg': {
+            position: 'absolute',
+            top: '-300px',
+            bottom: '0',
+            left: '0',
+            width: '100%',
+            height: '300px',
+            fill: '#F8F8F8',
+        },
     },
     orgContainer: {
     },
@@ -166,13 +207,35 @@ function AboutUs() {
                     })}
                 </Box>
             </Box>
-            <Box className={`${classes.trustContainer} ${classes.mainPageSection}`}>
-                <Typography className={classes.header} variant="h3" component="h3" align="center">
-                    Trust, Safety, & Privacy
-                </Typography>
-                <Typography className={`${classes.headerText}`} variant="body1" component="div">
-                    {loremIpsum}
-                </Typography>
+            <Box className={`${classes.trustContainer}`}>
+                <Box className={`${classes.trustContent} ${classes.mainPageSection}`}>
+                    <Typography className={classes.header} variant="h3" component="h3" align="center">
+                        Trust, Safety, & Privacy
+                    </Typography>
+                    <Typography className={`${classes.headerText}`} variant="body1" component="div">
+                        {loremIpsum}
+                    </Typography>
+                    <Box className={`${classes.trustImage}`}></Box>
+                    <Box className={`${classes.buttonRow}`}>
+                        <SmallDisplayCard
+                            headerText="Trust"
+                            bodyText={loremIpsum.slice(0,56)}
+                        />
+                        <SmallDisplayCard
+                            headerText="Safety"
+                            bodyText={loremIpsum.slice(0,56)}
+                        />
+                        <SmallDisplayCard
+                            headerText="Privacy"
+                            bodyText={loremIpsum.slice(0,56)}
+                        />
+                    </Box>
+                </Box>
+                <Box className={classes.guidelinesBGWrapper}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <polygon points="0,100 100,0 100,100"/>
+                    </svg>
+                </Box>
             </Box>
             <Box className={`${classes.orgContainer} ${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
