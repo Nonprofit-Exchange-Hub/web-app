@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: '389px',
         border: '1px solid black',
         backgroundColor: '#C4C4C4',
-        margin: '20px 10px 20px 10px',
+        margin: '40px 10px 20px 10px',
     },
     buttonRow: {
         width: '100%',
@@ -151,6 +151,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     orgContainer: {
     },
+    orgContent: {
+        width: '100%',
+        maxWidth: '1200px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        marginTop: '20px',
+    },
+    orgImage: {
+        width: '60px',
+        height: '60px',
+        border: '1px solid black',
+        backgroundColor: '#000000',
+        borderRadius: '50%',
+        margin: '30px 80px 30px 80px',
+    },
     titleText: {
         fontSize: '1.3rem',
         marginTop: '6px',
@@ -161,6 +179,7 @@ function AboutUs() {
     
     const classes = useStyles();
     const bios = ['Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1'];
+    const orgs = ['Google', 'Facebook', 'Chrome', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org'];
 
     return (
         <>
@@ -244,6 +263,14 @@ function AboutUs() {
                 <Typography className={`${classes.headerText}`} variant="body1" component="div">
                     {loremIpsum}
                 </Typography>
+                <Box className={`${classes.orgContent}`}>
+                    {orgs.map((value, index) => {
+                        return (
+                            <Box className={classes.orgImage}></Box>
+                        )
+                    })}
+                    
+                </Box>
             </Box>
         </>
     );
