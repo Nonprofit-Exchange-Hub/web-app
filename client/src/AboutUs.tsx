@@ -73,17 +73,53 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '100%',
         height: '100%',
     },
-    imagePlaceholder: {
+    whyImagePlaceholder: {
         width: '474px',
         height: '389px',
         border: '1px solid black',
         backgroundColor: '#C4C4C4',
+    },
+    biosImagePlaceholder: {
+        width: '168px',
+        height: '168px',
+        border: '1px solid black',
+        backgroundColor: '#C4C4C4',
+    },
+    missionContainer: {
+    },
+    biosContainer: {
+        '& $headerText': {
+            marginBottom: '20px',
+        },
+        '& $titleText': {
+        },
+    },
+    biosImagesContainer: {
+        width: '100%',
+        maxWidth: '1200px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+    },
+    biosItem: {
+        padding: '15px',
+    },
+    trustContainer: {
+    },
+    orgContainer: {
+    },
+    titleText: {
+        fontSize: '1.3rem',
+        marginTop: '6px',
     },
 }));
 
 function AboutUs() {
     
     const classes = useStyles();
+    const bios = ['Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1'];
 
     return (
         <>
@@ -99,8 +135,52 @@ function AboutUs() {
                         {loremIpsum}
                         {loremIpsum}
                     </Typography>
-                    <Box className={classes.imagePlaceholder}></Box>
+                    <Box className={classes.whyImagePlaceholder}></Box>
                 </Box>
+            </Box>
+            <Box className={`${classes.missionContainer} ${classes.mainPageSection}`}>
+                <Typography className={classes.header} variant="h3" component="h3" align="center">
+                    Org mission & values
+                </Typography>
+                <Typography className={`${classes.headerText}`} variant="body1" component="div">
+                    {loremIpsum}
+                </Typography>
+            </Box>
+            <Box className={`${classes.biosContainer} ${classes.mainPageSection}`}>
+                <Typography className={classes.header} variant="h3" component="h3" align="center">
+                    Who we are (bios)
+                </Typography>
+                <Typography className={`${classes.headerText}`} variant="body1" component="div">
+                    {loremIpsum}
+                </Typography>
+                <Box className={`${classes.biosImagesContainer}`}>
+                    {bios.map((value, index) => {
+                        return (
+                            <Box className={`${classes.biosItem}`}>
+                                <Box className={classes.biosImagePlaceholder}></Box>
+                                <Typography className={classes.titleText} variant="body1" component="div">
+                                    {value}
+                                </Typography>
+                            </Box>
+                        )
+                    })}
+                </Box>
+            </Box>
+            <Box className={`${classes.trustContainer} ${classes.mainPageSection}`}>
+                <Typography className={classes.header} variant="h3" component="h3" align="center">
+                    Trust, Safety, & Privacy
+                </Typography>
+                <Typography className={`${classes.headerText}`} variant="body1" component="div">
+                    {loremIpsum}
+                </Typography>
+            </Box>
+            <Box className={`${classes.orgContainer} ${classes.mainPageSection}`}>
+                <Typography className={classes.header} variant="h3" component="h3" align="center">
+                    Partnerships w/ organizations
+                </Typography>
+                <Typography className={`${classes.headerText}`} variant="body1" component="div">
+                    {loremIpsum}
+                </Typography>
             </Box>
         </>
     );
