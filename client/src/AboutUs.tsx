@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '90%',
         maxWidth: '1100px',
         fontSize: '1.3rem',
+        textAlign: 'left',
     },
     mainPageSection: {
         display: 'flex',
@@ -27,6 +28,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'center',
         paddingTop: '50px',
         paddingBottom: '50px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
         fontSize: '1.4rem',
     },
     // page specific styles
@@ -66,6 +69,17 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingTop: '0',
         paddingBottom: '10px',
         maxWidth: '1200px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+    },
+    '@media screen and (max-width: 800px)': {
+        whyContainer: {
+            '& $imagePlaceholder': {
+            },
+        },
+        row: {
+            flexDirection: 'column-reverse',
+        },
     },
     centerHorizontally:  {
         display: 'flex',
@@ -95,7 +109,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         gridTemplateRows: 'auto',
         columnGap: '20px',
         rowGap: '20px',
-        margin: '30px 20px 10px 20px',
+        margin: '30px 0 10px 0',
         maxWidth: '1200px',
     },
     missionSmallImage: {
@@ -195,7 +209,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: '389px',
         border: '1px solid black',
         backgroundColor: '#C4C4C4',
-        margin: '40px 10px 20px 10px',
+        margin: '40px 0 20px 0',
     },
     buttonRow: {
         width: '100%',
