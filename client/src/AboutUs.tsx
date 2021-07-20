@@ -10,6 +10,7 @@ import type { Theme } from '@material-ui/core/styles';
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
 
 const useStyles = makeStyles((theme: Theme) => ({
+    // universal styles
     header: {
         fontWeight: 'bold',
         marginBottom: 15
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingBottom: '50px',
         fontSize: '1.4rem',
     },
+    // page specific styles
     titleBox: {
         height: 600,
     },
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             flex: '4 4 auto',
             textAlign: 'left',
         },
-        // Make this wrap at small screen sizes
+        // TODO: Make this wrap at small screen sizes
         '& $imagePlaceholder': {
             maxWidth: '474px',
             flex: '2 1 auto',
@@ -86,6 +88,80 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: '#C4C4C4',
     },
     missionContainer: {
+    },
+    missionContent: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(7, 132px)',
+        gridTemplateRows: 'auto',
+        columnGap: '20px',
+        rowGap: '20px',
+        margin: '30px 20px 10px 20px',
+        maxWidth: '1200px',
+    },
+    missionSmallImage: {
+        width: '100%',
+        height: '109px',
+        border: '1px solid black',
+        backgroundColor: '#C4C4C4',
+    },
+    missionWideImage: {
+        gridColumn: '1 / span 3',
+        gridRow: '2 / span 1',
+        width: '100%',
+        height: '109px',
+        border: '1px solid black',
+        backgroundColor: '#C4C4C4',
+    },
+    missionText: {
+        gridColumn: '5 / span 3',
+        textAlign: 'left',
+        fontSize: '1.4rem',
+    },
+    missionText1: {
+        gridRow: '1 / span 1',
+    },
+    missionText2: {
+        gridRow: '2 / span 1',
+    },
+    missionText3: {
+        gridRow: '3 / span 1',
+    },
+    missionTitle: {
+        fontWeight: 'bold',
+        fontSize: '1.4rem',
+    },
+    '@media screen and (max-width: 1100px)': {
+        missionContent: {
+            gridTemplateColumns: 'repeat(6, 1fr)',
+        },
+        missionText: {
+            gridColumn: '4 / span 3',
+        },
+    },
+    '@media screen and (max-width: 820px)': {
+        missionContent: {
+            gridTemplateColumns: 'repeat(4, 1fr)',
+        },
+        missionText: {
+            gridColumn: '1 / span 4',
+        },
+        missionText1: {
+            gridRow: 'auto / span 1',
+        },
+        missionText2: {
+            gridRow: 'auto / span 1',
+        },
+        missionText3: {
+            gridRow: 'auto / span 1',
+        },
+    },
+    '@media screen and (max-width: 520px)': {
+        missionContent: {
+            gridTemplateColumns: 'repeat(3, 1fr)',
+        },
+        missionText: {
+            gridColumn: '1 / span 3',
+        },
     },
     biosContainer: {
         '& $headerText': {
@@ -180,6 +256,7 @@ function AboutUs() {
     const classes = useStyles();
     const bios = ['Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1'];
     const orgs = ['Google', 'Facebook', 'Chrome', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org'];
+    const smallImgs = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     return (
         <>
@@ -205,6 +282,25 @@ function AboutUs() {
                 <Typography className={`${classes.headerText}`} variant="body1" component="div">
                     {loremIpsum}
                 </Typography>
+                <Box className={`${classes.missionContent}`}>
+
+                    <Box className={`${classes.missionWideImage}`}></Box>
+                    {smallImgs.map((value, index) => {
+                        return <Box className={`${classes.missionSmallImage}`}></Box>
+                    })}
+                    <Box className={`${classes.missionText1} ${classes.missionText}`}>
+                        <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Mission Statement</Typography>
+                        {loremIpsum.slice(0,97)}
+                    </Box>
+                    <Box className={`${classes.missionText2} ${classes.missionText}`}>
+                        <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Vision Statement</Typography>
+                        {loremIpsum.slice(0,97)}
+                    </Box>
+                    <Box className={`${classes.missionText3} ${classes.missionText}`}>
+                        <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Values</Typography>
+                        {loremIpsum.slice(0,97)}
+                    </Box>
+                </Box>
             </Box>
             <Box className={`${classes.biosContainer} ${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
