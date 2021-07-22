@@ -76,18 +76,21 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
         missionText: {
             gridColumn: '1 / span 4',
-        },
-        missionText1: {
-            gridRow: 'auto / span 1',
-        },
-        missionText2: {
-            gridRow: 'auto / span 1',
-        },
-        missionText3: {
-            gridRow: 'auto / span 1',
+            '&$row1': {
+                gridRow: 'auto / span 1',
+            },
+            '&$row2': {
+                gridRow: 'auto / span 1',
+            },
+            '&$row3': {
+                gridRow: 'auto / span 1',
+            },
+            '&$row4': {
+                gridRow: 'auto / span 1',
+            },
         },
         missionWideImage: {
-            gridRow: 'auto / span 1',
+            // gridRow: 'auto / span 1',
         },
     },
     '@media screen and (max-width: 520px)': {
@@ -124,7 +127,7 @@ function GridImages() {
         <Box className={`${classes.missionContent}`}>
             <Box className={`${classes.missionWideImage}`}></Box>
             {smallImgs.map((value, index) => {
-                return <Box key={"gridImage"+index} className={`${classes.missionSmallImage}`}></Box>
+                return <Box className={`${classes.missionSmallImage}`}></Box>
             })}
             {missionStatements.map((statementItem, index) => {
                 if (statementItem.row === 1) rowClass = classes.row1;
@@ -133,7 +136,7 @@ function GridImages() {
                 if (statementItem.row === 4) rowClass = classes.row4;
                 return (
                     <>
-                        <Box key={"missionStatement"+index} className={`${classes.missionText} ${rowClass}`}>
+                        <Box className={`${classes.missionText} ${rowClass}`}>
                             <Typography className={`${classes.missionTitle}`} variant="body1" component="div">{statementItem.title}</Typography>
                             {statementItem.text}
                         </Box>
