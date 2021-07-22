@@ -1,13 +1,15 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import { Box, Grid } from '@material-ui/core';
 
 import SmallDisplayCard from './SmallDisplayCard';
 
 import type { Theme } from '@material-ui/core/styles';
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
+
+
 
 const useStyles = makeStyles((theme: Theme) => ({
     // universal styles
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginBottom: 15
     },
     headerText: {
-        width: '90%',
+        width: '100%',
         maxWidth: '1100px',
         fontSize: '1.3rem',
         textAlign: 'left',
@@ -38,8 +40,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     whyContainer: {
         backgroundColor: '#EBEBEB',
-        // paddingLeft: '10%',
-        // paddingRight: '10%',
         '& > *': {
             maxWidth: '1200px',
         },
@@ -49,36 +49,11 @@ const useStyles = makeStyles((theme: Theme) => ({
             textAlign: 'left',
         },
         '& $headerText': {
-            paddingRight: '30px',
-            flex: '4 4 auto',
             textAlign: 'left',
+            width: '100%',
         },
-        // TODO: Make this wrap at small screen sizes
         '& $imagePlaceholder': {
-            maxWidth: '474px',
-            flex: '2 1 auto',
-        },
-    },
-    row: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        // flexWrap: 'wrap',
-        paddingTop: '0',
-        paddingBottom: '10px',
-        maxWidth: '1200px',
-        paddingLeft: '20px',
-        paddingRight: '20px',
-    },
-    '@media screen and (max-width: 800px)': {
-        whyContainer: {
-            '& $imagePlaceholder': {
-            },
-        },
-        row: {
-            flexDirection: 'column-reverse',
+            width: '100%',
         },
     },
     centerHorizontally:  {
@@ -90,8 +65,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: '100%',
     },
     whyImagePlaceholder: {
-        width: '474px',
-        height: '389px',
+        width: '100%',
+        maxWidth: '474px',
+        height: '300px',
         border: '1px solid black',
         backgroundColor: '#C4C4C4',
     },
@@ -104,79 +80,75 @@ const useStyles = makeStyles((theme: Theme) => ({
     missionContainer: {
     },
     missionContent: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(7, 132px)',
-        gridTemplateRows: 'auto',
-        columnGap: '20px',
-        rowGap: '20px',
-        margin: '30px 0 10px 0',
+        // display: 'grid',
+        // gridTemplateColumns: 'repeat(7, 132px)',
+        // gridTemplateRows: 'auto',
+        // columnGap: '20px',
+        // rowGap: '20px',
+        margin: '20px 0 10px 0',
         maxWidth: '1200px',
     },
-    missionSmallImage: {
-        width: '100%',
+    missionGridImage: {
+        // width: '100%',
         height: '109px',
         border: '1px solid black',
         backgroundColor: '#C4C4C4',
-    },
-    missionWideImage: {
-        gridColumn: '1 / span 3',
-        gridRow: '2 / span 1',
-        width: '100%',
-        height: '109px',
-        border: '1px solid black',
-        backgroundColor: '#C4C4C4',
+        margin: '8px',
     },
     missionText: {
-        gridColumn: '5 / span 3',
+        // gridColumn: '5 / span 3',
         textAlign: 'left',
         fontSize: '1.4rem',
     },
-    missionText1: {
-        gridRow: '1 / span 1',
-    },
-    missionText2: {
-        gridRow: '2 / span 1',
-    },
-    missionText3: {
-        gridRow: '3 / span 1',
-    },
+    // missionText1: {
+    //     gridRow: '1 / span 1',
+    // },
+    // missionText2: {
+    //     gridRow: '2 / span 1',
+    // },
+    // missionText3: {
+    //     gridRow: '3 / span 1',
+    // },
     missionTitle: {
         fontWeight: 'bold',
         fontSize: '1.4rem',
     },
-    '@media screen and (max-width: 1100px)': {
-        missionContent: {
-            gridTemplateColumns: 'repeat(6, 1fr)',
-        },
-        missionText: {
-            gridColumn: '4 / span 3',
-        },
-    },
-    '@media screen and (max-width: 820px)': {
-        missionContent: {
-            gridTemplateColumns: 'repeat(4, 1fr)',
-        },
-        missionText: {
-            gridColumn: '1 / span 4',
-        },
-        missionText1: {
-            gridRow: 'auto / span 1',
-        },
-        missionText2: {
-            gridRow: 'auto / span 1',
-        },
-        missionText3: {
-            gridRow: 'auto / span 1',
-        },
-    },
-    '@media screen and (max-width: 520px)': {
-        missionContent: {
-            gridTemplateColumns: 'repeat(3, 1fr)',
-        },
-        missionText: {
-            gridColumn: '1 / span 3',
-        },
-    },
+    // // smaller than lg
+    // '@media screen and (max-width: 1100px)': {
+    //     missionContent: {
+    //         gridTemplateColumns: 'repeat(6, 1fr)',
+    //     },
+    //     missionText: {
+    //         gridColumn: '4 / span 3',
+    //     },
+    // },
+    // // smaller than md
+    // '@media screen and (max-width: 820px)': {
+    //     missionContent: {
+    //         gridTemplateColumns: 'repeat(4, 1fr)',
+    //     },
+    //     missionText: {
+    //         gridColumn: '1 / span 4',
+    //     },
+    //     missionText1: {
+    //         gridRow: 'auto / span 1',
+    //     },
+    //     missionText2: {
+    //         gridRow: 'auto / span 1',
+    //     },
+    //     missionText3: {
+    //         gridRow: 'auto / span 1',
+    //     },
+    // },
+    // // smaller than sm
+    // '@media screen and (max-width: 520px)': {
+    //     missionContent: {
+    //         gridTemplateColumns: 'repeat(3, 1fr)',
+    //     },
+    //     missionText: {
+    //         gridColumn: '1 / span 3',
+    //     },
+    // },
     biosContainer: {
         '& $headerText': {
             marginBottom: '20px',
@@ -270,7 +242,7 @@ function AboutUs() {
     const classes = useStyles();
     const bios = ['Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1'];
     const orgs = ['Google', 'Facebook', 'Chrome', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org'];
-    const smallImgs = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const smallImgs = ['sm', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'sm', 'sm'];
 
     return (
         <>
@@ -280,14 +252,18 @@ function AboutUs() {
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
                     Why was NEH created?
                 </Typography>
-                <Box className={`${classes.row}`}>
-                    <Typography className={`${classes.headerText}`}
-                        variant="body1" component="div">
-                        {loremIpsum}
-                        {loremIpsum}
-                    </Typography>
-                    <Box className={classes.whyImagePlaceholder}></Box>
-                </Box>
+                <Grid container spacing={5} alignItems='center'>
+                    <Grid item xs={12} sm={6} md={8}>
+                        <Typography className={`${classes.headerText}`}
+                            variant="body1" component="div">
+                            {loremIpsum}
+                            {loremIpsum}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs sm>
+                        <Box className={classes.whyImagePlaceholder}></Box>
+                    </Grid>
+                </Grid>
             </Box>
             <Box className={`${classes.missionContainer} ${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
@@ -296,25 +272,35 @@ function AboutUs() {
                 <Typography className={`${classes.headerText}`} variant="body1" component="div">
                     {loremIpsum}
                 </Typography>
-                <Box className={`${classes.missionContent}`}>
-
-                    <Box className={`${classes.missionWideImage}`}></Box>
-                    {smallImgs.map((value, index) => {
-                        return <Box className={`${classes.missionSmallImage}`}></Box>
-                    })}
-                    <Box className={`${classes.missionText1} ${classes.missionText}`}>
-                        <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Mission Statement</Typography>
-                        {loremIpsum.slice(0,97)}
-                    </Box>
-                    <Box className={`${classes.missionText2} ${classes.missionText}`}>
-                        <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Vision Statement</Typography>
-                        {loremIpsum.slice(0,97)}
-                    </Box>
-                    <Box className={`${classes.missionText3} ${classes.missionText}`}>
-                        <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Values</Typography>
-                        {loremIpsum.slice(0,97)}
-                    </Box>
-                </Box>
+                <Grid container spacing={5} className={`${classes.missionContent}`}>
+                    <Grid item xs={12} sm={6} md={8}>
+                        <Grid container direction="row" spacing={2}>
+                            {/* <Grid item xs={9} className={`${classes.missionWideImage}`}></Grid> */}
+                            {smallImgs.map((value, index) => {
+                                if (value == 'sm')
+                                    return <Grid xs={6} sm={4} md={3}><Box className={`${classes.missionGridImage}`}></Box></Grid>
+                                else
+                                    return <Grid xs={12} sm={8} md={9}><Box className={`${classes.missionGridImage}`}></Box></Grid>
+                            })}
+                        </Grid>
+                    </Grid>
+                    <Grid item xs sm md>
+                        <Grid container spacing={3} direction="column">
+                            <Grid item className={classes.missionText}>
+                                <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Mission Statement</Typography>
+                                {loremIpsum.slice(0,97)}
+                            </Grid>
+                            <Grid item className={classes.missionText}>
+                                <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Vision Statement</Typography>
+                                {loremIpsum.slice(0,97)}
+                            </Grid>
+                            <Grid item className={classes.missionText}>
+                                <Typography className={`${classes.missionTitle}`} variant="body1" component="div">Values</Typography>
+                                {loremIpsum.slice(0,97)}
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Box>
             <Box className={`${classes.biosContainer} ${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
