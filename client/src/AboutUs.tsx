@@ -72,8 +72,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: '168px',
         border: '1px solid black',
         backgroundColor: '#C4C4C4',
-    },
-    missionContainer: {
+        '& img': {
+            width: '100%',
+            height: '100%',
+            overflow: 'hidden',
+        },
     },
     biosContainer: {
         '& $headerText': {
@@ -137,8 +140,6 @@ const useStyles = makeStyles((theme: Theme) => ({
             fill: '#F8F8F8',
         },
     },
-    orgContainer: {
-    },
     orgContent: {
         width: '100%',
         maxWidth: '1200px',
@@ -166,13 +167,46 @@ const useStyles = makeStyles((theme: Theme) => ({
 function AboutUs() {
     
     const classes = useStyles();
-    const bios = ['Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1', 'Team1'];
-    const orgs = ['Google', 'Facebook', 'Chrome', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org', 'Org'];
-
+    const bios: { name: string, image: string}[] = [
+        { name: 'Bob', image: '../blank-bio-pic.png' },
+        { name: 'Kathy', image: '../blank-bio-pic.png' },
+        { name: 'Fred', image: '../blank-bio-pic.png' },
+        { name: 'Alice', image: '../blank-bio-pic.png' },
+        { name: 'Zachary', image: '../blank-bio-pic.png' },
+        { name: 'Emily', image: '../blank-bio-pic.png' },
+    ];
+    const orgs: { name: string, image: string}[] = [
+        { name: 'Google', image: '' },
+        { name: 'Twitter', image: '' },
+        { name: 'Facebook', image: '' },
+        { name: 'Chrome', image: '' },
+        { name: 'Amazon', image: '' },
+        { name: 'UnOrg', image: '' },
+        { name: 'Nonprofit', image: '' },
+    ];
+    let missionStatements = [
+        { row: 1, title: 'Mission Statement', text: loremIpsum.slice(0,97) },
+        { row: 2, title: 'Vision Statement', text: loremIpsum.slice(0,97) },
+        { row: 3, title: 'Values', text: loremIpsum.slice(0,97) },
+    ];
+    let wideImage = '../small-images/island-orange.jpg';
+    const smallImages = [
+        '../small-images/green-forest.jpg',
+        '../small-images/lake-forest.jpg',
+        '../small-images/green-forest.jpg',
+        '../small-images/lake-forest.jpg',
+        '../small-images/green-forest.jpg',
+        '../small-images/lake-forest.jpg',
+        '../small-images/green-forest.jpg',
+        '../small-images/lake-forest.jpg',
+        '../small-images/green-forest.jpg',
+    ];
+    
     return (
         <>
+            {/* // Add this back in when we have a header image
             <Box className={`${classes.titleBox} ${classes.mainPageSection}`}>
-            </Box>
+            </Box> */}
             <Box className={`${classes.whyContainer} ${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
                     Why was NEH created?
@@ -190,14 +224,18 @@ function AboutUs() {
                     </Grid>
                 </Grid>
             </Box>
-            <Box className={`${classes.missionContainer} ${classes.mainPageSection}`}>
+            <Box className={`${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
                     Org mission & values
                 </Typography>
                 <Typography className={`${classes.headerText}`} variant="body1" component="div">
                     {loremIpsum}
                 </Typography>
-                <GridImages></GridImages>
+                <GridImages
+                    missionStatements={missionStatements}
+                    wideImage={wideImage}
+                    smallImages={smallImages}
+                ></GridImages>
             </Box>
             <Box className={`${classes.biosContainer} ${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
@@ -207,12 +245,14 @@ function AboutUs() {
                     {loremIpsum}
                 </Typography>
                 <Box className={`${classes.biosImagesContainer}`}>
-                    {bios.map((value, index) => {
+                    {bios.map((person) => {
                         return (
                             <Box className={`${classes.biosItem}`}>
-                                <Box className={classes.biosImagePlaceholder}></Box>
+                                <Box className={classes.biosImagePlaceholder}>
+                                    <img src={`${person.image}`} alt={`Bio pic for ${person.name}`} />
+                                </Box>
                                 <Typography className={classes.titleText} variant="body1" component="div">
-                                    {value}
+                                    {person.name}
                                 </Typography>
                             </Box>
                         )
@@ -249,7 +289,7 @@ function AboutUs() {
                     </svg>
                 </Box>
             </Box>
-            <Box className={`${classes.orgContainer} ${classes.mainPageSection}`}>
+            <Box className={`${classes.mainPageSection}`}>
                 <Typography className={classes.header} variant="h3" component="h3" align="center">
                     Partnerships w/ organizations
                 </Typography>
@@ -257,7 +297,7 @@ function AboutUs() {
                     {loremIpsum}
                 </Typography>
                 <Box className={`${classes.orgContent}`}>
-                    {orgs.map((value, index) => {
+                    {orgs.map((value) => {
                         return (
                             <Box className={classes.orgImage}></Box>
                         )
