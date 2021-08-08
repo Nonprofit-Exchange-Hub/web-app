@@ -9,13 +9,13 @@ import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
 import LibraryAndForum from './LibraryAndForum';
 import HowItWorks from './HowItWorks';
-import TrustAndSafety from './TrustAndSafety';
+import { TrustAndSafetyView } from './TrustAndSafetyView';
 import OurStory from './OurStory';
 import Help from './Help';
 import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
 import CookiePolicy from './CookiePolicy';
-import Assets from './Assets';
+import { AssetsView } from './AssetsView';
 import Offer from './Offer';
 
 function Routes() {
@@ -52,7 +52,7 @@ function Routes() {
                 <OurStory />
             </Route>
             <Route exact path="/trust_and_safety">
-                <TrustAndSafety />
+                <TrustAndSafetyView />
             </Route>
             <Route exact path="/help">
                 <Help />
@@ -67,7 +67,7 @@ function Routes() {
                 <CookiePolicy />
             </Route>
             <Route exact path="/assets">
-                <Assets />
+                <AssetsView />
             </Route>
             <Route exact path="/offer/:offerId">
                 <Offer />

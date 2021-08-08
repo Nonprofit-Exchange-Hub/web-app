@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 
 import type { Theme } from '@material-ui/core/styles';
 
-import type { Asset } from './types';
+import type { Asset } from '../types';
 
 
 const useStyles = makeStyles((theme: Theme) => ({

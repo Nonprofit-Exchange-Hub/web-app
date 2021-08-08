@@ -11,7 +11,9 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import StyledLink from './StyledLink';
+
+import { StyledLink } from './components';
+
 
 const useStyles = makeStyles((theme: Theme) => {
     const xPadding = 12;
