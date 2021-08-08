@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import Login from './Login';
 import Home from './Home';
 import SignupNonProfit from './SignupNonProfit';
@@ -17,6 +18,8 @@ import PrivacyPolicy from './PrivacyPolicy';
 import CookiePolicy from './CookiePolicy';
 import { AssetsView } from './AssetsView';
 import Offer from './Offer';
+import MessageInboxView from './MessageInboxView';
+
 
 function Routes() {
     return (
@@ -68,6 +71,9 @@ function Routes() {
             </Route>
             <Route exact path="/assets">
                 <AssetsView />
+            </Route>
+            <Route exact path="/inbox">
+                <MessageInboxView />
             </Route>
             <Route exact path="/offer/:offerId">
                 <Offer />
