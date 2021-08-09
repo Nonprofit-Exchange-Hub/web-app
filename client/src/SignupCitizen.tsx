@@ -128,7 +128,7 @@ function SignupCitizen() {
                                         type="text"
                                         id="first_name"
                                         name="first_name"
-                                        autoComplete="email"
+                                        autoComplete="given-name"
                                         placeholder="Jane"
                                         fullWidth
                                         value={formData.first_name}
@@ -149,7 +149,7 @@ function SignupCitizen() {
                                         type="text"
                                         id="last_name"
                                         name="last_name"
-                                        autoComplete="email"
+                                        autoComplete="family-name"
                                         placeholder="Individual"
                                         fullWidth
                                         value={formData.last_name}

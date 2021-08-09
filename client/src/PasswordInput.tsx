@@ -61,6 +61,7 @@ function PasswordInput({ onChange, value, startAdornment = false, showForgot=fal
                 type={showPassword ? 'text' : 'password'}
                 value={value}
                 onChange={onChange}
+                autoComplete={showForgot ? 'current-password' : 'new-password'}
                 disableUnderline
                 required
                 startAdornment={
