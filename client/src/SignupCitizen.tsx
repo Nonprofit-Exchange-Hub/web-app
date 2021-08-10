@@ -79,12 +79,10 @@ function SignupCitizen() {
             ...fData,
             [name]: name ==='accept_terms' ? checked : value,
         }));
-        console.log(formData);
     };
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        console.debug('handleSubmit - formData: ', formData);
         try {
             const res = await fetch('http://localhost:3001/api/users', {
                 method: 'POST',
@@ -93,10 +91,9 @@ function SignupCitizen() {
                 },
                 body: JSON.stringify(formData),
             });
-            console.debug('handleSubmit - res', res);
             history.push('/');
         } catch (err) {
-            console.debug('handleSubmit - err', err);
+            // Handle err
         }
     };
 
