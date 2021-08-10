@@ -20,7 +20,7 @@ interface GoogleAuthBtnProps {
 function GoogleAuthBtn({children}:GoogleAuthBtnProps) {
     const classes = useStyles();
     const googleSignIn = (evt: React.MouseEvent) => {
-        console.debug('googleSignIn - evt.currentTarget:', evt.currentTarget);
+        // Handle googleSignIn
     };
 
     return (
