@@ -10,7 +10,7 @@ import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
 import LibraryAndForum from './LibraryAndForum';
 import HowItWorks from './HowItWorks';
-import { TrustAndSafetyView } from './TrustAndSafetyView';
+import TrustAndSafety from './TrustAndSafety';
 import OurStory from './OurStory';
 import Help from './Help';
 import TermsOfService from './TermsOfService';
@@ -55,7 +55,7 @@ function Routes() {
                 <OurStory />
             </Route>
             <Route exact path="/trust_and_safety">
-                <TrustAndSafetyView />
+                <TrustAndSafety />
             </Route>
             <Route exact path="/help">
                 <Help />

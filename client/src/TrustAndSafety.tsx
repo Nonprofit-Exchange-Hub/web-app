@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-import SmallDisplayCard from './SmallDisplayCard';
+import { SmallDisplayCard } from './components';
 
 import type { Theme } from '@material-ui/core/styles';
 

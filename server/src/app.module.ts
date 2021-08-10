@@ -4,9 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseConnectionService } from './database-connection.service';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 
 @Module({
@@ -16,9 +17,12 @@ import { UsersModule } from './users/users.module';
         }),
         TypeOrmModule.forRootAsync({ useClass: DatabaseConnectionService }),
         UsersModule,
-        AuthModule
+        AuthModule,
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '../..', 'client/build'),
+        }),
     ],
     controllers: [ AppController ],
-    providers: [ AppService ]
+    providers: []
 })
 export class AppModule {}

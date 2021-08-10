@@ -17,16 +17,17 @@ const useStyles = makeStyles(() => {
     };
 });
 
-interface StyledLinkProps {
+interface Props {
     to: string;
+    target?: string;
     children: string;
 }
 
-function StyledLink({ to, children }: StyledLinkProps) {
+function StyledLink({ to,target, children }: Props) {
     const classes = useStyles();
 
     return (
-        <Link className={classes.link} component={RouterLink} to={to}>
+        <Link className={classes.link} component={RouterLink} to={to} target={target}>
             {children}
         </Link>
     );
