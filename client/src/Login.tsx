@@ -65,7 +65,6 @@ function Login() {
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        console.debug('handleSubmit - formData: ', formData);
         try {
             const res = await fetch('http://localhost:3001/api/auth/login', {
                 method: 'POST',
@@ -76,9 +75,8 @@ function Login() {
             });
             const accessToken = await res.json()
             history.push('/')
-            console.log('handleSubmit', accessToken)
         } catch (err) {
-            console.debug('handleSubmit - err', err);
+            // Handle error
         }
     };
 
