@@ -22,7 +22,7 @@ function FacebookAuthBtn({ children }: FacebookAuthBtnProps) {
     const classes = useStyles();
 
     const facebookSignIn = (evt: React.MouseEvent) => {
-        console.debug('facebookSignIn - evt.currentTarget:', evt.currentTarget);
+        // Handle facebook sign up/in
     };
 
     return (
