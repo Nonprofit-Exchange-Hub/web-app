@@ -1,17 +1,17 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import type { Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import * as React from 'react';
+import { useHistory } from 'react-router-dom';
+import EmailInput from './EmailInput';
+import FacebookAuthBtn from './FacebookAuthBtn';
+import GoogleAuthBtn from './GoogleAuthBtn';
+import PasswordInput from './PasswordInput';
 import StyledLink from './StyledLink';
+import TextDivider from './TextDivider';
 
 const useStyles = makeStyles((theme: Theme) => {
     const xPadding = 12;
@@ -29,107 +29,55 @@ const useStyles = makeStyles((theme: Theme) => {
             paddingBottom: theme.spacing(yPadding),
             paddingLeft: theme.spacing(xPadding),
             paddingRight: theme.spacing(xPadding),
-            margin: 'auto'
+            margin: 'auto',
         },
         header: { fontWeight: 'bold', marginBottom: 68 },
         button: {
             borderRadius: 0,
             height: 62,
-            textTransform: 'none'
+            textTransform: 'none',
         },
-        link: {
-            color: 'black'
-        },
-        input: {
-            height: 62,
-            border: '1px solid #C4C4C4',
-            boxSizing: 'border-box',
-            padding: theme.spacing(1),
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(2),
-            fontSize: 18,
-            marginBottom: 20
-        },
-        label: {
-            color: '#000000',
-            textAlign: 'left'
-        },
-        separator: {
-            display: 'flex',
-            alignItems: 'center',
-            textAlign: 'center',
-            '&::before': {
-                content: '""',
-                flex: 1,
-                borderBottom: '1px solid #C4C4C4'
-            },
-            '&::after': {
-                content: '""',
-                flex: 1,
-                borderBottom: '1px solid #C4C4C4'
-            },
-            '&:not(:empty)::before': {
-                marginRight: '.5em'
-            },
-            '&:not(:empty)::after': {
-                marginLeft: '.5em'
-            }
-        }
     };
 });
 
+interface UserLoginData {
+    email: string;
+    password: string;
+}
+
+const initialFormData: UserLoginData = {
+    email: '',
+    password: '',
+};
 function Login() {
     const classes = useStyles();
-
-    interface UserLoginData {
-        email: string;
-        password: string;
-    }
-
-    const initialFormData: UserLoginData = {
-        email: '',
-        password: ''
-    };
+    const history = useHistory();
 
     const [ formData, setFormData ] = React.useState(initialFormData);
-    const [ showPassword, setShowPassword ] = React.useState(false);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value }: { name: string; value: string } = evt.target;
         setFormData((fData) => ({
             ...fData,
-            [name]: value
+            [name]: value,
         }));
-    };
-
-    // Toggle password visibility
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
     };
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        console.debug('handleSubmit - formData: ', formData);
         try {
             const res = await fetch('http://localhost:3001/api/auth/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username: 'TestFirst', password: 'TestPass' })
+                body: JSON.stringify(formData),
             });
-            console.debug('handleSubmit - res', res);
-        } catch (error) {
-            console.debug('handleSubmit - err', error);
+            const accessToken = await res.json()
+            history.push('/')
+        } catch (err) {
+            // Handle error
         }
-    };
-
-    const googleSignIn = (evt: React.MouseEvent) => {
-        console.debug('googleSignIn - evt.currentTarget:', evt.currentTarget);
-    };
-
-    const facebookSignIn = (evt: React.MouseEvent) => {
-        console.debug('facebookSignIn - evt.currentTarget:', evt.currentTarget);
     };
 
     return (
@@ -142,73 +90,20 @@ function Login() {
                         </Typography>
                     </Grid>
                     <Grid item xs={12} container justify="space-between">
-                        <Button className={classes.button} variant="outlined" onClick={googleSignIn}>
-                            Sign In with Google
-                        </Button>
-                        <Button
-                            className={classes.button}
-                            startIcon={<FacebookIcon />}
-                            onClick={facebookSignIn}
-                            style={{ backgroundColor: '#1877F2', color: 'white' }}
-                        >
-                            Sign In with Facebook
-                        </Button>
+                        <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn>
+                        <FacebookAuthBtn>Sign In with Facebook</FacebookAuthBtn>
                     </Grid>
                     <Grid item xs={12}>
-                        <div className={classes.separator}>
-                            <Typography variant="h6" component="span" align="center" style={{ color: '#C4C4C4' }}>
-                                or
-                            </Typography>
-                        </div>
+                        <TextDivider>or</TextDivider>
                     </Grid>
                     <Grid container item xs={12}>
                         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                            <FormControl fullWidth>
-                                <label className={classes.label} htmlFor="email">
-                                    Email Address
-                                </label>
-
-                                <Input
-                                    className={classes.input}
-                                    type="text"
-                                    id="email"
-                                    name="email"
-                                    autoComplete="email"
-                                    placeholder="jane@nonprofit.com"
-                                    fullWidth
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    disableUnderline
-                                />
-                            </FormControl>
-                            <FormControl fullWidth>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-                                    <label className={classes.label} htmlFor="password">
-                                        Password
-                                    </label>
-                                    <StyledLink to="/forgot_password">Forgot Password?</StyledLink>
-                                </div>
-                                <Input
-                                    className={classes.input}
-                                    id="password"
-                                    name="password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    disableUnderline
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                            </FormControl>
+                            <EmailInput
+                                value={formData.email}
+                                placeholder="jane@nonprofit.com"
+                                onChange={handleChange}
+                            />
+                            <PasswordInput value={formData.password} onChange={handleChange} showForgot={true} />
                             <Button
                                 className={classes.button}
                                 style={{ backgroundColor: '#C4C4C4', color: 'white' }}
