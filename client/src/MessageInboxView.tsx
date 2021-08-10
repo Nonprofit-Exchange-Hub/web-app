@@ -4,11 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 // import Card from '@material-ui/core/Card';
 // import TodayOutlined from '@material-ui/icons/TodayOutlined';
 // import RoomOutlined from '@material-ui/icons/RoomOutlined';
-// import { NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import type { Theme } from '@material-ui/core/styles';
 
 import { SubHeader } from './components';
+import { UserContext } from './providers';
 
 // import type { Asset } from '../types';
 
@@ -57,6 +58,11 @@ type Props = {
 
 function MessageInboxView(props: Props): JSX.Element {
     const classes = useStyles();
+    const [user] = React.useContext(UserContext);
+
+    if (!user) {
+        return <Redirect to="/" />
+    }
 
     return (
         <>

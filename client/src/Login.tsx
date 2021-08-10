@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
 
 import type { Theme } from '@material-ui/core/styles';
 
@@ -14,6 +15,7 @@ import GoogleAuthBtn from './GoogleAuthBtn';
 import PasswordInput from './PasswordInput';
 import { StyledLink } from './components';
 import TextDivider from './TextDivider';
+import { UserContext } from './providers';
 
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -55,6 +57,7 @@ const initialFormData: UserLoginData = {
 function Login() {
     const classes = useStyles();
     const history = useHistory();
+    const [, setUser] = React.useContext(UserContext);
 
     const [ formData, setFormData ] = React.useState(initialFormData);
 
@@ -76,8 +79,11 @@ function Login() {
                 },
                 body: JSON.stringify(formData),
             });
-            const accessToken = await res.json()
-            history.push('/')
+            const response = await res.json();
+            // TODO replace placeholder with .env var
+            const user = jwt.verify(response.access_token, 'placeholder');
+            setUser(user);
+            history.push('/inbox'); // TODO go to '/'
         } catch (err) {
             // Handle error
         }

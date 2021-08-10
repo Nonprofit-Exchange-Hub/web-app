@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     async createJwt(user: any) {
-        const payload = {id:user.id, email:user.email};
+        const payload = { id:user.id, email:user.email };
         return {
             access_token: this.jwtService.sign(payload),
         };
