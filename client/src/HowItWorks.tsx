@@ -8,6 +8,41 @@ import type { Theme } from '@material-ui/core/styles';
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
 
+const nonprofitInstructionList = [
+    {
+        title: "1. Post your Need.",
+        body: loremIpsum,
+        image: 'https://picsum.photos/seed/nonprofit/600',
+    },
+    {
+        title: "2. Connect with donors.",
+        body: loremIpsum,
+        image: 'https://picsum.photos/seed/nonprofit/600',
+    },
+    {
+        title: "3. Accomplish Goal.",
+        body: loremIpsum,
+        image: 'https://picsum.photos/seed/nonprofit/600',
+    },
+];
+const citizenInstructionList = [
+    {
+        title: "1. Post your donation",
+        body: loremIpsum,
+        image: 'https://picsum.photos/seed/picsum/600',
+    },
+    {
+        title: "2. Connect with nonprofits",
+        body: loremIpsum,
+        image: 'https://picsum.photos/seed/picsum/600',
+    },
+    {
+        title: "3. Make a difference",
+        body: loremIpsum,
+        image: 'https://picsum.photos/seed/picsum/600',
+    },
+];
+
 const nonprofitBulletList = {
     title: "Whatever your nonprofit goal, we're here to help.",
     list: [
@@ -15,7 +50,7 @@ const nonprofitBulletList = {
         loremIpsum.slice(0,97),
         loremIpsum.slice(0,97),
         loremIpsum.slice(0,97),
-    ]
+    ],
 };
 const citizenBulletList = {
     title: "We're helping you make a difference in your community.",
@@ -24,7 +59,7 @@ const citizenBulletList = {
         loremIpsum.slice(0,97),
         loremIpsum.slice(0,97),
         loremIpsum.slice(0,97),
-    ]
+    ],
 };
 
 const nonprofitQuestions = [
@@ -93,21 +128,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: '0',
         borderBottom: '1px solid #C4C4C4',
         '& .MuiGrid-item': {
+            padding: '20px',
             paddingBottom: '0!important',
         },
     },
     grid: {
-    },
-    gridBox: {
-        width: '100%',
-        overflow: 'hidden',
-        '& img': {
-            maxWidth: '100%',
-            height: 'auto',
-        },
-        '& h3': {
-            paddingBottom: '1em',
-        },
     },
     button: {
         fontSize: '2rem',
@@ -150,7 +175,7 @@ function HowItWorks() {
             </Box>
 
             <Box className={`${classes.tabs}`}>
-                <Grid container justify='space-between' spacing={9} className={`${classes.limitWidth}`}>
+                <Grid container justify='space-between' className={`${classes.limitWidth}`}>
                     <Grid container item sm={6} xs={12}
                         onClick={() => handleClickTab("nonprofit")}
                     >
@@ -166,80 +191,8 @@ function HowItWorks() {
                 </Grid>
             </Box>
 
-            <Box className={`${classes.nonprofitContainer} ${classes.mainPageSection} ${tabSelected !== "nonprofit" ? classes.hidden : ''}`}>
-                <Grid container justify='space-between' spacing={9} className={`${classes.limitWidth}`}>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <Typography variant="h3" component="h3" align="left">
-                        1. Post your Need.
-                        </Typography>
-                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                            {loremIpsum}
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <img src="https://picsum.photos/600" alt="placeholder"></img>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <img src="https://picsum.photos/600" alt="placeholder"></img>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <Typography variant="h3" component="h3" align="left">
-                        2. Connect with donors.
-                        </Typography>
-                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                            {loremIpsum}
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <Typography variant="h3" component="h3" align="left">
-                        3. Accomplish Goal.
-                        </Typography>
-                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                            {loremIpsum}
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <img src="https://picsum.photos/600" alt="placeholder"></img>
-                    </Grid>
-                </Grid>
-            </Box>
-
-            <Box className={`${classes.citizenContainer} ${classes.mainPageSection} ${tabSelected !== "citizen" ? classes.hidden : ''}`}>
-                <Grid container justify='space-between' spacing={9} className={`${classes.limitWidth}`}>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <Typography variant="h3" component="h3" align="left">
-                        1. Post your donation
-                        </Typography>
-                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                            {loremIpsum}
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <img src="https://picsum.photos/seed/picsum/600" alt="placeholder"></img>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <img src="https://picsum.photos/seed/picsum/600" alt="placeholder"></img>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <Typography variant="h3" component="h3" align="left">
-                        2. Connect with nonprofits
-                        </Typography>
-                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                            {loremIpsum}
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <Typography variant="h3" component="h3" align="left">
-                        3. Make a difference
-                        </Typography>
-                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                            {loremIpsum}
-                        </Typography>
-                    </Grid>
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <img src="https://picsum.photos/seed/picsum/600" alt="placeholder"></img>
-                    </Grid>
-                </Grid>
+            <Box className={`${classes.nonprofitContainer} ${classes.mainPageSection} ${classes.limitWidth}`}>
+                <InstructionGrid instructionList={ tabSelected === "nonprofit" ? nonprofitInstructionList : citizenInstructionList }></InstructionGrid>
             </Box>
 
             <Box className={`${classes.greySection} ${classes.mainPageSection}`}>
@@ -266,6 +219,70 @@ function HowItWorks() {
     );
 }
 
+
+
+
+// SUB-COMPONENT InstructionGrid
+
+const instructionStyles = makeStyles<Theme, InstructionProps> ({
+    headerText: {
+        width: '100%',
+        maxWidth: '1100px',
+        fontSize: '1.3rem',
+        textAlign: 'left',
+    },
+    gridBox: {
+        width: '100%',
+        overflow: 'hidden',
+        padding: '20px',
+        '& img': {
+            maxWidth: '100%',
+            height: 'auto',
+        },
+        '& h3': {
+            paddingBottom: '1em',
+        },
+    },
+});
+
+type InstructionProps = {
+    instructionList: { title: string, body: string, image: string }[],
+};
+
+function InstructionGrid(props: InstructionProps) {
+    const classes = instructionStyles(props);
+    var row = 0;
+
+    return (
+        <Grid container justify='space-between'>
+            {props.instructionList.map((instructionItem) => {
+                row++;
+                var text = (
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
+                        <Typography variant="h3" component="h3" align="left">
+                            {instructionItem.title}
+                        </Typography>
+                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
+                            {instructionItem.body}
+                        </Typography>
+                    </Grid>
+                );
+                var image = (
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
+                        <img src={instructionItem.image} alt="placeholder"></img>
+                    </Grid>
+                );
+                return (
+                    <>
+                        {/* Set order of the two jsx items - odd number rows have text first, even have image first */}
+                        {row % 2 == 0 ? image : text}
+                        {row % 2 == 0 ? text : image}
+                    </>
+                )
+            })}
+        </Grid>
+    );
+};
 
 
 
