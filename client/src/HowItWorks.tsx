@@ -1,22 +1,40 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, ButtonBase } from '@material-ui/core';
 import QuestionList from './QuestionList';
 
 import type { Theme } from '@material-ui/core/styles';
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
 
-const nonprofitQuestions = [
-    {question: 'Can we post for volunteer help?', answer: loremIpsum.slice(0,100)},
-    {question: 'Can we keep working with a person we exchanged with?', answer: loremIpsum.slice(0,100)},
-    {question: 'How do we see what has been donated previously?', answer: loremIpsum.slice(0,100)},
-];
+const nonprofitBulletList = {
+    title: "Whatever your nonprofit goal, we're here to help.",
+    list: [
+        loremIpsum.slice(0,97),
+        loremIpsum.slice(0,97),
+        loremIpsum.slice(0,97),
+        loremIpsum.slice(0,97),
+    ]
+};
+const citizenBulletList = {
+    title: "We're helping you make a difference in your community.",
+    list: [
+        loremIpsum.slice(0,97),
+        loremIpsum.slice(0,97),
+        loremIpsum.slice(0,97),
+        loremIpsum.slice(0,97),
+    ]
+};
 
+const nonprofitQuestions = [
+    {question: 'Can we post for volunteer help?', answer: loremIpsum.slice(0,150)},
+    {question: 'Can we keep working with a person we exchanged with?', answer: loremIpsum.slice(0,150)},
+    {question: 'How do we see what has been donated previously?', answer: loremIpsum.slice(0,150)},
+];
 const citizenQuestions = [
-    {question: 'Can I offer to volunteer?', answer: loremIpsum.slice(0,100)},
-    {question: 'Can I keep working with a nonprofit I exchanged with?', answer: loremIpsum.slice(0,100)},
+    {question: 'Can I offer to volunteer?', answer: loremIpsum.slice(0,150)},
+    {question: 'Can I keep working with a nonprofit I exchanged with?', answer: loremIpsum.slice(0,150)},
 ];
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -74,9 +92,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         margin: 'auto',
         padding: '0',
         borderBottom: '1px solid #C4C4C4',
-        '& $grid > div': {
-            paddingBottom: '0',
-
+        '& .MuiGrid-item': {
+            paddingBottom: '0!important',
         },
     },
     grid: {
@@ -84,7 +101,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     gridBox: {
         width: '100%',
         overflow: 'hidden',
-        marginBottom: '3rem',
         '& img': {
             maxWidth: '100%',
             height: 'auto',
@@ -134,14 +150,14 @@ function HowItWorks() {
             </Box>
 
             <Box className={`${classes.tabs}`}>
-                <Grid container justify='space-between' spacing={0} className={`${classes.limitWidth}`}>
-                    <Grid container item sm={5} xs={12}
+                <Grid container justify='space-between' spacing={9} className={`${classes.limitWidth}`}>
+                    <Grid container item sm={6} xs={12}
                         onClick={() => handleClickTab("nonprofit")}
                     >
                         <h3 className={`${classes.button} ${tabSelected === "nonprofit" ? classes.selected : ''}`}
                         >I'm on a nonprofit team</h3>
                     </Grid>
-                    <Grid container item sm={5} xs={12}
+                    <Grid container item sm={6} xs={12}
                         onClick={() => handleClickTab("citizen")}
                     >
                         <h3 className={`${classes.button} ${tabSelected === "citizen" ? classes.selected : ''}`}
@@ -151,8 +167,8 @@ function HowItWorks() {
             </Box>
 
             <Box className={`${classes.nonprofitContainer} ${classes.mainPageSection} ${tabSelected !== "nonprofit" ? classes.hidden : ''}`}>
-                <Grid container justify='space-between' spacing={3} className={`${classes.limitWidth}`}>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                <Grid container justify='space-between' spacing={9} className={`${classes.limitWidth}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <Typography variant="h3" component="h3" align="left">
                         1. Post your Need.
                         </Typography>
@@ -160,13 +176,13 @@ function HowItWorks() {
                             {loremIpsum}
                         </Typography>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <img src="https://picsum.photos/600" alt="placeholder"></img>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <img src="https://picsum.photos/600" alt="placeholder"></img>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <Typography variant="h3" component="h3" align="left">
                         2. Connect with donors.
                         </Typography>
@@ -174,7 +190,7 @@ function HowItWorks() {
                             {loremIpsum}
                         </Typography>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <Typography variant="h3" component="h3" align="left">
                         3. Accomplish Goal.
                         </Typography>
@@ -182,15 +198,15 @@ function HowItWorks() {
                             {loremIpsum}
                         </Typography>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <img src="https://picsum.photos/600" alt="placeholder"></img>
                     </Grid>
                 </Grid>
             </Box>
 
             <Box className={`${classes.citizenContainer} ${classes.mainPageSection} ${tabSelected !== "citizen" ? classes.hidden : ''}`}>
-                <Grid container justify='space-between' spacing={3} className={`${classes.limitWidth}`}>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                <Grid container justify='space-between' spacing={9} className={`${classes.limitWidth}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <Typography variant="h3" component="h3" align="left">
                         1. Post your donation
                         </Typography>
@@ -198,13 +214,13 @@ function HowItWorks() {
                             {loremIpsum}
                         </Typography>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <img src="https://picsum.photos/seed/picsum/600" alt="placeholder"></img>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <img src="https://picsum.photos/seed/picsum/600" alt="placeholder"></img>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <Typography variant="h3" component="h3" align="left">
                         2. Connect with nonprofits
                         </Typography>
@@ -212,7 +228,7 @@ function HowItWorks() {
                             {loremIpsum}
                         </Typography>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <Typography variant="h3" component="h3" align="left">
                         3. Make a difference
                         </Typography>
@@ -220,24 +236,18 @@ function HowItWorks() {
                             {loremIpsum}
                         </Typography>
                     </Grid>
-                    <Grid item sm={5} xs={12} className={`${classes.gridBox}`}>
+                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
                         <img src="https://picsum.photos/seed/picsum/600" alt="placeholder"></img>
                     </Grid>
                 </Grid>
             </Box>
 
-            <Box className={`${classes.greySection} ${classes.mainPageSection} ${tabSelected !== "citizen" ? classes.hidden : ''}`}>
+            <Box className={`${classes.greySection} ${classes.mainPageSection}`}>
                 <Box className={`${classes.limitWidth}`}>
                     <Typography variant="h3" component="h3" align="left">
-                        We're helping you make a difference in your community.
+                        { tabSelected === "nonprofit" ? nonprofitBulletList.title : citizenBulletList.title }
                     </Typography>
-                </Box>
-            </Box>
-            <Box className={`${classes.greySection} ${classes.mainPageSection} ${tabSelected !== "nonprofit" ? classes.hidden : ''}`}>
-                <Box className={`${classes.limitWidth}`}>
-                    <Typography variant="h3" component="h3" align="left">
-                        Whatever your nonprofit goal, we're here to help.
-                    </Typography>
+                    <BulletGrid list={tabSelected === "nonprofit"? nonprofitBulletList.list : citizenBulletList.list}></BulletGrid>
                 </Box>
             </Box>
 
@@ -255,6 +265,59 @@ function HowItWorks() {
         </>
     );
 }
+
+
+
+
+// SUB-COMPONENT BulletGrid
+
+const bulletStyles = makeStyles<Theme, BulletProps> ({
+    headerText: {
+        width: '100%',
+        maxWidth: '1100px',
+        fontSize: '1.3rem',
+        textAlign: 'left',
+    },
+    grid: {
+        marginTop: '30px',
+    },
+    square: {
+        width: '100px',
+        height: '100px',
+        backgroundColor: 'white',
+        marginRight: '20px',
+    },
+});
+
+type BulletProps = {
+    list: string[],
+};
+
+function BulletGrid(props: BulletProps) {
+    const classes = bulletStyles(props);
+
+    return (
+        <Grid container justify='space-between'>
+
+            {props.list.map((listItem) => {
+                return (
+                    <Grid container item md={6} xs={12} className={classes.grid}>
+                        <Grid item>
+                            <Box className={classes.square}></Box>
+                        </Grid>
+                        <Grid item xs>
+                            <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
+                                {listItem}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                )
+            })}
+
+
+        </Grid>
+    );
+};
 
 
 
