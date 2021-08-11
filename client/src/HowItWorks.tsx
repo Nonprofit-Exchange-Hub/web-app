@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     titleBox: {
         height: 200,
-        backgroundColor: 'yellow',
+        backgroundColor: '#C4C4C4',
     },
     tabs: {
         margin: 'auto',
