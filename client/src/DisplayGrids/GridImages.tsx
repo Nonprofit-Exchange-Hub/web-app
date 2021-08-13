@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
-import { PinDropSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles<Theme, GridProps> ({
     missionContent: {
@@ -156,4 +155,4 @@ function MissionStatement(props: MissionProps) {
     );
 };
 
-export default GridImages;
+export { GridImages };

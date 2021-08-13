@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid, ButtonBase } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import QuestionList from './QuestionList';
+import { BulletGrid, InstructionGrid } from './DisplayGrids';
 
 import type { Theme } from '@material-ui/core/styles';
 
@@ -132,8 +133,6 @@ const useStyles = makeStyles((theme: Theme) => ({
             paddingBottom: '0!important',
         },
     },
-    grid: {
-    },
     button: {
         fontSize: '2rem',
         margin: '20px 0 0 0',
@@ -145,14 +144,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     selected: {
         borderBottom: '11px solid #C4C4C4',
     },
-    nonprofitContainer: {
-        // height: 200,
-        // backgroundColor: 'blue',
-    },
-    citizenContainer: {
-        // height: 200,
-        // backgroundColor: 'red',
-    },
     questions: {
         alignSelf: 'flex-end',
         width: '100%',
@@ -163,9 +154,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 function HowItWorks() {
     const classes = useStyles();
 
-    const [ tabSelected, setTabSelected ] = React.useState("nonprofit");
+    type Tab = 'nonprofit' | 'citizen';
 
-    const handleClickTab = (tabName: string) => {
+    const [ tabSelected, setTabSelected ] = React.useState<Tab>("nonprofit");
+
+    const handleClickTab = (tabName: Tab) => {
         setTabSelected(tabName);
     };
 
@@ -191,7 +184,7 @@ function HowItWorks() {
                 </Grid>
             </Box>
 
-            <Box className={`${classes.nonprofitContainer} ${classes.mainPageSection} ${classes.limitWidth}`}>
+            <Box className={`${classes.mainPageSection} ${classes.limitWidth}`}>
                 <InstructionGrid instructionList={ tabSelected === "nonprofit" ? nonprofitInstructionList : citizenInstructionList }></InstructionGrid>
             </Box>
 
@@ -218,123 +211,6 @@ function HowItWorks() {
         </>
     );
 }
-
-
-
-
-// SUB-COMPONENT InstructionGrid
-
-const instructionStyles = makeStyles<Theme, InstructionProps> ({
-    headerText: {
-        width: '100%',
-        maxWidth: '1100px',
-        fontSize: '1.3rem',
-        textAlign: 'left',
-    },
-    gridBox: {
-        width: '100%',
-        overflow: 'hidden',
-        padding: '20px',
-        '& img': {
-            maxWidth: '100%',
-            height: 'auto',
-        },
-        '& h3': {
-            paddingBottom: '1em',
-        },
-    },
-});
-
-type InstructionProps = {
-    instructionList: { title: string, body: string, image: string }[],
-};
-
-function InstructionGrid(props: InstructionProps) {
-    const classes = instructionStyles(props);
-    var row = 0;
-
-    return (
-        <Grid container justify='space-between'>
-            {props.instructionList.map((instructionItem) => {
-                row++;
-                var text = (
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <Typography variant="h3" component="h3" align="left">
-                            {instructionItem.title}
-                        </Typography>
-                        <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                            {instructionItem.body}
-                        </Typography>
-                    </Grid>
-                );
-                var image = (
-                    <Grid item sm={6} xs={12} className={`${classes.gridBox}`}>
-                        <img src={instructionItem.image} alt="placeholder"></img>
-                    </Grid>
-                );
-                return (
-                    <>
-                        {/* Set order of the two jsx items - odd number rows have text first, even have image first */}
-                        {row % 2 == 0 ? image : text}
-                        {row % 2 == 0 ? text : image}
-                    </>
-                )
-            })}
-        </Grid>
-    );
-};
-
-
-
-// SUB-COMPONENT BulletGrid
-
-const bulletStyles = makeStyles<Theme, BulletProps> ({
-    headerText: {
-        width: '100%',
-        maxWidth: '1100px',
-        fontSize: '1.3rem',
-        textAlign: 'left',
-    },
-    grid: {
-        marginTop: '30px',
-    },
-    square: {
-        width: '100px',
-        height: '100px',
-        backgroundColor: 'white',
-        marginRight: '20px',
-    },
-});
-
-type BulletProps = {
-    list: string[],
-};
-
-function BulletGrid(props: BulletProps) {
-    const classes = bulletStyles(props);
-
-    return (
-        <Grid container justify='space-between'>
-
-            {props.list.map((listItem) => {
-                return (
-                    <Grid container item md={6} xs={12} className={classes.grid}>
-                        <Grid item>
-                            <Box className={classes.square}></Box>
-                        </Grid>
-                        <Grid item xs>
-                            <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
-                                {listItem}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                )
-            })}
-
-
-        </Grid>
-    );
-};
 
 
 
