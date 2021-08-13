@@ -7,17 +7,21 @@ import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
 import { NavLink } from 'react-router-dom';
 
 import NeedsAndOffers from './NeedsAndOffers';
 import { dumbyData, placeholderImg } from './assets/temp';
+import QuestionList from './QuestionList';
 
 import type { Theme } from '@material-ui/core/styles';
 
+const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
+
+const faqQuestions = [
+    {question: 'How does it work?', answer: loremIpsum.slice(0,150)},
+    {question: 'Who can use the platform?', answer: loremIpsum.slice(0,150)},
+    {question: 'What services can I offer?', answer: loremIpsum.slice(0,150)},
+];
 
 const useStyles = makeStyles((theme: Theme) => ({
     hero: {
@@ -124,7 +128,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-
 function Home(): JSX.Element {
     const classes = useStyles();
     const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('');
@@ -191,51 +194,7 @@ function Home(): JSX.Element {
                 <Typography variant="h4" component="h4" className={classes.faqsHeader}>
                     FAQs
                 </Typography>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<AddCircleTwoToneIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography>How does it work?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<AddCircleTwoToneIcon />}
-                            aria-controls="panel2a-content"
-                            id="panel2a-header"
-                        >
-                        <Typography>Who can use the platform?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
-                        </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<AddCircleTwoToneIcon />}
-                            aria-controls="panel2a-content"
-                            id="panel2a-header"
-                        >
-                        <Typography>Who can use this platform?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
-                        </Typography>
-                        </AccordionDetails>
-                    </Accordion>
+                <QuestionList questionList={faqQuestions}></QuestionList>
             </div>
         </>
     );
