@@ -6,6 +6,10 @@ export type Asset = {
     location: string,
     imgs: string[],
     description: string,
-    // TODO postedBy: User,
-    postedBy: string,
+    postedBy: User,
+};
+
+export type User = {
+    id: number,
+    firstName: string,
 };
