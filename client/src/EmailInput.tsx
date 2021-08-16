@@ -5,6 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import type { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
@@ -29,16 +30,18 @@ interface Props {
     value: string;
     placeholder: string;
     startAdornment?: boolean;
+    error?: boolean;
 }
 
-function EmailInput({ onChange, value, placeholder, startAdornment = false }: Props) {
+function EmailInput({ onChange, value, placeholder, startAdornment = false, error = false }: Props) {
     const classes = useStyles();
 
     return (
-        <FormControl fullWidth>
+        <FormControl fullWidth error={error}>
             <label className={classes.label} htmlFor="email">
                 Email Address
             </label>
+            {error && <FormHelperText error>Email not found.</FormHelperText>}
             <Input
                 className={classes.input}
                 type="email"
@@ -51,6 +54,7 @@ function EmailInput({ onChange, value, placeholder, startAdornment = false }: Pr
                 onChange={onChange}
                 disableUnderline
                 required
+                error={error}
                 startAdornment={
                     startAdornment && (
                         <InputAdornment position="start">
