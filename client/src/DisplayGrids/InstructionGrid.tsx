@@ -91,4 +91,4 @@ function GridText(props: TextProps) {
     );
 };
 
-export { InstructionGrid };
+export default InstructionGrid;

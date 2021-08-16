@@ -55,4 +55,4 @@ function BulletGrid(props: BulletProps) {
     );
 };
 
-export { BulletGrid };
+export default BulletGrid;

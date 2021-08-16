@@ -40,7 +40,7 @@ type GridProps = {
     smallImages: string[],
 };
 
-function GridImages(props: GridProps) {
+function GridImages(props: GridProps): JSX.Element {
     
     const classes = useStyles(props);
     
@@ -97,7 +97,7 @@ type ImageProps = {
     isWide: boolean,
 };
 
-function GridImage(props: ImageProps) {
+function GridImage(props: ImageProps): JSX.Element {
     const classes = imageStyles(props);
 
     let wideClass = (props.isWide === true) ? classes.wideImage : '';
@@ -144,7 +144,7 @@ type MissionProps = {
     text: string,
 };
 
-function MissionStatement(props: MissionProps) {
+function MissionStatement(props: MissionProps): JSX.Element {
     const classes = missionStyles(props);
 
     return (
@@ -155,4 +155,4 @@ function MissionStatement(props: MissionProps) {
     );
 };
 
-export { GridImages };
+export default GridImages;
