@@ -7,11 +7,10 @@ import type { Theme } from '@material-ui/core/styles';
 
 // SUB-COMPONENT BulletGrid
 
-const bulletStyles = makeStyles<Theme, BulletProps> ({
+const bulletStyles = makeStyles<Theme, BulletProps> ((theme: Theme) => ({
     headerText: {
         width: '100%',
-        maxWidth: '1100px',
-        fontSize: '1.3rem',
+        maxWidth: theme.custom.maxContentWidth,
         textAlign: 'left',
     },
     grid: {
@@ -23,7 +22,7 @@ const bulletStyles = makeStyles<Theme, BulletProps> ({
         backgroundColor: 'white',
         marginRight: '20px',
     },
-});
+}));
 
 type BulletProps = {
     list: string[],

@@ -81,8 +81,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     headerText: {
         width: '100%',
-        maxWidth: '1100px',
-        fontSize: '1.3rem',
+        maxWidth: theme.custom.maxContentWidth,
         textAlign: 'left',
     },
     mainPageSection: {
@@ -94,16 +93,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingBottom: '50px',
         paddingLeft: '20px',
         paddingRight: '20px',
-        fontSize: '1.4rem',
         '& h3': {
-            fontSize: '1.6em',
             width: '100%',
         },
     },
     limitWidth: {
         margin: 'auto',
         width: '100%',
-        maxWidth: '1100px',
+        maxWidth: theme.custom.maxContentWidth,
     },
     // page specific styles
     questionSection: {

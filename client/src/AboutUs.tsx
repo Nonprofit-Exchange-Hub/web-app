@@ -13,13 +13,12 @@ const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fac
 const useStyles = makeStyles((theme: Theme) => ({
     // universal styles
     header: {
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginBottom: 15
     },
     headerText: {
-        width: '100%',
-        maxWidth: '1100px',
-        fontSize: '1.3rem',
+        // width: '100%',
+        maxWidth: theme.custom.maxContentWidth,
         textAlign: 'left',
     },
     mainPageSection: {
@@ -31,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingBottom: '50px',
         paddingLeft: '20px',
         paddingRight: '20px',
-        fontSize: '1.4rem',
     },
     // page specific styles
     titleBox: {
@@ -40,10 +38,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     whyContainer: {
         backgroundColor: '#EBEBEB',
         '& > *': {
-            maxWidth: '1200px',
+            maxWidth: theme.custom.maxContentWidth,
         },
         '& > $header': {
-            maxWidth: '1200px',
+            maxWidth: theme.custom.maxContentWidth,
             width: '100%',
             textAlign: 'left',
         },
@@ -87,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     biosImagesContainer: {
         width: '100%',
-        maxWidth: '1200px',
+        maxWidth: theme.custom.maxContentWidth,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -106,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     trustImage: {
         width: '90%',
-        maxWidth: '1100px',
+        maxWidth: theme.custom.maxContentWidth,
         height: '389px',
         border: '1px solid black',
         backgroundColor: '#C4C4C4',
@@ -120,7 +118,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexWrap: 'wrap',
         paddingTop: '30px',
         paddingBottom: '10px',
-        maxWidth: '1200px',
+        maxWidth: theme.custom.maxContentWidth,
         '& > div': {
             margin: '10px',
         }
@@ -142,7 +140,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     orgContent: {
         width: '100%',
-        maxWidth: '1200px',
+        maxWidth: theme.custom.maxContentWidth,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -174,6 +172,8 @@ function AboutUs() {
         { name: 'Alice', image: '../blank-bio-pic.png' },
         { name: 'Zachary', image: '../blank-bio-pic.png' },
         { name: 'Emily', image: '../blank-bio-pic.png' },
+        { name: 'Albert', image: '../blank-bio-pic.png' },
+        { name: 'Zoe', image: '../blank-bio-pic.png' },
     ];
     const orgs: { name: string, image: string}[] = [
         { name: 'Google', image: '' },
