@@ -8,11 +8,6 @@ import type { Theme } from '@material-ui/core/styles';
 // SUB-COMPONENT BulletGrid
 
 const bulletStyles = makeStyles<Theme, BulletProps> ((theme: Theme) => ({
-    headerText: {
-        width: '100%',
-        maxWidth: theme.custom.maxContentWidth,
-        textAlign: 'left',
-    },
     grid: {
         marginTop: '30px',
     },
@@ -41,7 +36,7 @@ function BulletGrid(props: BulletProps) {
                             <Box className={classes.square}></Box>
                         </Grid>
                         <Grid item xs>
-                            <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
+                            <Typography variant="body1" component="div" align="left">
                                 {listItem}
                             </Typography>
                         </Grid>
