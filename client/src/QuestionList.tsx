@@ -35,32 +35,35 @@ function QuestionList(props: QuestionListProps) {
 
 const questionStyles = makeStyles<Theme, QuestionProps> ({
     questionWrapper: {
-        boxShadow: 'none!important',
+        boxShadow: 'none',
         borderBottom: '1px solid black',
-        '& span': {
+        '& .MuiTypography-body1': {
             fontSize: '1.2rem',
         },
-        '&.Mui-expanded': {
-            margin: '0',
+        '&.MuiAccordion-root:before': {
+            backgroundColor: 'transparent',
         },
-        '& .MuiAccordionSummary-content': {
-            '& p': {
-                fontWeight: 'bold',
+        // Overrides to remove extra margin when answer is displayed
+        '&.Mui-expanded': {     
+            margin: '0',    
+            '& .MuiAccordionSummary-root': {
+                minHeight: '52px',
+                '& .MuiAccordionSummary-content': {
+                    margin: '12px 0',
+                },
             },
         },
-        '& .MuiAccordionSummary-content.Mui-expanded': {
-            margin: 'inherit',
-        },
-        '& .MuiAccordionSummary-root.Mui-expanded': {
-            minHeight: '48px',
-        },
-        '& .MuiButtonBase-root:hover': {
-            backgroundColor: 'rgba(240, 240, 240, 0.5)',
-            
-        },
-        '&.MuiAccordion-root:before': {
+        '& .MuiAccordionSummary-root, & .MuiAccordionSummary-content': {    // Removes a 1px movement glitch
             transition: 'none',
-            backgroundColor: 'transparent',
+        }
+        // End overrides
+    },
+    questionSummary: {
+        '& p': {
+            fontWeight: 'bold',
+        },
+        '&:hover': {
+            backgroundColor: 'rgba(240, 240, 240, 0.5)',
         },
     },
 });
@@ -79,13 +82,12 @@ function Question(props: QuestionProps) {
                 expandIcon={<AddCircleTwoToneIcon />}
                 aria-controls="panel-content"
                 id="panel-header"
+                className={classes.questionSummary}
             >
-                <Typography className={classes.question}>{props.question}</Typography>
+                <Typography align="left">{props.question}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Typography align="left">
-                    {props.answer}
-                </Typography>
+                <Typography align="left">{props.answer}</Typography>
             </AccordionDetails>
         </Accordion>
     );
