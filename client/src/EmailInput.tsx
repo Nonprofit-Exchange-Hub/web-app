@@ -36,12 +36,24 @@ interface Props {
 function EmailInput({ onChange, value, placeholder, startAdornment = false, error = false }: Props) {
     const classes = useStyles();
 
+    const emailErrorMessage = ()=>{
+        if(error){
+            // Signup form uses a start adornment. 
+            // Different error message for signup vs login
+            if(startAdornment){
+                return <FormHelperText error>Email already exists.</FormHelperText>
+            }
+            else return <FormHelperText error>Email not found.</FormHelperText>
+        }
+        else return 
+    }
+
     return (
         <FormControl fullWidth error={error}>
             <label className={classes.label} htmlFor="email">
                 Email Address
             </label>
-            {error && <FormHelperText error>Email not found.</FormHelperText>}
+            {emailErrorMessage()}
             <Input
                 className={classes.input}
                 type="email"

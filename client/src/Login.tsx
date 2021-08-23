@@ -61,7 +61,7 @@ function Login() {
         if(status === 'success'){
             history.push('/')
         }
-    }, [status])
+    }, [status, history])
 
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -83,13 +83,13 @@ function Login() {
                 },
                 body: JSON.stringify(formData),
             });
-            const response = await res.json()
-            if(response.status === 401){
+            const data = await res.json()
+            if(data.status === 401){
                 setStatus('failure')
-                if(response.error === 'Email not found'){
+                if(data.error === 'Email not found'){
                     setError('email')
                 }
-                else if(response.error === 'Invalid password'){
+                else if(data.error === 'Invalid password'){
                     setError('password')
                 }
             } else setStatus('success')
