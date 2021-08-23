@@ -3,12 +3,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import type { Theme } from '@material-ui/core/styles';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 
 const useStyles = makeStyles<Theme, QuestionListProps> ({
     questionList: {
@@ -37,17 +35,36 @@ function QuestionList(props: QuestionListProps) {
 
 const questionStyles = makeStyles<Theme, QuestionProps> ({
     questionWrapper: {
+        boxShadow: 'none',
         borderBottom: '1px solid black',
-        '& span': {
+        '& .MuiTypography-body1': {
             fontSize: '1.2rem',
+        },
+        '&.MuiAccordion-root:before': {
+            backgroundColor: 'transparent',
+        },
+        // Overrides to remove extra margin when answer is displayed
+        '&.Mui-expanded': {     
+            margin: '0',    
+            '& .MuiAccordionSummary-root': {
+                minHeight: '52px',
+                '& .MuiAccordionSummary-content': {
+                    margin: '12px 0',
+                },
+            },
+        },
+        '& .MuiAccordionSummary-root, & .MuiAccordionSummary-content': {    // Removes a 1px movement glitch
+            transition: 'none',
         }
+        // End overrides
     },
-    question: {
-        '& span': {
+    questionSummary: {
+        '& p': {
             fontWeight: 'bold',
         },
-    },
-    answer: {
+        '&:hover': {
+            backgroundColor: 'rgba(240, 240, 240, 0.5)',
+        },
     },
 });
 
@@ -58,30 +75,21 @@ type QuestionProps = {
 
 function Question(props: QuestionProps) {
     const classes = questionStyles(props);
-    const [open, setOpen] = React.useState(false);
 
-    const handleClick = () => {
-        setOpen(!open);
-    };
-      
     return (
-        <List
-            component="nav"
-            aria-label="questions"
-            className={classes.questionWrapper}
-        >
-            <ListItem button disableGutters onClick={handleClick} className={classes.question}>
-            <ListItemText primary={props.question} />
-                {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                <ListItem className={classes.answer}>
-                    <ListItemText primary={props.answer} />
-                </ListItem>
-                </List>
-            </Collapse>
-        </List>
+        <Accordion square={true} className={classes.questionWrapper}>
+            <AccordionSummary
+                expandIcon={<AddCircleTwoToneIcon />}
+                aria-controls="panel-content"
+                id="panel-header"
+                className={classes.questionSummary}
+            >
+                <Typography align="left">{props.question}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography align="left">{props.answer}</Typography>
+            </AccordionDetails>
+        </Accordion>
     );
 };
 
