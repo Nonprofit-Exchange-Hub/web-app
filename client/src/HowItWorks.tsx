@@ -75,7 +75,7 @@ const citizenQuestions = [
 
 const useStyles = makeStyles((theme: Theme) => ({
     questionSection: {
-        margin: '0 auto',
+        width: '100%',
         padding: '0 10px',
         display: 'flex',
         flexDirection: 'column',

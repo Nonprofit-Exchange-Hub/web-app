@@ -38,6 +38,9 @@ theme.props = {
     MuiButton: {
         disableElevation: true,
     },
+    MuiAccordion: {
+        // disableGutters: true,        // Enable this when we get v5 of Material UI, will replace style overrides from QuestionList
+    }
 }
 
 // Override classes listed in Material UI's CSS for the component
@@ -73,7 +76,5 @@ theme.overrides = {
         },
     },
 };
-
-// Add overrides for Accordion from QuestionList
 
 export default theme;
