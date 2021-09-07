@@ -91,7 +91,7 @@ function Header() {
                                 onClose={handleClose}
                             >
                                 {/* TODO change to a react router link */}
-                                <MenuItem onClick={() => { history.push('/inbox'); }}>Inbox</MenuItem>
+                                <MenuItem onClick={() => { handleClose(); history.push('/inbox'); }}>Inbox</MenuItem>
                             </Menu>
                         </>
                     ) : (
