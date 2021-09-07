@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'flex-start',
         padding: '5px',
         height: '100%',
-        minHeight: '300px',
+        minHeight: '500px',
+        position: 'relative',
     },
     sectionHeader: {
         margin: '5px',
@@ -59,6 +60,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: '10px 4px 10px 40px',
     },
     messagesWrapper: {
+        display: 'flex',
+        flexDirection: 'column',
         minHeight: '200px',
         width: '100%',
     },
@@ -71,20 +74,21 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'space-between',
     },
     messageInputWrapper: {
-        position: 'relative',
         width: '100%',
+        position: 'absolute',
+        bottom: '10px',
     },
     messageInputForm: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        position: 'absolute',
-        bottom: 0,
+        width: '100%',
     },
     messageInput: {
         width: '100%',
     },
     currentUserMessage: {
+        alignSelf: 'flex-end',
         border: '1px solid black',
         borderRadius: '10px',
         padding: '5px',
@@ -92,6 +96,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginLeft: '30%',
     },
     otherUserMessage: {
+        alignSelf: 'flex-start',
         background: 'rgba(196, 196, 196, 0.3)',
         border: '1px solid black',
         borderRadius: '10px',
