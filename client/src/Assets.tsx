@@ -8,9 +8,9 @@ import { NavLink } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 
-import NeedsAndOffers from '../NeedsAndOffers';
+import NeedsAndOffers from './NeedsAndOffers';
 import FilterGroup from './FilterGroup';
-import { dumbyData, filters1, filters2, filters3 } from '../assets/temp';
+import { dumbyData, filters1, filters2, filters3 } from './assets/temp';
 
 import type { Theme } from '@material-ui/core/styles';
 

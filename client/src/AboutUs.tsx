@@ -3,11 +3,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid } from '@material-ui/core';
 
-import type { Theme } from '@material-ui/core/styles';
-
 import SmallDisplayCard from './SmallDisplayCard';
 import GridImages from './GridImages';
 
+import type { Theme } from '@material-ui/core/styles';
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
 

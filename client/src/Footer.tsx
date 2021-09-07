@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import StyledLink from './StyledLink';
 
-
 const useStyles = makeStyles((theme: Theme) => {
     return {
         main: {

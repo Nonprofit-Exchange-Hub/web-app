@@ -16,7 +16,7 @@ import Help from './Help';
 import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
 import CookiePolicy from './CookiePolicy';
-import { AssetsView } from './AssetsView';
+import Assets from './Assets';
 import Offer from './Offer';
 import MessageInboxView from './MessageInboxView';
 
@@ -70,7 +70,7 @@ function Routes() {
                 <CookiePolicy />
             </Route>
             <Route exact path="/assets">
-                <AssetsView />
+                <Assets />
             </Route>
             <Route exact path="/inbox">
                 <MessageInboxView />
