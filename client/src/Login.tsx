@@ -83,7 +83,7 @@ function Login() {
             // TODO replace placeholder with .env var
             const user = jwt.verify(response.access_token, 'placeholder');
             setUser(user);
-            history.push('/inbox'); // TODO go to '/'
+            history.push('/');
         } catch (err) {
             // Handle error
         }

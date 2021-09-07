@@ -2,9 +2,6 @@ import * as React from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import TodayOutlined from '@material-ui/icons/TodayOutlined';
-// import RoomOutlined from '@material-ui/icons/RoomOutlined';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -17,7 +14,6 @@ import { Link } from 'react-router-dom';
 
 import type { Theme } from '@material-ui/core/styles';
 
-// import StyledLink from './StyledLink';
 import SubHeader from './SubHeader';
 import { UserContext } from './providers';
 
@@ -116,12 +112,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-
-type Props = {
-  // headerText: string,
-  // cards: Asset[],
-};
-
 type Transaction = {
     id: number,
     donater: User,
@@ -159,13 +149,14 @@ const fetchTransactions = (): Promise<Transaction[]> => {
     ]);
 };
 
-const messages1 = [
-    { id: 1, text: 'hi', transactionId: 1, user: { id: 1, firstName: 'james' } },
+const messages1: Message[] = [
     { id: 1, text: 'hello', transactionId: 1, user: { id: 2, firstName: 'user2' } },
+    { id: 1, text: 'hi', transactionId: 1, user: { id: 3, firstName: 'james' } },
+    { id: 1, text: 'i\'m interested in helping out your NP', transactionId: 1, user: { id: 2, firstName: 'user2' } },
 ];
-const messages2 = [
-    { id: 1, text: 'yo', transactionId: 1, user: { id: 1, firstName: 'james' } },
-    { id: 1, text: 'what\'s good?', transactionId: 1, user: { id: 3, firstName: 'user3' } },
+const messages2: Message[] = [
+    { id: 1, text: 'yo', transactionId: 1, user: { id: 3, firstName: 'james' } },
+    { id: 1, text: 'what\'s good?', transactionId: 1, user: { id: 1, firstName: 'user1' } },
 ];
 const threads = [messages1, messages2];
 
@@ -205,7 +196,13 @@ function TransactionThreadCard({
     );
 }
 
-function MessageCard({ isCurrentUser, message }: { isCurrentUser: boolean, message: Message }): JSX.Element {
+function MessageCard({
+    isCurrentUser,
+    message,
+}: {
+    isCurrentUser: boolean,
+    message: Message,
+}): JSX.Element {
     const classes = useStyles();
 
     return (
@@ -218,24 +215,20 @@ function MessageCard({ isCurrentUser, message }: { isCurrentUser: boolean, messa
 
 // TODO use SubHeader component in Offer and Assets pages
 // maybe call it SearchBar and have an optional leftContent prop?
-
-function MessageInboxView(props: Props): JSX.Element {
+function MessageInboxView(): JSX.Element {
     const classes = useStyles();
     const [user] = React.useContext(UserContext);
     const [transactions, setTransactions] = React.useState<Transaction[]>([]);
     const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);
     const [messages, setMessages] = React.useState<Message[]>([]);
 
-    const handleSendMessage = () => {};
+    console.log(user)
 
-    // if (!user) {
-    //     return <Redirect to="/" />
-    // }
+    const handleSendMessage = () => {};
 
     // todo switch to custom hook
     React.useEffect(() => {
-        // todo switch to if user
-        if (!user) {
+        if (user) {
             (async function() {
                 const transactions = await fetchTransactions(); // user.id
                 setTransactions(transactions);
@@ -253,6 +246,10 @@ function MessageInboxView(props: Props): JSX.Element {
             }())
         }
     }, [selectedTransaction]);
+
+    if (!user) {
+        return <Redirect to="/" />
+    }
 
     return (
         <>
