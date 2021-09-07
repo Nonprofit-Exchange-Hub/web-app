@@ -13,7 +13,7 @@ import EmailInput from './EmailInput';
 import FacebookAuthBtn from './FacebookAuthBtn';
 import GoogleAuthBtn from './GoogleAuthBtn';
 import PasswordInput from './PasswordInput';
-import { StyledLink } from './components';
+import StyledLink from './StyledLink';
 import TextDivider from './TextDivider';
 import { UserContext } from './providers';
 

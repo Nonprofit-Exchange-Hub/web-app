@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import type { Theme } from '@material-ui/core/styles';
 
-import Logo from '../assets/logo.svg'; // placeholder
+import Logo from './assets/logo.svg'; // placeholder
 
 
 const useStyles = makeStyles((theme: Theme) => ({

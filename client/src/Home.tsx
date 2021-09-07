@@ -13,7 +13,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import { NavLink } from 'react-router-dom';
 
-import { NeedsAndOffers } from './components';
+import NeedsAndOffers from './NeedsAndOffers';
 import { dumbyData, placeholderImg } from './assets/temp';
 
 import type { Theme } from '@material-ui/core/styles';

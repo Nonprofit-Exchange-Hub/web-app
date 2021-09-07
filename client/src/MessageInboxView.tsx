@@ -13,12 +13,12 @@ import PermIdentityRoundedIcon from '@material-ui/icons/PermIdentityRounded';
 import TextField from '@material-ui/core/TextField';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 import IconButton from '@material-ui/core/IconButton';
-import { StyledLink } from './components';
 import { Link } from 'react-router-dom';
 
 import type { Theme } from '@material-ui/core/styles';
 
-import { SubHeader } from './components';
+// import StyledLink from './StyledLink';
+import SubHeader from './SubHeader';
 import { UserContext } from './providers';
 
 import type { Asset, User } from './types';

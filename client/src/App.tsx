@@ -2,8 +2,8 @@ import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, useTheme } from '@material-ui/core/styles';
 
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Footer from './Footer';
+import Header from './Header';
 import Routes from './Routes';
 import { UserProvider } from './providers';
 

@@ -5,7 +5,7 @@ import { Box, Grid } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
 
-import { SmallDisplayCard } from './components';
+import SmallDisplayCard from './SmallDisplayCard';
 import GridImages from './GridImages';
 
 

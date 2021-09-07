@@ -2,7 +2,7 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { StyledLink } from '.';
+import StyledLink from './StyledLink';
 
 
 const useStyles = makeStyles((theme: Theme) => {
