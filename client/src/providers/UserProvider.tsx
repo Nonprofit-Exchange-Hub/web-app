@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import type { User } from '../types';
+
 
 type UserContextT = [
   any | null,
@@ -14,8 +16,7 @@ export const UserContext = React.createContext<UserContextT>([
 export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const { children } = props;
 
-  // TODO make a user type
-  const [user, setUser] = React.useState<any | null>(null);
+  const [user, setUser] = React.useState<User | null>(null);
 
   return (
     <UserContext.Provider value={[user, setUser]}>
