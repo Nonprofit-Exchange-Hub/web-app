@@ -4,9 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import PermIdentityRoundedIcon from '@material-ui/icons/PermIdentityRounded';
 import TextField from '@material-ui/core/TextField';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,9 +12,11 @@ import { Link } from 'react-router-dom';
 import type { Theme } from '@material-ui/core/styles';
 
 import SubHeader from './SubHeader';
+import TransactionThreadCard from './TransactionThreadCard';
+import MessageCard from './MessageCard';
 import { UserContext } from './providers';
 
-import type { Asset, User } from './types';
+import type { Message, Transaction } from './types';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -41,20 +40,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     sectionHeader: {
         margin: '5px',
     },
-    threadCardSelected: {
-        background: 'rgba(196, 196, 196, 0.3)',
-        width: '95%',
-        margin: '0 auto',
-    },
-    threadCard: {
-        background: 'white',
-        width: '95%',
-        margin: '0 auto',
-        boxShadow: 'none',
-    },
-    threadCardContent: {
-        padding: '10px 4px 10px 40px',
-    },
     messagesWrapper: {
         display: 'flex',
         flexDirection: 'column',
@@ -63,11 +48,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     threadsSection: {
         marginRight: '20px',
-    },
-    threadCardTitle: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
     },
     messageInputWrapper: {
         width: '100%',
@@ -83,22 +63,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     messageInput: {
         width: '100%',
     },
-    currentUserMessage: {
-        alignSelf: 'flex-end',
-        border: '1px solid black',
-        borderRadius: '10px',
-        padding: '5px',
-        maxWidth: '70%',
-        marginLeft: '30%',
-    },
-    otherUserMessage: {
-        alignSelf: 'flex-start',
-        background: 'rgba(196, 196, 196, 0.3)',
-        border: '1px solid black',
-        borderRadius: '10px',
-        padding: '5px',
-        maxWidth: '70%',
-    },
     noThreadsMessage: {
         margin: 'auto',
         width: '100%',
@@ -111,20 +75,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginTop: '10px',
     },
 }));
-
-type Transaction = {
-    id: number,
-    donater: User,
-    requester: User,
-    asset: Pick<Asset, 'id' | 'title'>,
-};
-
-type Message = {
-    id: number,
-    text: string,
-    transactionId: number,
-    user: User,
-};
 
 const fetchTransactions = (): Promise<Transaction[]> => {
     return Promise.resolve([
@@ -163,54 +113,6 @@ const threads = [messages1, messages2];
 const fetchMessages = (id: number): Promise<Message[]> => {
     return Promise.resolve(threads.find(thread => thread[0].transactionId === id) || []);
 };
-
-function TransactionThreadCard({
-    isSelected,
-    onClick,
-    transaction,
-    user,
-}: {
-    isSelected: boolean,
-    onClick: (transaction: Transaction) => void,
-    transaction: Transaction,
-    user?: User,
-}): JSX.Element {
-    const classes = useStyles();
-    const otherUser = user?.id === transaction.requester.id
-        ? transaction.requester.firstName : transaction.donater.firstName;
-
-    return (
-        <Card
-            className={isSelected ? classes.threadCardSelected : classes.threadCard}
-            onClick={() => onClick(transaction)}
-            variant={isSelected ? 'outlined' : undefined}
-        >
-            <CardContent className={classes.threadCardContent}>
-                <Box className={classes.threadCardTitle}>
-                    <Typography variant="h6" component="h6">{otherUser}</Typography>
-                    <PermIdentityRoundedIcon />
-                </Box>
-                <Typography>Re: {transaction.asset.title}</Typography>
-            </CardContent>
-        </Card>
-    );
-}
-
-function MessageCard({
-    isCurrentUser,
-    message,
-}: {
-    isCurrentUser: boolean,
-    message: Message,
-}): JSX.Element {
-    const classes = useStyles();
-
-    return (
-        <div className={isCurrentUser ? classes.currentUserMessage : classes.otherUserMessage}>
-            {message.user.firstName}: {message.text}
-        </div>
-    );
-}
 
 
 // TODO use SubHeader component in Offer and Assets pages
