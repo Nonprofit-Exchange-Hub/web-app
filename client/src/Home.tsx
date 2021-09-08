@@ -8,12 +8,15 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { NavLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import NeedsAndOffers from './NeedsAndOffers';
 import { dumbyData, placeholderImg } from './assets/temp';
 import QuestionList from './QuestionList';
+import StyledLink from './StyledLink';
 
 import type { Theme } from '@material-ui/core/styles';
+
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.";
 
@@ -126,6 +129,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     cardText2: {
         padding: '0 10% 10%',
     },
+    makeAPostButton: {
+        marginLeft: '15px',
+    },
 }));
 
 function Home(): JSX.Element {
@@ -136,6 +142,15 @@ function Home(): JSX.Element {
     const selectSearchCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
         setSelectedSearchCategory(event.target.value as string);
     };
+
+    const headerContentRight = (
+        <div>
+            <NavLink to="/assets">See all Needs and Offers</NavLink>
+            <NavLink to="/post/new">
+                <Button className={classes.makeAPostButton} color="primary" variant="contained">Make a Post</Button>
+            </NavLink>
+        </div>
+    );
 
     return (
         <>
@@ -174,12 +189,13 @@ function Home(): JSX.Element {
             </div>
             <div className={classes.needsAndOffers}>
                 <NeedsAndOffers
-                    headerText="Nonprofit Needs"
                     cards={dumbyData}
+                    headerContentRight={headerContentRight}
+                    headerText="Nonprofit Needs"
                 />
                 <NeedsAndOffers
-                    headerText="Offers"
                     cards={dumbyData}
+                    headerText="Offers"
                 />
             </div>
             <div className={classes.videoSection}>
