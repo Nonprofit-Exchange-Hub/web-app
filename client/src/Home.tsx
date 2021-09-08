@@ -175,11 +175,11 @@ function Home(): JSX.Element {
             <div className={classes.needsAndOffers}>
                 <NeedsAndOffers
                     headerText="Nonprofit Needs"
-                    cards={dumbyData}
+                    assets={dumbyData}
                 />
                 <NeedsAndOffers
                     headerText="Offers"
-                    cards={dumbyData}
+                    assets={dumbyData}
                 />
             </div>
             <div className={classes.videoSection}>

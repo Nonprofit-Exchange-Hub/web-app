@@ -4,7 +4,7 @@ export type Asset = {
     categories: string[],
     datePosted: string,
     location: string,
-    imgs: string[],
+    imgUrls: string[],
     description: string,
     // TODO postedBy: User,
     postedBy: string,

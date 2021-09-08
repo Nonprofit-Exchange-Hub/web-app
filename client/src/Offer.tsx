@@ -131,7 +131,7 @@ function Offer(): JSX.Element {
       return <>offer not found</>;
     }
 
-    const bigImg = offer.imgs[selectedImgInd];
+    const bigImg = offer.imgUrls[selectedImgInd];
 
     return (
         <>
@@ -157,8 +157,9 @@ function Offer(): JSX.Element {
                     <div className={classes.imgs}>
                         <img src={bigImg} alt={offer.title} className={classes.bigImg} />
                         <div className={classes.miniImgs}>
-                            {offer.imgs.map((img, ind) => ind !== selectedImgInd ? (
+                            {offer.imgUrls.map((img, ind) => ind !== selectedImgInd ? (
                                 <img
+                                    key={img}
                                     src={img}
                                     alt={offer.title}
                                     className={classes.miniImg}

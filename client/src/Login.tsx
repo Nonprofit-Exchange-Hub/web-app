@@ -83,13 +83,13 @@ function Login() {
     return (
         <div className="Login" style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Paper elevation={3} className={classes.paper}>
-                <Grid container justify="center" direction="column" spacing={2}>
+                <Grid container justifyContent="center" direction="column" spacing={2}>
                     <Grid item xs={12}>
                         <Typography className={classes.header} variant="h3" component="h1" align="center">
                             Welcome Back.
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} container justify="space-between">
+                    <Grid item xs={12} container justifyContent="space-between">
                         <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn>
                         <FacebookAuthBtn>Sign In with Facebook</FacebookAuthBtn>
                     </Grid>

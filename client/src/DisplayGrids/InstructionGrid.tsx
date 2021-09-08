@@ -37,7 +37,7 @@ function InstructionGrid(props: InstructionProps) {
     const classes = instructionStyles(props);
 
     return (
-        <Grid container justify='space-between' className={`${classes.gridBoxes}`}>
+        <Grid container justifyContent="space-between" className={`${classes.gridBoxes}`}>
             {props.instructionList.map((instructionItem, index) => {
                 var text = (
                     <GridText title={instructionItem.title} body={instructionItem.body}></GridText>

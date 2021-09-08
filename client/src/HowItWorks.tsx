@@ -168,7 +168,7 @@ function HowItWorks() {
             </Box>
 
             <Box className={`${classes.tabs}`}>
-                <Grid container justify='space-between' className={`${classes.limitWidth}`}>
+                <Grid container justifyContent="space-between" className={`${classes.limitWidth}`}>
                     <Grid container item sm={6} xs={12}
                         onClick={() => handleClickTab("nonprofit")}
                     >

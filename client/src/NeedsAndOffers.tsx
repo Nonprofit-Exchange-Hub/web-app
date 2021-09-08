@@ -46,12 +46,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type Props = {
   headerText: string,
-  cards: Asset[],
+  assets: Asset[],
 };
 
 function NeedsAndOffers(props: Props): JSX.Element {
     const classes = useStyles();
-    const { cards, headerText } = props;
+    const { assets, headerText } = props;
 
     return (
         <>
@@ -59,15 +59,15 @@ function NeedsAndOffers(props: Props): JSX.Element {
                 {headerText}
             </Typography>
             <div className={classes.needsAndOffersSub}>
-                {cards.map(card => (
-                    <NavLink to={`/offer/${card.id}`} key={card.id} className={classes.card}>
+                {assets.map(asset => (
+                    <NavLink to={`/offer/${asset.id}`} key={asset.id} className={classes.card}>
                         <Card variant="outlined">
-                            <img src={card.imgs[0]} className={classes.cardImg} alt={card.title} />
+                            <img src={asset.imgUrls[0]} className={classes.cardImg} alt={asset.title} />
                             <Typography variant="h6" component="h4" className={classes.cardText1}>
-                                {card.title}, {card.categories[0]}
+                                {asset.title}, {asset.categories[0]}
                             </Typography>
                             <div className={classes.cardText2}>
-                                <RoomOutlined />{card.location}<TodayOutlined />{card.datePosted}
+                                <RoomOutlined />{asset.location}<TodayOutlined />{asset.datePosted}
                             </div>
                         </Card>
                     </NavLink>

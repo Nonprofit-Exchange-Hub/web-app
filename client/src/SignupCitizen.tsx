@@ -108,13 +108,13 @@ function SignupCitizen() {
                     <Typography component="p" align="left" gutterBottom>
                         Already have an account? <StyledLink to="/login">Log In</StyledLink>
                     </Typography>
-                    <Grid container item justify="space-between">
+                    <Grid container item justifyContent="space-between">
                         <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
                         <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
                     </Grid>
                     <TextDivider>or</TextDivider>
                     <form onSubmit={handleSubmit}>
-                        <Grid container item xs={12} justify="space-between">
+                        <Grid container item xs={12} justifyContent="space-between">
                             <Grid item xs={5}>
                                 <FormControl fullWidth>
                                     <label className={classes.label} htmlFor="first_name">
