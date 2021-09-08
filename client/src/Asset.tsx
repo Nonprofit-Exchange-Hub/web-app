@@ -97,41 +97,41 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-const useOffer = (id?: string): AssetT | null => {
-  const [offer, setOffer] = React.useState<AssetT | null>(null);
+const useAsset = (id?: string): AssetT | null => {
+  const [asset, setAsset] = React.useState<AssetT | null>(null);
 
   React.useEffect(() => {
     if (!id) { return; }
 
     // TODO replace find with fetch from BE
-    const newOffer = dumbyData.find(dd => dd.id === parseInt(id, 10));
-    setOffer(newOffer || null);
+    const newAsset = dumbyData.find(dd => dd.id === parseInt(id, 10));
+    setAsset(newAsset || null);
   }, [id]);
 
-  return offer;
+  return asset;
 };
 
 
-function Offer(): JSX.Element {
+function Asset(): JSX.Element {
     const classes = useStyles();
-    const { offerId } = useParams<{ offerId?: string }>();
-    const offer = useOffer(offerId);
+    const { assetId } = useParams<{ assetId?: string }>();
+    const asset = useAsset(assetId);
 
     const [searchText, setSearchText] = React.useState<string>('');
     const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
 
     const handleClaim = () => {
       // TODOs
-      // post request to claim this offer for this user
+      // post request to claim this asset for this user
       // history.push to move us to confirmation page?
       // trigger top banner to drop down that says 'claimed'?
     }
 
-    if (!offer) {
-      return <>offer not found</>;
+    if (!asset) {
+      return <>asset not found</>;
     }
 
-    const bigImg = offer.imgUrls[selectedImgInd];
+    const bigImg = asset.imgUrls[selectedImgInd];
 
     return (
         <>
@@ -155,13 +155,13 @@ function Offer(): JSX.Element {
             <div className={classes.contentWrapper}>
                 <div className={classes.leftPanel}>
                     <div className={classes.imgs}>
-                        <img src={bigImg} alt={offer.title} className={classes.bigImg} />
+                        <img src={bigImg} alt={asset.title} className={classes.bigImg} />
                         <div className={classes.miniImgs}>
-                            {offer.imgUrls.map((img, ind) => ind !== selectedImgInd ? (
+                            {asset.imgUrls.map((imgUrl, ind) => ind !== selectedImgInd ? (
                                 <img
-                                    key={img}
-                                    src={img}
-                                    alt={offer.title}
+                                    key={imgUrl}
+                                    src={imgUrl}
+                                    alt={asset.title}
                                     className={classes.miniImg}
                                     onClick={() => setSelectedImgInd(ind)}
                                 />
@@ -169,24 +169,24 @@ function Offer(): JSX.Element {
                         </div>
                     </div>
                     <p style={{ textAlign: 'left', padding: '20px 0' }}>
-                        {offer.description}
+                        {asset.description}
                     </p>
                 </div>
                 <div className={classes.rightPanel}>
                     <Typography variant="h3">
-                        {offer.title}
+                        {asset.title}
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
-                        {offer.categories.join(', ')}
+                        {asset.categories.join(', ')}
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
-                        Posted By {offer.postedBy}
+                        Posted By {asset.postedBy}
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
-                        <RoomOutlined />{offer.location}
+                        <RoomOutlined />{asset.location}
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
-                        <TodayOutlined />{offer.datePosted}
+                        <TodayOutlined />{asset.datePosted}
                     </Typography>
                     <Button
                         color="primary"
@@ -202,4 +202,4 @@ function Offer(): JSX.Element {
     );
 }
 
-export default Offer;
+export default Asset;

@@ -60,7 +60,7 @@ function NeedsAndOffers(props: Props): JSX.Element {
             </Typography>
             <div className={classes.needsAndOffersSub}>
                 {assets.map(asset => (
-                    <NavLink to={`/offer/${asset.id}`} key={asset.id} className={classes.card}>
+                    <NavLink to={`/asset/${asset.id}`} key={asset.id} className={classes.card}>
                         <Card variant="outlined">
                             <img src={asset.imgUrls[0]} className={classes.cardImg} alt={asset.title} />
                             <Typography variant="h6" component="h4" className={classes.cardText1}>
