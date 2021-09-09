@@ -10,8 +10,6 @@ import Routes from './Routes';
 import './App.css';
 
 function App(): JSX.Element {
-    // const theme = useTheme();
-
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
