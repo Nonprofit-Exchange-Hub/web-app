@@ -6,13 +6,7 @@ import { Box, Grid } from '@material-ui/core';
 import type { Theme } from '@material-ui/core/styles';
 
 
-const bulletStyles = makeStyles<Theme, BulletProps> ({
-    headerText: {
-        width: '100%',
-        maxWidth: '1100px',
-        fontSize: '1.3rem',
-        textAlign: 'left',
-    },
+const bulletStyles = makeStyles<Theme, BulletProps> ((theme: Theme) => ({
     grid: {
         marginTop: '30px',
     },
@@ -22,7 +16,7 @@ const bulletStyles = makeStyles<Theme, BulletProps> ({
         backgroundColor: 'white',
         marginRight: '20px',
     },
-});
+}));
 
 type BulletProps = {
     list: string[],
@@ -40,7 +34,7 @@ function BulletGrid(props: BulletProps) {
                             <Box className={classes.square}></Box>
                         </Grid>
                         <Grid item xs>
-                            <Typography variant="body1" component="div" align="left" className={`${classes.headerText}`}>
+                            <Typography variant="body1" component="div" align="left">
                                 {listItem}
                             </Typography>
                         </Grid>

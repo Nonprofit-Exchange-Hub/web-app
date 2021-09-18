@@ -6,6 +6,24 @@ export type Asset = {
     location: string,
     imgUrls: string[],
     description: string,
-    // TODO postedBy: User,
-    postedBy: string,
+    postedBy: User,
+};
+
+export type User = {
+    id: number,
+    firstName: string,
+};
+
+export type Transaction = {
+    id: number,
+    donater: User,
+    requester: User,
+    asset: Pick<Asset, 'id' | 'title'>,
+};
+
+export type Message = {
+    id: number,
+    text: string,
+    transactionId: number,
+    user: User,
 };

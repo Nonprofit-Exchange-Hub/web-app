@@ -1,17 +1,22 @@
+import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import type { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import * as React from 'react';
 import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+
+import type { Theme } from '@material-ui/core/styles';
+
 import EmailInput from './EmailInput';
 import FacebookAuthBtn from './FacebookAuthBtn';
 import GoogleAuthBtn from './GoogleAuthBtn';
 import PasswordInput from './PasswordInput';
 import StyledLink from './StyledLink';
 import TextDivider from './TextDivider';
+import { UserContext } from './providers';
+
 
 const useStyles = makeStyles((theme: Theme) => {
     const xPadding = 12;
@@ -52,6 +57,7 @@ const initialFormData: UserLoginData = {
 function Login() {
     const classes = useStyles();
     const history = useHistory();
+    const [, setUser] = React.useContext(UserContext);
 
     const [ formData, setFormData ] = React.useState(initialFormData);
 
@@ -73,8 +79,11 @@ function Login() {
                 },
                 body: JSON.stringify(formData),
             });
-            const accessToken = await res.json()
-            history.push('/')
+            const response = await res.json();
+            // TODO replace placeholder with .env var
+            const user = jwt.verify(response.access_token, 'placeholder');
+            setUser(user);
+            history.push('/');
         } catch (err) {
             // Handle error
         }
