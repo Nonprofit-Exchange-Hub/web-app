@@ -4,9 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
-import { PinDropSharp } from '@material-ui/icons';
 
-const useStyles = makeStyles<Theme, GridProps> ({
+const useStyles = makeStyles<Theme, GridProps> ((theme: Theme) => ({
     missionContent: {
         display: 'grid',
         gridTemplateColumns: 'repeat(7, 132px)',
@@ -14,7 +13,7 @@ const useStyles = makeStyles<Theme, GridProps> ({
         columnGap: '20px',
         rowGap: '20px',
         margin: '30px 0 10px 0',
-        maxWidth: '1200px',
+        maxWidth: theme.custom.maxContentWidth,
     },
     '@media screen and (max-width: 1100px)': {
         missionContent: {
@@ -33,7 +32,7 @@ const useStyles = makeStyles<Theme, GridProps> ({
             gridTemplateColumns: 'repeat(3, 1fr)',
         },
     },
-});
+}));
 
 type GridProps = {
     missionStatements: { row: number, title: string, text: string }[],
@@ -41,7 +40,7 @@ type GridProps = {
     smallImages: string[],
 };
 
-function GridImages(props: GridProps) {
+function GridImages(props: GridProps): JSX.Element {
     
     const classes = useStyles(props);
     
@@ -98,7 +97,7 @@ type ImageProps = {
     isWide: boolean,
 };
 
-function GridImage(props: ImageProps) {
+function GridImage(props: ImageProps): JSX.Element {
     const classes = imageStyles(props);
 
     let wideClass = (props.isWide === true) ? classes.wideImage : '';
@@ -145,7 +144,7 @@ type MissionProps = {
     text: string,
 };
 
-function MissionStatement(props: MissionProps) {
+function MissionStatement(props: MissionProps): JSX.Element {
     const classes = missionStyles(props);
 
     return (
