@@ -37,10 +37,11 @@ Primary tech stack: PostgreSQL, Nest, and React
 
 ## Startup
 
-1. With docker and docker-compose installed, ensure the specified `DATABASE_PORT` is free and run `npm run start:dev:db` from `/server` directory to start up PostgreSQL docker container.
+1. run `nvm use` to ensure you are using the proper node version
+2. With docker and docker-compose installed, ensure the specified `DATABASE_PORT` is free and run `npm run start:dev:db` from `/server` directory to start up PostgreSQL docker container.
     * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker ps` in terminal to view all running containers. One should match the name of `container_name` from `docker-compose.yml` file
-2. To start Nest backend in watch mode: From `/server` directory, run `npm run start:dev`.
-3. To start up React frontend: From `/client` directory, run `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.
+3. To start Nest backend in watch mode: From `/server` directory, run `npm run start:dev`.
+4. To start up React frontend: From `/client` directory, run `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.
 
 ## Test
 Most tests are still in development.
