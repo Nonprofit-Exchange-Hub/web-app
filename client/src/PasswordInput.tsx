@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme: Theme) => {
 interface Props {
     onChange: React.ChangeEventHandler<HTMLInputElement>;
     value: string;
-    error?: boolean;
-    startAdornment?: boolean;
+    error?: string | false;
+    showStartAdornment?: boolean;
     showForgot?: boolean;
 }
 
-function PasswordInput({ onChange, value, error = false, startAdornment = false, showForgot = false }: Props) {
+function PasswordInput({ onChange, value, error=false, showStartAdornment = false, showForgot = false }: Props) {
     const classes = useStyles();
 
     const [ showPassword, setShowPassword ] = React.useState(false);
@@ -51,14 +51,14 @@ function PasswordInput({ onChange, value, error = false, startAdornment = false,
     };
 
     return (
-        <FormControl fullWidth error={error}>
+        <FormControl fullWidth error={Boolean(error)}>
             <label className={classes.label} htmlFor="password">
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     Password
                     {showForgot && <StyledLink to="/forgot_password">Forgot Password?</StyledLink>}
                 </div>
             </label>
-            {error && <FormHelperText error>Invalid password.</FormHelperText>}
+            {error && <FormHelperText error>{error}</FormHelperText>}
             <Input
                 className={classes.input}
                 id="password"
@@ -68,10 +68,10 @@ function PasswordInput({ onChange, value, error = false, startAdornment = false,
                 onChange={onChange}
                 autoComplete={showForgot ? 'current-password' : 'new-password'}
                 disableUnderline
-                error={error}
+                error={Boolean(error)}
                 required
                 startAdornment={
-                    startAdornment && (
+                    showStartAdornment && (
                         <InputAdornment position="start">
                             <LockIcon />
                         </InputAdornment>

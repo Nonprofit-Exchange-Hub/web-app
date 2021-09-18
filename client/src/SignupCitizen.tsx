@@ -56,7 +56,8 @@ interface UserSignupData {
     last_name: string;
     email: string;
     password: string;
-    accept_terms: boolean;
+    accept_terms?: boolean,
+
 }
 
 const initialFormData: UserSignupData = {
@@ -70,16 +71,9 @@ const initialFormData: UserSignupData = {
 function SignupCitizen() {
     const classes = useStyles();
     const history = useHistory();
-    const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'failure'>('idle')
-    const [emailError, setEmailError] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [emailError, setEmailError] = React.useState<string>('')
     const [ formData, setFormData ] = React.useState(initialFormData);
-
-    React.useEffect(() => {
-        if(status === 'success'){
-            history.push('/')
-
-        }
-    }, [status, history])
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
@@ -91,23 +85,24 @@ function SignupCitizen() {
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        setStatus('loading')
-        try {
-            const res = await fetch('http://localhost:3001/api/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            const data = await res.json()
-            if(data.status === 409){
-                setStatus('failure')
-                setEmailError(true)
-            } else setStatus('success')
-        } catch (err) {
-            setStatus('failure')
+        setIsLoading(true)
+        // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
+        delete formData.accept_terms
+        const res = await fetch('http://localhost:3001/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        const data = await res.json()
+        setIsLoading(false)
+        if(data.status === 409){
+            setEmailError(data.message)
+        } else {
+            history.push('/')
         }
+
     };
 
     return (
@@ -175,10 +170,10 @@ function SignupCitizen() {
                             value={formData.email}
                             placeholder="jane@citizen.com"
                             onChange={handleChange}
-                            startAdornment={true}
+                            showStartAdornment={true}
                             error={emailError}
                         />
-                        <PasswordInput value={formData.password} onChange={handleChange} startAdornment={true} />
+                        <PasswordInput value={formData.password} onChange={handleChange} showStartAdornment={true} />
                         <FormControlLabel
                             style={{ textAlign: 'left', display: 'block' }}
                             control={
@@ -209,7 +204,7 @@ function SignupCitizen() {
                             Sign Up
                         </Button>
                         {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
-                        {status === 'loading' && <Typography>Loading</Typography>} 
+                        {isLoading && <Typography>Loading</Typography>} 
                     </form>
                 </Grid>
             </Grid>

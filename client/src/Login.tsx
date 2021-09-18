@@ -50,19 +50,17 @@ const initialFormData: UserLoginData = {
     password: '',
 };
 
+interface error {
+    type: '' | 'email' | 'password',
+    message: string
+}
+
 function Login() {
     const classes = useStyles();
     const history = useHistory();
-    const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'failure'>('idle')
-    const [error, setError] = React.useState<'' | 'email' | 'password'>('')
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [error, setError] = React.useState<error>({type: '', message: ''})
     const [ formData, setFormData ] = React.useState(initialFormData);
-
-    React.useEffect(() => {
-        if(status === 'success'){
-            history.push('/')
-        }
-    }, [status, history])
-
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value }: { name: string; value: string } = evt.target;
@@ -74,27 +72,25 @@ function Login() {
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        setStatus('loading')
-        try {
-            const res = await fetch('http://localhost:3001/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            const data = await res.json()
-            if(data.status === 401){
-                setStatus('failure')
-                if(data.error === 'Email not found'){
-                    setError('email')
-                }
-                else if(data.error === 'Invalid password'){
-                    setError('password')
-                }
-            } else setStatus('success')
-        } catch (err) {
-            setStatus('failure')
+        setIsLoading(true)
+        const res = await fetch('http://localhost:3001/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        const data = await res.json()
+        setIsLoading(false)
+        if(data.status === 401){
+            if(data.error === 'Email not found'){
+                setError({type: 'email', message:data.error})
+            }
+            else if(data.error === 'Invalid password'){
+                setError({type: 'password', message:data.error})
+            }
+        } else {
+            history.push('/')
         }
     };
 
@@ -120,9 +116,9 @@ function Login() {
                                 value={formData.email}
                                 placeholder="jane@nonprofit.com"
                                 onChange={handleChange}
-                                error={error === 'email'}
+                                error={error.type === 'email' && error.message}
                             />
-                            <PasswordInput value={formData.password} onChange={handleChange} showForgot={true} error={error==='password'}/>
+                            <PasswordInput value={formData.password} onChange={handleChange} showForgot={true} error={error.type === 'password' && error.message}/>
                             <Button
                                 className={classes.button}
                                 style={{ backgroundColor: '#C4C4C4', color: 'white' }}
@@ -132,7 +128,7 @@ function Login() {
                                  Sign In
                             </Button>
                             {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
-                            {status === 'loading' && <Typography>Loading</Typography>} 
+                            {isLoading && <Typography>Loading</Typography>} 
                         </form>
                     </Grid>
                     <Grid item xs={12}>
