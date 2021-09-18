@@ -39,7 +39,7 @@ export class AuthService {
     }
 
     async createJwt(user: User) {
-        const {password,accept_terms, ...payload} = user;
+        const {password, ...payload} = user;
         return this.jwtService.sign(payload);
     }
 }
