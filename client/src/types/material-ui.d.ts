@@ -10,6 +10,10 @@ declare module "@material-ui/core/styles" {
   interface ThemeOptions {
     custom?: {
         maxContentWidth?: string;
+        form?: {
+            borderRadius?: string;
+            borderColor?: string;
+        }
     };
   }
 }

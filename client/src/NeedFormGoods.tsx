@@ -7,6 +7,7 @@ import type { Theme } from '@material-ui/core/styles';
 import { TextField, Select, MenuItem, FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
 import { Radio, RadioGroup, FormLabel, FormControlLabel } from '@material-ui/core';
 import { Button } from '@material-ui/core';
+import { CustomTextField } from './FormElements';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -17,9 +18,12 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-                border: `1px solid ${theme.palette.text.primary}`,
-                borderRadius: '10px',
+                border: `1px solid ${theme.custom.form.borderColor}`,
+                borderRadius: theme.custom.form.borderRadius,
             },
+        },
+        '& .MuiInputBase-input': {
+            color: theme.palette.text.primary,
         },
         '& .MuiFormControl-root': {
             width: '100%',
@@ -28,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             color: theme.palette.text.primary,
         },
         '& .MuiSelect-root em': {
-            color: '#999999',
+            color: theme.palette.text.secondary,
         },
         '& .MuiRadio-root': {
             padding: '2px 9px',
@@ -53,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     upload: {
         width: '100%',
-        border: `1px solid ${theme.palette.text.primary}`,
+        border: `1px solid ${theme.custom.form.borderColor}`,
         borderRadius: '10px',
         padding: '10px',
         marginTop: '8px',
@@ -81,44 +85,26 @@ function NeedForm() {
                 <form className={classes.root}>
                     <Grid container spacing={5} className={classes.grid}>
                         <Grid item md={8} xs={12}>
-                            <FormControl>
-                                <FormLabel>Title</FormLabel>
-                                <TextField
-                                    id="title"
-                                    type="text"
-                                    placeholder="What goods do you need?"
-                                    variant="outlined"
-                                    fullWidth
-                                    InputLabelProps={{shrink: true}}
-                                />
-                            </FormControl>
+                            <CustomTextField
+                                id="title"
+                                label="Title"
+                                placeholder="What goods do you need?"
+                            />
                         </Grid>
                         <Grid item md={4} xs={12}>
-                            <FormControl>
-                                <FormLabel>Location</FormLabel>
-                                <TextField
-                                    id="location"
-                                    type="text"
-                                    placeholder="City, State"
-                                    variant="outlined"
-                                    fullWidth
-                                    InputLabelProps={{shrink: true}}
-                                />
-                            </FormControl>
+                            <CustomTextField
+                                id="location"
+                                label="Location"
+                                placeholder="City, State"
+                            />
                         </Grid>
                         <Grid item md={12} xs={12}>
-                            <FormControl>
-                                <FormLabel>Description</FormLabel>
-                                <TextField
-                                    id="description"
-                                    type="text"
-                                    placeholder="Describe what goods you are looking for"
-                                    variant="outlined"
-                                    fullWidth
-                                    multiline={true}
-                                    InputLabelProps={{shrink: true}}
-                                />
-                            </FormControl>
+                            <CustomTextField
+                                id="description"
+                                label="Description"
+                                placeholder="Describe what goods you are looking for"
+                                multiline={true}
+                            />
                         </Grid>
                         <Grid item md={8} xs={12}>
                             <FormControl>
@@ -195,17 +181,11 @@ function NeedForm() {
                             </FormControl>
                         </Grid>
                         <Grid item md={4} xs={12}>
-                            <FormControl>
-                                <FormLabel>Condition</FormLabel>
-                                <TextField
-                                    id="quantity"
-                                    type="text"
-                                    placeholder="# of goods needed"
-                                    variant="outlined"
-                                    fullWidth
-                                    InputLabelProps={{shrink: true}}
-                                />
-                            </FormControl>
+                            <CustomTextField
+                                id="quantity"
+                                label="Condition"
+                                placeholder="# of goods needed"
+                            />
                         </Grid>
                         <Grid item md={8} xs={12}>
                             <FormControl component="fieldset">
@@ -243,7 +223,7 @@ function NeedForm() {
                                 type="file"
                             />
                             <label htmlFor="raised-button-file">
-                                <Button variant="raised" component="span" className={classes.upload}>
+                                <Button component="span" className={classes.upload}>
                                     Drag and drop to upload photos<br />
                                     or<br />
                                     browse to add photos

@@ -34,6 +34,10 @@ const theme = createMuiTheme({
     // To add more custom variables you must add to the Theme interface in /src/types/material-ui.d.ts
     custom: {
         maxContentWidth: '1100px',
+        form: {
+            borderRadius: '10px',
+            borderColor: '#000000',
+        }
     },
 });
 
