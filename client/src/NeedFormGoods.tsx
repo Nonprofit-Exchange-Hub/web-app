@@ -7,12 +7,18 @@ import type { Theme } from '@material-ui/core/styles';
 import { TextField, Select, MenuItem, FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
 import { Radio, RadioGroup, FormLabel, FormControlLabel } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { CustomTextField, CustomRadio } from './FormElements';
+import { CustomTextField, CustomRadio, CustomSelect } from './FormElements';
 
-const categories = {
-};
-const conditions = {
-};
+const categories = [
+    { value: 'one', text: 'Figs' },
+    { value: 'two', text: 'Peaches' },
+    { value: 'three', text: 'Pears' },
+];
+const conditions = [
+    { value: 'one', text: 'Carrots' },
+    { value: 'two', text: 'Zucchini' },
+    { value: 'three', text: 'Eggplant' },
+];
 const needTypes = [
     { value: 'one', text: 'Donation' },
     { value: 'two', text: 'Zipper' },
@@ -119,83 +125,25 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                            <FormControl>
-                                <FormLabel>Category</FormLabel>
-                                <Select
-                                    id="category"
-                                    variant="outlined"
-                                    autoWidth={true}
-                                    input={<OutlinedInput />}
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                    displayEmpty
-                                    renderValue={(selected: string) => {
-                                      if (!selected) {
-                                        return <em>Select a category</em>;
-                                      }
-                                      return selected;
-                                    }}
-                                    MenuProps={{
-                                        anchorOrigin: {
-                                          vertical: "bottom",
-                                          horizontal: "left"
-                                        },
-                                        transformOrigin: {
-                                          vertical: "top",
-                                          horizontal: "left"
-                                        },
-                                        getContentAnchorEl: null
-                                      }}
-                                >
-                                    <MenuItem disabled value="">
-                                        <em>Select a category</em>
-                                    </MenuItem>
-                                    <MenuItem key="one" value='One'>One</MenuItem>
-                                    <MenuItem key="two" value='Two'>Two</MenuItem>
-                                    <MenuItem key="three" value='Three'>Three</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <CustomSelect
+                                id="category"
+                                label="Category"
+                                placeholder="Select a category"
+                                options={categories}
+                            />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                            <FormControl>
-                                <FormLabel>Condition</FormLabel>
-                                <Select
-                                    id="condition"
-                                    variant="outlined"
-                                    autoWidth={true}
-                                    input={<OutlinedInput />}
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                    displayEmpty
-                                    MenuProps={{
-                                        anchorOrigin: {
-                                          vertical: "bottom",
-                                          horizontal: "left"
-                                        },
-                                        transformOrigin: {
-                                          vertical: "top",
-                                          horizontal: "left"
-                                        },
-                                        getContentAnchorEl: null
-                                      }}
-                                    renderValue={(selected: string) => {
-                                      if (!selected) {
-                                        return <em>Select a preferred condition</em>;
-                                      }
-                                      return selected;
-                                    }}
-                                >
-                                    <MenuItem disabled value="">
-                                        <em>Select a preferred condition</em>
-                                    </MenuItem>
-                                    <MenuItem key="one" value='Like New'>Like New</MenuItem>
-                                    <MenuItem key="two" value='Very Good'>Very Good</MenuItem>
-                                    <MenuItem key="three" value='Good'>Good</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <CustomSelect
+                                id="condition"
+                                label="Condition"
+                                placeholder="Select a preferred condition"
+                                options={conditions}
+                            />
                         </Grid>
                         <Grid item md={4} xs={12}>
                             <CustomTextField
                                 id="quantity"
-                                label="Condition"
+                                label="Quantity"
                                 placeholder="# of goods needed"
                             />
                         </Grid>
