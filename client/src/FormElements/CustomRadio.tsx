@@ -16,6 +16,8 @@ type CustomProps = {
         value: string,
         text: string
     }[],
+    value: string,
+    onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
 function CustomTextField(props: CustomProps) {
@@ -26,6 +28,8 @@ function CustomTextField(props: CustomProps) {
             <FormLabel>{props.label}</FormLabel>
             <RadioGroup
                 name={props.id}
+                value={props.value}
+                onChange={props.onChange}
             >
                 {props.options.map((option, index) => {
                     return  <FormControlLabel key={`form-control-${index}`} value={option.value} control={<Radio />} label={option.text} />

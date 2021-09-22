@@ -13,6 +13,8 @@ type CustomProps = {
     label: string,
     placeholder: string,
     multiline: boolean,
+    value: string,
+    onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
 function CustomTextField(props: CustomProps) {
@@ -27,12 +29,15 @@ function CustomTextField(props: CustomProps) {
             <FormLabel>{props.label}</FormLabel>
             <TextField
                 id={props.id}
+                name={props.id}
                 type="text"
                 placeholder={props.placeholder}
                 variant="outlined"
                 fullWidth
                 InputLabelProps={{shrink: true}}
                 multiline={props.multiline}
+                value={props.value}
+                onChange={props.onChange}
             />
         </FormControl>
     );

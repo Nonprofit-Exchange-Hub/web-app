@@ -92,8 +92,41 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
+interface ShareANeedData {
+    title: string;
+    location: string;
+    description: string;
+    category: string;
+    condition: string;
+    quantity: string;
+    needType: string;
+    deliveryMethod: string;
+}
+
+const initialFormData: ShareANeedData = {
+    title: '',
+    location: '',
+    description: '',
+    category: '',
+    condition: '',
+    quantity: '',
+    needType: '',
+    deliveryMethod: '',
+};
+
 function NeedForm() {
     const classes = useStyles();
+
+    const [ formData, setFormData ] = React.useState(initialFormData);
+
+    const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+        const { name, value }: { name: string; value: string } = evt.target;
+        setFormData((fData) => ({
+            ...fData,
+            [name]: value,
+        }));
+        console.log(evt);
+    };
 
     return (
         <>
@@ -107,6 +140,8 @@ function NeedForm() {
                                 id="title"
                                 label="Title"
                                 placeholder="What goods do you need?"
+                                value={formData.title}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -114,6 +149,8 @@ function NeedForm() {
                                 id="location"
                                 label="Location"
                                 placeholder="City, State"
+                                value={formData.location}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item md={12} xs={12}>
@@ -121,6 +158,8 @@ function NeedForm() {
                                 id="description"
                                 label="Description"
                                 placeholder="Describe what goods you are looking for"
+                                value={formData.description}
+                                onChange={handleChange}
                                 multiline={true}
                             />
                         </Grid>
@@ -145,20 +184,26 @@ function NeedForm() {
                                 id="quantity"
                                 label="Quantity"
                                 placeholder="# of goods needed"
+                                value={formData.quantity}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item md={8} xs={12}>
                             <CustomRadio
                                 label="Need Type"
-                                id="need-type-group"
+                                id="needType"
                                 options={needTypes}
+                                value={formData.needType}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item md={4} xs={12}>
                             <CustomRadio
                                 label="Delivery Method"
-                                id="delivery-method-group"
+                                id="deliveryMethod"
                                 options={deliveryTypes}
+                                value={formData.description}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item xs={12}>
