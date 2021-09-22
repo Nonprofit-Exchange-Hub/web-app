@@ -7,7 +7,22 @@ import type { Theme } from '@material-ui/core/styles';
 import { TextField, Select, MenuItem, FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
 import { Radio, RadioGroup, FormLabel, FormControlLabel } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { CustomTextField } from './FormElements';
+import { CustomTextField, CustomRadio } from './FormElements';
+
+const categories = {
+};
+const conditions = {
+};
+const needTypes = [
+    { value: 'one', text: 'Donation' },
+    { value: 'two', text: 'Zipper' },
+    { value: 'three', text: 'Googles' },
+];
+const deliveryTypes = [
+    { value: 'one', text: 'Pick up' },
+    { value: 'two', text: 'Drop off' },
+    { value: 'three', text: 'Dance party' },
+];
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -51,9 +66,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         border: '1px solid #C4C4C4',
         padding: '4rem 7rem',
         boxSizing: 'border-box',
-    },
-    radio: {
-        marginTop: '4px',
     },
     upload: {
         width: '100%',
@@ -188,30 +200,18 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                            <FormControl component="fieldset">
-                                <FormLabel>Need Type</FormLabel>
-                                <RadioGroup
-                                    name="need-type-group"
-                                    className={classes.radio}
-                                >
-                                    <FormControlLabel value="donation" control={<Radio />} label="Donation" />
-                                    <FormControlLabel value="short-term" control={<Radio />} label="Short-term loan (<1 month)" />
-                                    <FormControlLabel value="long-term" control={<Radio />} label="Long-term loan (>1 month)" />
-                                </RadioGroup>
-                            </FormControl>
+                            <CustomRadio
+                                label="Need Type"
+                                id="need-type-group"
+                                options={needTypes}
+                            />
                         </Grid>
                         <Grid item md={4} xs={12}>
-                            <FormControl>
-                                <FormLabel>Delivery Method</FormLabel>
-                                <RadioGroup
-                                    name="delivery-method-group"
-                                    className={classes.radio}
-                                >
-                                    <FormControlLabel value="pick-up" control={<Radio />} label="Pick up only" />
-                                    <FormControlLabel value="drop-off" control={<Radio />} label="Drop off only" />
-                                    <FormControlLabel value="either" control={<Radio />} label="Pick up or drop off" />
-                                </RadioGroup>
-                            </FormControl>
+                            <CustomRadio
+                                label="Delivery Method"
+                                id="delivery-method-group"
+                                options={deliveryTypes}
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <FormLabel>Photos</FormLabel>
