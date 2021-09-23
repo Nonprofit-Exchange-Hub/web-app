@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Container } from '@material-ui/core';
 import type { Theme } from '@material-ui/core/styles';
-import { TextField, Select, MenuItem, FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
-import { Radio, RadioGroup, FormLabel, FormControlLabel } from '@material-ui/core';
+import { FormLabel } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { CustomTextField, CustomRadio, CustomSelect } from './FormElements';
 
@@ -210,21 +208,7 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormLabel>Photos</FormLabel>
-                            <input
-                                accept="image/*"
-                                style={{ display: 'none' }}
-                                id="raised-button-file"
-                                multiple
-                                type="file"
-                            />
-                            <label htmlFor="raised-button-file">
-                                <Button component="span" className={classes.upload}>
-                                    Drag and drop to upload photos<br />
-                                    or<br />
-                                    browse to add photos
-                                </Button>
-                            </label> 
+
                         </Grid>
                         <Grid item container xs={12} className={classes.submitbuttons}>
                             <Grid item>

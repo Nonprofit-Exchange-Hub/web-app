@@ -1,13 +1,5 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import type { Theme } from '@material-ui/core/styles';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
-import { setDefaults } from '../Helpers';
-import { formatWithOptions } from 'util';
-
-const useStyles = makeStyles<Theme, CustomProps> ((theme: Theme) => ({
-}));
 
 type CustomProps = {
     id: string,
@@ -21,8 +13,6 @@ type CustomProps = {
 };
 
 function CustomTextField(props: CustomProps) {
-    const classes = useStyles(props);
-
     return (
         <FormControl component="fieldset">
             <FormLabel>{props.label}</FormLabel>

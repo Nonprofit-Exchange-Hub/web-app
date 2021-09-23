@@ -1,12 +1,6 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import type { Theme } from '@material-ui/core/styles';
 import { TextField, FormControl, FormLabel } from '@material-ui/core';
 import { setDefaults } from '../Helpers';
-
-const useStyles = makeStyles<Theme, CustomProps> ((theme: Theme) => ({
-
-}));
 
 type CustomProps = {
     id: string,
@@ -21,8 +15,6 @@ function CustomTextField(props: CustomProps) {
     props = setDefaults(props, {
         multiline: false,
     });
-
-    const classes = useStyles(props);
 
     return (
         <FormControl>
