@@ -125,7 +125,6 @@ function NeedForm() {
             ...fData,
             [name]: value,
         }));
-        console.log(evt);
     };
 
     return (
@@ -169,6 +168,8 @@ function NeedForm() {
                                 label="Category"
                                 placeholder="Select a category"
                                 options={categories}
+                                value={formData.category}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item md={8} xs={12}>
@@ -177,6 +178,8 @@ function NeedForm() {
                                 label="Condition"
                                 placeholder="Select a preferred condition"
                                 options={conditions}
+                                value={formData.condition}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item md={4} xs={12}>

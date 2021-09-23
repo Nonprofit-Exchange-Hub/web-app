@@ -17,16 +17,18 @@ type CustomProps = {
         value: string,
         text: string
     }[],
+    value: string,
+    onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
 function CustomSelect(props: CustomProps) {
     const classes = useStyles(props);
-
+    
     return (
         <FormControl>
             <FormLabel>{props.label}</FormLabel>
             <Select
-                id={props.id}
+                name={props.id}
                 variant="outlined"
                 autoWidth={true}
                 input={<OutlinedInput />}
@@ -43,12 +45,14 @@ function CustomSelect(props: CustomProps) {
                     },
                     getContentAnchorEl: null
                 }}
-                renderValue={(selected: string) => {
-                if (!selected) {
-                    return <em>{props.placeholder}</em>;
-                }
-                return selected;
-                }}
+                value={props.value}
+                renderValue={(value: string) => {
+                    if (value.length === 0) {
+                        return <em>{props.placeholder}</em>;
+                    }
+                    return value;
+                    }}
+                onChange={props.onChange}
             >
                 <MenuItem disabled value="">
                     <em>{props.placeholder}</em>
