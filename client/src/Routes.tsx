@@ -17,9 +17,8 @@ import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
 import CookiePolicy from './CookiePolicy';
 import Assets from './Assets';
-import Offer from './Offer';
+import Asset from './Asset';
 import MessageInboxView from './MessageInboxView';
-
 
 function Routes() {
     return (
@@ -75,8 +74,8 @@ function Routes() {
             <Route exact path="/inbox">
                 <MessageInboxView />
             </Route>
-            <Route exact path="/offer/:offerId">
-                <Offer />
+            <Route exact path="/asset/:assetId">
+                <Asset />
             </Route>
         </Switch>
     );

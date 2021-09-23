@@ -141,7 +141,7 @@ function HowItWorks() {
 
             <Box className={`${classes.tabs}`}>
                 <Container>
-                    <Grid container justify='space-between'>
+                    <Grid container justify="space-between">
                         <Grid container item sm={6} xs={12}
                             onClick={() => handleClickTab("nonprofit")}
                             className={classes.tabMenuLink}

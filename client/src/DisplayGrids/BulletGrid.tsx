@@ -5,7 +5,6 @@ import { Box, Grid } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
 
-// SUB-COMPONENT BulletGrid
 
 const bulletStyles = makeStyles<Theme, BulletProps> ((theme: Theme) => ({
     grid: {
@@ -27,8 +26,7 @@ function BulletGrid(props: BulletProps) {
     const classes = bulletStyles(props);
 
     return (
-        <Grid container justify='space-between'>
-
+        <Grid container justifyContent="space-between">
             {props.list.map((listItem) => {
                 return (
                     <Grid container item md={6} xs={12} className={classes.grid}>
@@ -43,8 +41,6 @@ function BulletGrid(props: BulletProps) {
                     </Grid>
                 )
             })}
-
-
         </Grid>
     );
 };
