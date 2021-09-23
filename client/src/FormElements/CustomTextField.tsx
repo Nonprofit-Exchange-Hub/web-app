@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { TextField, FormControl, FormLabel } from '@material-ui/core';
-import { setDefaults } from '../Helpers';
 
 type CustomProps = {
     id: string,
@@ -11,25 +10,21 @@ type CustomProps = {
     onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
-function CustomTextField(props: CustomProps) {
-    props = setDefaults(props, {
-        multiline: false,
-    });
-
+function CustomTextField({label, id, placeholder, multiline = false, value, onChange}: CustomProps) {
     return (
         <FormControl>
-            <FormLabel>{props.label}</FormLabel>
+            <FormLabel>{label}</FormLabel>
             <TextField
-                id={props.id}
-                name={props.id}
+                id={id}
+                name={id}
                 type="text"
-                placeholder={props.placeholder}
+                placeholder={placeholder}
                 variant="outlined"
                 fullWidth
                 InputLabelProps={{shrink: true}}
-                multiline={props.multiline}
-                value={props.value}
-                onChange={props.onChange}
+                multiline={multiline}
+                value={value}
+                onChange={onChange}
             />
         </FormControl>
     );

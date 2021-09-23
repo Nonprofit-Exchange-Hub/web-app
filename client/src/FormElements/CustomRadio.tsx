@@ -12,16 +12,16 @@ type CustomProps = {
     onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
-function CustomRadio(props: CustomProps) {
+function CustomRadio({id, label, options, value, onChange}: CustomProps) {
     return (
         <FormControl component="fieldset">
-            <FormLabel>{props.label}</FormLabel>
+            <FormLabel>{label}</FormLabel>
             <RadioGroup
-                name={props.id}
-                value={props.value}
-                onChange={props.onChange}
+                name={id}
+                value={value}
+                onChange={onChange}
             >
-                {props.options.map((option, index) => {
+                {options.map((option, index) => {
                     return  <FormControlLabel key={`form-control-${index}`} value={option.value} control={<Radio />} label={option.text} />
                 })}
             </RadioGroup>

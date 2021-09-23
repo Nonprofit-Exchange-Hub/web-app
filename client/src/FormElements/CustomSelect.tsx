@@ -13,13 +13,13 @@ type CustomProps = {
     onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
-function CustomSelect(props: CustomProps) {
+function CustomSelect({id, label, placeholder, options, value, onChange}: CustomProps) {
 
     return (
         <FormControl>
-            <FormLabel>{props.label}</FormLabel>
+            <FormLabel>{label}</FormLabel>
             <Select
-                name={props.id}
+                name={id}
                 variant="outlined"
                 autoWidth={true}
                 input={<OutlinedInput />}
@@ -36,19 +36,19 @@ function CustomSelect(props: CustomProps) {
                     },
                     getContentAnchorEl: null
                 }}
-                value={props.value}
+                value={value}
                 renderValue={(value: string) => {
                     if (value.length === 0) {
-                        return <em>{props.placeholder}</em>;
+                        return <em>{placeholder}</em>;
                     }
                     return value;
                     }}
-                onChange={props.onChange}
+                onChange={onChange}
             >
                 <MenuItem disabled value="">
-                    <em>{props.placeholder}</em>
+                    <em>{placeholder}</em>
                 </MenuItem>
-                {props.options.map((option, index) => {
+                {options.map((option, index) => {
                     return  <MenuItem key={`select-control-${index}`} value={option.text}>{option.text}</MenuItem>
                 })}
             </Select>
