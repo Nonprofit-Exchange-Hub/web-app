@@ -12,7 +12,7 @@ type CustomProps = {
     onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
-function CustomTextField(props: CustomProps) {
+function CustomRadio(props: CustomProps) {
     return (
         <FormControl component="fieldset">
             <FormLabel>{props.label}</FormLabel>
@@ -29,4 +29,4 @@ function CustomTextField(props: CustomProps) {
     );
 }
 
-export default CustomTextField;
+export default CustomRadio;

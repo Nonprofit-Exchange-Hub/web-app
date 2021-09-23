@@ -3,9 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Container } from '@material-ui/core';
 import type { Theme } from '@material-ui/core/styles';
-import { FormLabel } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { CustomTextField, CustomRadio, CustomSelect } from './FormElements';
+import { CustomTextField, CustomRadio, CustomSelect, CustomFileUpload } from './FormElements';
 
 const categories = [
     { value: 'one', text: 'Figs' },
@@ -208,7 +207,12 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-
+                            <CustomFileUpload
+                                label="Photos"
+                                id="photos"
+                                text="Click here to upload photos"
+                                onChange={handleChange}
+                            />
                         </Grid>
                         <Grid item container xs={12} className={classes.submitbuttons}>
                             <Grid item>
