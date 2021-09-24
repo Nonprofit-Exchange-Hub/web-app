@@ -17,6 +17,7 @@ function CustomRadio({id, label, options, value, onChange}: CustomProps) {
         <FormControl component="fieldset">
             <FormLabel>{label}</FormLabel>
             <RadioGroup
+                id={id}
                 name={id}
                 value={value}
                 onChange={onChange}

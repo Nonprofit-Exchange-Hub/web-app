@@ -7,24 +7,24 @@ import { Button } from '@material-ui/core';
 import { CustomTextField, CustomRadio, CustomSelect, CustomFileUpload } from './FormElements';
 
 const categories = [
-    { value: 'one', text: 'Figs' },
-    { value: 'two', text: 'Peaches' },
-    { value: 'three', text: 'Pears' },
+    { value: 'figs', text: 'Figs' },
+    { value: 'peaches', text: 'Peaches' },
+    { value: 'pears', text: 'Pears' },
 ];
 const conditions = [
-    { value: 'one', text: 'Carrots' },
-    { value: 'two', text: 'Zucchini' },
-    { value: 'three', text: 'Eggplant' },
+    { value: 'like-new', text: 'Like New' },
+    { value: 'excellent', text: 'Excellent' },
+    { value: 'good', text: 'Good' },
 ];
 const needTypes = [
-    { value: 'one', text: 'Donation' },
-    { value: 'two', text: 'Zipper' },
-    { value: 'three', text: 'Googles' },
+    { value: 'donation', text: 'Donation' },
+    { value: 'short-term', text: 'Short term loan (<1 month)' },
+    { value: 'long-term', text: 'Long term loan (>1 month)' },
 ];
 const deliveryTypes = [
-    { value: 'one', text: 'Pick up' },
-    { value: 'two', text: 'Drop off' },
-    { value: 'three', text: 'Dance party' },
+    { value: 'pick-up', text: 'Pick up only' },
+    { value: 'drop-off', text: 'Drop off only' },
+    { value: 'pick-up-drop-off', text: 'Pick up and drop off' },
 ];
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -69,16 +69,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         border: '1px solid #C4C4C4',
         padding: '4rem 7rem',
         boxSizing: 'border-box',
-    },
-    upload: {
-        width: '100%',
-        border: `1px solid ${theme.custom.form.borderColor}`,
-        borderRadius: '10px',
-        padding: '10px',
-        marginTop: '8px',
-        '& .MuiButton-label': {
-            textAlign: 'center',
-        },
     },
     submitbuttons: {
         justifyContent: 'center',
@@ -202,7 +192,7 @@ function NeedForm() {
                                 label="Delivery Method"
                                 id="deliveryMethod"
                                 options={deliveryTypes}
-                                value={formData.description}
+                                value={formData.deliveryMethod}
                                 onChange={handleChange}
                             />
                         </Grid>
