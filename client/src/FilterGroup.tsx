@@ -11,10 +11,12 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingTop: '20px',
     },
     filtersList: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        marginLeft: '20%'   
     },
+    groupHeader: {
+        fontWeight: 'bold',
+        marginLeft: '15%'        
+    }
 }));
 
 type Props = {
@@ -30,7 +32,7 @@ function FilterGroup(props: Props): JSX.Element {
 
     return (
         <div className={classes.wrapper}>
-            <Typography variant="h5" component="h5" color="textPrimary">
+            <Typography variant="h5" component="h5" color="textPrimary" className={classes.groupHeader}>
                 {header}
             </Typography>
             <div className={classes.filtersList}>
