@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
+import { Radio, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
+import { RadioGroup as MUIRadioGroup } from '@material-ui/core';
 
 type CustomProps = {
     id: string,
@@ -12,22 +13,22 @@ type CustomProps = {
     onChange: (event: any) => void,
 };
 
-function CustomRadio({id, label, options, value, onChange}: CustomProps) {
+function RadioGroup({id, label, options, value, onChange}: CustomProps) {
     return (
         <FormControl component="fieldset">
             <FormLabel>{label}</FormLabel>
-            <RadioGroup
+            <MUIRadioGroup
                 id={id}
                 name={id}
                 value={value}
                 onChange={onChange}
             >
                 {options.map((option, index) => {
-                    return  <FormControlLabel key={`form-control-${index}`} value={option.value} control={<Radio />} label={option.text} />
+                    return  <FormControlLabel key={option.text} value={option.value} control={<Radio />} label={option.text} />
                 })}
-            </RadioGroup>
+            </MUIRadioGroup>
         </FormControl>
     );
 }
 
-export default CustomRadio;
+export default RadioGroup;

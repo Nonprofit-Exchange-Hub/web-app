@@ -4,7 +4,7 @@ import { FormControl, FormLabel, Button } from '@material-ui/core';
 import type { Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
-    upload: {
+    buttonText: {
         width: '100%',
         border: `1px solid ${theme.custom.form.borderColor}`,
         borderRadius: theme.custom.form.borderRadius,
@@ -38,7 +38,7 @@ function FileUploadInput(props: CustomProps) {
                 type="file"
             />
             <label htmlFor="raised-button-file">
-                <Button component="span" className={classes.upload}>
+                <Button component="span" className={classes.buttonText}>
                     {props.text}
                 </Button>
             </label> 

@@ -1,4 +1,4 @@
-export { default as CustomTextField } from './CustomTextField';
-export { default as CustomRadio } from './CustomRadio';
-export { default as CustomSelect } from './CustomSelect';
-export { default as CustomFileUpload } from './CustomFileUpload';
+export { default as TextField } from './TextField';
+export { default as RadioGroup } from './RadioGroup';
+export { default as Select } from './Select';
+export { default as FileUploadInput } from './FileUploadInput';

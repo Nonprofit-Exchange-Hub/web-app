@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Select, OutlinedInput, MenuItem, FormControl, FormLabel } from '@material-ui/core';
+import { OutlinedInput, MenuItem, FormControl, FormLabel } from '@material-ui/core';
+import { Select as MUISelect } from '@material-ui/core';
 
 type CustomProps = {
     id: string,
@@ -13,17 +14,17 @@ type CustomProps = {
     onChange: (event: any) => void,
 };
 
-const handleChange = (event: any): void => {
-    const { name, value }: { name: string; value: string } = event.target;
-
+const handleChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>): void => {
+    let { name = '', value }: { name?: string | undefined; value: unknown } = event.target;
+    // console.log(event.target.value);
 };
 
-function CustomSelect({id, label, placeholder, options, value, onChange}: CustomProps) {
+function Select({id, label, placeholder, options, value, onChange}: CustomProps) {
 
     return (
         <FormControl>
             <FormLabel>{label}</FormLabel>
-            <Select
+            <MUISelect
                 name={id}
                 variant="outlined"
                 autoWidth={true}
@@ -54,11 +55,11 @@ function CustomSelect({id, label, placeholder, options, value, onChange}: Custom
                     <em>{placeholder}</em>
                 </MenuItem>
                 {options.map((option, index) => {
-                    return  <MenuItem key={`select-control-${index}`} value={option.text}>{option.text}</MenuItem>
+                    return  <MenuItem key={option.text} value={option.text}>{option.text}</MenuItem>
                 })}
-            </Select>
+            </MUISelect>
         </FormControl>
     );
 }
 
-export default CustomSelect;
+export default Select;

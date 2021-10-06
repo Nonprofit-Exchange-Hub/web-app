@@ -1,20 +1,21 @@
 import * as React from 'react';
-import { TextField, FormControl, FormLabel } from '@material-ui/core';
+import { FormControl, FormLabel } from '@material-ui/core';
+import { TextField as MUITextField } from '@material-ui/core';
 
 type CustomProps = {
     id: string,
     label: string,
     placeholder: string,
-    multiline?: boolean,
+    isMultiline?: boolean,
     value: string,
     onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
-function CustomTextField({label, id, placeholder, multiline = false, value, onChange}: CustomProps) {
+function TextField({label, id, placeholder, isMultiline = false, value, onChange}: CustomProps) {
     return (
         <FormControl>
             <FormLabel>{label}</FormLabel>
-            <TextField
+            <MUITextField
                 id={id}
                 name={id}
                 type="text"
@@ -22,7 +23,7 @@ function CustomTextField({label, id, placeholder, multiline = false, value, onCh
                 variant="outlined"
                 fullWidth
                 InputLabelProps={{shrink: true}}
-                multiline={multiline}
+                multiline={isMultiline}
                 value={value}
                 onChange={onChange}
             />
@@ -30,4 +31,4 @@ function CustomTextField({label, id, placeholder, multiline = false, value, onCh
     );
 }
 
-export default CustomTextField;
+export default TextField;

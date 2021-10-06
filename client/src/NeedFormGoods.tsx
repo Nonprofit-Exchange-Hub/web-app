@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Container } from '@material-ui/core';
 import type { Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import { CustomTextField, CustomRadio, CustomSelect, CustomFileUpload } from './FormElements';
+import { TextField, RadioGroup, Select, FileUploadInput } from './FormElements';
 
 const categories = [
     { value: 'figs', text: 'Figs' },
@@ -104,10 +104,12 @@ const initialFormData: ShareANeedData = {
 function NeedForm() {
     const classes = useStyles();
 
-    const [ formData, setFormData ] = React.useState(initialFormData);
+    const [ formData, setFormData ] = React.useState<ShareANeedData>(initialFormData);
 
-    const handleChange = (event: any): void => {
-        const { name, value }: { name: string; value: string } = event.target;
+    // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<{ name?: string | undefined; value: unknown; }>): void => {
+        let { name = '', value }: { name?: string | undefined; value: unknown } = event.target;
+        console.log(event.target.value);
         setFormData((fData) => ({
             ...fData,
             [name]: value,
@@ -122,7 +124,7 @@ function NeedForm() {
                 <form className={classes.root}>
                     <Grid container spacing={5}>
                         <Grid item md={8} xs={12}>
-                            <CustomTextField
+                            <TextField
                                 id="title"
                                 label="Title"
                                 placeholder="What goods do you need?"
@@ -131,7 +133,7 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={4} xs={12}>
-                            <CustomTextField
+                            <TextField
                                 id="location"
                                 label="Location"
                                 placeholder="City, State"
@@ -140,17 +142,17 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={12} xs={12}>
-                            <CustomTextField
+                            <TextField
                                 id="description"
                                 label="Description"
                                 placeholder="Describe what goods you are looking for"
                                 value={formData.description}
                                 onChange={handleChange}
-                                multiline={true}
+                                isMultiline={true}
                             />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                            <CustomSelect
+                            <Select
                                 id="category"
                                 label="Category"
                                 placeholder="Select a category"
@@ -160,7 +162,7 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                            <CustomSelect
+                            <Select
                                 id="condition"
                                 label="Condition"
                                 placeholder="Select a preferred condition"
@@ -170,7 +172,7 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={4} xs={12}>
-                            <CustomTextField
+                            <TextField
                                 id="quantity"
                                 label="Quantity"
                                 placeholder="# of goods needed"
@@ -179,7 +181,7 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                            <CustomRadio
+                            <RadioGroup
                                 label="Need Type"
                                 id="needType"
                                 options={needTypes}
@@ -188,7 +190,7 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item md={4} xs={12}>
-                            <CustomRadio
+                            <RadioGroup
                                 label="Delivery Method"
                                 id="deliveryMethod"
                                 options={deliveryTypes}
@@ -197,7 +199,7 @@ function NeedForm() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <CustomFileUpload
+                            <FileUploadInput
                                 label="Photos"
                                 id="photos"
                                 text="Click here to upload photos"
@@ -206,12 +208,12 @@ function NeedForm() {
                         </Grid>
                         <Grid item container xs={12} className={classes.submitbuttons}>
                             <Grid item>
-                                <Button variant='contained' color='secondary'>
+                                <Button variant="contained" color="secondary">
                                     Save Draft
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button variant='contained' color='primary'>
+                                <Button variant="contained" color="primary">
                                     Submit Need
                                 </Button>
                             </Grid>
