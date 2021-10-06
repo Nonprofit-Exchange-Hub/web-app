@@ -5,7 +5,7 @@ type CustomProps = {
     id: string,
     label: string,
     placeholder: string,
-    multiline: boolean,
+    multiline?: boolean,
     value: string,
     onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
 };

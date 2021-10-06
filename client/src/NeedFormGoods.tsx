@@ -106,8 +106,8 @@ function NeedForm() {
 
     const [ formData, setFormData ] = React.useState(initialFormData);
 
-    const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-        const { name, value }: { name: string; value: string } = evt.target;
+    const handleChange = (event: any): void => {
+        const { name, value }: { name: string; value: string } = event.target;
         setFormData((fData) => ({
             ...fData,
             [name]: value,
@@ -120,7 +120,7 @@ function NeedForm() {
                 <Typography variant="h2" component="h2" align="left">Share a Need: Goods</Typography>
                 <Box className={classes.borderBox}>
                 <form className={classes.root}>
-                    <Grid container spacing={5} className={classes.grid}>
+                    <Grid container spacing={5}>
                         <Grid item md={8} xs={12}>
                             <CustomTextField
                                 id="title"

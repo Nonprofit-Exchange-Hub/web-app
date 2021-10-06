@@ -10,7 +10,12 @@ type CustomProps = {
         text: string
     }[],
     value: string,
-    onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
+    onChange: (event: any) => void,
+};
+
+const handleChange = (event: any): void => {
+    const { name, value }: { name: string; value: string } = event.target;
+
 };
 
 function CustomSelect({id, label, placeholder, options, value, onChange}: CustomProps) {
@@ -37,7 +42,7 @@ function CustomSelect({id, label, placeholder, options, value, onChange}: Custom
                     getContentAnchorEl: null
                 }}
                 value={value}
-                renderValue={(value: string) => {
+                renderValue={(value: any) => {
                     if (value.length === 0) {
                         return <em>{placeholder}</em>;
                     }

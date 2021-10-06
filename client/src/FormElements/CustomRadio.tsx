@@ -9,7 +9,7 @@ type CustomProps = {
         text: string
     }[],
     value: string,
-    onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
+    onChange: (event: any) => void,
 };
 
 function CustomRadio({id, label, options, value, onChange}: CustomProps) {
