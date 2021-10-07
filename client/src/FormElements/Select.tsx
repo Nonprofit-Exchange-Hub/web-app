@@ -1,22 +1,15 @@
 import * as React from 'react';
 import { OutlinedInput, MenuItem, FormControl, FormLabel } from '@material-ui/core';
 import { Select as MUISelect } from '@material-ui/core';
+import { Option } from '../types';
 
 type CustomProps = {
     id: string,
     label: string,
     placeholder: string,
-    options: {
-        value: string,
-        text: string
-    }[],
+    options: Option[],
     value: string,
     onChange: (event: any) => void,
-};
-
-const handleChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>): void => {
-    let { name = '', value }: { name?: string | undefined; value: unknown } = event.target;
-    // console.log(event.target.value);
 };
 
 function Select({id, label, placeholder, options, value, onChange}: CustomProps) {

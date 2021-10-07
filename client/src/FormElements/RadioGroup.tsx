@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { Radio, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
 import { RadioGroup as MUIRadioGroup } from '@material-ui/core';
+import { Option } from '../types';
 
 type CustomProps = {
     id: string,
     label: string,
-    options: {
-        value: string,
-        text: string
-    }[],
+    options: Option[],
     value: string,
     onChange: (event: any) => void,
 };
