@@ -19,7 +19,6 @@ import CookiePolicy from './CookiePolicy';
 import Assets from './Assets';
 import Asset from './Asset';
 import MessageInboxView from './MessageInboxView';
-import Offer from './Offer';
 import NeedForm from './NeedForm';
 import NeedFormGoods from './NeedFormGoods';
 
