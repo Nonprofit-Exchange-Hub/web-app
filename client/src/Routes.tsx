@@ -19,6 +19,8 @@ import CookiePolicy from './CookiePolicy';
 import Assets from './Assets';
 import Asset from './Asset';
 import MessageInboxView from './MessageInboxView';
+import NeedForm from './NeedForm';
+import NeedFormGoods from './NeedFormGoods';
 
 function Routes() {
     return (
@@ -76,6 +78,12 @@ function Routes() {
             </Route>
             <Route exact path="/asset/:assetId">
                 <Asset />
+            </Route>
+            <Route exact path="/needs">
+                <NeedForm />
+            </Route>
+            <Route exact path="/needs/goods/">
+                <NeedFormGoods />
             </Route>
         </Switch>
     );

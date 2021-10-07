@@ -1,14 +1,18 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
     palette: {
+        text: {
+            primary: '#000000',
+            secondary: '#999999',
+        },
         primary: {
             main: '#A34AED',
             contrastText: '#FFFFFF',
         },
         secondary: {
-            main: '#FFFFFF',
-            contrastText: '#A34AED',
+            main: '#999999',
+            contrastText: '#FFFFFF',
         },
     },
     typography: {
@@ -30,6 +34,10 @@ const theme = createMuiTheme({
     // To add more custom variables you must add to the Theme interface in /src/types/material-ui.d.ts
     custom: {
         maxContentWidth: '1100px',
+        form: {
+            borderRadius: '10px',
+            borderColor: '#000000',
+        }
     },
 });
 
@@ -40,7 +48,10 @@ theme.props = {
     },
     MuiAccordion: {
         // disableGutters: true,        // Enable this when we get v5 of Material UI, will replace style overrides from QuestionList
-    }
+    },
+    MuiTextField: {
+        
+    },
 }
 
 // Override classes listed in Material UI's CSS for the component
