@@ -22,6 +22,8 @@ import MessageInboxView from './MessageInboxView';
 import NeedForm from './NeedForm';
 import NeedFormGoods from './NeedFormGoods';
 import NeedFormVolunteers from './NeedFormVolunteers';
+import OfferForm from './OfferForm';
+import ActionForm from './ActionForm';
 
 function Routes() {
     return (
@@ -80,14 +82,20 @@ function Routes() {
             <Route exact path="/asset/:assetId">
                 <Asset />
             </Route>
-            <Route exact path="/needs">
+            <Route exact path="/need">
                 <NeedForm />
             </Route>
-            <Route exact path="/needs/goods/">
+            <Route exact path="/need/goods/">
                 <NeedFormGoods />
             </Route>
-            <Route exact path="/needs/volunteers/">
+            <Route exact path="/need/volunteers/">
                 <NeedFormVolunteers />
+            </Route>
+            <Route exact path="/offer">
+                <OfferForm />
+            </Route>
+            <Route exact path="/action">
+                <ActionForm />
             </Route>
         </Switch>
     );
