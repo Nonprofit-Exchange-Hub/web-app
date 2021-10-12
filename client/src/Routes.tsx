@@ -23,6 +23,7 @@ import NeedForm from './NeedForm';
 import NeedFormGoods from './NeedFormGoods';
 import NeedFormVolunteers from './NeedFormVolunteers';
 import OfferForm from './OfferForm';
+import OfferFormVolunteers from './OfferFormVolunteers';
 import ActionForm from './ActionForm';
 
 function Routes() {
@@ -93,6 +94,9 @@ function Routes() {
             </Route>
             <Route exact path="/offer">
                 <OfferForm />
+            </Route>
+            <Route exact path="/offer/skills">
+                <OfferFormVolunteers />
             </Route>
             <Route exact path="/action">
                 <ActionForm />
