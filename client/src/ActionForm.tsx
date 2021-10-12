@@ -15,7 +15,7 @@ const links: TextLink[] = [
 function ActionForm() {
     return (
         <LinkPage
-            title="What are you offering?"
+            title="What would you like to do?"
             links={links}
         />
     );
