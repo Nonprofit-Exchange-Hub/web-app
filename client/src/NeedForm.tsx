@@ -40,13 +40,13 @@ function NeedForm() {
                 <Box className={classes.borderBox}>
                     <Grid container direction="row">
                         <Grid container item sm={6} xs={12} direction="column" alignItems="center">
-                            <Link to="/needs/goods/" className={classes.linkText}>
+                            <Link to="/need/goods/" className={classes.linkText}>
                                 <button className={classes.squareButton}></button>
                                 <Typography variant="body1" component="div" align="center">Goods</Typography>
                             </Link>
                         </Grid>
                         <Grid container item sm={6} xs={12} direction="column" alignItems="center">
-                            <Link to="/needs/volunteers/" className={classes.linkText}>
+                            <Link to="/need/volunteers/" className={classes.linkText}>
                                 <button className={classes.squareButton}></button>
                                 <Typography variant="body1" component="div" align="center">Volunteers</Typography>
                             </Link>
