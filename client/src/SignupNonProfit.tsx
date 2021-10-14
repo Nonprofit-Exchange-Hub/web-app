@@ -7,6 +7,10 @@ import { placeholderImg } from './assets/temp';
 import StyledLink from './StyledLink';
 import { TextField, Select } from './FormElements';
 import { Button } from '@material-ui/core';
+import EmailInput from './EmailInput';
+import PasswordInput from './PasswordInput';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const exemptions = [
@@ -63,7 +67,7 @@ interface SignupData {
     role_or_title: string;
     email: string;
     password: string;
-    accept_terms: string;
+    accept_terms: boolean;
 }
 
 const initialFormData: SignupData = {
@@ -78,7 +82,7 @@ const initialFormData: SignupData = {
     role_or_title: '',
     email: '',
     password: '',
-    accept_terms: 'false'
+    accept_terms: false
 };
 
 function SignupNonProfit() {
@@ -135,40 +139,40 @@ function SignupNonProfit() {
                             </Typography>
                         </Grid>
                         <Grid item md={8} xs={12}>
-                                <TextField
-                                    id="org_name"
-                                    label="Organization Name"
-                                    placeholder="Organization"
-                                    value={formData.org_name}
-                                    onChange={handleFieldChange}
-                                />
+                            <TextField
+                                id="org_name"
+                                label="Organization Name"
+                                placeholder="Organization"
+                                value={formData.org_name}
+                                onChange={handleFieldChange}
+                            />
                         </Grid>
                         <Grid item md={6} xs={12}>
-                                <TextField
-                                    id="city"
-                                    label="City"
-                                    placeholder="City"
-                                    value={formData.city}
-                                    onChange={handleFieldChange}
-                                />
+                            <TextField
+                                id="city"
+                                label="City"
+                                placeholder="City"
+                                value={formData.city}
+                                onChange={handleFieldChange}
+                            />
                         </Grid>
                         <Grid item md={6} xs={12}>
-                                <TextField
-                                    id="state"
-                                    label="State"
-                                    placeholder="State"
-                                    value={formData.state}
-                                    onChange={handleFieldChange}
-                                />
+                            <TextField
+                                id="state"
+                                label="State"
+                                placeholder="State"
+                                value={formData.state}
+                                onChange={handleFieldChange}
+                            />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                                <TextField
-                                    id="state"
-                                    label="Entity Identification Number (EIN)"
-                                    placeholder="EIN"
-                                    value={formData.ein}
-                                    onChange={handleFieldChange}
-                                />
+                            <TextField
+                                id="state"
+                                label="Entity Identification Number (EIN)"
+                                placeholder="EIN"
+                                value={formData.ein}
+                                onChange={handleFieldChange}
+                            />
                         </Grid>
                         <Grid item md={8} xs={12}>
                             <Select
@@ -182,11 +186,11 @@ function SignupNonProfit() {
                         </Grid>
                             <Grid item md={8} xs={12}>
                                     <Button 
-                                            onClick={handleNextClick}
-                                            className={classes.button}
-                                            fullWidth
-                                            >
-                                            Next
+                                        onClick={handleNextClick}
+                                        className={classes.button}
+                                        fullWidth
+                                        >
+                                        Next
                                     </Button>
                             </Grid> 
                         </Grid>
@@ -199,34 +203,67 @@ function SignupNonProfit() {
                             </Typography>
                         </Grid>
                         <Grid item md={6} xs={12}>
-                                <TextField
-                                    id="first_name"
-                                    label="First Name"
-                                    placeholder="First Name"
-                                    value={formData.first_name}
-                                    onChange={handleFieldChange}
-                                />
+                            <TextField
+                                id="first_name"
+                                label="First Name"
+                                placeholder="First Name"
+                                value={formData.first_name}
+                                onChange={handleFieldChange}
+                            />
                         </Grid>
                         <Grid item md={6} xs={12}>
-                                <TextField
-                                    id="last_name"
-                                    label="Last Name"
-                                    placeholder="Last Name"
-                                    value={formData.last_name}
-                                    onChange={handleFieldChange}
-                                />
+                            <TextField
+                                id="last_name"
+                                label="Last Name"
+                                placeholder="Last Name"
+                                value={formData.last_name}
+                                onChange={handleFieldChange}
+                            />
                         </Grid>
                         <Grid item md={8} xs={12}>
-                                <TextField
-                                    id="role_or_title"
-                                    label="Role Title"
-                                    placeholder="Role Title"
-                                    value={formData.role_or_title}
-                                    onChange={handleFieldChange}
-                                />
+                            <TextField
+                                id="role_or_title"
+                                label="Role Title"
+                                placeholder="Role Title"
+                                value={formData.role_or_title}
+                                onChange={handleFieldChange}
+                            />
                         </Grid>
-
-                    
+                            <EmailInput
+                                startAdornment={true}
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleFieldChange}
+                            />
+                            <PasswordInput value={formData.password} onChange={handleFieldChange} startAdornment={true} />
+                            <FormControlLabel
+                                style={{ textAlign: 'left', display: 'block' }}
+                                control={
+                                    <Checkbox
+                                        color="primary"
+                                        checked={formData.accept_terms}
+                                        onChange={handleFieldChange}
+                                        name="accept_terms"
+                                        inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                                    />
+                                }
+                                label={
+                                    <label>
+                                        Accept the{' '}
+                                        <StyledLink to="/terms_and_condtions" target="_blank">
+                                            Terms and Condtions
+                                        </StyledLink>
+                                    </label>
+                                }
+                            />
+                            <Button
+                                className={classes.button}
+                                fullWidth
+                                type="submit"
+                                disabled={!formData.accept_terms}
+                            >
+                                Sign Up
+                            </Button>
                     </Grid>
                 )}
                 </Grid>
