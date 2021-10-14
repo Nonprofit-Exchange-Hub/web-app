@@ -128,7 +128,6 @@ function SignupNonProfit() {
                         Already have an account? <StyledLink to="/login">Log In</StyledLink>
                     </Typography>
                 {pageNum === 1 ? (
-                    <div>
                      <Grid container spacing={5}>
                         <Grid item>
                             <Typography component="p" align="left">
@@ -192,62 +191,43 @@ function SignupNonProfit() {
                             </Grid> 
                         </Grid>
                         
-                    </div>
                 ) : (
-                    <div>
-                        <div>Step 2: About You</div>
+                    <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                            <Typography component="p" align="left">
+                                Step 2: About You
+                            </Typography>
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                                <TextField
+                                    id="first_name"
+                                    label="First Name"
+                                    placeholder="First Name"
+                                    value={formData.first_name}
+                                    onChange={handleFieldChange}
+                                />
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                                <TextField
+                                    id="last_name"
+                                    label="Last Name"
+                                    placeholder="Last Name"
+                                    value={formData.last_name}
+                                    onChange={handleFieldChange}
+                                />
+                        </Grid>
+                        <Grid item md={8} xs={12}>
+                                <TextField
+                                    id="role_or_title"
+                                    label="Role Title"
+                                    placeholder="Role Title"
+                                    value={formData.role_or_title}
+                                    onChange={handleFieldChange}
+                                />
+                        </Grid>
 
-                        <div>
-                            <span>First Name</span>
-                            <span>Last Name</span>
-                        </div>
-                        <div>
-                            <input type="text" name="first_name" value={formData.first_name} onChange={handleFieldChange} />
-                            <input type="text" name="last_name" value={formData.last_name} onChange={handleFieldChange} />
-                        </div>
-
-                        <div>
-                            <span>Role / Title</span>
-                        </div>
-                        <div>
-                            <input
-                                type="text"
-                                name="role_or_title"
-                                value={formData.role_or_title}
-                                onChange={handleFieldChange}
-                            />
-                        </div>
-
-                        <div>
-                            <span>Email Address</span>
-                        </div>
-                        <div>
-                            <input type="text" name="email" value={formData.email} onChange={handleFieldChange} />
-                        </div>
-
-                        <div>
-                            <span>Password (6 or more characters)</span>
-                        </div>
-                        <div>
-                            <input type="text" name="password" value={formData.password} onChange={handleFieldChange} />
-                        </div>
-
-                        <div>
-                            <input
-                                type="checkbox"
-                                name="accept_terms"
-                                id="accept_terms"
-                                value={formData.accept_terms}
-                                onChange={handleFieldChange}
-                            />
-                            <label htmlFor="accept_terms">
-                                Accept the <a>Terms and Agreements</a>
-                            </label>
-                        </div>
-                        <div>
-                            <button onClick={handleSignupClick}>Sign Up</button>
-                        </div>
-                    </div>
+                    
+                    </Grid>
                 )}
                 </Grid>
             </Grid>
