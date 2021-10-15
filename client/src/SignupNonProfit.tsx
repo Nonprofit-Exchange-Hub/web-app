@@ -15,7 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 const exemptions = [
     { value: 'charitable', text: 'Charitable Organization' },
     { value: 'religious', text: 'Religious Organization' },
-    { value: 'private', text: 'Private Foundations' },
+    { value: 'private', text: 'Private Foundation' },
     { value: 'political', text: 'Political Organizations' },
     { value: 'other', text: 'Other' }
 ];
@@ -126,7 +126,7 @@ function SignupNonProfit() {
                                         Step 1: About your organization
                                     </Typography>
                                 </Grid>
-                                <Grid item md={8} xs={12}>
+                                <Grid item md={12} xs={12}>
                                     <TextField
                                         id="org_name"
                                         label="Organization Name"
@@ -153,12 +153,21 @@ function SignupNonProfit() {
                                         onChange={handleFieldChange}
                                     />
                                 </Grid>
-                                <Grid item md={8} xs={12}>
+                                <Grid item md={6} xs={12}>
                                     <TextField
-                                        id="state"
+                                        id="ein"
                                         label="Entity Identification Number (EIN)"
                                         placeholder="EIN"
                                         value={formData.ein}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="tax_exempt_id"
+                                        label="Tax Exempt ID"
+                                        placeholder="Tax Exempt ID"
+                                        value={formData.tax_exempt_id}
                                         onChange={handleFieldChange}
                                     />
                                 </Grid>
@@ -208,7 +217,7 @@ function SignupNonProfit() {
                                         onChange={handleFieldChange}
                                     />
                                 </Grid>
-                                <Grid item md={8} xs={12}>
+                                <Grid item md={12} xs={12}>
                                     <TextField
                                         id="role_or_title"
                                         label="Role Title"
