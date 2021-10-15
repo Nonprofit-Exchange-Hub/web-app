@@ -21,6 +21,8 @@ import Asset from './Asset';
 import MessageInboxView from './MessageInboxView';
 import NeedForm from './NeedForm';
 import NeedFormGoods from './NeedFormGoods';
+import UserProfile from './UserProfile';
+
 
 function Routes() {
     return (
@@ -84,6 +86,9 @@ function Routes() {
             </Route>
             <Route exact path="/needs/goods/">
                 <NeedFormGoods />
+            </Route>
+            <Route exact path="/users/:userId">
+                <UserProfile />
             </Route>
         </Switch>
     );
