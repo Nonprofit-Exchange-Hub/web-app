@@ -7,6 +7,7 @@ import { placeholderImg } from './assets/temp';
 import StyledLink from './StyledLink';
 import { TextField, Select } from './FormElements';
 import { Button } from '@material-ui/core';
+
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -36,21 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: '#C4C4C4',
         color: 'white',
     },
-    header: { fontWeight: 'bold' },
-    input: {
-        height: 62,
-        border: '1px solid #C4C4C4',
-        boxSizing: 'border-box',
-        padding: theme.spacing(1),
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
-        fontSize: 18,
-        marginBottom: 20,
-    },
-    label: {
-        color: '#000000',
-        textAlign: 'left',
-    },
+    header: { fontWeight: 'bold' }
 }));
 
 interface SignupData {
@@ -114,7 +101,8 @@ function SignupNonProfit() {
     };
 
     const handleNextClick = () => setPageNum(2);
-    const handleSignupClick = () => {
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
         console.log('signup clicked', formData);
     };
 
@@ -129,152 +117,157 @@ function SignupNonProfit() {
                     <Typography component="p" align="left" gutterBottom>
                         Already have an account? <StyledLink to="/login">Log In</StyledLink>
                     </Typography>
-                {pageNum === 1 ? (
-                     <Grid container spacing={5}>
-                        <Grid item>
-                            <Typography component="p" align="left">
-                                Step 1: About your organization
-                            </Typography>
-                        </Grid>
-                        <Grid item md={8} xs={12}>
-                            <TextField
-                                id="org_name"
-                                label="Organization Name"
-                                placeholder="Organization"
-                                value={formData.org_name}
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                id="city"
-                                label="City"
-                                placeholder="City"
-                                value={formData.city}
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                id="state"
-                                label="State"
-                                placeholder="State"
-                                value={formData.state}
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        <Grid item md={8} xs={12}>
-                            <TextField
-                                id="state"
-                                label="Entity Identification Number (EIN)"
-                                placeholder="EIN"
-                                value={formData.ein}
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        <Grid item md={8} xs={12}>
-                            <Select
-                                id="nonprofit_classification"
-                                label="IRS Nonprofit Organization Classification"
-                                placeholder="Select classification"
-                                options={exemptions}
-                                value={formData.nonprofit_classification}
-                                onChange={handleSelectChange}
-                            />
-                        </Grid>
-                            <Grid item md={8} xs={12}>
-                                    <Button 
-                                        onClick={handleNextClick}
+                    <form onSubmit={handleSubmit}>
+                        {pageNum === 1 ? (
+                        
+                            <Grid container spacing={5}>
+                                <Grid item>
+                                    <Typography component="p" align="left">
+                                        Step 1: About your organization
+                                    </Typography>
+                                </Grid>
+                                <Grid item md={8} xs={12}>
+                                    <TextField
+                                        id="org_name"
+                                        label="Organization Name"
+                                        placeholder="Organization"
+                                        value={formData.org_name}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="city"
+                                        label="City"
+                                        placeholder="City"
+                                        value={formData.city}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="state"
+                                        label="State"
+                                        placeholder="State"
+                                        value={formData.state}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={8} xs={12}>
+                                    <TextField
+                                        id="state"
+                                        label="Entity Identification Number (EIN)"
+                                        placeholder="EIN"
+                                        value={formData.ein}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={8} xs={12}>
+                                    <Select
+                                        id="nonprofit_classification"
+                                        label="IRS Nonprofit Organization Classification"
+                                        placeholder="Select classification"
+                                        options={exemptions}
+                                        value={formData.nonprofit_classification}
+                                        onChange={handleSelectChange}
+                                    />
+                                </Grid>
+                                    <Grid item md={8} xs={12}>
+                                            <Button 
+                                                onClick={handleNextClick}
+                                                className={classes.button}
+                                                fullWidth
+                                                >
+                                                Next
+                                            </Button>
+                                    </Grid> 
+                                </Grid>
+                                
+                        ) : (
+                            <Grid container spacing={5}>
+                                <Grid item xs={12}>
+                                    <Typography component="p" align="left">
+                                        Step 2: About You
+                                    </Typography>
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="first_name"
+                                        label="First Name"
+                                        placeholder="First Name"
+                                        value={formData.first_name}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="last_name"
+                                        label="Last Name"
+                                        placeholder="Last Name"
+                                        value={formData.last_name}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={8} xs={12}>
+                                    <TextField
+                                        id="role_or_title"
+                                        label="Role Title"
+                                        placeholder="Role Title"
+                                        value={formData.role_or_title}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="email"
+                                        label="Email"
+                                        placeholder="Email"
+                                        value={formData.email}
+                                        onChange={handleFieldChange}
+                                    />                            
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="password"
+                                        label="Password"
+                                        placeholder="Password"
+                                        value={formData.password}
+                                        onChange={handleFieldChange}
+                                    />                            
+                                </Grid>
+                                    <FormControlLabel
+                                        style={{ textAlign: 'left', display: 'block' }}
+                                        control={
+                                            <Checkbox
+                                                color="primary"
+                                                checked={formData.accept_terms}
+                                                onChange={handleFieldChange}
+                                                name="accept_terms"
+                                                inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                                            />
+                                        }
+                                        label={
+                                            <label>
+                                                Accept the{' '}
+                                                <StyledLink to="/terms_and_condtions" target="_blank">
+                                                    Terms and Condtions
+                                                </StyledLink>
+                                            </label>
+                                        }
+                                    />
+                                    <Button
                                         className={classes.button}
                                         fullWidth
-                                        >
-                                        Next
+                                        type="submit"
+                                        disabled={!formData.accept_terms}
+                                    >
+                                        Sign Up
                                     </Button>
-                            </Grid> 
-                        </Grid>
-                        
-                ) : (
-                    <Grid container spacing={5}>
-                        <Grid item xs={12}>
-                            <Typography component="p" align="left">
-                                Step 2: About You
-                            </Typography>
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                id="first_name"
-                                label="First Name"
-                                placeholder="First Name"
-                                value={formData.first_name}
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                id="last_name"
-                                label="Last Name"
-                                placeholder="Last Name"
-                                value={formData.last_name}
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        <Grid item md={8} xs={12}>
-                            <TextField
-                                id="role_or_title"
-                                label="Role Title"
-                                placeholder="Role Title"
-                                value={formData.role_or_title}
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                id="email"
-                                label="Email"
-                                placeholder="Email"
-                                value={formData.email}
-                                onChange={handleFieldChange}
-                            />                            
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                id="password"
-                                label="Password"
-                                placeholder="Password"
-                                value={formData.password}
-                                onChange={handleFieldChange}
-                            />                            
-                        </Grid>
-                            <FormControlLabel
-                                style={{ textAlign: 'left', display: 'block' }}
-                                control={
-                                    <Checkbox
-                                        color="primary"
-                                        checked={formData.accept_terms}
-                                        onChange={handleFieldChange}
-                                        name="accept_terms"
-                                        inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                                    />
-                                }
-                                label={
-                                    <label>
-                                        Accept the{' '}
-                                        <StyledLink to="/terms_and_condtions" target="_blank">
-                                            Terms and Condtions
-                                        </StyledLink>
-                                    </label>
-                                }
-                            />
-                            <Button
-                                className={classes.button}
-                                fullWidth
-                                type="submit"
-                                disabled={!formData.accept_terms}
-                            >
-                                Sign Up
-                            </Button>
-                    </Grid>
-                )}
+
+                                    
+                            </Grid>
+                        )}
+                </form>
                 </Grid>
             </Grid>
         </React.Fragment>
