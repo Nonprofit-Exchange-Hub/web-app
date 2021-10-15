@@ -7,8 +7,6 @@ import { placeholderImg } from './assets/temp';
 import StyledLink from './StyledLink';
 import { TextField, Select } from './FormElements';
 import { Button } from '@material-ui/core';
-import EmailInput from './EmailInput';
-import PasswordInput from './PasswordInput';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -229,13 +227,24 @@ function SignupNonProfit() {
                                 onChange={handleFieldChange}
                             />
                         </Grid>
-                            <EmailInput
-                                startAdornment={true}
+                        <Grid item md={6} xs={12}>
+                            <TextField
+                                id="email"
+                                label="Email"
                                 placeholder="Email"
                                 value={formData.email}
                                 onChange={handleFieldChange}
-                            />
-                            <PasswordInput value={formData.password} onChange={handleFieldChange} startAdornment={true} />
+                            />                            
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <TextField
+                                id="password"
+                                label="Password"
+                                placeholder="Password"
+                                value={formData.password}
+                                onChange={handleFieldChange}
+                            />                            
+                        </Grid>
                             <FormControlLabel
                                 style={{ textAlign: 'left', display: 'block' }}
                                 control={
