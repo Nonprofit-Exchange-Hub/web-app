@@ -134,11 +134,11 @@ function Assets(): JSX.Element {
                     </Paper>
                     <NeedsAndOffers
                         headerText="Nonprofit Needs"
-                        cards={dumbyData}
+                        assets={dumbyData}
                     />
                     <NeedsAndOffers
                         headerText="Offers"
-                        cards={dumbyData}
+                        assets={dumbyData}
                     />
                 </div>
             </div>

@@ -1,17 +1,22 @@
+import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import type { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import * as React from 'react';
 import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+
+import type { Theme } from '@material-ui/core/styles';
+
 import EmailInput from './EmailInput';
 import FacebookAuthBtn from './FacebookAuthBtn';
 import GoogleAuthBtn from './GoogleAuthBtn';
 import PasswordInput from './PasswordInput';
 import StyledLink from './StyledLink';
 import TextDivider from './TextDivider';
+import { UserContext } from './providers';
+
 
 const useStyles = makeStyles((theme: Theme) => {
     const xPadding = 12;
@@ -60,6 +65,8 @@ function Login() {
     const history = useHistory();
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [error, setError] = React.useState<error>({type: '', message: ''})
+    const [, setUser] = React.useContext(UserContext);
+
     const [ formData, setFormData ] = React.useState(initialFormData);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -80,30 +87,34 @@ function Login() {
             },
             body: JSON.stringify(formData),
         });
-        const data = await res.json()
-        setIsLoading(false)
-        if(data.status === 401){
-            if(data.error === 'Email not found'){
-                setError({type: 'email', message:data.error})
-            }
-            else if(data.error === 'Invalid password'){
-                setError({type: 'password', message:data.error})
+        const response = await res.json();
+        setIsLoading(false);
+
+        if (!response.ok) {
+            if (response.error === 'Email not found') {
+                setError({ type: 'email', message: response.error });
+            } else if (response.error === 'Invalid password') {
+                setError({ type: 'password', message:response.error });
+            } else {
+                setError({ type: '', message: 'an unknown error occurred' });
             }
         } else {
-            history.push('/')
+            const user = jwt.verify(response.access_token, 'placeholder');
+            setUser(user);
+            history.push('/');
         }
     };
 
     return (
         <div className="Login" style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Paper elevation={3} className={classes.paper}>
-                <Grid container justify="center" direction="column" spacing={2}>
+                <Grid container justifyContent="center" direction="column" spacing={2}>
                     <Grid item xs={12}>
                         <Typography className={classes.header} variant="h3" component="h1" align="center">
                             Welcome Back.
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} container justify="space-between">
+                    <Grid item xs={12} container justifyContent="space-between">
                         <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn>
                         <FacebookAuthBtn>Sign In with Facebook</FacebookAuthBtn>
                     </Grid>

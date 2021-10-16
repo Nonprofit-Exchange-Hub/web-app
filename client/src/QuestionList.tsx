@@ -23,9 +23,13 @@ function QuestionList(props: QuestionListProps) {
     
     return (
         <>
-            {props.questionList.map((questionItem) => {
-                return <Question question={questionItem.question} answer={questionItem.answer}></Question>
-            })}
+            {props.questionList.map((questionItem) => (
+                <Question
+                    key={questionItem.question}
+                    question={questionItem.question}
+                    answer={questionItem.answer}
+                />
+            ))}
         </>
     );
 };
