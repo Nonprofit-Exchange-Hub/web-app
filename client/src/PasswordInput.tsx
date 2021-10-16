@@ -26,21 +26,19 @@ const useStyles = makeStyles((theme: Theme) => {
         label: {
             color: '#000000',
             textAlign: 'left',
-
-            '& .MuiInput-formControl': {},
         },
     };
 });
 
 interface Props {
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
-    value: string;
-    error?: string | false;
-    showStartAdornment?: boolean;
-    showForgot?: boolean;
+    onChange: React.ChangeEventHandler<HTMLInputElement>,
+    value: string,
+    error?: string | null,
+    showStartAdornment?: boolean,
+    showForgot?: boolean,
 }
 
-function PasswordInput({ onChange, value, error=false, showStartAdornment = false, showForgot = false }: Props) {
+function PasswordInput({ onChange, value, error, showStartAdornment = false, showForgot = false }: Props) {
     const classes = useStyles();
 
     const [ showPassword, setShowPassword ] = React.useState(false);

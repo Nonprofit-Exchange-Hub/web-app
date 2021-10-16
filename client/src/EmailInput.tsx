@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 interface Props {
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  value: string;
-  placeholder: string;
-  showStartAdornment?: boolean;
-  error?: false | string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>,
+  value: string,
+  placeholder: string,
+  showStartAdornment?: boolean,
+  error: string | null,
 }
 
 function EmailInput({
@@ -38,7 +38,7 @@ function EmailInput({
   value,
   placeholder,
   showStartAdornment = false,
-  error = false,
+  error,
 }: Props) {
   const classes = useStyles();
 

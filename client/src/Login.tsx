@@ -55,7 +55,7 @@ const initialFormData: UserLoginData = {
     password: '',
 };
 
-interface error {
+interface Error {
     type: '' | 'email' | 'password',
     message: string
 }
@@ -64,7 +64,7 @@ function Login() {
     const classes = useStyles();
     const history = useHistory();
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const [error, setError] = React.useState<error>({type: '', message: ''})
+    const [error, setError] = React.useState<Error | null>(null)
     const [, setUser] = React.useContext(UserContext);
 
     const [ formData, setFormData ] = React.useState(initialFormData);
@@ -77,7 +77,7 @@ function Login() {
         }));
     };
 
-    const handleSubmit = async (evt: React.FormEvent) => {
+    const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
         evt.preventDefault();
         setIsLoading(true)
         const res = await fetch('http://localhost:3001/api/auth/login', {
@@ -90,7 +90,9 @@ function Login() {
         const response = await res.json();
         setIsLoading(false);
 
-        if (!response.ok) {
+        // debugger;
+
+        if (!res.ok) {
             if (response.error === 'Email not found') {
                 setError({ type: 'email', message: response.error });
             } else if (response.error === 'Invalid password') {
@@ -101,6 +103,7 @@ function Login() {
         } else {
             const user = jwt.verify(response.access_token, 'placeholder');
             setUser(user);
+            setError(null);
             history.push('/');
         }
     };
@@ -127,9 +130,14 @@ function Login() {
                                 value={formData.email}
                                 placeholder="jane@nonprofit.com"
                                 onChange={handleChange}
-                                error={error.type === 'email' && error.message}
+                                error={error?.type === 'email' ? error.message : null}
                             />
-                            <PasswordInput value={formData.password} onChange={handleChange} showForgot={true} error={error.type === 'password' && error.message}/>
+                            <PasswordInput
+                                value={formData.password}
+                                onChange={handleChange}
+                                showForgot={true}
+                                error={error?.type === 'password' ? error.message : null}
+                            />
                             <Button
                                 className={classes.button}
                                 style={{ backgroundColor: '#C4C4C4', color: 'white' }}
