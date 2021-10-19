@@ -14,7 +14,7 @@ export class Message {
   id: number;
 
   @Column('text')
-  text: text;
+  text: string;
 
   @CreateDateColumn({
     type: 'timestamp',
