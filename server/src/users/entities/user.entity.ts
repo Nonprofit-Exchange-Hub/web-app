@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Message } from '../../messages/entities/message.entity.ts';
+import { Message } from '../../messages/entities/message.entity';
 
 @Entity('users')
 export class User {
