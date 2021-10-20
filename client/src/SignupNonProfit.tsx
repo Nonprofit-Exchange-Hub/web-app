@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: '#C4C4C4',
         color: 'white',
     },
-    header: { fontWeight: 'bold' }
+    header: { fontWeight: 'bold' },
+    arrow: { cursor: 'pointer' }
 }));
 
 interface SignupData {
@@ -209,6 +210,7 @@ function SignupNonProfit() {
                             <Grid container spacing={5}>
                                 <Grid item xs={12}>
                                     <ArrowBackIcon
+                                    className={classes.arrow}
                                     fontSize="medium" 
                                     onClick={handlePreviousClick}
                                     >
