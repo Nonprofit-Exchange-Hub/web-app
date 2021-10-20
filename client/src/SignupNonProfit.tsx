@@ -54,7 +54,6 @@ interface SignupData {
     role_or_title: string;
     email: string;
     password: string;
-    first_page_complete: boolean;
     accept_terms: boolean;
 }
 
@@ -70,7 +69,6 @@ const initialFormData: SignupData = {
     role_or_title: '',
     email: '',
     password: '',
-    first_page_complete: false,
     accept_terms: false
 };
 
@@ -89,13 +87,6 @@ function SignupNonProfit() {
                 [name]: type === 'checkbox' ? evt.target.checked : value
             };
         });
-
-        // check to see if page is complete
-        // first page form properties:
-        let firstPage = [formData.org_name, formData.city, formData.state, formData.ein, formData.tax_exempt_id, formData.nonprofit_classification]
-        
-
-
 
     };
 
@@ -118,6 +109,19 @@ function SignupNonProfit() {
         e.preventDefault();
         console.log('signup clicked', formData);
     };
+
+    // validating completion of page 1
+    const step1Complete = formData.org_name !== '' && formData.city !== ''
+    const step2Complete = formData.state !== '' && formData.ein !== ''
+    const step3Complete = formData.tax_exempt_id !== '' && formData.nonprofit_classification !== ''
+    const firstPageComplete = (step1Complete && step2Complete) && step3Complete
+
+    // validating completion of page 2
+    const step4Complete = formData.first_name !== '' && formData.last_name !== ''
+    const step5Complete = formData.role_or_title !== '' && formData.email !== ''
+    const step6Complete = formData.password !== '' && !!formData.accept_terms
+    const secondPageComplete = (step4Complete && step5Complete) && step6Complete
+
 
     return (
         <React.Fragment>
@@ -197,7 +201,7 @@ function SignupNonProfit() {
                                     <Grid item md={8} xs={12}>
                                             <Button 
                                                 onClick={handleNextClick}
-                                                // disabled={!formData.first_page_complete}
+                                                disabled={!firstPageComplete}
                                                 className={classes.button}
                                                 fullWidth
                                                 >
@@ -279,7 +283,7 @@ function SignupNonProfit() {
                                         label={
                                             <label>
                                                 Accept the{' '}
-                                                <StyledLink to="/terms_and_condtions" target="_blank">
+                                                <StyledLink to="/terms_of_service" target="_blank">
                                                     Terms and Condtions
                                                 </StyledLink>
                                             </label>
@@ -289,7 +293,7 @@ function SignupNonProfit() {
                                         className={classes.button}
                                         fullWidth
                                         type="submit"
-                                        disabled={!formData.accept_terms}
+                                        disabled={!secondPageComplete}
                                     >
                                         Sign Up
                                     </Button>
