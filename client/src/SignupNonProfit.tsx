@@ -7,19 +7,20 @@ import { placeholderImg } from './assets/temp';
 import StyledLink from './StyledLink';
 import { TextField, Select } from './FormElements';
 import { Button } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-const exemptions = [
+const classifications = [
     { value: 'charitable', text: 'Charitable Organization' },
     { value: 'religious', text: 'Religious Organization' },
     { value: 'private', text: 'Private Foundation' },
     { value: 'political', text: 'Political Organizations' },
     { value: 'other', text: 'Other' }
 ];
-
+           
 const useStyles = makeStyles((theme: Theme) => ({
     sideImg: {
         backgroundImage: `url("${placeholderImg}")`,
@@ -52,6 +53,7 @@ interface SignupData {
     role_or_title: string;
     email: string;
     password: string;
+    first_page_complete: boolean;
     accept_terms: boolean;
 }
 
@@ -67,6 +69,7 @@ const initialFormData: SignupData = {
     role_or_title: '',
     email: '',
     password: '',
+    first_page_complete: false,
     accept_terms: false
 };
 
@@ -85,6 +88,14 @@ function SignupNonProfit() {
                 [name]: type === 'checkbox' ? evt.target.checked : value
             };
         });
+
+        // check to see if page is complete
+        // first page form properties:
+        let firstPage = [formData.org_name, formData.city, formData.state, formData.ein, formData.tax_exempt_id, formData.nonprofit_classification]
+        
+
+
+
     };
 
     //Had to make second handler for HTMLSelectElement vs HTMLInputElement
@@ -101,6 +112,7 @@ function SignupNonProfit() {
     };
 
     const handleNextClick = () => setPageNum(2);
+    const handlePreviousClick = () => setPageNum(1);
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log('signup clicked', formData);
@@ -176,7 +188,7 @@ function SignupNonProfit() {
                                         id="nonprofit_classification"
                                         label="IRS Nonprofit Organization Classification"
                                         placeholder="Select classification"
-                                        options={exemptions}
+                                        options={classifications}
                                         value={formData.nonprofit_classification}
                                         onChange={handleSelectChange}
                                     />
@@ -184,6 +196,7 @@ function SignupNonProfit() {
                                     <Grid item md={8} xs={12}>
                                             <Button 
                                                 onClick={handleNextClick}
+                                                // disabled={!formData.first_page_complete}
                                                 className={classes.button}
                                                 fullWidth
                                                 >
@@ -195,7 +208,13 @@ function SignupNonProfit() {
                         ) : (
                             <Grid container spacing={5}>
                                 <Grid item xs={12}>
-                                    <Typography component="p" align="left">
+                                    <ArrowBackIcon
+                                    fontSize="medium" 
+                                    onClick={handlePreviousClick}
+                                    >
+                                        Back
+                                        </ArrowBackIcon>
+                                    <Typography component="p">
                                         Step 2: About You
                                     </Typography>
                                 </Grid>
