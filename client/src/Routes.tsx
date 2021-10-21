@@ -26,6 +26,8 @@ import OfferForm from './OfferForm';
 import OfferFormGoods from './OfferFormGoods';
 import OfferFormVolunteers from './OfferFormVolunteers';
 import ActionForm from './ActionForm';
+import UserProfile from './UserProfile';
+
 
 function Routes() {
     return (
@@ -104,6 +106,9 @@ function Routes() {
             </Route>
             <Route exact path="/action">
                 <ActionForm />
+            </Route>
+            <Route exact path="/users/:userId">
+                <UserProfile />
             </Route>
         </Switch>
     );
