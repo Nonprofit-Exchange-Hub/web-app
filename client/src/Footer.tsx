@@ -63,7 +63,7 @@ function Footer() {
                         <StyledLink to="/help">Help & FAQs</StyledLink>
                     </Grid>
                 </Grid>
-                <Grid className={classes.bottom} container item md={8} xs={10} justify="space-between">
+                <Grid className={classes.bottom} container item md={8} xs={10} justifyContent="space-between">
                     {/* TODO Not sure if NEH 2021 is supposed to just be text, or a link.
                     Leaving as text for now, as the name seems like it is changing anyway.*/}
                     <span>NEH 2021</span>

@@ -46,14 +46,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
 type Props = {
-    cards: Asset[],
-    headerContentRight?: JSX.Element,
-    headerText: string,
+  assets: Asset[],
+  headerContentRight?: JSX.Element,
+  headerText: string,
 };
 
 function NeedsAndOffers(props: Props): JSX.Element {
     const classes = useStyles();
-    const { cards, headerContentRight, headerText } = props;
+    const { assets, headerContentRight, headerText } = props;
 
     return (
         <>
@@ -64,15 +64,15 @@ function NeedsAndOffers(props: Props): JSX.Element {
                 {headerContentRight ?? null}
             </Grid>
             <div className={classes.needsAndOffersSub}>
-                {cards.map(card => (
-                    <NavLink to={`/offer/${card.id}`} key={card.id} className={classes.card}>
+                {assets.map(asset => (
+                    <NavLink to={`/asset/${asset.id}`} key={asset.id} className={classes.card}>
                         <Card variant="outlined">
-                            <img src={card.imgs[0]} className={classes.cardImg} alt={card.title} />
+                            <img src={asset.imgUrls[0]} className={classes.cardImg} alt={asset.title} />
                             <Typography variant="h6" component="h4" className={classes.cardText1}>
-                                {card.title}, {card.categories[0]}
+                                {asset.title}, {asset.categories[0]}
                             </Typography>
                             <div className={classes.cardText2}>
-                                <RoomOutlined />{card.location}<TodayOutlined />{card.datePosted}
+                                <RoomOutlined />{asset.location}<TodayOutlined />{asset.datePosted}
                             </div>
                         </Card>
                     </NavLink>

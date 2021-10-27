@@ -56,7 +56,8 @@ interface UserSignupData {
     last_name: string;
     email: string;
     password: string;
-    accept_terms: boolean;
+    accept_terms?: boolean,
+
 }
 
 const initialFormData: UserSignupData = {
@@ -70,7 +71,8 @@ const initialFormData: UserSignupData = {
 function SignupCitizen() {
     const classes = useStyles();
     const history = useHistory();
-
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [emailError, setEmailError] = React.useState<string>('')
     const [ formData, setFormData ] = React.useState(initialFormData);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -83,18 +85,24 @@ function SignupCitizen() {
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        try {
-            const res = await fetch('http://localhost:3001/api/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            history.push('/');
-        } catch (err) {
-            // Handle err
+        setIsLoading(true)
+        // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
+        delete formData.accept_terms
+        const res = await fetch('http://localhost:3001/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        const data = await res.json()
+        setIsLoading(false)
+        if(data.status === 409){
+            setEmailError(data.message)
+        } else {
+            history.push('/')
         }
+
     };
 
     return (
@@ -108,13 +116,13 @@ function SignupCitizen() {
                     <Typography component="p" align="left" gutterBottom>
                         Already have an account? <StyledLink to="/login">Log In</StyledLink>
                     </Typography>
-                    <Grid container item justify="space-between">
+                    <Grid container item justifyContent="space-between">
                         <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
                         <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
                     </Grid>
                     <TextDivider>or</TextDivider>
                     <form onSubmit={handleSubmit}>
-                        <Grid container item xs={12} justify="space-between">
+                        <Grid container item xs={12} justifyContent="space-between">
                             <Grid item xs={5}>
                                 <FormControl fullWidth>
                                     <label className={classes.label} htmlFor="first_name">
@@ -162,9 +170,10 @@ function SignupCitizen() {
                             value={formData.email}
                             placeholder="jane@citizen.com"
                             onChange={handleChange}
-                            startAdornment={true}
+                            showStartAdornment={true}
+                            error={emailError}
                         />
-                        <PasswordInput value={formData.password} onChange={handleChange} startAdornment={true} />
+                        <PasswordInput value={formData.password} onChange={handleChange} showStartAdornment={true} />
                         <FormControlLabel
                             style={{ textAlign: 'left', display: 'block' }}
                             control={
@@ -194,6 +203,8 @@ function SignupCitizen() {
                         >
                             Sign Up
                         </Button>
+                        {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                        {isLoading && <Typography>Loading</Typography>} 
                     </form>
                 </Grid>
             </Grid>

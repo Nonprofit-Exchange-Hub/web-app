@@ -5,8 +5,7 @@ import { Grid } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
 
-
-const instructionStyles = makeStyles<Theme, InstructionProps> ({
+const instructionStyles = makeStyles<Theme, InstructionProps> ((theme: Theme) => ({
     gridBoxes: {
         '& > div': {
             width: '100%',
@@ -21,13 +20,12 @@ const instructionStyles = makeStyles<Theme, InstructionProps> ({
             },
             '& .MuiTypography-body1': {
                 width: '100%',
-                maxWidth: '1100px',
-                fontSize: '1.3rem',
+                maxWidth: theme.custom.maxContentWidth,
                 textAlign: 'left',
             },
         },
     },
-});
+}));
 
 type InstructionProps = {
     instructionList: { title: string, body: string, image: string }[],
@@ -37,7 +35,7 @@ function InstructionGrid(props: InstructionProps) {
     const classes = instructionStyles(props);
 
     return (
-        <Grid container justify='space-between' className={`${classes.gridBoxes}`}>
+        <Grid container justifyContent="space-between" className={`${classes.gridBoxes}`}>
             {props.instructionList.map((instructionItem, index) => {
                 var text = (
                     <GridText title={instructionItem.title} body={instructionItem.body}></GridText>
