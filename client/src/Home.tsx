@@ -132,7 +132,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     makeAPostButton: {
         marginLeft: '15px',
     },
+    makeAPostLink: {
+        textDecoration: 'none',
+    },
 }));
+
+function HeaderContentRight(): JSX.Element {
+    const classes = useStyles();
+
+    return (
+        <div>
+            <NavLink to="/assets">See all Needs and Offers</NavLink>
+            <NavLink to="/need" className={classes.makeAPostLink}>
+                <Button className={classes.makeAPostButton} color="primary" variant="contained">Make a Post</Button>
+            </NavLink>
+        </div>
+    );
+}
 
 function Home(): JSX.Element {
     const classes = useStyles();
@@ -142,15 +158,6 @@ function Home(): JSX.Element {
     const selectSearchCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
         setSelectedSearchCategory(event.target.value as string);
     };
-
-    const headerContentRight = (
-        <div>
-            <NavLink to="/assets">See all Needs and Offers</NavLink>
-            <NavLink to="/post/new">
-                <Button className={classes.makeAPostButton} color="primary" variant="contained">Make a Post</Button>
-            </NavLink>
-        </div>
-    );
 
     return (
         <>
@@ -190,7 +197,7 @@ function Home(): JSX.Element {
             <div className={classes.needsAndOffers}>
                 <NeedsAndOffers
                     cards={dumbyData}
-                    headerContentRight={headerContentRight}
+                    headerContentRight={<HeaderContentRight />}
                     headerText="Nonprofit Needs"
                 />
                 <NeedsAndOffers
