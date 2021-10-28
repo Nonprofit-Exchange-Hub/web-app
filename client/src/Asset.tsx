@@ -180,7 +180,7 @@ function Asset(): JSX.Element {
                         {asset.categories.join(', ')}
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
-                        Posted By {asset.postedBy}
+                        Posted By {asset.postedBy.firstName}
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
                         <RoomOutlined />{asset.location}
