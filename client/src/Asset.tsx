@@ -44,17 +44,17 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        padding: '20px 15% 60px',
+        padding: '50px 4% 150px 7%',
     },
     leftPanel: {
-        width: '60%',
+        width: '50%',
         marginRight: '5%',
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
     },
     rightPanel: {
-        width: '35%',
+        width: '45%',
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
@@ -91,6 +91,12 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingTop: '10px',
         alignItems: 'center',
     },
+    linkedText:{
+        display:'flex',
+        paddingTop: '15px',
+        fontWeight: 'bold',
+        fontSize: '1.1em',
+    },
     claimButton: {
         marginTop: '20px',
         width: '70%',
@@ -116,7 +122,6 @@ function Asset(): JSX.Element {
     const classes = useStyles();
     const { assetId } = useParams<{ assetId?: string }>();
     const asset = useAsset(assetId);
-
     const [searchText, setSearchText] = React.useState<string>('');
     const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
 
@@ -132,7 +137,61 @@ function Asset(): JSX.Element {
     }
 
     const bigImg = asset.imgUrls[selectedImgInd];
+    //postedFrom function to differentiate between individuals and nonprofits posting
+    const postedFrom = () =>{
+        if(asset.organization == "null"){
+            return(
+                <div>
+                <Typography className={classes.subText} variant="subtitle1">
+                    Posted By {asset.postedBy.firstName}
+                </Typography>
+                <Typography className={classes.subText} variant="subtitle1">
+                    <RoomOutlined />{asset.location}
+                </Typography>
+                <Typography className={classes.subText} variant="subtitle1">
+                    <TodayOutlined />{asset.datePosted}
+                </Typography>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={handleClaim}
+                    className={classes.claimButton}
+                >
+                    Message to claim!
+                </Button>
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                <Typography className={classes.linkedText} variant="subtitle1">
+                    {asset.postedBy.firstName}
+                </Typography>
+                <Typography className={classes.subText} variant="subtitle1">
+                    <RoomOutlined />{asset.location}
+                </Typography>
+                <Typography className={classes.subText} variant="subtitle1">
+                    <TodayOutlined />{asset.datePosted}
+                </Typography>
+                <Typography className={classes.linkedText} variant="subtitle1">
+                    About {asset.postedBy.firstName}
+                </Typography>
+                <Typography className={classes.subText} variant="subtitle1">
+                 {asset.description}
+                </Typography>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={handleClaim}
+                    className={classes.claimButton}
+                >
+                    I can donate this!
+                </Button>
+                </div>
+            )
+        }
 
+    }
     return (
         <>
             <Paper elevation={0} className={classes.topBar}>
@@ -179,23 +238,8 @@ function Asset(): JSX.Element {
                     <Typography className={classes.subText} variant="subtitle1">
                         {asset.categories.join(', ')}
                     </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                        Posted By {asset.postedBy.firstName}
-                    </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                        <RoomOutlined />{asset.location}
-                    </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                        <TodayOutlined />{asset.datePosted}
-                    </Typography>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        onClick={handleClaim}
-                        className={classes.claimButton}
-                    >
-                        Message to claim!
-                    </Button>
+                    {postedFrom()}
+
                 </div>
             </div>
         </>

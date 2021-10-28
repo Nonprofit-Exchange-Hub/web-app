@@ -7,6 +7,8 @@ export type Asset = {
     imgUrls: string[],
     description: string,
     postedBy: User,
+    //optional organization_id to be filled here, for now using string as placeholder
+    organization: string,
 };
 
 export type User = {
