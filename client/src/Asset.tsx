@@ -10,7 +10,7 @@ import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import Typography from '@material-ui/core/Typography';
 import TodayOutlined from '@material-ui/icons/TodayOutlined';
 import RoomOutlined from '@material-ui/icons/RoomOutlined';
-
+import SimpleSnackbar from './SimpleSnackbar'
 import { dumbyData } from './assets/temp';
 
 import type { Theme } from '@material-ui/core/styles';
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     leftPanel: {
         width: '50%',
-        marginRight: '5%',
+        marginRight: '7%',
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
@@ -100,6 +100,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     claimButton: {
         marginTop: '30px',
         width: '40%',
+        borderRadius: '10px',
     },
 }));
 
@@ -162,7 +163,7 @@ function Asset(): JSX.Element {
             return(
                 <div>
                     <Typography className={classes.linkedText} variant="subtitle1">
-                    About {asset.postedBy.firstName}
+                    About the Nonprofit
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
                     {asset.description}
@@ -232,6 +233,7 @@ function Asset(): JSX.Element {
                     >
                         {buttonLabel}
                     </Button>
+                    <SimpleSnackbar/>
 
                 </div>
             </div>
