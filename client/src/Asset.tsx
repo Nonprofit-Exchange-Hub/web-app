@@ -98,8 +98,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: '1.1em',
     },
     claimButton: {
-        marginTop: '20px',
-        width: '70%',
+        marginTop: '30px',
+        width: '40%',
     },
 }));
 
@@ -124,7 +124,7 @@ function Asset(): JSX.Element {
     const asset = useAsset(assetId);
     const [searchText, setSearchText] = React.useState<string>('');
     const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
-
+    let buttonLabel;
     const handleClaim = () => {
       // TODOs
       // post request to claim this asset for this user
@@ -140,57 +140,35 @@ function Asset(): JSX.Element {
     //postedFrom function to differentiate between individuals and nonprofits posting
     const postedFrom = () =>{
         if(asset.organization == "null"){
+            buttonLabel="Message to claim!"
             return(
-                <div>
                 <Typography className={classes.subText} variant="subtitle1">
                     Posted By {asset.postedBy.firstName}
                 </Typography>
-                <Typography className={classes.subText} variant="subtitle1">
-                    <RoomOutlined />{asset.location}
-                </Typography>
-                <Typography className={classes.subText} variant="subtitle1">
-                    <TodayOutlined />{asset.datePosted}
-                </Typography>
-                <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={handleClaim}
-                    className={classes.claimButton}
-                >
-                    Message to claim!
-                </Button>
-                </div>
             )
         }else{
+            buttonLabel= "I can donate this!"
             return(
-                <div>
                 <Typography className={classes.linkedText} variant="subtitle1">
                     {asset.postedBy.firstName}
                 </Typography>
-                <Typography className={classes.subText} variant="subtitle1">
-                    <RoomOutlined />{asset.location}
-                </Typography>
-                <Typography className={classes.subText} variant="subtitle1">
-                    <TodayOutlined />{asset.datePosted}
-                </Typography>
-                <Typography className={classes.linkedText} variant="subtitle1">
-                    About {asset.postedBy.firstName}
-                </Typography>
-                <Typography className={classes.subText} variant="subtitle1">
-                 {asset.description}
-                </Typography>
-                <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={handleClaim}
-                    className={classes.claimButton}
-                >
-                    I can donate this!
-                </Button>
-                </div>
             )
         }
 
+    }
+
+    const aboutInfo = () =>{
+        if(asset.organization !== "null"){
+            return(
+                <div>
+                    <Typography className={classes.linkedText} variant="subtitle1">
+                    About {asset.postedBy.firstName}
+                    </Typography>
+                    <Typography className={classes.subText} variant="subtitle1">
+                    {asset.description}
+                    </Typography>
+                </div>)
+        }
     }
     return (
         <>
@@ -239,6 +217,21 @@ function Asset(): JSX.Element {
                         {asset.categories.join(', ')}
                     </Typography>
                     {postedFrom()}
+                    <Typography className={classes.subText} variant="subtitle1">
+                        <RoomOutlined />{asset.location}
+                    </Typography>
+                    <Typography className={classes.subText} variant="subtitle1">
+                        <TodayOutlined />{asset.datePosted}
+                    </Typography>
+                    {aboutInfo()}
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={handleClaim}
+                        className={classes.claimButton}
+                    >
+                        {buttonLabel}
+                    </Button>
 
                 </div>
             </div>
