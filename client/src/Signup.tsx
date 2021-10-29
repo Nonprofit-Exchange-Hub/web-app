@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Container, Button } from '@material-ui/core';
 import type { Theme } from '@material-ui/core/styles';
-import { inherits } from 'util';
 
 const useStyles = makeStyles((theme: Theme) => ({
     imageBackground: {
