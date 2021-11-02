@@ -47,14 +47,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: '50px 4% 150px 7%',
     },
     leftPanel: {
-        width: '50%',
+        width: '45%',
         marginRight: '7%',
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
     },
     rightPanel: {
-        width: '45%',
+        width: '50%',
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
@@ -86,14 +86,17 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginBottom: '10px',
         cursor: 'pointer',
     },
+    heading:{
+        marginBottom: '10px',
+    },
     subText: {
         display: 'flex',
-        paddingTop: '10px',
+        paddingTop: '7px',
         alignItems: 'center',
     },
     linkedText:{
         display:'flex',
-        paddingTop: '15px',
+        paddingTop: '10px',
         fontWeight: 'bold',
         fontSize: '1.1em',
     },
@@ -101,6 +104,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginTop: '30px',
         width: '40%',
         borderRadius: '10px',
+        minWidth: '150px',
     },
 }));
 
@@ -126,7 +130,9 @@ function Asset(): JSX.Element {
     const [searchText, setSearchText] = React.useState<string>('');
     const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
     let buttonLabel;
+    const [snackbar, setSnackbar] = React.useState(false)
     const handleClaim = () => {
+        setSnackbar(true)
       // TODOs
       // post request to claim this asset for this user
       // history.push to move us to confirmation page?
@@ -211,7 +217,7 @@ function Asset(): JSX.Element {
                     </p>
                 </div>
                 <div className={classes.rightPanel}>
-                    <Typography variant="h3">
+                    <Typography className={classes.heading} variant="h3">
                         {asset.title}
                     </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
@@ -233,8 +239,7 @@ function Asset(): JSX.Element {
                     >
                         {buttonLabel}
                     </Button>
-                    <SimpleSnackbar/>
-
+                    {snackbar ? <SimpleSnackbar/> : null}
                 </div>
             </div>
         </>
