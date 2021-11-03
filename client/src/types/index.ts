@@ -29,7 +29,13 @@ export type Message = {
     transactionId: number,
     user: User,
 };
+
 export type Option = {
     value: string,
+    text: string,
+};
+
+export type TextLink = {
+    url: string,
     text: string,
 };
