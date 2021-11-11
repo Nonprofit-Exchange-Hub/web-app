@@ -3,22 +3,22 @@ import { TextLink } from './types';
 
 const links: TextLink[] = [
     {
-        url: "/need/goods/",
-        text: "Goods"
+        url: "/need/",
+        text: "Share a Need"
     },
     {
-        url: "/need/volunteers",
-        text: "Volunteers"
+        url: "/offer/",
+        text: "Make an Offer"
     },
 ];
 
-function NeedForm() {
+function ActionForm() {
     return (
         <LinkPage
-            title="What do you need?"
+            title="What would you like to do?"
             links={links}
         />
     );
 }
 
-export default NeedForm;
+export default ActionForm;

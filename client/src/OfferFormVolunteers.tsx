@@ -4,51 +4,45 @@ import { Button } from '@material-ui/core';
 import { TextField, RadioGroup, Select, FileUploadInput } from './FormElements';
 import { NeedOfferForm } from './FormElements';
 
-const categories = [
-    { value: 'figs', text: 'Figs' },
-    { value: 'peaches', text: 'Peaches' },
-    { value: 'pears', text: 'Pears' },
-];
-const conditions = [
-    { value: 'like-new', text: 'Like New' },
-    { value: 'excellent', text: 'Excellent' },
-    { value: 'good', text: 'Good' },
-];
-const needTypes = [
-    { value: 'donation', text: 'Donation' },
-    { value: 'short-term', text: 'Short term loan (<1 month)' },
-    { value: 'long-term', text: 'Long term loan (>1 month)' },
-];
-const deliveryTypes = [
-    { value: 'pick-up', text: 'Pick up only' },
-    { value: 'drop-off', text: 'Drop off only' },
-    { value: 'pick-up-drop-off', text: 'Pick up and drop off' },
+const skillCategories = [
+    { value: 'purple', text: 'Purple' },
+    { value: 'blue', text: 'Blue' },
+    { value: 'green', text: 'Green' },
+    { value: 'yellow', text: 'Yellow' },
+    { value: 'orange', text: 'Orange' },
+    { value: 'red', text: 'Red' },
 ];
 
-interface ShareANeedData {
+const availabilityOptions = [
+    { value: 'one-time', text: 'One-time event' },
+    { value: '0-3-months', text: 'Up to 3 months' },
+    { value: '3-6-months', text: '3 - 6 months' },
+    { value: 'over-6-months', text: 'Longer than 6 months' },
+    { value: 'flexible', text: 'On a flexible basis' },
+];
+
+interface FormData {
     title: string;
     location: string;
     description: string;
     category: string;
-    condition: string;
-    quantity: string;
-    needType: string;
-    deliveryMethod: string;
+    availability: string;
+    linkedin: string;
+    resume: string;
 }
 
-const initialFormData: ShareANeedData = {
+const initialFormData: FormData = {
     title: '',
     location: '',
     description: '',
     category: '',
-    condition: '',
-    quantity: '',
-    needType: '',
-    deliveryMethod: '',
+    availability: '',
+    linkedin: '',
+    resume: '',
 };
 
-function NeedForm() {
-    const [ formData, setFormData ] = React.useState<ShareANeedData>(initialFormData);
+function OfferFormVolunteers() {
+    const [ formData, setFormData ] = React.useState<FormData>(initialFormData);
 
     // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
     const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<{ name?: string | undefined; value: unknown; }>): void => {
@@ -60,7 +54,8 @@ function NeedForm() {
     };
 
     return (
-        <NeedOfferForm title="Share a Need: Goods">
+        <NeedOfferForm title="Make an Offer: Volunteer Skills">
+
             <Grid container spacing={5}>
                 <Grid item md={8} xs={12}>
                     <TextField
@@ -84,7 +79,7 @@ function NeedForm() {
                     <TextField
                         id="description"
                         label="Description"
-                        placeholder="Describe what goods you are looking for"
+                        placeholder="Describe the skills you are looking for"
                         value={formData.description}
                         onChange={handleChange}
                         isMultiline={true}
@@ -93,55 +88,36 @@ function NeedForm() {
                 <Grid item md={8} xs={12}>
                     <Select
                         id="category"
-                        label="Category"
+                        label="Skill Category"
                         placeholder="Select a category"
-                        options={categories}
+                        options={skillCategories}
                         value={formData.category}
                         onChange={handleChange}
                     />
                 </Grid>
                 <Grid item md={8} xs={12}>
-                    <Select
-                        id="condition"
-                        label="Condition"
-                        placeholder="Select a preferred condition"
-                        options={conditions}
-                        value={formData.condition}
+                    <RadioGroup
+                        label="Availability"
+                        id="availability"
+                        options={availabilityOptions}
+                        value={formData.availability}
                         onChange={handleChange}
                     />
                 </Grid>
-                <Grid item md={4} xs={12}>
+                <Grid item md={12} xs={12}>
                     <TextField
-                        id="quantity"
-                        label="Quantity"
-                        placeholder="# of goods needed"
-                        value={formData.quantity}
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item md={8} xs={12}>
-                    <RadioGroup
-                        label="Need Type"
-                        id="needType"
-                        options={needTypes}
-                        value={formData.needType}
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item md={4} xs={12}>
-                    <RadioGroup
-                        label="Delivery Method"
-                        id="deliveryMethod"
-                        options={deliveryTypes}
-                        value={formData.deliveryMethod}
+                        id="linkedin"
+                        label="LinkedIn Profile (Optional)"
+                        placeholder="Add your LinkedIn profile URL"
+                        value={formData.linkedin}
                         onChange={handleChange}
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <FileUploadInput
-                        label="Photos"
-                        id="photos"
-                        text="Click here to upload photos"
+                        label="Resume / CV (Optional)"
+                        id="resume"
+                        text="Click here to upload file"
                         onChange={handleChange}
                     />
                 </Grid>
@@ -153,13 +129,14 @@ function NeedForm() {
                     </Grid>
                     <Grid item>
                         <Button variant="contained" color="primary">
-                            Submit Need
+                            Submit Offer
                         </Button>
                     </Grid>
                 </Grid>
             </Grid>
+
         </NeedOfferForm>
     );
 }
 
-export default NeedForm;
+export default OfferFormVolunteers;

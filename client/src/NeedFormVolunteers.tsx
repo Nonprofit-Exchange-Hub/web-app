@@ -1,28 +1,24 @@
 import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { TextField, RadioGroup, Select, FileUploadInput } from './FormElements';
+import { TextField, RadioGroup, Select } from './FormElements';
 import { NeedOfferForm } from './FormElements';
 
-const categories = [
-    { value: 'figs', text: 'Figs' },
-    { value: 'peaches', text: 'Peaches' },
-    { value: 'pears', text: 'Pears' },
+const skillCategories = [
+    { value: 'purple', text: 'Purple' },
+    { value: 'blue', text: 'Blue' },
+    { value: 'green', text: 'Green' },
+    { value: 'yellow', text: 'Yellow' },
+    { value: 'orange', text: 'Orange' },
+    { value: 'red', text: 'Red' },
 ];
-const conditions = [
-    { value: 'like-new', text: 'Like New' },
-    { value: 'excellent', text: 'Excellent' },
-    { value: 'good', text: 'Good' },
-];
-const needTypes = [
-    { value: 'donation', text: 'Donation' },
-    { value: 'short-term', text: 'Short term loan (<1 month)' },
-    { value: 'long-term', text: 'Long term loan (>1 month)' },
-];
-const deliveryTypes = [
-    { value: 'pick-up', text: 'Pick up only' },
-    { value: 'drop-off', text: 'Drop off only' },
-    { value: 'pick-up-drop-off', text: 'Pick up and drop off' },
+
+const availabilityNeeded = [
+    { value: 'one-time', text: 'One-time event' },
+    { value: '0-3-months', text: 'Up to 3 months' },
+    { value: '3-6-months', text: '3 - 6 months' },
+    { value: 'over-6-months', text: 'Longer than 6 months' },
+    { value: 'flexible', text: 'On a flexible basis' },
 ];
 
 interface ShareANeedData {
@@ -30,10 +26,8 @@ interface ShareANeedData {
     location: string;
     description: string;
     category: string;
-    condition: string;
-    quantity: string;
-    needType: string;
-    deliveryMethod: string;
+    numVolunteers: string;
+    availabilityNeeded: string;
 }
 
 const initialFormData: ShareANeedData = {
@@ -41,13 +35,11 @@ const initialFormData: ShareANeedData = {
     location: '',
     description: '',
     category: '',
-    condition: '',
-    quantity: '',
-    needType: '',
-    deliveryMethod: '',
+    numVolunteers: '',
+    availabilityNeeded: '',
 };
 
-function NeedForm() {
+function NeedFormVolunteers() {
     const [ formData, setFormData ] = React.useState<ShareANeedData>(initialFormData);
 
     // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
@@ -60,7 +52,7 @@ function NeedForm() {
     };
 
     return (
-        <NeedOfferForm title="Share a Need: Goods">
+        <NeedOfferForm title="Share a Need: Volunteers">
             <Grid container spacing={5}>
                 <Grid item md={8} xs={12}>
                     <TextField
@@ -84,7 +76,7 @@ function NeedForm() {
                     <TextField
                         id="description"
                         label="Description"
-                        placeholder="Describe what goods you are looking for"
+                        placeholder="Describe the skills you are looking for"
                         value={formData.description}
                         onChange={handleChange}
                         isMultiline={true}
@@ -95,53 +87,26 @@ function NeedForm() {
                         id="category"
                         label="Category"
                         placeholder="Select a category"
-                        options={categories}
+                        options={skillCategories}
                         value={formData.category}
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item md={8} xs={12}>
-                    <Select
-                        id="condition"
-                        label="Condition"
-                        placeholder="Select a preferred condition"
-                        options={conditions}
-                        value={formData.condition}
                         onChange={handleChange}
                     />
                 </Grid>
                 <Grid item md={4} xs={12}>
                     <TextField
-                        id="quantity"
-                        label="Quantity"
-                        placeholder="# of goods needed"
-                        value={formData.quantity}
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item md={8} xs={12}>
-                    <RadioGroup
-                        label="Need Type"
-                        id="needType"
-                        options={needTypes}
-                        value={formData.needType}
+                        id="numVolunteers"
+                        label="# of Volunteers"
+                        placeholder="How many volunteers?"
+                        value={formData.numVolunteers}
                         onChange={handleChange}
                     />
                 </Grid>
                 <Grid item md={4} xs={12}>
                     <RadioGroup
-                        label="Delivery Method"
-                        id="deliveryMethod"
-                        options={deliveryTypes}
-                        value={formData.deliveryMethod}
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <FileUploadInput
-                        label="Photos"
-                        id="photos"
-                        text="Click here to upload photos"
+                        label="Volunteer Availability Needed"
+                        id="availabilityNeeded"
+                        options={availabilityNeeded}
+                        value={formData.availabilityNeeded}
                         onChange={handleChange}
                     />
                 </Grid>
@@ -162,4 +127,4 @@ function NeedForm() {
     );
 }
 
-export default NeedForm;
+export default NeedFormVolunteers;
