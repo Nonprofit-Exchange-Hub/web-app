@@ -8,7 +8,7 @@ export type Asset = {
     description: string,
     postedBy: User,
     //optional organization_id to be filled here, for now using string as placeholder
-    organization: string,
+    organization: string | null ,
 };
 
 export type User = {

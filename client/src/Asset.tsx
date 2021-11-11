@@ -129,10 +129,9 @@ function Asset(): JSX.Element {
     const asset = useAsset(assetId);
     const [searchText, setSearchText] = React.useState<string>('');
     const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
-    let buttonLabel;
-    const [snackbar, setSnackbar] = React.useState(false)
+    const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false)
     const handleClaim = () => {
-        setSnackbar(true)
+        setShowSnackbar(true)
       // TODOs
       // post request to claim this asset for this user
       // history.push to move us to confirmation page?
@@ -144,28 +143,10 @@ function Asset(): JSX.Element {
     }
 
     const bigImg = asset.imgUrls[selectedImgInd];
-    //postedFrom function to differentiate between individuals and nonprofits posting
-    const postedFrom = () =>{
-        if(asset.organization == "null"){
-            buttonLabel="Message to claim!"
-            return(
-                <Typography className={classes.subText} variant="subtitle1">
-                    Posted By {asset.postedBy.firstName}
-                </Typography>
-            )
-        }else{
-            buttonLabel= "I can donate this!"
-            return(
-                <Typography className={classes.linkedText} variant="subtitle1">
-                    {asset.postedBy.firstName}
-                </Typography>
-            )
-        }
 
-    }
 
     const aboutInfo = () =>{
-        if(asset.organization !== "null"){
+        if(asset.organization !== null){
             return(
                 <div>
                     <Typography className={classes.linkedText} variant="subtitle1">
@@ -223,7 +204,7 @@ function Asset(): JSX.Element {
                     <Typography className={classes.subText} variant="subtitle1">
                         {asset.categories.join(', ')}
                     </Typography>
-                    {postedFrom()}
+                    {asset.organization ? "": "Posted By:"}{asset.postedBy.firstName}
                     <Typography className={classes.subText} variant="subtitle1">
                         <RoomOutlined />{asset.location}
                     </Typography>
@@ -237,9 +218,9 @@ function Asset(): JSX.Element {
                         onClick={handleClaim}
                         className={classes.claimButton}
                     >
-                        {buttonLabel}
+                        {asset.organization ? "I can donate this!" : "Message to claim!"}
                     </Button>
-                    {snackbar ? <SimpleSnackbar/> : null}
+                    {showSnackbar ? <SimpleSnackbar/> : null}
                 </div>
             </div>
         </>
