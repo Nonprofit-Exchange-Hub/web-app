@@ -11,8 +11,8 @@ export class AssetsService {
     @InjectRepository(Asset) private assetsRepository: Repository<Asset>,
   ) {}
 
-  async create(CreateAssetDto: CreateAssetDto): Promise<Asset> {
-    return this.assetsRepository.save(CreateAssetDto);
+  async create(createAssetDto: CreateAssetDto): Promise<Asset> {
+    return this.assetsRepository.save(createAssetDto);
   }
 
   async findAll(): Promise<Asset[]> {

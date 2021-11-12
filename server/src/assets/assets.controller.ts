@@ -22,8 +22,8 @@ export class AssetsController {
 
   // @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() CreateAssetDto: CreateAssetDto): Promise<Asset> {
-    return this.assetsService.create(CreateAssetDto);
+  create(@Body() createAssetDto: CreateAssetDto): Promise<Asset> {
+    return this.assetsService.create(createAssetDto);
   }
 
   // @UseGuards(JwtAuthGuard)
@@ -42,9 +42,9 @@ export class AssetsController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() UpdateAssetDto: UpdateAssetDto,
+    @Body() updateAssetDto: UpdateAssetDto,
   ): Promise<Asset> {
-    return this.assetsService.update(parseInt(id), UpdateAssetDto);
+    return this.assetsService.update(parseInt(id), updateAssetDto);
   }
 
   // @UseGuards(JwtAuthGuard)
