@@ -51,7 +51,7 @@ export class AssetsController {
     const foundAsset = await this.assetsService.findOne(parseInt(id));
     if (!foundAsset) {
       throw new HttpException(
-        { staus: HttpStatus.NOT_FOUND, error: 'Asset not found' },
+        { staus: HttpStatus.NOT_FOUND, message: 'Asset not found' },
         HttpStatus.NOT_FOUND,
       );
     }
@@ -86,7 +86,7 @@ export class AssetsController {
     console.log(assetToDelete);
     if (assetToDelete.affected === 0) {
       throw new HttpException(
-        { staus: HttpStatus.NOT_FOUND, error: 'Asset not found' },
+        { staus: HttpStatus.NOT_FOUND, message: 'Asset not found' },
         HttpStatus.NOT_FOUND,
       );
     }
