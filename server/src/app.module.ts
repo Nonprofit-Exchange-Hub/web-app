@@ -8,23 +8,24 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AssetsModule } from './assets/assets.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 
-
 @Module({
-    imports: [
-        ConfigModule.forRoot({
-            envFilePath: '.env'
-        }),
-        TypeOrmModule.forRootAsync({ useClass: DatabaseConnectionService }),
-        UsersModule,
-        AuthModule,
-        ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '../..', 'client/build'),
-        }),
-        OrganizationsModule,
-    ],
-    controllers: [ AppController ],
-    providers: []
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
+    TypeOrmModule.forRootAsync({ useClass: DatabaseConnectionService }),
+    UsersModule,
+    AuthModule,
+    AssetsModule,
+    OrganizationsModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../..', 'client/build'),
+    }),
+  ],
+  controllers: [AppController],
+  providers: [],
 })
 export class AppModule {}
