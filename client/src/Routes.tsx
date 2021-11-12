@@ -19,6 +19,15 @@ import CookiePolicy from './CookiePolicy';
 import Assets from './Assets';
 import Asset from './Asset';
 import MessageInboxView from './MessageInboxView';
+import NeedForm from './NeedForm';
+import NeedFormGoods from './NeedFormGoods';
+import NeedFormVolunteers from './NeedFormVolunteers';
+import OfferForm from './OfferForm';
+import OfferFormGoods from './OfferFormGoods';
+import OfferFormVolunteers from './OfferFormVolunteers';
+import ActionForm from './ActionForm';
+import UserProfile from './UserProfile';
+
 
 function Routes() {
     return (
@@ -76,6 +85,30 @@ function Routes() {
             </Route>
             <Route exact path="/asset/:assetId">
                 <Asset />
+            </Route>
+            <Route exact path="/need">
+                <NeedForm />
+            </Route>
+            <Route exact path="/need/goods/">
+                <NeedFormGoods />
+            </Route>
+            <Route exact path="/need/volunteers/">
+                <NeedFormVolunteers />
+            </Route>
+            <Route exact path="/offer">
+                <OfferForm />
+            </Route>
+            <Route exact path="/offer/goods">
+                <OfferFormGoods />
+            </Route>
+            <Route exact path="/offer/skills">
+                <OfferFormVolunteers />
+            </Route>
+            <Route exact path="/action">
+                <ActionForm />
+            </Route>
+            <Route exact path="/users/:userId">
+                <UserProfile />
             </Route>
         </Switch>
     );

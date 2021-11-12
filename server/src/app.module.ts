@@ -8,7 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { AssetsModule } from './Assets/assets.module';
+import { AssetsModule } from './assets/assets.module';
+import { OrganizationsModule } from './organizations/organizations.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AssetsModule } from './Assets/assets.module';
     UsersModule,
     AuthModule,
     AssetsModule,
+    OrganizationsModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../..', 'client/build'),
     }),

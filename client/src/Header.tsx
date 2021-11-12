@@ -93,6 +93,7 @@ function Header() {
                             >
                                 {/* TODO change to a react router link */}
                                 <MenuItem onClick={() => { handleClose(); history.push('/inbox'); }}>Inbox</MenuItem>
+                                <MenuItem onClick={() => { handleClose(); history.push(`/users/${user.id}`); }}>User Profile</MenuItem>
                             </Menu>
                         </>
                     ) : (

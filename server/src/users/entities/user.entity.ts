@@ -1,4 +1,4 @@
-import { Asset } from 'src/Assets/entities/asset.entity';
+import { Asset } from 'src/assets/entities/asset.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('users')
@@ -18,6 +18,6 @@ export class User {
   @Column('text')
   password: string;
 
-  @OneToMany(() => Asset, (asset) => asset.poster_id)
+  @OneToMany(() => Asset, (asset) => asset.poster)
   assets: Asset[];
 }
