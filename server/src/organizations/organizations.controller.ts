@@ -3,22 +3,27 @@ import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 
+// for me: http://localhost:3001/api/organizations/
+
 @Controller('organizations')
 export class OrganizationsController {
   constructor(private readonly organizationsService: OrganizationsService) {}
 
   @Post()
   create(@Body() createOrganizationDto: CreateOrganizationDto) {
+    console.log(createOrganizationDto)
     return this.organizationsService.create(createOrganizationDto);
   }
 
   @Get()
   findAll() {
+    console.log("get all route")
     return this.organizationsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log(id)
     return this.organizationsService.findOne(+id);
   }
 
