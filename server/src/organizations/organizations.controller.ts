@@ -3,7 +3,6 @@ import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 
-// for me: http://localhost:3001/api/organizations/
 
 @Controller('organizations')
 export class OrganizationsController {
