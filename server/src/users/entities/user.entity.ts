@@ -16,4 +16,7 @@ export class User {
   
     @Column('text')
     password: string;
+
+    @Column({type:'text', default:'tbd'})
+    role: string;
 }
