@@ -53,9 +53,6 @@ function Routes() {
             <Route exact path="/how_it_works">
                 <HowItWorks />
             </Route>
-            <Route exact path="/library_and_forum">
-                <LibraryAndForum />
-            </Route>
             <Route exact path="/contact_us">
                 <ContactUs />
             </Route>
