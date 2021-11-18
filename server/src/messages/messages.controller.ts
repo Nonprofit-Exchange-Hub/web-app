@@ -12,6 +12,8 @@ import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Message } from './entities/message.entity';
+import { DeleteResult } from 'typeorm';
 
 @Controller('messages')
 export class MessagesController {
@@ -19,31 +21,37 @@ export class MessagesController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createMessageDto: CreateMessageDto) {
+  async create(@Body() createMessageDto: CreateMessageDto): Promise<Message> {
+    console.log(createMessageDto);
     return this.messagesService.create(createMessageDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
+  async findAll(): Promise<Message[]> {
     return this.messagesService.findAll();
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<Message> {
     return this.messagesService.findOne(+id);
   }
 
+  // add find by user and find by transaction
+
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateMessageDto: UpdateMessageDto,
+  ): Promise<Message> {
     return this.messagesService.update(+id, updateMessageDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.messagesService.remove(+id);
   }
 }
