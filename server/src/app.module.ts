@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseConnectionService } from './database-connection.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { AssetsModule } from './assets/assets.module';
 import { MessagesModule } from './messages/messages.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
+import { UsersModule } from './users/users.module';
+
 import { join } from 'path';
 
 @Module({
@@ -16,8 +18,9 @@ import { join } from 'path';
       envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({ useClass: DatabaseConnectionService }),
-    UsersModule,
+    AssetsModule,
     MessagesModule,
+    UsersModule,
     AuthModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../..', 'client/build'),

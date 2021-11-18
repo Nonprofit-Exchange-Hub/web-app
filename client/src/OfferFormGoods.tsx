@@ -14,7 +14,7 @@ const conditions = [
     { value: 'excellent', text: 'Excellent' },
     { value: 'good', text: 'Good' },
 ];
-const needTypes = [
+const offerTypes = [
     { value: 'donation', text: 'Donation' },
     { value: 'short-term', text: 'Short term loan (<1 month)' },
     { value: 'long-term', text: 'Long term loan (>1 month)' },
@@ -22,33 +22,33 @@ const needTypes = [
 const deliveryTypes = [
     { value: 'pick-up', text: 'Pick up only' },
     { value: 'drop-off', text: 'Drop off only' },
-    { value: 'pick-up-drop-off', text: 'Pick up and drop off' },
+    { value: 'pick-up-drop-off', text: 'Pick up or drop off' },
 ];
 
-interface ShareANeedData {
+interface FormData {
     title: string;
     location: string;
     description: string;
     category: string;
     condition: string;
     quantity: string;
-    needType: string;
+    offerType: string;
     deliveryMethod: string;
 }
 
-const initialFormData: ShareANeedData = {
+const initialFormData: FormData = {
     title: '',
     location: '',
     description: '',
     category: '',
     condition: '',
     quantity: '',
-    needType: '',
+    offerType: '',
     deliveryMethod: '',
 };
 
-function NeedForm() {
-    const [ formData, setFormData ] = React.useState<ShareANeedData>(initialFormData);
+function OfferFormGoods() {
+    const [ formData, setFormData ] = React.useState<FormData>(initialFormData);
 
     // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
     const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<{ name?: string | undefined; value: unknown; }>): void => {
@@ -60,7 +60,7 @@ function NeedForm() {
     };
 
     return (
-        <NeedOfferForm title="Share a Need: Goods">
+        <NeedOfferForm title="Make an Offer: Goods">
             <Grid container spacing={5}>
                 <Grid item md={8} xs={12}>
                     <TextField
@@ -121,10 +121,10 @@ function NeedForm() {
                 </Grid>
                 <Grid item md={8} xs={12}>
                     <RadioGroup
-                        label="Need Type"
-                        id="needType"
-                        options={needTypes}
-                        value={formData.needType}
+                        label="Offer Type"
+                        id="offerType"
+                        options={offerTypes}
+                        value={formData.offerType}
                         onChange={handleChange}
                     />
                 </Grid>
@@ -153,7 +153,7 @@ function NeedForm() {
                     </Grid>
                     <Grid item>
                         <Button variant="contained" color="primary">
-                            Submit Need
+                            Submit Offer
                         </Button>
                     </Grid>
                 </Grid>
@@ -162,4 +162,4 @@ function NeedForm() {
     );
 }
 
-export default NeedForm;
+export default OfferFormGoods;

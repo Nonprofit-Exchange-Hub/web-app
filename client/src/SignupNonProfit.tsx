@@ -1,4 +1,46 @@
 import * as React from 'react';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import type { Theme } from '@material-ui/core/styles';
+import { placeholderImg } from './assets/temp';
+import StyledLink from './StyledLink';
+import { TextField, Select } from './FormElements';
+import { Button } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
+
+const classifications = [
+    { value: 'charitable', text: 'Charitable Organization' },
+    { value: 'religious', text: 'Religious Organization' },
+    { value: 'private', text: 'Private Foundation' },
+    { value: 'political', text: 'Political Organizations' },
+    { value: 'other', text: 'Other' }
+];
+           
+const useStyles = makeStyles((theme: Theme) => ({
+    sideImg: {
+        backgroundImage: `url("${placeholderImg}")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+    },
+    signUpContainer: {
+        margin: theme.spacing(5),
+    },
+    button: {
+        borderRadius: 0,
+        height: 62,
+        textTransform: 'none',
+        backgroundColor: '#C4C4C4',
+        color: 'white',
+    },
+    header: { fontWeight: 'bold' },
+    arrow: { cursor: 'pointer' }
+}));
 
 interface SignupData {
     org_name: string;
@@ -12,7 +54,7 @@ interface SignupData {
     role_or_title: string;
     email: string;
     password: string;
-    accept_terms: string;
+    accept_terms: boolean;
 }
 
 const initialFormData: SignupData = {
@@ -27,10 +69,12 @@ const initialFormData: SignupData = {
     role_or_title: '',
     email: '',
     password: '',
-    accept_terms: 'false'
+    accept_terms: false
 };
 
 function SignupNonProfit() {
+    const classes = useStyles();
+
     const [ formData, setFormData ] = React.useState(initialFormData);
     const [ pageNum, setPageNum ] = React.useState(1);
 
@@ -43,6 +87,7 @@ function SignupNonProfit() {
                 [name]: type === 'checkbox' ? evt.target.checked : value
             };
         });
+
     };
 
     //Had to make second handler for HTMLSelectElement vs HTMLInputElement
@@ -59,129 +104,206 @@ function SignupNonProfit() {
     };
 
     const handleNextClick = () => setPageNum(2);
-    const handleSignupClick = () => {
+    const handlePreviousClick = () => setPageNum(1);
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
         console.log('signup clicked', formData);
     };
 
+    // validating completion of page 1
+    const step1Complete = formData.org_name !== '' && formData.city !== ''
+    const step2Complete = formData.state !== '' && formData.ein !== ''
+    const step3Complete = formData.tax_exempt_id !== '' && formData.nonprofit_classification !== ''
+    const firstPageComplete = (step1Complete && step2Complete) && step3Complete
+
+    // validating completion of page 2
+    const step4Complete = formData.first_name !== '' && formData.last_name !== ''
+    const step5Complete = formData.role_or_title !== '' && formData.email !== ''
+    const step6Complete = formData.password !== '' && !!formData.accept_terms
+    const secondPageComplete = (step4Complete && step5Complete) && step6Complete
+
+
     return (
         <React.Fragment>
-            <div>Let's Get Started.</div>
-            <div>
-                Already have an account? <a>Log In</a>
-            </div>
-            {pageNum === 1 ? (
-                <div>
-                    <div>Step 1: About your organization</div>
+            <Grid container>
+                <Grid className={classes.sideImg} item xs={5} />
+                <Grid container className={classes.signUpContainer} item direction="column" xs={6}>
+                    <Typography className={classes.header} variant="h4" component="h1" align="left" gutterBottom>
+                            Let's get started.
+                    </Typography>
+                    <Typography component="p" align="left" gutterBottom>
+                        Already have an account? <StyledLink to="/login">Log In</StyledLink>
+                    </Typography>
+                    <form onSubmit={handleSubmit}>
+                        {pageNum === 1 ? (
+                        
+                            <Grid container spacing={5}>
+                                <Grid item>
+                                    <Typography component="p" align="left">
+                                        Step 1: About your organization
+                                    </Typography>
+                                </Grid>
+                                <Grid item md={12} xs={12}>
+                                    <TextField
+                                        id="org_name"
+                                        label="Organization Name"
+                                        placeholder="Organization"
+                                        value={formData.org_name}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="city"
+                                        label="City"
+                                        placeholder="City"
+                                        value={formData.city}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="state"
+                                        label="State"
+                                        placeholder="State"
+                                        value={formData.state}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="ein"
+                                        label="Entity Identification Number (EIN)"
+                                        placeholder="EIN"
+                                        value={formData.ein}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="tax_exempt_id"
+                                        label="Tax Exempt ID"
+                                        placeholder="Tax Exempt ID"
+                                        value={formData.tax_exempt_id}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={8} xs={12}>
+                                    <Select
+                                        id="nonprofit_classification"
+                                        label="IRS Nonprofit Organization Classification"
+                                        placeholder="Select classification"
+                                        options={classifications}
+                                        value={formData.nonprofit_classification}
+                                        onChange={handleSelectChange}
+                                    />
+                                </Grid>
+                                    <Grid item md={8} xs={12}>
+                                            <Button 
+                                                onClick={handleNextClick}
+                                                disabled={!firstPageComplete}
+                                                className={classes.button}
+                                                fullWidth
+                                                >
+                                                Next
+                                            </Button>
+                                    </Grid> 
+                                </Grid>
+                                
+                        ) : (
+                            <Grid container spacing={5}>
+                                <Grid item xs={12}>
+                                    <ArrowBackIcon
+                                    className={classes.arrow}
+                                    fontSize="medium" 
+                                    onClick={handlePreviousClick}
+                                    >
+                                        Back
+                                        </ArrowBackIcon>
+                                    <Typography component="p">
+                                        Step 2: About You
+                                    </Typography>
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="first_name"
+                                        label="First Name"
+                                        placeholder="First Name"
+                                        value={formData.first_name}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="last_name"
+                                        label="Last Name"
+                                        placeholder="Last Name"
+                                        value={formData.last_name}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={12} xs={12}>
+                                    <TextField
+                                        id="role_or_title"
+                                        label="Role Title"
+                                        placeholder="Role Title"
+                                        value={formData.role_or_title}
+                                        onChange={handleFieldChange}
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="email"
+                                        label="Email"
+                                        placeholder="Email"
+                                        value={formData.email}
+                                        onChange={handleFieldChange}
+                                    />                            
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        id="password"
+                                        label="Password"
+                                        placeholder="Password"
+                                        value={formData.password}
+                                        onChange={handleFieldChange}
+                                    />                            
+                                </Grid>
+                                    <FormControlLabel
+                                        style={{ textAlign: 'left', display: 'block' }}
+                                        control={
+                                            <Checkbox
+                                                color="primary"
+                                                checked={formData.accept_terms}
+                                                onChange={handleFieldChange}
+                                                name="accept_terms"
+                                                inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                                            />
+                                        }
+                                        label={
+                                            <label>
+                                                Accept the{' '}
+                                                <StyledLink to="/terms_of_service" target="_blank">
+                                                    Terms and Condtions
+                                                </StyledLink>
+                                            </label>
+                                        }
+                                    />
+                                    <Button
+                                        className={classes.button}
+                                        fullWidth
+                                        type="submit"
+                                        disabled={!secondPageComplete}
+                                    >
+                                        Sign Up
+                                    </Button>
 
-                    <div>
-                        <span>Organization Name</span>
-                    </div>
-                    <div>
-                        <input type="text" name="org_name" value={formData.org_name} onChange={handleFieldChange} />
-                    </div>
-                    <div>
-                        <span>City</span>
-                    </div>
-                    <div>
-                        <input type="text" name="city" value={formData.city} onChange={handleFieldChange} />
-                    </div>
-                    <div>
-                        <span>State</span>
-                    </div>
-                    <div>
-                        <input type="text" name="state" value={formData.state} onChange={handleFieldChange} />
-                    </div>
-
-                    <div>
-                        <span>Entity Identification Number (EIN)</span>
-                    </div>
-                    <div>
-                        <input type="text" name="ein" value={formData.ein} onChange={handleFieldChange} />
-                    </div>
-                    <div>
-                        <span>Tax Exempt ID #</span>
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            name="tax_exempt_id"
-                            value={formData.tax_exempt_id}
-                            onChange={handleFieldChange}
-                        />
-                    </div>
-                    <div>
-                        <span>IRS Nonprofit Organization Classification</span>
-                    </div>
-                    <div>
-                        <select
-                            name="nonprofit_classification"
-                            value={formData.nonprofit_classification}
-                            onChange={handleSelectChange}
-                        >
-                            <option value="" />
-                        </select>
-                    </div>
-
-                    <div>
-                        <button onClick={handleNextClick}>Next</button>
-                    </div>
-                </div>
-            ) : (
-                <div>
-                    <div>Step 2: About You</div>
-
-                    <div>
-                        <span>First Name</span>
-                        <span>Last Name</span>
-                    </div>
-                    <div>
-                        <input type="text" name="first_name" value={formData.first_name} onChange={handleFieldChange} />
-                        <input type="text" name="last_name" value={formData.last_name} onChange={handleFieldChange} />
-                    </div>
-
-                    <div>
-                        <span>Role / Title</span>
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            name="role_or_title"
-                            value={formData.role_or_title}
-                            onChange={handleFieldChange}
-                        />
-                    </div>
-
-                    <div>
-                        <span>Email Address</span>
-                    </div>
-                    <div>
-                        <input type="text" name="email" value={formData.email} onChange={handleFieldChange} />
-                    </div>
-
-                    <div>
-                        <span>Password (6 or more characters)</span>
-                    </div>
-                    <div>
-                        <input type="text" name="password" value={formData.password} onChange={handleFieldChange} />
-                    </div>
-
-                    <div>
-                        <input
-                            type="checkbox"
-                            name="accept_terms"
-                            id="accept_terms"
-                            value={formData.accept_terms}
-                            onChange={handleFieldChange}
-                        />
-                        <label htmlFor="accept_terms">
-                            Accept the <a>Terms and Agreements</a>
-                        </label>
-                    </div>
-                    <div>
-                        <button onClick={handleSignupClick}>Sign Up</button>
-                    </div>
-                </div>
-            )}
+                                    
+                            </Grid>
+                        )}
+                </form>
+                </Grid>
+            </Grid>
         </React.Fragment>
     );
 }
