@@ -1,5 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+export enum UserRole {
+    ADMIN = "admin",
+    OWNER = "owner"
+}
+
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn()
@@ -17,6 +22,7 @@ export class User {
     @Column('text')
     password: string;
 
-    @Column({type:'text', default:'tbd'})
-    role: string;
+    // move to user_org entity when built
+    @Column({type:'enum', enum: UserRole, default: UserRole.ADMIN})
+    role: UserRole;
 }
