@@ -10,31 +10,26 @@ export class OrganizationsController {
 
   @Post()
   create(@Body() createOrganizationDto: CreateOrganizationDto) {
-    console.log(createOrganizationDto)
     return this.organizationsService.create(createOrganizationDto);
   }
 
   @Get()
   findAll() {
-    console.log("get all route")
     return this.organizationsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    console.log(id)
     return this.organizationsService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOrganizationDto: UpdateOrganizationDto) {
-    console.log('updating an org')
     return this.organizationsService.update(+id, updateOrganizationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    console.log('deleting an org')
     return this.organizationsService.remove(+id);
   }
 }
