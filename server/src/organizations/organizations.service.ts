@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Catch, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,25 +7,30 @@ import { Organization } from './entities/organization.entity'
 
 @Injectable()
 export class OrganizationsService {
-  constructor(@InjectRepository(Organization) private organizationsRepository: Repository<Organization>){}
+  constructor(@InjectRepository(Organization) private organizationsRepository: Repository<Organization>) { }
 
-  create(createOrganizationDto: CreateOrganizationDto) {
-    return 'This action adds a new organization';
+  async create(createOrganizationDto: CreateOrganizationDto) {
+    try {
+      return await this.organizationsRepository.save(createOrganizationDto);
+    } catch (err) {
+      throw new HttpException({ status: HttpStatus.CONFLICT, message: err.message }, HttpStatus.CONFLICT)
+    }
   }
 
   findAll() {
-    return `This action returns all organizations`;
+    return this.organizationsRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} organization`;
+    return this.organizationsRepository.findOne(id);
   }
 
-  update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
-    return `This action updates a #${id} organization`;
+  async update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
+    await this.organizationsRepository.update(id, updateOrganizationDto);
+    return this.organizationsRepository.findOne(id);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} organization`;
+    return this.organizationsRepository.delete(id);
   }
 }

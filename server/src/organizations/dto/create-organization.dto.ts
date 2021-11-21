@@ -5,7 +5,7 @@ import { PartialType } from '@nestjs/mapped-types';
 
 // also a question: do we want validators on any of these inputs using class-validator? 
 export class CreateOrganizationDto extends PartialType(Organization){
-  org_name: string;
+  name: string;
   description: string;
   website: string;
   address: string;

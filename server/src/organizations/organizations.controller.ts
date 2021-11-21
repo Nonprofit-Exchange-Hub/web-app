@@ -28,11 +28,13 @@ export class OrganizationsController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOrganizationDto: UpdateOrganizationDto) {
+    console.log('updating an org')
     return this.organizationsService.update(+id, updateOrganizationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
+    console.log('deleting an org')
     return this.organizationsService.remove(+id);
   }
 }

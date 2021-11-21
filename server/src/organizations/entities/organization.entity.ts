@@ -1,35 +1,35 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 // Considering validators for uniqueness: org_name? ein? both? 
-@Entity()
+@Entity('organizations')
 export class Organization {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  org_name:  string;
+  @Column({type:'text', unique: true})
+  name: string;
 
-  @Column()
+  @Column('text')
   description: string;
 
-  @Column()
+  @Column('text')
   website: string;
 
-  @Column()
+  @Column('text')
   address: string;
 
-  @Column()
+  @Column('text')
   phone: string;
 
-  @Column()
+  @Column('text')
   city: string;
 
-  @Column()
+  @Column('text')
   state: string;
 
-  @Column()
+  @Column({type:'int', unique: true})
   ein: number;
- 
-  @Column()
+
+  @Column('int')
   tax_exempt_id: number;
 }
