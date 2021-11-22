@@ -75,6 +75,53 @@ From the `/client` directory.
 $ npm run test
 ```
 
+### Postgres & Docker
+## Running Postgres Test Database from the Docker CLI
+1. Open and run the Docker desktop app
+2. Start database: 
+    $ npm run start:dev:db 
+3. Start server: 
+    $ npm run start:dev
+4. From a new terminal window:
+get a bash shell in the "postgres" docker container:
+$ docker exec -it postgres /bin/bash
+login to your database:
+$ su - postgres 
+enter the PostgreSQL environment:
+$ psql 
+connect to the test_db database: 
+$ \c test_db 
+From here you should be able to see all of the tables in the test_db with:
+$ \dt
+Run SQL commands and queries here 
+
+## Access psql inside a docker container in a single line: 
+$ docker exec -it <container-id> psql -U <username> -d <database-name>
+source: [StackOverflow](https://stackoverflow.com/questions/53974488/how-to-delete-and-recreate-a-postgres-database-using-a-single-docker-command)
+
+## Useful Postgres Commands
+Log into your local postgres server: su - <postgres role name>
+$ su - postgres
+
+Enter into psql command prompt within the postgresql server
+$ psql
+
+List Roles
+$ \du
+
+Connect to a specific database 
+$ \c <db_name>
+
+List all tables within a database after connecting to it
+$ \dt
+
+
+## Other helpful Postgres/Docker Resources:
+- [Altering Roles within psql](https://www.postgresql.org/docs/9.1/sql-alterrole.html)
+- [Listing and Switching Databases for psql](https://www.liquidweb.com/kb/listing-switching-databases-postgresql/)
+- [Drop Tables psql](https://www.geeksforgeeks.org/postgresql-drop-table/#:~:text=PostgreSQL%20has%20a%20DROP%20TABLE,table%20permanently%20from%20the%20database)
+- [SSH into Docker Container](https://phase2.github.io/devtools/common-tasks/ssh-into-a-container/)
+
 ## Support
 
 NEH is an MIT-licensed open source project. If you'd like to join us, please [read more here](https://www.democracylab.org/projects/486).
