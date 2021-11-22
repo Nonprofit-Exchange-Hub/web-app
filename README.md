@@ -13,17 +13,9 @@ Primary tech stack: PostgreSQL, Nest, and React
     * note: you can skip the below dockerize step if you want to run postgres locally
     * Docker Installation - Follow instuctions for your specific platform:
         * [Docker](https://docs.docker.com/get-docker/)
-        * Confirm installation of Docker (version and build may differ)
-        ```
-        $ docker -v
-        Docker version 1.7.0, build 0baf609
-        ```
+        * Confirm installation of Docker: `$ docker -v`
         * [Docker Compose](https://docs.docker.com/compose/install/)
-        * Confirm installation of Docker Compose (version and build may differ)
-        ```
-        $ docker-compose --version
-        docker-compose version 1.29.2, build 1110ad01
-        ```
+        * Confirm installation of Docker Compose: `$ docker-compose --version`
 2. Download or [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) repository.
 3. Run `nvm use` to ensure you are using the proper node version
 4. Install required dependencies by running `npm install` from within `/server` directory and from the `/client` directory.
@@ -78,42 +70,52 @@ $ npm run test
 ### Postgres & Docker
 ## Running Postgres Test Database from the Docker CLI
 1. Open and run the Docker desktop app
-2. Start database: 
-    $ npm run start:dev:db 
-3. Start server: 
-    $ npm run start:dev
+2. Start database: `$ npm run start:dev:db `
+3. Start server: `$ npm run start:dev`
 4. From a new terminal window:
-get a bash shell in the "postgres" docker container:
+```
+# get a bash shell in the "postgres" docker container:
 $ docker exec -it postgres /bin/bash
-login to your database:
-$ su - postgres 
-enter the PostgreSQL environment:
-$ psql 
-connect to the test_db database: 
-$ \c test_db 
-From here you should be able to see all of the tables in the test_db with:
+
+# login to your database:
+$ su - postgres
+
+# enter the PostgreSQL environment:
+$ psql
+
+# connect to the test_db database:
+$ \c test_db
+
+# From here you should be able to see all of the tables in the test_db with:
 $ \dt
-Run SQL commands and queries here 
+
+#You can now run SQL commands and queries here
+```
 
 ## Access psql inside a docker container in a single line: 
-$ docker exec -it <container-id> psql -U <username> -d <database-name>
+`$ docker exec -it <container-id> psql -U <username> -d <database-name>`
+
 source: [StackOverflow](https://stackoverflow.com/questions/53974488/how-to-delete-and-recreate-a-postgres-database-using-a-single-docker-command)
 
 ## Useful Postgres Commands
-Log into your local postgres server: su - <postgres role name>
+Log into your local postgres server:
+```
+# format is: su - <postgres role name>
+# so something like...
 $ su - postgres
+```
 
 Enter into psql command prompt within the postgresql server
-$ psql
+`$ psql`
 
 List Roles
-$ \du
+`$ \du`
 
 Connect to a specific database 
-$ \c <db_name>
+`$ \c <db_name>`
 
 List all tables within a database after connecting to it
-$ \dt
+`$ \dt`
 
 
 ## Other helpful Postgres/Docker Resources:
