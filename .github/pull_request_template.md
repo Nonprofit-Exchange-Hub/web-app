@@ -4,6 +4,7 @@
 1. Your pull request is up-to-date with master
 2. You've selected "Squash and merge" option as the merge method (default)
 3. Review merge commit message and remove unnecessary lines
+4. make sure you have linked the issue that this PR addresses, see right sidebar ->
 -->
 
 ## Dev Summary
