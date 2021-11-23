@@ -8,10 +8,12 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { NavLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import NeedsAndOffers from './NeedsAndOffers';
 import { dumbyData, placeholderImg } from './assets/temp';
 import QuestionList from './QuestionList';
+import StyledLink from './StyledLink';
 
 import type { Theme } from '@material-ui/core/styles';
 
@@ -132,7 +134,26 @@ const useStyles = makeStyles((theme: Theme) => ({
   cardText2: {
     padding: '0 10% 10%',
   },
+  makeAPostButton: {
+    marginLeft: '15px',
+  },
+  makeAPostLink: {
+    textDecoration: 'none',
+  },
 }));
+
+function HeaderContentRight(): JSX.Element {
+    const classes = useStyles();
+
+    return (
+        <div>
+            <NavLink to="/assets">See all Needs and Offers</NavLink>
+            <NavLink to="/need" className={classes.makeAPostLink}>
+                <Button className={classes.makeAPostButton} color="primary" variant="contained">Make a Post</Button>
+            </NavLink>
+        </div>
+    );
+}
 
 function Home(): JSX.Element {
   const classes = useStyles();
@@ -192,8 +213,15 @@ function Home(): JSX.Element {
         </div>
       </div>
       <div className={classes.needsAndOffers}>
-        <NeedsAndOffers headerText="Nonprofit Needs" assets={dumbyData} />
-        <NeedsAndOffers headerText="Offers" assets={dumbyData} />
+        <NeedsAndOffers
+            assets={dumbyData}
+            headerContentRight={<HeaderContentRight />}
+            headerText="Nonprofit Needs"
+        />
+        <NeedsAndOffers
+            assets={dumbyData}
+            headerText="Offers"
+        />
       </div>
       <div className={classes.videoSection}>
         <div className={classes.videoSectionVideo}>
