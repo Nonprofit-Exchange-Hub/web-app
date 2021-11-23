@@ -26,7 +26,11 @@ Once you have have found an issue you feel comfortable working on, assign yourse
 
 If this is your first time contributing to open-source or you need a refresher, see this [great guide](https://github.com/firstcontributions/first-contributions#first-contributions] that goes through the steps of contributing to an open-source project.
 
-## 3.5 Start a draft PR
+## 3.1 Keep track of resources
+
+As you work, if you find any helpful docs, videos, articles, etc. please keep the links in a safe space until you can add them to your PR. You will likely not be the last one to work in this space of our codebase. Others may return to your PR to try to understand what's going on. Help 'em out a bit!
+
+## 3.2 Start a draft PR
 
 See step 4 but right before hitting the 'create pull request' button, click the arrow next to the button and select 'create draft PR'
 Then post it in our #engineering slack channel with a quick ask for anyone to have an early look and provide guidance if needed
