@@ -33,7 +33,7 @@ export class OrganizationsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
+  async update(@Param('id') id: string, @Body() updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
     return this.organizationsService.update(+id, updateOrganizationDto);
   }
 
