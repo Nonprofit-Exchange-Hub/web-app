@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
@@ -7,15 +7,23 @@ import { DeleteResult } from 'typeorm';
 
 @Controller('organizations')
 export class OrganizationsController {
-  constructor(private readonly organizationsService: OrganizationsService) {}
+  constructor(private readonly organizationsService: OrganizationsService) { }
 
   @Post()
-  create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization | HttpException>  {
-    return this.organizationsService.create(createOrganizationDto);
+  async create(
+    @Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    try {
+      const newOrg = await this.organizationsService.create(createOrganizationDto);
+      return newOrg;
+    } catch (error) {
+      throw new HttpException(
+        { status: HttpStatus.CONFLICT, message: `${error}` },
+        HttpStatus.CONFLICT)
+    }
   }
 
   @Get()
-  findAll(): Promise<Organization[]>{
+  findAll(): Promise<Organization[]> {
     return this.organizationsService.findAll();
   }
 

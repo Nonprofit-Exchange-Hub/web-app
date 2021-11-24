@@ -1,4 +1,4 @@
-import { Injectable, Catch, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,12 +9,8 @@ import { Organization } from './entities/organization.entity'
 export class OrganizationsService {
   constructor(@InjectRepository(Organization) private organizationsRepository: Repository<Organization>) { }
 
-  async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization | HttpException>  {
-    try {
-      return await this.organizationsRepository.save(createOrganizationDto);
-    } catch (err) {
-      throw new HttpException({ status: HttpStatus.CONFLICT, message: err.message }, HttpStatus.CONFLICT)
-    }
+  async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    return await this.organizationsRepository.save(createOrganizationDto);
   }
 
   findAll(): Promise<Organization[]> {
@@ -25,7 +21,7 @@ export class OrganizationsService {
     return this.organizationsRepository.findOne(id);
   }
 
-  async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization>  {
+  async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
     await this.organizationsRepository.update(id, updateOrganizationDto);
     return this.organizationsRepository.findOne(id);
   }
