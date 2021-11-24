@@ -1,12 +1,11 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-// Considering validators for uniqueness: org_name? ein? both? 
 @Entity('organizations')
 export class Organization {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({type:'text', unique: true})
+  @Column('text')
   name: string;
 
   @Column('text')

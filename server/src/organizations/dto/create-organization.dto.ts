@@ -1,7 +1,7 @@
 import { Organization } from '../entities/organization.entity'
 import { PartialType } from '@nestjs/mapped-types';
 
-export class CreateOrganizationDto extends PartialType(Organization){
+export class CreateOrganizationDto {
   name: string;
   description: string;
   website: string;
