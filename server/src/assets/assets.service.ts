@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import type { DeleteResult, Repository } from 'typeorm';
+
 import { Asset } from './entities/asset.entity';
-import { DeleteResult, Repository } from 'typeorm';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AssetsService {
