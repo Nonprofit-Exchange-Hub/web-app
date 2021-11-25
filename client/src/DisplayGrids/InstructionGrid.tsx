@@ -46,8 +46,8 @@ function InstructionGrid(props: InstructionProps) {
                 return (
                     <>
                         {/* Set order of the two jsx items - odd number rows have text first, even have image first */}
-                        {index % 2 == 0 ? image : text}
-                        {index % 2 == 0 ? text : image}
+                        {index % 2 === 0 ? image : text}
+                        {index % 2 === 0 ? text : image}
                     </>
                 )
             })}
