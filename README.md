@@ -67,8 +67,8 @@ From the `/client` directory.
 $ npm run test
 ```
 
-### Postgres & Docker
-## Running Postgres Test Database from the Docker CLI
+## Postgres & Docker
+### Running Postgres Test Database from the Docker CLI
 1. Open and run the Docker desktop app
 2. Start database: `$ npm run start:dev:db `
 3. Start server: `$ npm run start:dev`
@@ -92,12 +92,12 @@ $ \dt
 #You can now run SQL commands and queries here
 ```
 
-## Access psql inside a docker container in a single line: 
+### Access psql inside a docker container in a single line: 
 `$ docker exec -it <container-id> psql -U <username> -d <database-name>`
 
 source: [StackOverflow](https://stackoverflow.com/questions/53974488/how-to-delete-and-recreate-a-postgres-database-using-a-single-docker-command)
 
-## Useful Postgres Commands
+### Useful Postgres Commands
 Log into your local postgres server:
 ```
 # format is: su - <postgres role name>
@@ -118,7 +118,7 @@ List all tables within a database after connecting to it
 `$ \dt`
 
 
-## Other helpful Postgres/Docker Resources:
+### Other helpful Postgres/Docker Resources:
 - [Altering Roles within psql](https://www.postgresql.org/docs/9.1/sql-alterrole.html)
 - [Listing and Switching Databases for psql](https://www.liquidweb.com/kb/listing-switching-databases-postgresql/)
 - [Drop Tables psql](https://www.geeksforgeeks.org/postgresql-drop-table/#:~:text=PostgreSQL%20has%20a%20DROP%20TABLE,table%20permanently%20from%20the%20database)
