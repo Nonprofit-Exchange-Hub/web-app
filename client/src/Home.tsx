@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button';
 import NeedsAndOffers from './NeedsAndOffers';
 import { dumbyData, placeholderImg } from './assets/temp';
 import QuestionList from './QuestionList';
-import StyledLink from './StyledLink';
 
 import type { Theme } from '@material-ui/core/styles';
 
