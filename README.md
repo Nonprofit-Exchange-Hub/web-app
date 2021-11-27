@@ -31,12 +31,53 @@ Primary tech stack: PostgreSQL, Nest, and React
 ```
 6. In that `.env` file we'll now customize some of those values
     * If you are using the non-dockerized version of postgres, change the `DATABASE_PORT` value to `5432`
+    * check if postgres is installed: `postgres --version`
+    * check if postgres service is running: `brew services list | grep postgres` (leave out the piping to see all brew services)
+    * commands for service management:
+        * start service: `brew services start postgresql`
+        * stop service: `brew services stop postgresql`
+        * restart service: `brew services restart postgresql`
+    * once postgres is running, try `psql`, it will say `Password for user USERNAME`, try some usual passwords
+        * if you get in:
+            * put that username and password in the env vars
+            * run `\list` to list DBs and put one of them in the DATABASE_DB value
+        * if you don't get in:
+            * we're going to try something like https://stackoverflow.com/questions/15008204/how-to-check-postgres-user-and-password/15008311
+            * login to postgres with superuse: `sudo su -`
+            * password should be your computer's login password
+            * from there, use some sort of combination of the following commands to find or create a user and set the .env var values
+```
+# list databases:
+$ \list
+# list users:
+$ \du
+# create postgres user with postgres password:
+$ create user postgres with encrypted password 'postgres';
+# add superuser role to postgres user:
+$ alter user postgres with superuser;
+# add create role role to postgres user:
+$ alter user postgres with createrole;
+# add create DB role to postgres user:
+$ alter user postgres with createdb;
+# add replication role to postgres user:
+$ alter user postgres with replication;
+# add bypass RLS role to postgres user:
+$ alter user postgres with bypassrls;
+# check password is set and roles are assigned:
+$ select * from pg_shadow;
+```
 
-TODO add helpful commands for:
-finding postgres user
-finding postgres db name
-changing postgres user's password via sudo or su (superuser)
+    * if you aren't using homebrew, here are some helpful resources and commands
+```
+# https://www.robinwieruch.de/postgres-sql-macos-setup/
 
+# create postgres database (should only need doing once?)
+$ initdb /usr/local/var/postgres
+# start server (optionally add/remove `-l logfile` to move log from terminal to a file)
+$ pg_ctl -D /usr/local/var/postgres -l logfile start
+# stop server
+$ pg_ctl -D /usr/local/var/postgres stop
+```
 
 ## Startup
 
