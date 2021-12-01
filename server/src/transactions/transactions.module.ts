@@ -7,7 +7,7 @@ import { TransactionsRepository } from './transactions.repository';
 @Module({
   imports: [
     TypeOrmModule.forFeature([TransactionsRepository])
-  ]
+  ],
   controllers: [TransactionsController],
   providers: [TransactionsService]
 })
