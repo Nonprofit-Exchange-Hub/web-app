@@ -3,7 +3,9 @@ module.exports = {
   rules: {
     semi: ['error', 'always'],
     // quotes: ['error', 'double'],
-  }
+  },
+  ignorePatterns: ['/build/**/*'],
+
   // parser: '@typescript-eslint/parser',
   // parserOptions: {
   //   project: 'tsconfig.json',
