@@ -26,6 +26,13 @@ You should include screenshots to help the reviewer understand what to look for 
 changes are includes. GIFs help immensely when explaining interactions and animations.
 -->
 
+preReqs:
+
+[ ] following command succeeds `cd client && npm run checks && cd ../server && npm run checks`
+
+
+repro steps:
+
 1. localhost:3000 <!-- or the initial page your test starts on -->
 2. click X button
 expected: <!-- i.e. see POST request with {} body in network tab -->
