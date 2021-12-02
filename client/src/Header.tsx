@@ -73,7 +73,6 @@ function Header() {
                     </NavLink>
                     <NavLink className={classes.navLink} to="/about_us">About Us</NavLink>
                     <NavLink className={classes.navLink} to="/how_it_works">How It Works</NavLink>
-                    <NavLink className={classes.navLink} to="/library_and_forum">Library & Forum</NavLink>
                     <NavLink className={classes.navLink} to="/contact_us">Contact Us</NavLink>
                 </div>
                 <div className={classes.userButtons}>
