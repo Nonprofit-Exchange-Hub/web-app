@@ -4,6 +4,7 @@ import { TransactionsRepository } from './transactions.repository';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './transaction.entity'
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
+import { TransactionStatus } from './transaction-status.enum';
 
 @Injectable()
 export class TransactionsService {
@@ -27,6 +28,13 @@ export class TransactionsService {
       throw new NotFoundException();
     }
     return found;
+  }
+
+  async updateTransaction(id: string, status: TransactionStatus): Promise<Transaction>{
+    const transaction = await this.getTransactionById(id);
+    transaction.status = status;
+    await this.transactionsRepository.save(transaction);
+    return transaction;
   }
 
   async deleteTransaction(id: string): Promise<void>{

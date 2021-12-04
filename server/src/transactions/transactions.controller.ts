@@ -1,8 +1,9 @@
-import { Controller, Post, Body, Get, Query, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Param, Delete, Patch } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './transaction.entity';
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
+import { UpdateTransactionStatusDto } from './dto/update-transaction-status.dto'
 
 @Controller('transactions')
 export class TransactionsController {
@@ -22,6 +23,15 @@ export class TransactionsController {
   getTransactionById(@Param('id') id: string): Promise<Transaction>{
     return this.transactionsService.getTransactionById(id)
   }
+
+  @Patch('/:id/status')
+    updateTransaction(
+      @Param('id') id: string,
+      @Body() updateTransactionStatusDto: UpdateTransactionStatusDto
+      ): Promise<Transaction>{
+        const { status } =updateTransactionStatusDto;
+      return this.transactionsService.updateTransaction(id, status)
+    }
 
   @Delete('/:id')
   deleteTransaction(@Param('id') id: string): Promise<void>{
