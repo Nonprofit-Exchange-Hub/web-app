@@ -33,12 +33,18 @@ export class TransactionsRepository extends Repository<Transaction> {
   }
 
   async getTransactions(filterDto: GetTransactionsFilterDto): Promise<Transaction[]>{
-    const { status } = filterDto;
+    const { status, search  } = filterDto;
     const query = this.createQueryBuilder('transaction');
 
     if (status){
       query.andWhere('transaction.status = :status', { status })
     }
+    // if (search){
+    //   query.andWhere(
+    //     'transaction.donater_user_id == :search',
+    //     { search: `${search}`}
+    //   )
+    // }
     const transactions = await query.getMany();
     return transactions;
   }

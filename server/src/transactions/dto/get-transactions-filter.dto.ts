@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional } from "class-validator";
+import { IsEnum, IsOptional, IsString } from "class-validator";
 import { TransactionStatus } from "../transaction-status.enum";
 
 export class GetTransactionsFilterDto{
@@ -6,7 +6,7 @@ export class GetTransactionsFilterDto{
   @IsEnum(TransactionStatus)
   status?: TransactionStatus
 
-  // @IsOptional()
-  // @IsString()
-  // search?: string
+  @IsOptional()
+  @IsString()
+  search?: string
 }
