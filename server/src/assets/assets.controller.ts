@@ -14,8 +14,8 @@ import {
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
+// authGaurd excluded because it is outside of the scope of this PR
 // import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-//authGaurd excluded because it is outside of the scope of this PR
 import { Asset } from './entities/asset.entity';
 import { DeleteResult } from 'typeorm';
 

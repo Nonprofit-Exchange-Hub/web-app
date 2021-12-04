@@ -77,14 +77,12 @@ function Assets(): JSX.Element {
         setSelectedFilters({
             ...selectedFilters,
             [event.target.value]: event.target.checked,
-        })
+        });
     };
 
     React.useEffect(() => {
       // fetch assets with querySearchText
-    }, [location])
-
-    console.log(selectedFilters)
+    }, [location]);
 
     return (
         <>

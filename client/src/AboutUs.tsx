@@ -220,7 +220,7 @@ function AboutUs() {
                                     {person.name}
                                 </Typography>
                             </Box>
-                        )
+                        );
                     })}
                 </Box>
             </Container>
@@ -267,9 +267,8 @@ function AboutUs() {
                     {orgs.map((value) => {
                         return (
                             <Box className={classes.orgImage}></Box>
-                        )
+                        );
                     })}
-                    
                 </Box>
             </Container>
         </>

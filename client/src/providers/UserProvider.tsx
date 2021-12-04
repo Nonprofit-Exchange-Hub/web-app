@@ -11,7 +11,7 @@ type UserContextT = [
 export const UserContext = React.createContext<UserContextT>([
   null,
   (user: any) => {},
-])
+]);
 
 export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const { children } = props;

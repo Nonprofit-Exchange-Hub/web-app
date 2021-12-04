@@ -111,16 +111,16 @@ function SignupNonProfit() {
     };
 
     // validating completion of page 1
-    const step1Complete = formData.org_name !== '' && formData.city !== ''
-    const step2Complete = formData.state !== '' && formData.ein !== ''
-    const step3Complete = formData.tax_exempt_id !== '' && formData.nonprofit_classification !== ''
-    const firstPageComplete = (step1Complete && step2Complete) && step3Complete
+    const step1Complete = formData.org_name !== '' && formData.city !== '';
+    const step2Complete = formData.state !== '' && formData.ein !== '';
+    const step3Complete = formData.tax_exempt_id !== '' && formData.nonprofit_classification !== '';
+    const firstPageComplete = (step1Complete && step2Complete) && step3Complete;
 
     // validating completion of page 2
-    const step4Complete = formData.first_name !== '' && formData.last_name !== ''
-    const step5Complete = formData.role_or_title !== '' && formData.email !== ''
-    const step6Complete = formData.password !== '' && !!formData.accept_terms
-    const secondPageComplete = (step4Complete && step5Complete) && step6Complete
+    const step4Complete = formData.first_name !== '' && formData.last_name !== '';
+    const step5Complete = formData.role_or_title !== '' && formData.email !== '';
+    const step6Complete = formData.password !== '' && !!formData.accept_terms;
+    const secondPageComplete = (step4Complete && step5Complete) && step6Complete;
 
 
     return (
