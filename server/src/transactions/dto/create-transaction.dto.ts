@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator'
+import { TransactionStatus } from '../transaction-status.enum';
 
 export class CreateTransactionDto {
 
@@ -15,7 +16,7 @@ export class CreateTransactionDto {
   asset_id: string;
 
   @IsNotEmpty()
-  status: string;
+  status: TransactionStatus;
 
   @IsNotEmpty()
   created_date: string;

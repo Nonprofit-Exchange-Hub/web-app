@@ -3,6 +3,7 @@ import { Transaction } from './transaction.entity';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
 import { transcode } from 'buffer';
+import { TransactionStatus } from './transaction-status.enum';
 
 @EntityRepository(Transaction)
 export class TransactionsRepository extends Repository<Transaction> {
@@ -23,7 +24,7 @@ export class TransactionsRepository extends Repository<Transaction> {
       donater_organization_id,
       requester_id,
       asset_id,
-      status,
+      status: TransactionStatus.IN_PROGRESS,
       created_date,
     });
 

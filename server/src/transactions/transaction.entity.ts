@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { TransactionStatus } from "./transaction-status.enum";
 
 @Entity('transactions')
 
@@ -19,7 +20,7 @@ export class Transaction{
   asset_id: string;
 
   @Column()
-  status: string;
+  status: TransactionStatus;
 
   @Column()
   created_date: string;
