@@ -22,8 +22,14 @@ export class Message {
   })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.messages)
-  user: User;
+  @Column('int')
+  user_id: number;
+
+  @Column('text')
+  user_first_name: string;
+
+  // @ManyToOne(() => User, (user) => user.messages)
+  // user: User;
 
   // code below (and import above) for when Transaction is set up
   // @ManyToOne(() => Transaction, transaction => transaction.messages)

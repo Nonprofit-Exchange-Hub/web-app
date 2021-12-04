@@ -22,11 +22,10 @@ export class MessagesController {
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createMessageDto: CreateMessageDto): Promise<Message> {
-    console.log(createMessageDto);
     return this.messagesService.create(createMessageDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<Message[]> {
     return this.messagesService.findAll();
@@ -49,7 +48,7 @@ export class MessagesController {
     return this.messagesService.update(+id, updateMessageDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.messagesService.remove(+id);

@@ -15,7 +15,7 @@ export class UsersController {
     return user
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.usersService.findAll();
@@ -33,7 +33,7 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);

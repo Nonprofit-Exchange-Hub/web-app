@@ -17,6 +17,7 @@ import MessageCard from './MessageCard';
 import { UserContext } from './providers';
 
 import type { Message, Transaction } from './types';
+import { isConditionalExpression } from 'typescript';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -99,14 +100,35 @@ const fetchTransactions = (): Promise<Transaction[]> => {
     ]);
 };
 
-const messages1: Message[] = [
-    { id: 1, text: 'hello', transactionId: 1, user: { id: 2, firstName: 'user2' } },
-    { id: 1, text: 'hi', transactionId: 1, user: { id: 3, firstName: 'james' } },
-    { id: 1, text: 'i\'m interested in helping out your NP', transactionId: 1, user: { id: 2, firstName: 'user2' } },
-];
+let messages1: Message[];
+
+(async (): Promise<Message[]> => {
+    const res = await fetch('http://localhost:3001/api/messages');
+    const data = await res.json()
+
+    const messages = await data.reduce((message: any) => {
+        console.log(message);
+        return {
+            id: message.id,
+            text: message.text,
+            transactionId: message.transaction_id,
+            user: {
+                id: message.user_id,
+                firstName: message.user_first_name
+            }
+        }
+    })
+
+    // console.log(messages);
+    messages1 = await messages;
+    
+    return await messages1;
+})();
+
+// const messages1: Message[] = fetchMessages1();
 const messages2: Message[] = [
-    { id: 1, text: 'yo', transactionId: 1, user: { id: 3, firstName: 'james' } },
-    { id: 1, text: 'what\'s good?', transactionId: 1, user: { id: 1, firstName: 'user1' } },
+    { id: 1, text: 'yo', transactionId: 2, user: { id: 3, firstName: 'james' } },
+    { id: 1, text: 'what\'s good?', transactionId: 2, user: { id: 1, firstName: 'user1' } },
 ];
 const threads = [messages1, messages2];
 
