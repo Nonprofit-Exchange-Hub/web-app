@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['eslint:recommended', 'react-app'],
+  extends: ['react-app', 'eslint:recommended', 'plugin:prettier/recommended'],
   ignorePatterns: ['/build/**/*'],
   rules: {
     semi: ['error', 'always'],

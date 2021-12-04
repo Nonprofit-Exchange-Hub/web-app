@@ -31,7 +31,8 @@
 		"test": "react-scripts test --watchAll=false",
 		"eject": "react-scripts eject",
 		"lint": "eslint .",
-		"checks": "npm run test && npm run lint"
+		"checks": "npm run test && npm run lint",
+		"format": "prettier --write './src/**/*.{ts,tsx}' --config ../.prettierrc"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -50,5 +51,11 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"eslint": "^8.4.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"prettier": "^2.5.1"
 	}
 }
