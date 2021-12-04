@@ -125,7 +125,7 @@ function Asset(): JSX.Element {
       // post request to claim this asset for this user
       // history.push to move us to confirmation page?
       // trigger top banner to drop down that says 'claimed'?
-    }
+    };
 
     if (!asset) {
       return <>asset not found</>;

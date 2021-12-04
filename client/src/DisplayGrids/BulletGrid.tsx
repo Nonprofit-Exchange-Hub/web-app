@@ -39,10 +39,10 @@ function BulletGrid(props: BulletProps) {
                             </Typography>
                         </Grid>
                     </Grid>
-                )
+                );
             })}
         </Grid>
     );
-};
+}
 
 export default BulletGrid;
