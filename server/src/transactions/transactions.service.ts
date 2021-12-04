@@ -28,4 +28,12 @@ export class TransactionsService {
     }
     return found;
   }
+
+  async deleteTransaction(id: string): Promise<void>{
+    const transactionToDelete = await this.transactionsRepository.delete(id);
+    // NOTE:  affected method discoverable via console.log
+    if (transactionToDelete.affected === 0){
+      throw new NotFoundException();
+    }
+  }
 }

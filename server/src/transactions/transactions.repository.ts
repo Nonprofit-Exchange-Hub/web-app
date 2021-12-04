@@ -2,6 +2,7 @@ import { Repository, EntityRepository } from 'typeorm';
 import { Transaction } from './transaction.entity';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
+import { transcode } from 'buffer';
 
 @EntityRepository(Transaction)
 export class TransactionsRepository extends Repository<Transaction> {
@@ -34,5 +35,10 @@ export class TransactionsRepository extends Repository<Transaction> {
     const query = this.createQueryBuilder('transaction');
     const transactions = await query.getMany();
     return transactions;
+  }
+
+  async deleteTransaction(Transaction): Promise<void>{
+    await this.delete(Transaction);
+    return Transaction
   }
 }
