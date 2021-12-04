@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionsRepository } from './transactions.repository';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -18,5 +18,14 @@ export class TransactionsService {
 
   getTransactions(filterDto: GetTransactionsFilterDto): Promise<Transaction[]>{
     return this.transactionsRepository.getTransactions(filterDto)
+  }
+
+  async getTransactionById(id: string): Promise<Transaction>{
+    // NOTE:  findOne is a built in function
+    const found = await this.transactionsRepository.findOne(id);
+    if (!found){
+      throw new NotFoundException();
+    }
+    return found;
   }
 }
