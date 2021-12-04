@@ -24,7 +24,7 @@ function QuestionList(props: QuestionListProps) {
             ))}
         </>
     );
-};
+}
 
 
 // SUB-COMPONENT Question
@@ -87,6 +87,6 @@ function Question(props: QuestionProps) {
             </AccordionDetails>
         </Accordion>
     );
-};
+}
 
 export default QuestionList;

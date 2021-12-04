@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { OutlinedInput, MenuItem, FormControl, FormLabel } from '@material-ui/core';
 import { Select as MUISelect } from '@material-ui/core';
-import { Option } from '../types';
+
+import type { Option } from '../types';
+
 
 type CustomProps = {
     id: string,
@@ -48,7 +50,7 @@ function Select({id, label, placeholder, options, value, onChange}: CustomProps)
                     <em>{placeholder}</em>
                 </MenuItem>
                 {options.map((option, index) => {
-                    return  <MenuItem key={option.text} value={option.text}>{option.text}</MenuItem>
+                    return  <MenuItem key={option.text} value={option.text}>{option.text}</MenuItem>;
                 })}
             </MUISelect>
         </FormControl>

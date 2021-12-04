@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Container } from '@material-ui/core';
+
 import type { Theme } from '@material-ui/core/styles';
+
 import { TextLink } from '../types';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
     borderBox: {
@@ -53,7 +56,7 @@ function LinkPage(props: React.PropsWithChildren<FormProps>) {
                                         <Typography variant="body1" component="div" align="center">{link.text}</Typography>
                                     </Link>
                                 </Grid>
-                            )
+                            );
                         })}
                     </Grid>
                 </Box>

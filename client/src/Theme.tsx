@@ -1,3 +1,4 @@
+// @ts-ignore
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -50,9 +51,8 @@ theme.props = {
         // disableGutters: true,        // Enable this when we get v5 of Material UI, will replace style overrides from QuestionList
     },
     MuiTextField: {
-        
     },
-}
+};
 
 // Override classes listed in Material UI's CSS for the component
 theme.overrides = {
