@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Theme, ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+/* eslint-enable */
 
 declare module '@material-ui/core/styles' {
   interface Theme {

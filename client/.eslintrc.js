@@ -5,4 +5,8 @@ module.exports = {
     semi: ['error', 'always'],
     eqeqeq: ['error', 'always'],
   },
+  globals: {
+    React: true,
+    JSX: true,
+},
 };
