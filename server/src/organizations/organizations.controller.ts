@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
@@ -7,18 +17,22 @@ import { DeleteResult } from 'typeorm';
 
 @Controller('organizations')
 export class OrganizationsController {
-  constructor(private readonly organizationsService: OrganizationsService) { }
+  constructor(private readonly organizationsService: OrganizationsService) {}
 
   @Post()
   async create(
-    @Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    @Body() createOrganizationDto: CreateOrganizationDto,
+  ): Promise<Organization> {
     try {
-      const newOrg = await this.organizationsService.create(createOrganizationDto);
+      const newOrg = await this.organizationsService.create(
+        createOrganizationDto,
+      );
       return newOrg;
     } catch (error) {
       throw new HttpException(
         { status: HttpStatus.CONFLICT, message: `${error}` },
-        HttpStatus.CONFLICT)
+        HttpStatus.CONFLICT,
+      );
     }
   }
 
@@ -33,7 +47,10 @@ export class OrganizationsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
+  async update(
+    @Param('id') id: string,
+    @Body() updateOrganizationDto: UpdateOrganizationDto,
+  ): Promise<Organization> {
     return this.organizationsService.update(+id, updateOrganizationDto);
   }
 

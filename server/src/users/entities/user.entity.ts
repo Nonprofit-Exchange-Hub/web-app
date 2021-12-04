@@ -21,7 +21,7 @@ export class User {
 
   @OneToMany(() => Asset, (asset) => asset.poster)
   assets: Asset[];
-  
+
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 }
