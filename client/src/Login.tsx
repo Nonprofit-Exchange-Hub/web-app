@@ -67,7 +67,7 @@ function Login() {
     const [error, setError] = React.useState<Error | null>(null);
     const [, setUser] = React.useContext(UserContext);
 
-    const [ formData, setFormData ] = React.useState(initialFormData);
+    const [ formData, setFormData ] = React.useState<UserLoginData>(initialFormData);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value }: { name: string; value: string } = evt.target;
@@ -90,8 +90,6 @@ function Login() {
         const response = await res.json();
         setIsLoading(false);
 
-        // debugger;
-
         if (!res.ok) {
             if (response.error === 'Email not found') {
                 setError({ type: 'email', message: response.error });
@@ -101,8 +99,7 @@ function Login() {
                 setError({ type: '', message: 'an unknown error occurred' });
             }
         } else {
-            const user = jwt.verify(response.access_token, 'placeholder');
-            setUser(user);
+            setUser(response.user);
             setError(null);
             history.push('/');
         }
