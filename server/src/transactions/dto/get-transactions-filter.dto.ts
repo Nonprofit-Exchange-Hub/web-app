@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsNumber } from 'class-validator';
+import { IsOptional, IsString, IsNumber, IsDate } from 'class-validator';
 import { TransactionStatus } from '../transaction-status.enum';
 
 export class GetTransactionsFilterDto {
@@ -27,5 +27,6 @@ export class GetTransactionsFilterDto {
   asset_id?: number;
   
   @IsOptional()
+  @IsDate()
   created_date?: Date;
 }

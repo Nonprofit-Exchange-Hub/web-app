@@ -72,12 +72,7 @@ export class TransactionsRepository extends Repository<Transaction> {
         donater_user_id,
       });
     }
-    // if (search){
-    //   query.andWhere(
-    //     'transaction.donater_user_id == :search',
-    //     { search: `${search}`}
-    //   )
-    // }
+
     const transactions = await query.getMany();
     return transactions;
   }
@@ -87,3 +82,10 @@ export class TransactionsRepository extends Repository<Transaction> {
     return Transaction;
   }
 }
+
+    // if (search){
+    //   query.andWhere(
+    //     'transaction.donater_user_id == :search',
+    //     { search: `${search}`}
+    //   )
+    // }
