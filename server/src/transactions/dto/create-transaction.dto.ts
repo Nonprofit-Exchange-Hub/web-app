@@ -4,7 +4,7 @@ import { TransactionStatus } from '../transaction-status.enum';
 export class CreateTransactionDto {
 
   @IsNotEmpty()
-  donater_user_id: string;
+  donater_user_id: number;
 
   @IsNotEmpty()
   donater_organization_id: string;
@@ -12,10 +12,10 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   requester_id: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'asset_id is required' })
   asset_id: string;
 
-  @IsNotEmpty()
+  // @IsNotEmpty()
   status: TransactionStatus;
 
   @IsNotEmpty()

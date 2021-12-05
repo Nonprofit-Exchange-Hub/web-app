@@ -2,7 +2,14 @@ import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { TransactionStatus } from '../transaction-status.enum';
 
 export class GetTransactionsFilterDto {
-  @IsEnum(TransactionStatus)
+  // Why is this causing an error?   {
+//     "statusCode": 400,
+//     "message": [
+//         "status must be a valid enum value"
+//     ],
+//     "error": "Bad Request"
+// }
+  // @IsEnum(TransactionStatus)
   status: TransactionStatus;
 
   @IsOptional()
@@ -11,7 +18,7 @@ export class GetTransactionsFilterDto {
 
   @IsOptional()
   @IsString()
-  donater_user_id?: string;
+  donater_user_id?: number;
 
   @IsOptional()
   @IsString()

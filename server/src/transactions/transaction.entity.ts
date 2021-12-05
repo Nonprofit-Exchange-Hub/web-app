@@ -8,7 +8,7 @@ export class Transaction{
   id: string;
 
   @Column()
-  donater_user_id: string;
+  donater_user_id: number;
 
   @Column()
   donater_organization_id: string;
