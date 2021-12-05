@@ -5,19 +5,19 @@ import { TransactionStatus } from "./transaction-status.enum";
 
 export class Transaction{
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   donater_user_id: number;
 
   @Column()
-  donater_organization_id: string;
+  donater_organization_id: number;
 
   @Column()
-  requester_id: string;
+  requester_id: number;
 
   @Column()
-  asset_id: string;
+  asset_id: number;
 
   @Column()
   status: TransactionStatus;

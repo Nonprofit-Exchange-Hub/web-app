@@ -22,15 +22,15 @@ export class GetTransactionsFilterDto {
 
   @IsOptional()
   @IsString()
-  donater_organization_id?: string;
+  donater_organization_id?: number;
 
   @IsOptional()
   @IsString()
-  requester_id?: string;
+  requester_id?: number;
 
   @IsOptional()
   @IsString()
-  asset_id?: string;
+  asset_id?: number;
   
   @IsOptional()
   @IsString()
