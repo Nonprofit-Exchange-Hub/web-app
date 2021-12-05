@@ -100,9 +100,7 @@ const fetchTransactions = (): Promise<Transaction[]> => {
     ]);
 };
 
-let messages1: Message[];
-
-(async (): Promise<Message[]> => {
+const fetchMessages1 = async (): Promise<Message[]> => {
     const res = await fetch('http://localhost:3001/api/messages');
     const data = await res.json()
 
@@ -118,12 +116,11 @@ let messages1: Message[];
             }
         }
     })
-
-    // console.log(messages);
-    messages1 = await messages;
     
-    return await messages1;
-})();
+    return await messages;
+}
+
+const messages1 = fetchMessages1();
 
 // const messages1: Message[] = fetchMessages1();
 const messages2: Message[] = [
