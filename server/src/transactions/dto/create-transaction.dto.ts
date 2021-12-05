@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator'
+import { IsNotEmpty, IsEnum } from 'class-validator'
 import { TransactionStatus } from '../transaction-status.enum';
 
 export class CreateTransactionDto {
@@ -15,7 +15,7 @@ export class CreateTransactionDto {
   @IsNotEmpty({ message: 'asset_id is required' })
   asset_id: number;
 
-  // @IsNotEmpty()
+  @IsEnum(TransactionStatus)
   status: TransactionStatus;
 
   @IsNotEmpty()
