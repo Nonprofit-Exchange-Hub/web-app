@@ -28,11 +28,7 @@ export class Transaction{
   @Column()
   created_date: Date;
 
+  // Unclear if this is the proper syntax
   @ManyToOne(() => User, (user) => user.transactions)
   users: User[];
-  // @ManyToMany(type => Organization, organization => organization.transaction)
-  // @ManyToOne(type => Transaction, transaction => transaction.asset)
-
-  // organizations: Organization[];
-  // assets: Asset[];
 }
