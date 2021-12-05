@@ -26,7 +26,7 @@ export class Organization {
   @Column('text')
   state: string;
 
-  @Column({type:'int', unique: true})
+  @Column({ type: 'int', unique: true })
   ein: number;
 
   @Column('int')

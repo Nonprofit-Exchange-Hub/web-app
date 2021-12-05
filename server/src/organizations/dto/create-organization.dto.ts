@@ -1,4 +1,4 @@
-import { Organization } from '../entities/organization.entity'
+import { Organization } from '../entities/organization.entity';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateOrganizationDto {
