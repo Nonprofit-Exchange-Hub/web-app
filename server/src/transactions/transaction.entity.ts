@@ -29,6 +29,6 @@ export class Transaction{
   created_date: Date;
 
   // Unclear if this is the proper syntax
-  @ManyToOne(() => User, (user) => user.transactions)
-  users: User[];
+  @ManyToOne(_type => User, (user) => user.transactions, { eager: false })
+  user: User;
 }
