@@ -10,16 +10,16 @@ export class Transaction{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('int')
   donater_user_id: number;
 
-  @Column()
+  @Column('int')
   donater_organization_id: number;
 
-  @Column()
+  @Column('int')
   requester_id: number;
 
-  @Column()
+  @Column('int')
   asset_id: number;
 
   @Column()
