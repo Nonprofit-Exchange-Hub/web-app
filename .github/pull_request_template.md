@@ -28,8 +28,8 @@ changes are includes. GIFs help immensely when explaining interactions and anima
 
 preReqs (to be checked by reviewer):
 
-[ ] following command succeeds `cd client && npm run checks && cd ../server && npm run checks`
-[ ] ensure all files have been formatted `cd client && npm run format && cd ../server && npm run format`
+- [ ] following command succeeds `cd client && npm run checks && cd ../server && npm run checks`
+- [ ] ensure all files have been formatted `cd client && npm run format && cd ../server && npm run format`
 
 
 repro steps:
