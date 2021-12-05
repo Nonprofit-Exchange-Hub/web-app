@@ -168,9 +168,10 @@ function AboutUs() {
 
   return (
     <>
-      {/* // Add this back in when we have a header image
-            <Box className={`${classes.titleBox} ${classes.mainPageSection}`}>
-            </Box> */}
+      {/*
+        Add this back in when we have a header image
+        <Box className={`${classes.titleBox} ${classes.mainPageSection}`}>
+      */}
       <Box className={`${classes.whyContainer}`}>
         <Container>
           <Typography variant="h3" component="h3" align="left">
