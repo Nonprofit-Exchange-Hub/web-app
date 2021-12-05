@@ -12,6 +12,7 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   requester_id: number;
 
+  // custom message for example, not necessary to code
   @IsNotEmpty({ message: 'asset_id is required' })
   asset_id: number;
 

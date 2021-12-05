@@ -1,5 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, ManyToOne } from "typeorm";
 import { TransactionStatus } from "./transaction-status.enum";
+import { User } from "../users/entities/user.entity"
+import { Asset } from "../assets/entities/asset.entity"
+import { Organization } from "../organizations/entities/organization.entity"
 
 @Entity('transactions')
 
@@ -24,4 +27,12 @@ export class Transaction{
 
   @Column()
   created_date: Date;
+
+  // @OneToMany(type => User, user => user.transaction)
+  // @ManyToMany(type => Organization, organization => organization.transaction)
+  // @ManyToOne(type => Transaction, transaction => transaction.asset)
+
+  // users: User[];
+  // organizations: Organization[];
+  // assets: Asset[];
 }

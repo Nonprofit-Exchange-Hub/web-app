@@ -6,10 +6,7 @@ export class GetTransactionsFilterDto {
   @IsString()
   status: TransactionStatus;
 
-  @IsOptional()
-  @IsString()
-  search?: string;
-
+  // unclear as to the value/conflict of having both @IsOptional and ?
   @IsOptional()
   @IsNumber()
   donater_user_id?: number;
@@ -30,3 +27,8 @@ export class GetTransactionsFilterDto {
   @IsDate()
   created_date?: Date;
 }
+
+  // potential future use
+  // @IsOptional()
+  // @IsString()
+  // search?: string;

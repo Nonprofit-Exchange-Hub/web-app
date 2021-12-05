@@ -15,10 +15,9 @@ export class TransactionsRepository extends Repository<Transaction> {
       donater_organization_id,
       requester_id,
       asset_id,
-      status,
       created_date,
     } = createTransactionDto;
-    // NOTE:  create needs 2 methods from tasksRepository
+    // NOTE:  create needs 2 methods from Repository, create & save
     const transaction = this.create({
       donater_user_id,
       donater_organization_id,
@@ -36,7 +35,6 @@ export class TransactionsRepository extends Repository<Transaction> {
   ): Promise<Transaction[]> {
     const {
       status,
-      search,
       donater_user_id,
       donater_organization_id,
       requester_id,
@@ -82,7 +80,7 @@ export class TransactionsRepository extends Repository<Transaction> {
     return Transaction;
   }
 }
-
+    // search method
     // if (search){
     //   query.andWhere(
     //     'transaction.donater_user_id == :search',
