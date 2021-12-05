@@ -28,11 +28,11 @@ export class Transaction{
   @Column()
   created_date: Date;
 
-  // @OneToMany(type => User, user => user.transaction)
+  @ManyToOne(() => User, (user) => user.transactions)
+  users: User[];
   // @ManyToMany(type => Organization, organization => organization.transaction)
   // @ManyToOne(type => Transaction, transaction => transaction.asset)
 
-  // users: User[];
   // organizations: Organization[];
   // assets: Asset[];
 }
