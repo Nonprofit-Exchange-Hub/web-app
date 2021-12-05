@@ -27,6 +27,5 @@ export class GetTransactionsFilterDto {
   asset_id?: number;
   
   @IsOptional()
-  @IsString()
-  created_date?: string;
+  created_date?: Date;
 }

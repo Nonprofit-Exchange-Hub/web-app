@@ -23,5 +23,5 @@ export class Transaction{
   status: TransactionStatus;
 
   @Column()
-  created_date: string;
+  created_date: Date;
 }

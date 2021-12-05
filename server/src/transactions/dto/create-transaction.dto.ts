@@ -19,5 +19,5 @@ export class CreateTransactionDto {
   status: TransactionStatus;
 
   @IsNotEmpty()
-  created_date: string;
+  created_date: Date;
 }
