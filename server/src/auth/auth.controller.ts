@@ -12,7 +12,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LoginAuthGuard)
-  async login(@Request() req, @Response() response): Promise<{ status: number, user: Omit<User, 'password'> }> {
+  async login(@Request(\) req, @Response({ passthrough: true }) response): Promise<{ status: number, user: Omit<User, 'password'> }> {
     const jwt = await this.authService.createJwt({ ...req.user });
     response.cookie(COOKIE_KEY, jwt);
 
@@ -22,7 +22,7 @@ export class AuthController {
     };
   }
 
-  async logout(@Response() response): Promise<void> {
+  async logout(@Response({ passthrough: true }) response): Promise<void> {
     response.status(200).clearCookie(COOKIE_KEY);
   }
 }
