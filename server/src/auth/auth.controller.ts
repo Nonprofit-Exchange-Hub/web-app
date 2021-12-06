@@ -1,4 +1,4 @@
-import { Controller, Post, Response, Request, UseGuards, Get, Next } from '@nestjs/common';
+import { Controller, Post, Response, Request, UseGuards, Get, Next, Header } from '@nestjs/common';
 
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { CookieAuthGuard } from './guards/cookie-auth.guard';
@@ -12,6 +12,8 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
+  @Header('Access-Control-Allow-Origin', '*')
+  @Header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   @UseGuards(LoginAuthGuard)
   async login(
     @Request() request,
@@ -25,7 +27,8 @@ export class AuthController {
       jwt,
       {
         domain: 'localhost',
-        httpOnly: true,
+        httpOnly: false,
+        // httpOnly: true,
         // secure: process.env.NODE_ENV !== 'development',
         // isSecure: process.env.NODE_ENV !== 'development',
         secure: true,
@@ -41,7 +44,7 @@ export class AuthController {
     // response.send();
   }
 
-  @Get('session')
+  @Post('session')
   @UseGuards(CookieAuthGuard)
   async session(@Request() request): Promise<{ user: Omit<User, 'password'>}> {
     console.log('\n\n')
@@ -54,6 +57,7 @@ export class AuthController {
     return { user };
   }
 
+  @Post('logout')
   async logout(@Response({ passthrough: true }) response): Promise<void> {
     response.status(200).clearCookie(COOKIE_KEY);
   }
