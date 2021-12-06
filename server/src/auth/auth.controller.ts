@@ -13,15 +13,12 @@ export class AuthController {
   @Post('login')
   @UseGuards(LoginAuthGuard)
   async login(@Request() req, @Response() response): Promise<{ status: number, user: User }> {
-    console.log('full user obj? if no get full user', req.user)
-    const jwt = await this.authService.createJwt(req.user);
+    const jwt = await this.authService.createJwt({ ...req.user });
     response.cookie(COOKIE_KEY, jwt);
 
-    // TODO do we need JWT really?
     return {
       status: 200,
       user: req.user,
-      // access_token: await this.authService.createJwt(req.user),
     };
   }
 
