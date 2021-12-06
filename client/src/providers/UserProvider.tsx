@@ -18,6 +18,24 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
 
   const [user, setUser] = React.useState<User | null>(null);
 
+  React.useEffect(() => {
+    async function fetchUser(): Promise<void> {
+      const res = await fetch('http://localhost:3001/api/auth/session', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const response = await res.json();
+
+      if (res.ok) {
+        setUser(response.user);
+      }
+    }
+
+    if (!user) {
+      fetchUser();
+    }
+  }, [user]);
+
   return (
     <UserContext.Provider value={[user, setUser]}>
       {children}

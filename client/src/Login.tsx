@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 
 import type { Theme } from '@material-ui/core/styles';
 

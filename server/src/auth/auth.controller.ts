@@ -1,6 +1,7 @@
-import { Controller, Post, Response, Request, UseGuards } from '@nestjs/common';
+import { Controller, Post, Response, Request, UseGuards, Get, Next } from '@nestjs/common';
 
 import { LoginAuthGuard } from './guards/login-auth.guard';
+import { CookieAuthGuard } from './guards/cookie-auth.guard';
 import { AuthService } from './auth.service';
 import { COOKIE_KEY } from './constants';
 
@@ -12,14 +13,45 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LoginAuthGuard)
-  async login(@Request(\) req, @Response({ passthrough: true }) response): Promise<{ status: number, user: Omit<User, 'password'> }> {
-    const jwt = await this.authService.createJwt({ ...req.user });
-    response.cookie(COOKIE_KEY, jwt);
+  async login(
+    @Request() request,
+    @Response({ passthrough: true }) response,
+    // @Next() next,
+  // ): Promise<{ user: Omit<User, 'password'> }> {
+  ): Promise<void> {
+    const jwt = await this.authService.createJwt({ ...request.user });
+    response.cookie(
+      COOKIE_KEY,
+      jwt,
+      {
+        domain: 'localhost',
+        httpOnly: true,
+        // secure: process.env.NODE_ENV !== 'development',
+        // isSecure: process.env.NODE_ENV !== 'development',
+        secure: true,
+        isSecure: true,
+        clearInvalid: true,
+        path: '/api',
+      },
+    ).send({ user: request.user });
+    // console.log('\n\n');
+    // console.log(response);
+    // console.log('\n\n');
+    // next();
+    // response.send();
+  }
 
-    return {
-      status: 200,
-      user: req.user,
-    };
+  @Get('session')
+  @UseGuards(CookieAuthGuard)
+  async session(@Request() request): Promise<{ user: Omit<User, 'password'>}> {
+    console.log('\n\n')
+    console.log('here')
+    console.log('\n\n')
+    const { user } = request;
+    console.log('\n\n')
+    console.log('user', user)
+    console.log('\n\n')
+    return { user };
   }
 
   async logout(@Response({ passthrough: true }) response): Promise<void> {

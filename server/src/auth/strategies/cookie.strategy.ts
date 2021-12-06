@@ -17,10 +17,17 @@ export class CookieStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  async validate(@Request() request): Promise<User> {
-    const jwt = request.cookies[COOKIE_KEY];
+  async validate(@Request() request): Promise<Omit<User, 'password'>> {
+    console.log('\n\n')
+    console.log('cookie strategy')
+    console.log('\n\n')
+    const jwt = request.signedCookies[COOKIE_KEY];
     const decoded = await this.jwtService.decode(jwt) as User;
+
     const user = await this.usersService.findByEmail(decoded.email);
+    delete user.password;
+    request.user = user;
+
     return user;
   }
 }
