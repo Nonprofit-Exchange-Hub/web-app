@@ -130,8 +130,15 @@ function Asset(): JSX.Element {
     const [searchText, setSearchText] = React.useState<string>('');
     const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
     const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false)
-    const handleClaim = () => {
-        setShowSnackbar(true)
+
+
+
+
+    const handleClaim = (e:any) => {
+
+        if(e.currentTarget.type==="button"){
+            setShowSnackbar(true)
+    }
       // TODOs
       // post request to claim this asset for this user
       // history.push to move us to confirmation page?
@@ -144,6 +151,18 @@ function Asset(): JSX.Element {
 
     const bigImg = asset.imgUrls[selectedImgInd];
 
+    const showMiniImgs =
+        asset.imgUrls.map((imgUrl, ind) => {
+          if (ind !== selectedImgInd) {
+            return <img
+                key={imgUrl + `_${ind}`}
+                src={imgUrl}
+                alt={asset!.title}
+                className={classes.miniImg}
+                onClick={() => setSelectedImgInd(ind)}
+            />;
+          }
+      });
 
     const aboutInfo = () =>{
         if(asset.organization !== null){
@@ -181,16 +200,8 @@ function Asset(): JSX.Element {
                 <div className={classes.leftPanel}>
                     <div className={classes.imgs}>
                         <img src={bigImg} alt={asset.title} className={classes.bigImg} />
-                        <div className={classes.miniImgs}>
-                            {asset.imgUrls.map((imgUrl, ind) => ind !== selectedImgInd ? (
-                                <img
-                                    key={imgUrl}
-                                    src={imgUrl}
-                                    alt={asset.title}
-                                    className={classes.miniImg}
-                                    onClick={() => setSelectedImgInd(ind)}
-                                />
-                            ) : null)}
+                        <div  id="miniImgs" className={classes.miniImgs}>
+                            {showMiniImgs}
                         </div>
                     </div>
                     <p style={{ textAlign: 'left', padding: '20px 0' }}>
@@ -215,7 +226,7 @@ function Asset(): JSX.Element {
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={handleClaim}
+                        onClick={(e:any)=>handleClaim(e)}
                         className={classes.claimButton}
                     >
                         {asset.organization ? "I can donate this!" : "Message to claim!"}

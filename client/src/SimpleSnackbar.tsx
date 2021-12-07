@@ -16,11 +16,7 @@ export default function SimpleSnackbar(){
     const [isOpen, isSetOpen]=React.useState<boolean>(true)
     const handleClose = (event?: React.SyntheticEvent, reason?: string) =>{
         isSetOpen(false);
-        debugger
-
     }
-
-
         return(
             <div className={classes.root}>
                 <Snackbar
