@@ -3,12 +3,13 @@ import { Transaction } from './transaction.entity';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
 import { TransactionStatus } from './transaction-status.enum';
+import { User } from 'src/users/entities/user.entity';
 
 @EntityRepository(Transaction)
 export class TransactionsRepository extends Repository<Transaction> {
 
   async createTransaction(
-    createTransactionDto: CreateTransactionDto,
+    createTransactionDto: CreateTransactionDto, user: User
   ): Promise<Transaction> {
     const {
       donater_user_id,
@@ -25,6 +26,7 @@ export class TransactionsRepository extends Repository<Transaction> {
       asset_id,
       status: TransactionStatus.IN_PROGRESS,
       created_date,
+      user
     });
     await this.save(transaction);
     return transaction;

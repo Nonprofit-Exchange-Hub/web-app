@@ -4,6 +4,8 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './transaction.entity';
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
 import { UpdateTransactionStatusDto } from './dto/update-transaction-status.dto'
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -12,8 +14,9 @@ export class TransactionsController {
   @Post()
   createTransaction(
     @Body() 
-    createTransactionDto: CreateTransactionDto): Promise<Transaction> {
-    return this.transactionsService.createTransaction(createTransactionDto);
+    createTransactionDto: CreateTransactionDto,
+    @GetUser() user: User): Promise<Transaction> {
+    return this.transactionsService.createTransaction(createTransactionDto, user);
   }
 
   @Get()

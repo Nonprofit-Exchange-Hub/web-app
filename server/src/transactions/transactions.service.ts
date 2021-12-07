@@ -5,6 +5,7 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './transaction.entity'
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
 import { TransactionStatus } from './transaction-status.enum';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -13,8 +14,8 @@ export class TransactionsService {
     private transactionsRepository: TransactionsRepository
   ){}
 
-  createTransaction(createTransactionDto: CreateTransactionDto): Promise<Transaction>{
-    return this.transactionsRepository.createTransaction(createTransactionDto)
+  createTransaction(createTransactionDto: CreateTransactionDto, user: User): Promise<Transaction>{
+    return this.transactionsRepository.createTransaction(createTransactionDto, user)
   }
 
   getTransactions(filterDto: GetTransactionsFilterDto): Promise<Transaction[]>{
