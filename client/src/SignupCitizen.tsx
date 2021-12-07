@@ -1,7 +1,6 @@
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
-import type { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -9,6 +8,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
+
+import type { Theme } from '@material-ui/core/styles';
+
 import { placeholderImg } from './assets/temp';
 import EmailInput from './EmailInput';
 import FacebookAuthBtn from './FacebookAuthBtn';
@@ -16,6 +18,7 @@ import GoogleAuthBtn from './GoogleAuthBtn';
 import PasswordInput from './PasswordInput';
 import StyledLink from './StyledLink';
 import TextDivider from './TextDivider';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
     sideImg: {
@@ -71,8 +74,8 @@ const initialFormData: UserSignupData = {
 function SignupCitizen() {
     const classes = useStyles();
     const history = useHistory();
-    const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const [emailError, setEmailError] = React.useState<string>('')
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+    const [emailError, setEmailError] = React.useState<string>('');
     const [ formData, setFormData ] = React.useState(initialFormData);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -85,9 +88,9 @@ function SignupCitizen() {
 
     const handleSubmit = async (evt: React.FormEvent) => {
         evt.preventDefault();
-        setIsLoading(true)
+        setIsLoading(true);
         // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
-        delete formData.accept_terms
+        delete formData.accept_terms;
         const res = await fetch('http://localhost:3001/api/users', {
             method: 'POST',
             headers: {
@@ -95,12 +98,12 @@ function SignupCitizen() {
             },
             body: JSON.stringify(formData),
         });
-        const data = await res.json()
-        setIsLoading(false)
+        const data = await res.json();
+        setIsLoading(false);
         if(data.status === 409){
-            setEmailError(data.message)
+            setEmailError(data.message);
         } else {
-            history.push('/')
+            history.push('/');
         }
 
     };

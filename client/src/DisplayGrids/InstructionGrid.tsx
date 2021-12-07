@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
 
+
 const instructionStyles = makeStyles<Theme, InstructionProps> ((theme: Theme) => ({
     gridBoxes: {
         '& > div': {
@@ -46,14 +47,14 @@ function InstructionGrid(props: InstructionProps) {
                 return (
                     <>
                         {/* Set order of the two jsx items - odd number rows have text first, even have image first */}
-                        {index % 2 == 0 ? image : text}
-                        {index % 2 == 0 ? text : image}
+                        {index % 2 === 0 ? image : text}
+                        {index % 2 === 0 ? text : image}
                     </>
-                )
+                );
             })}
         </Grid>
     );
-};
+}
 
 // SUB-COMPONENT GridImage
 
@@ -67,7 +68,7 @@ function GridImage(props: ImageProps) {
             <img src={props.image} alt="placeholder"></img>
         </Grid>
     );
-};
+}
 
 // SUB-COMPONENT GridText
 
@@ -87,6 +88,6 @@ function GridText(props: TextProps) {
             </Typography>
         </Grid>
     );
-};
+}
 
 export default InstructionGrid;

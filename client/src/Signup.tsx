@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Signup() {
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <Container className={classes.formBox}>

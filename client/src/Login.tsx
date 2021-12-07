@@ -63,8 +63,8 @@ interface Error {
 function Login() {
     const classes = useStyles();
     const history = useHistory();
-    const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const [error, setError] = React.useState<Error | null>(null)
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+    const [error, setError] = React.useState<Error | null>(null);
     const [, setUser] = React.useContext(UserContext);
 
     const [ formData, setFormData ] = React.useState(initialFormData);
@@ -79,7 +79,7 @@ function Login() {
 
     const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
         evt.preventDefault();
-        setIsLoading(true)
+        setIsLoading(true);
         const res = await fetch('http://localhost:3001/api/auth/login', {
             method: 'POST',
             headers: {

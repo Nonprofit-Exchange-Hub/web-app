@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Radio, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
 import { RadioGroup as MUIRadioGroup } from '@material-ui/core';
-import { Option } from '../types';
+
+import type { Option } from '../types';
+
 
 type CustomProps = {
     id: string,
@@ -22,7 +24,7 @@ function RadioGroup({id, label, options, value, onChange}: CustomProps) {
                 onChange={onChange}
             >
                 {options.map((option, index) => {
-                    return  <FormControlLabel key={option.text} value={option.value} control={<Radio />} label={option.text} />
+                    return  <FormControlLabel key={option.text} value={option.value} control={<Radio />} label={option.text} />;
                 })}
             </MUIRadioGroup>
         </FormControl>

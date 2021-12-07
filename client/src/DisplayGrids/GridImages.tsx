@@ -5,6 +5,7 @@ import { Box } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
 
+
 const useStyles = makeStyles<Theme, GridProps> ((theme: Theme) => ({
     missionContent: {
         display: 'grid',
@@ -47,14 +48,14 @@ function GridImages(props: GridProps): JSX.Element {
     return (
         <Box className={`${classes.missionContent}`}>
             <GridImage
-                    src={props.wideImage}
-                    isWide={true}
-            ></GridImage>
+                src={props.wideImage}
+                isWide={true}
+            />
             {props.smallImages.map((src) => {
                 return <GridImage
                     src={src}
                     isWide={false}
-                ></GridImage>
+                />;
             })}
             {props.missionStatements.map((statementItem) => {
                 return (
@@ -62,12 +63,12 @@ function GridImages(props: GridProps): JSX.Element {
                         row={String(statementItem.row)}
                         title={statementItem.title}
                         text={statementItem.text}
-                    ></MissionStatement>
-                )
+                    />
+                );
             })}
         </Box>
     );
-};
+}
 
 // SUB-COMPONENT GridImage
 
@@ -105,7 +106,7 @@ function GridImage(props: ImageProps): JSX.Element {
     return (
         <Box className={`${classes.gridImage} ${wideClass}`}></Box>
     );
-};
+}
 
 // SUB-COMPONENT MissionStatement
 
@@ -153,6 +154,6 @@ function MissionStatement(props: MissionProps): JSX.Element {
             {props.text}
         </Box>
     );
-};
+}
 
 export default GridImages;

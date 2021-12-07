@@ -1,25 +1,17 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import type { Theme } from '@material-ui/core/styles';
-
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 
-const useStyles = makeStyles<Theme, QuestionListProps> ({
-    questionList: {
-        width: '100%',
-    },
-});
 
 type QuestionListProps = {
     questionList: { question: string, answer: string }[],
 };
 
 function QuestionList(props: QuestionListProps) {
-    const classes = useStyles(props);
     
     return (
         <>
@@ -32,12 +24,12 @@ function QuestionList(props: QuestionListProps) {
             ))}
         </>
     );
-};
+}
 
 
 // SUB-COMPONENT Question
 
-const questionStyles = makeStyles<Theme, QuestionProps> ({
+const questionStyles = makeStyles(() =>({
     questionWrapper: {
         boxShadow: 'none',
         borderBottom: '1px solid black',
@@ -70,7 +62,7 @@ const questionStyles = makeStyles<Theme, QuestionProps> ({
             backgroundColor: 'rgba(240, 240, 240, 0.5)',
         },
     },
-});
+}));
 
 type QuestionProps = {
     question: string,
@@ -78,7 +70,7 @@ type QuestionProps = {
 };
 
 function Question(props: QuestionProps) {
-    const classes = questionStyles(props);
+    const classes = questionStyles();
 
     return (
         <Accordion square={true} className={classes.questionWrapper}>
@@ -95,6 +87,6 @@ function Question(props: QuestionProps) {
             </AccordionDetails>
         </Accordion>
     );
-};
+}
 
 export default QuestionList;

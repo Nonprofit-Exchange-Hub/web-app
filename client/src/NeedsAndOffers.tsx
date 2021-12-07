@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import TodayOutlined from '@material-ui/icons/TodayOutlined';
 import RoomOutlined from '@material-ui/icons/RoomOutlined';
 import { NavLink } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
 import type { Theme } from '@material-ui/core/styles';
 
@@ -45,19 +46,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
 type Props = {
-  headerText: string,
   assets: Asset[],
+  headerContentRight?: JSX.Element,
+  headerText: string,
 };
 
 function NeedsAndOffers(props: Props): JSX.Element {
     const classes = useStyles();
-    const { assets, headerText } = props;
+    const { assets, headerContentRight, headerText } = props;
 
     return (
         <>
-            <Typography variant="h4" component="h4" className={classes.needsAndOffersHeader}>
-                {headerText}
-            </Typography>
+            <Grid container item justifyContent="space-between">
+                <Typography variant="h4" component="h4" className={classes.needsAndOffersHeader}>
+                    {headerText}
+                </Typography>
+                {headerContentRight ?? null}
+            </Grid>
             <div className={classes.needsAndOffersSub}>
                 {assets.map(asset => (
                     <NavLink to={`/asset/${asset.id}`} key={asset.id} className={classes.card}>

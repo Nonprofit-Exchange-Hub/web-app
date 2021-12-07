@@ -133,7 +133,7 @@ function MessageInboxView(): JSX.Element {
                 const transactions = await fetchTransactions(); // user.id
                 setTransactions(transactions);
                 setSelectedTransaction(transactions[0]);
-            }())
+            }());
         }
     }, [user]);
 
@@ -143,12 +143,12 @@ function MessageInboxView(): JSX.Element {
             (async function() {
                 const messages = await fetchMessages(selectedTransaction.id);
                 setMessages(messages);
-            }())
+            }());
         }
     }, [selectedTransaction]);
 
     if (!user) {
-        return <Redirect to="/" />
+        return <Redirect to="/" />;
     }
 
     return (

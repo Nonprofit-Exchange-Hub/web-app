@@ -23,7 +23,7 @@ interface Props {
     children: string;
 }
 
-function StyledLink({ to,target, children }: Props) {
+function StyledLink({ to,target, children }: Props): JSX.Element {
     const classes = useStyles();
 
     return (
