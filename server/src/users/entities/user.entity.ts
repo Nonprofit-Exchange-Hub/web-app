@@ -24,7 +24,7 @@ export class User {
   assets: Asset[];
 
   // Unclear if this is the proper syntax
-  @OneToMany(() => Transaction, (transaction)=> transaction.donater_user_id || transaction.requester_id, { eager: true})
+  @OneToMany(() => Transaction, (transaction)=> transaction.donater_user, { eager: true})
   transactions: Transaction[];
 
   @OneToMany(() => Message, (message) => message.user)
