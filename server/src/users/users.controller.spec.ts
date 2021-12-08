@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { userCreateDtoStub } from '../../test/stubs';
-import { User } from './entities/user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
