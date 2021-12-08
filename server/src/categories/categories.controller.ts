@@ -74,7 +74,6 @@ export class CategoriesController {
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<DeleteResult | HttpException> {
     const categoryToDelete = await this.categoriesService.remove(parseInt(id));
-    console.log(categoryToDelete);
     if (categoryToDelete.affected === 0) {
       throw new HttpException(
         { staus: HttpStatus.NOT_FOUND, message: 'Category not found' },

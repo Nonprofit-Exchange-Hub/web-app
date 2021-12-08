@@ -13,7 +13,7 @@ export class CategoriesService {
     private categoriesRepository: Repository<Category>,
   ) { }
 
-  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+  create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     return this.categoriesRepository.save(createCategoryDto);
   }
 
