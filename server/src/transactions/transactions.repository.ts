@@ -13,7 +13,7 @@ export class TransactionsRepository extends Repository<Transaction> {
   ): Promise<Transaction> {
     const {
       donater_user,
-      donater_organization_id,
+      donater_organization,
       requester_id,
       asset_id,
       created_date,
@@ -21,7 +21,7 @@ export class TransactionsRepository extends Repository<Transaction> {
     // NOTE:  create needs 2 methods from Repository, create & save
     const transaction = this.create({
       donater_user,
-      donater_organization_id,
+      donater_organization,
       requester_id,
       asset_id,
       status: TransactionStatus.IN_PROGRESS,

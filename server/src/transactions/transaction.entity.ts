@@ -20,8 +20,8 @@ export class Transaction {
   // @Column('int')
   // donater_user_id: number;
 
-  @Column('int')
-  donater_organization_id: number;
+  // @Column('int')
+  // donater_organization_id: number;
 
   @Column('int')
   requester_id: number;
@@ -45,7 +45,7 @@ export class Transaction {
   @JoinColumn()
   donater_user: User;
 
-  // @ManyToOne((_type) => User, (user) => user.transactions, { eager: false })
-  // @JoinColumn()
-  // requester: User;
+  @ManyToOne((_type) => Organization, (organization) => organization.transactions, { eager: false })
+  @JoinColumn()
+  donater_organization: Organization;
 }
