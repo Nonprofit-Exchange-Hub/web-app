@@ -3,7 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  ManyToMany,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
@@ -16,9 +15,6 @@ import { Organization } from '../organizations/entities/organization.entity';
 export class Transaction {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column('int')
-  asset_id: number;
 
   @Column({
     type: 'enum',
@@ -38,7 +34,11 @@ export class Transaction {
   @JoinColumn()
   donater_organization: Organization;
 
-  // @ManyToOne((_type) => Organization, (recipient) => recipient.transactions, { eager: false })
+  @OneToMany((_type) => Asset, (asset) => asset.transaction, { eager: true })
+  assets: Asset[];
+
+    // @ManyToOne((_type) => Organization, (recipient) => recipient.transactions, { eager: false })
   // @JoinColumn()
   // recipient: Organization;
+
 }

@@ -2,6 +2,7 @@ import { IsOptional, IsString, IsNumber, IsDate } from 'class-validator';
 import { TransactionStatus } from '../transaction-status.enum';
 import { User } from 'src/users/entities/user.entity';
 import { Organization } from 'src/organizations/entities/organization.entity';
+import { Asset } from 'src/assets/entities/asset.entity';
 
 export class GetTransactionsFilterDto {
   @IsOptional()
@@ -23,14 +24,10 @@ export class GetTransactionsFilterDto {
 
   @IsOptional()
   @IsNumber()
-  asset_id?: number;
+  assets?: Asset[];
   
   @IsOptional()
   @IsDate()
   created_date?: Date;
 }
 
-  // potential future use
-  // @IsOptional()
-  // @IsString()
-  // search?: string;

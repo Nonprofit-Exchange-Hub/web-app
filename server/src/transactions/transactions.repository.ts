@@ -15,15 +15,14 @@ export class TransactionsRepository extends Repository<Transaction> {
       donater_user,
       donater_organization,
       // recipient,
-      asset_id,
+      assets,
       created_date,
     } = createTransactionDto;
-    // NOTE:  create needs 2 methods from Repository, create & save
     const transaction = this.create({
       donater_user,
       donater_organization,
       // recipient,
-      asset_id,
+      assets,
       status: TransactionStatus.IN_PROGRESS,
       created_date
     });
@@ -38,8 +37,8 @@ export class TransactionsRepository extends Repository<Transaction> {
       status,
       donater_user,
       donater_organization,
-      // requester_id,
-      asset_id,
+      // recipient,
+      assets,
       created_date,
     } = filterDto;
     const query = this.createQueryBuilder('transaction');
@@ -58,8 +57,8 @@ export class TransactionsRepository extends Repository<Transaction> {
     //     requester_id,
     //   });
     // }
-    if (asset_id) {
-      query.andWhere('transaction.asset_id = :asset_id', { asset_id });
+    if (assets) {
+      query.andWhere('transaction.asset_id = :asset_id', { assets });
     }
     if (created_date) {
       query.andWhere('transaction.created_date = :created_date', {
@@ -81,10 +80,3 @@ export class TransactionsRepository extends Repository<Transaction> {
     return Transaction;
   }
 }
-    // search method
-    // if (search){
-    //   query.andWhere(
-    //     'transaction.donater_user_id == :search',
-    //     { search: `${search}`}
-    //   )
-    // }

@@ -2,6 +2,7 @@ import { IsNotEmpty, IsEnum } from 'class-validator'
 import { TransactionStatus } from '../transaction-status.enum';
 import { User } from 'src/users/entities/user.entity';
 import { Organization } from 'src/organizations/entities/organization.entity';
+import { Asset } from 'src/assets/entities/asset.entity';
 
 export class CreateTransactionDto {
 
@@ -16,7 +17,7 @@ export class CreateTransactionDto {
 
   // custom message for example, not necessary to code
   @IsNotEmpty({ message: 'asset_id is required' })
-  asset_id: number;
+  assets: Asset[];
 
   @IsEnum(TransactionStatus)
   status: TransactionStatus;
