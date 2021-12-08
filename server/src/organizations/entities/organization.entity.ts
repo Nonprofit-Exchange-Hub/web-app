@@ -35,4 +35,8 @@ export class Organization {
 
   @OneToMany(() => Transaction, (transaction)=> transaction.donater_organization, { eager: true})
   transactions: Transaction[];
+
+  // Check to see where recipient_transactions gets used
+  // @OneToMany(() => Transaction, (transaction)=> transaction.recipient, { eager: true})
+  // recipient_transactions: Transaction[];
 }

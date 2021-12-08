@@ -1,5 +1,7 @@
 import { IsOptional, IsString, IsNumber, IsDate } from 'class-validator';
 import { TransactionStatus } from '../transaction-status.enum';
+import { User } from 'src/users/entities/user.entity';
+import { Organization } from 'src/organizations/entities/organization.entity';
 
 export class GetTransactionsFilterDto {
   @IsOptional()
@@ -9,15 +11,15 @@ export class GetTransactionsFilterDto {
   // unclear as to the value/conflict of having both @IsOptional and ?
   @IsOptional()
   @IsNumber()
-  donater_user_id?: number;
+  donater_user?: User;
 
   @IsOptional()
   @IsNumber()
-  donater_organization_id?: number;
+  donater_organization?: Organization;
 
-  @IsOptional()
-  @IsNumber()
-  requester_id?: number;
+  // @IsOptional()
+  // @IsNumber()
+  // requester_id?: number;
 
   @IsOptional()
   @IsNumber()

@@ -17,15 +17,6 @@ export class Transaction {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column('int')
-  // donater_user_id: number;
-
-  // @Column('int')
-  // donater_organization_id: number;
-
-  @Column('int')
-  requester_id: number;
-
   @Column('int')
   asset_id: number;
 
@@ -39,8 +30,6 @@ export class Transaction {
   @Column()
   created_date: Date;
 
-  // Unclear if this is the proper syntax
-  // this is the 'owner' side, the one that stores the id
   @ManyToOne((_type) => User, (user) => user.transactions, { eager: false })
   @JoinColumn()
   donater_user: User;
@@ -48,4 +37,8 @@ export class Transaction {
   @ManyToOne((_type) => Organization, (organization) => organization.transactions, { eager: false })
   @JoinColumn()
   donater_organization: Organization;
+
+  // @ManyToOne((_type) => Organization, (recipient) => recipient.transactions, { eager: false })
+  // @JoinColumn()
+  // recipient: Organization;
 }

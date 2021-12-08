@@ -14,7 +14,7 @@ export class TransactionsRepository extends Repository<Transaction> {
     const {
       donater_user,
       donater_organization,
-      requester_id,
+      // recipient,
       asset_id,
       created_date,
     } = createTransactionDto;
@@ -22,7 +22,7 @@ export class TransactionsRepository extends Repository<Transaction> {
     const transaction = this.create({
       donater_user,
       donater_organization,
-      requester_id,
+      // recipient,
       asset_id,
       status: TransactionStatus.IN_PROGRESS,
       created_date
@@ -36,9 +36,9 @@ export class TransactionsRepository extends Repository<Transaction> {
   ): Promise<Transaction[]> {
     const {
       status,
-      donater_user_id,
-      donater_organization_id,
-      requester_id,
+      donater_user,
+      donater_organization,
+      // requester_id,
       asset_id,
       created_date,
     } = filterDto;
@@ -47,17 +47,17 @@ export class TransactionsRepository extends Repository<Transaction> {
     if (status) {
       query.andWhere('transaction.status = :status', { status });
     }
-    if (donater_organization_id) {
+    if (donater_organization) {
       query.andWhere(
         'transaction.donater_organization_id = :donater_organization_id',
-        { donater_organization_id },
+        { donater_organization },
       );
     }
-    if (requester_id) {
-      query.andWhere('transaction.requester_id = :requester_id', {
-        requester_id,
-      });
-    }
+    // if (requester_id) {
+    //   query.andWhere('transaction.requester_id = :requester_id', {
+    //     requester_id,
+    //   });
+    // }
     if (asset_id) {
       query.andWhere('transaction.asset_id = :asset_id', { asset_id });
     }
@@ -66,9 +66,9 @@ export class TransactionsRepository extends Repository<Transaction> {
         created_date,
       });
     }
-    if (donater_user_id) {
+    if (donater_user) {
       query.andWhere('transaction.donater_user_id = :donater_user_id', {
-        donater_user_id,
+        donater_user,
       });
     }
 
