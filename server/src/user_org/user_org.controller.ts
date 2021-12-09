@@ -1,44 +1,45 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { CreateUserOrganizationDto } from './dto/create-user_org.dto';
+import { UpdateUserOrganizationDto } from './dto/update-user_org.dto';
+import { UserOrganization } from './entities/user_org.entitiy';
+import { UserOrganizationsService } from './user_org.service';
 //only changed name so far
-@Controller('users')
+@Controller('userOrganizations')
 export class UserOrganizationsController {
-    constructor(private readonly usersService: UsersService) { }
+    constructor(private readonly userOrganizationsService: UserOrganizationsService) { }
 
     @Post()
     async create(
-        @Body() createUserDto: CreateUserDto,
-    ): Promise<Omit<User, 'password' | 'accept_terms'>> {
-        const user = await this.usersService.create(createUserDto);
-        delete user.password;
-        return user;
+        @Body() createUserOrganizationsDto: CreateUserOrganizationDto,
+    ): Promise<UserOrganization> {
+        const user_org = await this.userOrganizationsService.create(createUserOrganizationsDto);
+        //ad
+        return user_org;
     }
 
     @UseGuards(JwtAuthGuard)
     @Get()
     findAll() {
-        return this.usersService.findAll();
+        return this.userOrganizationsService.findAll();
     }
 
     @UseGuards(JwtAuthGuard)
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.usersService.findOne(+id);
+        return this.userOrganizationsService.findOne(+id);
     }
 
     @UseGuards(JwtAuthGuard)
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-        return this.usersService.update(+id, updateUserDto);
+    update(@Param('id') id: string, @Body() updateUserOrganizationDto: UpdateUserOrganizationDto) {
+        return this.userOrganizationsService.update(+id, updateUserOrganizationDto);
     }
 
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.usersService.remove(+id);
+        return this.userOrganizationsService.remove(+id);
     }
 }

@@ -14,8 +14,8 @@ export enum ApprovalStatus {
     denied = 'DENIED'
 }
 
-@Entity('user_organization')
-export class User_organization {
+@Entity('userOrganizations')
+export class UserOrganization {
     @PrimaryGeneratedColumn()
     id: number;
 
