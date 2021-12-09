@@ -6,16 +6,23 @@ import { Transaction } from './transaction.entity'
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
 import { TransactionStatus } from './transaction-status.enum';
 import { User } from 'src/users/entities/user.entity';
-
+import { UpdateAssetDto } from 'src/assets/dto/update-asset.dto';
+import { Asset } from 'src/assets/entities/asset.entity';
+import { Repository } from 'typeorm';
 @Injectable()
 export class TransactionsService {
   constructor(
     @InjectRepository(TransactionsRepository)
-    private transactionsRepository: TransactionsRepository
+    private transactionsRepository: TransactionsRepository,
+    // @InjectRepository(Asset) private assetsRepository: Repository<Asset>
   ){}
 
-  createTransaction(createTransactionDto: CreateTransactionDto, user: User): Promise<Transaction>{
-    return this.transactionsRepository.createTransaction(createTransactionDto, user)
+  createTransaction(createTransactionDto: CreateTransactionDto, user: User,
+    //  updateAssetDto: UpdateAssetDto
+     ): Promise<Transaction>{
+    return this.transactionsRepository.createTransaction(createTransactionDto, user,
+      //  updateAssetDto
+       )
   }
 
   getTransactions(filterDto: GetTransactionsFilterDto): Promise<Transaction[]>{
