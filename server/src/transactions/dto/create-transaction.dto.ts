@@ -12,8 +12,8 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   donater_organization: Organization;
 
-  // @IsNotEmpty()
-  // recipient: Organization;
+  @IsNotEmpty()
+  recipient: Organization;
 
   // custom message for example, not necessary to code
   @IsNotEmpty({ message: 'asset_id is required' })

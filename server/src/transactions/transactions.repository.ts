@@ -14,20 +14,21 @@ export class TransactionsRepository extends Repository<Transaction> {
     const {
       donater_user,
       donater_organization,
-      // recipient,
+      recipient,
       assets,
       created_date,
     } = createTransactionDto;
     const transaction = this.create({
       donater_user,
       donater_organization,
-      // recipient,
+      recipient,
       assets,
       status: TransactionStatus.IN_PROGRESS,
       created_date
     });
     await this.save(transaction);
     return transaction;
+    
   }
 
   async getTransactions(
@@ -37,7 +38,7 @@ export class TransactionsRepository extends Repository<Transaction> {
       status,
       donater_user,
       donater_organization,
-      // recipient,
+      recipient,
       assets,
       created_date,
     } = filterDto;
@@ -52,11 +53,11 @@ export class TransactionsRepository extends Repository<Transaction> {
         { donater_organization },
       );
     }
-    // if (requester_id) {
-    //   query.andWhere('transaction.requester_id = :requester_id', {
-    //     requester_id,
-    //   });
-    // }
+    if (recipient) {
+      query.andWhere('transaction.recipient_id = :recipient_id', {
+        recipient,
+      });
+    }
     if (assets) {
       query.andWhere('transaction.asset_id = :asset_id', { assets });
     }

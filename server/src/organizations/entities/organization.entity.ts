@@ -33,10 +33,7 @@ export class Organization {
   @Column('int')
   tax_exempt_id: number;
 
-  @OneToMany(() => Transaction, (transaction)=> transaction.donater_organization, { eager: true})
+  @OneToMany(() => Transaction, (transaction)=> transaction.donater_organization || transaction.recipient, { eager: true})
   transactions: Transaction[];
 
-  // Check to see where recipient_transactions gets used
-  // @OneToMany(() => Transaction, (transaction)=> transaction.recipient, { eager: true})
-  // recipient_transactions: Transaction[];
 }

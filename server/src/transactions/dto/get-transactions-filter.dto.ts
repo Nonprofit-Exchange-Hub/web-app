@@ -18,9 +18,9 @@ export class GetTransactionsFilterDto {
   @IsNumber()
   donater_organization?: Organization;
 
-  // @IsOptional()
-  // @IsNumber()
-  // requester_id?: number;
+  @IsOptional()
+  @IsNumber()
+  recipient?: Organization;
 
   @IsOptional()
   @IsNumber()
