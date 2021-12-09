@@ -4,7 +4,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-
+//only changed name so far
 @Controller('users')
 export class UserOrganizationsController {
     constructor(private readonly usersService: UsersService) { }

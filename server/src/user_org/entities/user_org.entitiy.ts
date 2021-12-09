@@ -2,13 +2,13 @@ import { Organization } from 'src/organizations/entities/organization.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
-enum Role {
+export enum Role {
     admin = 'ADMIN',
     owner = 'OWNER',
     revoked = 'REVOKED'
 }
 
-enum ApprovalStatus {
+export enum ApprovalStatus {
     approved = 'APPROVED',
     pending = 'PENDING',
     denied = 'DENIED'
@@ -25,16 +25,24 @@ export class User_organization {
     @Column('int')
     org_id: number;
 
-    @Column('enum')
+    @Column({
+        type: "enum",
+        enum: ApprovalStatus,
+        default: ApprovalStatus.pending
+    })
     approvalStatus: ApprovalStatus;
 
-    @Column('enum')
+    @Column({
+        type: "enum",
+        enum: Role,
+        default: Role.admin//maybe add volunteer role and use a default
+    })
     role: Role;
 
-    @ManyToOne(() => User, (user) => user.organizations)
-    organizations: Organization[];
+    @ManyToOne(() => Organization, user => user)// added a one to many relationship in org and user files
+    organization: Organization;
 
-    @ManyToOne(() => Organization, (org) => org.users)
-    users: User[];
+    @ManyToOne(() => User, org => org)
+    user: User;
 
 }

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { User_organization } from 'src/user_org/entities/user_org.entitiy';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('organizations')
 export class Organization {
@@ -31,4 +32,7 @@ export class Organization {
 
   @Column('int')
   tax_exempt_id: number;
+  // added for many to many relationship with user_org
+  @OneToMany(() => User_organization, (user_org) => user_org.organization)
+  user_organizations: User_organization[];
 }
