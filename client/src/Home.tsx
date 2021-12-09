@@ -85,8 +85,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   videoSection: {
     backgroundColor: '#1fc8db',
-    backgroundImage:
-      'linear-gradient(140deg, #ffffff 0%, #66ffff 50%, #000000 75%)',
+    backgroundImage: 'linear-gradient(140deg, #ffffff 0%, #66ffff 50%, #000000 75%)',
     padding: '10%',
     display: 'flex',
     flexDirection: 'row',
@@ -142,27 +141,26 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function HeaderContentRight(): JSX.Element {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <div>
-            <NavLink to="/assets">See all Needs and Offers</NavLink>
-            <NavLink to="/need" className={classes.makeAPostLink}>
-                <Button className={classes.makeAPostButton} color="primary" variant="contained">Make a Post</Button>
-            </NavLink>
-        </div>
-    );
+  return (
+    <div>
+      <NavLink to="/assets">See all Needs and Offers</NavLink>
+      <NavLink to="/need" className={classes.makeAPostLink}>
+        <Button className={classes.makeAPostButton} color="primary" variant="contained">
+          Make a Post
+        </Button>
+      </NavLink>
+    </div>
+  );
 }
 
 function Home(): JSX.Element {
   const classes = useStyles();
-  const [selectedSearchCategory, setSelectedSearchCategory] =
-    React.useState<string>('');
+  const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('');
   const [searchText, setSearchText] = React.useState<string>('');
 
-  const selectSearchCategory = (
-    event: React.ChangeEvent<{ value: unknown }>,
-  ) => {
+  const selectSearchCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedSearchCategory(event.target.value as string);
   };
 
@@ -170,12 +168,7 @@ function Home(): JSX.Element {
     <>
       <div className={classes.hero}>
         <div className={classes.heroContent}>
-          <Typography
-            className={classes.heroText}
-            variant="h3"
-            component="h1"
-            color="textPrimary"
-          >
+          <Typography className={classes.heroText} variant="h3" component="h1" color="textPrimary">
             Support local nonprofits through the giving economy.
           </Typography>
           <div className={classes.searchBar}>
@@ -198,14 +191,11 @@ function Home(): JSX.Element {
               inputProps={{ 'aria-label': 'ex. diapers' }}
               type="text"
               value={searchText}
-              onChange={(
-                e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-              ) => setSearchText(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+                setSearchText(e.target.value)
+              }
             />
-            <NavLink
-              to={`/assets?search=${searchText}`}
-              className={classes.iconButton}
-            >
+            <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
               <SearchIcon />
             </NavLink>
           </div>
@@ -213,14 +203,11 @@ function Home(): JSX.Element {
       </div>
       <div className={classes.needsAndOffers}>
         <NeedsAndOffers
-            assets={dumbyData}
-            headerContentRight={<HeaderContentRight />}
-            headerText="Nonprofit Needs"
+          assets={dumbyData}
+          headerContentRight={<HeaderContentRight />}
+          headerText="Nonprofit Needs"
         />
-        <NeedsAndOffers
-            assets={dumbyData}
-            headerText="Offers"
-        />
+        <NeedsAndOffers assets={dumbyData} headerText="Offers" />
       </div>
       <div className={classes.videoSection}>
         <div className={classes.videoSectionVideo}>
@@ -232,8 +219,8 @@ function Home(): JSX.Element {
           align="center"
           className={classes.videoSectionText}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-          semper et purus vestibulum consequat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum semper et purus
+          vestibulum consequat.
         </Typography>
       </div>
       <div className={classes.faqs}>

@@ -20,13 +20,9 @@ export class OrganizationsController {
   constructor(private readonly organizationsService: OrganizationsService) {}
 
   @Post()
-  async create(
-    @Body() createOrganizationDto: CreateOrganizationDto,
-  ): Promise<Organization> {
+  async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
     try {
-      const newOrg = await this.organizationsService.create(
-        createOrganizationDto,
-      );
+      const newOrg = await this.organizationsService.create(createOrganizationDto);
       return newOrg;
     } catch (error) {
       throw new HttpException(
