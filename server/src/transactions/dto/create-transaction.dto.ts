@@ -9,7 +9,7 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   donater_user: User;
 
-  @IsNotEmpty()
+  // @IsNotEmpty()
   donater_organization: Organization;
 
   @IsNotEmpty()
@@ -17,7 +17,7 @@ export class CreateTransactionDto {
 
   // custom message for example, not necessary to code
   @IsNotEmpty({ message: 'asset_id is required' })
-  assets: Asset[];
+  asset: Asset;
 
   @IsEnum(TransactionStatus)
   status: TransactionStatus;

@@ -32,10 +32,10 @@ export class Transaction {
 
   @ManyToOne((_type) => Organization, (organization) => organization.transactions, { eager: false })
   @JoinColumn()
-  donater_organization: Organization;
+  donater_organization?: Organization;
 
-  @OneToMany((_type) => Asset, (asset) => asset.transaction, { eager: true })
-  assets: Asset[];
+  @ManyToOne((_type) => Asset, (asset) => asset.transactions, { eager: false })
+  asset: Asset;
 
   @ManyToOne((_type) => Organization, (recipient) => recipient.transactions, { eager: false })
   @JoinColumn()

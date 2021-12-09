@@ -12,10 +12,7 @@ export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   @Post()
-  createTransaction(
-    @Body() 
-    createTransactionDto: CreateTransactionDto,
-    @GetUser() user: User): Promise<Transaction> {
+  createTransaction(@Body() createTransactionDto: CreateTransactionDto, @GetUser() user: User): Promise<Transaction> {
     return this.transactionsService.createTransaction(createTransactionDto, user);
   }
 

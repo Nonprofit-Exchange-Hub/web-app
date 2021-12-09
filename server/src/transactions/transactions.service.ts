@@ -6,9 +6,9 @@ import { Transaction } from './transaction.entity'
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
 import { TransactionStatus } from './transaction-status.enum';
 import { User } from 'src/users/entities/user.entity';
-import { UpdateAssetDto } from 'src/assets/dto/update-asset.dto';
-import { Asset } from 'src/assets/entities/asset.entity';
-import { Repository } from 'typeorm';
+// import { UpdateAssetDto } from 'src/assets/dto/update-asset.dto';
+// import { Asset } from 'src/assets/entities/asset.entity';
+// import { Repository } from 'typeorm';
 @Injectable()
 export class TransactionsService {
   constructor(

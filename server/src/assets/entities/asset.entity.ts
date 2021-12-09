@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 import { AssetType, Condition } from '../constants';
@@ -36,7 +36,7 @@ export class Asset {
   @JoinColumn()
   poster: User;
 
-  @ManyToOne(() => Transaction, (transaction) => transaction.assets, { eager: false })
+  @OneToMany(() => Transaction, (transaction) => transaction.asset, { eager: true })
   @JoinColumn()
-  transaction: Transaction;
+  transactions: Transaction[];
 }
