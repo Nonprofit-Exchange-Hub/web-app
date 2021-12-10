@@ -25,9 +25,8 @@ export class GetTransactionsFilterDto {
   @IsOptional()
   @IsNumber()
   assets?: Asset[];
-  
+
   @IsOptional()
   @IsDate()
   created_date?: Date;
 }
-
