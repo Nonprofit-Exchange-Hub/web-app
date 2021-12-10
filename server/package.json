@@ -41,13 +41,13 @@
         "passport": "^0.4.1",
         "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0",
-        "pg": "^8.5.1",
+        "pg": "^8.7.1",
         "pg-promise": "^10.9.5",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
         "rxjs": "^6.6.6",
         "save": "^2.4.0",
-        "typeorm": "^0.2.32"
+        "typeorm": "^0.2.41"
     },
     "devDependencies": {
         "@nestjs/cli": "^7.5.6",
