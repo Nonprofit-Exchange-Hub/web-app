@@ -4,14 +4,12 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
 import { TransactionStatus } from './transaction-status.enum';
 import { User } from 'src/users/entities/user.entity';
-// import { UpdateAssetDto } from 'src/assets/dto/update-asset.dto';
 
 @EntityRepository(Transaction)
 export class TransactionsRepository extends Repository<Transaction> {
 
   async createTransaction(
     createTransactionDto: CreateTransactionDto, user: User,
-    //  updateAssetDto: UpdateAssetDto
   ): Promise<Transaction> {
     const {
       donater_user,
