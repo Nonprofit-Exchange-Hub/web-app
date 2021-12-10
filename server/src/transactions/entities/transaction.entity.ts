@@ -6,10 +6,10 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { TransactionStatus } from './transaction-status.enum';
-import { User } from '../users/entities/user.entity';
-import { Asset } from '../assets/entities/asset.entity';
-import { Organization } from '../organizations/entities/organization.entity';
+import { TransactionStatus } from '../transaction-status.enum';
+import { User } from '../../users/entities/user.entity';
+import { Asset } from '../../assets/entities/asset.entity';
+import { Organization } from '../../organizations/entities/organization.entity';
 
 @Entity('transactions')
 export class Transaction {
@@ -30,15 +30,20 @@ export class Transaction {
   @JoinColumn()
   donater_user: User;
 
-  @ManyToOne((_type) => Organization, (organization) => organization.transactions, { eager: false })
+  @ManyToOne(
+    (_type) => Organization,
+    (organization) => organization.transactions,
+    { eager: false },
+  )
   @JoinColumn()
   donater_organization?: Organization;
 
   @ManyToOne((_type) => Asset, (asset) => asset.transactions, { eager: false })
   asset: Asset;
 
-  @ManyToOne((_type) => Organization, (recipient) => recipient.transactions, { eager: false })
+  @ManyToOne((_type) => Organization, (recipient) => recipient.transactions, {
+    eager: false,
+  })
   @JoinColumn()
   recipient: Organization;
-
 }
