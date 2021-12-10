@@ -5,7 +5,7 @@ import { CreateUserOrganizationDto } from './dto/create-user_org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user_org.dto';
 import { UserOrganization } from './entities/user_org.entitiy';
 import { UserOrganizationsService } from './user_org.service';
-//only changed name so far
+
 @Controller('userOrganizations')
 export class UserOrganizationsController {
     constructor(private readonly userOrganizationsService: UserOrganizationsService) { }
@@ -15,7 +15,6 @@ export class UserOrganizationsController {
         @Body() createUserOrganizationsDto: CreateUserOrganizationDto,
     ): Promise<UserOrganization> {
         const user_org = await this.userOrganizationsService.create(createUserOrganizationsDto);
-        //ad
         return user_org;
     }
 

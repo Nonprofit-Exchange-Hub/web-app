@@ -1,5 +1,5 @@
 import { UserOrganization } from 'src/user_org/entities/user_org.entitiy';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
 
@@ -27,5 +27,6 @@ export class User {
   messages: Message[];
   // added for many to many relationship with user_org
   @OneToMany(() => UserOrganization, (user_org) => user_org.user)
+  @JoinColumn({ referencedColumnName: 'user_id' })
   user_organizations: UserOrganization[];
 }
