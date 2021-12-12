@@ -13,16 +13,19 @@ export class CategoriesService {
     private categoriesRepository: Repository<Category>,
   ) { }
 
-  create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    return this.categoriesRepository.save(createCategoryDto);
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+    const newCategory = await this.categoriesRepository.save(createCategoryDto);
+    return newCategory;
   }
 
-  findAll(): Promise<Category[]> {
-    return this.categoriesRepository.find();
+  async findAll(): Promise<Category[]> {
+    const allCategories = await this.categoriesRepository.find();
+    return allCategories;
   }
 
-  findOne(id: number): Promise<Category> {
-    return this.categoriesRepository.findOne({ id });
+  async findOne(id: number): Promise<Category> {
+    const category = this.categoriesRepository.findOne({ id });
+    return category;
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto): Promise<Category> {
@@ -30,7 +33,8 @@ export class CategoriesService {
     return this.categoriesRepository.findOne(id);
   }
 
-  remove(id: number): Promise<DeleteResult> {
-    return this.categoriesRepository.delete(id);
+  async remove(id: number): Promise<DeleteResult> {
+    const deleteResult = this.categoriesRepository.delete(id);
+    return deleteResult;
   }
 }

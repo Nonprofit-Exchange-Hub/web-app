@@ -15,6 +15,8 @@ import { UpdateCategoryDto } from './dto/update-category';
 import { Category } from './entities/category.entity';
 import { DeleteResult } from 'typeorm';
 
+// TODO ticket for adding auth guards https://github.com/Nonprofit-Exchange-Hub/web-app/issues/84
+
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) { }
@@ -22,7 +24,7 @@ export class CategoriesController {
   @Post()
   async create(
     @Body() createCategoryDto: CreateCategoryDto,
-  ): Promise<Category | HttpException> {
+  ): Promise<Category> {
     try {
       const newCategory = await this.categoriesService.create(createCategoryDto);
       return newCategory;
@@ -35,13 +37,14 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll(): Promise<Category[]> {
-    return this.categoriesService.findAll();
+  async findAll(): Promise<Category[]> {
+    const allCategories = await this.categoriesService.findAll();
+    return allCategories;
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Category | HttpException> {
-    const foundCategory = await this.categoriesService.findOne(parseInt(id));
+  async findOne(@Param('id') id: string): Promise<Category> {
+    const foundCategory = await this.categoriesService.findOne(parseInt(id, 10));
     if (!foundCategory) {
       throw new HttpException(
         { staus: HttpStatus.NOT_FOUND, message: 'Category not found' },
@@ -56,10 +59,10 @@ export class CategoriesController {
   async update(
     @Param('id') id: string,
     @Body() updateCategoriesDto: UpdateCategoryDto,
-  ): Promise<Category | HttpException> {
+  ): Promise<Category> {
     try {
       const updatedCategories = await this.categoriesService.update(
-        parseInt(id),
+        parseInt(id, 10),
         updateCategoriesDto,
       );
       return updatedCategories;
@@ -72,7 +75,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<DeleteResult | HttpException> {
+  async remove(@Param('id') id: string): Promise<DeleteResult> {
     const categoryToDelete = await this.categoriesService.remove(parseInt(id));
     if (categoryToDelete.affected === 0) {
       throw new HttpException(
