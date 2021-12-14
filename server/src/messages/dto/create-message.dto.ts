@@ -3,7 +3,10 @@ import { PartialType } from '@nestjs/mapped-types';
 import { Message } from '../entities/message.entity';
 
 export class CreateMessageDto extends PartialType(Message) {
-  text: string;
+  // TODO: use real user and pass this through to the client
+  // making sure the MessageInboxView component can still fetch messages properly
+
+  text: string;  
   // user: User;
   user_id: number;
   user_first_name: string;
