@@ -16,10 +16,10 @@ export class MessagesController {
     return this.messagesService.create(createMessageDto);
   }
 
-  // TODO: reinstate UseGuards here and in the Delete action when 
+  // TODO: reinstate UseGuards here and in the Delete action when
   // ready - currently these are needed to add data to test the
   // MessageInboxView component
-  
+
   // @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<Message[]> {

@@ -6,7 +6,7 @@ export class CreateMessageDto extends PartialType(Message) {
   // TODO: use real user and pass this through to the client
   // making sure the MessageInboxView component can still fetch messages properly
 
-  text: string;  
+  text: string;
   // user: User;
   user_id: number;
   user_first_name: string;

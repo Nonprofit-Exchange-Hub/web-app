@@ -102,23 +102,23 @@ const fetchTransactions = (): Promise<Transaction[]> => {
 // TODO: seed data so that messages appear without manually creating them
 
 const fetchMessages = async (): Promise<Message[]> => {
-    const res = await fetch('http://localhost:3001/api/messages');
-    const data = await res.json()
+  const res = await fetch('http://localhost:3001/api/messages');
+  const data = await res.json();
 
-    const messages = await data.map((message: any) => {
-        return {
-            id: message.id,
-            text: message.text,
-            transactionId: message.transaction_id,
-            user: {
-                id: message.user_id,
-                firstName: message.user_first_name
-            }
-        }
-    })
-    
-    return messages;
-}
+  const messages = await data.map((message: any) => {
+    return {
+      id: message.id,
+      text: message.text,
+      transactionId: message.transaction_id,
+      user: {
+        id: message.user_id,
+        firstName: message.user_first_name,
+      },
+    };
+  });
+
+  return messages;
+};
 
 // TODO use SubHeader component in Offer and Assets pages
 
@@ -134,27 +134,27 @@ function MessageInboxView(): JSX.Element {
 
   // todo switch to custom hook
   React.useEffect(() => {
-      if (user) {
-          (async function() {
-              const transactions = await fetchTransactions(); // user.id
-              setTransactions(transactions);
-              setSelectedTransaction(transactions[0]);
-          }())
-      }
+    if (user) {
+      (async function () {
+        const transactions = await fetchTransactions(); // user.id
+        setTransactions(transactions);
+        setSelectedTransaction(transactions[0]);
+      })();
+    }
   }, [user]);
 
   // todo switch to custom hook
   React.useEffect(() => {
-      if (selectedTransaction) {
-          (async function() {
-              const messages = await fetchMessages();
-              setMessages(messages);
-          }())
-      }
+    if (selectedTransaction) {
+      (async function () {
+        const messages = await fetchMessages();
+        setMessages(messages);
+      })();
+    }
   }, [selectedTransaction]);
 
   if (!user) {
-      return <Redirect to="/" />
+    return <Redirect to="/" />;
   }
 
   return (
