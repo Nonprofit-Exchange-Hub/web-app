@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import { NavLink } from 'react-router-dom';
@@ -16,112 +16,101 @@ import { dumbyData } from './assets/temp';
 import type { Theme } from '@material-ui/core/styles';
 import type { Asset as AssetT } from './types';
 
-
 const useStyles = makeStyles((theme: Theme) => ({
-    topBar: {
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: '10px 5%',
-        borderRadius: 0,
-        alignItems: 'center',
+  topBar: {
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: '10px 5%',
+    borderRadius: 0,
+    alignItems: 'center',
+  },
+  searchInput: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '10px',
+  },
+  iconButton: {
+    padding: 10,
+    '&:hover': {
+      backgroundColor: 'inherit',
+      borderRadius: '10px',
     },
-    searchInput: {
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: '10px',
-    },
-    iconButton: {
-        padding: 10,
-        '&:hover': {
-            backgroundColor: 'inherit',
-            borderRadius: '10px',
-        },
-        textDecoration: 'none',
-    },
-    contentWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        padding: '50px 4% 150px 7%',
-    },
-    leftPanel: {
-        width: '45%',
-        marginRight: '7%',
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    rightPanel: {
-        width: '50%',
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        textAlign: 'left',
-    },
-    imgs: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-    },
-    miniImgs: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        width: '25%',
-    },
-    bigImg: {
-        minHeight: '300px',
-        minWidth: '300px',
-        marginRight: '5px',
-        borderRadius: '5px',
-        objectFit: 'cover',
-    },
-    miniImg: {
-        height: '50px',
-        width: '50px',
-        objectFit: 'cover',
-        borderRadius: '5px',
-        marginBottom: '10px',
-        cursor: 'pointer',
-    },
-    heading:{
-        marginBottom: '10px',
-    },
-    subText: {
-        display: 'flex',
-        paddingTop: '7px',
-        alignItems: 'center',
-    },
-    linkedText:{
-        display:'flex',
-        paddingTop: '10px',
-        fontWeight: 'bold',
-        fontSize: '1.1em',
-    },
-    claimButton: {
-        marginTop: '30px',
-        width: '40%',
-        borderRadius: '10px',
-        minWidth: '150px',
-    },
+    textDecoration: 'none',
+  },
+  contentWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: '20px 15% 60px',
+  },
+  leftPanel: {
+    width: '60%',
+    marginRight: '5%',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  rightPanel: {
+    width: '35%',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'left',
+  },
+  imgs: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  miniImgs: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    width: '25%',
+  },
+  bigImg: {
+    minHeight: '300px',
+    minWidth: '300px',
+    marginRight: '5px',
+    borderRadius: '5px',
+    objectFit: 'cover',
+  },
+  miniImg: {
+    height: '50px',
+    width: '50px',
+    objectFit: 'cover',
+    borderRadius: '5px',
+    marginBottom: '10px',
+    cursor: 'pointer',
+  },
+  subText: {
+    display: 'flex',
+    paddingTop: '10px',
+    alignItems: 'center',
+  },
+  claimButton: {
+    marginTop: '20px',
+    width: '70%',
+  },
 }));
 
 const useAsset = (id?: string): AssetT | null => {
   const [asset, setAsset] = React.useState<AssetT | null>(null);
 
   React.useEffect(() => {
-    if (!id) { return; }
+    if (!id) {
+      return;
+    }
 
     // TODO replace find with fetch from BE
-    const newAsset = dumbyData.find(dd => dd.id === parseInt(id, 10));
+    const newAsset = dumbyData.find((dd) => dd.id === parseInt(id, 10));
     setAsset(newAsset || null);
   }, [id]);
 
   return asset;
 };
-
 
 function Asset(): JSX.Element {
     const classes = useStyles();
@@ -233,8 +222,37 @@ function Asset(): JSX.Element {
                     {showSnackbar ? <SimpleSnackbar/> : null}
                 </div>
             </div>
-        </>
-    );
+          </div>
+          <p style={{ textAlign: 'left', padding: '20px 0' }}>{asset.description}</p>
+        </div>
+        <div className={classes.rightPanel}>
+          <Typography variant="h3">{asset.title}</Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            {asset.categories.join(', ')}
+          </Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            Posted By {asset.postedBy}
+          </Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            <RoomOutlined />
+            {asset.location}
+          </Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            <TodayOutlined />
+            {asset.datePosted}
+          </Typography>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleClaim}
+            className={classes.claimButton}
+          >
+            Message to claim!
+          </Button>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Asset;

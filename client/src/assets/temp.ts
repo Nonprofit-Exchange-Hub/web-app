@@ -1,8 +1,9 @@
 import type { Asset } from '../types';
 
-
-export const placeholderImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
-const otherImg = 'https://s3.amazonaws.com/mentoring.redesign/s3fs-public/styles/aspect_ratio__4_3/public/nonprofit_biz_tool.jpg';
+export const placeholderImg =
+  'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
+const otherImg =
+  'https://s3.amazonaws.com/mentoring.redesign/s3fs-public/styles/aspect_ratio__4_3/public/nonprofit_biz_tool.jpg';
 
 const lorem = `
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

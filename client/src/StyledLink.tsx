@@ -9,28 +9,28 @@ import { makeStyles } from '@material-ui/core/styles';
  */
 
 const useStyles = makeStyles(() => {
-    return {
-        link: {
-            color: '#000000',
-            textAlign: 'left'
-        }
-    };
+  return {
+    link: {
+      color: '#000000',
+      textAlign: 'left',
+    },
+  };
 });
 
 interface Props {
-    to: string;
-    target?: string;
-    children: string;
+  to: string;
+  target?: string;
+  children: string;
 }
 
-function StyledLink({ to,target, children }: Props) {
-    const classes = useStyles();
+function StyledLink({ to, target, children }: Props): JSX.Element {
+  const classes = useStyles();
 
-    return (
-        <Link className={classes.link} component={RouterLink} to={to} target={target}>
-            {children}
-        </Link>
-    );
+  return (
+    <Link className={classes.link} component={RouterLink} to={to} target={target}>
+      {children}
+    </Link>
+  );
 }
 
 export default StyledLink;
