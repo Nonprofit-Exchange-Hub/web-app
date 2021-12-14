@@ -5,7 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
+// import { User } from '../../users/entities/user.entity';
 // import { Transaction } from '../../transactions/entities/transaction.entity'
 
 @Entity('messages')
@@ -28,10 +28,12 @@ export class Message {
   @Column('text')
   user_first_name: string;
 
+  // TODO: remove two fields above and uncomment two below when ready
+  // note the ramifications on MessageInboxView component before updating
+
   // @ManyToOne(() => User, (user) => user.messages)
   // user: User;
 
-  // code below (and import above) for when Transaction is set up
   // @ManyToOne(() => Transaction, transaction => transaction.messages)
   // transaction: Transaction
 
