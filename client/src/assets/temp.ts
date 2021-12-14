@@ -17,7 +17,7 @@ export const dumbyData: Asset[] = [1, 2, 3].map(num => ({
     categories: [1, 2, 3].map(n => `category ${n}`),
     datePosted: `datePosted ${num}`,
     location: `location ${num}`,
-    imgUrls: [placeholderImg, otherImg, otherImg],
+    imgUrls: [placeholderImg, otherImg],
     description: lorem,
     postedBy: { id: num, firstName: `User${num}` },
     organization: '383'

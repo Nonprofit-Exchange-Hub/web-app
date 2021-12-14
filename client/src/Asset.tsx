@@ -134,16 +134,14 @@ function Asset(): JSX.Element {
 
 
 
-    const handleClaim = (e:any) => {
-
-        if(e.currentTarget.type==="button"){
-            setShowSnackbar(true)
+    const handleClaim = () => {
+            setShowSnackbar(true);
     }
       // TODOs
       // post request to claim this asset for this user
       // history.push to move us to confirmation page?
       // trigger top banner to drop down that says 'claimed'?
-    }
+
 
     if (!asset) {
       return <>asset not found</>;
@@ -155,7 +153,7 @@ function Asset(): JSX.Element {
         asset.imgUrls.map((imgUrl, ind) => {
           if (ind !== selectedImgInd) {
             return <img
-                key={imgUrl + `_${ind}`}
+                key={imgUrl}
                 src={imgUrl}
                 alt={asset!.title}
                 className={classes.miniImg}
@@ -215,7 +213,9 @@ function Asset(): JSX.Element {
                     <Typography className={classes.subText} variant="subtitle1">
                         {asset.categories.join(', ')}
                     </Typography>
+                    <Typography className={classes.subText} variant="subtitle1">
                     {asset.organization ? "": "Posted By:"}{asset.postedBy.firstName}
+                    </Typography>
                     <Typography className={classes.subText} variant="subtitle1">
                         <RoomOutlined />{asset.location}
                     </Typography>
@@ -226,9 +226,8 @@ function Asset(): JSX.Element {
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={(e:any)=>handleClaim(e)}
-                        className={classes.claimButton}
-                    >
+                        onClick={handleClaim}
+                        className={classes.claimButton}>
                         {asset.organization ? "I can donate this!" : "Message to claim!"}
                     </Button>
                     {showSnackbar ? <SimpleSnackbar/> : null}
