@@ -17,7 +17,6 @@ import MessageCard from './MessageCard';
 import { UserContext } from './providers';
 
 import type { Message, Transaction } from './types';
-import { isConditionalExpression } from 'typescript';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -100,12 +99,14 @@ const fetchTransactions = (): Promise<Transaction[]> => {
     ]);
 };
 
-const fetchMessages1 = async (): Promise<Message[]> => {
+// TODO: make the fetch find messages by transaction
+// TODO: seed data so that messages appear without manually creating them
+
+const fetchMessages = async (): Promise<Message[]> => {
     const res = await fetch('http://localhost:3001/api/messages');
     const data = await res.json()
 
-    const messages = await data.reduce((message: any) => {
-        console.log(message);
+    const messages = await data.map((message: any) => {
         return {
             id: message.id,
             text: message.text,
@@ -117,24 +118,11 @@ const fetchMessages1 = async (): Promise<Message[]> => {
         }
     })
     
-    return await messages;
+    return messages;
 }
 
-const messages1 = fetchMessages1();
-
-// const messages1: Message[] = fetchMessages1();
-const messages2: Message[] = [
-    { id: 1, text: 'yo', transactionId: 2, user: { id: 3, firstName: 'james' } },
-    { id: 1, text: 'what\'s good?', transactionId: 2, user: { id: 1, firstName: 'user1' } },
-];
-const threads = [messages1, messages2];
-
-const fetchMessages = (id: number): Promise<Message[]> => {
-    return Promise.resolve(threads.find(thread => thread[0].transactionId === id) || []);
-};
-
-
 // TODO use SubHeader component in Offer and Assets pages
+
 // maybe call it SearchBar and have an optional leftContent prop?
 function MessageInboxView(): JSX.Element {
     const classes = useStyles();
@@ -160,7 +148,7 @@ function MessageInboxView(): JSX.Element {
     React.useEffect(() => {
         if (selectedTransaction) {
             (async function() {
-                const messages = await fetchMessages(selectedTransaction.id);
+                const messages = await fetchMessages();
                 setMessages(messages);
             }())
         }
