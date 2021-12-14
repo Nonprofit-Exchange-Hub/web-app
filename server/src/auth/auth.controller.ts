@@ -5,19 +5,22 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-    @Post('test')
-    @UseGuards(LoginAuthGuard)
-    async authTest() {
-        return {
-            message: 'ヽ(•‿•)ノ',
-        };
-    }
+  @Post('test')
+  @UseGuards(LoginAuthGuard)
+  async authTest() {
+    return {
+      message: 'ヽ(•‿•)ノ',
+    };
+  }
 
-    @Post('login')
-    @UseGuards(LoginAuthGuard)
-    async login(@Request() req) {
-        return {status: 200, access_token: await this.authService.createJwt(req.user)};
-    }
+  @Post('login')
+  @UseGuards(LoginAuthGuard)
+  async login(@Request() req) {
+    return {
+      status: 200,
+      access_token: await this.authService.createJwt(req.user),
+    };
+  }
 }

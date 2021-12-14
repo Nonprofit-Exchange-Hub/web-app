@@ -10,9 +10,12 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto):Promise<Omit<User, 'password' | 'accept_terms'>> {
-    const {password, ...user} = await this.usersService.create(createUserDto);
-    return user
+  async create(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<Omit<User, 'password' | 'accept_terms'>> {
+    const user = await this.usersService.create(createUserDto);
+    delete user.password;
+    return user;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -39,5 +42,3 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 }
-
-

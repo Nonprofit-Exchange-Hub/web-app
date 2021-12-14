@@ -8,7 +8,7 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       //TODO I put a empty mock for UserService. For real testing we'll need
       // to create a mock since we are using TypeORM
-      providers:[{provide:AuthService, useValue:{}}],
+      providers: [{ provide: AuthService, useValue: {} }],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
