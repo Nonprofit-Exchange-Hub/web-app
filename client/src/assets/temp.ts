@@ -12,16 +12,16 @@ const lorem = `
     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 `;
 
-export const dumbyData: Asset[] = [1, 2, 3].map(num => ({
-    id: num,
-    title: `Title ${num}`,
-    categories: [1, 2, 3].map(n => `category ${n}`),
-    datePosted: `datePosted ${num}`,
-    location: `location ${num}`,
-    imgUrls: [placeholderImg, otherImg],
-    description: lorem,
-    postedBy: { id: num, firstName: `User${num}` },
-    organization: '383'
+export const dumbyData: Asset[] = [1, 2, 3].map((num) => ({
+  id: num,
+  title: `Title ${num}`,
+  categories: [1, 2, 3].map((n) => `category ${n}`),
+  datePosted: `datePosted ${num}`,
+  location: `location ${num}`,
+  imgUrls: [placeholderImg, otherImg],
+  description: lorem,
+  postedBy: { id: num, firstName: `User${num}` },
+  organization: 493,
 }));
 
 export const filters1 = ['filter 1', 'filter 2', 'filter 3'];
