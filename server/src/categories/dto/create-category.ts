@@ -1,4 +1,3 @@
-
 export class CreateCategoryDto {
   name: string;
   applies_to_assets: boolean;

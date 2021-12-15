@@ -19,12 +19,10 @@ import { DeleteResult } from 'typeorm';
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) { }
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  async create(
-    @Body() createCategoryDto: CreateCategoryDto,
-  ): Promise<Category> {
+  async create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
     try {
       const newCategory = await this.categoriesService.create(createCategoryDto);
       return newCategory;

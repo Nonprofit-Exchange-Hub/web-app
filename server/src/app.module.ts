@@ -27,9 +27,9 @@ import { CategoriesModule } from './categories/categories.module';
     MessagesModule,
     OrganizationsModule,
     UsersModule,
-    CategoriesModule
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

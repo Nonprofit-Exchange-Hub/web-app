@@ -5,13 +5,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
 
-
 @Injectable()
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
-  ) { }
+  ) {}
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     const newCategory = await this.categoriesRepository.save(createCategoryDto);
