@@ -9,63 +9,66 @@ import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 
 import type { Theme } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles((theme: Theme) => ({
-    wrapper: {
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: '10px 5%',
-        borderRadius: 0,
-        alignItems: 'center',
+  wrapper: {
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: '10px 5%',
+    borderRadius: 0,
+    alignItems: 'center',
+  },
+  searchInput: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '10px',
+  },
+  iconButton: {
+    padding: 10,
+    '&:hover': {
+      backgroundColor: 'inherit',
+      borderRadius: '10px',
     },
-    searchInput: {
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: '10px',
-    },
-    iconButton: {
-        padding: 10,
-        '&:hover': {
-            backgroundColor: 'inherit',
-            borderRadius: '10px',
-        },
-        textDecoration: 'none',
-    },
+    textDecoration: 'none',
+  },
 }));
 
 type Props = {
-  backTo: string,
-  searchTo: string,
+  backTo: string;
+  searchTo: string;
 };
 
-
 function SubHeader(props: Props): JSX.Element {
-    const classes = useStyles();
-    const { backTo, searchTo } = props;
+  const classes = useStyles();
+  const { backTo, searchTo } = props;
 
-    const [searchText, setSearchText] = React.useState<string>('');
+  const [searchText, setSearchText] = React.useState<string>('');
 
-    return (
-        <Paper elevation={0} className={classes.wrapper}>
-            <NavLink to={backTo} className={classes.iconButton}>
-                <Button><ArrowBackRoundedIcon />Go Back</Button>
-            </NavLink>
-            <Paper className={classes.searchInput}>
-                <InputBase
-                    placeholder="ex. diapers"
-                    inputProps={{ 'aria-label': 'ex. diapers' }}
-                    type="text"
-                    value={searchText}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setSearchText(e.target.value)}
-                />
-                <NavLink to={`${searchTo}?search=${searchText}`} className={classes.iconButton}>
-                    <SearchIcon />
-                </NavLink>
-            </Paper>
-        </Paper>
-    );
+  return (
+    <Paper elevation={0} className={classes.wrapper}>
+      <NavLink to={backTo} className={classes.iconButton}>
+        <Button>
+          <ArrowBackRoundedIcon />
+          Go Back
+        </Button>
+      </NavLink>
+      <Paper className={classes.searchInput}>
+        <InputBase
+          placeholder="ex. diapers"
+          inputProps={{ 'aria-label': 'ex. diapers' }}
+          type="text"
+          value={searchText}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+            setSearchText(e.target.value)
+          }
+        />
+        <NavLink to={`${searchTo}?search=${searchText}`} className={classes.iconButton}>
+          <SearchIcon />
+        </NavLink>
+      </Paper>
+    </Paper>
+  );
 }
 
 export default SubHeader;

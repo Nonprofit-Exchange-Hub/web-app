@@ -12,9 +12,7 @@ export class OrganizationsService {
     private organizationsRepository: Repository<Organization>,
   ) {}
 
-  async create(
-    createOrganizationDto: CreateOrganizationDto,
-  ): Promise<Organization> {
+  async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
     return await this.organizationsRepository.save(createOrganizationDto);
   }
 
@@ -26,10 +24,7 @@ export class OrganizationsService {
     return this.organizationsRepository.findOne(id);
   }
 
-  async update(
-    id: number,
-    updateOrganizationDto: UpdateOrganizationDto,
-  ): Promise<Organization> {
+  async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
     await this.organizationsRepository.update(id, updateOrganizationDto);
     return this.organizationsRepository.findOne(id);
   }
