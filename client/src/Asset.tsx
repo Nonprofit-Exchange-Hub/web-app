@@ -135,8 +135,9 @@ function Asset(): JSX.Element {
 
   const bigImg = asset.imgUrls[selectedImgInd];
 
-  const showMiniImgs = asset.imgUrls.map((imgUrl, ind) => {
-    if (ind !== selectedImgInd) {
+  const showMiniImgs = asset.imgUrls
+    .filter((imgUrl, ind) => ind !== selectedImgInd)
+    .map((imgUrl, ind) => {
       return (
         <img
           key={imgUrl}
@@ -146,8 +147,7 @@ function Asset(): JSX.Element {
           onClick={() => setSelectedImgInd(ind)}
         />
       );
-    }
-  });
+    });
 
   const aboutInfo = () => {
     if (asset.organization !== null) {
