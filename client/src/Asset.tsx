@@ -10,7 +10,7 @@ import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import Typography from '@material-ui/core/Typography';
 import TodayOutlined from '@material-ui/icons/TodayOutlined';
 import RoomOutlined from '@material-ui/icons/RoomOutlined';
-import SimpleSnackbar from './SimpleSnackbar'
+import SimpleSnackbar from './SimpleSnackbar';
 import { dumbyData } from './assets/temp';
 
 import type { Theme } from '@material-ui/core/styles';
@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: '10px',
     alignItems: 'center',
   },
+  heading: {
+    marginBottom: '10px',
+  },
   claimButton: {
     marginTop: '20px',
     width: '70%',
@@ -113,125 +116,97 @@ const useAsset = (id?: string): AssetT | null => {
 };
 
 function Asset(): JSX.Element {
-    const classes = useStyles();
-    const { assetId } = useParams<{ assetId?: string }>();
-    const asset = useAsset(assetId);
-    const [searchText, setSearchText] = React.useState<string>('');
-    const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
-    const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false)
+  const classes = useStyles();
+  const { assetId } = useParams<{ assetId?: string }>();
+  const asset = useAsset(assetId);
+  const [searchText, setSearchText] = React.useState<string>('');
+  const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
+  const handleClaim = () => {
+    setShowSnackbar(true);
+  };
+  // TODOs
+  // post request to claim this asset for this user
+  // history.push to move us to confirmation page?
+  // trigger top banner to drop down that says 'claimed'?
+  if (!asset) {
+    return <>asset not found</>;
+  }
 
+  const bigImg = asset.imgUrls[selectedImgInd];
 
-
-
-    const handleClaim = () => {
-            setShowSnackbar(true);
+  const showMiniImgs = asset.imgUrls.map((imgUrl, ind) => {
+    if (ind !== selectedImgInd) {
+      return (
+        <img
+          key={imgUrl}
+          src={imgUrl}
+          alt={asset!.title}
+          className={classes.miniImg}
+          onClick={() => setSelectedImgInd(ind)}
+        />
+      );
     }
-      // TODOs
-      // post request to claim this asset for this user
-      // history.push to move us to confirmation page?
-      // trigger top banner to drop down that says 'claimed'?
+  });
 
-
-    if (!asset) {
-      return <>asset not found</>;
+  const aboutInfo = () => {
+    if (asset.organization !== null) {
+      return (
+        <div>
+          <Typography className={classes.subText} variant="subtitle1">
+            About the Nonprofit
+          </Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            {asset.description}
+          </Typography>
+        </div>
+      );
     }
-
-    const bigImg = asset.imgUrls[selectedImgInd];
-
-    const showMiniImgs =
-        asset.imgUrls.map((imgUrl, ind) => {
-          if (ind !== selectedImgInd) {
-            return <img
-                key={imgUrl}
-                src={imgUrl}
-                alt={asset!.title}
-                className={classes.miniImg}
-                onClick={() => setSelectedImgInd(ind)}
-            />;
-          }
-      });
-
-    const aboutInfo = () =>{
-        if(asset.organization !== null){
-            return(
-                <div>
-                    <Typography className={classes.linkedText} variant="subtitle1">
-                    About the Nonprofit
-                    </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                    {asset.description}
-                    </Typography>
-                </div>)
-        }
-    }
-    return (
-        <>
-            <Paper elevation={0} className={classes.topBar}>
-                <NavLink to="/assets" className={classes.iconButton}>
-                    <Button><ArrowBackRoundedIcon />Go Back</Button>
-                </NavLink>
-                <Paper className={classes.searchInput}>
-                    <InputBase
-                        placeholder="ex. diapers"
-                        inputProps={{ 'aria-label': 'ex. diapers' }}
-                        type="text"
-                        value={searchText}
-                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setSearchText(e.target.value)}
-                    />
-                    <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
-                        <SearchIcon />
-                    </NavLink>
-                </Paper>
-            </Paper>
-            <div className={classes.contentWrapper}>
-                <div className={classes.leftPanel}>
-                    <div className={classes.imgs}>
-                        <img src={bigImg} alt={asset.title} className={classes.bigImg} />
-                        <div  id="miniImgs" className={classes.miniImgs}>
-                            {showMiniImgs}
-                        </div>
-                    </div>
-                    <p style={{ textAlign: 'left', padding: '20px 0' }}>
-                        {asset.description}
-                    </p>
-                </div>
-                <div className={classes.rightPanel}>
-                    <Typography className={classes.heading} variant="h3">
-                        {asset.title}
-                    </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                        {asset.categories.join(', ')}
-                    </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                    {asset.organization ? "": "Posted By:"}{asset.postedBy.firstName}
-                    </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                        <RoomOutlined />{asset.location}
-                    </Typography>
-                    <Typography className={classes.subText} variant="subtitle1">
-                        <TodayOutlined />{asset.datePosted}
-                    </Typography>
-                    {aboutInfo()}
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        onClick={handleClaim}
-                        className={classes.claimButton}>
-                        {asset.organization ? "I can donate this!" : "Message to claim!"}
-                    </Button>
-                    {showSnackbar ? <SimpleSnackbar/> : null}
-                </div>
+  };
+  return (
+    <>
+      <Paper elevation={0} className={classes.topBar}>
+        <NavLink to="/assets" className={classes.iconButton}>
+          <Button>
+            <ArrowBackRoundedIcon />
+            Go Back
+          </Button>
+        </NavLink>
+        <Paper className={classes.searchInput}>
+          <InputBase
+            placeholder="ex. diapers"
+            inputProps={{ 'aria-label': 'ex. diapers' }}
+            type="text"
+            value={searchText}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+              setSearchText(e.target.value)
+            }
+          />
+          <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
+            <SearchIcon />
+          </NavLink>
+        </Paper>
+      </Paper>
+      <div className={classes.contentWrapper}>
+        <div className={classes.leftPanel}>
+          <div className={classes.imgs}>
+            <img src={bigImg} alt={asset.title} className={classes.bigImg} />
+            <div id="miniImgs" className={classes.miniImgs}>
+              {showMiniImgs}
             </div>
           </div>
           <p style={{ textAlign: 'left', padding: '20px 0' }}>{asset.description}</p>
         </div>
         <div className={classes.rightPanel}>
-          <Typography variant="h3">{asset.title}</Typography>
+          <Typography className={classes.heading} variant="h3">
+            {asset.title}
+          </Typography>
           <Typography className={classes.subText} variant="subtitle1">
             {asset.categories.join(', ')}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            Posted By {asset.postedBy}
+            {asset.organization ? '' : 'Posted By:'}
+            {asset.postedBy.firstName}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
             <RoomOutlined />
@@ -241,14 +216,16 @@ function Asset(): JSX.Element {
             <TodayOutlined />
             {asset.datePosted}
           </Typography>
+          {aboutInfo()}
           <Button
             color="primary"
             variant="contained"
             onClick={handleClaim}
             className={classes.claimButton}
           >
-            Message to claim!
+            {asset.organization ? 'I can donate this!' : 'Message to claim!'}
           </Button>
+          {showSnackbar ? <SimpleSnackbar /> : null}
         </div>
       </div>
     </>
