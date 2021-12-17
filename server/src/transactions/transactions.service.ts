@@ -16,7 +16,7 @@ export class TransactionsService {
   async createTransaction(
     createTransactionDto: CreateTransactionDto,
   ): Promise<Transaction> {
-    return await this.transactionsRepository.save(createTransactionDto);
+    return this.transactionsRepository.save(createTransactionDto);
   }
 
   // look at this filter
