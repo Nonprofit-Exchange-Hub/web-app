@@ -23,7 +23,7 @@ export class User {
   @OneToMany(() => Asset, (asset) => asset.poster)
   assets: Asset[];
 
-  @OneToMany(() => Transaction, (transaction)=> transaction.donater_user, { eager: true})
+  @OneToMany(() => Transaction, (transaction)=> transaction.donater_user)
   transactions: Transaction[];
 
   @OneToMany(() => Message, (message) => message.user)

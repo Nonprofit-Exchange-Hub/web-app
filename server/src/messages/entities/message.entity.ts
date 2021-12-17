@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   CreateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 // import { Transaction } from '../../transactions/entities/transaction.entity'
@@ -23,6 +24,7 @@ export class Message {
   created_date: Date;
 
   @ManyToOne(() => User, (user) => user.messages)
+  @JoinColumn()
   user: User;
 
   // code below (and import above) for when Transaction is set up

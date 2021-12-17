@@ -36,7 +36,6 @@ export class Asset {
   @JoinColumn()
   poster: User;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.asset, { eager: true })
-  @JoinColumn()
+  @OneToMany(() => Transaction, (transaction) => transaction.asset)
   transactions: Transaction[];
 }
