@@ -228,32 +228,6 @@ function Asset(): JSX.Element {
           {showSnackbar ? <SimpleSnackbar /> : null}
         </div>
       </div>
-      <p style={{ textAlign: 'left', padding: '20px 0' }}>{asset.description}</p>
-      <div className={classes.rightPanel}>
-        <Typography variant="h3">{asset.title}</Typography>
-        <Typography className={classes.subText} variant="subtitle1">
-          {asset.categories.join(', ')}
-        </Typography>
-        <Typography className={classes.subText} variant="subtitle1">
-          Posted By {asset.postedBy}
-        </Typography>
-        <Typography className={classes.subText} variant="subtitle1">
-          <RoomOutlined />
-          {asset.location}
-        </Typography>
-        <Typography className={classes.subText} variant="subtitle1">
-          <TodayOutlined />
-          {asset.datePosted}
-        </Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleClaim}
-          className={classes.claimButton}
-        >
-          Message to claim!
-        </Button>
-      </div>
     </>
   );
 }
