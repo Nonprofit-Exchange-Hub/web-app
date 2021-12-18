@@ -21,7 +21,7 @@ export const dumbyData: Asset[] = [1, 2, 3].map((num) => ({
   imgUrls: [placeholderImg, otherImg],
   description: lorem,
   postedBy: { id: num, firstName: `User${num}` },
-  organization: '383',
+  organization: 493,
 }));
 
 export const filters1 = ['filter 1', 'filter 2', 'filter 3'];

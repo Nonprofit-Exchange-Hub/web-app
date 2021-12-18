@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: '10px',
     alignItems: 'center',
   },
+  heading: {
+    marginBottom: '10px',
+  },
   claimButton: {
     marginTop: '20px',
     width: '70%',
@@ -119,7 +122,6 @@ function Asset(): JSX.Element {
   const [searchText, setSearchText] = React.useState<string>('');
   const [selectedImgInd, setSelectedImgInd] = React.useState<number>(0);
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
-
   const handleClaim = () => {
     setShowSnackbar(true);
   };
@@ -127,15 +129,15 @@ function Asset(): JSX.Element {
   // post request to claim this asset for this user
   // history.push to move us to confirmation page?
   // trigger top banner to drop down that says 'claimed'?
-
   if (!asset) {
     return <>asset not found</>;
   }
 
   const bigImg = asset.imgUrls[selectedImgInd];
 
-  const showMiniImgs = asset.imgUrls.map((imgUrl, ind) => {
-    if (ind !== selectedImgInd) {
+  const showMiniImgs = asset.imgUrls
+    .filter((imgUrl, ind) => ind !== selectedImgInd)
+    .map((imgUrl, ind) => {
       return (
         <img
           key={imgUrl}
@@ -145,14 +147,13 @@ function Asset(): JSX.Element {
           onClick={() => setSelectedImgInd(ind)}
         />
       );
-    }
-  });
+    });
 
   const aboutInfo = () => {
     if (asset.organization !== null) {
       return (
         <div>
-          <Typography className={classes.linkedText} variant="subtitle1">
+          <Typography className={classes.subText} variant="subtitle1">
             About the Nonprofit
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">

@@ -7,6 +7,7 @@ export type Asset = {
   imgUrls: string[];
   description: string;
   postedBy: User;
+  organization: number;
 };
 
 export type User = {

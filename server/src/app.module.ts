@@ -11,6 +11,7 @@ import { AssetsModule } from './assets/assets.module';
 import { MessagesModule } from './messages/messages.module';
 import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { OrganizationsModule } from './organizations/organizations.module';
     MessagesModule,
     OrganizationsModule,
     UsersModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [],
