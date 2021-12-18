@@ -5,12 +5,12 @@ import type { User } from '../types';
 
 type UserContextT = [
   any | null,
-  (user: any) => void,
+  (user: User | null) => void,
 ]
 
 export const UserContext = React.createContext<UserContextT>([
   null,
-  (user: any) => {},
+  (user: User | null) => {},
 ]);
 
 export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {

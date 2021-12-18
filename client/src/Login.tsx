@@ -85,6 +85,7 @@ function Login() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
+            credentials: 'same-origin',
         });
         const response = await res.json();
         setIsLoading(false);

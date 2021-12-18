@@ -12,8 +12,8 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  @Header('Access-Control-Allow-Origin', '*')
-  @Header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  // @Header('Access-Control-Allow-Origin', '*')
+  // @Header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   @UseGuards(LoginAuthGuard)
   async login(
     @Request() request,
@@ -27,14 +27,15 @@ export class AuthController {
       jwt,
       {
         domain: 'localhost',
-        httpOnly: false,
+        // httpOnly: false,
         // httpOnly: true,
         // secure: process.env.NODE_ENV !== 'development',
         // isSecure: process.env.NODE_ENV !== 'development',
-        secure: true,
-        isSecure: true,
-        clearInvalid: true,
-        path: '/api',
+        // secure: true,
+        // isSecure: true,
+        // clearInvalid: true,
+        path: '/login',
+        sameSite: 'none',
       },
     ).send({ user: request.user });
     // console.log('\n\n');
@@ -44,21 +45,8 @@ export class AuthController {
     // response.send();
   }
 
-  @Post('session')
-  @UseGuards(CookieAuthGuard)
-  async session(@Request() request): Promise<{ user: Omit<User, 'password'>}> {
-    console.log('\n\n')
-    console.log('here')
-    console.log('\n\n')
-    const { user } = request;
-    console.log('\n\n')
-    console.log('user', user)
-    console.log('\n\n')
-    return { user };
-  }
-
-  @Post('logout')
-  async logout(@Response({ passthrough: true }) response): Promise<void> {
-    response.status(200).clearCookie(COOKIE_KEY);
+  @Get('logout')
+  logout(@Response() response): void {
+    response.status(200).clearCookie(COOKIE_KEY).send();
   }
 }
