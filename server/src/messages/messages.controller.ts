@@ -10,7 +10,7 @@ import { DeleteResult } from 'typeorm';
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createMessageDto: CreateMessageDto): Promise<Message> {
     return this.messagesService.create(createMessageDto);
