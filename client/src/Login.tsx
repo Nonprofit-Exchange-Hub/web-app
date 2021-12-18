@@ -85,7 +85,11 @@ function Login() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
+            // credentials: 'include',
+            // mode: 'cors',
             credentials: 'same-origin',
+            // @ts-ignore
+            withCredentials: true,
         });
         const response = await res.json();
         setIsLoading(false);

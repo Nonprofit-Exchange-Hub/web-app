@@ -1,4 +1,12 @@
-import { Controller, Post, Response, Request, UseGuards, Get, Next, Header } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Response,
+  Request,
+  UseGuards,
+  Get,
+  Header,
+} from '@nestjs/common';
 
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { CookieAuthGuard } from './guards/cookie-auth.guard';
@@ -12,49 +20,40 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  // @Header('Access-Control-Allow-Origin', '*')
-  // @Header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  // TODO redundant?
+  @Header('Access-Control-Allow-Origin', 'http://localhost:3000')
+  @Header('Access-Control-Allow-Credentials', 'true')
   @UseGuards(LoginAuthGuard)
   async login(
     @Request() request,
     @Response({ passthrough: true }) response,
-    // @Next() next,
-  // ): Promise<{ user: Omit<User, 'password'> }> {
   ): Promise<void> {
-    const jwt = await this.authService.createJwt({ ...request.user });
+    const { user } = request;
+    // const jwt = await this.authService.createJwt(user);
     response.cookie(
       COOKIE_KEY,
-      jwt,
+      'test',
       {
         domain: 'localhost',
+        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
         // httpOnly: false,
-        // httpOnly: true,
+        httpOnly: true,
         // secure: process.env.NODE_ENV !== 'development',
         // isSecure: process.env.NODE_ENV !== 'development',
-        // secure: true,
+        secure: true,
         // isSecure: true,
         // clearInvalid: true,
-        path: '/login',
-        sameSite: 'none',
+        path: '/',
+        sameSite: 'None',
+        sameParty: true,
       },
-    ).send({ user: request.user });
-    // console.log('\n\n');
-    // console.log(response);
-    // console.log('\n\n');
-    // next();
-    // response.send();
+    ).send({ user });
   }
 
   @Post('session')
   @UseGuards(CookieAuthGuard)
   async session(@Request() request): Promise<{ user: Omit<User, 'password'>}> {
-    console.log('\n\n')
-    console.log('here')
-    console.log('\n\n')
     const { user } = request;
-    console.log('\n\n')
-    console.log('user', user)
-    console.log('\n\n')
     return { user };
   }
 

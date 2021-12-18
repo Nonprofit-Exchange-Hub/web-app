@@ -11,7 +11,10 @@ dotenv.config({ path: __dirname + '/.env' });
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix('api');
-  app.enableCors();
+  app.enableCors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+  });
 
   app.useStaticAssets(resolve('./src/public'));
   app.setBaseViewsDir(resolve('./src/views'));

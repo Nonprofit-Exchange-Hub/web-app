@@ -21,9 +21,10 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   React.useEffect(() => {
     async function fetchUser(): Promise<void> {
       const res = await fetch('http://localhost:3001/api/auth/session', {
-        credentials: 'same-origin',
+        // credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
+        // @ts-ignore
         // withCredentials: true,
       });
       const response = await res.json();
