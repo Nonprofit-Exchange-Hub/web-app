@@ -9,6 +9,6 @@ export class CreateMessageDto extends PartialType(Message) {
   text: string;
   user: User;
   // user_id: number;
-  user_first_name: string;
+  // user_first_name: string;
   transaction_id: number; // remove once Transaction is set up and a relationship is used in the entity
 }
