@@ -103,7 +103,21 @@ const fetchTransactions = (): Promise<Transaction[]> => {
 
 const fetchMessages = async (): Promise<Message[]> => {
   const res = await fetch('http://localhost:3001/api/messages');
-  return await res.json();
+  const data = await res.json();
+
+  const messages = await data.map((message: any) => {
+    return {
+      id: message.id,
+      text: message.text,
+      transactionId: message.transaction_id,
+      user: {
+        id: message.user.id,
+        firstName: message.user.first_name,
+      },
+    };
+  });
+
+  return messages;
 };
 
 // TODO use SubHeader component in Offer and Assets pages
