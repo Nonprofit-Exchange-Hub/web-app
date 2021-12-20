@@ -43,11 +43,9 @@ export class UserOrganization {
     created_at: Date;
 
     @ManyToOne(() => Organization, user => user)// added a one to many relationship in org and user files
-    @JoinColumn({ name: 'org_id' })
     organization!: Organization;
 
     @ManyToOne(() => User, org => org)
-    @JoinColumn({ name: 'user_id' })
     user!: User;
 
 }
