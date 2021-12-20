@@ -1,5 +1,5 @@
-import { Organization } from 'src/organizations/entities/organization.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Organization } from '../../organizations/entities/organization.entity';
+import { User } from '../../users/entities/user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
 
 export enum Role {
