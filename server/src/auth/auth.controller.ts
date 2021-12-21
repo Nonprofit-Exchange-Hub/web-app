@@ -1,4 +1,4 @@
-import { Controller, Post, Response, Request, UseGuards, Get, Header } from '@nestjs/common';
+import { Controller, Post, Response, Request, UseGuards, Get } from '@nestjs/common';
 
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { CookieAuthGuard } from './guards/cookie-auth.guard';
@@ -16,18 +16,16 @@ export class AuthController {
   async login(@Request() request, @Response({ passthrough: true }) response): Promise<void> {
     const { user } = request;
     const jwt = await this.authService.createJwt(user);
-    response.cookie(
-      COOKIE_KEY,
-      jwt,
-      {
+    response
+      .cookie(COOKIE_KEY, jwt, {
         domain: 'localhost',
         expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
         httpOnly: true,
         path: '/',
         secure: true,
         signed: true,
-      },
-    ).send({ user });
+      })
+      .send({ user });
   }
 
   @Post('session')

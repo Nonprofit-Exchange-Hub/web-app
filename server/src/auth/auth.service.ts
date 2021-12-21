@@ -41,9 +41,6 @@ export class AuthService {
 
   async createJwt(user: User) {
     delete user.password;
-    return this.jwtService.sign(
-      { ...user },
-      { expiresIn: '1h', secret: jwtConstants.secret },
-    );
+    return this.jwtService.sign({ ...user }, { expiresIn: '1h', secret: jwtConstants.secret });
   }
 }

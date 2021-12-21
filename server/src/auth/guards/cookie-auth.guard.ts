@@ -18,12 +18,14 @@ export class CookieAuthGuard extends AuthGuard() {
     const request = context.switchToHttp().getRequest();
     const jwt = request.signedCookies[COOKIE_KEY];
 
-    if (!jwt) { return false; }
+    if (!jwt) {
+      return false;
+    }
 
     let user: User = {} as User;
     try {
       user = await this.jwtService.verify(jwt, { secret: jwtConstants.secret });
-    } catch(_e) {
+    } catch (_e) {
       return false;
     }
 
