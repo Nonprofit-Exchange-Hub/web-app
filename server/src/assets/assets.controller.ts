@@ -8,16 +8,13 @@ import {
   Delete,
   HttpException,
   HttpStatus,
-  UseGuards,
 } from '@nestjs/common';
-import { DeleteResult } from 'typeorm';
 
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
-
-import type { Asset } from './entities/asset.entity';
+import { Asset } from './entities/asset.entity';
+import { DeleteResult } from 'typeorm';
 
 @Controller('assets')
 export class AssetsController {
@@ -36,7 +33,6 @@ export class AssetsController {
     }
   }
 
-  @UseGuards(CookieAuthGuard)
   @Get()
   findAll(): Promise<Asset[]> {
     return this.assetsService.findAll();
