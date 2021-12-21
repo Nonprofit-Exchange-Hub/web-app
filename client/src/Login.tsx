@@ -85,6 +85,8 @@ function Login() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
+            // TODO i think this should be able to be 'same-origin' if we use SSR (need to test)
+            // https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials
             credentials: 'include',
         });
         const response = await res.json();
