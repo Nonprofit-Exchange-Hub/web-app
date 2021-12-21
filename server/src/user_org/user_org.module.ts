@@ -5,8 +5,8 @@ import { UserOrganizationsController } from './user_org.controller';
 import { UserOrganizationsService } from './user_org.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([UserOrganization])],
-    controllers: [UserOrganizationsController],
-    providers: [UserOrganizationsService]
+  imports: [TypeOrmModule.forFeature([UserOrganization])],
+  controllers: [UserOrganizationsController],
+  providers: [UserOrganizationsService],
 })
-export class UserOrganizationsModule { }
+export class UserOrganizationsModule {}

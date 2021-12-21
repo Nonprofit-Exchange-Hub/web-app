@@ -34,4 +34,4 @@ import { UserOrganizationsModule } from './user_org/user_org.module';
   controllers: [AppController],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}
