@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
+import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
@@ -39,6 +40,6 @@ export class AuthService {
 
   async createJwt(user: User) {
     delete user.password;
-    return this.jwtService.sign(user);
+    return this.jwtService.sign({ ...user }, { secret: jwtConstants.secret });
   }
 }
