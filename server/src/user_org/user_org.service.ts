@@ -17,12 +17,14 @@ export class UserOrganizationsService {
     return await this.userOrganizationsRepository.save(createUserOrganizationDto);
   }
 
-  findAll() {
-    return this.userOrganizationsRepository.find();
+  async findAll() {
+    const allUserOrgs = await this.userOrganizationsRepository.find();
+    return allUserOrgs;
   }
 
-  findOne(id: number) {
-    return this.userOrganizationsRepository.findOne(id);
+  async findOne(id: number) {
+    const userOrg = await this.userOrganizationsRepository.findOne(id);
+    return userOrg;
   }
 
   //TODO: Assess if there is a better way than making two requests.
@@ -31,7 +33,8 @@ export class UserOrganizationsService {
     return this.userOrganizationsRepository.findOne(id);
   }
 
-  remove(id: number) {
-    return this.userOrganizationsRepository.delete(id);
+  async remove(id: number) {
+    const removedUserOrg = await this.userOrganizationsRepository.delete(id);
+    return removedUserOrg;
   }
 }

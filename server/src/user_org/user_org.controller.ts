@@ -8,7 +8,7 @@ import { UserOrganizationsService } from './user_org.service';
 
 @Controller('userOrganizations')
 export class UserOrganizationsController {
-  constructor(private readonly userOrganizationsService: UserOrganizationsService) {}
+  constructor(private readonly userOrganizationsService: UserOrganizationsService) { }
 
   @Post()
   async create(
@@ -20,25 +20,29 @@ export class UserOrganizationsController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.userOrganizationsService.findAll();
+  async findAll() {
+    const allUserOrgs = await this.userOrganizationsService.findAll();
+    return allUserOrgs;
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userOrganizationsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const userOrg = await this.userOrganizationsService.findOne(+id);
+    return userOrg;
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserOrganizationDto: UpdateUserOrganizationDto) {
-    return this.userOrganizationsService.update(+id, updateUserOrganizationDto);
+  async update(@Param('id') id: string, @Body() updateUserOrganizationDto: UpdateUserOrganizationDto) {
+    const updatedUserOrg = await this.userOrganizationsService.update(+id, updateUserOrganizationDto);
+    return updatedUserOrg;
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userOrganizationsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const removedUserOrg = await this.userOrganizationsService.remove(+id);
+    return removedUserOrg;
   }
 }
