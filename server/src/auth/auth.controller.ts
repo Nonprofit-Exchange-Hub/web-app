@@ -19,15 +19,7 @@ import type { User } from '../users/entities/user.entity';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  // TODOs
-  // mess with httpOnly and expiration a bit more
-  // try SSR so cors doesn't matter, client req will come from same process
-  // try adding OPTIONS as a request type to handle, then handle it and add similar header to below
-
   @Post('login')
-  // TODO redundant?
-  @Header('Access-Control-Allow-Origin', 'http://localhost:3000')
-  @Header('Access-Control-Allow-Credentials', 'true')
   @UseGuards(LoginAuthGuard)
   async login(
     @Request() request,
