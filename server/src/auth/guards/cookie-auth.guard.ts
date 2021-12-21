@@ -2,8 +2,7 @@ import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 
-
-type Test = boolean
+type Test = boolean;
 @Injectable()
 export class CookieAuthGuard extends AuthGuard('local') {
   canActivate(context: ExecutionContext): Promise<boolean> | boolean | Observable<boolean> {

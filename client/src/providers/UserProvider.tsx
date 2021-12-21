@@ -2,15 +2,9 @@ import * as React from 'react';
 
 import type { User } from '../types';
 
-type UserContextT = [
-  any | null,
-  (user: User | null) => void,
-]
+type UserContextT = [any | null, (user: User | null) => void];
 
-export const UserContext = React.createContext<UserContextT>([
-  null,
-  (user: User | null) => {},
-]);
+export const UserContext = React.createContext<UserContextT>([null, (user: User | null) => {}]);
 
 export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const { children } = props;
@@ -36,9 +30,5 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
     }
   }, [user]);
 
-  return (
-    <UserContext.Provider value={[user, setUser]}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={[user, setUser]}>{children}</UserContext.Provider>;
 }
