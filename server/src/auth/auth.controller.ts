@@ -19,6 +19,11 @@ import type { User } from '../users/entities/user.entity';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  // TODOs
+  // mess with httpOnly and expiration a bit more
+  // try SSR so cors doesn't matter, client req will come from same process
+  // try adding OPTIONS as a request type to handle, then handle it and add similar header to below
+
   @Post('login')
   // TODO redundant?
   @Header('Access-Control-Allow-Origin', 'http://localhost:3000')
@@ -29,23 +34,16 @@ export class AuthController {
     @Response({ passthrough: true }) response,
   ): Promise<void> {
     const { user } = request;
-    // const jwt = await this.authService.createJwt(user);
+    const jwt = await this.authService.createJwt(user);
     response.cookie(
       COOKIE_KEY,
-      'test',
+      jwt,
       {
         domain: 'localhost',
         expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-        // httpOnly: false,
         httpOnly: true,
-        // secure: process.env.NODE_ENV !== 'development',
-        // isSecure: process.env.NODE_ENV !== 'development',
         secure: true,
-        // isSecure: true,
-        // clearInvalid: true,
         path: '/',
-        sameSite: 'None',
-        sameParty: true,
       },
     ).send({ user });
   }
