@@ -24,9 +24,7 @@ export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}
 
   @Post()
-  async create(
-    @Body() createAssetDto: CreateAssetDto,
-  ): Promise<Asset | HttpException> {
+  async create(@Body() createAssetDto: CreateAssetDto): Promise<Asset | HttpException> {
     try {
       const newAsset = await this.assetsService.create(createAssetDto);
       return newAsset;
@@ -63,10 +61,7 @@ export class AssetsController {
     @Body() updateAssetDto: UpdateAssetDto,
   ): Promise<Asset | HttpException> {
     try {
-      const updatedAsset = await this.assetsService.update(
-        parseInt(id),
-        updateAssetDto,
-      );
+      const updatedAsset = await this.assetsService.update(parseInt(id), updateAssetDto);
       return updatedAsset;
     } catch (error) {
       throw new HttpException(

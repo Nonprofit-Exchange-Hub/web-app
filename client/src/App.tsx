@@ -10,21 +10,20 @@ import { UserProvider } from './providers';
 
 import './App.css';
 
-
 function App(): JSX.Element {
-    return (
-        <ThemeProvider theme={theme}>
-            <UserProvider>
-                <BrowserRouter>
-                    <div className="App">
-                        <Header />
-                        <Routes />
-                        <Footer />
-                    </div>
-                </BrowserRouter>
-            </UserProvider>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <UserProvider>
+        <BrowserRouter>
+          <div className="App">
+            <Header />
+            <Routes />
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </UserProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;

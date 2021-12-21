@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import type { User } from '../types';
 
-
 type UserContextT = [
   any | null,
   (user: User | null) => void,
