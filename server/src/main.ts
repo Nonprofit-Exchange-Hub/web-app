@@ -13,6 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableCors({
     credentials: true,
+    // TODO get env related base url
     origin: 'http://localhost:3000',
   });
 

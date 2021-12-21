@@ -19,7 +19,7 @@ export class AuthController {
     response
       .cookie(COOKIE_KEY, jwt, {
         domain: 'localhost',
-        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        expires: new Date(new Date().getTime() + 1 * 60 * 60 * 1000), // 1 hour
         httpOnly: true,
         path: '/',
         secure: true,
