@@ -195,7 +195,7 @@ function MessageInboxView(): JSX.Element {
                 Re: {selectedTransaction.asset.title}
               </Typography>
               {messages?.map((m) => (
-                <MessageCard message={m} isCurrentUser={m.user.id === user?.user.id} />
+                <MessageCard message={m} isCurrentUser={m.user.id === user?.id} />
               ))}
             </Box>
           )}
