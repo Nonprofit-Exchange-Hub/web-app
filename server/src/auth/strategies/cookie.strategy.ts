@@ -1,30 +1,23 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import { Request, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { UsersService } from '../../users/users.service';
-import { COOKIE_KEY } from '../constants';
+import { AuthService } from '../auth.service';
 
-import type { User } from '../../users/entities/user.entity';
+// TODO this and login strategy are the same, dedup??
 
 @Injectable()
 export class CookieStrategy extends PassportStrategy(Strategy) {
-  constructor(private jwtService: JwtService, private readonly usersService: UsersService) {
-    super();
-  }
+  // constructor(private readonly authService: AuthService) {
+  //   // Change the expected validation field from username to email
+  //   super({ usernameField: 'email' });
+  // }
 
-  async validate(@Request() request): Promise<Omit<User, 'password'>> {
-    console.log('\n\n');
-    console.log('cookie strategy');
-    console.log('\n\n');
-    const jwt = request.signedCookies[COOKIE_KEY];
-    const decoded = (await this.jwtService.decode(jwt)) as User;
-
-    const user = await this.usersService.findByEmail(decoded.email);
-    delete user.password;
-    request.user = user;
-
-    return user;
-  }
+  // async validate(email: string, password: string): Promise<any> {
+  //   const user = await this.authService.validateUser(email, password);
+  //   if (!user) {
+  //     throw new UnauthorizedException();
+  //   }
+  //   return user;
+  // }
 }

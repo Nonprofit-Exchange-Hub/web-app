@@ -16,15 +16,18 @@ export class AuthController {
   async login(@Request() request, @Response({ passthrough: true }) response): Promise<void> {
     const { user } = request;
     const jwt = await this.authService.createJwt(user);
-    response
-      .cookie(COOKIE_KEY, jwt, {
+    response.cookie(
+      COOKIE_KEY,
+      jwt,
+      {
         domain: 'localhost',
         expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
         httpOnly: true,
-        secure: true,
         path: '/',
-      })
-      .send({ user });
+        secure: true,
+        signed: true,
+      },
+    ).send({ user });
   }
 
   @Post('session')
