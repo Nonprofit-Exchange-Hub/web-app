@@ -66,7 +66,10 @@ function Header() {
   const handleLogout = (): void => {
     handleClose();
     setUser(null);
-    fetch('http://localhost:3001/api/auth/logout', { method: 'GET' });
+    fetch('http://localhost:3001/api/auth/logout', {
+      credentials: 'include',
+      method: 'GET',
+    });
     history.push('/');
   };
 

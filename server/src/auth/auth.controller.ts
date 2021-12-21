@@ -38,7 +38,7 @@ export class AuthController {
   }
 
   @Get('logout')
-  logout(@Response() response): void {
-    response.status(200).clearCookie(COOKIE_KEY).send();
+  logout(@Response({ passthrough: true }) response): void {
+    response.clearCookie(COOKIE_KEY).send();
   }
 }
