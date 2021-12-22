@@ -10,7 +10,11 @@ export class OrganizationsService {
   constructor(@InjectRepository(Organization) private organizationsRepository: Repository<Organization>) { }
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
-    return await this.organizationsRepository.save(createOrganizationDto);
+    //create first, and then save
+
+    const organization = this.organizationsRepository.create(createOrganizationDto);
+
+    return this.organizationsRepository.save(organization)
   }
 
   findAll(): Promise<Organization[]> {

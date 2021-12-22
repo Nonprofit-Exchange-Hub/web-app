@@ -27,6 +27,7 @@ export class Organization {
   state: string;
 
   @Column({type:'int', unique: true})
+  // validator from api might go here
   ein: number;
 
   @Column('int')
