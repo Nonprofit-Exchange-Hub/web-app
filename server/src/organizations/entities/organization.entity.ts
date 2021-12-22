@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { AfterInsert, Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('organizations')
 export class Organization {
@@ -32,4 +32,9 @@ export class Organization {
 
   @Column('int')
   tax_exempt_id: number;
+
+  @AfterInsert()
+  logInsert(){
+    console.log("inserted Org", this.id)
+  }
 }

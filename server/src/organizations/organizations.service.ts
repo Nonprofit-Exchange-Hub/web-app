@@ -26,8 +26,15 @@ export class OrganizationsService {
   }
 
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
-    await this.organizationsRepository.update(id, updateOrganizationDto);
-    return this.organizationsRepository.findOne(id);
+    // 
+    const org = await this.findOne(id)
+    if (!org){
+      throw new Error('organization not found')
+    }
+    Object.assign(org, updateOrganizationDto)
+    return this.organizationsRepository.save(org)
+    // await this.organizationsRepository.update(id, updateOrganizationDto);
+    // return this.organizationsRepository.findOne(id);
   }
 
   remove(id: number): Promise<DeleteResult> {
