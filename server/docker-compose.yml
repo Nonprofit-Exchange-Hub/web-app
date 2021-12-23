@@ -12,6 +12,7 @@ services:
             POSTGRES_DB: ${DATABASE_DB}
         volumes:
             - ./pgdata:/var/lib/postgresql/data
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql # runs slq script on startup
 
 volumes:
     pgdata:

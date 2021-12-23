@@ -1,0 +1,22 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ../
+    ports:
+      - 3001:3001
+  db:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_DB}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # runs slq script on startup
+
+volumes:
+    pgdata:
