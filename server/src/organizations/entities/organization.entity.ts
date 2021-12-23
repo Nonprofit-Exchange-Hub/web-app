@@ -32,7 +32,7 @@ export class Organization {
 
   @Column('int')
   tax_exempt_id: number;
-  // added for many to many relationship with user_org
+
   @OneToMany(() => UserOrganization, (user_org) => user_org.organization)
   user_organizations: UserOrganization[];
 }
