@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,7 +12,7 @@ export class OrganizationsService {
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
     //create first, and then save
 
-    const organization = this.organizationsRepository.create(createOrganizationDto);
+    const organization = await this.organizationsRepository.create(createOrganizationDto);
 
     return this.organizationsRepository.save(organization)
   }
@@ -26,10 +26,10 @@ export class OrganizationsService {
   }
 
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
-    // 
+    // save allows us to run hooks, whereas update does not. am i using a hook in this method?
     const org = await this.findOne(id)
     if (!org){
-      throw new Error('organization not found')
+      throw new NotFoundException('organization not found')
     }
     Object.assign(org, updateOrganizationDto)
     return this.organizationsRepository.save(org)
@@ -37,7 +37,12 @@ export class OrganizationsService {
     // return this.organizationsRepository.findOne(id);
   }
 
-  remove(id: number): Promise<DeleteResult> {
+  async remove(id: number): Promise<DeleteResult> {
+    //remove will let us run a hook. delete does not. do we have a hook we need? 
+    const org = await this.findOne(id)
+    if (!org){
+      throw new NotFoundException('organization not found')
+    }
     return this.organizationsRepository.delete(id);
   }
 }

@@ -11,9 +11,9 @@ export class OrganizationsController {
 
   @Post()
   async create(
-    @Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    @Body() body: CreateOrganizationDto): Promise<Organization> {
     try {
-      const newOrg = await this.organizationsService.create(createOrganizationDto);
+      const newOrg = await this.organizationsService.create(body);
       return newOrg;
     } catch (error) {
       throw new HttpException(
@@ -33,8 +33,8 @@ export class OrganizationsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
-    return this.organizationsService.update(+id, updateOrganizationDto);
+  update(@Param('id') id: string, @Body() body: UpdateOrganizationDto): Promise<Organization> {
+    return this.organizationsService.update(+id, body);
   }
 
   @Delete(':id')
