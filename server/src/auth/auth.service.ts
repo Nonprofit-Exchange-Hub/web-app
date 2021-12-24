@@ -1,14 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-
+import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
+import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService, private jwtService: JwtService) {}
+  constructor(private usersService: UsersService, private jwtService: JwtService) { }
 
   async validateUser(email: string, pass: string): Promise<any> {
     // Check if user with email exists in database

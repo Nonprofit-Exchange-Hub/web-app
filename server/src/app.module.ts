@@ -12,6 +12,7 @@ import { MessagesModule } from './messages/messages.module';
 import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { CategoriesModule } from './categories/categories.module';
+import { UserOrganizationsModule } from './user_org/user_org.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CategoriesModule } from './categories/categories.module';
     OrganizationsModule,
     UsersModule,
     CategoriesModule,
+    UserOrganizationsModule
   ],
   controllers: [AppController],
   providers: [],
