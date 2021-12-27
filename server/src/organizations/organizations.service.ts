@@ -44,8 +44,8 @@ export class OrganizationsService {
     //   console.log(result);
     // });
 
-    // if they are the same return true. else return false. hardcoded to return true for now:
-    return true
+    // if they are the same return true. else return false. hardcoded to return false for now:
+    return false
   }
 
   findAll(): Promise<Organization[]> {
