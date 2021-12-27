@@ -44,6 +44,7 @@ export class OrganizationsService {
     //   console.log(result);
     // });
 
+    // LOGIC WILL GO HERE TO COMPARE 
     // if they are the same return true. else return false. hardcoded to return false for now:
     return false
   }
