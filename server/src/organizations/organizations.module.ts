@@ -6,7 +6,13 @@ import { Organization } from './entities/organization.entity'
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Organization]), HttpModule],
+  // registerAsync was recommended by docs: https://docs.nestjs.com/techniques/http-module
+  imports:[TypeOrmModule.forFeature([Organization]), HttpModule.registerAsync({
+    useFactory: () => ({
+      timeout: 5000,
+      maxRedirects: 5,
+    }),
+  })],
   controllers: [OrganizationsController],
   providers: [OrganizationsService]
 })

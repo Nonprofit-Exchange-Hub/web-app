@@ -15,20 +15,37 @@ export class OrganizationsService {
   constructor(@InjectRepository(Organization) private organizationsRepository: Repository<Organization>, private httpService: HttpService) { }
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
-    //create first, and then save
     const organization = this.organizationsRepository.create(createOrganizationDto);
 
-    console.log("creating org:", organization.name, organization.ein)
-    //here I am just trying to see if I can make an API call here. Currently the api call is hard coded. 
-    await console.log(this.checkEIN())
-
-    return this.organizationsRepository.save(organization)
+    // verify name & ein before saving:
+    const verified = await this.checkEIN(organization.name, organization.ein)
+    if (verified) {
+      console.log("verified name & ein")
+      return this.organizationsRepository.save(organization)
+    } else {
+      console.log("cannot verify name & ein")
+      // handle error here
+    }
   }
 
-  async checkEIN(): Promise<Observable<AxiosResponse<any>>> {
-    const r = await this.httpService.get("https://projects.propublica.org/nonprofits/api/v2/search.json?q=propublica").pipe(map((response: any) => response.json()));
+
+  // will compare name & ein to the propublica api database:
+  async checkEIN(name, ein): Promise<Boolean> {
+    console.log("inside checkEIN func:", name, ein)
+
+    // i don't really know how to use map here:
+    const r = this.httpService.get("https://projects.propublica.org/nonprofits/api/v2/search.json?q=propublica").pipe(map(res => res));
+    
+    // trying to see what the response data looks like:
     console.log(r)
-    return r
+   
+    // or do I need to use subscribe? this didn't work either:
+    // await this.httpService.get("https://projects.propublica.org/nonprofits/api/v2/search.json?q=propublica").pipe(map(data => {})).subscribe(result => {
+    //   console.log(result);
+    // });
+
+    // if they are the same return true. else return false. hardcoded to return true for now:
+    return true
   }
 
   findAll(): Promise<Organization[]> {
