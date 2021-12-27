@@ -24,7 +24,9 @@ There are multiple ways to do this, but basically the end goal is to have a brai
 
 Once you have have found an issue you feel comfortable working on, assign yourself to that issue. This let's others know that you are actively working on it and that they should not work on this ticket.
 
-If this is your first time contributing to open-source or you need a refresher, see this [great guide](https://github.com/firstcontributions/first-contributions#first-contributions] that goes through the steps of contributing to an open-source project.
+If this is your first time contributing to open-source or you need a refresher, see this [great guide](https://github.com/firstcontributions/first-contributions#first-contributions) that goes through the steps of contributing to an open-source project.
+
+During your work, others might merge their PRs into `main`. It's best practice to keep your feature branch up to date with `main`. To do this follow the workflow from [this SO answer](https://stackoverflow.com/a/3877000) (preferably option 1). Sometimes you may encounter conflicts after the merge, in this case follow [these github instructions](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line).
 
 ## 3.1 Keep track of resources
 

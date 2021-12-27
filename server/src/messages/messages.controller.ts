@@ -13,7 +13,6 @@ export class MessagesController {
   @UseGuards(CookieAuthGuard)
   @Post()
   async create(@Body() createMessageDto: CreateMessageDto): Promise<Message> {
-    console.log(createMessageDto);
     return this.messagesService.create(createMessageDto);
   }
 

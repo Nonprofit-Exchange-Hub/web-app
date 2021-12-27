@@ -98,27 +98,30 @@ const fetchTransactions = (): Promise<Transaction[]> => {
   ]);
 };
 
-const messages1: Message[] = [
-  { id: 1, text: 'hello', transactionId: 1, user: { id: 2, firstName: 'user2' } },
-  { id: 1, text: 'hi', transactionId: 1, user: { id: 3, firstName: 'james' } },
-  {
-    id: 1,
-    text: "i'm interested in helping out your NP",
-    transactionId: 1,
-    user: { id: 2, firstName: 'user2' },
-  },
-];
-const messages2: Message[] = [
-  { id: 1, text: 'yo', transactionId: 1, user: { id: 3, firstName: 'james' } },
-  { id: 1, text: "what's good?", transactionId: 1, user: { id: 1, firstName: 'user1' } },
-];
-const threads = [messages1, messages2];
+// TODO: make the fetch find messages by transaction
+// TODO: seed data so that messages appear without manually creating them
 
-const fetchMessages = (id: number): Promise<Message[]> => {
-  return Promise.resolve(threads.find((thread) => thread[0].transactionId === id) || []);
+const fetchMessages = async (): Promise<Message[]> => {
+  const res = await fetch('http://localhost:3001/api/messages');
+  const data = await res.json();
+
+  const messages = await data.map((message: any) => {
+    return {
+      id: message.id,
+      text: message.text,
+      transactionId: message.transaction_id,
+      user: {
+        id: message.user.id,
+        firstName: message.user.first_name,
+      },
+    };
+  });
+
+  return messages;
 };
 
 // TODO use SubHeader component in Offer and Assets pages
+
 // maybe call it SearchBar and have an optional leftContent prop?
 function MessageInboxView(): JSX.Element {
   const classes = useStyles();
@@ -144,7 +147,7 @@ function MessageInboxView(): JSX.Element {
   React.useEffect(() => {
     if (selectedTransaction) {
       (async function () {
-        const messages = await fetchMessages(selectedTransaction.id);
+        const messages = await fetchMessages();
         setMessages(messages);
       })();
     }
