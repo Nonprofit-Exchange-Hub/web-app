@@ -33,7 +33,7 @@ export class OrganizationsService {
   async checkEIN(name, ein): Promise<Boolean> {
     console.log("inside checkEIN func:", name, ein)
 
-    // i don't really know how to use map here:
+    // i don't really know how to use map here, but i'm also wondering how to incorporate a json conversion if necessary...i tried to tag on .json() in the map call but it complicated things
     const r = this.httpService.get("https://projects.propublica.org/nonprofits/api/v2/search.json?q=propublica").pipe(map(res => res));
     
     // trying to see what the response data looks like:
