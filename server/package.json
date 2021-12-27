@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "-": "0.0.1",
+        "@nestjs/axios": "^0.0.3",
         "@nestjs/common": "^7.6.13",
         "@nestjs/config": "^0.6.3",
         "@nestjs/core": "^7.6.13",
@@ -43,7 +44,7 @@
         "pg-promise": "^10.9.5",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
-        "rxjs": "^6.6.6",
+        "rxjs": "^6.6.7",
         "save": "^2.4.0",
         "typeorm": "^0.2.32"
     },

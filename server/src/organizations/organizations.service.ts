@@ -4,17 +4,31 @@ import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity'
+import { HttpService} from '@nestjs/axios';
+import { AxiosResponse } from 'axios'
+import { Observable } from 'rxjs'
+import { map } from "rxjs/operators";
+
 
 @Injectable()
 export class OrganizationsService {
-  constructor(@InjectRepository(Organization) private organizationsRepository: Repository<Organization>) { }
+  constructor(@InjectRepository(Organization) private organizationsRepository: Repository<Organization>, private httpService: HttpService) { }
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
     //create first, and then save
+    const organization = this.organizationsRepository.create(createOrganizationDto);
 
-    const organization = await this.organizationsRepository.create(createOrganizationDto);
+    console.log("creating org:", organization.name, organization.ein)
+    //here I am just trying to see if I can make an API call here. Currently the api call is hard coded. 
+    await console.log(this.checkEIN())
 
     return this.organizationsRepository.save(organization)
+  }
+
+  async checkEIN(): Promise<Observable<AxiosResponse<any>>> {
+    const r = await this.httpService.get("https://projects.propublica.org/nonprofits/api/v2/search.json?q=propublica").pipe(map((response: any) => response.json()));
+    console.log(r)
+    return r
   }
 
   findAll(): Promise<Organization[]> {

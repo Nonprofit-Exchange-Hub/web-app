@@ -39,9 +39,9 @@ export class Organization {
     console.log("inserted Org", this.id)
   }
 
-  @BeforeInsert()
-  checkAPI(){
-    console.log("checking the API", this.name, this.ein)
-    
-  }
+  // @BeforeInsert()
+  // checkAPI(){
+  //   console.log("checking the API", this.name, this.ein)
+
+  // }
 }

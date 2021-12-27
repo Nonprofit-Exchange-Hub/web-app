@@ -12,7 +12,6 @@ import { MessagesModule } from './messages/messages.module';
 import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 
-
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -27,7 +26,6 @@ import { OrganizationsModule } from './organizations/organizations.module';
         MessagesModule,
         OrganizationsModule,
         UsersModule,
-
     ],
     controllers: [ AppController ],
     providers: []
