@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import type { DeleteResult, Repository } from 'typeorm';
+
 import { Asset } from './entities/asset.entity';
-import { DeleteResult, Repository } from 'typeorm';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AssetsService {
-  constructor(
-    @InjectRepository(Asset) private assetsRepository: Repository<Asset>,
-  ) {}
+  constructor(@InjectRepository(Asset) private assetsRepository: Repository<Asset>) {}
 
   async create(createAssetDto: CreateAssetDto): Promise<Asset> {
     return this.assetsRepository.save(createAssetDto);

@@ -26,7 +26,7 @@ export class Organization {
   @Column('text')
   state: string;
 
-  @Column({type:'int', unique: true})
+  @Column({ type: 'int', unique: true })
   // validator from api might go here
   // why does it skip the id if it doesn't work
   ein: number;
@@ -35,8 +35,8 @@ export class Organization {
   tax_exempt_id: number;
 
   @AfterInsert()
-  logInsert(){
-    console.log("inserted Org", this.id)
+  logInsert() {
+    console.log('inserted Org', this.id);
   }
 
   // @BeforeInsert()

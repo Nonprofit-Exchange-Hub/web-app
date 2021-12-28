@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
@@ -14,8 +13,6 @@ import {
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-// import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-//authGaurd excluded because it is outside of the scope of this PR
 import { Asset } from './entities/asset.entity';
 import { DeleteResult } from 'typeorm';
 
@@ -23,11 +20,8 @@ import { DeleteResult } from 'typeorm';
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}
 
-  // @UseGuards(JwtAuthGuard)
   @Post()
-  async create(
-    @Body() createAssetDto: CreateAssetDto,
-  ): Promise<Asset | HttpException> {
+  async create(@Body() createAssetDto: CreateAssetDto): Promise<Asset | HttpException> {
     try {
       const newAsset = await this.assetsService.create(createAssetDto);
       return newAsset;
@@ -39,13 +33,11 @@ export class AssetsController {
     }
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<Asset[]> {
     return this.assetsService.findAll();
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Asset | HttpException> {
     const foundAsset = await this.assetsService.findOne(parseInt(id));
@@ -59,17 +51,13 @@ export class AssetsController {
     return foundAsset;
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateAssetDto: UpdateAssetDto,
   ): Promise<Asset | HttpException> {
     try {
-      const updatedAsset = await this.assetsService.update(
-        parseInt(id),
-        updateAssetDto,
-      );
+      const updatedAsset = await this.assetsService.update(parseInt(id), updateAssetDto);
       return updatedAsset;
     } catch (error) {
       throw new HttpException(
@@ -79,7 +67,6 @@ export class AssetsController {
     }
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<DeleteResult | HttpException> {
     const assetToDelete = await this.assetsService.remove(parseInt(id));
