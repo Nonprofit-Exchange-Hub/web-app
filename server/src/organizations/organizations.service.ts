@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
+import { Boom, expectationFailed } from '@hapi/boom';
 
 
 @Injectable()
@@ -40,9 +41,14 @@ export class OrganizationsService {
       if (org && org.organization.name === name) {
         result = true
       } else if (org) {
+        //boom
+        Boom.expectationFailed('Propublic Name:', org.orginization.name)
         result = org.organization.name
       }
     } catch (err) {
+      //boom
+      Boom.expectationFailed('Invalid EIN')
+      
       result = err.type
     }
     return result
