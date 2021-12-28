@@ -5,9 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity'
 import { HttpService} from '@nestjs/axios';
-import { AxiosResponse } from 'axios'
 import { Observable } from 'rxjs'
-import { map } from "rxjs/operators";
+
+import type { AxiosResponse } from 'axios'
 
 
 @Injectable()
@@ -18,7 +18,15 @@ export class OrganizationsService {
     const organization = this.organizationsRepository.create(createOrganizationDto);
 
     // verify name & ein before saving:
-    const verified = await this.checkEIN(organization.name, organization.ein)
+    const org = this.checkEIN(organization.name, organization.ein).subscribe({
+      next(x) { console.log('next return', x); },
+      error(err) { console.error('something wrong occurred: ' + err); },
+      complete() { console.log('done'); }
+    });
+    console.log('\n\n');
+    console.log('org', org);
+    console.log('\n\n');
+    const verified = false;
     if (verified) {
       console.log("verified name & ein")
       return this.organizationsRepository.save(organization)
@@ -30,14 +38,14 @@ export class OrganizationsService {
 
 
   // will compare name & ein to the propublica api database:
-  async checkEIN(name, ein): Promise<Boolean> {
+  private checkEIN(name, ein): Observable<AxiosResponse> {
     console.log("inside checkEIN func:", name, ein)
 
     // i don't really know how to use map here, but i'm also wondering how to incorporate a json conversion if necessary...i tried to tag on .json() in the map call but it complicated things
-    const r = this.httpService.get("https://projects.propublica.org/nonprofits/api/v2/search.json?q=propublica").pipe(map(res => res));
+    return this.httpService.get(`https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`);
     
     // trying to see what the response data looks like:
-    console.log(r)
+    // console.log(r)
    
     // or do I need to use subscribe? this didn't work either:
     // await this.httpService.get("https://projects.propublica.org/nonprofits/api/v2/search.json?q=propublica").pipe(map(data => {})).subscribe(result => {
@@ -46,7 +54,7 @@ export class OrganizationsService {
 
     // LOGIC WILL GO HERE TO COMPARE 
     // if they are the same return true. else return false. hardcoded to return false for now:
-    return false
+    // return false
   }
 
   findAll(): Promise<Organization[]> {
