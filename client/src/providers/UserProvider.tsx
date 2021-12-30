@@ -7,7 +7,7 @@ type SetUser = (
   shouldFetch?: boolean,
   shouldStartTimer?: boolean,
 ) => Promise<void>;
-type UserContextT = [any | null, SetUser];
+type UserContextT = [User | null, SetUser];
 
 export const UserContext = React.createContext<UserContextT>([
   null,
