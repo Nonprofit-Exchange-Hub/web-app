@@ -18,7 +18,6 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const { children } = props;
 
   const [user, setUser] = React.useState<User | null>(null);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   async function fetchUser(): Promise<User | null> {
     const res = await fetch('http://localhost:3001/api/auth/session', {
@@ -27,8 +26,6 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
       method: 'POST',
     });
     const response = await res.json();
-
-    setIsLoading(false);
 
     if (res.ok) {
       return response.user;
@@ -59,9 +56,5 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
     setUserTimeout(null, true, true);
   }, []);
 
-  return (
-    <UserContext.Provider value={[user, setUserTimeout]}>
-      {isLoading ? null : children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={[user, setUserTimeout]}>{children}</UserContext.Provider>;
 }
