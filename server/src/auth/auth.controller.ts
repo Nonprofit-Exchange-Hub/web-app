@@ -29,6 +29,7 @@ export class AuthController {
         expires: new Date(new Date().getTime() + 60 * 60 * 1000), // 1 hour
         httpOnly: true,
         path: '/',
+        sameSite: 'strict',
         secure: true,
         signed: true,
       })

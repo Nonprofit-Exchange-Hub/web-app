@@ -98,7 +98,7 @@ function Login() {
         setError({ type: '', message: 'an unknown error occurred' });
       }
     } else {
-      setUser(response.user);
+      setUser(response.user, false, true);
       setError(null);
       history.push('/');
     }

@@ -2,14 +2,23 @@ import * as React from 'react';
 
 import type { User } from '../types';
 
-type UserContextT = [any | null, (user: User | null) => void];
+type SetUser = (
+  user: User | null,
+  shouldFetch?: boolean,
+  shouldStartTimer?: boolean,
+) => Promise<void>;
+type UserContextT = [any | null, SetUser];
 
-export const UserContext = React.createContext<UserContextT>([null, (user: User | null) => {}]);
+export const UserContext = React.createContext<UserContextT>([
+  null,
+  async function (user: User | null, shouldFetch?: boolean, shouldStartTimer?: boolean) {},
+]);
 
 export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const { children } = props;
 
   const [user, setUser] = React.useState<User | null>(null);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   async function fetchUser(): Promise<User | null> {
     const res = await fetch('http://localhost:3001/api/auth/session', {
@@ -18,6 +27,9 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
       method: 'POST',
     });
     const response = await res.json();
+
+    setIsLoading(false);
+
     if (res.ok) {
       return response.user;
     }
@@ -25,27 +37,31 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
     return null;
   }
 
-  function setUserTimeout(isInitialCall: boolean): void {
-    setTimeout(async () => {
-      if (!isInitialCall) {
-        const newUser = await fetchUser();
-        setUser(newUser);
-      }
-      setUserTimeout(false);
-    }, 59 * 60 * 1000);
+  async function setUserTimeout(
+    user: User | null,
+    shouldFetch = false,
+    shouldStartTimer = false,
+  ): Promise<void> {
+    let newUser: User | null = user;
+    if (shouldFetch) {
+      newUser = await fetchUser();
+    }
+    setUser(newUser);
+
+    if (shouldStartTimer && newUser) {
+      setTimeout(() => {
+        setUserTimeout(null, true, true);
+      }, 59 * 60 * 1000);
+    }
   }
 
   React.useEffect(() => {
-    if (!user) {
-      (async function (): Promise<void> {
-        const newUser = await fetchUser();
-        setUser(newUser);
-        setUserTimeout(true);
-      })();
-    } else {
-      setUserTimeout(true);
-    }
-  }, [user]);
+    setUserTimeout(null, true, true);
+  }, []);
 
-  return <UserContext.Provider value={[user, setUser]}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={[user, setUserTimeout]}>
+      {isLoading ? null : children}
+    </UserContext.Provider>
+  );
 }
