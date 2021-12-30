@@ -3,7 +3,6 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
 
 @Controller('users')
 export class UsersController {
