@@ -32,7 +32,8 @@
 		"eject": "react-scripts eject",
 		"lint": "eslint ./src/**/*.{ts,tsx}",
 		"checks": "npm run test && npm run lint",
-		"format": "prettier --write './src/**/*.{ts,tsx}' --config ../.prettierrc"
+		"format": "prettier --write './src/**/*.{ts,tsx}' --config ../.prettierrc",
+		"prepare": "husky install"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -58,6 +59,11 @@
 		"eslint": "^7.20.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
+		"husky": "^7.0.4",
+		"lint-staged": "^12.1.4",
 		"prettier": "^2.5.1"
+	},
+	"lint-staged": {
+		"./src/**/*.{ts,tsx}": ["eslint --fix"]
 	}
 }
