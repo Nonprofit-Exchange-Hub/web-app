@@ -8,6 +8,7 @@ import { GridImages } from './DisplayGrids';
 
 import type { Theme } from '@material-ui/core/styles';
 
+
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
 
