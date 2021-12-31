@@ -9,4 +9,4 @@ import { UserOrganizationsService } from './user-org.service';
   controllers: [UserOrganizationsController],
   providers: [UserOrganizationsService],
 })
-export class UserOrganizationsModule { }
+export class UserOrganizationsModule {}

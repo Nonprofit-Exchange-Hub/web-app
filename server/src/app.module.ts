@@ -29,9 +29,9 @@ import { UserOrganizationsModule } from './user-org/user-org.module';
     OrganizationsModule,
     UsersModule,
     CategoriesModule,
-    UserOrganizationsModule
+    UserOrganizationsModule,
   ],
   controllers: [AppController],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -11,7 +11,7 @@ export class UserOrganizationsService {
   constructor(
     @InjectRepository(UserOrganization)
     private userOrganizationsRepository: Repository<UserOrganization>,
-  ) { }
+  ) {}
 
   async create(createUserOrganizationDto: CreateUserOrganizationDto) {
     return await this.userOrganizationsRepository.save(createUserOrganizationDto);

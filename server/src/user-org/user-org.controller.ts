@@ -8,7 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 
@@ -20,7 +20,7 @@ import { UserOrganizationsService } from './user-org.service';
 
 @Controller('userOrganizations')
 export class UserOrganizationsController {
-  constructor(private readonly userOrganizationsService: UserOrganizationsService) { }
+  constructor(private readonly userOrganizationsService: UserOrganizationsService) {}
 
   @Post()
   async create(
@@ -33,7 +33,7 @@ export class UserOrganizationsController {
       throw new HttpException(
         { status: HttpStatus.CONFLICT, message: `${error}` },
         HttpStatus.CONFLICT,
-      )
+      );
     }
   }
 
@@ -57,7 +57,6 @@ export class UserOrganizationsController {
     return userOrg;
   }
 
-
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(
@@ -67,7 +66,7 @@ export class UserOrganizationsController {
     try {
       const updatedUserOrg = await this.userOrganizationsService.update(
         parseInt(id, 10),
-        UpdateUserOrganizationDto
+        UpdateUserOrganizationDto,
       );
       return updatedUserOrg;
     } catch (error) {
@@ -91,4 +90,3 @@ export class UserOrganizationsController {
     return userOrgToDelete;
   }
 }
-

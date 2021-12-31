@@ -7,7 +7,7 @@ import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService, private jwtService: JwtService) { }
+  constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
     // Check if user with email exists in database
