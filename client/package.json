@@ -33,7 +33,7 @@
 		"lint": "eslint ./src/**/*.{ts,tsx}",
 		"checks": "npm run test && npm run lint",
 		"format": "prettier --write './src/**/*.{ts,tsx}' --config ../.prettierrc",
-		"prepare": "husky install"
+		"prepare": "cd .. && husky install && cd client"
 	},
 	"eslintConfig": {
 		"extends": [
