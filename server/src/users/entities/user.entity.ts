@@ -1,4 +1,4 @@
-import { UserOrganization } from '../../user_org/entities/user_org.entitiy';
+import { UserOrganization } from '../../user-org/entities/user-org.entitiy';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';

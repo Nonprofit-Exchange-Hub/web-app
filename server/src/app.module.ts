@@ -12,7 +12,7 @@ import { MessagesModule } from './messages/messages.module';
 import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { CategoriesModule } from './categories/categories.module';
-import { UserOrganizationsModule } from './user_org/user_org.module';
+import { UserOrganizationsModule } from './user-org/user-org.module';
 
 @Module({
   imports: [
@@ -34,4 +34,4 @@ import { UserOrganizationsModule } from './user_org/user_org.module';
   controllers: [AppController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

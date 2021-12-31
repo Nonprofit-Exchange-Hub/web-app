@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { UserOrganization, Role, ApprovalStatus } from '../entities/user_org.entitiy';
+import { UserOrganization, Role, ApprovalStatus } from '../entities/user-org.entitiy';
 
 export class CreateUserOrganizationDto extends PartialType(UserOrganization) {
   user_id: number;

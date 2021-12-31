@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import type { Repository } from 'typeorm';
-import { CreateUserOrganizationDto } from './dto/create-user_org.dto';
-import { UpdateUserOrganizationDto } from './dto/update-user_org.dto';
-import { UserOrganization } from './entities/user_org.entitiy';
+import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
+import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
+import { UserOrganization } from './entities/user-org.entitiy';
 
 //only changed the names here still need to change logic
 @Injectable()

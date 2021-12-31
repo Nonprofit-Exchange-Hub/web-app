@@ -13,10 +13,10 @@ import {
 import { DeleteResult } from 'typeorm';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { CreateUserOrganizationDto } from './dto/create-user_org.dto';
-import { UpdateUserOrganizationDto } from './dto/update-user_org.dto';
-import { UserOrganization } from './entities/user_org.entitiy';
-import { UserOrganizationsService } from './user_org.service';
+import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
+import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
+import { UserOrganization } from './entities/user-org.entitiy';
+import { UserOrganizationsService } from './user-org.service';
 
 @Controller('userOrganizations')
 export class UserOrganizationsController {
