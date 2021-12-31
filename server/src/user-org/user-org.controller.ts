@@ -13,15 +13,14 @@ import {
 import { DeleteResult } from 'typeorm';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
-import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
+import type { CreateUserOrganizationDto } from './dto/create-user-org.dto';
+import type { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
 import { UserOrganization } from './entities/user-org.entitiy';
 import { UserOrganizationsService } from './user-org.service';
 
 @Controller('userOrganizations')
 export class UserOrganizationsController {
   constructor(private readonly userOrganizationsService: UserOrganizationsService) {}
-
   @Post()
   async create(
     @Body() createUserOrganizationsDto: CreateUserOrganizationDto,
@@ -61,12 +60,12 @@ export class UserOrganizationsController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() UpdateUserOrganizationDto: UpdateUserOrganizationDto,
+    @Body() updateUserOrganizationDto: UpdateUserOrganizationDto,
   ): Promise<UserOrganization> {
     try {
       const updatedUserOrg = await this.userOrganizationsService.update(
         parseInt(id, 10),
-        UpdateUserOrganizationDto,
+        updateUserOrganizationDto,
       );
       return updatedUserOrg;
     } catch (error) {
