@@ -5,7 +5,6 @@ import { OrganizationsController } from './organizations.controller';
 import { Organization } from './entities/organization.entity';
 
 @Module({
-  // registerAsync was recommended by docs: https://docs.nestjs.com/techniques/http-module
   imports: [
     TypeOrmModule.forFeature([Organization])],
   controllers: [OrganizationsController],

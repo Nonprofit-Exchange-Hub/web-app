@@ -1,11 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
-import { Boom, expectationFailed } from '@hapi/boom';
 
 
 @Injectable()
@@ -17,41 +16,44 @@ export class OrganizationsService {
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
     const organization = this.organizationsRepository.create(createOrganizationDto);
 
-    const verified = await this.checkEIN(organization.name, organization.ein);
+    const einCheck = await this.checkEIN(organization.name, organization.ein);
 
-    if (verified === true) {
-      console.log('verified name & ein. good to save org in db.');
-      // return this.organizationsRepository.save(organization);
-      return organization
+    if (einCheck.verified === true) {
+      console.log("Successfully verified in Pro Publica db")
+      return this.organizationsRepository.save(organization)
+    } else if (einCheck.verified === false && einCheck.einExists === true) {
+      console.log("EIN exists in Pro Publica db. Name does not match")
+      throw new HttpException(`Invalid name. Did you mean ${einCheck.actualName}?`, HttpStatus.EXPECTATION_FAILED)
     } else {
-      console.log('cannot verify name & ein');
-      console.log(verified)
-      return organization
+      console.log("EIN does not exist in Pro Public db.")
+      throw new NotFoundException('Organization not found')
     }
 
   }
 
-  // will compare name & ein to the propublica api database:
   async checkEIN(name, ein) {
-    console.log('inside checkEIN func:', name, ein);
-    let result;
+    let resultObj = {
+      verified: false,
+      einExists: false,
+      actualName: null
+    }
+
     try {
       const res = await fetch(`https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`)
       const org = await res.json()
       if (org && org.organization.name === name) {
-        result = true
-      } else if (org) {
-        //boom
-        Boom.expectationFailed('Propublic Name:', org.orginization.name)
-        result = org.organization.name
-      }
+        resultObj.verified = true;
+        resultObj.einExists = true;
+        resultObj.actualName = name
+      } else if (org && org.organization.name !== name) {
+        resultObj.verified = false;
+        resultObj.einExists = true;
+        resultObj.actualName = org.organization.name;
+      } 
     } catch (err) {
-      //boom
-      Boom.expectationFailed('Invalid EIN')
-      
-      result = err.type
+      console.log(err.message)
     }
-    return result
+    return resultObj
   }
 
   findAll(): Promise<Organization[]> {
@@ -63,22 +65,18 @@ export class OrganizationsService {
   }
 
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
-    // save allows us to run hooks, whereas update does not. am i using a hook in this method?
     const org = await this.findOne(id);
     if (!org) {
       throw new NotFoundException('organization not found');
     }
     Object.assign(org, updateOrganizationDto);
     return this.organizationsRepository.save(org);
-    // await this.organizationsRepository.update(id, updateOrganizationDto);
-    // return this.organizationsRepository.findOne(id);
   }
 
   async remove(id: number): Promise<DeleteResult> {
-    //remove will let us run a hook. delete does not. do we have a hook we need?
     const org = await this.findOne(id);
     if (!org) {
-      throw new NotFoundException('organization not found');
+      throw new NotFoundException('Organization Not Found');
     }
     return this.organizationsRepository.delete(id);
   }
