@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
+import { EINCheck } from './EINCheck';
 
 
 @Injectable()
@@ -31,11 +32,11 @@ export class OrganizationsService {
 
   }
 
-  async checkEIN(name, ein) {
+  async checkEIN(name: string, ein: number): Promise<EINCheck> {
     let resultObj = {
       verified: false,
       einExists: false,
-      actualName: null
+      actualName: ""
     }
 
     try {
