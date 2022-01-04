@@ -20,9 +20,9 @@ export class OrganizationsController {
   constructor(private readonly organizationsService: OrganizationsService) {}
 
   @Post()
-  async create(@Body() body: CreateOrganizationDto): Promise<Organization> {
+  async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
     try {
-      const newOrg = await this.organizationsService.create(body);
+      const newOrg = await this.organizationsService.create(createOrganizationDto);
       return newOrg;
     } catch (error) {
       throw new HttpException(
@@ -43,8 +43,11 @@ export class OrganizationsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: UpdateOrganizationDto): Promise<Organization> {
-    return this.organizationsService.update(+id, body);
+  async update(
+    @Param('id') id: string,
+    @Body() updateOrganizationDto: UpdateOrganizationDto,
+  ): Promise<Organization> {
+    return this.organizationsService.update(+id, updateOrganizationDto);
   }
 
   @Delete(':id')

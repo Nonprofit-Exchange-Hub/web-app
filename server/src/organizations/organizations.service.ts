@@ -5,7 +5,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
-import { EINCheck } from './EINCheck';
+
+type EINCheck {
+  verified: boolean;
+  einExists: boolean;
+  actualName: string;
+}
 
 
 @Injectable()
