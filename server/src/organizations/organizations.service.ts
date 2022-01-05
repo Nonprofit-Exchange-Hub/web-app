@@ -9,12 +9,12 @@ import fetch from 'node-fetch';
 export type EINCheck = {
   einExists: boolean;
   proPublicaName: string;
-}
+};
 
 @Injectable()
 export class OrganizationsService {
   constructor(
-    @InjectRepository(Organization) private organizationsRepository: Repository<Organization>
+    @InjectRepository(Organization) private organizationsRepository: Repository<Organization>,
   ) {}
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
@@ -24,20 +24,22 @@ export class OrganizationsService {
   async checkEIN(ein: number): Promise<EINCheck> {
     let einObj = {
       einExists: false,
-      proPublicaName: ""
-    }
+      proPublicaName: '',
+    };
 
     try {
-      const res = await fetch(`https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`)
-      const org = await res.json()
+      const res = await fetch(
+        `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`,
+      );
+      const org = await res.json();
       if (org) {
         einObj.einExists = true;
         einObj.proPublicaName = org.organization.name;
-      } 
+      }
     } catch (err) {
-      console.log(err.message)
+      console.log(err.message);
     }
-    return einObj
+    return einObj;
   }
 
   findAll(): Promise<Organization[]> {
