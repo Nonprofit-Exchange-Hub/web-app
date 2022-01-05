@@ -24,9 +24,11 @@ export class OrganizationsService {
       const org = await res.json();
       if (org) {
         return org.organization;
+      } else {
+        return null
       }
     } catch (err) {
-      return err
+      console.log(err.message)
     }
   }
 
