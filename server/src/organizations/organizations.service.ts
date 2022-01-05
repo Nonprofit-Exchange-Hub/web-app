@@ -6,11 +6,6 @@ import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
-export type EINCheck = {
-  validEIN: boolean;
-  proPublicaName: string;
-};
-
 @Injectable()
 export class OrganizationsService {
   constructor(
@@ -21,25 +16,18 @@ export class OrganizationsService {
     return this.organizationsRepository.save(createOrganizationDto);
   }
 
-  async checkEIN(ein: number): Promise<EINCheck> {
-    const einObj = {
-      validEIN: false,
-      proPublicaName: '',
-    };
-
+  async checkEIN(ein: number): Promise<object> {
     try {
       const res = await fetch(
         `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`,
       );
       const org = await res.json();
       if (org) {
-        einObj.validEIN = true;
-        einObj.proPublicaName = org.organization.name;
+        return org.organization;
       }
     } catch (err) {
-      console.log(err.message);
+      return err
     }
-    return einObj;
   }
 
   findAll(): Promise<Organization[]> {

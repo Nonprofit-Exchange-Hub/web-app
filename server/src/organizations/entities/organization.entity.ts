@@ -1,4 +1,4 @@
-import { AfterInsert, BeforeInsert, Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('organizations')
 export class Organization {
@@ -27,21 +27,8 @@ export class Organization {
   state: string;
 
   @Column({ type: 'int', unique: true })
-  // validator from api might go here
-  // why does it skip the id if it doesn't work
   ein: number;
 
   @Column('int')
   tax_exempt_id: number;
-
-  @AfterInsert()
-  logInsert() {
-    console.log('inserted Org', this.id);
-  }
-
-  // @BeforeInsert()
-  // checkAPI(){
-  //   console.log("checking the API", this.name, this.ein)
-
-  // }
 }

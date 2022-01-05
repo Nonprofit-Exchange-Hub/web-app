@@ -24,7 +24,6 @@
     },
     "dependencies": {
         "-": "0.0.1",
-        "@hapi/boom": "^9.1.4",
         "@nestjs/common": "^7.6.13",
         "@nestjs/config": "^0.6.3",
         "@nestjs/core": "^7.6.13",
