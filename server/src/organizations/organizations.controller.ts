@@ -14,12 +14,7 @@ import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
-
-type EINCheck = {
-  einExists: boolean;
-  actualName: string;
-}
-
+import type { EINCheck } from './organizations.service'
 
 @Controller('organizations')
 export class OrganizationsController {

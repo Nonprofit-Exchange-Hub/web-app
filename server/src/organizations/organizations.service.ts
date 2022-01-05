@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,11 +6,10 @@ import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
-type EINCheck = {
+export type EINCheck = {
   einExists: boolean;
-  actualName: string;
+  proPublicaName: string;
 }
-
 
 @Injectable()
 export class OrganizationsService {
@@ -19,20 +18,13 @@ export class OrganizationsService {
   ) {}
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
-    // with no other logic, should the exception live in the service or in the controller? Right now I have them in both and am not sure if it makes sense. 
-    const organization = this.organizationsRepository.create(createOrganizationDto);
-    if (!organization) {
-      // change this exception please
-      throw new NotFoundException('Organization Not Found');
-    }
-    return this.organizationsRepository.save(organization);
-
+    return this.organizationsRepository.save(createOrganizationDto);
   }
 
   async checkEIN(ein: number): Promise<EINCheck> {
     let einObj = {
       einExists: false,
-      actualName: ""
+      proPublicaName: ""
     }
 
     try {
@@ -40,7 +32,7 @@ export class OrganizationsService {
       const org = await res.json()
       if (org) {
         einObj.einExists = true;
-        einObj.actualName = org.organization.name;
+        einObj.proPublicaName = org.organization.name;
       } 
     } catch (err) {
       console.log(err.message)
@@ -59,7 +51,7 @@ export class OrganizationsService {
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
     const org = await this.findOne(id);
     if (!org) {
-      throw new NotFoundException('organization not found');
+      throw new NotFoundException('Organization Not Found');
     }
     Object.assign(org, updateOrganizationDto);
     return this.organizationsRepository.save(org);
