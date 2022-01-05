@@ -15,6 +15,12 @@ import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
 
+type EINCheck = {
+  einExists: boolean;
+  actualName: string;
+}
+
+
 @Controller('organizations')
 export class OrganizationsController {
   constructor(private readonly organizationsService: OrganizationsService) {}
@@ -40,6 +46,11 @@ export class OrganizationsController {
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Organization> {
     return this.organizationsService.findOne(+id);
+  }
+
+  @Get('ein/:ein')
+  checkEIN(@Param('ein') ein: number): Promise<EINCheck> {
+    return this.organizationsService.checkEIN(+ein)
   }
 
   @Patch(':id')

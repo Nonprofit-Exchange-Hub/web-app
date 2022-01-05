@@ -6,8 +6,7 @@ import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
-type EINCheck {
-  verified: boolean;
+type EINCheck = {
   einExists: boolean;
   actualName: string;
 }
@@ -20,26 +19,18 @@ export class OrganizationsService {
   ) {}
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    // with no other logic, should the exception live in the service or in the controller? Right now I have them in both and am not sure if it makes sense. 
     const organization = this.organizationsRepository.create(createOrganizationDto);
-
-    const einCheck = await this.checkEIN(organization.name, organization.ein);
-
-    if (einCheck.verified === true) {
-      console.log("Successfully verified in Pro Publica db")
-      return this.organizationsRepository.save(organization)
-    } else if (einCheck.verified === false && einCheck.einExists === true) {
-      console.log("EIN exists in Pro Publica db. Name does not match")
-      throw new HttpException(`Invalid name. Did you mean ${einCheck.actualName}?`, HttpStatus.EXPECTATION_FAILED)
-    } else {
-      console.log("EIN does not exist in Pro Public db.")
-      throw new NotFoundException('Organization not found')
+    if (!organization) {
+      // change this exception please
+      throw new NotFoundException('Organization Not Found');
     }
+    return this.organizationsRepository.save(organization);
 
   }
 
-  async checkEIN(name: string, ein: number): Promise<EINCheck> {
-    let resultObj = {
-      verified: false,
+  async checkEIN(ein: number): Promise<EINCheck> {
+    let einObj = {
       einExists: false,
       actualName: ""
     }
@@ -47,19 +38,14 @@ export class OrganizationsService {
     try {
       const res = await fetch(`https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`)
       const org = await res.json()
-      if (org && org.organization.name === name) {
-        resultObj.verified = true;
-        resultObj.einExists = true;
-        resultObj.actualName = name
-      } else if (org && org.organization.name !== name) {
-        resultObj.verified = false;
-        resultObj.einExists = true;
-        resultObj.actualName = org.organization.name;
+      if (org) {
+        einObj.einExists = true;
+        einObj.actualName = org.organization.name;
       } 
     } catch (err) {
       console.log(err.message)
     }
-    return resultObj
+    return einObj
   }
 
   findAll(): Promise<Organization[]> {
