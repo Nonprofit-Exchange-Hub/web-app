@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException} from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,7 +22,7 @@ export class OrganizationsService {
   }
 
   async checkEIN(ein: number): Promise<EINCheck> {
-    let einObj = {
+    const einObj = {
       validEIN: false,
       proPublicaName: '',
     };
