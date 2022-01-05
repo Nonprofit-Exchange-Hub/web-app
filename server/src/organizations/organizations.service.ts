@@ -7,7 +7,7 @@ import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
 export type EINCheck = {
-  einExists: boolean;
+  validEIN: boolean;
   proPublicaName: string;
 };
 
@@ -23,7 +23,7 @@ export class OrganizationsService {
 
   async checkEIN(ein: number): Promise<EINCheck> {
     let einObj = {
-      einExists: false,
+      validEIN: false,
       proPublicaName: '',
     };
 
@@ -33,7 +33,7 @@ export class OrganizationsService {
       );
       const org = await res.json();
       if (org) {
-        einObj.einExists = true;
+        einObj.validEIN = true;
         einObj.proPublicaName = org.organization.name;
       }
     } catch (err) {
