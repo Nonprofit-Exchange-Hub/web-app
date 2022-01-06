@@ -26,12 +26,16 @@ import OfferFormGoods from './OfferFormGoods';
 import OfferFormVolunteers from './OfferFormVolunteers';
 import ActionForm from './ActionForm';
 import UserProfile from './UserProfile';
+import ForgotPassword from './ForgotPassword';
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/">
         <Home />
+      </Route>
+      <Route exact path="/forgot_password">
+        <ForgotPassword />
       </Route>
       <Route exact path="/login">
         <Login />

@@ -1,0 +1,139 @@
+import * as React from 'react';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+
+import type { Theme } from '@material-ui/core/styles';
+
+import EmailInput from './EmailInput';
+//import StyledLink from './StyledLink';
+import { UserContext } from './providers';
+
+const useStyles = makeStyles((theme: Theme) => {
+  const xPadding = 12;
+  const yPadding = 6;
+  const yMargin = 8;
+
+  return {
+    paper: {
+      maxWidth: 821 - theme.spacing(xPadding),
+      maxHeight: 732 - theme.spacing(yPadding),
+      borderRadius: 10,
+      marginTop: theme.spacing(yMargin),
+      marginBottom: theme.spacing(yMargin),
+      paddingTop: theme.spacing(yPadding),
+      paddingBottom: theme.spacing(yPadding),
+      paddingLeft: theme.spacing(xPadding),
+      paddingRight: theme.spacing(xPadding),
+      margin: 'auto',
+    },
+    header: { fontWeight: 'bold', marginBottom: 68 },
+    button: {
+      borderRadius: 0,
+      height: 62,
+      textTransform: 'none',
+    },
+  };
+});
+
+interface UserLoginData {
+  email: string;
+}
+
+const initialFormData: UserLoginData = {
+  email: '',
+};
+
+interface Error {
+  type: '' | 'email';
+  message: string;
+}
+
+function ForgotPassword() {
+  const classes = useStyles();
+  const history = useHistory();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<Error | null>(null);
+  const [, setUser] = React.useContext(UserContext);
+
+  const [formData, setFormData] = React.useState(initialFormData);
+
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value }: { name: string; value: string } = evt.target;
+    setFormData((fData) => ({
+      ...fData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
+    evt.preventDefault();
+    setIsLoading(true);
+    const res = await fetch('http://localhost:3001/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const response = await res.json();
+    setIsLoading(false);
+
+    if (!res.ok) {
+      if (response.error === 'Email not found') {
+        setError({ type: 'email', message: response.error });
+      } else {
+        setError({ type: '', message: 'an unknown error occurred' });
+      }
+    } else {
+      const user = jwt.verify(response.access_token, 'placeholder');
+      setUser(user);
+      setError(null);
+      history.push('/');
+    }
+  };
+
+  return (
+    <div className="Login" style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Paper elevation={3} className={classes.paper}>
+        <Grid container justifyContent="center" direction="column" spacing={2}>
+          <Grid item xs={12}>
+            <Typography className={classes.header} variant="h3" component="h1" align="center">
+              Forgot Your Password?
+            </Typography>
+            <Typography component="p" align="left" gutterBottom>
+              Enter your email and we'll send you a link to reset you password if you have an
+              account.
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+              <EmailInput
+                value={formData.email}
+                placeholder="jane@nonprofit.com"
+                onChange={handleChange}
+                error={error?.type === 'email' ? error.message : null}
+              />
+              <Button
+                className={classes.button}
+                style={{ backgroundColor: '#C4C4C4', color: 'white' }}
+                fullWidth
+                type="submit"
+              >
+                Send Email
+              </Button>
+              {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+              {isLoading && <Typography>Loading</Typography>}
+            </form>
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
+  );
+}
+
+export default ForgotPassword;
