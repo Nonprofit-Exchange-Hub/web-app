@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 import { TransactionStatus } from '../transaction-status.enum';
 import { User } from 'src/users/entities/user.entity';
 import { Organization } from 'src/organizations/entities/organization.entity';
@@ -8,6 +8,7 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   donater_user: User;
 
+  @IsOptional()
   donater_organization: Organization;
 
   @IsNotEmpty()
