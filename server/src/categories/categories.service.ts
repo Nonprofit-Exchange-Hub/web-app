@@ -4,6 +4,7 @@ import { UpdateCategoryDto } from './dto/update-category';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Injectable()
 export class CategoriesService {

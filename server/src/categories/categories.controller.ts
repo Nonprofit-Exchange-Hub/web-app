@@ -8,12 +8,14 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  UseGuards
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category';
 import { UpdateCategoryDto } from './dto/update-category';
 import { Category } from './entities/category.entity';
 import { DeleteResult } from 'typeorm';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 // TODO ticket for adding auth guards https://github.com/Nonprofit-Exchange-Hub/web-app/issues/84
 
@@ -21,6 +23,7 @@ import { DeleteResult } from 'typeorm';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
     try {
