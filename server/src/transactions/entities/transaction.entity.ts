@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
@@ -26,25 +25,21 @@ export class Transaction {
   @Column()
   created_date: Date;
 
-  @ManyToOne((_type) => User, (user) => user.transactions, { eager: false })
+  @ManyToOne((_type) => User, (user) => user.transactions)
   @JoinColumn()
   donater_user: User;
 
   @ManyToOne(
     (_type) => Organization,
-    (organization) => organization.transactions,
-    { eager: false },
-  )
+    (organization) => organization.transactions)
   @JoinColumn()
   donater_organization?: Organization;
 
-  @ManyToOne((_type) => Asset, (asset) => asset.transactions, { eager: true })
+  @ManyToOne((_type) => Asset, (asset) => asset.transactions)
   @JoinColumn()
   asset: Asset;
 
-  @ManyToOne((_type) => Organization, (recipient) => recipient.transactions, {
-    eager: false,
-  })
+  @ManyToOne((_type) => Organization, (recipient) => recipient.transactions)
   @JoinColumn()
   recipient: Organization;
 }
