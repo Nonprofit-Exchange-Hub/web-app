@@ -56,6 +56,7 @@ export class CategoriesController {
     return foundCategory;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -75,6 +76,7 @@ export class CategoriesController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     const categoryToDelete = await this.categoriesService.remove(parseInt(id));
