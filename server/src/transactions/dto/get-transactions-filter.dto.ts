@@ -5,28 +5,28 @@ import { Organization } from 'src/organizations/entities/organization.entity';
 import { Asset } from 'src/assets/entities/asset.entity';
 
 export class GetTransactionsFilterDto {
-  @IsOptional()
+  // @IsOptional()
   @IsString()
-  status: TransactionStatus;
+  status?: TransactionStatus;
 
   // unclear as to the value/conflict of having both @IsOptional and ?
-  @IsOptional()
+  // @IsOptional()
   @IsNumber()
   donater_user?: User;
 
-  @IsOptional()
+  // @IsOptional()
   @IsNumber()
   donater_organization?: Organization;
 
-  @IsOptional()
+  // @IsOptional()
   @IsNumber()
   recipient?: Organization;
 
-  @IsOptional()
+  // @IsOptional()
   @IsNumber()
   assets?: Asset[];
 
-  @IsOptional()
+  // @IsOptional()
   @IsDate()
   created_date?: Date;
 }

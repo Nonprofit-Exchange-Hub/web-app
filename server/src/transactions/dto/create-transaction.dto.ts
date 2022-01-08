@@ -8,8 +8,8 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   donater_user: User;
 
-  @IsOptional()
-  donater_organization: Organization;
+  // @IsOptional()
+  donater_organization?: Organization;
 
   @IsNotEmpty()
   recipient: Organization;
