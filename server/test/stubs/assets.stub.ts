@@ -1,6 +1,5 @@
 import { AssetType, Condition } from '../../src/assets/constants';
 import { Asset } from '../../src/assets/entities/asset.entity';
-import { User } from '../../src/users/entities/user.entity';
 
 export const assetsStub = (): Asset => {
   return {
@@ -10,6 +9,14 @@ export const assetsStub = (): Asset => {
     type: AssetType.DONATION,
     condition: Condition.EXCELLENT,
     quantity: 6,
-    poster: new User(),
+    poster: {
+      id: 234545,
+      first_name: 'fakeUser',
+      last_name: 'John',
+      email: 'user@test.com',
+      password: 'Secret1234$',
+      assets: null,
+      messages: null,
+    },
   };
 };
