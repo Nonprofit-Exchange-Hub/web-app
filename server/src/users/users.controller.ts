@@ -17,6 +17,11 @@ export class UsersController {
     return user;
   }
 
+  @Post('reset_password')
+    resetPassword() {
+      
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);

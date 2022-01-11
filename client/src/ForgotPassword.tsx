@@ -5,13 +5,13 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
+//import jwt from 'jsonwebtoken';
 
 import type { Theme } from '@material-ui/core/styles';
 
 import EmailInput from './EmailInput';
 //import StyledLink from './StyledLink';
-import { UserContext } from './providers';
+//import { UserContext } from './providers';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -57,8 +57,8 @@ function ForgotPassword() {
   const classes = useStyles();
   const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<Error | null>(null);
-  const [, setUser] = React.useContext(UserContext);
+  const [error] = React.useState<Error | null>(null);
+  //const [, setUser] = React.useContext(UserContext);
 
   const [formData, setFormData] = React.useState(initialFormData);
 
@@ -73,28 +73,18 @@ function ForgotPassword() {
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();
     setIsLoading(true);
-    const res = await fetch('http://localhost:3001/api/auth/login', {
+
+    await fetch('http://localhost:3001/api/user/reset_password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
     });
-    const response = await res.json();
+
     setIsLoading(false);
 
-    if (!res.ok) {
-      if (response.error === 'Email not found') {
-        setError({ type: 'email', message: response.error });
-      } else {
-        setError({ type: '', message: 'an unknown error occurred' });
-      }
-    } else {
-      const user = jwt.verify(response.access_token, 'placeholder');
-      setUser(user);
-      setError(null);
-      history.push('/');
-    }
+    history.push('/');
   };
 
   return (
@@ -124,7 +114,7 @@ function ForgotPassword() {
                 fullWidth
                 type="submit"
               >
-                Send Email
+                Send Email To Set New Password
               </Button>
               {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
               {isLoading && <Typography>Loading</Typography>}
