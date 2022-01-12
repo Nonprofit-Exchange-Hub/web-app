@@ -5,3 +5,4 @@ export class UpdateTransactionStatusDto {
   @IsEnum(TransactionStatus)
   status: TransactionStatus;
 }
+//partial
