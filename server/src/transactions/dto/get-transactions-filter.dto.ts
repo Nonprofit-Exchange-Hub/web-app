@@ -1,32 +1,33 @@
-import { IsOptional, IsString, IsNumber, IsDate } from 'class-validator';
+// import { IsOptional, IsString, IsNumber, IsDate } from 'class-validator';
 import { TransactionStatus } from '../transaction-status.enum';
-import { User } from 'src/users/entities/user.entity';
-import { Organization } from 'src/organizations/entities/organization.entity';
-import { Asset } from 'src/assets/entities/asset.entity';
+import { User } from '../../users/entities/user.entity';
+import { Organization } from '../../organizations/entities/organization.entity';
+import { Asset } from '../../assets/entities/asset.entity'
+import { PartialType } from '@nestjs/mapped-types';
+import { Transaction } from '../entities/transaction.entity';
 
-export class GetTransactionsFilterDto {
+export class GetTransactionsFilterDto extends PartialType(Transaction){
   // @IsOptional()
-  @IsString()
+  // @IsString()
   status?: TransactionStatus;
 
-  // unclear as to the value/conflict of having both @IsOptional and ?
   // @IsOptional()
-  @IsNumber()
+  // @IsNumber()
   donater_user?: User;
 
   // @IsOptional()
-  @IsNumber()
+  // @IsNumber()
   donater_organization?: Organization;
 
   // @IsOptional()
-  @IsNumber()
+  // @IsNumber()
   recipient?: Organization;
 
   // @IsOptional()
-  @IsNumber()
+  // @IsNumber()
   assets?: Asset[];
 
   // @IsOptional()
-  @IsDate()
+  // @IsDate()
   created_date?: Date;
 }

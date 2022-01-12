@@ -19,14 +19,14 @@ export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   @Post()
-  createTransaction(
+  create(
     @Body() createTransactionDto: CreateTransactionDto,
   ): Promise<Transaction> {
     return this.transactionsService.createTransaction(createTransactionDto);
   }
 
   @Get()
-  getTransactions(
+  get(
     @Query()
     filterDto: GetTransactionsFilterDto,
   ): Promise<Transaction[]> {
@@ -39,7 +39,7 @@ export class TransactionsController {
   }
 
   @Patch('/:id/status')
-  updateTransaction(
+  update(
     @Param('id') id: number,
     @Body() updateTransactionStatusDto: UpdateTransactionStatusDto,
   ): Promise<Transaction> {
@@ -48,7 +48,7 @@ export class TransactionsController {
   }
 
   @Delete('/:id')
-  deleteTransaction(@Param('id') id: number): Promise<void> {
+  delete(@Param('id') id: number): Promise<void> {
     return this.transactionsService.deleteTransaction(id);
   }
 }
