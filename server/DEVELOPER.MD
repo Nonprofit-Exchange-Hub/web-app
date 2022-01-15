@@ -1,4 +1,5 @@
-# Building the app
+# DEVELOPER wiki
+## Building the app
 
 This document describes how to build the entire app in a simulated local production environment (staging) using docker-compose.
 
