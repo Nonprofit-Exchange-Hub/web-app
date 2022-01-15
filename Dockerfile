@@ -1,24 +1,33 @@
-FROM node:16-alpine
+# Multi-stage build to take advantage of stage caching
+FROM node:16-alpine as embeddedFronEnd
 
-# working dir
-WORKDIR /app
+WORKDIR /app/temp/client
 
-COPY . .
+COPY ./client .
 
 RUN npm install -g npm@7
 
-RUN cd ./client && npm ci  && npm run build && cd ..
+RUN npm ci  && npm run build
 
-RUN cd ./server && npm ci  && cd ..
 
-RUN mkdir -p /app/server/client
 
-RUN cp -r ./client/build/ ./server/client/build/
+FROM node:16-alpine
 
+WORKDIR /app/server
+
+COPY ./server .
+
+RUN npm install -g npm@7
+
+RUN npm ci
+
+RUN mkdir -p /app/client
+
+COPY --from=embeddedFronEnd /app/temp/client/build/ /app/client/build/
 
 WORKDIR  /app/server
 
-# Build our app for production
+# Build for production
 RUN npm run prebuild && npm run build
 
 EXPOSE 3000
