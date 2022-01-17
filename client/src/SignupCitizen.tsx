@@ -198,8 +198,8 @@ function SignupCitizen() {
               label={
                 <label>
                   Accept the{' '}
-                  <StyledLink to="/terms_and_condtions" target="_blank">
-                    Terms and Condtions
+                  <StyledLink to="/terms-of-service" target="_blank">
+                    Terms of Service
                   </StyledLink>
                 </label>
               }

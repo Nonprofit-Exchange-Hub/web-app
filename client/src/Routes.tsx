@@ -33,20 +33,20 @@ function Routes() {
 
       {/* static */}
       {/* static: about */}
-      <Route exact path="/about_us" component={AboutUs} />
-      <Route exact path="/how_it_works" component={HowItWorks} />
-      <Route exact path="/our_story" component={OurStory} />
+      <Route exact path="/about-us" component={AboutUs} />
+      <Route exact path="/how-it-works" component={HowItWorks} />
+      <Route exact path="/our-story" component={OurStory} />
 
       {/* static: policy */}
-      <Route exact path="/trust_and_safety" component={TrustAndSafety} />
-      <Route exact path="/terms_of_service" component={TermsOfService} />
-      <Route exact path="/privacy_policy" component={PrivacyPolicy} />
+      <Route exact path="/trust-and-safety" component={TrustAndSafety} />
+      <Route exact path="/terms-of-service" component={TermsOfService} />
+      <Route exact path="/privacy-policy" component={PrivacyPolicy} />
 
       {/* users */}
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={Signup} />
-      <Route exact path="/signup_citizen" component={SignupCitizen} />
-      <Route exact path="/signup_nonprofit" component={SignupNonProfit} />
+      <Route exact path="/signup-citizen" component={SignupCitizen} />
+      <Route exact path="/signup-nonprofit" component={SignupNonProfit} />
       <Route exact path="/inbox" component={MessageInboxView} />
       <Route exact path="/users/:userId" component={UserProfile} />
 
@@ -68,7 +68,7 @@ function Routes() {
       <Route exact path="/offer/skills" component={OfferFormVolunteers} />
 
       {/* support */}
-      <Route exact path="/contact_us" component={ContactUs} />
+      <Route exact path="/contact-us" component={ContactUs} />
       <Route exact path="/help" component={Help} />
     </Switch>
   );

@@ -80,13 +80,13 @@ function Header() {
           <NavLink to="/" className={classes.home}>
             <img src={Logo} alt="NEH logo placeholder" />
           </NavLink>
-          <NavLink className={classes.navLink} to="/about_us">
+          <NavLink className={classes.navLink} to="/about-us">
             About Us
           </NavLink>
-          <NavLink className={classes.navLink} to="/how_it_works">
+          <NavLink className={classes.navLink} to="/how-it-works">
             How It Works
           </NavLink>
-          <NavLink className={classes.navLink} to="/contact_us">
+          <NavLink className={classes.navLink} to="/contact-us">
             Contact Us
           </NavLink>
         </div>

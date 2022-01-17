@@ -42,9 +42,9 @@ function Footer() {
             <Typography className={classes.header} align="left" gutterBottom>
               Non-Profit Exchange Hub
             </Typography>
-            <StyledLink to="/about_us">About Us</StyledLink>
-            <StyledLink to="/our_story">Our Story</StyledLink>
-            <StyledLink to="/contact_us">Contact Us</StyledLink>
+            <StyledLink to="/about-us">About Us</StyledLink>
+            <StyledLink to="/our-story">Our Story</StyledLink>
+            <StyledLink to="/contact-us">Contact Us</StyledLink>
           </Grid>
           <Grid
             className={classes.linkBlock}
@@ -57,8 +57,8 @@ function Footer() {
             <Typography className={classes.header} align="left" gutterBottom>
               Resources
             </Typography>
-            <StyledLink to="/how_it_works">How It Works</StyledLink>
-            <StyledLink to="/trust_and_safety">Trust and Safety</StyledLink>
+            <StyledLink to="/how-it-works">How It Works</StyledLink>
+            <StyledLink to="/trust-and-safety">Trust and Safety</StyledLink>
             <StyledLink to="/help">Help & FAQs</StyledLink>
           </Grid>
         </Grid>
@@ -73,9 +73,9 @@ function Footer() {
           {/* TODO Not sure if NEH 2021 is supposed to just be text, or a link.
                     Leaving as text for now, as the name seems like it is changing anyway.*/}
           <span>NEH 2021</span>
-          <StyledLink to="/terms_of_service">Terms of Service</StyledLink>
-          <StyledLink to="/privacy_policy">Privacy Policy</StyledLink>
-          <StyledLink to="/cookie_policy">Cookie Policy</StyledLink>
+          <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
+          <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
+          <StyledLink to="/cookie-policy">Cookie Policy</StyledLink>
         </Grid>
       </Grid>
     </footer>

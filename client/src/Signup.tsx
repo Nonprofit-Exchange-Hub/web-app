@@ -52,7 +52,7 @@ function Signup() {
           <Typography className={classes.caption} variant="body2" component="caption">
             Are you a non-profit organization?
           </Typography>
-          <Link className={classes.linkText} to="/signup_nonprofit">
+          <Link className={classes.linkText} to="/signup-nonprofit">
             <Button variant="contained">Create non-profit account</Button>
           </Link>
         </Grid>
@@ -61,7 +61,7 @@ function Signup() {
           <Typography className={classes.caption} variant="body2" component="caption">
             Are you an individual citizen?
           </Typography>
-          <Link className={classes.linkText} to="/signup_citizen">
+          <Link className={classes.linkText} to="/signup-citizen">
             <Button variant="contained">Create citizen account</Button>
           </Link>
         </Grid>
