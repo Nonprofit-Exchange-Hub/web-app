@@ -13,11 +13,6 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-// interface GoogleAuthBtnProps {
-//   children: string;
-// }
-
-// function GoogleAuthBtn({ children }: GoogleAuthBtnProps) {
 function GoogleAuthBtn(props: React.PropsWithChildren<{}>) {
   const { children } = props;
 
