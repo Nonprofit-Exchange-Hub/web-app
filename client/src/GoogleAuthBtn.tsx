@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme: Theme) => {
 
 function GoogleAuthBtn(props: React.PropsWithChildren<{}>) {
   const { children } = props;
-
   const classes = useStyles();
+
   const googleSignIn = (evt: React.MouseEvent) => {
     // Handle googleSignIn
   };
