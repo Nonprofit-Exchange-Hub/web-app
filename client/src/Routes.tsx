@@ -14,7 +14,6 @@ import OurStory from './OurStory';
 import Help from './Help';
 import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
-import CookiePolicy from './CookiePolicy';
 import Assets from './Assets';
 import Asset from './Asset';
 import MessageInboxView from './MessageInboxView';
@@ -68,9 +67,6 @@ function Routes() {
       </Route>
       <Route exact path="/privacy_policy">
         <PrivacyPolicy />
-      </Route>
-      <Route exact path="/cookie_policy">
-        <CookiePolicy />
       </Route>
       <Route exact path="/assets">
         <Assets />
