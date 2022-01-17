@@ -29,78 +29,47 @@ import UserProfile from './UserProfile';
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <Route exact path="/login">
-        <Login />
-      </Route>
-      <Route exact path="/signup">
-        <Signup />
-      </Route>
-      <Route exact path="/signup_citizen">
-        <SignupCitizen />
-      </Route>
-      <Route exact path="/signup_nonprofit">
-        <SignupNonProfit />
-      </Route>
-      <Route exact path="/about_us">
-        <AboutUs />
-      </Route>
-      <Route exact path="/how_it_works">
-        <HowItWorks />
-      </Route>
-      <Route exact path="/contact_us">
-        <ContactUs />
-      </Route>
-      <Route exact path="/our_story">
-        <OurStory />
-      </Route>
-      <Route exact path="/trust_and_safety">
-        <TrustAndSafety />
-      </Route>
-      <Route exact path="/help">
-        <Help />
-      </Route>
-      <Route exact path="/terms_of_service">
-        <TermsOfService />
-      </Route>
-      <Route exact path="/privacy_policy">
-        <PrivacyPolicy />
-      </Route>
-      <Route exact path="/assets">
-        <Assets />
-      </Route>
-      <Route exact path="/inbox">
-        <MessageInboxView />
-      </Route>
-      <Route exact path="/asset/:assetId">
-        <Asset />
-      </Route>
-      <Route exact path="/need">
-        <NeedForm />
-      </Route>
-      <Route exact path="/need/goods/">
-        <NeedFormGoods />
-      </Route>
-      <Route exact path="/need/volunteers/">
-        <NeedFormVolunteers />
-      </Route>
-      <Route exact path="/offer">
-        <OfferForm />
-      </Route>
-      <Route exact path="/offer/goods">
-        <OfferFormGoods />
-      </Route>
-      <Route exact path="/offer/skills">
-        <OfferFormVolunteers />
-      </Route>
-      <Route exact path="/action">
-        <ActionForm />
-      </Route>
-      <Route exact path="/users/:userId">
-        <UserProfile />
-      </Route>
+      <Route exact path="/" component={Home} />
+
+      {/* static */}
+      {/* static: about */}
+      <Route exact path="/about_us" component={AboutUs} />
+      <Route exact path="/how_it_works" component={HowItWorks} />
+      <Route exact path="/our_story" component={OurStory} />
+
+      {/* static: policy */}
+      <Route exact path="/trust_and_safety" component={TrustAndSafety} />
+      <Route exact path="/terms_of_service" component={TermsOfService} />
+      <Route exact path="/privacy_policy" component={PrivacyPolicy} />
+
+      {/* users */}
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/signup" component={Signup} />
+      <Route exact path="/signup_citizen" component={SignupCitizen} />
+      <Route exact path="/signup_nonprofit" component={SignupNonProfit} />
+      <Route exact path="/inbox" component={MessageInboxView} />
+      <Route exact path="/users/:userId" component={UserProfile} />
+
+      {/* action */}
+      <Route exact path="/action" component={ActionForm} />
+
+      {/* action: assets */}
+      <Route exact path="/assets" component={Assets} />
+      <Route exact path="/asset/:assetId" component={Asset} />
+
+      {/* action: needs */}
+      <Route exact path="/need" component={NeedForm} />
+      <Route exact path="/need/goods/" component={NeedFormGoods} />
+      <Route exact path="/need/volunteers/" component={NeedFormVolunteers} />
+
+      {/* action: offers */}
+      <Route exact path="/offer" component={OfferForm} />
+      <Route exact path="/offer/goods" component={OfferFormGoods} />
+      <Route exact path="/offer/skills" component={OfferFormVolunteers} />
+
+      {/* support */}
+      <Route exact path="/contact_us" component={ContactUs} />
+      <Route exact path="/help" component={Help} />
     </Switch>
   );
 }
