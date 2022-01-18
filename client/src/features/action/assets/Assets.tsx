@@ -1,10 +1,9 @@
 import * as React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useLocation } from 'react-router-dom';
 import * as queryString from 'query-string';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import { NavLink } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 

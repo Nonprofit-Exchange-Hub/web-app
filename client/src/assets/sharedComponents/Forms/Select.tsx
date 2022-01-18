@@ -1,6 +1,11 @@
 import * as React from 'react';
-import { OutlinedInput, MenuItem, FormControl, FormLabel } from '@material-ui/core';
-import { Select as MUISelect } from '@material-ui/core';
+import {
+  FormControl,
+  FormLabel,
+  MenuItem,
+  OutlinedInput,
+  Select as MUISelect,
+} from '@material-ui/core';
 
 import type { Option } from '../../../types';
 

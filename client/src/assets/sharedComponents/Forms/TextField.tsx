@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { FormControl, FormLabel } from '@material-ui/core';
-import { TextField as MUITextField } from '@material-ui/core';
+import { FormControl, FormLabel, TextField as MUITextField } from '@material-ui/core';
 
 type CustomProps = {
   id: string;

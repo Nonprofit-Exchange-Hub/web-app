@@ -1,3 +1,5 @@
+import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
@@ -6,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import * as React from 'react';
-import { useHistory } from 'react-router-dom';
 
 import type { Theme } from '@material-ui/core/styles';
 

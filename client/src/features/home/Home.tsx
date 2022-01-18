@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { NavLink } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
@@ -7,15 +8,14 @@ import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+
+import type { Theme } from '@material-ui/core/styles';
 
 import NeedsAndOffers from './NeedsAndOffers';
 import { mockData, placeholderImg } from '../../assets/temp';
 import QuestionList from '../../assets/sharedComponents/QuestionList';
 import routes from '../../routes';
-
-import type { Theme } from '@material-ui/core/styles';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';

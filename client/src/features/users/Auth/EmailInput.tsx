@@ -1,11 +1,12 @@
+import * as React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import type { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
-import * as React from 'react';
 import FormHelperText from '@material-ui/core/FormHelperText';
+
+import type { Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {

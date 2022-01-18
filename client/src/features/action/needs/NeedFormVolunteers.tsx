@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Grid } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 
 import { RadioGroup, Select, TextField } from '../../../assets/sharedComponents/Forms';
 import NeedOfferForm from '../NeedOfferForm';

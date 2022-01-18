@@ -1,9 +1,8 @@
 import * as React from 'react';
+import { NavLink, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import { NavLink } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';

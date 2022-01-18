@@ -1,13 +1,12 @@
 import * as React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 import IconButton from '@material-ui/core/IconButton';
-import { Link } from 'react-router-dom';
 
 import type { Theme } from '@material-ui/core/styles';
 
