@@ -12,7 +12,7 @@ const lorem = `
     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 `;
 
-export const dumbyData: Asset[] = [1, 2, 3].map((num) => ({
+export const mockData: Asset[] = [1, 2, 3].map((num) => ({
   id: num,
   title: `Title ${num}`,
   categories: [1, 2, 3].map((n) => `category ${n}`),
