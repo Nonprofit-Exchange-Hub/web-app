@@ -1,79 +1,80 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from './home/Home';
-import AboutUs from './static/about/AboutUs';
-import HowItWorks from './static/about/HowItWorks';
-import OurStory from './static/about/OurStory';
-import TrustAndSafety from './static/policy/TrustAndSafety';
-import TermsOfService from './static/policy/TermsOfService';
-import PrivacyPolicy from './static/policy/PrivacyPolicy';
-import Login from './users/Auth/Login';
-import Signup from './users/Auth/Signup';
-import SignupCitizen from './users/Auth/SignupCitizen';
-import SignupNonProfit from './users/Auth/SignupNonProfit';
-import Inbox from './users/Inbox/Inbox';
-import User from './users/User';
-import ActionForm from './action/ActionForm';
-import Assets from './action/assets/Assets';
-import Asset from './action/assets/Asset';
-import NeedForm from './action/needs/NeedForm';
-import NeedFormGoods from './action/needs/NeedFormGoods';
-import NeedFormVolunteers from './action/needs/NeedFormVolunteers';
-import OfferForm from './action/offers/OfferForm';
-import OfferFormGoods from './action/offers/OfferFormGoods';
-import OfferFormSkills from './action/offers/OfferFormSkills';
-import ContactUs from './support/ContactUs';
-import Help from './support/Help';
+import routes from '../routes';
 
-function Routes() {
+function Main() {
   return (
     <main>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path={routes.Home.path} component={routes.Home.component} />
 
         {/* static */}
         {/* static: about */}
-        <Route exact path="/about-us" component={AboutUs} />
-        <Route exact path="/how-it-works" component={HowItWorks} />
-        <Route exact path="/our-story" component={OurStory} />
+        <Route exact path={routes.AboutUs.path} component={routes.AboutUs.component} />
+        <Route exact path={routes.HowItWorks.path} component={routes.HowItWorks.component} />
+        <Route exact path={routes.OurStory.path} component={routes.OurStory.component} />
 
         {/* static: policy */}
-        <Route exact path="/trust-and-safety" component={TrustAndSafety} />
-        <Route exact path="/terms-of-service" component={TermsOfService} />
-        <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+        <Route
+          exact
+          path={routes.TrustAndSafety.path}
+          component={routes.TrustAndSafety.component}
+        />
+        <Route
+          exact
+          path={routes.TermsOfService.path}
+          component={routes.TermsOfService.component}
+        />
+        <Route exact path={routes.PrivacyPolicy.path} component={routes.PrivacyPolicy.component} />
 
         {/* users */}
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/signup-citizen" component={SignupCitizen} />
-        <Route exact path="/signup-nonprofit" component={SignupNonProfit} />
-        <Route exact path="/inbox" component={Inbox} />
-        <Route exact path="/users/:userId" component={User} />
+        <Route exact path={routes.Login.path} component={routes.Login.component} />
+        <Route exact path={routes.Signup.path} component={routes.Signup.component} />
+        <Route exact path={routes.SignupCitizen.path} component={routes.SignupCitizen.component} />
+        <Route
+          exact
+          path={routes.SignupNonProfit.path}
+          component={routes.SignupNonProfit.component}
+        />
+        <Route exact path={routes.Inbox.path} component={routes.Inbox.component} />
+        <Route exact path={routes.User.path} component={routes.User.component} />
 
         {/* action */}
-        <Route exact path="/action" component={ActionForm} />
+        <Route exact path={routes.ActionForm.path} component={routes.ActionForm.component} />
 
         {/* action: assets */}
-        <Route exact path="/assets" component={Assets} />
-        <Route exact path="/asset/:assetId" component={Asset} />
+        <Route exact path={routes.Assets.path} component={routes.Assets.component} />
+        <Route exact path={routes.Asset.path} component={routes.Asset.component} />
 
         {/* action: needs */}
-        <Route exact path="/need" component={NeedForm} />
-        <Route exact path="/need/goods/" component={NeedFormGoods} />
-        <Route exact path="/need/volunteers/" component={NeedFormVolunteers} />
+        <Route exact path={routes.NeedForm.path} component={routes.NeedForm.component} />
+        <Route exact path={routes.NeedFormGoods.path} component={routes.NeedFormGoods.component} />
+        <Route
+          exact
+          path={routes.NeedFormVolunteers.path}
+          component={routes.NeedFormVolunteers.component}
+        />
 
         {/* action: offers */}
-        <Route exact path="/offer" component={OfferForm} />
-        <Route exact path="/offer/goods" component={OfferFormGoods} />
-        <Route exact path="/offer/skills" component={OfferFormSkills} />
+        <Route exact path={routes.OfferForm.path} component={routes.OfferForm.component} />
+        <Route
+          exact
+          path={routes.OfferFormGoods.path}
+          component={routes.OfferFormGoods.component}
+        />
+        <Route
+          exact
+          path={routes.OfferFormSkills.path}
+          component={routes.OfferFormSkills.component}
+        />
 
         {/* support */}
-        <Route exact path="/contact-us" component={ContactUs} />
-        <Route exact path="/help" component={Help} />
+        <Route exact path={routes.ContactUs.path} component={routes.ContactUs.component} />
+        <Route exact path={routes.Help.path} component={routes.Help.component} />
       </Switch>
     </main>
   );
 }
 
-export default Routes;
+export default Main;

@@ -14,6 +14,7 @@ import type { Theme } from '@material-ui/core/styles';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/logo.svg'; // placeholder
+import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   home: {
@@ -77,16 +78,16 @@ function Header() {
     <AppBar position="sticky" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <div className={classes.mainNav}>
-          <NavLink to="/" className={classes.home}>
+          <NavLink to={routes.Home.path} className={classes.home}>
             <img src={Logo} alt="NEH logo placeholder" />
           </NavLink>
-          <NavLink className={classes.navLink} to="/about-us">
+          <NavLink className={classes.navLink} to={routes.AboutUs.path}>
             About Us
           </NavLink>
-          <NavLink className={classes.navLink} to="/how-it-works">
+          <NavLink className={classes.navLink} to={routes.HowItWorks.path}>
             How It Works
           </NavLink>
-          <NavLink className={classes.navLink} to="/contact-us">
+          <NavLink className={classes.navLink} to={routes.ContactUs.path}>
             Contact Us
           </NavLink>
         </div>
@@ -119,12 +120,12 @@ function Header() {
             </>
           ) : (
             <>
-              <NavLink className={classes.navLink} to="/signup">
+              <NavLink className={classes.navLink} to={routes.Signup.path}>
                 <Button color="primary" variant="contained">
                   Sign Up
                 </Button>
               </NavLink>
-              <NavLink className={classes.navLink} to="/login">
+              <NavLink className={classes.navLink} to={routes.Login.path}>
                 <Button color="secondary" variant="contained">
                   Login
                 </Button>

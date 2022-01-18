@@ -12,6 +12,7 @@ import type { Theme } from '@material-ui/core/styles';
 import { placeholderImg } from '../../../assets/temp';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import { TextField, Select } from '../../../assets/sharedComponents/Forms';
+import routes from '../../../routes';
 
 const classifications = [
   { value: 'charitable', text: 'Charitable Organization' },
@@ -136,7 +137,7 @@ function SignupNonProfit() {
             Let's get started.
           </Typography>
           <Typography component="p" align="left" gutterBottom>
-            Already have an account? <StyledLink to="/login">Log In</StyledLink>
+            Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
           </Typography>
           <form onSubmit={handleSubmit}>
             {pageNum === 1 ? (
@@ -283,7 +284,7 @@ function SignupNonProfit() {
                   label={
                     <label>
                       Accept the{' '}
-                      <StyledLink to="/terms-of-service" target="_blank">
+                      <StyledLink to={routes.TermsOfService.path} target="_blank">
                         Terms of Service
                       </StyledLink>
                     </label>

@@ -60,7 +60,8 @@ function PasswordInput({
       <label className={classes.label} htmlFor="password">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           Password
-          {showForgot && <StyledLink to="/forgot_password">Forgot Password?</StyledLink>}
+          {/* to prop to be updated to use routes once page is set up */}
+          {showForgot && <StyledLink to="/forgot-password">Forgot Password?</StyledLink>}
         </div>
       </label>
       {error && <FormHelperText error>{error}</FormHelperText>}

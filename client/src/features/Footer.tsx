@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import StyledLink from '../assets/sharedComponents/StyledLink';
+import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -43,9 +44,9 @@ function Footer() {
             <Typography className={classes.header} align="left" gutterBottom>
               Non-Profit Exchange Hub
             </Typography>
-            <StyledLink to="/about-us">About Us</StyledLink>
-            <StyledLink to="/our-story">Our Story</StyledLink>
-            <StyledLink to="/contact-us">Contact Us</StyledLink>
+            <StyledLink to={routes.AboutUs.path}>About Us</StyledLink>
+            <StyledLink to={routes.OurStory.path}>Our Story</StyledLink>
+            <StyledLink to={routes.ContactUs.path}>Contact Us</StyledLink>
           </Grid>
           <Grid
             className={classes.linkBlock}
@@ -58,9 +59,9 @@ function Footer() {
             <Typography className={classes.header} align="left" gutterBottom>
               Resources
             </Typography>
-            <StyledLink to="/how-it-works">How It Works</StyledLink>
-            <StyledLink to="/trust-and-safety">Trust and Safety</StyledLink>
-            <StyledLink to="/help">Help & FAQs</StyledLink>
+            <StyledLink to={routes.HowItWorks.path}>How It Works</StyledLink>
+            <StyledLink to={routes.TrustAndSafety.path}>Trust and Safety</StyledLink>
+            <StyledLink to={routes.Help.path}>Help & FAQs</StyledLink>
           </Grid>
         </Grid>
         <Grid
@@ -74,9 +75,8 @@ function Footer() {
           {/* TODO Not sure if NEH 2021 is supposed to just be text, or a link.
                     Leaving as text for now, as the name seems like it is changing anyway.*/}
           <span>NEH 2021</span>
-          <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
-          <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
-          <StyledLink to="/cookie-policy">Cookie Policy</StyledLink>
+          <StyledLink to={routes.TermsOfService.path}>Terms of Service</StyledLink>
+          <StyledLink to={routes.PrivacyPolicy.path}>Privacy Policy</StyledLink>
         </Grid>
       </Grid>
     </footer>

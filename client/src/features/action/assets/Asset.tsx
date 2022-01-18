@@ -15,6 +15,7 @@ import type { Theme } from '@material-ui/core/styles';
 
 import SimpleSnackbar from './SimpleSnackbar';
 import { mockData } from '../../../assets/temp';
+import routes from '../../../routes';
 
 import type { Asset as AssetT } from '../../../types';
 
@@ -168,7 +169,7 @@ function Asset(): JSX.Element {
   return (
     <>
       <Paper elevation={0} className={classes.topBar}>
-        <NavLink to="/assets" className={classes.iconButton}>
+        <NavLink to={routes.Assets.path} className={classes.iconButton}>
           <Button>
             <ArrowBackRoundedIcon />
             Go Back
@@ -184,7 +185,7 @@ function Asset(): JSX.Element {
               setSearchText(e.target.value)
             }
           />
-          <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
+          <NavLink to={`${routes.Assets.path}?search=${searchText}`} className={classes.iconButton}>
             <SearchIcon />
           </NavLink>
         </Paper>

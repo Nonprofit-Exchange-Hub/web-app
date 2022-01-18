@@ -15,6 +15,7 @@ import SubHeader from './SubHeader';
 import TransactionThreadCard from './TransactionThreadCard';
 import MessageCard from './MessageCard';
 import { UserContext } from '../../../providers';
+import routes from '../../../routes';
 
 import type { Message, Transaction } from '../../../types';
 
@@ -154,12 +155,12 @@ function MessageInboxView(): JSX.Element {
   }, [selectedTransaction]);
 
   if (!user) {
-    return <Redirect to="/" />;
+    return <Redirect to={routes.Home.path} />;
   }
 
   return (
     <>
-      <SubHeader backTo="/" searchTo="/inbox" />
+      <SubHeader backTo={routes.Home.path} searchTo={routes.Inbox.path} />
       <Grid container className={classes.inboxWrapper} justify="center">
         <Grid item className={`${classes.sectionWrapper} ${classes.threadsSection}`} xs={12} sm={4}>
           <Typography variant="h5" component="h5" className={classes.sectionHeader}>
@@ -178,11 +179,12 @@ function MessageInboxView(): JSX.Element {
             <Box className={classes.noThreadsMessage}>
               <Typography className={classes.noThreadsMessagePiece}>Inbox empty</Typography>
               <Typography className={classes.noThreadsMessagePiece}>
-                Support an organization by <Link to="/assets">contributing</Link> something they
-                need
+                Support an organization by <Link to={routes.Assets.path}>contributing</Link>{' '}
+                something they need
               </Typography>
               <Typography className={classes.noThreadsMessagePiece}>or</Typography>
               <Typography className={classes.noThreadsMessagePiece}>
+                {/* update to prop to use routes once set up */}
                 <Link to="/weDontHaveAPostRouteYet">Post</Link> a need
               </Typography>
             </Box>

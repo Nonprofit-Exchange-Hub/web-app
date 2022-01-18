@@ -13,6 +13,7 @@ import type { Theme } from '@material-ui/core/styles';
 import NeedsAndOffers from '../../home/NeedsAndOffers';
 import FilterGroup from '../../../assets/sharedComponents/FilterGroup';
 import { mockData, filters1, filters2, filters3 } from '../../../assets/temp';
+import routes from '../../../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchBar: {
@@ -96,7 +97,7 @@ function Assets(): JSX.Element {
               setSearchText(e.target.value)
             }
           />
-          <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
+          <NavLink to={`${routes.Assets.path}?search=${searchText}`} className={classes.iconButton}>
             <SearchIcon />
           </NavLink>
         </Paper>
@@ -124,6 +125,7 @@ function Assets(): JSX.Element {
         </div>
         <div className={classes.rightPanel}>
           <Paper elevation={0} className={classes.createBar}>
+            {/* where is this meant to link to? */}
             <NavLink className={classes.makeAPost} to="/create">
               <Button color="primary" variant="contained">
                 Make a Post

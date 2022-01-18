@@ -15,6 +15,7 @@ import PasswordInput from './PasswordInput';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import TextDivider from '../../../assets/sharedComponents/TextDivider';
 import { UserContext } from '../../../providers';
+import routes from '../../../routes';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -148,7 +149,7 @@ function Login() {
           </Grid>
           <Grid item xs={12}>
             <Typography align="left">
-              Not signed up yet? <StyledLink to="/signup">Sign Up</StyledLink>
+              Not signed up yet? <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
             </Typography>
           </Grid>
         </Grid>

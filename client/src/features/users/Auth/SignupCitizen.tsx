@@ -18,6 +18,7 @@ import GoogleAuthBtn from './GoogleAuthBtn';
 import PasswordInput from './PasswordInput';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import TextDivider from '../../../assets/sharedComponents/TextDivider';
+import routes from '../../../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
@@ -120,7 +121,7 @@ function SignupCitizen() {
             Let's get started.
           </Typography>
           <Typography component="p" align="left" gutterBottom>
-            Already have an account? <StyledLink to="/login">Log In</StyledLink>
+            Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
           </Typography>
           <Grid container item justifyContent="space-between">
             <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
@@ -198,7 +199,7 @@ function SignupCitizen() {
               label={
                 <label>
                   Accept the{' '}
-                  <StyledLink to="/terms-of-service" target="_blank">
+                  <StyledLink to={routes.TermsOfService.path} target="_blank">
                     Terms of Service
                   </StyledLink>
                 </label>

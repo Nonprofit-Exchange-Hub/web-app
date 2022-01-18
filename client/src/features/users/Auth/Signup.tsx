@@ -6,6 +6,8 @@ import { Grid, Container, Button } from '@material-ui/core';
 
 import type { Theme } from '@material-ui/core/styles';
 
+import routes from '../../../routes';
+
 const useStyles = makeStyles((theme: Theme) => ({
   imageBackground: {
     width: '200px',
@@ -44,7 +46,7 @@ function Signup() {
         Select your account type.
       </Typography>
       <Typography variant="body2" component="caption">
-        Already have an account? <Link to="/login">Log In</Link>{' '}
+        Already have an account? <Link to={routes.Login.path}>Log In</Link>{' '}
       </Typography>
 
       <Grid container spacing={8}>
@@ -53,7 +55,7 @@ function Signup() {
           <Typography className={classes.caption} variant="body2" component="caption">
             Are you a non-profit organization?
           </Typography>
-          <Link className={classes.linkText} to="/signup-nonprofit">
+          <Link className={classes.linkText} to={routes.SignupNonProfit.path}>
             <Button variant="contained">Create non-profit account</Button>
           </Link>
         </Grid>
@@ -62,7 +64,7 @@ function Signup() {
           <Typography className={classes.caption} variant="body2" component="caption">
             Are you an individual citizen?
           </Typography>
-          <Link className={classes.linkText} to="/signup-citizen">
+          <Link className={classes.linkText} to={routes.SignupCitizen.path}>
             <Button variant="contained">Create citizen account</Button>
           </Link>
         </Grid>

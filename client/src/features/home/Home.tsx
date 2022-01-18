@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import NeedsAndOffers from './NeedsAndOffers';
 import { mockData, placeholderImg } from '../../assets/temp';
 import QuestionList from '../../assets/sharedComponents/QuestionList';
+import routes from '../../routes';
 
 import type { Theme } from '@material-ui/core/styles';
 
@@ -145,8 +146,8 @@ function HeaderContentRight(): JSX.Element {
 
   return (
     <div>
-      <NavLink to="/assets">See all Needs and Offers</NavLink>
-      <NavLink to="/need" className={classes.makeAPostLink}>
+      <NavLink to={routes.Assets.path}>See all Needs and Offers</NavLink>
+      <NavLink to={routes.NeedForm.path} className={classes.makeAPostLink}>
         <Button className={classes.makeAPostButton} color="primary" variant="contained">
           Make a Post
         </Button>
