@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './entities/transaction.entity';
 import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
-import { TransactionStatus } from './transaction-status.enum';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
 @Injectable()
