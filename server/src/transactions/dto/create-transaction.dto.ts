@@ -19,6 +19,7 @@ export class CreateTransactionDto {
   @IsNotEmpty({ message: 'asset_id is required' })
   asset: Asset;
 
+  @IsOptional()
   @IsEnum(TransactionStatus)
   status: TransactionStatus;
 

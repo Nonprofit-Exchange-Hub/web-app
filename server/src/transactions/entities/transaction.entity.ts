@@ -16,7 +16,10 @@ export class Transaction {
   })
   status: TransactionStatus;
 
-  @Column()
+  @Column({
+    type: 'date',
+    default: new Date().toLocaleString(),
+  })
   created_date: Date;
 
   @ManyToOne((_type) => User, (user) => user.transactions)
