@@ -1,10 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './entities/transaction.entity';
-import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
+import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
 import { TransactionStatus } from './transaction-status.enum';
-import { Repository } from 'typeorm';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
 @Injectable()
 export class TransactionsService {
@@ -17,13 +19,11 @@ export class TransactionsService {
     return this.transactionsRepository.save(createTransactionDto);
   }
 
-  // look at this filter
-  getTransactions(filterDto: GetTransactionsFilterDto): Promise<Transaction[]> {
-    return this.transactionsRepository.find(filterDto);
+  async getTransactions(getTransactionsDto: GetTransactionsDto): Promise<Transaction[]> {
+    return this.transactionsRepository.find(getTransactionsDto);
   }
 
   async getTransactionById(id: number): Promise<Transaction> {
-    // NOTE:  findOne is a built in function
     const found = await this.transactionsRepository.findOne(id);
     if (!found) {
       throw new NotFoundException();
@@ -31,16 +31,20 @@ export class TransactionsService {
     return found;
   }
 
-  async updateTransaction(id: number, status: TransactionStatus): Promise<Transaction> {
+  async updateTransaction(
+    id: number,
+    updateTransactionDto: UpdateTransactionDto,
+  ): Promise<Transaction> {
     const transaction = await this.getTransactionById(id);
-    transaction.status = status;
-    await this.transactionsRepository.save(transaction);
-    return transaction;
+    const newTransaction = await this.transactionsRepository.save({
+      ...transaction,
+      ...updateTransactionDto,
+    });
+    return newTransaction;
   }
 
   async deleteTransaction(id: number): Promise<void> {
     const transactionToDelete = await this.transactionsRepository.delete(id);
-    // NOTE:  affected method discoverable via console.log
     if (transactionToDelete.affected === 0) {
       throw new NotFoundException();
     }

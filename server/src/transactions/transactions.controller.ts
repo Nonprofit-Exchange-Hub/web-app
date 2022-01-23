@@ -1,9 +1,10 @@
 import { Controller, Post, Body, Get, Query, Param, Delete, Patch } from '@nestjs/common';
+
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './entities/transaction.entity';
-import { GetTransactionsFilterDto } from './dto/get-transactions-filter.dto';
-import { UpdateTransactionStatusDto } from './dto/update-transaction-status.dto';
+import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -17,7 +18,7 @@ export class TransactionsController {
   @Get()
   get(
     @Query()
-    filterDto: GetTransactionsFilterDto,
+    filterDto: GetTransactionsDto,
   ): Promise<Transaction[]> {
     return this.transactionsService.getTransactions(filterDto);
   }
@@ -27,13 +28,12 @@ export class TransactionsController {
     return this.transactionsService.getTransactionById(id);
   }
 
-  @Patch('/:id/status')
+  @Patch('/:id')
   update(
     @Param('id') id: number,
-    @Body() updateTransactionStatusDto: UpdateTransactionStatusDto,
+    @Body() updateTransactionStatusDto: UpdateTransactionDto,
   ): Promise<Transaction> {
-    const { status } = updateTransactionStatusDto;
-    return this.transactionsService.updateTransaction(id, status);
+    return this.transactionsService.updateTransaction(id, updateTransactionStatusDto);
   }
 
   @Delete('/:id')
