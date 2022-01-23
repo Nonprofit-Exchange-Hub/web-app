@@ -8,9 +8,7 @@ import { UpdateAssetDto } from './dto/update-asset.dto';
 
 @Injectable()
 export class AssetsService {
-  constructor(
-    @InjectRepository(Asset) private assetsRepository: Repository<Asset>,
-  ) {}
+  constructor(@InjectRepository(Asset) private assetsRepository: Repository<Asset>) {}
 
   async create(createAssetDto: CreateAssetDto): Promise<Asset> {
     return this.assetsRepository.save(createAssetDto);

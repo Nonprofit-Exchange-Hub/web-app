@@ -23,11 +23,14 @@ export class Message {
   })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.messages)
+  @ManyToOne(() => User, (user) => user.messages, { eager: true })
   @JoinColumn()
   user: User;
 
-  // code below (and import above) for when Transaction is set up
+  // TODO: uncomment the code below when transactions are set up
+  // make sure to set up corresponding relationship in transactions
+  // and note the ramifications on MessageInboxView component before updating
+
   // @ManyToOne(() => Transaction, transaction => transaction.messages)
   // transaction: Transaction
 

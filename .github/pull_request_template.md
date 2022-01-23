@@ -8,7 +8,11 @@
 -->
 
 ## Dev Summary
-[Mocks](link)<!-- with node-id if possible! i.e. https://www.figma.com/file/fYkreARKdHsMh8iPSh7dti/GC-prototype-v1?node-id=0%3A1 -->
+<!-- Link to the mocks, with node-id if possible! Note you must be signed in for Figma to update the URL with the node-id
+  i.e. Messaging Inbox node: https://www.figma.com/file/fYkreARKdHsMh8iPSh7dti/GC-prototype-v1?node-id=0%3A453
+  Full mocks: https://www.figma.com/file/fYkreARKdHsMh8iPSh7dti/GC-prototype-v1
+-->
+[Mocks](link)
 
 <!--
   A detailed outline of what this commit includes, such as:
@@ -25,6 +29,8 @@ that it does not break any existing changes.
 You should include screenshots to help the reviewer understand what to look for when visual
 changes are includes. GIFs help immensely when explaining interactions and animations.
 -->
+
+repro steps:
 
 1. localhost:3000 <!-- or the initial page your test starts on -->
 2. click X button

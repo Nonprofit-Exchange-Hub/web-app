@@ -27,13 +27,15 @@ export class Organization {
   @Column('text')
   state: string;
 
-  @Column({type:'int', unique: true})
+  @Column({ type: 'int', unique: true })
   ein: number;
 
   @Column('int')
   tax_exempt_id: number;
 
-  @OneToMany(() => Transaction, (transaction)=> transaction.donater_organization || transaction.recipient)
+  @OneToMany(
+    () => Transaction,
+    (transaction) => transaction.donater_organization || transaction.recipient,
+  )
   transactions: Transaction[];
-
 }

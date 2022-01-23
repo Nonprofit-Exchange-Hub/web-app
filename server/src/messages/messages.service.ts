@@ -9,9 +9,7 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 
 @Injectable()
 export class MessagesService {
-  constructor(
-    @InjectRepository(Message) private messagesRepository: Repository<Message>,
-  ) {}
+  constructor(@InjectRepository(Message) private messagesRepository: Repository<Message>) {}
 
   async create(createMessageDto: CreateMessageDto): Promise<Message> {
     return this.messagesRepository.save(createMessageDto);
@@ -38,10 +36,7 @@ export class MessagesService {
   //   return messages;
   // }
 
-  async update(
-    id: number,
-    updateMessageDto: UpdateMessageDto,
-  ): Promise<Message> {
+  async update(id: number, updateMessageDto: UpdateMessageDto): Promise<Message> {
     await this.messagesRepository.update(id, updateMessageDto);
     return this.messagesRepository.findOne(id);
   }

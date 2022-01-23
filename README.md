@@ -1,9 +1,9 @@
 # Nonprofit Exchange Hub (working name)
 
 ## Description 
-Platform for non-profits and citizens to collaborate in a giving economy.
-
-Primary tech stack: PostgreSQL, Nest, and React
+- Platform for non-profits and citizens to collaborate in a giving economy.
+- Primary tech stack: PostgreSQL, NestJs, and React
+- Please make sure to read our [contributing/how we work doc](https://github.com/Nonprofit-Exchange-Hub/web-app/blob/main/CONTRIBUTING.md) before getting started
 
 ## Installation and Setup
 

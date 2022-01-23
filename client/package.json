@@ -28,8 +28,12 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"test": "react-scripts test --watchAll=false",
+		"eject": "react-scripts eject",
+		"lint": "eslint ./src/**/*.{ts,tsx}",
+		"checks": "npm run test && npm run lint",
+		"format": "prettier --write './src/**/*.{ts,tsx}' --config ../.prettierrc",
+		"prepare": "cd .. && husky install && cd client"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -47,6 +51,21 @@
 			"last 1 chrome version",
 			"last 1 firefox version",
 			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.5.0",
+		"@typescript-eslint/parser": "^5.5.0",
+		"eslint": "^7.20.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"husky": "^7.0.4",
+		"lint-staged": "^12.1.4",
+		"prettier": "^2.5.1"
+	},
+	"lint-staged": {
+		"./src/**/*.{ts,tsx}": [
+			"eslint --fix"
 		]
 	}
 }
