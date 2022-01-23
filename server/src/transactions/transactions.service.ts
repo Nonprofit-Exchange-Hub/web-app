@@ -19,7 +19,7 @@ export class TransactionsService {
 
   // look at this filter
   getTransactions(filterDto: GetTransactionsFilterDto): Promise<Transaction[]> {
-    return this.transactionsRepository.find();
+    return this.transactionsRepository.find(filterDto);
   }
 
   async getTransactionById(id: number): Promise<Transaction> {

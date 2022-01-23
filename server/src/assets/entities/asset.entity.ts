@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMan
 import { User } from '../../users/entities/user.entity';
 
 import { AssetType, Condition } from '../constants';
-import { Transaction } from 'src/transactions/entities/transaction.entity';
+import { Transaction } from '../../transactions/entities/transaction.entity';
 
 @Entity('assets')
 export class Asset {
