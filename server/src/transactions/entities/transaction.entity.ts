@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { TransactionStatus } from '../transaction-status.enum';
 import { User } from '../../users/entities/user.entity';
 import { Asset } from '../../assets/entities/asset.entity';
@@ -29,9 +23,7 @@ export class Transaction {
   @JoinColumn()
   donater_user: User;
 
-  @ManyToOne(
-    (_type) => Organization,
-    (organization) => organization.transactions)
+  @ManyToOne((_type) => Organization, (organization) => organization.transactions)
   @JoinColumn()
   donater_organization?: Organization;
 

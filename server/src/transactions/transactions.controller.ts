@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Query,
-  Param,
-  Delete,
-  Patch,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Param, Delete, Patch } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './entities/transaction.entity';
@@ -19,9 +10,7 @@ export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   @Post()
-  create(
-    @Body() createTransactionDto: CreateTransactionDto,
-  ): Promise<Transaction> {
+  create(@Body() createTransactionDto: CreateTransactionDto): Promise<Transaction> {
     return this.transactionsService.createTransaction(createTransactionDto);
   }
 

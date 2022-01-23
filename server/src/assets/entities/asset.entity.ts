@@ -33,7 +33,7 @@ export class Asset {
   quantity: number;
 
   @ManyToOne(() => User, (user) => user.assets)
-  @JoinColumn( {name: "poster_id"})
+  @JoinColumn({ name: 'poster_id' })
   poster: User;
 
   @OneToMany(() => Transaction, (transaction) => transaction.asset)

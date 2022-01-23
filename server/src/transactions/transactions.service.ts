@@ -13,9 +13,7 @@ export class TransactionsService {
     private transactionsRepository: Repository<Transaction>,
   ) {}
 
-  async createTransaction(
-    createTransactionDto: CreateTransactionDto,
-  ): Promise<Transaction> {
+  async createTransaction(createTransactionDto: CreateTransactionDto): Promise<Transaction> {
     return this.transactionsRepository.save(createTransactionDto);
   }
 
@@ -33,10 +31,7 @@ export class TransactionsService {
     return found;
   }
 
-  async updateTransaction(
-    id: number,
-    status: TransactionStatus,
-  ): Promise<Transaction> {
+  async updateTransaction(id: number, status: TransactionStatus): Promise<Transaction> {
     const transaction = await this.getTransactionById(id);
     transaction.status = status;
     await this.transactionsRepository.save(transaction);
