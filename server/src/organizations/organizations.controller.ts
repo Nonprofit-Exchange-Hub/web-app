@@ -14,6 +14,7 @@ import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
+import { PropublicaOrg } from './organizations.service'
 
 @Controller('organizations')
 export class OrganizationsController {
@@ -43,8 +44,8 @@ export class OrganizationsController {
   }
 
   @Get('ein/:ein')
-  checkEIN(@Param('ein') ein: number): Promise<object> {
-    return this.organizationsService.checkEIN(+ein);
+  getProPublicaOrg(@Param('ein') ein: number): Promise<PropublicaOrg> {
+    return this.organizationsService.getProPublicaOrg(+ein);
   }
 
   @Patch(':id')

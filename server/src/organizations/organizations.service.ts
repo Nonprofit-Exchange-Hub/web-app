@@ -6,6 +6,11 @@ import { Repository, DeleteResult } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
+export type PropublicaOrg = {
+  ein: number,
+  name: string
+}
+
 @Injectable()
 export class OrganizationsService {
   constructor(
@@ -16,19 +21,20 @@ export class OrganizationsService {
     return this.organizationsRepository.save(createOrganizationDto);
   }
 
-  async checkEIN(ein: number): Promise<object> {
+  async getProPublicaOrg(ein: number): Promise<PropublicaOrg> {
     try {
       const res = await fetch(
         `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`,
       );
       const org = await res.json();
       if (org) {
-        return org.organization;
-      } else {
-        return null
-      }
+        return {
+          ein: org.organization.ein,
+          name: org.organization.name
+        };
+      } 
     } catch (err) {
-      console.log(err.message)
+      throw new NotFoundException('Organization Not Found in Propublica API');
     }
   }
 
