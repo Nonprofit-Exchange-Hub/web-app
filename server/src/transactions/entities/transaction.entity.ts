@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TransactionStatus } from '../transaction-status.enum';
 import { User } from '../../users/entities/user.entity';
 import { Asset } from '../../assets/entities/asset.entity';
@@ -16,10 +23,7 @@ export class Transaction {
   })
   status: TransactionStatus;
 
-  @Column({
-    type: 'date',
-    default: new Date().toLocaleString(),
-  })
+  @CreateDateColumn()
   created_date: Date;
 
   @ManyToOne((_type) => User, (user) => user.transactions)
