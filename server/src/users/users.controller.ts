@@ -19,7 +19,7 @@ export class UsersController {
 
   @Post('reset_password')
     resetPassword() {
-      
+      //check database for password. if it exists send an email nothing needs to be sent back here.
   }
 
   @Get(':id')
