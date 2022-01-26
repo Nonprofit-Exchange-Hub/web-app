@@ -14,7 +14,7 @@ import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
-import { PropublicaOrg } from './organizations.service'
+import { PropublicaOrg } from './organizations.service';
 
 @Controller('organizations')
 export class OrganizationsController {

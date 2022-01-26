@@ -7,9 +7,9 @@ import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
 export type PropublicaOrg = {
-  ein: number,
-  name: string
-}
+  ein: number;
+  name: string;
+};
 
 @Injectable()
 export class OrganizationsService {
@@ -30,9 +30,9 @@ export class OrganizationsService {
       if (org) {
         return {
           ein: org.organization.ein,
-          name: org.organization.name
+          name: org.organization.name,
         };
-      } 
+      }
     } catch (err) {
       throw new NotFoundException('Organization Not Found in Propublica API');
     }
