@@ -59,7 +59,6 @@ describe('UsersController', () => {
   describe('POST /users', () => {
     it('should create and return created user', async () => {
       const userToCreate = userCreateDtoStub();
-      console.log(userToCreate.password);
       const { body } = await supertest
         .agent(app.getHttpServer())
         .post(`/users`)

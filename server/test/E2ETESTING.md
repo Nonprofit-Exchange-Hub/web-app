@@ -1,13 +1,14 @@
 # `e2e` Testing the Server
 
 ## Goals
-- Test REST api endpoint layers in the server against a realistic test database
+- Test REST api endpoint layers in the server against a realistic test database. These tests can replace the manual process of testing each endpoint when submitting a new PR.
+- Avoid regressions: chaning a code in one place should not change the way code behaves somewhere else
 - Consume the REST Api routes as the Front End would use it
 - No mocking the services: Use the entire app as-bootstrapped, including the services and repositories from the dependency injection module
 - Use an actual database instead of an [in-memory database](https://dev.to/webeleon/unit-testing-nestjs-with-typeorm-in-memory-l6m) to get as close as possible to the real deal
 
 ## Prerequisites to run the e2e tests
-- Existing database based on the test connection options: `server/test/testing-constants.ts`
+- Existing database based on the test connection options: `server/test/e2e.env`
 - At the moment, you may have to create it manually, but in the future, it should be auto-created for the dev environment
 
 ## Important Notes
