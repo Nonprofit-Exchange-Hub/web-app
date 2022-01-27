@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Header() {
   const classes = useStyles();
-  const [user] = React.useContext(UserContext);
+  const [user, setUser] = React.useContext(UserContext);
   const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -61,6 +61,16 @@ function Header() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = (): void => {
+    handleClose();
+    setUser(null);
+    fetch('http://localhost:3001/api/auth/logout', {
+      credentials: 'include',
+      method: 'GET',
+    });
+    history.push('/');
   };
 
   return (
@@ -104,6 +114,7 @@ function Header() {
                 >
                   User Profile
                 </MenuItem>
+                <MenuItem onClick={handleLogout}>Log out</MenuItem>
               </Menu>
             </>
           ) : (

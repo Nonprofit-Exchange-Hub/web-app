@@ -13,12 +13,10 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-interface GoogleAuthBtnProps {
-  children: string;
-}
-
-function GoogleAuthBtn({ children }: GoogleAuthBtnProps) {
+function GoogleAuthBtn(props: React.PropsWithChildren<{}>) {
+  const { children } = props;
   const classes = useStyles();
+
   const googleSignIn = (evt: React.MouseEvent) => {
     // Handle googleSignIn
   };
