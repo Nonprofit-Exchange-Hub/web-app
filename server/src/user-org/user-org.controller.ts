@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 
-import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
 import { UserOrganization } from './entities/user-org.entitiy';
 import { UserOrganizationsService } from './user-org.service';
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
