@@ -12,15 +12,16 @@ import {
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import type { CreateUserOrganizationDto } from './dto/create-user-org.dto';
-import type { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
+import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
 import { UserOrganization } from './entities/user-org.entitiy';
 import { UserOrganizationsService } from './user-org.service';
+import type { CreateUserOrganizationDto } from './dto/create-user-org.dto';
+import type { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
 
 @Controller('userOrganizations')
 export class UserOrganizationsController {
   constructor(private readonly userOrganizationsService: UserOrganizationsService) {}
+
   @Post()
   async create(
     @Body() createUserOrganizationsDto: CreateUserOrganizationDto,
@@ -36,14 +37,14 @@ export class UserOrganizationsController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(CookieAuthGuard)
   @Get()
-  async findAll() {
+  async findAll(): Promise<UserOrganization[]> {
     const allUserOrgs = await this.userOrganizationsService.findAll();
     return allUserOrgs;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(CookieAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserOrganization> {
     const userOrg = await this.userOrganizationsService.findOne(parseInt(id, 10));
@@ -56,7 +57,7 @@ export class UserOrganizationsController {
     return userOrg;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(CookieAuthGuard)
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -76,7 +77,7 @@ export class UserOrganizationsController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(CookieAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     const userOrgToDelete = await this.userOrganizationsService.remove(parseInt(id));
