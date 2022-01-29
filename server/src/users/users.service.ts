@@ -26,10 +26,6 @@ export class UsersService {
     }
   }
 
-  findAll() {
-    return this.usersRepository.find();
-  }
-
   findOne(id: number) {
     return this.usersRepository.findOne(id);
   }

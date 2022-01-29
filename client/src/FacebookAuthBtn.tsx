@@ -14,11 +14,8 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-interface FacebookAuthBtnProps {
-  children: string;
-}
-
-function FacebookAuthBtn({ children }: FacebookAuthBtnProps) {
+function FacebookAuthBtn(props: React.PropsWithChildren<{}>) {
+  const { children } = props;
   const classes = useStyles();
 
   const facebookSignIn = (evt: React.MouseEvent) => {
