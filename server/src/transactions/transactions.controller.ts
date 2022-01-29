@@ -16,11 +16,8 @@ export class TransactionsController {
   }
 
   @Get()
-  get(
-    @Query()
-    filterDto: GetTransactionsDto,
-  ): Promise<Transaction[]> {
-    return this.transactionsService.getTransactions(filterDto);
+  get(@Query() getTransactionsDto: GetTransactionsDto): Promise<Transaction[]> {
+    return this.transactionsService.getTransactions(getTransactionsDto);
   }
 
   @Get('/:id')

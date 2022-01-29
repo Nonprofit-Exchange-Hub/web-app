@@ -19,7 +19,7 @@ export class TransactionsService {
   }
 
   async getTransactions(getTransactionsDto: GetTransactionsDto): Promise<Transaction[]> {
-    return this.transactionsRepository.find(getTransactionsDto);
+    return this.transactionsRepository.find({ where: getTransactionsDto });
   }
 
   async getTransactionById(id: number): Promise<Transaction> {
