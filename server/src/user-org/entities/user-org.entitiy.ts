@@ -23,7 +23,7 @@ export class UserOrganization {
   })
   approvalStatus: ApprovalStatus;
 
-  @ManyToOne(() => Organization, (user) => user)
+  @ManyToOne(() => Organization, (user) => user, { eager: true })
   organization!: Organization;
 
   @Column({
@@ -33,7 +33,7 @@ export class UserOrganization {
   })
   role: Role;
 
-  @ManyToOne(() => User, (org) => org)
+  @ManyToOne(() => User, (org) => org, { eager: true })
   user!: User;
 
   @CreateDateColumn()
