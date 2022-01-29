@@ -25,7 +25,7 @@ export class User {
 
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
-  // added for many to many relationship with user_org
+
   @OneToMany(() => UserOrganization, (user_org) => user_org.user)
   user_organizations: UserOrganization[];
 }

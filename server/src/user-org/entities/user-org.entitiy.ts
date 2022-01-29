@@ -1,5 +1,3 @@
-import { Organization } from '../../organizations/entities/organization.entity';
-import { User } from '../../users/entities/user.entity';
 import {
   Entity,
   Column,
@@ -9,28 +7,14 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-export enum Role {
-  admin = 'ADMIN',
-  owner = 'OWNER',
-  revoked = 'REVOKED',
-}
-
-export enum ApprovalStatus {
-  approved = 'APPROVED',
-  pending = 'PENDING',
-  denied = 'DENIED',
-}
+import { Organization } from '../../organizations/entities/organization.entity';
+import { User } from '../../users/entities/user.entity';
+import { ApprovalStatus, Role } from '../constants';
 
 @Entity('userOrganizations')
 export class UserOrganization {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column('int')
-  user_id!: number;
-
-  @Column('int')
-  org_id!: number;
 
   @Column({
     type: 'enum',
@@ -39,6 +23,9 @@ export class UserOrganization {
   })
   approvalStatus: ApprovalStatus;
 
+  @ManyToOne(() => Organization, (user) => user)
+  organization!: Organization;
+
   @Column({
     type: 'enum',
     enum: Role,
@@ -46,12 +33,9 @@ export class UserOrganization {
   })
   role: Role;
 
-  @CreateDateColumn()
-  created_at: Date;
-
-  @ManyToOne(() => Organization, (user) => user) // added a one to many relationship in org and user files
-  organization!: Organization;
-
   @ManyToOne(() => User, (org) => org)
   user!: User;
+
+  @CreateDateColumn()
+  created_at: Date;
 }

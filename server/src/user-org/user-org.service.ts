@@ -33,8 +33,6 @@ export class UserOrganizationsService {
     updateUserOrganizationsDto: UpdateUserOrganizationDto,
   ): Promise<UserOrganization> {
     await this.userOrganizationsRepository.update(id, updateUserOrganizationsDto);
-    //TODO: Assess if there is a better way than making two requests.
-    // can probs return value of .update
     return this.userOrganizationsRepository.findOne(id);
   }
 
