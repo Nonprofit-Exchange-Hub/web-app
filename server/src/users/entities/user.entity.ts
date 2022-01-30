@@ -1,5 +1,6 @@
-import { UserOrganization } from '../../user-org/entities/user-org.entitiy';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+
+import { UserOrganization } from '../../user-org/entities/user-org.entitiy';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
 
@@ -17,7 +18,7 @@ export class User {
   @Column({ type: 'text', unique: true })
   email: string;
 
-  @Column('text')
+  @Column('text', { select: false })
   password: string;
 
   @OneToMany(() => Asset, (asset) => asset.poster)
@@ -27,5 +28,5 @@ export class User {
   messages: Message[];
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.user)
-  user_organizations: UserOrganization[];
+  organizations: UserOrganization[];
 }

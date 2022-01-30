@@ -34,5 +34,5 @@ export class Organization {
   tax_exempt_id: number;
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.organization)
-  user_organizations: UserOrganization[];
+  users: UserOrganization[];
 }
