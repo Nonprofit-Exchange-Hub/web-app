@@ -22,8 +22,4 @@ export class CreateTransactionDto {
   @IsOptional()
   @IsEnum(TransactionStatus)
   status: TransactionStatus;
-
-  @IsOptional()
-  @IsNotEmpty()
-  created_date: Date;
 }
