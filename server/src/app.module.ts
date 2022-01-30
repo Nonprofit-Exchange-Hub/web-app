@@ -13,6 +13,7 @@ import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { CategoriesModule } from './categories/categories.module';
+import { UserOrganizationsModule } from './user-org/user-org.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { CategoriesModule } from './categories/categories.module';
     OrganizationsModule,
     UsersModule,
     CategoriesModule,
+    UserOrganizationsModule,
     TransactionsModule,
   ],
   controllers: [AppController],
