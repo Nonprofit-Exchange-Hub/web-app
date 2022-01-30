@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 import { AssetType, Condition } from '../constants';
+import { Transaction } from '../../transactions/entities/transaction.entity';
 
 @Entity('assets')
 export class Asset {
@@ -32,5 +33,9 @@ export class Asset {
   quantity: number;
 
   @ManyToOne(() => User, (user) => user.assets)
+  @JoinColumn({ name: 'poster_id' })
   poster: User;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.asset)
+  transactions: Transaction[];
 }
