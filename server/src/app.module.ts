@@ -11,6 +11,7 @@ import { AssetsModule } from './assets/assets.module';
 import { MessagesModule } from './messages/messages.module';
 import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
+import { TransactionsModule } from './transactions/transactions.module';
 import { CategoriesModule } from './categories/categories.module';
 
 @Module({
@@ -28,6 +29,7 @@ import { CategoriesModule } from './categories/categories.module';
     OrganizationsModule,
     UsersModule,
     CategoriesModule,
+    TransactionsModule,
   ],
   controllers: [AppController],
   providers: [],

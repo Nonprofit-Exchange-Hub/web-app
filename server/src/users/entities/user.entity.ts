@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
+import { Transaction } from '../../transactions/entities/transaction.entity';
 
 @Entity('users')
 export class User {
@@ -21,6 +22,9 @@ export class User {
 
   @OneToMany(() => Asset, (asset) => asset.poster)
   assets: Asset[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.donater_user)
+  transactions: Transaction[];
 
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
