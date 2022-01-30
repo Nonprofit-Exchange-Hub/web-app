@@ -8,6 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 
@@ -35,15 +36,9 @@ export class UserOrganizationsController {
     }
   }
 
-  @Get()
-  async findAll(): Promise<UserOrganization[]> {
-    const allUserOrgs = await this.userOrganizationsService.findAll();
-    return allUserOrgs;
-  }
-
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<UserOrganization> {
-    const userOrg = await this.userOrganizationsService.findOne(parseInt(id, 10));
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<UserOrganization> {
+    const userOrg = await this.userOrganizationsService.findOne(id);
     if (!userOrg) {
       throw new HttpException(
         { staus: HttpStatus.NOT_FOUND, message: 'User relation to Organization not found' },
@@ -55,12 +50,12 @@ export class UserOrganizationsController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateUserOrganizationDto: UpdateUserOrganizationDto,
   ): Promise<UserOrganization> {
     try {
       const updatedUserOrg = await this.userOrganizationsService.update(
-        parseInt(id, 10),
+        id,
         updateUserOrganizationDto,
       );
       return updatedUserOrg;
@@ -73,8 +68,8 @@ export class UserOrganizationsController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<DeleteResult> {
-    const userOrgToDelete = await this.userOrganizationsService.remove(parseInt(id));
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
+    const userOrgToDelete = await this.userOrganizationsService.remove(id);
     if (userOrgToDelete.affected === 0) {
       throw new HttpException(
         { staus: HttpStatus.NOT_FOUND, message: 'User relation to Organization not found' },
