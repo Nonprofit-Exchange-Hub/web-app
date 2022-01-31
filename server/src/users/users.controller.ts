@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,8 +18,17 @@ export class UsersController {
   }
 
   @Post('reset_password')
-    resetPassword() {
-      //check database for password. if it exists send an email nothing needs to be sent back here.
+  async resetPassword(@Request() req) {
+      //check database for email. if it exists send an email,  nothing needs to be returned here.
+      //if not found do nothing?
+      console.log(req.body.email)
+      let user = this.usersService.findByEmailNonAsync(req.body.email)
+      if (user) {
+        console.log(user)
+      } else {
+        console.log("No User")
+      }
+      //maybe make a table for reset-password. delete entries after password is reset OR if user is not found?
   }
 
   @Get(':id')

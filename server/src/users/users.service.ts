@@ -36,6 +36,11 @@ export class UsersService {
     return this.usersRepository.findOne(id);
   }
 
+  findByEmailNonAsync(email: string) {
+    const user = this.usersRepository.findOne({ email });
+    return (user) ? user : null;
+  }
+
   // Search database for user with matching email.
   // Returns user on success, throws 404 error if user does not exist
   async findByEmail(email: string) {

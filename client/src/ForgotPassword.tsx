@@ -105,7 +105,7 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    await fetch('http://localhost:3001/api/user/reset_password', {
+    await fetch('http://localhost:3001/api/users/reset_password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
