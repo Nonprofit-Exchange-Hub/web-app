@@ -19,14 +19,17 @@ export class UsersController {
 
   @Post('reset_password')
   async resetPassword(@Request() req) {
-      //check database for email. if it exists send an email,  nothing needs to be returned here.
-      //if not found do nothing?
       console.log(req.body.email)
-      let user = this.usersService.findByEmail(req.body.email)
-      //possibly need a catch here, but not sure how to handle that.
+      let user;
+      try {
+        user = await this.usersService.findByEmail(req.body.email);
+      } catch(e) {
+        console.error(e);
+      }
       if (user) {
         console.log("got a user")
         console.log(user)
+        //great send email
       } else {
         console.log("No User")
       }
