@@ -22,8 +22,10 @@ export class UsersController {
       //check database for email. if it exists send an email,  nothing needs to be returned here.
       //if not found do nothing?
       console.log(req.body.email)
-      let user = this.usersService.findByEmailNonAsync(req.body.email)
+      let user = this.usersService.findByEmail(req.body.email)
+      //possibly need a catch here, but not sure how to handle that.
       if (user) {
+        console.log("got a user")
         console.log(user)
       } else {
         console.log("No User")
