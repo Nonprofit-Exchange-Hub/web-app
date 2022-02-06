@@ -10,7 +10,7 @@ const categories = [
   { value: 'pears', text: 'Pears' },
 ];
 const conditions = [
-  { value: 'like-new', text: 'Like New' },
+  { value: 'like-new', text: 'Like new' },
   { value: 'excellent', text: 'Excellent' },
   { value: 'good', text: 'Good' },
 ];
@@ -61,6 +61,25 @@ function NeedForm() {
       ...fData,
       [name]: value,
     }));
+  };
+
+  const handleSubmit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    const res = await fetch('http://localhost:3001/api/assets', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (res.status === 201) {
+      // TODO: Push the user to the correct asset page
+      console.log(data);
+    } else {
+      // TODO: Display error modal
+      console.error(data.message);
+    }
   };
 
   return (
@@ -156,7 +175,7 @@ function NeedForm() {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
               Submit Need
             </Button>
           </Grid>

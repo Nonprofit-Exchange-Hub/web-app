@@ -10,7 +10,7 @@ const categories = [
   { value: 'pears', text: 'Pears' },
 ];
 const conditions = [
-  { value: 'like-new', text: 'Like New' },
+  { value: 'like-new', text: 'Like new' },
   { value: 'excellent', text: 'Excellent' },
   { value: 'good', text: 'Good' },
 ];

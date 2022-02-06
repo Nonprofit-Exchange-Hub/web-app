@@ -43,7 +43,7 @@ export class AssetsController {
     const foundAsset = await this.assetsService.findOne(parseInt(id));
     if (!foundAsset) {
       throw new HttpException(
-        { staus: HttpStatus.NOT_FOUND, message: 'Asset not found' },
+        { status: HttpStatus.NOT_FOUND, message: 'Asset not found' },
         HttpStatus.NOT_FOUND,
       );
     }
