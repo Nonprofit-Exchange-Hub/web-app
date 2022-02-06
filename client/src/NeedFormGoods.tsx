@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { TextField, RadioGroup, Select, FileUploadInput } from './FormElements';
 import { NeedOfferForm } from './FormElements';
+import { useHistory } from 'react-router-dom';
 
 const categories = [
   { value: 'figs', text: 'Figs' },
@@ -49,6 +50,7 @@ const initialFormData: ShareANeedData = {
 
 function NeedForm() {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
+  const history = useHistory();
 
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
   const handleChange = (
@@ -74,8 +76,7 @@ function NeedForm() {
     });
     const data = await res.json();
     if (res.status === 201) {
-      // TODO: Push the user to the correct asset page
-      console.log(data);
+      history.push('/asset/' + data.id);
     } else {
       // TODO: Display error modal
       console.error(data.message);
