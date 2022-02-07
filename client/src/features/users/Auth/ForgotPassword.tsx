@@ -108,6 +108,10 @@ function ForgotPassword() {
 
     setIsLoading(false);
     setShowSnackbar(true);
+    setFormData((fData) => ({
+      ...fData,
+      email: '',
+    }));
   };
 
   return (
