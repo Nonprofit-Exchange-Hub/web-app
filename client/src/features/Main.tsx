@@ -30,6 +30,11 @@ function Main() {
 
         {/* users */}
         <Route exact path={routes.Login.path} component={routes.Login.component} />
+        <Route
+          exact
+          path={routes.ForgotPassword.path}
+          component={routes.ForgotPassword.component}
+        />
         <Route exact path={routes.Signup.path} component={routes.Signup.component} />
         <Route exact path={routes.SignupCitizen.path} component={routes.SignupCitizen.component} />
         <Route
