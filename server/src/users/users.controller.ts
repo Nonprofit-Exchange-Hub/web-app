@@ -7,8 +7,10 @@ import {
   Param,
   Delete,
   Request,
+  Response,
   ParseIntPipe,
 } from '@nestjs/common';
+import type { Response as ResponseT } from 'express';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -28,26 +30,13 @@ export class UsersController {
   }
 
   @Post('reset_password')
-  async resetPassword(@Request() req) {
-    //console.log(req.body.email)
-    let user;
+  async resetPassword(@Request() req, @Response({ passthrough: true }) response: ResponseT) {
     try {
-      user = await this.usersService.findByEmail(req.body.email);
+      const user = await this.usersService.findByEmail(req.body.email);
+      //TODO send email the user
     } catch (e) {
-      //console.error(e);
+      response.status(200).send();
     }
-    if (user) {
-      // console.log("got a user")
-      //console.log(user)
-      //great send email if you get here
-      //that email has a link to take you to update your password
-    } else {
-      // console.log("No User")
-      //do nothing
-    }
-    //reading online it looks like I might need to  make a table for reset-password.
-    //delete entries after password is reset OR if user is not found?
-    //this is basically to create and keep track of a token (that will expire)
   }
 
   @Get(':id')
