@@ -76,11 +76,10 @@ function ForgotPassword() {
             style={{ backgroundColor: '#C4C4C4', color: 'white' }}
             fullWidth
             type="submit"
+            disabled={isLoading}
           >
-            Send Email To Set New Password
+            {isLoading ? 'sending...' : 'Send Email To Set New Password'}
           </Button>
-          {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
-          {isLoading && <Typography>Loading</Typography>}
         </form>
       </Grid>
     );
