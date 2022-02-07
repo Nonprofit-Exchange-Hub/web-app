@@ -4,16 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-//import { useHistory } from 'react-router-dom';
-//import jwt from 'jsonwebtoken';
 import SimpleSnackbar from '../../action/assets/SimpleSnackbar';
 
 import type { Theme } from '@material-ui/core/styles';
 
 import EmailInput from './EmailInput';
-//import StyledLink from './StyledLink';
-//import { UserContext } from './providers';
-//import routes from '../../../routes';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -57,12 +52,9 @@ interface Error {
 
 function ForgotPassword() {
   const classes = useStyles();
-  //const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error] = React.useState<Error | null>(null);
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
-  //const [, setUser] = React.useContext(UserContext);
-
   const [formData, setFormData] = React.useState(initialFormData);
   const instructions =
     "Enter your email and we'll send you a link to reset you password if you have an account.";
