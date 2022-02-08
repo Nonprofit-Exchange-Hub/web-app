@@ -45,15 +45,9 @@ const initialFormData: UserLoginData = {
   email: '',
 };
 
-interface Error {
-  type: '' | 'email';
-  message: string;
-}
-
 function ForgotPassword() {
   const classes = useStyles();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [error] = React.useState<Error | null>(null);
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState(initialFormData);
   const instructions =
@@ -69,7 +63,7 @@ function ForgotPassword() {
             value={formData.email}
             placeholder="jane@nonprofit.com"
             onChange={handleChange}
-            error={error?.type === 'email' ? error.message : null}
+            error={null}
           />
           <Button
             className={classes.button}

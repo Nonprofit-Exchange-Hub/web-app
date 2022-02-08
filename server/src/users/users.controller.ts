@@ -30,7 +30,10 @@ export class UsersController {
   }
 
   @Post('reset_password')
-  async resetPassword(@Request() req, @Response({ passthrough: true }) response: ResponseT) {
+  async resetPassword(
+    @Request() req,
+    @Response({ passthrough: true }) response: ResponseT,
+  ): Promise<void> {
     try {
       const user = await this.usersService.findByEmail(req.body.email);
       //TODO send email the user
