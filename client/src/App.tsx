@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './Theme';
 
-import Footer from './Footer';
-import Header from './Header';
-import Routes from './Routes';
+import theme from './Theme';
+import Footer from './features/Footer';
+import Header from './features/Header';
+import Main from './features/Main';
 import { UserProvider } from './providers';
 
 import './App.css';
@@ -17,7 +17,7 @@ function App(): JSX.Element {
         <BrowserRouter>
           <div className="App">
             <Header />
-            <Routes />
+            <Main />
             <Footer />
           </div>
         </BrowserRouter>
