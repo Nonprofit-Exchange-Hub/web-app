@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-
+import { useHistory } from 'react-router-dom';
 import {
   FileUploadInput,
   RadioGroup,
@@ -16,7 +16,7 @@ const categories = [
   { value: 'pears', text: 'Pears' },
 ];
 const conditions = [
-  { value: 'like-new', text: 'Like New' },
+  { value: 'like-new', text: 'Like new' },
   { value: 'excellent', text: 'Excellent' },
   { value: 'good', text: 'Good' },
 ];
@@ -55,6 +55,7 @@ const initialFormData: ShareANeedData = {
 
 function NeedForm() {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
+  const history = useHistory();
 
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
   const handleChange = (
@@ -67,6 +68,24 @@ function NeedForm() {
       ...fData,
       [name]: value,
     }));
+  };
+
+  const handleSubmit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    const res = await fetch('http://localhost:3001/api/assets', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (res.status === 201) {
+      history.push('/asset/' + data.id);
+    } else {
+      // TODO: Display error modal
+      console.error(data.message);
+    }
   };
 
   return (
@@ -162,7 +181,7 @@ function NeedForm() {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
               Submit Need
             </Button>
           </Grid>
