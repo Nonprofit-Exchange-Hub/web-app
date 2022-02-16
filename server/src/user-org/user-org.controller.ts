@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 
-import { UserOrganization } from './entities/user-org.entitiy';
+import { UserOrganization } from './entities/user-org.entity';
 import { UserOrganizationsService } from './user-org.service';
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
