@@ -17,10 +17,10 @@ describe('UsersController', () => {
 
   let existingRecordId = 0;
   const seed = {
-    first: 'peter',
-    last: 'parker',
+    first_name: 'peter',
+    last_name: 'parker',
     email: 'peter.parker@example.com',
-    pass: 'secret1234',
+    password: 'secret1234',
   };
 
   beforeAll(async () => {
@@ -39,12 +39,7 @@ describe('UsersController', () => {
 
   beforeEach(async () => {
     // seed data
-    const { id } = await usersService.create({
-      first_name: seed.first,
-      last_name: seed.last,
-      email: seed.email,
-      password: seed.pass,
-    });
+    const { id } = await usersService.create({ ...seed });
     existingRecordId = id;
   });
 
@@ -110,8 +105,8 @@ describe('UsersController', () => {
       expect(body).not.toBeUndefined();
       expect(body.id).not.toBeNull();
       expect(body.email).toEqual(seed.email);
-      expect(body.first_name).toEqual(seed.first);
-      expect(body.last_name).toEqual(seed.last);
+      expect(body.first_name).toEqual(seed.first_name);
+      expect(body.last_name).toEqual(seed.last_name);
     });
 
     // not yet implemented, so skipping for now
