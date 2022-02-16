@@ -8,7 +8,7 @@
 - Use an actual database instead of an [in-memory database](https://dev.to/webeleon/unit-testing-nestjs-with-typeorm-in-memory-l6m) to get as close as possible to the real deal
 
 ## Prerequisites to run the e2e tests
-- Existing database based on the test connection options: `server/test/e2e.env`
+- Existing database based on the test connection options: `server/.env`. You should have a `E2E_DATABASE_DB` entry in your `.env` file with the name of the e2e database.
 - At the moment, you may have to create it manually, but in the future, it should be auto-created for the dev environment
 
 ## Important Notes
