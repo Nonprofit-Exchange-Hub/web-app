@@ -5,7 +5,7 @@ import type { DeleteResult, Repository } from 'typeorm';
 
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
-import { UserOrganization } from './entities/user-org.entitiy';
+import { UserOrganization } from './entities/user-org.entity';
 
 @Injectable()
 export class UserOrganizationsService {
