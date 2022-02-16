@@ -14,6 +14,7 @@ import { OrganizationsModule } from './organizations/organizations.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { CategoriesModule } from './categories/categories.module';
 import { UserOrganizationsModule } from './user-org/user-org.module';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UserOrganizationsModule } from './user-org/user-org.module';
     CategoriesModule,
     UserOrganizationsModule,
     TransactionsModule,
+    SeederModule,
   ],
   controllers: [AppController],
   providers: [],
