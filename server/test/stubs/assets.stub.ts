@@ -1,7 +1,9 @@
+import { User } from '../../src/users/entities/user.entity';
 import { AssetType, Condition } from '../../src/assets/constants';
 import { Asset } from '../../src/assets/entities/asset.entity';
+import { Transaction } from '../../src/transactions/entities/transaction.entity';
 
-export const assetsStub = (): Asset => {
+export const assetsStub = (poster: User, transactions: Transaction[]): Asset => {
   return {
     id: 2435,
     title: 'fakeTitle',
@@ -9,14 +11,7 @@ export const assetsStub = (): Asset => {
     type: AssetType.DONATION,
     condition: Condition.EXCELLENT,
     quantity: 6,
-    poster: {
-      id: 234545,
-      first_name: 'fakeUser',
-      last_name: 'John',
-      email: 'user@test.com',
-      password: 'Secret1234$',
-      assets: null,
-      messages: null,
-    },
+    poster,
+    transactions,
   };
 };

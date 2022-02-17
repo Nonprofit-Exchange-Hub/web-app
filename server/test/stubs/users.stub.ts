@@ -3,7 +3,7 @@ import { Asset } from '../../src/assets/entities/asset.entity';
 import { CreateUserDto } from '../../src/users/dto/create-user.dto';
 import { User } from '../../src/users/entities/user.entity';
 import { Transaction } from '../../src/transactions/entities/transaction.entity';
-import { UserOrganization } from '../../src/user-org/entities/user-org.entitiy';
+import { UserOrganization } from '../../src/user-org/entities/user-org.entity';
 
 export const userEntityStub = (
   assets?: Asset[],
@@ -18,9 +18,9 @@ export const userEntityStub = (
     email: 'Doe',
     password: 'Secret1234$',
     assets: assets,
-    messages: messages,
-    transactions: transactions,
-    organizations: organizations,
+    messages,
+    transactions,
+    organizations,
   };
 };
 
