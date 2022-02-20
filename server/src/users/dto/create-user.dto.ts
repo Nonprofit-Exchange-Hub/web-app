@@ -1,18 +1,16 @@
-import { IsOptional } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
-import { User } from '../entities/user.entity';
-
-export class CreateUserDto extends PartialType(User) {
-  @IsOptional()
+export class CreateUserDto {
+  @IsNotEmpty()
   first_name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   last_name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
+  @IsEmail()
   email: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   password: string;
 }
