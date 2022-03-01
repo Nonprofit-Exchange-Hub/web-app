@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Query,
   Post,
   Body,
   Patch,
@@ -10,7 +11,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { CreateCategoryDto } from './dto/create-category';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { GetCategoriesDto } from './dto/get-categories-filter.dto';
 import { UpdateCategoryDto } from './dto/update-category';
 import { Category } from './entities/category.entity';
 import { DeleteResult } from 'typeorm';
@@ -35,10 +37,13 @@ export class CategoriesController {
   }
 
   @Get()
-  async findAll(): Promise<Category[]> {
-    const allCategories = await this.categoriesService.findAll();
-    return allCategories;
+  get(@Query() getCategoriesDto: GetCategoriesDto): Promise<Category[]> {
+    return this.categoriesService.getCategories(getCategoriesDto);
   }
+  // async findAll(): Promise<Category[]> {
+  //   const allCategories = await this.categoriesService.findAll();
+  //   return allCategories;
+  // }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Category> {
