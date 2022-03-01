@@ -35,8 +35,8 @@ export class UsersController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     try {
-      const user = await this.usersService.findByEmail(req.body.email);
-      //TODO send email the user
+      // const user = await this.usersService.findByEmail(req.body.email);
+      // TODO send email the user
     } catch (e) {
       response.status(200).send();
     }
