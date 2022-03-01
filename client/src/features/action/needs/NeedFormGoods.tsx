@@ -11,7 +11,7 @@ import {
 } from '../../../assets/sharedComponents/Forms';
 import NeedOfferForm from '../NeedOfferForm';
 
-import { Option } from '../../../types';
+import type { Option } from '../../../types';
 
 const fetchCategories = async (): Promise<Option[]> => {
   const res = await fetch('http://localhost:3001/api/categories?applies_to_assets=true');
