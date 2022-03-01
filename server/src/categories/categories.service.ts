@@ -21,10 +21,6 @@ export class CategoriesService {
   async getCategories(getCategoriesDto: GetCategoriesDto): Promise<Category[]> {
     return this.categoriesRepository.find({ where: getCategoriesDto });
   }
-  // async findAll(): Promise<Category[]> {
-  //   const allCategories = await this.categoriesRepository.find();
-  //   return allCategories;
-  // }
 
   async findOne(id: number): Promise<Category> {
     const category = this.categoriesRepository.findOne({ id });
