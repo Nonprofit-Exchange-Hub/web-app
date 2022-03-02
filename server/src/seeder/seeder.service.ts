@@ -1,18 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { users } from 'src/database/seeding/dev-seed';
-import { User } from 'src/users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class SeederService {
-  constructor(
-    private readonly logger: Logger,
-    @InjectRepository(User)
-    private readonly userRepo: Repository<User>,
-  ) {}
+  constructor(private readonly logger: Logger, private readonly userService: UsersService) {}
 
   public async seedAsync(): Promise<void> {
-    await this.userRepo.create(users());
+    users().forEach(async (user: CreateUserDto) => {
+      Logger.log(user.email);
+      this.userService
+        .create(user)
+        .then(() => Logger.debug('Users Seeded'))
+        .catch((err) => Logger.debug(err));
+    });
   }
 }

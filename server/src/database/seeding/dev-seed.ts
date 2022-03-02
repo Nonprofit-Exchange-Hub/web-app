@@ -1,17 +1,20 @@
-import { User } from 'src/users/entities/user.entity';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
-export const users = (): User[] => {
-  const users: User[] = [
+export const users = (): CreateUserDto[] => {
+  const users: CreateUserDto[] = [
     {
-      id: 1,
+      id: 0,
       first_name: 'user1First',
-      last_name: 'user2Last',
+      last_name: 'user1Last',
       email: 'user1First@example.com',
       password: 'Secret1234%',
-      assets: [],
-      transactions: [],
-      messages: [],
-      organizations: [],
+    },
+    {
+      id: 0,
+      first_name: 'user2First',
+      last_name: 'user2Last',
+      email: 'user2First@example.com',
+      password: 'Secret1234%',
     },
   ];
   return users;

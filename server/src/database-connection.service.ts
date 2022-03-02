@@ -15,7 +15,8 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
       synchronize: true, //shouldn't be used in production
       dropSchema: false, //toggle to true to clear database schema
       logging: true,
-      autoLoadEntities: true,
+      // autoLoadEntities: true,
+      entities: ['./src/**/*.entity.ts'],
     };
   }
 }
