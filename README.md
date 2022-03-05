@@ -28,6 +28,8 @@
     DATABASE_PASSWORD=your_password
     DATABASE_DB=test_db
     BCRYPT_WORK_FACTOR=10   
+    # e2e only used when running e2e tests
+    E2E_DATABASE_DB=e2e_db
 ```
 6. In that `.env` file we'll now customize some of those values
     * If you are using the non-dockerized version of postgres, change the `DATABASE_PORT` value to `5432`
