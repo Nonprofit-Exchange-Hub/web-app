@@ -9,14 +9,14 @@ services:
     container_name: postgres
     image: postgres:latest
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_DB}
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata-staging:/var/lib/postgresql/data
       - ./sql-scripts/postgres-initdb/create-db.sql:/docker-entrypoint-initdb.d/init.sql # runs slq script on startup
 
 volumes:
-    pgdata:
+    pgdata_staging:

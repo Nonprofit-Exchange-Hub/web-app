@@ -1,5 +1,5 @@
 # Multi-stage build to take advantage of stage caching
-FROM node:16-alpine as embeddedFronEnd
+FROM node:16-alpine as embeddedFrontEnd
 
 WORKDIR /app/temp/client
 
@@ -23,7 +23,7 @@ RUN npm ci
 
 RUN mkdir -p /app/client
 
-COPY --from=embeddedFronEnd /app/temp/client/build/ /app/client/build/
+COPY --from=embeddedFrontEnd /app/temp/client/build/ /app/client/build/
 
 WORKDIR  /app/server
 
