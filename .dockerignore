@@ -6,5 +6,6 @@
 *.md
 **/.git
 **/pgdata
+**/pgdata-staging
 **/*.eslintrc.js
 **/.vscode/*
