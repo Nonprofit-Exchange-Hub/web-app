@@ -78,8 +78,13 @@ function Assets(): JSX.Element {
     });
   };
 
+  const [donations, setDonations] = React.useState([]);
+
   React.useEffect(() => {
     // fetch assets with querySearchText
+    fetch('http://localhost:3001/api/assets')
+      .then((resp) => resp.json())
+      .then((data) => setDonations(data));
   }, [location]);
 
   return (
@@ -133,6 +138,7 @@ function Assets(): JSX.Element {
           </Paper>
           <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />
           <NeedsAndOffers headerText="Offers" assets={mockData} />
+          <NeedsAndOffers headerText="Test" assets={donations} />
         </div>
       </div>
     </>
