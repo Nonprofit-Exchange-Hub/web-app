@@ -65,11 +65,11 @@ function NeedForm() {
   }, [showPrompt, formData]);
 
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
-  const handleChange = async (
+  const handleChange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<{ name?: string | undefined; value: unknown }>,
-  ): Promise<void> => {
+  ) => {
     let { name = '', value }: { name?: string | undefined; value: unknown } = event.target;
     setFormData((fData) => ({
       ...fData,
