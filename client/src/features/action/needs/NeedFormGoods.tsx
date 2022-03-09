@@ -69,7 +69,7 @@ function NeedForm() {
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<{ name?: string | undefined; value: unknown }>,
-  ) => {
+  ): void => {
     let { name = '', value }: { name?: string | undefined; value: unknown } = event.target;
     setFormData((fData) => ({
       ...fData,
