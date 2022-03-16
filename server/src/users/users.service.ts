@@ -30,9 +30,21 @@ export class UsersService {
     return this.usersRepository.findOne(id);
   }
 
+  // gets just pw property from user by email
+  async findPwByEmail(email: string): Promise<string> {
+    const { password } = await this.usersRepository.findOneOrFail({
+      where: { email },
+      select: ['password'],
+    });
+    return password;
+  }
+
+  // TODO use DTO as return type to below function to further enforce pw is excluded from response
+
+  // gets user sans pw property
   // Search database for user with matching email.
   // Returns user on success, throws 404 error if user does not exist
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<Omit<User, 'password'>> {
     const user = await this.usersRepository.findOne({ email });
     if (!user) {
       throw new HttpException(

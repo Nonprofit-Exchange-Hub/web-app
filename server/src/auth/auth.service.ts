@@ -9,31 +9,22 @@ import { jwtConstants } from './constants';
 export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
-  async validateUser(email: string, password: string): Promise<Omit<User, 'password'>> {
-    // Check if user with email exists in database
-    let user: User;
+  async validateUser(email: string, password: string): Promise<boolean> {
     try {
-      user = await this.usersService.findByEmail(email);
+      const hash = await this.usersService.findPwByEmail(email);
+
+      // Check if password from client matches password associated with
+      // the user retrieved from database
+      const isMatch = await bcrypt.compare(password, hash);
+      if (isMatch) {
+        return true;
+      } else {
+        throw new Error();
+      }
     } catch (err) {
       err.status = HttpStatus.UNAUTHORIZED;
       err.response.status = HttpStatus.UNAUTHORIZED;
       throw err;
-    }
-
-    // Check if password from client matches password associated with
-    // the user retrieved from database
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-      delete user.password;
-      return user;
-    } else {
-      throw new HttpException(
-        {
-          status: HttpStatus.UNAUTHORIZED,
-          error: 'Invalid password',
-        },
-        HttpStatus.UNAUTHORIZED,
-      );
     }
   }
 
