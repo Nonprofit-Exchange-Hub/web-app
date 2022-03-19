@@ -11,22 +11,24 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import type { Response as ResponseT } from 'express';
+import { Query } from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserSansPasswordDto } from './dto/user-sans-password.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<Omit<User, 'password' | 'accept_terms'>> {
+  async create(@Body() createUserDto: CreateUserDto): Promise<UserSansPasswordDto> {
     const user = await this.usersService.create(createUserDto);
-    delete user.password;
-    return user;
+
+    // delete user.password;
+    return user as UserSansPasswordDto;
   }
 
   @Post('reset_password')
@@ -45,6 +47,13 @@ export class UsersController {
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
+  }
+
+  // just for testing user service findByEmail
+  // will remove before deploy
+  @Get('email')
+  async findByEmail(@Query() query) {
+    return this.usersService.findByEmail(query.email);
   }
 
   @Patch(':id')

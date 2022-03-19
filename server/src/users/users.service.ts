@@ -1,10 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
-import { User } from './entities/user.entity';
-import type { CreateUserDto } from './dto/create-user.dto';
-import type { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm/repository/Repository';
+
+import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserSansPasswordDto } from './dto/user-sans-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -39,20 +41,21 @@ export class UsersService {
     return password;
   }
 
-  // TODO use DTO as return type to below function to further enforce pw is excluded from response
-
-  // gets user sans pw property
-  // Search database for user with matching email.
+  // gets user, sans pw property
+  // Search database for user with matching email
   // Returns user on success, throws 404 error if user does not exist
-  async findByEmail(email: string): Promise<Omit<User, 'password'>> {
+  async findByEmail(email: string): Promise<UserSansPasswordDto> {
     const user = await this.usersRepository.findOne({ email });
+
     if (!user) {
       throw new HttpException(
         { status: HttpStatus.NOT_FOUND, error: 'Email not found' },
         HttpStatus.NOT_FOUND,
       );
     }
-    return user;
+
+    delete user.password;
+    return user as UserSansPasswordDto;
   }
   //Change to whatever the display name ends up being.
   findByUsername(first_name: string) {
