@@ -9,15 +9,16 @@ import { jwtConstants } from './constants';
 export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
-  async validateUser(email: string, password: string): Promise<boolean> {
+  async validateUser(email: string, password: string): Promise<Omit<User, 'password'>> {
     try {
-      const hash = await this.usersService.findPwByEmail(email);
+      const user = (await this.usersService.findByEmail(email, true)) as User;
 
       // Check if password from client matches password associated with
       // the user retrieved from database
-      const isMatch = await bcrypt.compare(password, hash);
+      const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        return true;
+        delete user.password;
+        return user;
       } else {
         throw new Error();
       }
@@ -28,8 +29,7 @@ export class AuthService {
     }
   }
 
-  async createJwt(user: User) {
-    delete user.password;
+  async createJwt(user: Omit<User, 'password'>) {
     return this.jwtService.sign({ ...user }, { expiresIn: '1h', secret: jwtConstants.secret });
   }
 }

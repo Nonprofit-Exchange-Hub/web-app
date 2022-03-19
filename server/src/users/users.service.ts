@@ -6,20 +6,21 @@ import { Repository } from 'typeorm/repository/Repository';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserSansPasswordDto } from './dto/user-sans-password.dto';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
     try {
       const hashedPw = await bcrypt.hash(
         createUserDto.password,
         parseInt(process.env.BCRYPT_WORK_FACTOR),
       );
       createUserDto.password = hashedPw;
-      return await this.usersRepository.save(createUserDto);
+      const user = await this.usersRepository.save(createUserDto);
+      delete user.password;
+      return user;
     } catch (err) {
       throw new HttpException(
         { status: HttpStatus.CONFLICT, message: 'Email already exists' },
@@ -28,23 +29,13 @@ export class UsersService {
     }
   }
 
-  findOne(id: number) {
-    return this.usersRepository.findOne(id);
+  async findOne(id: number): Promise<Omit<User, 'password'>> {
+    const user = await this.usersRepository.findOne(id);
+    delete user.password;
+    return user;
   }
 
-  // gets just pw property from user by email
-  async findPwByEmail(email: string): Promise<string> {
-    const { password } = await this.usersRepository.findOneOrFail({
-      where: { email },
-      select: ['password'],
-    });
-    return password;
-  }
-
-  // gets user, sans pw property
-  // Search database for user with matching email
-  // Returns user on success, throws 404 error if user does not exist
-  async findByEmail(email: string): Promise<UserSansPasswordDto> {
+  async findByEmail(email: string, includePw = false): Promise<User | Omit<User, 'password'>> {
     const user = await this.usersRepository.findOne({ email });
 
     if (!user) {
@@ -54,21 +45,28 @@ export class UsersService {
       );
     }
 
-    delete user.password;
-    return user as UserSansPasswordDto;
-  }
-  //Change to whatever the display name ends up being.
-  findByUsername(first_name: string) {
-    return this.usersRepository.findOne({ first_name });
+    if (!includePw) {
+      delete user.password;
+    }
+    return user;
   }
 
-  //TODO: Assess if there is a better way than making two requests.
+  // Change to whatever the display name ends up being.
+  async findByUsername(first_name: string): Promise<Omit<User, 'password'>> {
+    const user = await this.usersRepository.findOne({ first_name });
+    delete user.password;
+    return user;
+  }
+
+  // TODO: Assess if there is a better way than making two requests.
   async update(id: number, updateUserDto: UpdateUserDto) {
     await this.usersRepository.update(id, updateUserDto);
-    return this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOne(id);
+    delete user.password;
+    return user;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return this.usersRepository.delete(id);
   }
 }

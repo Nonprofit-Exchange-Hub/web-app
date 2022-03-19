@@ -12,7 +12,7 @@ export class LoginStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string): Promise<any> {
-    const isValid = await this.authService.validateUser(email, password);
-    return true;
+    const user = await this.authService.validateUser(email, password);
+    return user;
   }
 }
