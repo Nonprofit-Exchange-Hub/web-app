@@ -110,7 +110,7 @@ describe('UsersController', () => {
     });
 
     // not yet implemented, so skipping for now
-    it.skip('should not return password hash', async () => {
+    it('should not return password hash', async () => {
       // assert
       const { body } = await supertest
         .agent(app.getHttpServer())
