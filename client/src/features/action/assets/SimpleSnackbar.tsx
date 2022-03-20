@@ -2,8 +2,10 @@ import * as React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+type Props = { message?: string };
 
-export default function SimpleSnackbar() {
+export default function SimpleSnackbar(props: Props) {
+  let message = props.message || 'You Claimed This!';
   const [isOpen, isSetOpen] = React.useState<boolean>(true);
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     isSetOpen(false);
@@ -20,7 +22,7 @@ export default function SimpleSnackbar() {
             <CloseIcon />
           </IconButton>,
         ]}
-        message={<span id="message-id">You claimed this! </span>}
+        message={<span id="message-id">{message}</span>}
       />
     </div>
   );

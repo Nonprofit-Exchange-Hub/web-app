@@ -12,6 +12,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import type { Theme } from '@material-ui/core/styles';
 
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
+import routes from '../../../routes';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -62,7 +63,7 @@ function PasswordInput({
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           Password
           {/* to prop to be updated to use routes once page is set up */}
-          {showForgot && <StyledLink to="/forgot-password">Forgot Password?</StyledLink>}
+          {showForgot && <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>}
         </div>
       </label>
       {error && <FormHelperText error>{error}</FormHelperText>}
