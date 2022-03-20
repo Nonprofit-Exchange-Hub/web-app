@@ -62,7 +62,7 @@ function NeedForm() {
 
   React.useEffect(() => {
     setShowPrompt(() => DetectFormData(formData));
-  }, [showPrompt, formData]);
+  }, [formData]);
 
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
   const handleChange = (
