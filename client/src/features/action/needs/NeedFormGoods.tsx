@@ -57,11 +57,11 @@ const initialFormData: ShareANeedData = {
 
 function NeedForm() {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
-  const [showPrompt, setShowPrompt] = React.useState<boolean>(false);
+  const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const history = useHistory();
 
   React.useEffect(() => {
-    setShowPrompt(() => DetectFormData(formData));
+    setFormInProgress(() => DetectFormData(formData));
   }, [formData]);
 
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
@@ -97,7 +97,7 @@ function NeedForm() {
 
   return (
     <NeedOfferForm title="Share a Need: Goods">
-      <AlertDialog when={showPrompt} onConfirmation={() => true} onCancel={() => false} />
+      <AlertDialog when={formInProgress} onConfirmation={() => true} onCancel={() => false} />
       <Grid container spacing={5}>
         <Grid item md={8} xs={12}>
           <TextField
