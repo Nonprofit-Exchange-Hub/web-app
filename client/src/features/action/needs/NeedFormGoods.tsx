@@ -57,7 +57,7 @@ const initialFormData: ShareANeedData = {
 
 function NeedForm() {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
-  const [showPrompt, setShowPrompt] = React.useState(false);
+  const [showPrompt, setShowPrompt] = React.useState<boolean>(false);
   const history = useHistory();
 
   React.useEffect(() => {
