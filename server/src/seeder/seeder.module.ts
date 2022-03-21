@@ -1,26 +1,33 @@
-import { Logger, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { DatabaseConnectionService } from 'src/database-connection.service';
+import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from 'src/users/users.module';
 import { SeederService } from './seeder.service';
-import * as dotenv from 'dotenv';
-dotenv.config({ path: __dirname + '/../../.env' });
+import { SeedDatabaseConnectionService } from './seed-database-connection.service';
+import { User } from 'src/users/entities/user.entity';
+import { Repository } from 'typeorm';
 
-const typeOrmConnectionOpts = new DatabaseConnectionService().createTypeOrmOptions();
-const defaultConnectionOptions: TypeOrmModuleOptions = { ...typeOrmConnectionOpts };
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-    }),
-    TypeOrmModule.forRoot({
-      ...defaultConnectionOptions,
-      autoLoadEntities: false,
-      entities: ['./src/**/*.entity.ts'],
+    TypeOrmModule.forRootAsync({
+      useClass: SeedDatabaseConnectionService,
     }),
     UsersModule,
   ],
-  providers: [Logger, SeederService, DatabaseConnectionService],
+  providers: [Logger, SeederService, { provide: getRepositoryToken(User), useClass: Repository }],
 })
-export class SeederModule {}
+export class SeederModule implements OnApplicationBootstrap {
+  constructor(private readonly seederService: SeederService) {}
+
+  /**
+   * implements a NESTJS lifecycle method
+   */
+  async onApplicationBootstrap() {
+    Logger.log('onApplicationBootstrap', SeederModule.name);
+
+    // remove all data
+    this.seederService.truncateFromAllTables();
+
+    // seed the users table
+    await this.seederService.seedUsersAsync();
+  }
+}
