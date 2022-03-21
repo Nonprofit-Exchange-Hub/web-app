@@ -13,7 +13,7 @@ import { Repository } from 'typeorm';
     }),
     UsersModule,
   ],
-  providers: [Logger, SeederService, { provide: getRepositoryToken(User), useClass: Repository }],
+  providers: [Logger, SeederService],
 })
 export class SeederModule implements OnApplicationBootstrap {
   constructor(private readonly seederService: SeederService) {}

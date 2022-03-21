@@ -22,8 +22,6 @@ export class SeedDatabaseConnectionService implements TypeOrmOptionsFactory {
       dropSchema: false, //toggle to true to clear database schema
       logging: true,
       entities: ['./src/**/*.entity.ts'],
-      keepConnectionAlive: true,
-      connectTimeoutMS: 1000,
     };
   }
 }
