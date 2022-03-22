@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Query,
   Post,
   Body,
   Patch,
@@ -9,11 +10,13 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
+
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { GetCategoriesDto } from './dto/get-categories-filter.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
-import { DeleteResult } from 'typeorm';
 
 // TODO ticket for adding auth guards https://github.com/Nonprofit-Exchange-Hub/web-app/issues/84
 
@@ -35,9 +38,8 @@ export class CategoriesController {
   }
 
   @Get()
-  async findAll(): Promise<Category[]> {
-    const allCategories = await this.categoriesService.findAll();
-    return allCategories;
+  get(@Query() getCategoriesDto: GetCategoriesDto): Promise<Category[]> {
+    return this.categoriesService.getCategories(getCategoriesDto);
   }
 
   @Get(':id')
