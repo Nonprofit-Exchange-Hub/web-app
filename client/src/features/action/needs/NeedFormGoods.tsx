@@ -10,6 +10,7 @@ import {
   TextField,
 } from '../../../assets/sharedComponents/Forms';
 import NeedOfferForm from '../NeedOfferForm';
+import { UserContext } from '../../../providers';
 
 import type { Category, Option } from '../../../types';
 
@@ -70,6 +71,8 @@ function NeedForm(): JSX.Element {
   const [categories, setCategories] = React.useState<Option[]>([]);
   const history = useHistory();
 
+  const [user] = React.useContext(UserContext);
+
   React.useEffect(() => {
     (async function () {
       const categories = await fetchCategories();
@@ -97,7 +100,10 @@ function NeedForm(): JSX.Element {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        ...formData,
+        poster: user,
+      }),
     });
     const data = await res.json();
     if (res.status === 201) {
