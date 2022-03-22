@@ -81,6 +81,7 @@ describe('UsersController', () => {
         .expect('Content-Type', /json/)
         .expect(403);
     });
+
     it('should return 409 with message when email already exists', async () => {
       const { body } = await supertest
         .agent(app.getHttpServer())
@@ -109,7 +110,6 @@ describe('UsersController', () => {
       expect(body.last_name).toEqual(seed.last_name);
     });
 
-    // not yet implemented, so skipping for now
     it('should not return password hash', async () => {
       // assert
       const { body } = await supertest
