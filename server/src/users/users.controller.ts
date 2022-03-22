@@ -11,6 +11,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import type { Response as ResponseT } from 'express';
+
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -25,7 +26,6 @@ export class UsersController {
     @Body() createUserDto: CreateUserDto,
   ): Promise<Omit<User, 'password' | 'accept_terms'>> {
     const user = await this.usersService.create(createUserDto);
-    delete user.password;
     return user;
   }
 

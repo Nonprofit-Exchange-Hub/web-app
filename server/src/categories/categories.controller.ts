@@ -15,7 +15,7 @@ import { DeleteResult } from 'typeorm';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { GetCategoriesDto } from './dto/get-categories-filter.dto';
-import { UpdateCategoryDto } from './dto/update-category';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
 
 // TODO ticket for adding auth guards https://github.com/Nonprofit-Exchange-Hub/web-app/issues/84

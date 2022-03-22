@@ -4,12 +4,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TransactionStatus } from '../transaction-status.enum';
 import { User } from '../../users/entities/user.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Organization } from '../../organizations/entities/organization.entity';
+import { Message } from '../../messages/entities/message.entity';
 
 @Entity('transactions')
 export class Transaction {
@@ -26,19 +28,23 @@ export class Transaction {
   @CreateDateColumn()
   created_date: Date;
 
-  @ManyToOne((_type) => User, (user) => user.transactions)
+  @ManyToOne(() => User, (user) => user.transactions)
   @JoinColumn()
   donater_user: User;
 
-  @ManyToOne((_type) => Organization, (organization) => organization.transactions)
+  @ManyToOne(() => Organization, (organization) => organization.transactions)
   @JoinColumn()
   donater_organization?: Organization;
 
-  @ManyToOne((_type) => Asset, (asset) => asset.transactions, { eager: true })
+  @ManyToOne(() => Asset, (asset) => asset.transactions, { eager: true })
   @JoinColumn()
   asset: Asset;
 
-  @ManyToOne((_type) => Organization, (recipient) => recipient.transactions)
+  @ManyToOne(() => Organization, (recipient) => recipient.transactions)
   @JoinColumn()
   recipient: Organization;
+
+  @OneToMany(() => Message, (message) => message.transaction)
+  @JoinColumn()
+  messages: Message;
 }
