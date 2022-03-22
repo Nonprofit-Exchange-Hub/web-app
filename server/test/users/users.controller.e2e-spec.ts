@@ -1,4 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import * as supertest from 'supertest';
+import { Repository } from 'typeorm';
+
 import { userCreateDtoStub } from '../stubs';
 import { UsersController } from '../../src/users/users.controller';
 import { UsersService } from '../../src/users/users.service';
@@ -6,9 +10,6 @@ import { User } from '../../src/users/entities/user.entity';
 import { UsersModule } from '../../src/users/users.module';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
-import { INestApplication } from '@nestjs/common';
-import * as supertest from 'supertest';
-import { Repository } from 'typeorm';
 
 describe('UsersController', () => {
   let app: INestApplication;
@@ -81,6 +82,7 @@ describe('UsersController', () => {
         .expect('Content-Type', /json/)
         .expect(403);
     });
+
     it('should return 409 with message when email already exists', async () => {
       const { body } = await supertest
         .agent(app.getHttpServer())
@@ -109,8 +111,7 @@ describe('UsersController', () => {
       expect(body.last_name).toEqual(seed.last_name);
     });
 
-    // not yet implemented, so skipping for now
-    it.skip('should not return password hash', async () => {
+    it('should not return password hash', async () => {
       // assert
       const { body } = await supertest
         .agent(app.getHttpServer())
