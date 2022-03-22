@@ -1,12 +1,23 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { Asset } from '../entities/asset.entity';
-import { User } from 'src/users/entities/user.entity';
+import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
+
+import { User } from '../../users/entities/user.entity';
 import { AssetType, Condition } from '../constants';
 
-export class CreateAssetDto extends PartialType(Asset) {
+export class CreateAssetDto {
+  @IsNotEmpty()
   title: string;
+
+  @IsNotEmpty()
   description: string;
-  poster_id: User;
+
+  @IsNotEmpty()
+  poster: User;
+
+  @IsOptional()
+  @IsEnum(AssetType)
   type: AssetType;
+
+  @IsOptional()
+  @IsEnum(Condition)
   condition: Condition;
 }

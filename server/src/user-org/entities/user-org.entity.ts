@@ -37,5 +37,5 @@ export class UserOrganization {
   user!: User;
 
   @CreateDateColumn()
-  created_at: Date;
+  created_date: Date;
 }
