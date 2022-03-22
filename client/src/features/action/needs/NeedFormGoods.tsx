@@ -11,17 +11,17 @@ import {
 } from '../../../assets/sharedComponents/Forms';
 import NeedOfferForm from '../NeedOfferForm';
 
-import type { Option } from '../../../types';
+import type { Category, Option } from '../../../types';
 
 const fetchCategories = async (): Promise<Option[]> => {
   const res = await fetch('http://localhost:3001/api/categories?applies_to_assets=true');
   const data = await res.json();
 
-  const categories = await data.map((category: any) => {
+  const categories = data.map((category: Category) => {
     const value = category.name.toLowerCase();
     const text = category.name;
 
-    return { value, text };
+    return { id: category.id, text, value };
   });
 
   return categories;
@@ -70,10 +70,12 @@ function NeedForm(): JSX.Element {
   const [categories, setCategories] = React.useState<Option[]>([]);
   const history = useHistory();
 
-  (async function () {
-    const categories = await fetchCategories();
-    setCategories(categories);
-  })();
+  React.useEffect(() => {
+    (async function () {
+      const categories = await fetchCategories();
+      setCategories(categories);
+    })();
+  }, []);
 
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
   const handleChange = (
