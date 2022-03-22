@@ -1,9 +1,15 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { User } from 'src/users/entities/user.entity';
-import { Message } from '../entities/message.entity';
+import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 
-export class CreateMessageDto extends PartialType(Message) {
+import { User } from '../../users/entities/user.entity';
+import { Transaction } from '../../transactions/entities/transaction.entity';
+
+export class CreateMessageDto {
+  @IsNotEmpty()
   text: string;
+
+  @IsNotEmpty()
   user: User;
-  transaction_id: number; // remove once Transaction is set up and a relationship is used in the entity
+
+  @IsNotEmpty()
+  transaction: Transaction;
 }
