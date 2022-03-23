@@ -10,6 +10,8 @@ import {
   TextField,
 } from '../../../assets/sharedComponents/Forms';
 import NeedOfferForm from '../NeedOfferForm';
+import DetectFormData from '../../../assets/sharedComponents/DetectFormData';
+import AlertDialog from '../../../assets/sharedComponents/AlertDialog';
 import { UserContext } from '../../../providers';
 
 import type { Category, Option } from '../../../types';
@@ -68,6 +70,12 @@ const initialFormData: ShareANeedData = {
 
 function NeedForm(): JSX.Element {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
+  const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
+  const history = useHistory();
+
+  React.useEffect(() => {
+    setFormInProgress(() => DetectFormData(formData));
+  }, [formData]);
   const [categories, setCategories] = React.useState<Option[]>([]);
   const history = useHistory();
 
@@ -116,6 +124,7 @@ function NeedForm(): JSX.Element {
 
   return (
     <NeedOfferForm title="Share a Need: Goods">
+      <AlertDialog when={formInProgress} onConfirmation={() => true} onCancel={() => false} />
       <Grid container spacing={5}>
         <Grid item md={8} xs={12}>
           <TextField
