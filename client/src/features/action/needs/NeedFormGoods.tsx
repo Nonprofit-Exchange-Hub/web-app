@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+
 import {
   FileUploadInput,
   RadioGroup,
@@ -11,12 +12,24 @@ import {
 import NeedOfferForm from '../NeedOfferForm';
 import DetectFormData from '../../../assets/sharedComponents/DetectFormData';
 import AlertDialog from '../../../assets/sharedComponents/AlertDialog';
+import { UserContext } from '../../../providers';
 
-const categories = [
-  { value: 'figs', text: 'Figs' },
-  { value: 'peaches', text: 'Peaches' },
-  { value: 'pears', text: 'Pears' },
-];
+import type { Category, Option } from '../../../types';
+
+const fetchCategories = async (): Promise<Option[]> => {
+  const res = await fetch('http://localhost:3001/api/categories?applies_to_assets=true');
+  const data = await res.json();
+
+  const categories = data.map((category: Category) => {
+    const value = category.name.toLowerCase();
+    const text = category.name;
+
+    return { id: category.id, text, value };
+  });
+
+  return categories;
+};
+
 const conditions = [
   { value: 'like-new', text: 'Like new' },
   { value: 'excellent', text: 'Excellent' },
@@ -55,7 +68,7 @@ const initialFormData: ShareANeedData = {
   deliveryMethod: '',
 };
 
-function NeedForm() {
+function NeedForm(): JSX.Element {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const history = useHistory();
@@ -63,6 +76,17 @@ function NeedForm() {
   React.useEffect(() => {
     setFormInProgress(() => DetectFormData(formData));
   }, [formData]);
+  const [categories, setCategories] = React.useState<Option[]>([]);
+  const history = useHistory();
+
+  const [user] = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    (async function () {
+      const categories = await fetchCategories();
+      setCategories(categories);
+    })();
+  }, []);
 
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
   const handleChange = (
@@ -84,7 +108,10 @@ function NeedForm() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        ...formData,
+        poster: user,
+      }),
     });
     const data = await res.json();
     if (res.status === 201) {
