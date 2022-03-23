@@ -1,6 +1,6 @@
 import { CreateUserDto } from '../../users/dto/create-user.dto';
 
-export const users = (): CreateUserDto[] => {
+export const seedUsers = (): CreateUserDto[] => {
   const users: CreateUserDto[] = [
     {
       first_name: 'user1First',

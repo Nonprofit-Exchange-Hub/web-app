@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { users } from '../database/seeding/dev-seed';
+import { seedUsers } from '../database/seeding/seed-data';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { Connection, EntityMetadata, Repository } from 'typeorm';
@@ -12,7 +12,7 @@ export class SeederService {
    * Seeds demo users if they don't exist
    */
   public async seedUsersAsync(): Promise<void> {
-    users().forEach(async (user: CreateUserDto) => {
+    seedUsers().forEach(async (user: CreateUserDto) => {
       const exists = await this.userService.userEmailExists(user.email);
       if (!exists) {
         Logger.log('Seeding Users', SeederService.name);
