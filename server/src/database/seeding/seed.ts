@@ -1,6 +1,6 @@
 import { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { SeederModule } from 'src/seeder/seeder.module';
+import { SeederModule } from '../../seeder/seeder.module';
 /**
  * This method is run as an npm script in `package.json` and
  * is a separate process as the main app

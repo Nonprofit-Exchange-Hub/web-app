@@ -1,10 +1,8 @@
 import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from 'src/users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from '../users/users.module';
 import { SeederService } from './seeder.service';
 import { SeedDatabaseConnectionService } from './seed-database-connection.service';
-import { User } from 'src/users/entities/user.entity';
-import { Repository } from 'typeorm';
 
 @Module({
   imports: [

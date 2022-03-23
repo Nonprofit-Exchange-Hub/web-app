@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { users } from 'src/database/seeding/dev-seed';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { UsersService } from 'src/users/users.service';
+import { users } from '../database/seeding/dev-seed';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { UsersService } from '../users/users.service';
 import { Connection, EntityMetadata, Repository } from 'typeorm';
 
 @Injectable()
