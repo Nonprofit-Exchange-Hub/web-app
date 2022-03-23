@@ -2,12 +2,21 @@ import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
 import { SeederService } from './seeder.service';
-import { SeedDatabaseConnectionService } from './seed-database-connection.service';
+import { DatabaseConnectionService } from 'src/database-connection.service';
+
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: __dirname + '/../../.env' });
+
+const dbOptions = new DatabaseConnectionService().createTypeOrmOptions();
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useClass: SeedDatabaseConnectionService,
+    TypeOrmModule.forRoot({
+      ...dbOptions,
+      autoLoadEntities: false,
+      entities: ['./src/**/*.entity.ts'],
+      keepConnectionAlive: true,
     }),
     UsersModule,
   ],
