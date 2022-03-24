@@ -71,15 +71,14 @@ const initialFormData: ShareANeedData = {
 function NeedForm(): JSX.Element {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
+  const [categories, setCategories] = React.useState<Option[]>([]);
+  const [user] = React.useContext(UserContext);
+
   const history = useHistory();
 
   React.useEffect(() => {
     setFormInProgress(() => DetectFormData(formData));
   }, [formData]);
-  const [categories, setCategories] = React.useState<Option[]>([]);
-  const history = useHistory();
-
-  const [user] = React.useContext(UserContext);
 
   React.useEffect(() => {
     (async function () {
