@@ -1,4 +1,4 @@
-# Nonprofit Exchange Hub (working name)
+# Nonprofit Circle (working name)
 
 ## Description 
 - Platform for non-profits and citizens to collaborate in a giving economy.
