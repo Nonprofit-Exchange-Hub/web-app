@@ -7,6 +7,8 @@ import { Transaction } from './entities/transaction.entity';
 import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
+import type { User } from '../users/entities/user.entity';
+
 @Injectable()
 export class TransactionsService {
   constructor(
@@ -28,6 +30,15 @@ export class TransactionsService {
       throw new NotFoundException();
     }
     return found;
+  }
+
+  // TODO make omit user its own type
+  async getUsersTransactions(user: Omit<User, 'password'>): Promise<Transaction[]> {
+    const found = await this.transactionsRepository.find({
+      where: [{ recipient: user.organizations }, { donater_user: user.id }],
+    });
+
+    return found || [];
   }
 
   async updateTransaction(

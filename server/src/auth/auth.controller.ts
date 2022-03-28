@@ -1,6 +1,6 @@
 import { Controller, Post, Response, Request, UseGuards, Get } from '@nestjs/common';
 
-import type { Request as RequestT, Response as ResponseT } from 'express';
+import type { Response as ResponseT } from 'express';
 
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { CookieAuthGuard } from './guards/cookie-auth.guard';
@@ -8,8 +8,7 @@ import { AuthService } from './auth.service';
 import { COOKIE_KEY } from './constants';
 
 import type { User } from '../users/entities/user.entity';
-
-type AuthedRequest = RequestT & { user: User };
+import type { AuthedRequest } from '../types';
 
 @Controller('auth')
 export class AuthController {

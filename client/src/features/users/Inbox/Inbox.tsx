@@ -75,31 +75,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fetchTransactions = (): Promise<Transaction[]> => {
-  return Promise.resolve([
-    {
-      id: 1,
-      donater: { id: 1, firstName: 'firstName1' },
-      requester: { id: 2, firstName: 'firstName2' },
-      asset: {
-        id: 1,
-        title: 'title 1',
-      },
-    },
-    {
-      id: 2,
-      donater: { id: 1, firstName: 'firstName1' },
-      requester: { id: 3, firstName: 'firstName3' },
-      asset: {
-        id: 2,
-        title: 'title 2',
-      },
-    },
-  ]);
-};
+const fetchTransactions = async (userId: number): Promise<Transaction[]> => {
+  const res = await fetch(`http://localhost:3001/api/transactions/user/${userId}`);
+  const data = await res.json();
 
-// TODO: make the fetch find messages by transaction
-// TODO: seed data so that messages appear without manually creating them
+  return data;
+};
 
 const fetchMessages = async (): Promise<Message[]> => {
   const res = await fetch('http://localhost:3001/api/messages');
@@ -136,7 +117,7 @@ function MessageInboxView(): JSX.Element {
   React.useEffect(() => {
     if (user) {
       (async function () {
-        const transactions = await fetchTransactions(); // user.id
+        const transactions = await fetchTransactions(user.id);
         setTransactions(transactions);
         setSelectedTransaction(transactions[0]);
       })();
