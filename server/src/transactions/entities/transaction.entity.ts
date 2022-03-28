@@ -42,9 +42,9 @@ export class Transaction {
 
   @ManyToOne(() => Organization, (recipient) => recipient.transactions)
   @JoinColumn()
-  recipient: Organization;
+  recipient?: Organization;
 
   @OneToMany(() => Message, (message) => message.transaction)
   @JoinColumn()
-  messages: Message;
+  messages?: Message;
 }
