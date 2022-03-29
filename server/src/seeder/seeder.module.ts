@@ -2,7 +2,7 @@ import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
 import { SeederService } from './seeder.service';
-import { DatabaseConnectionService } from 'src/database-connection.service';
+import { DatabaseConnectionService } from '../database-connection.service';
 
 import * as dotenv from 'dotenv';
 
