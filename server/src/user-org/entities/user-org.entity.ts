@@ -11,7 +11,7 @@ import { Organization } from '../../organizations/entities/organization.entity';
 import { User } from '../../users/entities/user.entity';
 import { ApprovalStatus, Role } from '../constants';
 
-@Entity('userOrganizations')
+@Entity('user_organizations')
 export class UserOrganization {
   @PrimaryGeneratedColumn()
   id: number;
