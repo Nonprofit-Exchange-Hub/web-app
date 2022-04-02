@@ -22,10 +22,10 @@ export class User {
   @Column('text')
   password: string;
 
-  @OneToMany(() => Asset, (asset) => asset.poster)
+  @OneToMany(() => Asset, (asset) => asset.donater)
   assets: Asset[];
 
-  @OneToMany(() => Transaction, (transaction) => transaction.donater_user)
+  @OneToMany(() => Transaction, (transaction) => transaction.asset.donater)
   transactions: Transaction[];
 
   @OneToMany(() => Message, (message) => message.user)

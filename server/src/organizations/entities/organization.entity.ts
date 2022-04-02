@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
+import { Asset } from '../../assets/entities/asset.entity';
 
 @Entity('organizations')
 export class Organization {
@@ -40,7 +41,10 @@ export class Organization {
 
   @OneToMany(
     () => Transaction,
-    (transaction) => transaction.donater_organization || transaction.recipient,
+    (transaction) => transaction.asset.donater_organization || transaction.recipient,
   )
   transactions: Transaction[];
+
+  @OneToMany(() => Asset, (asset) => asset.donater_organization)
+  assets: Asset[];
 }

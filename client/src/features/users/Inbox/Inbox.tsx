@@ -75,8 +75,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fetchTransactions = async (userId: number): Promise<Transaction[]> => {
-  const res = await fetch(`http://localhost:3001/api/transactions/user/${userId}`);
+const fetchTransactions = async (): Promise<Transaction[]> => {
+  const res = await fetch(`http://localhost:3001/api/transactions/currentUser`);
   const data = await res.json();
 
   return data;
@@ -104,9 +104,9 @@ const fetchMessages = async (): Promise<Message[]> => {
 // TODO use SubHeader component in Offer and Assets pages
 
 // maybe call it SearchBar and have an optional leftContent prop?
-function MessageInboxView(): JSX.Element {
+function MessageInboxView(): JSX.Element | null {
   const classes = useStyles();
-  const [user] = React.useContext(UserContext);
+  const [user, , isLoading] = React.useContext(UserContext);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -117,7 +117,7 @@ function MessageInboxView(): JSX.Element {
   React.useEffect(() => {
     if (user) {
       (async function () {
-        const transactions = await fetchTransactions(user.id);
+        const transactions = await fetchTransactions();
         setTransactions(transactions);
         setSelectedTransaction(transactions[0]);
       })();
@@ -133,6 +133,10 @@ function MessageInboxView(): JSX.Element {
       })();
     }
   }, [selectedTransaction]);
+
+  if (isLoading) {
+    return null;
+  }
 
   if (!user) {
     return <Redirect to={routes.Home.path} />;

@@ -33,9 +33,9 @@ export class TransactionsService {
   }
 
   // TODO make omit user its own type
-  async getUsersTransactions(user: Omit<User, 'password'>): Promise<Transaction[]> {
+  async getCurrentUsersTransactions(user: Omit<User, 'password'>): Promise<Transaction[]> {
     const found = await this.transactionsRepository.find({
-      where: [{ recipient: user.organizations }, { donater_user: user.id }],
+      where: [{ recipient: user.organizations }, { asset: { donater: user.id } }],
     });
 
     return found || [];

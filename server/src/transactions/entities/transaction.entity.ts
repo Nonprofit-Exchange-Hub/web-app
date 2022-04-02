@@ -28,23 +28,15 @@ export class Transaction {
   @CreateDateColumn()
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.transactions)
-  @JoinColumn()
-  donater_user: User;
-
-  @ManyToOne(() => Organization, (organization) => organization.transactions)
-  @JoinColumn()
-  donater_organization?: Organization;
-
   @ManyToOne(() => Asset, (asset) => asset.transactions, { eager: true })
   @JoinColumn()
   asset: Asset;
 
   @ManyToOne(() => Organization, (recipient) => recipient.transactions)
   @JoinColumn()
-  recipient?: Organization;
+  recipient: Organization;
 
   @OneToMany(() => Message, (message) => message.transaction)
   @JoinColumn()
-  messages?: Message;
+  messages: Message;
 }
