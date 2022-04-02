@@ -7,8 +7,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import Typography from '@material-ui/core/Typography';
-import TodayOutlined from '@material-ui/icons/TodayOutlined';
-import RoomOutlined from '@material-ui/icons/RoomOutlined';
 
 import type { Theme } from '@material-ui/core/styles';
 
@@ -152,14 +150,14 @@ function Asset(): JSX.Element {
     });
 
   const aboutInfo = () => {
-    if (asset.organization !== null) {
+    if (asset.donater !== null) {
       return (
         <div>
           <Typography className={classes.subText} variant="subtitle1">
-            About the Nonprofit
+            About the donater
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            {asset.description}
+            {asset.donater.firstName}
           </Typography>
         </div>
       );
@@ -204,19 +202,7 @@ function Asset(): JSX.Element {
             {asset.title}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            {asset.categories.join(', ')}
-          </Typography>
-          <Typography className={classes.subText} variant="subtitle1">
-            {asset.organization ? '' : 'Posted By:'}
-            {asset.postedBy.firstName}
-          </Typography>
-          <Typography className={classes.subText} variant="subtitle1">
-            <RoomOutlined />
-            {asset.location}
-          </Typography>
-          <Typography className={classes.subText} variant="subtitle1">
-            <TodayOutlined />
-            {asset.datePosted}
+            {asset.donater.firstName}
           </Typography>
           {aboutInfo()}
           <Button
@@ -225,7 +211,7 @@ function Asset(): JSX.Element {
             onClick={handleClaim}
             className={classes.claimButton}
           >
-            {asset.organization ? 'I can donate this!' : 'Message to claim!'}
+            {'Message to claim!'}
           </Button>
           {showSnackbar ? <SimpleSnackbar /> : null}
         </div>

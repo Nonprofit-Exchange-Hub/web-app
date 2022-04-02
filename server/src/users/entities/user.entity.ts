@@ -11,10 +11,10 @@ export class User {
   id: number;
 
   @Column('text')
-  first_name: string;
+  firstName: string;
 
   @Column('text')
-  last_name: string;
+  lastName: string;
 
   @Column({ type: 'text', unique: true })
   email: string;

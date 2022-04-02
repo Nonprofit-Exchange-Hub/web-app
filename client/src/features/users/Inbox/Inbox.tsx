@@ -93,10 +93,7 @@ const fetchMessages = async (): Promise<Message[]> => {
       id: message.id,
       text: message.text,
       transactionId: message.transaction_id,
-      user: {
-        id: message.user.id,
-        firstName: message.user.first_name,
-      },
+      user: message.user,
     };
   });
 

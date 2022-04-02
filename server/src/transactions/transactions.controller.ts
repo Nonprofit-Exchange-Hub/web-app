@@ -49,7 +49,7 @@ export class TransactionsController {
     return this.transactionsService.getCurrentUsersTransactions(user);
   }
 
-  @UseGuards(CookieAuthGuard)
+  // @UseGuards(CookieAuthGuard)
   @Get('/:id')
   async getTransactionById(@Param('id') id: number): Promise<Transaction> {
     return this.transactionsService.getTransactionById(id);

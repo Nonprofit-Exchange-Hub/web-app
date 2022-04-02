@@ -36,6 +36,7 @@ export class TransactionsService {
   async getCurrentUsersTransactions(user: Omit<User, 'password'>): Promise<Transaction[]> {
     const found = await this.transactionsRepository.find({
       where: [{ recipient: user.organizations }, { asset: user.assets }],
+      relations: ['recipient', 'asset'],
     });
 
     return found || [];

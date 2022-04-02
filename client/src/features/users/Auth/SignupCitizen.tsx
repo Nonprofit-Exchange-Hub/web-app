@@ -55,16 +55,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface UserSignupData {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   accept_terms?: boolean;
 }
 
 const initialFormData: UserSignupData = {
-  first_name: '',
-  last_name: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   accept_terms: false,
@@ -132,18 +132,18 @@ function SignupCitizen() {
             <Grid container item xs={12} justifyContent="space-between">
               <Grid item xs={5}>
                 <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="first_name">
+                  <label className={classes.label} htmlFor="firstName">
                     First Name
                   </label>
                   <Input
                     className={classes.input}
                     type="text"
-                    id="first_name"
-                    name="first_name"
+                    id="firstName"
+                    name="firstName"
                     autoComplete="given-name"
                     placeholder="Jane"
                     fullWidth
-                    value={formData.first_name}
+                    value={formData.firstName}
                     onChange={handleChange}
                     disableUnderline
                     required
@@ -153,18 +153,18 @@ function SignupCitizen() {
               <Grid item xs={2} />
               <Grid item xs={5}>
                 <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="last_name">
+                  <label className={classes.label} htmlFor="lastName">
                     Last Name
                   </label>
                   <Input
                     className={classes.input}
                     type="text"
-                    id="last_name"
-                    name="last_name"
+                    id="lastName"
+                    name="lastName"
                     autoComplete="family-name"
                     placeholder="Individual"
                     fullWidth
-                    value={formData.last_name}
+                    value={formData.lastName}
                     onChange={handleChange}
                     disableUnderline
                     required
