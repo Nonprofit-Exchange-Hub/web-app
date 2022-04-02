@@ -11,7 +11,7 @@ import { jwtConstants } from './constants';
 
 @Module({
   controllers: [AuthController],
-  exports: [AuthService, JwtModule],
+  exports: [AuthService],
   imports: [
     UsersModule,
     PassportModule,

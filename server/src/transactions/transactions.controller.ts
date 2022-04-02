@@ -29,7 +29,7 @@ export class TransactionsController {
     private usersService: UsersService,
   ) {}
 
-  // @UseGuards(CookieAuthGuard)
+  @UseGuards(CookieAuthGuard)
   @Post()
   async create(@Body() createTransactionDto: CreateTransactionDto): Promise<Transaction> {
     return this.transactionsService.createTransaction(createTransactionDto);
