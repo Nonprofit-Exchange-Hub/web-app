@@ -13,7 +13,6 @@ import RoomOutlined from '@material-ui/icons/RoomOutlined';
 import type { Theme } from '@material-ui/core/styles';
 
 import SimpleSnackbar from './SimpleSnackbar';
-import { mockData } from '../../../assets/temp';
 import routes from '../../../routes';
 
 import type { Asset as AssetT } from '../../../types';
@@ -103,15 +102,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const useAsset = (id?: string): AssetT | null => {
   const [asset, setAsset] = React.useState<AssetT | null>(null);
-
   React.useEffect(() => {
     if (!id) {
       return;
     }
+    const newAsset = async () => {
+      const data = await fetch(`http://localhost:3001/api/assets/${id}`);
+      const json = await data.json();
+      setAsset(json);
+    };
 
-    // TODO replace find with fetch from BE
-    const newAsset = mockData.find((dd) => dd.id === parseInt(id, 10));
-    setAsset(newAsset || null);
+    newAsset();
   }, [id]);
 
   return asset;
@@ -134,6 +135,8 @@ function Asset(): JSX.Element {
   if (!asset) {
     return <>asset not found</>;
   }
+
+  console.log(asset);
 
   const bigImg = asset.imgUrls[selectedImgInd];
 
@@ -204,11 +207,11 @@ function Asset(): JSX.Element {
             {asset.title}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            {asset.categories.join(', ')}
+            {/*{asset.categories.join(', ')} */}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
             {asset.organization ? '' : 'Posted By:'}
-            {asset.postedBy.firstName}
+            {/*{asset.postedBy.firstName} */}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
             <RoomOutlined />
