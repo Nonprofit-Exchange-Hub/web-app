@@ -78,14 +78,22 @@ function Assets(): JSX.Element {
     });
   };
 
+  const [requestedType, setRequestedType] = React.useState('donation');
   const [donations, setDonations] = React.useState([]);
+  const [needs, setNeeds] = React.useState([]);
 
   React.useEffect(() => {
     // fetch assets with querySearchText
-    fetch('http://localhost:3001/api/assets')
+    fetch(`http://localhost:3001/api/assets?type=${requestedType}&title=${querySearchText}`)
       .then((resp) => resp.json())
-      .then((data) => setDonations(data));
-  }, [location]);
+      .then((data) => {
+        if (requestedType === 'donation') {
+          setDonations(data);
+        } else {
+          setNeeds(data);
+        }
+      });
+  }, [location, querySearchText]);
 
   return (
     <>
@@ -97,9 +105,11 @@ function Assets(): JSX.Element {
             inputProps={{ 'aria-label': 'ex. diapers' }}
             type="text"
             value={searchText}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-              setSearchText(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+              setSearchText(e.target.value);
+              // next line only here temporarily to prevent app from erroring out. Intended to be attached to user input in the future
+              setRequestedType('donation');
+            }}
           />
           <NavLink to={`${routes.Assets.path}?search=${searchText}`} className={classes.iconButton}>
             <SearchIcon />
@@ -138,7 +148,8 @@ function Assets(): JSX.Element {
           </Paper>
           <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />
           <NeedsAndOffers headerText="Offers" assets={mockData} />
-          <NeedsAndOffers headerText="Test" assets={donations} />
+          {/* "donation || needs" intended to be temporary. Will show results depending on user input. If user wants to donate or request */}
+          <NeedsAndOffers headerText="Test" assets={donations || needs} />
         </div>
       </div>
     </>

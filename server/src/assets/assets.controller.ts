@@ -8,10 +8,12 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
+import { GetAssetsDto } from './dto/get-asset-filter.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
 import { DeleteResult } from 'typeorm';
@@ -34,9 +36,12 @@ export class AssetsController {
   }
 
   @Get()
-  findAll(): Promise<Asset[]> {
-    return this.assetsService.findAll();
+  get(@Query() getAssetsDto: GetAssetsDto): Promise<Asset[]> {
+    return this.assetsService.getAssets(getAssetsDto);
   }
+  // findAll(): Promise<Asset[]> {
+  //   return this.assetsService.findAll();
+  // }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Asset | HttpException> {
