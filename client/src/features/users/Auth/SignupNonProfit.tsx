@@ -77,11 +77,28 @@ function SignupNonProfit() {
   const classes = useStyles();
 
   const [formData, setFormData] = React.useState(initialFormData);
+  const [einError, setEINError] = React.useState<string | undefined>(undefined);
   const [pageNum, setPageNum] = React.useState(1);
 
   const handleFieldChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = evt.target;
 
+    setFormData((fData) => {
+      return {
+        ...fData,
+        [name]: type === 'checkbox' ? evt.target.checked : value,
+      };
+    });
+  };
+
+  const handleEINChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = evt.target;
+
+    if (value.match(/^[1-9]\d?-\d{7}$/)) {
+      setEINError(undefined);
+    } else {
+      setEINError('Incorrect Pattern');
+    }
     setFormData((fData) => {
       return {
         ...fData,
@@ -178,9 +195,10 @@ function SignupNonProfit() {
                   <TextField
                     id="ein"
                     label="Entity Identification Number (EIN)"
-                    placeholder="EIN"
+                    placeholder="EIN: 99-9999999"
                     value={formData.ein}
-                    onChange={handleFieldChange}
+                    onChange={handleEINChange}
+                    errorText={einError}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>

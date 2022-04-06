@@ -7,10 +7,19 @@ type CustomProps = {
   placeholder: string;
   isMultiline?: boolean;
   value: string;
+  errorText?: string;
   onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function TextField({ label, id, placeholder, isMultiline = false, value, onChange }: CustomProps) {
+function TextField({
+  label,
+  id,
+  placeholder,
+  isMultiline = false,
+  value,
+  onChange,
+  errorText,
+}: CustomProps) {
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
@@ -25,6 +34,8 @@ function TextField({ label, id, placeholder, isMultiline = false, value, onChang
         multiline={isMultiline}
         value={value}
         onChange={onChange}
+        helperText={errorText}
+        error={errorText === '' || errorText === undefined ? undefined : true}
       />
     </FormControl>
   );

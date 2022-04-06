@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export type Asset = {
   id: number;
   title: string;
@@ -9,6 +10,38 @@ export type Asset = {
   poster: User;
   organization: number;
 };
+
+export type Organization = {
+  id: number;
+  name: string;
+  doing_business_as: string;
+  description: string;
+  website: string;
+  address: string;
+  phone: string;
+  city: string;
+  state: string;
+  ein: number;
+  tax_exempt_id: number;
+};
+
+export type UserOrg = {
+  id: number;
+  approvalStatus: ApprovalStatus;
+  role: Role;
+};
+
+export enum Role {
+  admin = 'ADMIN',
+  owner = 'OWNER',
+  revoked = 'REVOKED',
+}
+
+export enum ApprovalStatus {
+  approved = 'APPROVED',
+  pending = 'PENDING',
+  denied = 'DENIED',
+}
 
 export type User = {
   id: number;

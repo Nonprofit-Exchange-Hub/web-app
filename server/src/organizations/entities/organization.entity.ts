@@ -12,6 +12,9 @@ export class Organization {
   name: string;
 
   @Column('text')
+  doing_business_as: string;
+
+  @Column('text')
   description: string;
 
   @Column('text')

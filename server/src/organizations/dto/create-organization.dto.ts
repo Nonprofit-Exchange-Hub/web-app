@@ -5,6 +5,9 @@ export class CreateOrganizationDto {
   name: string;
 
   @IsNotEmpty()
+  doing_business_as: string;
+
+  @IsNotEmpty()
   description: string;
 
   @IsNotEmpty()
