@@ -14,7 +14,11 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <BrowserRouter>
+        <BrowserRouter
+          getUserConfirmation={() => {
+            // intentionally left empty callback to block the default browser prompt.
+          }}
+        >
           <div className="App">
             <Header />
             <Main />

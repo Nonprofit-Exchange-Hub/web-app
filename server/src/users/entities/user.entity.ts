@@ -19,7 +19,7 @@ export class User {
   @Column({ type: 'text', unique: true })
   email: string;
 
-  @Column('text', { select: false })
+  @Column('text')
   password: string;
 
   @OneToMany(() => Asset, (asset) => asset.poster)
