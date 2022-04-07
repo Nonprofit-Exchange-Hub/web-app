@@ -13,6 +13,7 @@ import NeedsAndOffers from '../../home/NeedsAndOffers';
 import FilterGroup from '../../../assets/sharedComponents/FilterGroup';
 import { mockData, filters1, filters2, filters3 } from '../../../assets/temp';
 import routes from '../../../routes';
+import type { Asset } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchBar: {
@@ -78,16 +79,18 @@ function Assets(): JSX.Element {
     });
   };
 
-  const [requestedType, setRequestedType] = React.useState('donation');
-  const [donations, setDonations] = React.useState([]);
-  const [needs, setNeeds] = React.useState([]);
+  const [selectedAssetType, setSelectedAssetType] = React.useState<'donation' | 'request'>(
+    'donation',
+  );
+  const [donations, setDonations] = React.useState<Asset[]>([]);
+  const [needs, setNeeds] = React.useState<Asset[]>([]);
 
   React.useEffect(() => {
     // fetch assets with querySearchText
-    fetch(`http://localhost:3001/api/assets?type=${requestedType}&title=${querySearchText}`)
+    fetch(`http://localhost:3001/api/assets?type=${selectedAssetType}&title=${querySearchText}`)
       .then((resp) => resp.json())
       .then((data) => {
-        if (requestedType === 'donation') {
+        if (selectedAssetType === 'donation') {
           setDonations(data);
         } else {
           setNeeds(data);
@@ -108,7 +111,7 @@ function Assets(): JSX.Element {
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
               setSearchText(e.target.value);
               // next line only here temporarily to prevent app from erroring out. Intended to be attached to user input in the future
-              setRequestedType('donation');
+              setSelectedAssetType('donation');
             }}
           />
           <NavLink to={`${routes.Assets.path}?search=${searchText}`} className={classes.iconButton}>
@@ -148,8 +151,10 @@ function Assets(): JSX.Element {
           </Paper>
           <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />
           <NeedsAndOffers headerText="Offers" assets={mockData} />
-          {/* "donation || needs" intended to be temporary. Will show results depending on user input. If user wants to donate or request */}
-          <NeedsAndOffers headerText="Test" assets={donations || needs} />
+          <NeedsAndOffers
+            headerText="Test"
+            assets={selectedAssetType === 'donation' ? donations : needs}
+          />
         </div>
       </div>
     </>

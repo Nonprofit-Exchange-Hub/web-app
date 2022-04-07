@@ -23,8 +23,8 @@ export class AssetsService {
     return this.assetsRepository.findOne({ id });
   }
 
-  async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[] | undefined> {
-    return this.assetsRepository.find({ where: getAssetsDto });
+  async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
+    return this.assetsRepository.find({ where: getAssetsDto }) || [];
   }
 
   async update(id: number, updateAssetDto: UpdateAssetDto): Promise<Asset> {
