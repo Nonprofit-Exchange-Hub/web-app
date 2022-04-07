@@ -227,7 +227,7 @@ function SignupNonProfit() {
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField
-                    id="first_name"
+                    id="firstName"
                     label="First Name"
                     placeholder="First Name"
                     value={formData.firstName}

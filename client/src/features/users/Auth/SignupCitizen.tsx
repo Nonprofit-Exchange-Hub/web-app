@@ -132,14 +132,14 @@ function SignupCitizen() {
             <Grid container item xs={12} justifyContent="space-between">
               <Grid item xs={5}>
                 <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="first_name">
+                  <label className={classes.label} htmlFor="firstName">
                     First Name
                   </label>
                   <Input
                     className={classes.input}
                     type="text"
-                    id="first_name"
-                    name="first_name"
+                    id="firstName"
+                    name="firstName"
                     autoComplete="given-name"
                     placeholder="Jane"
                     fullWidth

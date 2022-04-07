@@ -13,7 +13,7 @@ export const userEntityStub = (
 ): User => {
   return {
     id: 234545,
-    first_name: 'fakeUser',
+    firstName: 'fakeUser',
     last_name: 'John',
     email: 'Doe',
     password: 'Secret1234$',
@@ -26,7 +26,7 @@ export const userEntityStub = (
 
 export const userCreateDtoStub = (): CreateUserDto => {
   return {
-    first_name: 'jakeUser',
+    firstName: 'jakeUser',
     last_name: 'fakeLast',
     email: 'fakeUser@test.com',
     password: 'Secret1234$',
