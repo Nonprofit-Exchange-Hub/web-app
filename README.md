@@ -38,7 +38,7 @@
         * stop service: `brew services stop postgresql`
         * restart service: `brew services restart postgresql`
     * once postgres is running, try `psql`, it will say `Password for user USERNAME`, try some usual passwords
-        * if you get in:
+        * if you get in:  
             * put that username and password in the env vars
             * run `\list` to list DBs and put one of them in the DATABASE_DB value
         * if you don't get in:

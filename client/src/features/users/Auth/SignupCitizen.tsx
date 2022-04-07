@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface UserSignupData {
-  first_name: string;
+  firstName: string;
   last_name: string;
   email: string;
   password: string;
@@ -63,7 +63,7 @@ interface UserSignupData {
 }
 
 const initialFormData: UserSignupData = {
-  first_name: '',
+  firstName: '',
   last_name: '',
   email: '',
   password: '',
@@ -143,7 +143,7 @@ function SignupCitizen() {
                     autoComplete="given-name"
                     placeholder="Jane"
                     fullWidth
-                    value={formData.first_name}
+                    value={formData.firstName}
                     onChange={handleChange}
                     disableUnderline
                     required

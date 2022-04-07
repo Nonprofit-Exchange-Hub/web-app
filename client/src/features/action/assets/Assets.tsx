@@ -80,9 +80,6 @@ function Assets(): JSX.Element {
 
   React.useEffect(() => {
     // fetch assets with querySearchText
-    fetch('http://localhost:3001/api/assets')
-      .then((resp) => resp.json())
-      .then((data) => console.log(data));
   }, [location]);
 
   return (

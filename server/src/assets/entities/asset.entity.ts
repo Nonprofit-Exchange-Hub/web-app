@@ -32,11 +32,10 @@ export class Asset {
   @Column()
   quantity: number;
 
-  @Column('text', { array: true, default: '{}' })
+  @Column('simple-array', { default: '0' })
   imgUrls: string[];
-  default: [];
 
-  @ManyToOne(() => User, (user) => user.assets)
+  @ManyToOne(() => User, (user) => user.assets, { eager: true })
   @JoinColumn({ name: 'poster_id' })
   poster: User;
 

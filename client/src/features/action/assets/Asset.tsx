@@ -13,6 +13,7 @@ import RoomOutlined from '@material-ui/icons/RoomOutlined';
 import type { Theme } from '@material-ui/core/styles';
 
 import SimpleSnackbar from './SimpleSnackbar';
+import { mockData } from '../../../assets/temp';
 import routes from '../../../routes';
 
 import type { Asset as AssetT } from '../../../types';
@@ -135,9 +136,9 @@ function Asset(): JSX.Element {
   if (!asset) {
     return <>asset not found</>;
   }
-
+  console.log(Array.isArray(asset.imgUrls));
+  console.log(asset.imgUrls);
   console.log(asset);
-
   const bigImg = asset.imgUrls[selectedImgInd];
 
   const showMiniImgs = asset.imgUrls
@@ -207,11 +208,11 @@ function Asset(): JSX.Element {
             {asset.title}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            {/*{asset.categories.join(', ')} */}
+            {mockData[0].categories.join(', ')}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
             {asset.organization ? '' : 'Posted By:'}
-            {/*{asset.postedBy.firstName} */}
+            {asset.poster.firstName}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
             <RoomOutlined />

@@ -43,8 +43,8 @@ export class UsersService {
     return user;
   }
   //Change to whatever the display name ends up being.
-  findByUsername(first_name: string) {
-    return this.usersRepository.findOne({ first_name });
+  findByUsername(firstName: string) {
+    return this.usersRepository.findOne({ firstName });
   }
 
   //TODO: Assess if there is a better way than making two requests.
