@@ -136,9 +136,7 @@ function Asset(): JSX.Element {
   if (!asset) {
     return <>asset not found</>;
   }
-  console.log(Array.isArray(asset.imgUrls));
-  console.log(asset.imgUrls);
-  console.log(asset);
+
   const bigImg = asset.imgUrls[selectedImgInd];
 
   const showMiniImgs = asset.imgUrls
