@@ -65,9 +65,9 @@ function NeedsAndOffers(props: Props): JSX.Element {
         {assets.map((asset) => (
           <NavLink to={`/asset/${asset.id}`} key={asset.id} className={classes.card}>
             <Card variant="outlined">
-              {asset.imgUrls.length && (
+              {asset.imgUrls ? (
                 <img src={asset.imgUrls[0]} className={classes.cardImg} alt={asset.title} />
-              )}
+              ) : null}
               <Typography variant="h6" component="h4" className={classes.cardText1}>
                 {asset.title}, {asset.categories ? asset.categories[0] : null}
               </Typography>
