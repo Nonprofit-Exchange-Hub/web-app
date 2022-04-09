@@ -87,7 +87,11 @@ function Assets(): JSX.Element {
 
   React.useEffect(() => {
     // fetch assets with querySearchText
-    fetch(`http://localhost:3001/api/assets?type=${selectedAssetType}&title=${querySearchText}`)
+    fetch(
+      `http://localhost:3001/api/assets?type=${selectedAssetType}${
+        querySearchText ? `&title=${querySearchText}` : ''
+      }`,
+    )
       .then((resp) => resp.json())
       .then((data) => {
         if (selectedAssetType === 'donation') {
@@ -149,10 +153,9 @@ function Assets(): JSX.Element {
               </Button>
             </NavLink>
           </Paper>
-          <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />
-          <NeedsAndOffers headerText="Offers" assets={mockData} />
+          <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />\
           <NeedsAndOffers
-            headerText="Test"
+            headerText="Offers"
             assets={selectedAssetType === 'donation' ? donations : needs}
           />
         </div>
