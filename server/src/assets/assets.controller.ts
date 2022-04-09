@@ -39,9 +39,6 @@ export class AssetsController {
   get(@Query() getAssetsDto: GetAssetsDto): Promise<Asset[]> {
     return this.assetsService.getAssets(getAssetsDto);
   }
-  // findAll(): Promise<Asset[]> {
-  //   return this.assetsService.findAll();
-  // }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Asset | HttpException> {
