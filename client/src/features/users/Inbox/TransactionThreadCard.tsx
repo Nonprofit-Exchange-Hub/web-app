@@ -48,7 +48,7 @@ function TransactionThreadCard({
 }): JSX.Element {
   const classes = useStyles();
   const otherUser =
-    user?.id === transaction.recipient.id
+    user?.id === transaction.asset.poster.id
       ? transaction.recipient.name
       : transaction.asset.poster.firstName;
 
