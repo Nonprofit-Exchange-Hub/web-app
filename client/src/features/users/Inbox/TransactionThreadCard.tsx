@@ -50,7 +50,7 @@ function TransactionThreadCard({
   const otherUser =
     user?.id === transaction.recipient.id
       ? transaction.recipient.name
-      : transaction.asset.donater.firstName;
+      : transaction.asset.poster.firstName;
 
   return (
     <Card

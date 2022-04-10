@@ -16,11 +16,14 @@ export const mockData: Asset[] = [1, 2, 3].map((num) => ({
   id: num,
   title: `Title ${num}`,
   imgUrls: [placeholderImg, otherImg],
+  categories: [],
   description: lorem,
-  donater: { id: num, firstName: `User${num}`, lastName: `User${num}`, email: `User${num}` },
+  poster: { id: num, firstName: `User${num}`, lastName: `User${num}`, email: `User${num}` },
   type: 'string',
   condition: 'string',
   quantity: num,
+  location: `location ${num}`,
+  datePosted: `date ${num}`,
 }));
 
 export const filters1 = ['filter 1', 'filter 2', 'filter 3'];

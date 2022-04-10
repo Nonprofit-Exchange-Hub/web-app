@@ -150,14 +150,14 @@ function Asset(): JSX.Element {
     });
 
   const aboutInfo = () => {
-    if (asset.donater !== null) {
+    if (asset.poster !== null) {
       return (
         <div>
           <Typography className={classes.subText} variant="subtitle1">
-            About the donater
+            About the poster
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            {asset.donater.firstName}
+            {asset.poster.firstName}
           </Typography>
         </div>
       );
@@ -202,7 +202,7 @@ function Asset(): JSX.Element {
             {asset.title}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            {asset.donater.firstName}
+            {asset.poster.firstName}
           </Typography>
           {aboutInfo()}
           <Button

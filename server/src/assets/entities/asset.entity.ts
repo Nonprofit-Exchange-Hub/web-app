@@ -35,11 +35,11 @@ export class Asset {
 
   @ManyToOne(() => User, (user) => user.assets, { eager: true })
   @JoinColumn()
-  donater: User;
+  poster: User;
 
   @ManyToOne(() => Organization, (organization) => organization.assets)
   @JoinColumn()
-  donater_organization?: Organization;
+  posterOrganization?: Organization;
 
   @OneToMany(() => Transaction, (transaction) => transaction.asset)
   transactions: Transaction[];

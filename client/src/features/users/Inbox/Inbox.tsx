@@ -149,6 +149,7 @@ function MessageInboxView(): JSX.Element | null {
           {transactions.length ? (
             transactions.map((t) => (
               <TransactionThreadCard
+                key={t.id}
                 isSelected={t.id === selectedTransaction?.id}
                 onClick={(transaction: Transaction) => setSelectedTransaction(transaction)}
                 transaction={t}

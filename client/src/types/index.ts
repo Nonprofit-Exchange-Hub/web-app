@@ -1,12 +1,15 @@
 export type Asset = {
   type: string;
   condition: string;
+  categories: string[];
   quantity: number;
   id: number;
   title: string;
   description: string;
-  donater: User;
+  poster: User;
   imgUrls: string[];
+  location: string;
+  datePosted: string;
 };
 
 export type User = {

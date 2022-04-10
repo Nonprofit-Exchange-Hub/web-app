@@ -41,10 +41,10 @@ export class Organization {
 
   @OneToMany(
     () => Transaction,
-    (transaction) => transaction.asset.donater_organization || transaction.recipient,
+    (transaction) => transaction.asset.posterOrganization || transaction.recipient,
   )
   transactions: Transaction[];
 
-  @OneToMany(() => Asset, (asset) => asset.donater_organization)
+  @OneToMany(() => Asset, (asset) => asset.posterOrganization)
   assets: Asset[];
 }
