@@ -11,7 +11,7 @@ export class User {
   id: number;
 
   @Column('text')
-  first_name: string;
+  firstName: string;
 
   @Column('text')
   last_name: string;

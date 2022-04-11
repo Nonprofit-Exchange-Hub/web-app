@@ -18,7 +18,7 @@ describe('UsersController', () => {
 
   let existingRecordId = 0;
   const seed = {
-    first_name: 'peter',
+    firstName: 'peter',
     last_name: 'parker',
     email: 'peter.parker@example.com',
     password: 'secret1234',
@@ -64,7 +64,7 @@ describe('UsersController', () => {
         .expect(201);
       expect(body.id).not.toBeNull();
       expect(body.email).toEqual(userToCreate.email);
-      expect(body.first_name).toEqual(userToCreate.first_name);
+      expect(body.firstName).toEqual(userToCreate.firstName);
       expect(body.last_name).toEqual(userToCreate.last_name);
       expect(body.password).toBeUndefined();
     });
@@ -107,7 +107,7 @@ describe('UsersController', () => {
       expect(body).not.toBeUndefined();
       expect(body.id).not.toBeNull();
       expect(body.email).toEqual(seed.email);
-      expect(body.first_name).toEqual(seed.first_name);
+      expect(body.firstName).toEqual(seed.firstName);
       expect(body.last_name).toEqual(seed.last_name);
     });
 

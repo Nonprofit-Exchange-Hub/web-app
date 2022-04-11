@@ -27,15 +27,15 @@ How this impacts test? -> if you mutate a mutable stub, it will dirty other test
     // Passes
     it('immuntable should not dirty test', async () => {
       const subject = userEntityStub();
-      subject.first_name = 'new first name';
-      expect(subject.first_name).not.toEqual(userEntityStub().first_name);
+      subject.firstName = 'new first name';
+      expect(subject.firstName).not.toEqual(userEntityStub().firstName);
     });
 
     // Passes
     it('pojo should dirty test and fail', async () => {
       const og = {
         id: 234545,
-        first_name: 'fakeUser',
+        firstName: 'fakeUser',
         last_name: 'John',
         email: 'Doe',
         password: 'Secret1234$',
@@ -46,7 +46,7 @@ How this impacts test? -> if you mutate a mutable stub, it will dirty other test
       };
       const subject = og;
       const source = og;
-      subject.first_name = 'new first name';
-      expect(subject.first_name)not.toEqual(source.first_name).fail();
+      subject.firstName = 'new first name';
+      expect(subject.firstName)not.toEqual(source.firstName).fail();
     });
 ```

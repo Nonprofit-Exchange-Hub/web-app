@@ -57,10 +57,9 @@ export class UsersService {
     }
     return user;
   }
-
   // Change to whatever the display name ends up being.
-  async findByUsername(first_name: string): Promise<Omit<User, 'password'>> {
-    const user = await this.usersRepository.findOne({ first_name });
+  async findByUsername(firstName: string): Promise<Omit<User, 'password'>> {
+    const user = await this.usersRepository.findOne({ firstName });
     delete user.password;
     return user;
   }

@@ -6,7 +6,7 @@ export type Asset = {
   location: string;
   imgUrls: string[];
   description: string;
-  postedBy: User;
+  poster: User;
   organization: number;
 };
 

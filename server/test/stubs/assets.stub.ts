@@ -11,6 +11,7 @@ export const assetsStub = (poster: User, transactions: Transaction[]): Asset => 
     type: AssetType.DONATION,
     condition: Condition.EXCELLENT,
     quantity: 6,
+    imgUrls: [],
     poster,
     transactions,
   };
