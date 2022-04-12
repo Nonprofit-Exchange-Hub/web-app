@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm/repository/Repository';
@@ -38,6 +38,13 @@ export class UsersService {
     return user;
   }
 
+  async userEmailExists(email: string): Promise<boolean> {
+    const usersFound = await this.usersRepository.count({ where: { email } });
+    return usersFound > 0;
+  }
+
+  // Search database for user with matching email.
+  // Returns user on success, throws 404 error if user does not exist
   async findByEmail(email: string, includePw = false): Promise<User | Omit<User, 'password'>> {
     const user = await this.usersRepository.findOne({ email });
 
@@ -53,7 +60,6 @@ export class UsersService {
     }
     return user;
   }
-
   // Change to whatever the display name ends up being.
   async findByUsername(firstName: string): Promise<Omit<User, 'password'>> {
     const user = await this.usersRepository.findOne({ firstName });

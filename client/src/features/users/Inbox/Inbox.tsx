@@ -88,14 +88,10 @@ const fetchMessages = async (): Promise<Message[]> => {
   const res = await fetch('http://localhost:3001/api/messages');
   const data = await res.json();
 
-  const messages = await data.map((message: any) => {
-    return {
-      id: message.id,
-      text: message.text,
-      transactionId: message.transaction_id,
-      user: message.user,
-    };
-  });
+  const messages = await data.map((message: any) => ({
+    ...message,
+    transactionId: message.transaction_id,
+  }));
 
   return messages;
 };

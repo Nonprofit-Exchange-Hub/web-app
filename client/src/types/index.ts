@@ -10,6 +10,7 @@ export type Asset = {
   imgUrls: string[];
   location: string;
   datePosted: string;
+  organization: number;
 };
 
 export type User = {

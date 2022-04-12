@@ -7,6 +7,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import Typography from '@material-ui/core/Typography';
+import TodayOutlined from '@material-ui/icons/TodayOutlined';
+import RoomOutlined from '@material-ui/icons/RoomOutlined';
 
 import type { Theme } from '@material-ui/core/styles';
 
@@ -101,15 +103,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const useAsset = (id?: string): AssetT | null => {
   const [asset, setAsset] = React.useState<AssetT | null>(null);
-
   React.useEffect(() => {
     if (!id) {
       return;
     }
+    const newAsset = async () => {
+      const data = await fetch(`http://localhost:3001/api/assets/${id}`);
+      const json = await data.json();
+      setAsset(json);
+    };
 
-    // TODO replace find with fetch from BE
-    const newAsset = mockData.find((dd) => dd.id === parseInt(id, 10));
-    setAsset(newAsset || null);
+    newAsset();
   }, [id]);
 
   return asset;
@@ -202,7 +206,19 @@ function Asset(): JSX.Element {
             {asset.title}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
+            {mockData[0].categories.join(', ')}
+          </Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            {asset.organization ? '' : 'Posted By:'}
             {asset.poster.firstName}
+          </Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            <RoomOutlined />
+            {asset.location}
+          </Typography>
+          <Typography className={classes.subText} variant="subtitle1">
+            <TodayOutlined />
+            {asset.datePosted}
           </Typography>
           {aboutInfo()}
           <Button

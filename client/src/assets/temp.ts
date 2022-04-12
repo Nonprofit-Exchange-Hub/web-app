@@ -24,6 +24,7 @@ export const mockData: Asset[] = [1, 2, 3].map((num) => ({
   quantity: num,
   location: `location ${num}`,
   datePosted: `date ${num}`,
+  organization: 493,
 }));
 
 export const filters1 = ['filter 1', 'filter 2', 'filter 3'];
