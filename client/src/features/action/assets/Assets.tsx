@@ -153,7 +153,7 @@ function Assets(): JSX.Element {
               </Button>
             </NavLink>
           </Paper>
-          <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />\
+          <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />
           <NeedsAndOffers
             headerText="Offers"
             assets={selectedAssetType === 'donation' ? donations : needs}

@@ -15,10 +15,6 @@ export class AssetsService {
     return this.assetsRepository.save(createAssetDto);
   }
 
-  async findAll(): Promise<Asset[]> {
-    return this.assetsRepository.find();
-  }
-
   async findOne(id: number): Promise<Asset> {
     return this.assetsRepository.findOne({ id });
   }
