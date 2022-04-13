@@ -102,12 +102,6 @@ function SignupNonProfit() {
   const handleNextClick = (errors: any) => setPageNum(2);
   const handlePreviousClick = () => setPageNum(1);
 
-  // validating completion of page 1
-  // const step1Complete = formData.doing_business_as !== '' && formData.city !== '';
-  // const step2Complete = formData.state !== '' && formData.ein !== '';
-  // const step3Complete = formData.tax_exempt_id !== '' && formData.nonprofit_classification !== '';
-  // const firstPageComplete = step1Complete && step2Complete && step3Complete;
-
   // validating completion of page 2
   const step4Complete = formData.firstName !== '' && formData.last_name !== '';
   const step5Complete = formData.role_or_title !== '' && formData.email !== '';
