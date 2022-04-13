@@ -12,7 +12,7 @@ export type Asset = {
 };
 
 export type Organization = {
-  id: number;
+  id?: number;
   name: string;
   doing_business_as: string;
   description: string;
@@ -42,6 +42,13 @@ export enum ApprovalStatus {
   pending = 'PENDING',
   denied = 'DENIED',
 }
+
+export type UserEntity = {
+  id?: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+};
 
 export type User = {
   id: number;
