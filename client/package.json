@@ -35,12 +35,6 @@
 		"format": "prettier --write './src/**/*.{ts,tsx}' --config ../.prettierrc",
 		"prepare": "cd .. && husky install && cd client"
 	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
 	"browserslist": {
 		"production": [
 			">0.2%",

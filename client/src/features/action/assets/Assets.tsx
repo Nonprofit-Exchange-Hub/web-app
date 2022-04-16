@@ -100,7 +100,7 @@ function Assets(): JSX.Element {
           setNeeds(data);
         }
       });
-  }, [location, querySearchText]);
+  }, [location, querySearchText, selectedAssetType]);
 
   return (
     <>
