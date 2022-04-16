@@ -22,6 +22,7 @@ import OfferFormGoods from './features/action/offers/OfferFormGoods';
 import OfferFormSkills from './features/action/offers/OfferFormSkills';
 import ContactUs from './features/support/ContactUs';
 import Help from './features/support/Help';
+import ForgotPassword from './features/users/Auth/ForgotPassword';
 
 const routes = {
   Home: {
@@ -51,6 +52,10 @@ const routes = {
   PrivacyPolicy: {
     component: PrivacyPolicy,
     path: '/privacy-policy',
+  },
+  ForgotPassword: {
+    component: ForgotPassword,
+    path: '/forgot-password',
   },
   Login: {
     component: Login,

@@ -20,7 +20,7 @@ export const mockData: Asset[] = [1, 2, 3].map((num) => ({
   location: `location ${num}`,
   imgUrls: [placeholderImg, otherImg],
   description: lorem,
-  postedBy: { id: num, firstName: `User${num}` },
+  poster: { id: num, firstName: `User${num}` },
   organization: 493,
 }));
 

@@ -11,7 +11,7 @@ export class User {
   id: number;
 
   @Column('text')
-  first_name: string;
+  firstName: string;
 
   @Column('text')
   last_name: string;
@@ -19,7 +19,7 @@ export class User {
   @Column({ type: 'text', unique: true })
   email: string;
 
-  @Column('text', { select: false })
+  @Column('text')
   password: string;
 
   @OneToMany(() => Asset, (asset) => asset.poster)

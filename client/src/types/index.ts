@@ -6,7 +6,7 @@ export type Asset = {
   location: string;
   imgUrls: string[];
   description: string;
-  postedBy: User;
+  poster: User;
   organization: number;
 };
 
@@ -30,11 +30,19 @@ export type Message = {
 };
 
 export type Option = {
-  value: string;
+  id?: string;
   text: string;
+  value: string;
 };
 
 export type TextLink = {
   url: string;
   text: string;
+};
+
+export type Category = {
+  id: number;
+  name: string;
+  applies_to_assets: boolean;
+  applies_to_organizations: boolean;
 };

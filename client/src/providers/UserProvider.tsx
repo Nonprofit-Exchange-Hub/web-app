@@ -54,7 +54,7 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
 
   React.useEffect(() => {
     setUserTimeout(null, true, true);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <UserContext.Provider value={[user, setUserTimeout]}>{children}</UserContext.Provider>;
 }
