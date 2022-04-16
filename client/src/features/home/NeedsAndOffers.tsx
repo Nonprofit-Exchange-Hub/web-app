@@ -65,9 +65,17 @@ function NeedsAndOffers(props: Props): JSX.Element {
         {assets.map((asset) => (
           <NavLink to={`/asset/${asset.id}`} key={asset.id} className={classes.card}>
             <Card variant="outlined">
-              <img src={asset.imgUrls[0]} className={classes.cardImg} alt={asset.title} />
+              <img
+                src={
+                  asset.imgUrls
+                    ? asset.imgUrls[0]
+                    : 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png'
+                }
+                className={classes.cardImg}
+                alt={asset.title}
+              />
               <Typography variant="h6" component="h4" className={classes.cardText1}>
-                {asset.title}, {asset.categories[0]}
+                {asset.title}, {asset.categories ? asset.categories[0] : null}
               </Typography>
               <div className={classes.cardText2}>
                 <RoomOutlined />
