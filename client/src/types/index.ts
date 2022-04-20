@@ -21,8 +21,8 @@ export type Organization = {
   phone: string;
   city: string;
   state: string;
-  ein: number;
-  tax_exempt_id: number;
+  ein: string;
+  nonprofit_classification: string;
 };
 
 export type UserOrg = {
@@ -45,7 +45,7 @@ export enum ApprovalStatus {
 
 export type UserEntity = {
   id?: number;
-  first_name: string;
+  firstName: string;
   last_name: string;
   email: string;
 };
