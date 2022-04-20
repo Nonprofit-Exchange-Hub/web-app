@@ -22,6 +22,7 @@ export class OrganizationsController {
 
   @Post()
   async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    console.log(createOrganizationDto, 'ORG');
     try {
       const newOrg = await this.organizationsService.create(createOrganizationDto);
       return newOrg;
@@ -44,8 +45,8 @@ export class OrganizationsController {
   }
 
   @Get('ein/:ein')
-  getProPublicaOrg(@Param('ein') ein: number): Promise<PropublicaOrg> {
-    return this.organizationsService.getProPublicaOrg(+ein);
+  getProPublicaOrg(@Param('ein') ein: string): Promise<PropublicaOrg> {
+    return this.organizationsService.getProPublicaOrg(ein);
   }
 
   @Patch(':id')

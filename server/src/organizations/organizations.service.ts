@@ -21,7 +21,7 @@ export class OrganizationsService {
     return this.organizationsRepository.save(createOrganizationDto);
   }
 
-  async getProPublicaOrg(ein: number): Promise<PropublicaOrg> {
+  async getProPublicaOrg(ein: string): Promise<PropublicaOrg> {
     try {
       const res = await fetch(
         `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`,
