@@ -8,7 +8,8 @@ type CustomProps = {
   isMultiline?: boolean;
   value: string;
   errorText?: string;
-  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: React.FocusEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 };
 
 function TextField({
@@ -18,10 +19,11 @@ function TextField({
   isMultiline = false,
   value,
   onChange,
+  onBlur,
   errorText,
 }: CustomProps) {
   return (
-    <FormControl>
+    <FormControl style={{ width: '100%' }}>
       <FormLabel>{label}</FormLabel>
       <MUITextField
         id={id}
@@ -34,6 +36,7 @@ function TextField({
         multiline={isMultiline}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         helperText={errorText}
         error={errorText === '' || errorText === undefined ? undefined : true}
       />
