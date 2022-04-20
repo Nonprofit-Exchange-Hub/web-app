@@ -39,16 +39,7 @@ interface Props {
   classes: ClassNameMap<any>;
 }
 
-enum ENTITY_STATE {
-  'not_created',
-  'created',
-}
-
 const UserOrgForm = ({ orgId, triggerNextStep = () => {}, classes }: Props) => {
-  const [userEntityState, setUserEntityState] = React.useState<ENTITY_STATE>(
-    ENTITY_STATE.not_created,
-  );
-
   const [userEntityApiErrors, setUserEntityApiErrors] = React.useState<string>('');
 
   const handleNext = (isValid: boolean, errors: FormikErrors<UserAndOrg>, values: UserAndOrg) => {
@@ -72,13 +63,11 @@ const UserOrgForm = ({ orgId, triggerNextStep = () => {}, classes }: Props) => {
           : res.json(),
       )
       .then((data) => {
-        setUserEntityState(data.id > 0 ? ENTITY_STATE.created : ENTITY_STATE.not_created);
         createUserOrg(data.id, userAndOrg).then((res) => console.log(res));
         afterSuccess();
       })
       .catch((err) => {
         console.log(err);
-        setUserEntityState(err ? ENTITY_STATE.not_created : ENTITY_STATE.not_created);
       });
   };
 
