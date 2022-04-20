@@ -229,7 +229,7 @@ function SignupNonProfit() {
                         id="first_name"
                         label="First Name"
                         placeholder="First Name"
-                        value={values.first_name}
+                        value={values.firstName}
                         onChange={handleChange}
                       />
                     </Grid>
