@@ -10,6 +10,7 @@ type CustomProps = {
   errorText?: string;
   onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  onKeyUp?: React.KeyboardEventHandler<HTMLDivElement>;
 };
 
 function TextField({
@@ -20,6 +21,7 @@ function TextField({
   value,
   onChange,
   onBlur,
+  onKeyUp,
   errorText,
 }: CustomProps) {
   return (
@@ -37,6 +39,7 @@ function TextField({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        onKeyUp={onKeyUp}
         helperText={errorText}
         error={errorText === '' || errorText === undefined ? undefined : true}
       />

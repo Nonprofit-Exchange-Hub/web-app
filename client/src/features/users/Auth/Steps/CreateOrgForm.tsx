@@ -6,6 +6,9 @@ import React from 'react';
 import { Select, TextField } from '../../../../assets/sharedComponents/Forms';
 import { Organization } from '../../../../types';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
+import { useMutation, useQuery } from 'react-query';
+import axios, { AxiosResponse } from 'axios';
+import SimpleSnackbar from '../../../action/assets/SimpleSnackbar';
 
 const classifications = [
   { value: 'charitable', text: 'Charitable Organization' },
@@ -50,44 +53,65 @@ interface Props {
   setNewOrgId: (createdOrgId: number) => void;
   classes: ClassNameMap<any>;
 }
-
+// ! TODO: set the new org id in state and don't rePOST if user goes back a step and then bak to 2nd step
+// ! TODO don't send invalid ein to propublic api
 const CreateOrgForm = ({ setNewOrgId = () => {}, triggerNextStep = () => {}, classes }: Props) => {
+  const [org, setOrg] = React.useState<Organization>(initialOrgData);
+  const [triggerEinSearch, setTriggerEinSearch] = React.useState<boolean>(false);
+
+  const orgCreateMutation = useMutation<AxiosResponse<any, any>, Error, Organization, Error>(
+    (newOrg: Organization) => {
+      return axios.post(`http://localhost:3001/api/organizations`, newOrg);
+    },
+    {
+      onSuccess: (data: any) => {
+        triggerNextStep(1);
+        console.log('new org', (data as any).data);
+        setNewOrgId((data as any).data.id);
+      },
+    },
+  );
+
+  const orgValidateEinQuery = useQuery<AxiosResponse<any, any>, unknown, unknown, string[]>({
+    queryKey: ['orgValidateEinQuery', org.ein],
+    queryFn: ({ queryKey }) => {
+      const [_key, ein] = queryKey;
+      console.log(_key);
+      return axios.get(`http://localhost:3001/api/organizations/ein/${ein}`);
+    },
+    enabled: triggerEinSearch,
+    onSuccess: () => {
+      setTriggerEinSearch(false);
+    },
+    retry: 0,
+  });
+
   const handleNext = (
     isValid: boolean,
     errors: FormikErrors<Organization>,
     values: Organization,
   ) => {
-    console.log(values, 'values');
-    fetch(`http://localhost:3001/api/organizations/ein/${values.ein}`)
-      .then((res) => res.json())
-      .then((anyy: any) => {
-        console.log(isValid, 'is valiud');
-        console.log(errors, 'errors');
-        console.log(anyy, 'result');
-        values.name = anyy.name;
-        if (isValid) {
-          ApiCreateOrg(values);
-        }
-      })
-      .catch((err: any) => console.log(err));
-  };
+    // console.log(values, 'values');
+    setTriggerEinSearch(true);
+    setOrg(values);
 
-  const ApiCreateOrg = (org: Organization): void => {
-    fetch(`http://localhost:3001/api/organizations`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(org),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        triggerNextStep(1);
-        setNewOrgId(data.id);
-      })
-      .catch((err: any) => console.error(err));
+    console.log((orgValidateEinQuery.data as any).data);
+    orgCreateMutation.mutate({ ...org, name: (orgValidateEinQuery.data as any).data.name });
   };
 
   return (
     <React.Fragment>
+      {orgCreateMutation.isLoading ? (
+        <SimpleSnackbar message={`Creating Organization`} />
+      ) : (
+        <>
+          {orgCreateMutation.isError && (
+            <SimpleSnackbar message={`An error occurred ${orgCreateMutation.error}`} />
+          )}
+
+          {orgCreateMutation.isSuccess && <SimpleSnackbar message={`Organization created`} />}
+        </>
+      )}
       <Formik
         initialValues={initialOrgData}
         validationSchema={SignupSchema}
@@ -206,9 +230,28 @@ const CreateOrgForm = ({ setNewOrgId = () => {}, triggerNextStep = () => {}, cla
                   placeholder="EIN: 99-9999999"
                   value={values.ein}
                   onChange={handleChange}
+                  onKeyUp={() => {
+                    setTriggerEinSearch(true);
+                    setOrg(values);
+                  }}
                   onBlur={(e) => setFieldTouched('ein')}
                   errorText={touched.ein && errors.ein ? errors.ein : ''}
                 />
+                {orgValidateEinQuery.isLoading ? (
+                  <FormHelperText error>Checking EIN</FormHelperText>
+                ) : (
+                  <>
+                    {orgValidateEinQuery.isError && (
+                      <FormHelperText error>{`Invalid EIN ${
+                        orgValidateEinQuery.error === 404 ? ': Not found' : ''
+                      }`}</FormHelperText>
+                    )}
+
+                    {orgValidateEinQuery.isSuccess && (
+                      <FormHelperText>EIN is valid!</FormHelperText>
+                    )}
+                  </>
+                )}
               </Grid>
               <Grid item md={6} xs={12}>
                 <Select
@@ -226,7 +269,7 @@ const CreateOrgForm = ({ setNewOrgId = () => {}, triggerNextStep = () => {}, cla
               <Grid item md={12} xs={12}>
                 <Button
                   onClick={() => handleNext(isValid, errors, values)}
-                  disabled={!isValid}
+                  disabled={!isValid || orgValidateEinQuery.isLoading}
                   className={classes.button}
                   fullWidth
                 >
