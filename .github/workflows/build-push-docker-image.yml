@@ -31,5 +31,5 @@ jobs:
           push: true
           context: .
           tags: |
-            ${{ secrets.DOCKERHUB_USER }}/form-convert:${{ github.sha }}
-            ${{ secrets.DOCKERHUB_USER }}/form-convert:latest
+            ${{ secrets.DOCKERHUB_USER }}/npc:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USER }}/npc:latest
