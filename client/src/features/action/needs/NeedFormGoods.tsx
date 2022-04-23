@@ -15,9 +15,10 @@ import AlertDialog from '../../../assets/sharedComponents/AlertDialog';
 import { UserContext } from '../../../providers';
 
 import type { Category, Option } from '../../../types';
+import { APP_API_BASE_URL } from '../../../configs';
 
 const fetchCategories = async (): Promise<Option[]> => {
-  const res = await fetch('http://localhost:3001/api/categories?applies_to_assets=true');
+  const res = await fetch(`${APP_API_BASE_URL}/categories?applies_to_assets=true`);
   const data = await res.json();
 
   const categories = data.map((category: Category) => {
@@ -102,7 +103,7 @@ function NeedForm(): JSX.Element {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    const res = await fetch('http://localhost:3001/api/assets', {
+    const res = await fetch(`${APP_API_BASE_URL}/assets`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

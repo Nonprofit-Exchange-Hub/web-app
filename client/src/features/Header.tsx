@@ -14,6 +14,7 @@ import type { Theme } from '@material-ui/core/styles';
 import { UserContext } from '../providers';
 import Logo from '../assets/logo.svg'; // placeholder
 import routes from '../routes';
+import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   home: {
@@ -66,7 +67,7 @@ function Header() {
   const handleLogout = (): void => {
     handleClose();
     setUser(null);
-    fetch('http://localhost:3001/api/auth/logout', {
+    fetch(`${APP_API_BASE_URL}/auth/logout`, {
       credentials: 'include',
       method: 'GET',
     });
