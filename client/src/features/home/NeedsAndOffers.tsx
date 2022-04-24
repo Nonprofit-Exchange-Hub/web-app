@@ -81,7 +81,7 @@ function NeedsAndOffers(props: Props): JSX.Element {
                 <RoomOutlined />
                 {asset.location}
                 <TodayOutlined />
-                {asset.datePosted}
+                {new Date(asset.datePosted).toLocaleDateString()}
               </div>
             </Card>
           </NavLink>
