@@ -93,7 +93,6 @@ function Assets(): JSX.Element {
       }`,
     )
       .then((resp) => resp.json())
-      .then((resp) => resp as Asset[])
       .then((data: Asset[]) => {
         if (selectedAssetType === 'donation') {
           setDonations(data);

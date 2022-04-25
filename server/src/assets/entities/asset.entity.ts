@@ -49,7 +49,7 @@ export class Asset {
   @Column('int')
   quantity: number;
 
-  @Column('simple-array', { default: '0' })
+  @Column('simple-array')
   imgUrls: string[];
 
   @ManyToOne(() => User, (user) => user.assets, { eager: true })
