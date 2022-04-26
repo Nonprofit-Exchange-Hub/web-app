@@ -11,7 +11,7 @@ export class CreateAssetDto {
   description: string;
 
   @IsNotEmpty()
-  poster: User;
+  poster: Pick<User, 'id'>;
 
   @IsOptional()
   @IsEnum(AssetType)

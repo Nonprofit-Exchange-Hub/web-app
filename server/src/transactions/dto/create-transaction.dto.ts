@@ -8,16 +8,16 @@ import type { Asset } from '../../assets/entities/asset.entity';
 
 export class CreateTransactionDto {
   @IsNotEmpty()
-  donater_user: User;
+  donater_user: Pick<User, 'id'>;
 
   @IsOptional()
-  donater_organization: Organization;
+  donater_organization: Pick<Organization, 'id'>;
 
   @IsOptional()
-  recipient: Organization;
+  recipient: Pick<Organization, 'id'>;
 
   @IsNotEmpty({ message: 'asset_id is required' })
-  asset: Asset;
+  asset: Pick<Asset, 'id'>;
 
   @IsOptional()
   @IsEnum(TransactionStatus)
