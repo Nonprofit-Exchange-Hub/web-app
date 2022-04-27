@@ -137,7 +137,7 @@ function MessageInboxView(): JSX.Element | null {
   return (
     <>
       <SubHeader backTo={routes.Home.path} searchTo={routes.Inbox.path} />
-      <Grid container className={classes.inboxWrapper} justify="center">
+      <Grid container className={classes.inboxWrapper} justifyContent="center">
         <Grid item className={`${classes.sectionWrapper} ${classes.threadsSection}`} xs={12} sm={4}>
           <Typography variant="h5" component="h5" className={classes.sectionHeader}>
             Inbox

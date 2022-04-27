@@ -44,7 +44,7 @@ export class TransactionsController {
   @UseGuards(CookieAuthGuard)
   @Get('/current-user')
   async getCurrentUsersTransactions(@Request() req: AuthedRequest): Promise<Transaction[]> {
-    const user = await this.usersService.findOne(req.user.id);
+    const user = await this.usersService.findOne(req.user.id, ['assets']);
 
     return this.transactionsService.getCurrentUsersTransactions(user);
   }

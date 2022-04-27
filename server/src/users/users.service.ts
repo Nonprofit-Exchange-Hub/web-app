@@ -12,28 +12,27 @@ export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
-    try {
-      const hashedPw = await bcrypt.hash(
-        createUserDto.password,
-        parseInt(process.env.BCRYPT_WORK_FACTOR),
-      );
-      createUserDto.password = hashedPw;
-      const user = await this.usersRepository.save(createUserDto);
-      delete user.password;
-      return user;
-    } catch (err) {
-      throw new HttpException(
-        { status: HttpStatus.CONFLICT, message: 'Email already exists' },
-        HttpStatus.CONFLICT,
-      );
-    }
+    const hashedPw = await bcrypt.hash(
+      createUserDto.password,
+      parseInt(process.env.BCRYPT_WORK_FACTOR),
+    );
+    createUserDto.password = hashedPw;
+    const user = await this.usersRepository.save(createUserDto);
+    delete user.password;
+    return user;
   }
 
-  async findOne(id: number): Promise<Omit<User, 'password'>> {
+  async findOne(id: number, addtionalRelations = []): Promise<Omit<User, 'password'>> {
+    console.log('\n\n\n');
+    console.log('id', id);
+    console.log('\n\n\n');
     const [user] = await this.usersRepository.find({
-      relations: ['organizations'],
+      relations: ['organizations', ...addtionalRelations],
       where: { id },
     });
+    console.log('\n\n\n');
+    console.log('user', user);
+    console.log('\n\n\n');
     delete user.password;
     return user;
   }

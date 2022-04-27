@@ -24,7 +24,4 @@ export class CreateOrganizationDto {
 
   @IsNotEmpty()
   ein: number;
-
-  @IsNotEmpty()
-  tax_exempt_id: number;
 }

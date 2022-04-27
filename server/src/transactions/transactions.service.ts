@@ -34,10 +34,21 @@ export class TransactionsService {
 
   // TODO make omit user its own type
   async getCurrentUsersTransactions(user: Omit<User, 'password'>): Promise<Transaction[]> {
-    const found = await this.transactionsRepository.find({
-      where: [{ recipient: user.organizations }, { asset: user.assets }],
-      relations: ['recipient', 'asset'],
-    });
+    console.log('\n\n\n');
+    console.log('user', user);
+    console.log('\n\n\n');
+
+    const found =
+      user.assets?.length || user.organizations?.length
+        ? await this.transactionsRepository.find({
+            where: [{ recipient: user.organizations }, { asset: user.assets }],
+            relations: ['recipient', 'asset', 'poster'],
+          })
+        : [];
+
+    console.log('\n\n\n');
+    console.log('found', found);
+    console.log('\n\n\n');
 
     return found || [];
   }

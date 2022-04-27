@@ -1,4 +1,6 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+
+import { Organization } from '../../organizations/entities/organization.entity';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -13,4 +15,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   password: string;
+
+  @IsOptional()
+  userOrganizations?: Array<{ organizationId: string }>;
 }

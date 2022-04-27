@@ -22,9 +22,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<Omit<User, 'password' | 'accept_terms'>> {
+  async create(@Body() createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
     const user = await this.usersService.create(createUserDto);
     return user;
   }

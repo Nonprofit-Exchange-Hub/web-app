@@ -4,6 +4,7 @@ import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
+import { Organization } from '../../organizations/entities/organization.entity';
 
 @Entity('users')
 export class User {
@@ -31,6 +32,6 @@ export class User {
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 
-  @OneToMany(() => UserOrganization, (user_org) => user_org.user)
-  organizations: UserOrganization[];
+  @OneToMany(() => UserOrganization, (userOrg) => userOrg.user, { nullable: true })
+  organizations: Organization[];
 }

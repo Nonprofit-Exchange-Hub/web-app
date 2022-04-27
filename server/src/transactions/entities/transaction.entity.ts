@@ -37,12 +37,15 @@ export class Transaction {
   recipient: Organization;
 
   @ManyToOne(() => User, (poster) => poster.transactions)
+  @JoinColumn()
   poster: User;
 
-  @ManyToOne(() => Organization, (posterOrg) => posterOrg.transactions)
+  @ManyToOne(() => Organization, (posterOrg) => posterOrg.transactions, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn()
   posterOrganization?: Organization;
 
   @OneToMany(() => Message, (message) => message.transaction)
-  @JoinColumn()
   messages: Message;
 }
