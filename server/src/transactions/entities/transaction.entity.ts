@@ -36,6 +36,12 @@ export class Transaction {
   @JoinColumn()
   recipient: Organization;
 
+  @ManyToOne(() => User, (poster) => poster.transactions)
+  poster: User;
+
+  @ManyToOne(() => Organization, (posterOrg) => posterOrg.transactions)
+  posterOrganization?: Organization;
+
   @OneToMany(() => Message, (message) => message.transaction)
   @JoinColumn()
   messages: Message;

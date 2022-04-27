@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const fetchTransactions = async (): Promise<Transaction[]> => {
-  const res = await fetch('http://localhost:3001/api/transactions/currentUser', {
+  const res = await fetch('http://localhost:3001/api/transactions/current-user', {
     credentials: 'include',
   });
   const data = await res.json();

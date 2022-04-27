@@ -18,6 +18,8 @@ export type User = {
   firstName: string;
   lastName: string;
   email: string;
+  organization?: Organization;
+  assets?: Asset[];
 };
 
 export type Organization = {
@@ -41,6 +43,8 @@ export type Transaction = {
   recipient: Organization;
   asset: Asset;
   status: string;
+  poster: User;
+  posterOrganization?: Organization;
 };
 
 export type Message = {
