@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import type { Theme } from '@material-ui/core/styles';
 
 import PasswordInput from './PasswordInput';
+import { UserContext } from '../../../providers';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -39,14 +40,31 @@ function SetNewPassword() {
   const classes = useStyles();
 
   const [password, setPassword] = React.useState<string>('');
+  const [error, setError] = React.useState<string | null>(null);
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     setPassword(evt.target.value);
   };
 
+  const [user] = React.useContext(UserContext);
+
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();
-    console.log(password);
+    // ternary in url temporary. User should be logged in(?) id should be available once BE is built
+    fetch(`http://localhost:3001/api/users/${user ? user.id : null}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: password }),
+    }).then((resp) => {
+      if (resp.ok) {
+        resp.json().then((data) => {
+          // send user to home page/message lets them know password was changed successfully
+          console.log(data);
+        });
+      } else {
+        resp.json().then((errors) => setError(errors));
+      }
+    });
   };
 
   return (
@@ -56,7 +74,7 @@ function SetNewPassword() {
           I Forget My Passwords Too
         </Typography>
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-          <PasswordInput value={password} onChange={handleChange} error={null} />
+          <PasswordInput value={password} onChange={handleChange} error={error ? error : null} />
           <Button
             className={classes.button}
             style={{ backgroundColor: '#C4C4C4', color: 'white' }}
