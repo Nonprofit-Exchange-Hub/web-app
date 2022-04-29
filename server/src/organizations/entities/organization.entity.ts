@@ -34,7 +34,7 @@ export class Organization {
   @Column({ type: 'int', unique: true })
   ein: number;
 
-  @OneToMany(() => UserOrganization, (userOrg) => userOrg.organization)
+  @OneToMany(() => Organization, (org) => org.users)
   users: User[];
 
   @OneToMany(

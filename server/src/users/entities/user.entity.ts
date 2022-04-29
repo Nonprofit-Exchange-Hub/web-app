@@ -32,6 +32,6 @@ export class User {
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 
-  @OneToMany(() => UserOrganization, (userOrg) => userOrg.user, { nullable: true })
+  @OneToMany(() => Organization, (org) => org.users, { nullable: true })
   organizations: Organization[];
 }

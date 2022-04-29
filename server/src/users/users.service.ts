@@ -23,16 +23,10 @@ export class UsersService {
   }
 
   async findOne(id: number, addtionalRelations = []): Promise<Omit<User, 'password'>> {
-    console.log('\n\n\n');
-    console.log('id', id);
-    console.log('\n\n\n');
     const [user] = await this.usersRepository.find({
       relations: ['organizations', ...addtionalRelations],
       where: { id },
     });
-    console.log('\n\n\n');
-    console.log('user', user);
-    console.log('\n\n\n');
     delete user.password;
     return user;
   }

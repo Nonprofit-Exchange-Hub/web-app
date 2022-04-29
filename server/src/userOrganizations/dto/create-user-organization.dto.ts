@@ -12,7 +12,7 @@ export class CreateUserOrganizationDto {
   @IsNotEmpty({ message: 'org_id is required' })
   organization: Organization;
 
-  @IsNotEmpty({ message: 'role is required' })
+  @IsOptional()
   @IsEnum(Role)
   role: Role;
 
