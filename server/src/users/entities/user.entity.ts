@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
 
-import { UserOrganization } from '../../userOrganizations/entities/userOrganization.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
@@ -32,6 +31,6 @@ export class User {
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 
-  @OneToMany(() => Organization, (org) => org.users, { nullable: true })
+  @ManyToMany(() => Organization, (org) => org.users, { nullable: true, cascade: true })
   organizations: Organization[];
 }

@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
 
-import { UserOrganization } from '../../userOrganizations/entities/userOrganization.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { User } from '../../users/entities/user.entity';
@@ -34,7 +33,7 @@ export class Organization {
   @Column({ type: 'int', unique: true })
   ein: number;
 
-  @OneToMany(() => Organization, (org) => org.users)
+  @ManyToMany(() => Organization, (org) => org.users)
   users: User[];
 
   @OneToMany(
