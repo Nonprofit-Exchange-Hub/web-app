@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
-import { UserOrganization } from '../../user-org/entities/user-org.entity';
+import { UserOrganization } from '../../userOrganizations/entities/userOrganization.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { User } from '../../users/entities/user.entity';
