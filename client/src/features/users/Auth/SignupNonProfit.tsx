@@ -10,6 +10,7 @@ import UserOrgForm from './Steps/UserOrgForm';
 import Confirmation from './Steps/Confirmation';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import routes from '../../../routes';
+import { Organization } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
@@ -37,28 +38,47 @@ function SignupNonProfit() {
 
   const labels = ['First Step', 'Second Step', 'Confirmation'];
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [newOrgId, setNewOrgId] = React.useState<number>(0);
+  const [org, setOrg] = React.useState<Organization>(
+    (JSON.parse(sessionStorage.getItem('org') as string) as Organization) ?? {
+      name: '',
+      doing_business_as: '',
+      city: '',
+      state: '',
+      ein: '',
+      description: '',
+      website: '',
+      address: '',
+      phone: '',
+      nonprofit_classification: '',
+    },
+  );
 
-  const handleChildStepChange = (step: number) => setActiveStep(step);
-
-  const hangleChildNewOrgId = (orgId: number) => setNewOrgId(orgId);
+  const onChildSetParentOrg = (org: Organization): void => {
+    sessionStorage.setItem('org', JSON.stringify(org));
+    setOrg(org);
+  };
 
   const handleSteps = (step: number) => {
     switch (step) {
       case 0:
         return (
           <CreateOrgForm
-            setNewOrgId={hangleChildNewOrgId}
-            triggerNextStep={handleChildStepChange}
+            parentOrg={org}
+            setParentOrg={onChildSetParentOrg}
+            triggerNextStep={setActiveStep}
             classes={classes}
           />
         );
       case 1:
         return (
-          <UserOrgForm orgId={newOrgId} triggerNextStep={handleChildStepChange} classes={classes} />
+          <UserOrgForm
+            org={org as Organization}
+            triggerNextStep={setActiveStep}
+            classes={classes}
+          />
         );
       case 2:
-        return <Confirmation onStepChange={handleChildStepChange} />;
+        return <Confirmation onStepChange={setActiveStep} />;
       default:
         throw new Error('Unknown step');
     }
