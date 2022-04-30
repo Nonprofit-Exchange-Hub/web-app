@@ -8,6 +8,7 @@ type CustomProps = {
   isMultiline?: boolean;
   value: string;
   errorText?: string;
+  disabled?: boolean;
   onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLDivElement>;
@@ -19,6 +20,7 @@ function TextField({
   placeholder,
   isMultiline = false,
   value,
+  disabled,
   onChange,
   onBlur,
   onKeyUp,
@@ -42,6 +44,7 @@ function TextField({
         onKeyUp={onKeyUp}
         helperText={errorText}
         error={errorText === '' || errorText === undefined ? undefined : true}
+        disabled={disabled}
       />
     </FormControl>
   );
