@@ -10,7 +10,7 @@ import UserOrgForm from './Steps/UserOrgForm';
 import Confirmation from './Steps/Confirmation';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import routes from '../../../routes';
-import { Organization } from '../../../types';
+import { ApprovalStatus, Organization, Role, UserEntity, UserOrg } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
@@ -33,29 +33,58 @@ const useStyles = makeStyles((theme: Theme) => ({
   arrow: { cursor: 'pointer' },
 }));
 
+const defaultOrg: Organization = {
+  name: '',
+  doing_business_as: '',
+  city: '',
+  state: '',
+  ein: '',
+  description: '',
+  website: '',
+  address: '',
+  phone: '',
+  nonprofit_classification: '',
+};
+
+const defaultUser: UserEntity = {
+  firstName: '',
+  last_name: '',
+  email: '',
+};
+
+const defaultUserOrg: UserOrg = {
+  approvalStatus: ApprovalStatus.pending,
+  role: Role.owner,
+};
+
 function SignupNonProfit() {
   const classes = useStyles();
-
   const labels = ['First Step', 'Second Step', 'Confirmation'];
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [org, setOrg] = React.useState<Organization>(
-    (JSON.parse(sessionStorage.getItem('org') as string) as Organization) ?? {
-      name: '',
-      doing_business_as: '',
-      city: '',
-      state: '',
-      ein: '',
-      description: '',
-      website: '',
-      address: '',
-      phone: '',
-      nonprofit_classification: '',
-    },
+    (JSON.parse(sessionStorage.getItem('org') as string) as Organization) ?? defaultOrg,
+  );
+  const [user, setUser] = React.useState<UserEntity>(
+    (JSON.parse(sessionStorage.getItem('user') as string) as UserEntity) ?? defaultUser,
+  );
+
+  const [userOrg, setUserOrg] = React.useState<UserOrg>(
+    (JSON.parse(sessionStorage.getItem('org') as string) as UserOrg) ?? defaultUserOrg,
   );
 
   const onChildSetParentOrg = (org: Organization): void => {
     sessionStorage.setItem('org', JSON.stringify(org));
     setOrg(org);
+  };
+
+  const onChildSetParentUserOrg = (userOrg: UserOrg): void => {
+    sessionStorage.setItem('userOrg', JSON.stringify(userOrg));
+    setUserOrg(userOrg);
+  };
+
+  const onChildSetParentUser = (user: UserEntity): void => {
+    sessionStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
   };
 
   const handleSteps = (step: number) => {
@@ -72,7 +101,11 @@ function SignupNonProfit() {
       case 1:
         return (
           <UserOrgForm
-            org={org as Organization}
+            orgFromPreviousStep={org}
+            parentUser={user}
+            parentUserOrg={userOrg}
+            setParentUser={onChildSetParentUser}
+            setParentUserOrg={onChildSetParentUserOrg}
             triggerNextStep={setActiveStep}
             classes={classes}
           />

@@ -25,7 +25,7 @@ const SignupSchema = Yup.object().shape({
   city: Yup.string().required('Required'),
   state: Yup.string().required('Required').min(2).max(2),
   ein: Yup.string()
-    .matches(/^[1-9]\d?-\d{7}$/, 'EIN must match: 99-9999999')
+    .matches(/^[0-9]\d?-\d{7}$/, 'EIN must match: 99-9999999')
     .required('Required'),
   name: Yup.string(),
   description: Yup.string().required('Required'),
@@ -88,8 +88,8 @@ const CreateOrgForm = ({
   });
 
   const handleNext = (values: Organization) => {
-    setOrg({ ...values });
     if (org.id === undefined) {
+      setOrg({ ...org });
       orgCreateMutation.mutate({ ...values, name: org.name });
     } else {
       triggerNextStep(1);
@@ -145,6 +145,7 @@ const CreateOrgForm = ({
                   onChange={handleChange}
                   onKeyUp={() => {
                     setFieldValue('ein', values.ein.trim());
+                    setOrg({ ...values, name: '' });
                     if (!errors.ein) {
                       setTriggerEinSearch(true);
                       setOrg({ ...values });
@@ -163,7 +164,7 @@ const CreateOrgForm = ({
                       }`}</FormHelperText>
                     )}
 
-                    {orgValidateEinQuery.isSuccess && (
+                    {orgValidateEinQuery.isSuccess && !errors.ein && (
                       <FormHelperText>
                         <CheckIcon style={{ color: green[500] }} />
                       </FormHelperText>
@@ -179,7 +180,7 @@ const CreateOrgForm = ({
                   value={org.name}
                   disabled={true}
                 />
-                {orgValidateEinQuery.isSuccess && (
+                {orgValidateEinQuery.isSuccess && !errors.ein && (
                   <FormHelperText>
                     <CheckIcon style={{ color: green[500] }} />
                   </FormHelperText>
