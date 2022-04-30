@@ -26,7 +26,14 @@ export type Organization = {
 };
 
 export type UserOrg = {
-  id: number;
+  id?: number;
+  approvalStatus: ApprovalStatus;
+  role: Role;
+};
+
+export type UserOrgCreateObj = {
+  organization: { id: number };
+  user: { id: number };
   approvalStatus: ApprovalStatus;
   role: Role;
 };
@@ -48,6 +55,13 @@ export type UserEntity = {
   firstName: string;
   last_name: string;
   email: string;
+};
+
+export type UserEntityCreateObj = {
+  firstName: string;
+  last_name: string;
+  email: string;
+  password: string;
 };
 
 export type User = {
