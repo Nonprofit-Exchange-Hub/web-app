@@ -1,7 +1,14 @@
-import { Button, FormHelperText, Grid, Typography } from '@material-ui/core';
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormHelperText,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-import { Formik, FormikErrors } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import React from 'react';
 import { TextField } from '../../../../assets/sharedComponents/Forms';
@@ -17,13 +24,17 @@ import {
 } from '../../../../types';
 import { useMutation } from 'react-query';
 import axios, { AxiosResponse } from 'axios';
+import StyledLink from '../../../../assets/sharedComponents/StyledLink';
+import routes from '../../../../routes';
 
-interface UserAndOrg {
+interface UserFormData {
   firstName: string;
   last_name: string;
   role_or_title: string;
   email: string;
   password: string;
+  confirmPassword: string;
+  accept_terms: boolean;
 }
 
 const SignupSchema = Yup.object().shape({
@@ -34,6 +45,12 @@ const SignupSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, 'Password is too short - should be 8 chars minimum.')
     .required('Required'),
+  confirmPassword: Yup.string()
+    .required('Required')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+  accept_terms: Yup.boolean()
+    .required('The terms and conditions must be accepted.')
+    .oneOf([true], 'The terms and conditions must be accepted.'),
 });
 
 interface Props {
@@ -55,16 +72,18 @@ const UserOrgForm = ({
   setParentUserOrg = () => {},
   classes,
 }: Props) => {
-  const [userAndOrg] = React.useState<UserAndOrg>({
+  const [userAndOrg] = React.useState<UserFormData>({
     firstName: parentUser.firstName,
     last_name: parentUser.last_name,
     role_or_title: '',
     email: parentUser.email,
     password: '',
+    confirmPassword: '',
+    accept_terms: false,
   });
   const [userEntityApiErrors, setUserEntityApiErrors] = React.useState<string>('');
 
-  const handleNext = (isValid: boolean, errors: FormikErrors<UserAndOrg>, values: UserAndOrg) => {
+  const handleNext = (isValid: boolean, values: UserFormData) => {
     console.log(values, 'values');
     if (isValid) {
       // stageHttpCalls(values, () => triggerNextStep(2));
@@ -89,6 +108,7 @@ const UserOrgForm = ({
       onSuccess: (data: any) => {
         // triggerNextStep(1);
         const user = data.data as UserEntity;
+        setParentUser({ ...user });
         userOrgCreateMutation.mutate({
           user: { id: user.id as number },
           organization: { id: orgFromPreviousStep.id as number },
@@ -126,28 +146,9 @@ const UserOrgForm = ({
 
   return (
     <React.Fragment>
-      <Formik
-        initialValues={userAndOrg}
-        validationSchema={SignupSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          isValid,
-          values,
-          touched,
-          validateForm,
-          errors,
-          isSubmitting,
-          setFieldTouched,
-        }) => (
-          <form onSubmit={handleSubmit}>
+      <Formik initialValues={userAndOrg} validationSchema={SignupSchema} onSubmit={() => {}}>
+        {({ handleChange, isValid, values, touched, errors, setFieldTouched }) => (
+          <form>
             <Grid container spacing={5}>
               <Grid item xs={12}>
                 <ArrowBackIcon
@@ -166,6 +167,7 @@ const UserOrgForm = ({
                   placeholder="First Name"
                   value={values.firstName}
                   onChange={handleChange}
+                  onBlur={(e) => setFieldTouched('firstName')}
                   errorText={touched.firstName ? errors.firstName : ''}
                 />
               </Grid>
@@ -176,7 +178,8 @@ const UserOrgForm = ({
                   placeholder="Last Name"
                   value={values.last_name}
                   onChange={handleChange}
-                  errorText={errors.last_name}
+                  onBlur={(e) => setFieldTouched('last_name')}
+                  errorText={touched.last_name && errors.last_name ? errors.last_name : ''}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -186,17 +189,21 @@ const UserOrgForm = ({
                   placeholder="Role Title"
                   value={values.role_or_title}
                   onChange={handleChange}
-                  errorText={errors.role_or_title}
+                  onBlur={(e) => setFieldTouched('role_or_title')}
+                  errorText={
+                    touched.role_or_title && errors.role_or_title ? errors.role_or_title : ''
+                  }
                 />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid item md={12} xs={12}>
                 <TextField
                   id="email"
                   label="Email"
                   placeholder="Email"
                   value={values.email}
                   onChange={handleChange}
-                  errorText={errors.email}
+                  onBlur={(e) => setFieldTouched('email')}
+                  errorText={touched.email && errors.email ? errors.email : ''}
                 />
               </Grid>
               <Grid item md={6} xs={12}>
@@ -204,12 +211,28 @@ const UserOrgForm = ({
                   id="password"
                   label="Password"
                   placeholder="Password"
+                  type="password"
                   value={values.password}
                   onChange={handleChange}
-                  errorText={errors.password}
+                  onBlur={(e) => setFieldTouched('password')}
+                  errorText={touched.password && errors.password ? errors.password : ''}
                 />
               </Grid>
-              {/* <FormControlLabel
+              <Grid item md={6} xs={12}>
+                <TextField
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  placeholder="Confirm Password"
+                  type="password"
+                  value={values.confirmPassword}
+                  onChange={handleChange}
+                  onBlur={(e) => setFieldTouched('confirmPassword')}
+                  errorText={
+                    touched.password && errors.confirmPassword ? errors.confirmPassword : ''
+                  }
+                />
+              </Grid>
+              <FormControlLabel
                 style={{ textAlign: 'left', display: 'block' }}
                 control={
                   <Checkbox
@@ -228,13 +251,13 @@ const UserOrgForm = ({
                     </StyledLink>
                   </label>
                 }
-              /> */}
+              />
 
               <FormHelperText error>{userEntityApiErrors}</FormHelperText>
 
               <Button
-                onClick={() => handleNext(isValid, errors, values)}
-                // disabled={!!errors.doing_business_as && !!errors.ein}
+                disabled={!isValid}
+                onClick={() => handleNext(isValid, values)}
                 className={classes.button}
                 fullWidth
               >
