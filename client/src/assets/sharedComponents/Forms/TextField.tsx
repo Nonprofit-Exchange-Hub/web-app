@@ -7,6 +7,7 @@ type CustomProps = {
   placeholder: string;
   isMultiline?: boolean;
   value: string;
+  type?: string;
   errorText?: string;
   disabled?: boolean;
   onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +21,7 @@ function TextField({
   placeholder,
   isMultiline = false,
   value,
+  type,
   disabled,
   onChange,
   onBlur,
@@ -32,7 +34,7 @@ function TextField({
       <MUITextField
         id={id}
         name={id}
-        type="text"
+        type={type ?? 'text'}
         placeholder={placeholder}
         variant="outlined"
         fullWidth
