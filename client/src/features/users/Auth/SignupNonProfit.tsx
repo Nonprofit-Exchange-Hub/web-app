@@ -7,7 +7,6 @@ import type { Theme } from '@material-ui/core/styles';
 import { placeholderImg } from '../../../assets/temp';
 import CreateOrgForm from './Steps/CreateOrgForm';
 import UserOrgForm from './Steps/UserOrgForm';
-import Confirmation from './Steps/Confirmation';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import routes from '../../../routes';
 import { ApprovalStatus, Organization, Role, UserEntity, UserOrg } from '../../../types';
@@ -59,7 +58,7 @@ const defaultUserOrg: UserOrg = {
 
 function SignupNonProfit() {
   const classes = useStyles();
-  const labels = ['First Step', 'Second Step', 'Confirmation'];
+  const labels = ['First Step', 'Second Step'];
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [org, setOrg] = React.useState<Organization>(
     (JSON.parse(sessionStorage.getItem('org') as string) as Organization) ?? defaultOrg,
@@ -110,8 +109,6 @@ function SignupNonProfit() {
             classes={classes}
           />
         );
-      case 2:
-        return <Confirmation onStepChange={setActiveStep} />;
       default:
         throw new Error('Unknown step');
     }
