@@ -109,27 +109,9 @@ const CreateOrgForm = ({
           {orgCreateMutation.isSuccess && <SimpleSnackbar message={`Organization created`} />}
         </>
       )}
-      <Formik
-        initialValues={org}
-        validationSchema={SignupSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          values,
-          touched,
-          errors,
-          setFieldTouched,
-          setFieldValue,
-          isValid,
-        }) => (
-          <form onSubmit={handleSubmit}>
+      <Formik initialValues={org} validationSchema={SignupSchema} onSubmit={() => {}}>
+        {({ handleChange, values, touched, errors, setFieldTouched, setFieldValue, isValid }) => (
+          <form>
             <Grid container spacing={5}>
               <Grid item md={12} xs={12}>
                 <Typography component="p" align="left">
