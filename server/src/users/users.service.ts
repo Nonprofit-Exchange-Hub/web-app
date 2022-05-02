@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm/repository/Repository';
@@ -7,19 +7,32 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+const duplicateEmailRegex = /Key \(email\)=.* already exists\./;
+
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
-    const hashedPw = await bcrypt.hash(
-      createUserDto.password,
-      parseInt(process.env.BCRYPT_WORK_FACTOR),
-    );
-    createUserDto.password = hashedPw;
-    const user = await this.usersRepository.save(createUserDto);
-    delete user.password;
-    return user;
+    try {
+      const hashedPw = await bcrypt.hash(
+        createUserDto.password,
+        parseInt(process.env.BCRYPT_WORK_FACTOR),
+      );
+      createUserDto.password = hashedPw;
+      const user = await this.usersRepository.save(createUserDto);
+      delete user.password;
+      return user;
+    } catch (err) {
+      if (duplicateEmailRegex.test(err.detail)) {
+        throw new HttpException(
+          { status: HttpStatus.CONFLICT, message: 'Email already exists' },
+          HttpStatus.CONFLICT,
+        );
+      }
+
+      throw err;
+    }
   }
 
   async findOne(id: number, addtionalRelations = []): Promise<Omit<User, 'password'>> {
