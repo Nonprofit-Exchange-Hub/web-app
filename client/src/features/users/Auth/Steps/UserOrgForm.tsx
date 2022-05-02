@@ -26,6 +26,8 @@ import { useMutation } from 'react-query';
 import axios, { AxiosResponse } from 'axios';
 import StyledLink from '../../../../assets/sharedComponents/StyledLink';
 import routes from '../../../../routes';
+import SimpleSnackbar from '../../../action/assets/SimpleSnackbar';
+import { Redirect } from 'react-router-dom';
 
 interface UserFormData {
   firstName: string;
@@ -82,11 +84,12 @@ const UserOrgForm = ({
     accept_terms: false,
   });
   const [userEntityApiErrors, setUserEntityApiErrors] = React.useState<string>('');
+  const [submitSuccessMessage, setSubmitSuccessMessage] = React.useState<string>('');
+  const [submitErrorMessage, setSubmitErrorMessage] = React.useState<string>('');
+  const [redirect, setRedirect] = React.useState<boolean>(false);
 
   const handleNext = (isValid: boolean, values: UserFormData) => {
-    console.log(values, 'values');
     if (isValid) {
-      // stageHttpCalls(values, () => triggerNextStep(2));
       userCreateMutation.mutate({
         firstName: values.firstName,
         last_name: values.last_name,
@@ -106,25 +109,32 @@ const UserOrgForm = ({
     },
     {
       onSuccess: (data: any) => {
-        // triggerNextStep(1);
-        const user = data.data as UserEntity;
-        setParentUser({ ...user });
-        userOrgCreateMutation.mutate({
-          user: { id: user.id as number },
-          organization: { id: orgFromPreviousStep.id as number },
-          role: Role.owner,
-          approvalStatus: ApprovalStatus.pending,
-        });
+        onCreateUserSuccess(data);
       },
       onError: (res: any) => {
-        if (res.status === 409) {
-          setUserEntityApiErrors(
-            'User Already Exists. Log in to connect an existing user to an organization',
-          );
-        }
+        onCreateUserError(res);
       },
     },
   );
+
+  const onCreateUserSuccess = (data: any): void => {
+    const user = data.data as UserEntity;
+    setParentUser({ ...user });
+    userOrgCreateMutation.mutate({
+      user: { id: user.id as number },
+      organization: { id: orgFromPreviousStep.id as number },
+      role: Role.owner,
+      approvalStatus: ApprovalStatus.pending,
+    });
+  };
+
+  const onCreateUserError = (res: any): void => {
+    if (res.status === 409) {
+      setUserEntityApiErrors(
+        'User Already Exists. Log in to connect an existing user to an organization',
+      );
+    }
+  };
 
   const userOrgCreateMutation = useMutation<
     AxiosResponse<any, any>,
@@ -137,15 +147,29 @@ const UserOrgForm = ({
     },
     {
       onSuccess: (data: any) => {
-        triggerNextStep(1);
-        setParentUserOrg((data as any).data);
+        onUserOrgSuccess(data);
       },
-      onError: (err: any) => {},
+      onError: (err: any) => {
+        setSubmitErrorMessage('Unable to create account');
+      },
     },
   );
 
+  const onUserOrgSuccess = (data: any): void => {
+    setParentUserOrg((data as any).data);
+    setSubmitSuccessMessage('Organization created successfully. Please log in');
+    sessionStorage.clear();
+    setTimeout(() => setRedirect(true), 5000);
+  };
+
+  if (redirect) {
+    return <Redirect to={'/login'} />;
+  }
+
   return (
     <React.Fragment>
+      {submitSuccessMessage && <SimpleSnackbar message={submitSuccessMessage} />}
+      {submitErrorMessage && <SimpleSnackbar message={submitErrorMessage} />}
       <Formik initialValues={userAndOrg} validationSchema={SignupSchema} onSubmit={() => {}}>
         {({ handleChange, isValid, values, touched, errors, setFieldTouched }) => (
           <form>
@@ -261,7 +285,7 @@ const UserOrgForm = ({
                 className={classes.button}
                 fullWidth
               >
-                Next
+                Submit
               </Button>
             </Grid>
           </form>
