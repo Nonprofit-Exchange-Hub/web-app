@@ -17,5 +17,5 @@ export class CreateUserDto {
   password: string;
 
   @IsOptional()
-  userOrganizations?: Array<{ organizationId: string }>;
+  organizations?: Organization[];
 }

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
@@ -31,6 +31,7 @@ export class User {
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 
-  @ManyToMany(() => Organization, (org) => org.users, { nullable: true, cascade: true })
+  @ManyToMany(() => Organization, (org) => org.users, { nullable: true, eager: true })
+  @JoinTable()
   organizations: Organization[];
 }
