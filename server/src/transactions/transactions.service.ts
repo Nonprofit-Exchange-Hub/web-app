@@ -32,7 +32,6 @@ export class TransactionsService {
     return found;
   }
 
-  // TODO make omit user its own type
   async getCurrentUsersTransactions(user: Omit<User, 'password'>): Promise<Transaction[]> {
     if (!user.assets?.length && !user.organizations?.length) {
       return [];
