@@ -29,5 +29,6 @@ export class Message {
   user: User;
 
   @ManyToOne(() => Transaction, (transaction) => transaction.messages)
+  @JoinColumn()
   transaction: Transaction;
 }

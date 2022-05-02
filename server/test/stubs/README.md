@@ -36,7 +36,7 @@ How this impacts test? -> if you mutate a mutable stub, it will dirty other test
       const og = {
         id: 234545,
         firstName: 'fakeUser',
-        last_name: 'John',
+        lastName: 'John',
         email: 'Doe',
         password: 'Secret1234$',
         assets: [],

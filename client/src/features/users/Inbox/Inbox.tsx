@@ -75,75 +75,48 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const fetchTransactions = (): Promise<Transaction[]> => {
-  return Promise.resolve([
-    {
-      id: 1,
-      donater: { id: 1, firstName: 'firstName1' },
-      requester: { id: 2, firstName: 'firstName2' },
-      asset: {
-        id: 1,
-        title: 'title 1',
-      },
-    },
-    {
-      id: 2,
-      donater: { id: 1, firstName: 'firstName1' },
-      requester: { id: 3, firstName: 'firstName3' },
-      asset: {
-        id: 2,
-        title: 'title 2',
-      },
-    },
-  ]);
-};
+const fetchTransactions = async (): Promise<Transaction[]> => {
+  const res = await fetch('http://localhost:3001/api/transactions/current-user', {
+    credentials: 'include',
+  });
+  const data = await res.json();
 
-// TODO: make the fetch find messages by transaction
-// TODO: seed data so that messages appear without manually creating them
+  return data;
+};
 
 const fetchMessages = async (): Promise<Message[]> => {
   const res = await fetch('http://localhost:3001/api/messages');
   const data = await res.json();
 
-  const messages = await data.map((message: any) => {
-    return {
-      id: message.id,
-      text: message.text,
-      transactionId: message.transaction_id,
-      user: {
-        id: message.user.id,
-        firstName: message.user.firstName,
-      },
-    };
-  });
+  const messages = await data.map((message: any) => ({
+    ...message,
+    transactionId: message.transaction_id,
+  }));
 
   return messages;
 };
 
 // TODO use SubHeader component in Offer and Assets pages
 
-// maybe call it SearchBar and have an optional leftContent prop?
-function MessageInboxView(): JSX.Element {
+function MessageInboxView(): JSX.Element | null {
   const classes = useStyles();
-  const [user] = React.useContext(UserContext);
+  const [user, , isLoading] = React.useContext(UserContext);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);
   const [messages, setMessages] = React.useState<Message[]>([]);
 
   const handleSendMessage = () => {};
 
-  // todo switch to custom hook
   React.useEffect(() => {
     if (user) {
       (async function () {
-        const transactions = await fetchTransactions(); // user.id
+        const transactions = await fetchTransactions();
         setTransactions(transactions);
         setSelectedTransaction(transactions[0]);
       })();
     }
   }, [user]);
 
-  // todo switch to custom hook
   React.useEffect(() => {
     if (selectedTransaction) {
       (async function () {
@@ -153,6 +126,10 @@ function MessageInboxView(): JSX.Element {
     }
   }, [selectedTransaction]);
 
+  if (isLoading) {
+    return null;
+  }
+
   if (!user) {
     return <Redirect to={routes.Home.path} />;
   }
@@ -160,7 +137,7 @@ function MessageInboxView(): JSX.Element {
   return (
     <>
       <SubHeader backTo={routes.Home.path} searchTo={routes.Inbox.path} />
-      <Grid container className={classes.inboxWrapper} justify="center">
+      <Grid container className={classes.inboxWrapper} justifyContent="center">
         <Grid item className={`${classes.sectionWrapper} ${classes.threadsSection}`} xs={12} sm={4}>
           <Typography variant="h5" component="h5" className={classes.sectionHeader}>
             Inbox
@@ -168,6 +145,7 @@ function MessageInboxView(): JSX.Element {
           {transactions.length ? (
             transactions.map((t) => (
               <TransactionThreadCard
+                key={t.id}
                 isSelected={t.id === selectedTransaction?.id}
                 onClick={(transaction: Transaction) => setSelectedTransaction(transaction)}
                 transaction={t}

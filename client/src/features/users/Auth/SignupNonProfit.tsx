@@ -51,7 +51,7 @@ interface SignupData {
   tax_exempt_id: string;
   nonprofit_classification: string;
   firstName: string;
-  last_name: string;
+  lastName: string;
   role_or_title: string;
   email: string;
   password: string;
@@ -66,7 +66,7 @@ const initialFormData: SignupData = {
   tax_exempt_id: '',
   nonprofit_classification: '',
   firstName: '',
-  last_name: '',
+  lastName: '',
   role_or_title: '',
   email: '',
   password: '',
@@ -117,7 +117,7 @@ function SignupNonProfit() {
   const firstPageComplete = step1Complete && step2Complete && step3Complete;
 
   // validating completion of page 2
-  const step4Complete = formData.firstName !== '' && formData.last_name !== '';
+  const step4Complete = formData.firstName !== '' && formData.lastName !== '';
   const step5Complete = formData.role_or_title !== '' && formData.email !== '';
   const step6Complete = formData.password !== '' && !!formData.accept_terms;
   const secondPageComplete = step4Complete && step5Complete && step6Complete;
@@ -236,10 +236,10 @@ function SignupNonProfit() {
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField
-                    id="last_name"
+                    id="lastName"
                     label="Last Name"
                     placeholder="Last Name"
-                    value={formData.last_name}
+                    value={formData.lastName}
                     onChange={handleFieldChange}
                   />
                 </Grid>

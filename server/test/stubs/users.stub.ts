@@ -3,18 +3,18 @@ import { Asset } from '../../src/assets/entities/asset.entity';
 import { CreateUserDto } from '../../src/users/dto/create-user.dto';
 import { User } from '../../src/users/entities/user.entity';
 import { Transaction } from '../../src/transactions/entities/transaction.entity';
-import { UserOrganization } from '../../src/user-org/entities/user-org.entity';
+import { Organization } from '../../src/organizations/entities/organization.entity';
 
 export const userEntityStub = (
   assets?: Asset[],
   messages?: Message[],
   transactions?: Transaction[],
-  organizations?: UserOrganization[],
+  organizations?: Organization[],
 ): User => {
   return {
     id: 234545,
     firstName: 'fakeUser',
-    last_name: 'John',
+    lastName: 'John',
     email: 'Doe',
     password: 'Secret1234$',
     assets: assets,
@@ -27,7 +27,7 @@ export const userEntityStub = (
 export const userCreateDtoStub = (): CreateUserDto => {
   return {
     firstName: 'jakeUser',
-    last_name: 'fakeLast',
+    lastName: 'fakeLast',
     email: 'fakeUser@test.com',
     password: 'Secret1234$',
   };

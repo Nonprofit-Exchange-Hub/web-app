@@ -148,7 +148,7 @@ function HowItWorks() {
 
       <Box className={`${classes.tabs}`}>
         <Container>
-          <Grid container justify="space-between">
+          <Grid container justifyContent="space-between">
             <Grid
               container
               item

@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
 
-import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
+import { Asset } from '../../assets/entities/asset.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('organizations')
 export class Organization {
@@ -32,15 +33,15 @@ export class Organization {
   @Column({ type: 'int', unique: true })
   ein: number;
 
-  @Column('int')
-  tax_exempt_id: number;
-
-  @OneToMany(() => UserOrganization, (user_org) => user_org.organization)
-  users: UserOrganization[];
+  @ManyToMany(() => Organization, (org) => org.users)
+  users: User[];
 
   @OneToMany(
     () => Transaction,
-    (transaction) => transaction.donater_organization || transaction.recipient,
+    (transaction) => transaction.asset.posterOrganization || transaction.recipient,
   )
   transactions: Transaction[];
+
+  @OneToMany(() => Asset, (asset) => asset.posterOrganization)
+  assets: Asset[];
 }

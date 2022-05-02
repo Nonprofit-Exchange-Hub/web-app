@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface UserSignupData {
   firstName: string;
-  last_name: string;
+  lastName: string;
   email: string;
   password: string;
   accept_terms?: boolean;
@@ -64,7 +64,7 @@ interface UserSignupData {
 
 const initialFormData: UserSignupData = {
   firstName: '',
-  last_name: '',
+  lastName: '',
   email: '',
   password: '',
   accept_terms: false,
@@ -153,18 +153,18 @@ function SignupCitizen() {
               <Grid item xs={2} />
               <Grid item xs={5}>
                 <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="last_name">
+                  <label className={classes.label} htmlFor="lastName">
                     Last Name
                   </label>
                   <Input
                     className={classes.input}
                     type="text"
-                    id="last_name"
-                    name="last_name"
+                    id="lastName"
+                    name="lastName"
                     autoComplete="family-name"
                     placeholder="Individual"
                     fullWidth
-                    value={formData.last_name}
+                    value={formData.lastName}
                     onChange={handleChange}
                     disableUnderline
                     required

@@ -7,6 +7,8 @@ import { Transaction } from './entities/transaction.entity';
 import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
+import type { User } from '../users/entities/user.entity';
+
 @Injectable()
 export class TransactionsService {
   constructor(
@@ -28,6 +30,22 @@ export class TransactionsService {
       throw new NotFoundException();
     }
     return found;
+  }
+
+  async getCurrentUsersTransactions(user: Omit<User, 'password'>): Promise<Transaction[]> {
+    if (!user.assets?.length && !user.organizations?.length) {
+      return [];
+    }
+
+    const orgFilters = user.organizations.map((org) => ({ recipient: { id: org.id } }));
+    const assetFilters = user.assets.map((asset) => ({ asset: { id: asset.id } }));
+
+    const found = await this.transactionsRepository.find({
+      where: [...orgFilters, ...assetFilters],
+      relations: ['recipient', 'asset', 'poster'],
+    });
+
+    return found || [];
   }
 
   async updateTransaction(

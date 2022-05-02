@@ -7,17 +7,20 @@ type SetUser = (
   shouldFetch?: boolean,
   shouldStartTimer?: boolean,
 ) => Promise<void>;
-type UserContextT = [User | null, SetUser];
+
+type UserContextT = [User | null, SetUser, boolean];
 
 export const UserContext = React.createContext<UserContextT>([
   null,
   async function (user: User | null, shouldFetch?: boolean, shouldStartTimer?: boolean) {},
+  true,
 ]);
 
 export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const { children } = props;
 
   const [user, setUser] = React.useState<User | null>(null);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   async function fetchUser(): Promise<User | null> {
     const res = await fetch('http://localhost:3001/api/auth/session', {
@@ -41,9 +44,11 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   ): Promise<void> {
     let newUser: User | null = user;
     if (shouldFetch) {
+      setIsLoading(true);
       newUser = await fetchUser();
     }
     setUser(newUser);
+    setIsLoading(false);
 
     if (shouldStartTimer && newUser) {
       setTimeout(() => {
@@ -56,5 +61,9 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
     setUserTimeout(null, true, true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <UserContext.Provider value={[user, setUserTimeout]}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={[user, setUserTimeout, isLoading]}>
+      {children}
+    </UserContext.Provider>
+  );
 }

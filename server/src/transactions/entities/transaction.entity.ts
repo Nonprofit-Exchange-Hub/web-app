@@ -28,14 +28,6 @@ export class Transaction {
   @CreateDateColumn()
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.transactions)
-  @JoinColumn()
-  donater_user: User;
-
-  @ManyToOne(() => Organization, (organization) => organization.transactions)
-  @JoinColumn()
-  donater_organization?: Organization;
-
   @ManyToOne(() => Asset, (asset) => asset.transactions, { eager: true })
   @JoinColumn()
   asset: Asset;
@@ -44,7 +36,16 @@ export class Transaction {
   @JoinColumn()
   recipient: Organization;
 
-  @OneToMany(() => Message, (message) => message.transaction)
+  @ManyToOne(() => User, (poster) => poster.transactions)
   @JoinColumn()
+  poster: User;
+
+  @ManyToOne(() => Organization, (posterOrg) => posterOrg.transactions, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn()
+  posterOrganization?: Organization;
+
+  @OneToMany(() => Message, (message) => message.transaction)
   messages: Message;
 }

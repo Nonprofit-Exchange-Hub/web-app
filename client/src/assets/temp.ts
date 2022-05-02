@@ -15,12 +15,15 @@ const lorem = `
 export const mockData: Asset[] = [1, 2, 3].map((num) => ({
   id: num,
   title: `Title ${num}`,
-  categories: [1, 2, 3].map((n) => `category ${n}`),
-  datePosted: `datePosted ${num}`,
-  location: `location ${num}`,
   imgUrls: [placeholderImg, otherImg],
+  categories: [],
   description: lorem,
-  poster: { id: num, firstName: `User${num}` },
+  poster: { id: num, firstName: `User${num}`, lastName: `User${num}`, email: `User${num}` },
+  type: 'string',
+  condition: 'string',
+  quantity: num,
+  location: `location ${num}`,
+  datePosted: `date ${num}`,
   organization: 493,
 }));
 

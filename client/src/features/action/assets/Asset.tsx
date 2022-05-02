@@ -154,14 +154,14 @@ function Asset(): JSX.Element {
     });
 
   const aboutInfo = () => {
-    if (asset.organization !== null) {
+    if (asset.poster !== null) {
       return (
         <div>
           <Typography className={classes.subText} variant="subtitle1">
-            About the Nonprofit
+            About the poster
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            {asset.description}
+            {asset.poster.firstName}
           </Typography>
         </div>
       );
@@ -227,7 +227,7 @@ function Asset(): JSX.Element {
             onClick={handleClaim}
             className={classes.claimButton}
           >
-            {asset.organization ? 'I can donate this!' : 'Message to claim!'}
+            {'Message to claim!'}
           </Button>
           {showSnackbar ? <SimpleSnackbar /> : null}
         </div>

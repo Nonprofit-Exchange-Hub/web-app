@@ -1,25 +1,50 @@
 export type Asset = {
+  type: string;
+  condition: string;
+  categories: string[];
+  quantity: number;
   id: number;
   title: string;
-  categories: string[];
-  datePosted: string;
-  location: string;
-  imgUrls: string[];
   description: string;
   poster: User;
+  imgUrls: string[];
+  location: string;
+  datePosted: string;
   organization: number;
 };
 
 export type User = {
   id: number;
   firstName: string;
+  lastName: string;
+  email: string;
+  organization?: Organization;
+  assets?: Asset[];
+};
+
+export type Organization = {
+  id: number;
+  name: string;
+  description: string;
+  website: string;
+  address: string;
+  phone: string;
+  city: string;
+  state: string;
+  ein: number;
+  tax_exempt_id: number;
+  users: User[];
+  transactions: Transaction[];
+  assets: Asset[];
 };
 
 export type Transaction = {
   id: number;
-  donater: User;
-  requester: User;
-  asset: Pick<Asset, 'id' | 'title'>;
+  recipient: Organization;
+  asset: Asset;
+  status: string;
+  poster: User;
+  posterOrganization?: Organization;
 };
 
 export type Message = {
