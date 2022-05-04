@@ -15,7 +15,6 @@ export class UserOrganizationsService {
   ) {}
 
   async create(createUserOrganizationDto: CreateUserOrganizationDto): Promise<UserOrganization> {
-    console.log(createUserOrganizationDto, 'dot from userorg');
     return await this.userOrganizationsRepository.save(createUserOrganizationDto);
   }
 

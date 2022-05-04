@@ -22,7 +22,6 @@ export class OrganizationsController {
 
   @Post()
   async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
-    console.log(createOrganizationDto, 'ORG');
     try {
       const newOrg = await this.organizationsService.create(createOrganizationDto);
       return newOrg;
