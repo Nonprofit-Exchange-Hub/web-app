@@ -50,22 +50,13 @@ export enum ApprovalStatus {
   denied = 'DENIED',
 }
 
-export type UserEntity = {
-  id?: number;
-  firstName: string;
+export type BaseUserEntity = User & {
   last_name: string;
   email: string;
-};
-
-export type UserEntityCreateObj = {
-  firstName: string;
-  last_name: string;
-  email: string;
-  password: string;
 };
 
 export type User = {
-  id: number;
+  id?: number;
   firstName: string;
 };
 

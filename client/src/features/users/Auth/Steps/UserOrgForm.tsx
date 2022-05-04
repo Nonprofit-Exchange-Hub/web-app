@@ -17,8 +17,7 @@ import {
   ApprovalStatus,
   Organization,
   Role,
-  UserEntity,
-  UserEntityCreateObj,
+  BaseUserEntity,
   UserOrg,
   UserOrgCreateObj,
 } from '../../../../types';
@@ -39,6 +38,10 @@ interface UserFormData {
   accept_terms: boolean;
 }
 
+type UserEntityCreateObj = BaseUserEntity & {
+  password: string;
+};
+
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
   last_name: Yup.string().required('Required'),
@@ -58,8 +61,8 @@ const SignupSchema = Yup.object().shape({
 interface Props {
   orgFromPreviousStep: Organization;
   parentUserOrg: UserOrg;
-  parentUser: UserEntity;
-  setParentUser: (user: UserEntity) => void;
+  parentUser: BaseUserEntity;
+  setParentUser: (user: BaseUserEntity) => void;
   setParentUserOrg: (userOrg: UserOrg) => void;
   triggerNextStep: (step: number) => void;
   classes: ClassNameMap<any>;
@@ -118,7 +121,7 @@ const UserOrgForm = ({
   );
 
   const onCreateUserSuccess = (data: any): void => {
-    const user = data.data as UserEntity;
+    const user = data.data as BaseUserEntity;
     setParentUser({ ...user });
     userOrgCreateMutation.mutate({
       user: { id: user.id as number },

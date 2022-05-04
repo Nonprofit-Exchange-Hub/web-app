@@ -9,7 +9,7 @@ import CreateOrgForm from './Steps/CreateOrgForm';
 import UserOrgForm from './Steps/UserOrgForm';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import routes from '../../../routes';
-import { ApprovalStatus, Organization, Role, UserEntity, UserOrg } from '../../../types';
+import { ApprovalStatus, Organization, Role, BaseUserEntity, UserOrg } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
@@ -45,7 +45,7 @@ const defaultOrg: Organization = {
   nonprofit_classification: '',
 };
 
-const defaultUser: UserEntity = {
+const defaultUser: BaseUserEntity = {
   firstName: '',
   last_name: '',
   email: '',
@@ -63,8 +63,8 @@ function SignupNonProfit() {
   const [org, setOrg] = React.useState<Organization>(
     (JSON.parse(sessionStorage.getItem('org') as string) as Organization) ?? defaultOrg,
   );
-  const [user, setUser] = React.useState<UserEntity>(
-    (JSON.parse(sessionStorage.getItem('user') as string) as UserEntity) ?? defaultUser,
+  const [user, setUser] = React.useState<BaseUserEntity>(
+    (JSON.parse(sessionStorage.getItem('user') as string) as BaseUserEntity) ?? defaultUser,
   );
 
   const [userOrg, setUserOrg] = React.useState<UserOrg>(
@@ -81,7 +81,7 @@ function SignupNonProfit() {
     setUserOrg(userOrg);
   };
 
-  const onChildSetParentUser = (user: UserEntity): void => {
+  const onChildSetParentUser = (user: BaseUserEntity): void => {
     sessionStorage.setItem('user', JSON.stringify(user));
     setUser(user);
   };

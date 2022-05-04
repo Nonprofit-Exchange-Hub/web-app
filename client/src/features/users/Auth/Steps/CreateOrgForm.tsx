@@ -73,8 +73,7 @@ const CreateOrgForm = ({
     enabled: triggerEinSearch,
     queryKey: ['orgValidateEinQuery', org.ein],
     queryFn: ({ queryKey }) => {
-      const [_key, ein] = queryKey;
-      console.log(_key); // need to use _key somehow
+      const [, ein] = queryKey;
       return axios.get(`http://localhost:3001/api/organizations/ein/${ein}`);
     },
     onSuccess: (res: any) => {
