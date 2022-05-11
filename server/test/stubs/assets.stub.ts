@@ -14,5 +14,7 @@ export const assetsStub = (poster: User, transactions: Transaction[]): Asset => 
     imgUrls: [],
     poster,
     transactions,
+    datePosted: new Date(),
+    location: 'here',
   };
 };

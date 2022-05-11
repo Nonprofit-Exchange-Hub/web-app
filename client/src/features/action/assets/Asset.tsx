@@ -137,21 +137,22 @@ function Asset(): JSX.Element {
     return <>asset not found</>;
   }
 
-  const bigImg = asset.imgUrls[selectedImgInd];
+  const bigImg = asset.imgUrls?.[selectedImgInd];
 
-  const showMiniImgs = asset.imgUrls
-    .filter((imgUrl, ind) => ind !== selectedImgInd)
-    .map((imgUrl, ind) => {
-      return (
-        <img
-          key={imgUrl}
-          src={imgUrl}
-          alt={asset!.title}
-          className={classes.miniImg}
-          onClick={() => setSelectedImgInd(ind)}
-        />
-      );
-    });
+  const showMiniImgs =
+    asset.imgUrls
+      ?.filter((imgUrl, ind) => ind !== selectedImgInd)
+      .map((imgUrl, ind) => {
+        return (
+          <img
+            key={imgUrl}
+            src={imgUrl}
+            alt={asset!.title}
+            className={classes.miniImg}
+            onClick={() => setSelectedImgInd(ind)}
+          />
+        );
+      }) ?? [];
 
   const aboutInfo = () => {
     if (asset.organization !== null) {
