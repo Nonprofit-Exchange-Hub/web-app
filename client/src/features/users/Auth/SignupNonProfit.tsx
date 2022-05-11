@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import makeStyles from '@mui/styles/makeStyles';
+import { Button } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import { placeholderImg } from '../../../assets/temp';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';

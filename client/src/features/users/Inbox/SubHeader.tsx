@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import Button from '@material-ui/core/Button';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import makeStyles from '@mui/styles/makeStyles';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import Button from '@mui/material/Button';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   wrapper: {

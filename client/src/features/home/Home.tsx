@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import Divider from '@material-ui/core/Divider';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import Divider from '@mui/material/Divider';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import { SelectChangeEvent } from '@mui/material';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import NeedsAndOffers from './NeedsAndOffers';
 import { mockData, placeholderImg } from '../../assets/temp';
@@ -161,7 +162,7 @@ function Home(): JSX.Element {
   const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('');
   const [searchText, setSearchText] = React.useState<string>('');
 
-  const selectSearchCategory = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const selectSearchCategory = (event: SelectChangeEvent<string>) => {
     setSelectedSearchCategory(event.target.value as string);
   };
 

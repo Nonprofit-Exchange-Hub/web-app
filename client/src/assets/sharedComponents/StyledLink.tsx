@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
+import Link from '@mui/material/Link';
+import makeStyles from '@mui/styles/makeStyles';
 
 /**
  * Styled Link with RouterLink set as component for Browser Router.

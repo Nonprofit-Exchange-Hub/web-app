@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
-import IconButton from '@material-ui/core/IconButton';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import IconButton from '@mui/material/IconButton';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import SubHeader from './SubHeader';
 import TransactionThreadCard from './TransactionThreadCard';
@@ -130,7 +130,9 @@ function MessageInboxView(): JSX.Element {
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);
   const [messages, setMessages] = React.useState<Message[]>([]);
 
-  const handleSendMessage = () => {};
+  const handleSendMessage = () => {
+    console.log(messages);
+  };
 
   // todo switch to custom hook
   React.useEffect(() => {
@@ -155,67 +157,72 @@ function MessageInboxView(): JSX.Element {
 
   if (!user) {
     return <Redirect to={routes.Home.path} />;
+  } else {
+    return (
+      <>
+        <SubHeader backTo={routes.Home.path} searchTo={routes.Inbox.path} />
+        <Grid container className={classes.inboxWrapper} justifyContent="center">
+          <Grid
+            item
+            className={`${classes.sectionWrapper} ${classes.threadsSection}`}
+            xs={12}
+            sm={4}
+          >
+            <Typography variant="h5" component="h5" className={classes.sectionHeader}>
+              Inbox
+            </Typography>
+            {transactions.length ? (
+              transactions.map((t) => (
+                <TransactionThreadCard
+                  isSelected={t.id === selectedTransaction?.id}
+                  onClick={(transaction: Transaction) => setSelectedTransaction(transaction)}
+                  transaction={t}
+                  user={user}
+                />
+              ))
+            ) : (
+              <Box className={classes.noThreadsMessage}>
+                <Typography className={classes.noThreadsMessagePiece}>Inbox empty</Typography>
+                <Typography className={classes.noThreadsMessagePiece}>
+                  Support an organization by <Link to={routes.Assets.path}>contributing</Link>{' '}
+                  something they need
+                </Typography>
+                <Typography className={classes.noThreadsMessagePiece}>or</Typography>
+                <Typography className={classes.noThreadsMessagePiece}>
+                  {/* update to prop to use routes once set up */}
+                  <Link to="/weDontHaveAPostRouteYet">Post</Link> a need
+                </Typography>
+              </Box>
+            )}
+          </Grid>
+          <Grid item className={classes.sectionWrapper} xs={12} sm={7}>
+            {selectedTransaction && (
+              <Box className={classes.messagesWrapper}>
+                <Typography variant="h5" component="h5" className={classes.sectionHeader}>
+                  Re: {selectedTransaction.asset.title}
+                </Typography>
+                {messages?.map((m) => (
+                  <MessageCard message={m} isCurrentUser={m.user.id === user?.id} />
+                ))}
+              </Box>
+            )}
+            <Box className={classes.messageInputWrapper}>
+              <form onSubmit={handleSendMessage} className={classes.messageInputForm}>
+                <TextField
+                  className={classes.messageInput}
+                  label="Enter your message here."
+                  variant="outlined"
+                />
+                <IconButton aria-label="send message" type="submit" size="large">
+                  <SendOutlinedIcon />
+                </IconButton>
+              </form>
+            </Box>
+          </Grid>
+        </Grid>
+      </>
+    );
   }
-
-  return (
-    <>
-      <SubHeader backTo={routes.Home.path} searchTo={routes.Inbox.path} />
-      <Grid container className={classes.inboxWrapper} justify="center">
-        <Grid item className={`${classes.sectionWrapper} ${classes.threadsSection}`} xs={12} sm={4}>
-          <Typography variant="h5" component="h5" className={classes.sectionHeader}>
-            Inbox
-          </Typography>
-          {transactions.length ? (
-            transactions.map((t) => (
-              <TransactionThreadCard
-                isSelected={t.id === selectedTransaction?.id}
-                onClick={(transaction: Transaction) => setSelectedTransaction(transaction)}
-                transaction={t}
-                user={user}
-              />
-            ))
-          ) : (
-            <Box className={classes.noThreadsMessage}>
-              <Typography className={classes.noThreadsMessagePiece}>Inbox empty</Typography>
-              <Typography className={classes.noThreadsMessagePiece}>
-                Support an organization by <Link to={routes.Assets.path}>contributing</Link>{' '}
-                something they need
-              </Typography>
-              <Typography className={classes.noThreadsMessagePiece}>or</Typography>
-              <Typography className={classes.noThreadsMessagePiece}>
-                {/* update to prop to use routes once set up */}
-                <Link to="/weDontHaveAPostRouteYet">Post</Link> a need
-              </Typography>
-            </Box>
-          )}
-        </Grid>
-        <Grid item className={classes.sectionWrapper} xs={12} sm={7}>
-          {selectedTransaction && (
-            <Box className={classes.messagesWrapper}>
-              <Typography variant="h5" component="h5" className={classes.sectionHeader}>
-                Re: {selectedTransaction.asset.title}
-              </Typography>
-              {messages?.map((m) => (
-                <MessageCard message={m} isCurrentUser={m.user.id === user?.id} />
-              ))}
-            </Box>
-          )}
-          <Box className={classes.messageInputWrapper}>
-            <form onSubmit={handleSendMessage} className={classes.messageInputForm}>
-              <TextField
-                className={classes.messageInput}
-                label="Enter your message here."
-                variant="outlined"
-              />
-              <IconButton aria-label="send message" type="submit">
-                <SendOutlinedIcon />
-              </IconButton>
-            </form>
-          </Box>
-        </Grid>
-      </Grid>
-    </>
-  );
 }
 
 export default MessageInboxView;

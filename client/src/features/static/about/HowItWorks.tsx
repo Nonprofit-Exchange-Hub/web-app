@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid, Container } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import { Box, Grid, Container } from '@mui/material';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import QuestionList from '../../../assets/sharedComponents/QuestionList';
 import { BulletGrid, InstructionGrid } from '../../../assets/sharedComponents/DisplayGrids';
@@ -148,7 +148,7 @@ function HowItWorks() {
 
       <Box className={`${classes.tabs}`}>
         <Container>
-          <Grid container justify="space-between">
+          <Grid container justifyContent="space-between">
             <Grid
               container
               item
