@@ -67,9 +67,8 @@ function NeedsAndOffers(props: Props): JSX.Element {
             <Card variant="outlined">
               <img
                 src={
-                  asset.imgUrls
-                    ? asset.imgUrls[0]
-                    : 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png'
+                  asset?.imgUrls?.[0] ??
+                  'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png'
                 }
                 className={classes.cardImg}
                 alt={asset.title}
@@ -81,7 +80,7 @@ function NeedsAndOffers(props: Props): JSX.Element {
                 <RoomOutlined />
                 {asset.location}
                 <TodayOutlined />
-                {asset.datePosted}
+                {new Date(asset.datePosted).toLocaleDateString()}
               </div>
             </Card>
           </NavLink>
