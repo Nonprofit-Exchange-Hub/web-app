@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  CreateDateColumn,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 import { AssetType, Condition } from '../constants';
@@ -29,7 +37,16 @@ export class Asset {
   })
   condition: Condition;
 
-  @Column()
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  location: string;
+
+  @CreateDateColumn()
+  datePosted: Date;
+
+  @Column('int')
   quantity: number;
 
   @Column({
