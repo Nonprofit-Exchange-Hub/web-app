@@ -1,0 +1,11 @@
+**/node_modules
+**/dist
+**/*.gitignore
+**/test
+**/LICENSE
+*.md
+**/.git
+**/pgdata
+**/pgdata-staging
+**/*.eslintrc.js
+**/.vscode/*

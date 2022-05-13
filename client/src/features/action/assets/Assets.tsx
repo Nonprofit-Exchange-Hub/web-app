@@ -14,6 +14,7 @@ import FilterGroup from '../../../assets/sharedComponents/FilterGroup';
 import { mockData, filters1, filters2, filters3 } from '../../../assets/temp';
 import routes from '../../../routes';
 import type { Asset } from '../../../types';
+import { APP_API_BASE_URL } from '../../../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchBar: {
@@ -88,7 +89,7 @@ function Assets(): JSX.Element {
   React.useEffect(() => {
     // fetch assets with querySearchText
     fetch(
-      `http://localhost:3001/api/assets?type=${selectedAssetType}${
+      `${APP_API_BASE_URL}/assets?type=${selectedAssetType}${
         querySearchText ? `&title=${querySearchText}` : ''
       }`,
     )

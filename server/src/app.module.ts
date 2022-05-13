@@ -22,7 +22,7 @@ import { UserOrganizationsModule } from './user-org/user-org.module';
     }),
     TypeOrmModule.forRootAsync({ useClass: DatabaseConnectionService }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../..', 'client/build'),
+      rootPath: join(__dirname, '/../../client', 'build'),
     }),
     AssetsModule,
     AuthModule,

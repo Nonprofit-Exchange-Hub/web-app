@@ -9,6 +9,7 @@ import SimpleSnackbar from '../../action/assets/SimpleSnackbar';
 import type { Theme } from '@material-ui/core/styles';
 
 import EmailInput from './EmailInput';
+import { APP_API_BASE_URL } from '../../../configs';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -91,7 +92,7 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    await fetch('http://localhost:3001/api/users/reset_password', {
+    await fetch(`${APP_API_BASE_URL}/api/users/reset_password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

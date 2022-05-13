@@ -16,6 +16,12 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
       dropSchema: false, //toggle to true to clear database schema
       logging: true,
       autoLoadEntities: true,
+      ssl:
+        process.env.MODE === 'production' // only require ssl when in production
+          ? {
+              ca: process.env.POSTGRESQL_SSL_CERT,
+            }
+          : false,
     };
   }
 }
