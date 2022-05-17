@@ -55,6 +55,7 @@ function SetNewPassword() {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: password }),
+      credentials: 'include',
     }).then((resp) => {
       if (resp.ok) {
         resp.json().then((data) => {
