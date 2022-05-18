@@ -16,6 +16,7 @@ import NeedsAndOffers from './NeedsAndOffers';
 import { mockData, placeholderImg } from '../../assets/temp';
 import QuestionList from '../../assets/sharedComponents/QuestionList';
 import routes from '../../routes';
+import TempChat from './TempChat';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -230,6 +231,7 @@ function Home(): JSX.Element {
         </Typography>
         <QuestionList questionList={faqQuestions}></QuestionList>
       </div>
+      <TempChat />
     </>
   );
 }
