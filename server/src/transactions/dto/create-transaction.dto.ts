@@ -5,21 +5,25 @@ import { TransactionStatus } from '../transaction-status.enum';
 import type { User } from '../../users/entities/user.entity';
 import type { Organization } from '../../organizations/entities/organization.entity';
 import type { Asset } from '../../assets/entities/asset.entity';
+import { Message } from 'src/messages/entities/message.entity';
 
 export class CreateTransactionDto {
   @IsNotEmpty()
-  donater_user: Pick<User, 'id'>;
+  donater_user: User;
 
   @IsOptional()
-  donater_organization: Pick<Organization, 'id'>;
-
-  @IsOptional()
-  recipient: Pick<Organization, 'id'>;
+  donater_organization?: Organization;
 
   @IsNotEmpty({ message: 'asset_id is required' })
-  asset: Pick<Asset, 'id'>;
+  asset: Asset;
+
+  @IsOptional()
+  message?: Message;
+
+  @IsOptional()
+  recipient?: Organization;
 
   @IsOptional()
   @IsEnum(TransactionStatus)
-  status: TransactionStatus;
+  status?: TransactionStatus;
 }

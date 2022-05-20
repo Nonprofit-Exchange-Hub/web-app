@@ -6,6 +6,8 @@ import { CreateOrganizationDto } from '../../organizations/dto/create-organizati
 import { CreateTransactionDto } from '../../transactions/dto/create-transaction.dto';
 import { AssetType, Condition } from '../../assets/constants';
 import { TransactionStatus } from '../../transactions/transaction-status.enum';
+import { CreateUserOrganizationDto } from 'src/user-org/dto/create-user-org.dto';
+import { ApprovalStatus, Role } from 'src/user-org/constants';
 
 export const seedUsers = (): CreateUserDto[] => {
   const users: CreateUserDto[] = [
@@ -25,25 +27,41 @@ export const seedUsers = (): CreateUserDto[] => {
   return users;
 };
 
-export const seedAssets = (): CreateAssetDto[] => {
+export function seedAssets(): CreateAssetDto[] {
   const assets: CreateAssetDto[] = [
     {
       title: 'paper',
       description: 'stack of paper',
-      poster: { id: 1 },
       type: AssetType.DONATION,
+      poster: null,
       condition: Condition.LIKE_NEW,
+      quantity: 1,
     },
     {
       title: 'chairs',
       description: 'two chairs',
-      poster: { id: 2 },
       type: AssetType.REQUEST,
+      poster: null,
       condition: Condition.EXCELLENT,
+      quantity: 2,
     },
   ];
   return assets;
-};
+}
+
+export function seedTransactionsAsset(): CreateAssetDto[] {
+  const transactionsAsset: CreateAssetDto[] = [
+    {
+      title: 'diapers',
+      description: 'infant diapers',
+      type: AssetType.DONATION,
+      condition: Condition.LIKE_NEW,
+      quantity: 0,
+      poster: null,
+    },
+  ];
+  return transactionsAsset;
+}
 
 export const seedCategories = (): CreateCategoryDto[] => {
   const categories: CreateCategoryDto[] = [
@@ -65,13 +83,13 @@ export const seedMessages = (): CreateMessageDto[] => {
   const messages: CreateMessageDto[] = [
     {
       text: 'I would like to accept the paper products.',
-      user: { id: 1 },
-      transaction: { id: 1 },
+      user: null,
+      transaction: null,
     },
     {
       text: 'I would like to accept the furniture.',
-      user: { id: 2 },
-      transaction: { id: 2 },
+      user: null,
+      transaction: null,
     },
   ];
   return messages;
@@ -108,19 +126,34 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
 export const seedTransactions = (): CreateTransactionDto[] => {
   const transactions: CreateTransactionDto[] = [
     {
-      donater_user: { id: 1 },
-      donater_organization: { id: 1 },
-      recipient: { id: 1 },
-      asset: { id: 1 },
+      donater_user: null,
+      donater_organization: null,
+      recipient: null,
+      message: null,
+      asset: null,
       status: TransactionStatus.COMPLETED,
     },
     {
-      donater_user: { id: 2 },
-      donater_organization: { id: 2 },
-      recipient: { id: 2 },
-      asset: { id: 2 },
+      donater_user: null,
+      donater_organization: null,
+      recipient: null,
+      message: null,
+      asset: null,
       status: TransactionStatus.IN_PROGRESS,
     },
   ];
   return transactions;
+};
+
+export const seedUserOrganization = (organization, user5): CreateUserOrganizationDto[] => {
+  const userOrganizations: CreateUserOrganizationDto[] = [
+    {
+      approvalStatus: ApprovalStatus.approved,
+      organization: organization,
+      role: Role.owner,
+      user: user5,
+    },
+  ];
+
+  return userOrganizations;
 };

@@ -56,7 +56,7 @@ export class Asset {
   imgUrls: string[];
 
   @ManyToOne(() => User, (user) => user.assets, { eager: true })
-  @JoinColumn({ name: 'poster_id' })
+  @JoinColumn({ name: 'posterid' })
   poster: User;
 
   @OneToMany(() => Transaction, (transaction) => transaction.asset)

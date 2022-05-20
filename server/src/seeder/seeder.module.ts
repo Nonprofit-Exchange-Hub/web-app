@@ -1,6 +1,13 @@
 import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
+import { AssetsModule } from '../assets/assets.module';
+import { CategoriesModule } from '../categories/categories.module';
+import { OrganizationsModule } from '../organizations/organizations.module';
+import { MessagesModule } from '../messages/messages.module';
+import { TransactionsModule } from '../transactions/transactions.module';
+import { UserOrganizationsModule } from 'src/user-org/user-org.module';
+
 import { SeederService } from './seeder.service';
 import { DatabaseConnectionService } from '../database-connection.service';
 
@@ -19,6 +26,12 @@ const dbOptions = new DatabaseConnectionService().createTypeOrmOptions();
       keepConnectionAlive: true,
     }),
     UsersModule,
+    AssetsModule,
+    CategoriesModule,
+    OrganizationsModule,
+    MessagesModule,
+    TransactionsModule,
+    UserOrganizationsModule,
   ],
   providers: [Logger, SeederService],
 })
@@ -32,9 +45,16 @@ export class SeederModule implements OnApplicationBootstrap {
     Logger.log('onApplicationBootstrap', SeederModule.name);
 
     // remove all data
-    this.seederService.truncateFromAllTables();
+    //this.seederService.truncateFromAllTables();
 
     // seed the users table
-    await this.seederService.seedUsersAsync();
+    this.seederService
+      .seedUsersAsync()
+      .then(() => this.seederService.seedAssetsAsync())
+      .then(() => this.seederService.seedCategoriesAsync())
+      .then(() => this.seederService.seedOrganizationsAsync())
+      .then(() => this.seederService.seedMessagesAsync())
+      .then(() => this.seederService.seedTransactionsAsync())
+      .then(() => this.seederService.seedUserOrgAsync());
   }
 }

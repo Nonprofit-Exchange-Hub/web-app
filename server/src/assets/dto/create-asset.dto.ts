@@ -10,8 +10,11 @@ export class CreateAssetDto {
   @IsNotEmpty()
   description: string;
 
+  @IsOptional()
+  quantity: number;
+
   @IsNotEmpty()
-  poster: Pick<User, 'id'>;
+  poster: User;
 
   @IsOptional()
   @IsEnum(AssetType)

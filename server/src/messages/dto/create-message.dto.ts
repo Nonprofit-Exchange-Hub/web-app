@@ -8,8 +8,8 @@ export class CreateMessageDto {
   text: string;
 
   @IsNotEmpty()
-  user: Pick<User, 'id'>;
+  user: User;
 
   @IsNotEmpty()
-  transaction: Pick<Transaction, 'id'>;
+  transaction: Transaction;
 }
