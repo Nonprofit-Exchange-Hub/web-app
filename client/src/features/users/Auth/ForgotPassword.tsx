@@ -91,13 +91,18 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    await fetch('http://localhost:3001/api/users/reset_password', {
+    fetch('http://localhost:3001/api/users/reset_password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
-    });
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        // sends user email, backend finds email, sends link to reset password
+        console.log(data);
+      });
 
     setIsLoading(false);
     setShowSnackbar(true);
