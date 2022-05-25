@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import PermIdentityRoundedIcon from '@material-ui/icons/PermIdentityRounded';
+import Box from '@mui/material/Box';
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import PermIdentityRoundedIcon from '@mui/icons-material/PermIdentityRounded';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import type { Transaction, User } from '../../../types';
 

@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, FormLabel, Button } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
+import { FormControl, FormLabel, Button } from '@mui/material';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   buttonText: {
     width: '100%',
-    border: `1px solid ${theme.custom.form.borderColor}`,
-    borderRadius: theme.custom.form.borderRadius,
+    border: `1px solid ${theme.form.borderColor}`,
+    borderRadius: theme.form.borderRadius,
     padding: '10px',
     marginTop: '8px',
     '& .MuiButton-label': {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Grid } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { Grid } from '@mui/material';
+import { Button } from '@mui/material';
 
 import {
   FileUploadInput,
@@ -130,7 +130,7 @@ function OfferFormSkills() {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item container xs={12} justify="center">
+        <Grid item container xs={12} justifyContent="center">
           <Grid item>
             <Button variant="contained" color="secondary">
               Save Draft

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import { Grid } from '@mui/material';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 const instructionStyles = makeStyles<Theme, InstructionProps>((theme: Theme) => ({
   gridBoxes: {
@@ -20,7 +20,7 @@ const instructionStyles = makeStyles<Theme, InstructionProps>((theme: Theme) => 
       },
       '& .MuiTypography-body1': {
         width: '100%',
-        maxWidth: theme.custom.maxContentWidth,
+        maxWidth: '1200px',
         textAlign: 'left',
       },
     },

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import { Box } from '@mui/material';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 const useStyles = makeStyles<Theme, GridProps>((theme: Theme) => ({
   missionContent: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles<Theme, GridProps>((theme: Theme) => ({
     columnGap: '20px',
     rowGap: '20px',
     margin: '30px 0 10px 0',
-    maxWidth: theme.custom.maxContentWidth,
+    maxWidth: '1200px',
   },
   '@media screen and (max-width: 1100px)': {
     missionContent: {

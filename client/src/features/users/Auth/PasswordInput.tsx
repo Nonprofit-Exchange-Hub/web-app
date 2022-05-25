@@ -1,15 +1,15 @@
 import * as React from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { makeStyles } from '@material-ui/core/styles';
-import LockIcon from '@material-ui/icons/Lock';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import makeStyles from '@mui/styles/makeStyles';
+import LockIcon from '@mui/icons-material/Lock';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormHelperText from '@mui/material/FormHelperText';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import routes from '../../../routes';
@@ -91,6 +91,7 @@ function PasswordInput({
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
               edge="end"
+              size="large"
             >
               {showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>
