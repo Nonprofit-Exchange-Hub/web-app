@@ -145,13 +145,13 @@ export const seedTransactions = (): CreateTransactionDto[] => {
   return transactions;
 };
 
-export const seedUserOrganization = (organization, user5): CreateUserOrganizationDto[] => {
+export const seedUserOrganization = (): CreateUserOrganizationDto[] => {
   const userOrganizations: CreateUserOrganizationDto[] = [
     {
       approvalStatus: ApprovalStatus.approved,
-      organization: organization,
+      organization: null,
       role: Role.owner,
-      user: user5,
+      user: null,
     },
   ];
 

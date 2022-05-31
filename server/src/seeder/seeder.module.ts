@@ -48,13 +48,19 @@ export class SeederModule implements OnApplicationBootstrap {
     //this.seederService.truncateFromAllTables();
 
     // seed the users table
-    this.seederService
+    await this.seederService
       .seedUsersAsync()
-      .then(() => this.seederService.seedAssetsAsync())
-      .then(() => this.seederService.seedCategoriesAsync())
-      .then(() => this.seederService.seedOrganizationsAsync())
-      .then(() => this.seederService.seedMessagesAsync())
-      .then(() => this.seederService.seedTransactionsAsync())
-      .then(() => this.seederService.seedUserOrgAsync());
+      .then((newUsers) => this.seederService.seedAssetsAsync(newUsers))
+      .then((seedAssetsResult) => this.seederService.seedCategoriesAsync(seedAssetsResult))
+      .then((seedCategoriesResult) =>
+        this.seederService.seedOrganizationsAsync(seedCategoriesResult),
+      )
+      .then((seedOrganizationsResult) =>
+        this.seederService.seedMessagesAsync(seedOrganizationsResult),
+      )
+      .then((seedMessagesResult) => this.seederService.seedTransactionsAsync(seedMessagesResult))
+      .then((seedTransactionsResult) =>
+        this.seederService.seedUserOrgAsync(seedTransactionsResult),
+      );
   }
 }
