@@ -220,12 +220,13 @@ export class SeederService {
    * removes all data in DB in a cascading style
    */
 
-  public truncateFromAllTables(): void {
+  public async truncateFromAllTables(): Promise<void> {
     Logger.log('Truncating all tables in cascade', SeederService.name);
     const entities: EntityMetadata[] = this.connx.entityMetadatas;
     for (const entity of entities) {
       const repository: Repository<unknown> = this.connx.getRepository(entity.name);
-      repository.query(`TRUNCATE ${entity.tableName} CASCADE;`);
+      await repository.query(`TRUNCATE ${entity.tableName} CASCADE;`);
     }
+    Logger.log('Done truncating', SeederService.name);
   }
 }

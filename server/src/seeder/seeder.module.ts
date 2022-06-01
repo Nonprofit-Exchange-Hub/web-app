@@ -45,7 +45,7 @@ export class SeederModule implements OnApplicationBootstrap {
     Logger.log('onApplicationBootstrap', SeederModule.name);
 
     // remove all data
-    //this.seederService.truncateFromAllTables();
+    await this.seederService.truncateFromAllTables();
 
     // seed the users table
     await this.seederService
