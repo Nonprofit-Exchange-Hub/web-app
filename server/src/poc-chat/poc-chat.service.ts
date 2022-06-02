@@ -11,7 +11,7 @@ export class PocChatService {
   constructor(@InjectRepository(PocChat) private pocChat: Repository<PocChat>) {}
   async create(createPocChatDto: CreatePocChatDto) {
     await this.pocChat.save(
-      new PocChat({ text: createPocChatDto.text, name: createPocChatDto.text }),
+      new PocChat({ text: createPocChatDto.text, name: createPocChatDto.name }),
     );
     const messages = this.pocChat.find();
     return messages;

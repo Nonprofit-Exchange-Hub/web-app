@@ -1,26 +1,31 @@
 import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { io, ManagerOptions, SocketOptions } from 'socket.io-client';
 import Messages from './Messages';
+import NewMessage from './NewMessage';
 
 const TempChat = () => {
   const [socket, setSocket] = useState<any>(null);
-
+  console.log(document.cookie);
   useEffect(() => {
-    const newSocket = io(`http://${window.location.hostname}:3001`);
+    const opts: Partial<ManagerOptions & SocketOptions> = {
+      withCredentials: true,
+    };
+    const newSocket = io(`http://${window.location.hostname}:3002`, opts);
     setSocket(newSocket);
     return () => newSocket.close() as any;
   }, [setSocket]);
 
   return (
-    <div className="App">
-      <header className="app-header">React Chat</header>
+    <div>
+      <header>React Chat</header>
       {socket ? (
-        <div className="chat-container">
+        <div>
           <Messages socket={socket} />
         </div>
       ) : (
         <div>Not Connected</div>
       )}
+      <NewMessage socket={socket} />
     </div>
   );
 };

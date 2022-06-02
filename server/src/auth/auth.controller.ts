@@ -30,7 +30,7 @@ export class AuthController {
         httpOnly: true,
         path: '/',
         sameSite: 'strict',
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         signed: true,
       })
       .send({ user });
