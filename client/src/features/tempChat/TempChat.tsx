@@ -5,7 +5,6 @@ import NewMessage from './NewMessage';
 
 const TempChat = () => {
   const [socket, setSocket] = useState<any>(null);
-  console.log(document.cookie);
   useEffect(() => {
     const opts: Partial<ManagerOptions & SocketOptions> = {
       withCredentials: true,

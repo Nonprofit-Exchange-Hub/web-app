@@ -14,18 +14,15 @@ function Messages({ socket }: any) {
 
   useEffect(() => {
     socket.on('message', (res: IMessage[]) => {
-      console.log(res, 'Messages messagelistener');
       setMessages(res);
     });
 
     socket.on('typing', (res: { name: string; isTyping: boolean }) => {
-      console.log(res.isTyping, 'Is Typing');
       setShowTypingGesture(res.isTyping);
       setUserTyping(res.name);
     });
 
     socket.emit('findAllPocChat', (res: IMessage[]) => {
-      console.log(res, 'on findallpocchat');
       setMessages(res);
     });
   }, [socket]);
