@@ -11,8 +11,8 @@ import { GetAssetsDto } from './dto/get-asset-filter.dto';
 export class AssetsService {
   constructor(@InjectRepository(Asset) private assetsRepository: Repository<Asset>) {}
 
-  async create(createAssetDto: CreateAssetDto): Promise<Asset> {
-    return this.assetsRepository.save(createAssetDto);
+  async create(Asset): Promise<Asset> {
+    return this.assetsRepository.save(Asset);
   }
 
   async findOne(id: number): Promise<Asset> {

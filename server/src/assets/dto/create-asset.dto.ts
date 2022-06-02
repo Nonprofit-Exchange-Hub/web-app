@@ -10,6 +10,9 @@ export class CreateAssetDto {
   @IsNotEmpty()
   description: string;
 
+  @IsOptional()
+  quantity: number;
+
   @IsNotEmpty()
   poster: User;
 
