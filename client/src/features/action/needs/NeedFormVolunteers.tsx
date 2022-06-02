@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid } from '@mui/material';
 
 import { RadioGroup, Select, TextField } from '../../../assets/sharedComponents/Forms';
 import NeedOfferForm from '../NeedOfferForm';
@@ -114,7 +114,7 @@ function NeedFormVolunteers() {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item container xs={12} justify="center">
+        <Grid item container xs={12} justifyContent="center">
           <Grid item>
             <Button variant="contained" color="secondary">
               Save Draft

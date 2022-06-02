@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, Box } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import { Card, Box } from '@mui/material';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 // Should probably move the width and height out of the component, maybe pass it in
 const circleSize = 76;

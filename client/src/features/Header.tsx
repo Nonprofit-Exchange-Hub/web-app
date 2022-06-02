@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import makeStyles from '@mui/styles/makeStyles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/logo.svg'; // placeholder
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   appBar: {
     backgroundColor: 'white',
-    boxShadow: theme.shadows[1],
+    boxShadow: theme.shadows ? theme.shadows[1] : 'none',
   },
   toolbar: {
     padding: '5px 5%',
@@ -93,8 +93,8 @@ function Header() {
         <div className={classes.userButtons}>
           {user ? (
             <>
-              <IconButton aria-label="user dropdown" onClick={handleClick}>
-                <AccountCircleTwoToneIcon />
+              <IconButton aria-label="user dropdown" onClick={handleClick} size="large">
+                <AccountCircleIcon />
               </IconButton>
               <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                 {/* TODO change to a react router link */}

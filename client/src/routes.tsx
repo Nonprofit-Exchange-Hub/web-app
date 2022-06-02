@@ -23,6 +23,7 @@ import OfferFormSkills from './features/action/offers/OfferFormSkills';
 import ContactUs from './features/support/ContactUs';
 import Help from './features/support/Help';
 import ForgotPassword from './features/users/Auth/ForgotPassword';
+import SetNewPassword from './features/users/Auth/SetNewPassword';
 import TempChat from './features/tempChat/TempChat';
 
 const routes = {
@@ -57,6 +58,10 @@ const routes = {
   ForgotPassword: {
     component: ForgotPassword,
     path: '/forgot-password',
+  },
+  SetNewPassword: {
+    component: SetNewPassword,
+    path: '/set-new-password',
   },
   Login: {
     component: Login,

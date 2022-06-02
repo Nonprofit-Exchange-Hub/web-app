@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import TodayOutlined from '@material-ui/icons/TodayOutlined';
-import RoomOutlined from '@material-ui/icons/RoomOutlined';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import Card from '@mui/material/Card';
+import TodayOutlined from '@mui/icons-material/TodayOutlined';
+import RoomOutlined from '@mui/icons-material/RoomOutlined';
+import Grid from '@mui/material/Grid';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import type { Asset } from '../../types';
 

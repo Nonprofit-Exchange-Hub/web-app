@@ -35,6 +35,11 @@ function Main() {
           path={routes.ForgotPassword.path}
           component={routes.ForgotPassword.component}
         />
+        <Route
+          exact
+          path={routes.SetNewPassword.path}
+          component={routes.SetNewPassword.component}
+        />
         <Route exact path={routes.Signup.path} component={routes.Signup.component} />
         <Route exact path={routes.SignupCitizen.path} component={routes.SignupCitizen.component} />
         <Route

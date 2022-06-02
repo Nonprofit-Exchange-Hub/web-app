@@ -1,26 +1,16 @@
-/* eslint-disable no-unused-vars */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Theme, ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-/* eslint-enable */
-
-declare module '@material-ui/core/styles' {
+declare module '@mui/material/styles' {
   interface Theme {
-    custom: {
-      maxContentWidth: string;
-      form: {
-        borderRadius: string;
-        borderColor: string;
-      };
+    [x: string]: any;
+    form: {
+      borderRadius: string;
+      borderColor: string;
     };
   }
-  // allow configuration using `createMuiTheme`
+
   interface ThemeOptions {
-    custom?: {
-      maxContentWidth?: string;
-      form?: {
-        borderRadius?: string;
-        borderColor?: string;
-      };
+    form?: {
+      borderRadius?: string;
+      borderColor?: string;
     };
   }
 }
