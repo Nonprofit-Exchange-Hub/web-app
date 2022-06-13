@@ -12,7 +12,7 @@ import SignupNonProfit from './features/users/Auth/SignupNonProfit';
 import Inbox from './features/users/Inbox/Inbox';
 import User from './features/users/User';
 import ActionForm from './features/action/ActionForm';
-import Assets from './features/action/assets/Assets';
+import AssetsView from './features/action/assets/AssetsView';
 import Asset from './features/action/assets/Asset';
 import NeedForm from './features/action/needs/NeedForm';
 import NeedFormGoods from './features/action/needs/NeedFormGoods';
@@ -91,7 +91,7 @@ const routes = {
     path: '/action',
   },
   Assets: {
-    component: Assets,
+    component: AssetsView,
     path: '/assets',
   },
   Asset: {

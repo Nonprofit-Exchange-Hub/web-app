@@ -1,4 +1,4 @@
-import { LinkPage } from '../../assets/sharedComponents/Forms';
+import { LinkPage } from '../../assets/components/Forms';
 import { TextLink } from '../../types';
 
 const links: TextLink[] = [

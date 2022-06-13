@@ -5,7 +5,7 @@ import { Theme } from '@mui/material/styles';
 
 import makeStyles from '@mui/styles/makeStyles';
 
-import StyledLink from '../assets/sharedComponents/StyledLink';
+import StyledLink from '../assets/components/StyledLink';
 import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => {

@@ -10,8 +10,8 @@ import Checkbox from '@mui/material/Checkbox';
 import type { Theme } from '@mui/material/styles';
 
 import { placeholderImg } from '../../../assets/temp';
-import StyledLink from '../../../assets/sharedComponents/StyledLink';
-import { TextField, Select } from '../../../assets/sharedComponents/Forms';
+import StyledLink from '../../../assets/components/StyledLink';
+import { TextField, Select } from '../../../assets/components/Forms';
 import routes from '../../../routes';
 
 const classifications = [

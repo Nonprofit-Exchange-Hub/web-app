@@ -5,8 +5,8 @@ import { Box, Grid, Container } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
-import QuestionList from '../../../assets/sharedComponents/QuestionList';
-import { BulletGrid, InstructionGrid } from '../../../assets/sharedComponents/DisplayGrids';
+import QuestionList from '../../../assets/components/QuestionList';
+import { BulletGrid, InstructionGrid } from '../../../assets/components/DisplayGrids';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';

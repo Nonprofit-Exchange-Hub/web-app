@@ -9,8 +9,8 @@ import Button from '@mui/material/Button';
 
 import type { Theme } from '@mui/material/styles';
 
-import NeedsAndOffers from '../../home/NeedsAndOffers';
-import FilterGroup from '../../../assets/sharedComponents/FilterGroup';
+import AssetsList from '../../home/AssetsList';
+import FilterGroup from '../../../assets/components/FilterGroup';
 import { mockData, filters1, filters2, filters3 } from '../../../assets/temp';
 import routes from '../../../routes';
 import type { Asset } from '../../../types';
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function Assets(): JSX.Element {
+function AssetsView(): JSX.Element {
   const classes = useStyles();
   const location = useLocation();
   const querySearchText = queryString.parse(location.search).search;
@@ -153,8 +153,8 @@ function Assets(): JSX.Element {
               </Button>
             </NavLink>
           </Paper>
-          <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />
-          <NeedsAndOffers
+          <AssetsList headerText="Nonprofit Needs" assets={mockData} />
+          <AssetsList
             headerText="Offers"
             assets={selectedAssetType === 'donation' ? donations : needs}
           />
@@ -164,4 +164,4 @@ function Assets(): JSX.Element {
   );
 }
 
-export default Assets;
+export default AssetsView;

@@ -16,8 +16,8 @@ import EmailInput from './EmailInput';
 import FacebookAuthBtn from './FacebookAuthBtn';
 import GoogleAuthBtn from './GoogleAuthBtn';
 import PasswordInput from './PasswordInput';
-import StyledLink from '../../../assets/sharedComponents/StyledLink';
-import TextDivider from '../../../assets/sharedComponents/TextDivider';
+import StyledLink from '../../../assets/components/StyledLink';
+import TextDivider from '../../../assets/components/TextDivider';
 import routes from '../../../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({

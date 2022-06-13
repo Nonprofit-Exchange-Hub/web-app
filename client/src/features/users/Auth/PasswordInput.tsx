@@ -11,7 +11,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 
 import type { Theme } from '@mui/material/styles';
 
-import StyledLink from '../../../assets/sharedComponents/StyledLink';
+import StyledLink from '../../../assets/components/StyledLink';
 import routes from '../../../routes';
 
 const useStyles = makeStyles((theme: Theme) => {

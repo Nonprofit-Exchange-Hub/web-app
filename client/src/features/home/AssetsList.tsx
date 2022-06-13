@@ -49,7 +49,7 @@ type Props = {
   headerText: string;
 };
 
-function NeedsAndOffers(props: Props): JSX.Element {
+function AssetsList(props: Props): JSX.Element {
   const classes = useStyles();
   const { assets, headerContentRight, headerText } = props;
 
@@ -90,4 +90,4 @@ function NeedsAndOffers(props: Props): JSX.Element {
   );
 }
 
-export default NeedsAndOffers;
+export default AssetsList;

@@ -13,9 +13,9 @@ import { SelectChangeEvent } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
-import NeedsAndOffers from './NeedsAndOffers';
+import AssetsList from './AssetsList';
 import { mockData, placeholderImg } from '../../assets/temp';
-import QuestionList from '../../assets/sharedComponents/QuestionList';
+import QuestionList from '../../assets/components/QuestionList';
 import routes from '../../routes';
 
 const loremIpsum =
@@ -204,12 +204,12 @@ function Home(): JSX.Element {
         </div>
       </div>
       <div className={classes.needsAndOffers}>
-        <NeedsAndOffers
+        <AssetsList
           assets={mockData}
           headerContentRight={<HeaderContentRight />}
           headerText="Nonprofit Needs"
         />
-        <NeedsAndOffers assets={mockData} headerText="Offers" />
+        <AssetsList assets={mockData} headerText="Offers" />
       </div>
       <div className={classes.videoSection}>
         <div className={classes.videoSectionVideo}>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Grid } from '@mui/material';
 
-import { RadioGroup, Select, TextField } from '../../../assets/sharedComponents/Forms';
+import { RadioGroup, Select, TextField } from '../../../assets/components/Forms';
 import NeedOfferForm from '../NeedOfferForm';
 
 const skillCategories = [

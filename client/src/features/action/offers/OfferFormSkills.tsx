@@ -2,12 +2,7 @@ import * as React from 'react';
 import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
 
-import {
-  FileUploadInput,
-  RadioGroup,
-  Select,
-  TextField,
-} from '../../../assets/sharedComponents/Forms';
+import { FileUploadInput, RadioGroup, Select, TextField } from '../../../assets/components/Forms';
 import NeedOfferForm from '../NeedOfferForm';
 
 const skillCategories = [

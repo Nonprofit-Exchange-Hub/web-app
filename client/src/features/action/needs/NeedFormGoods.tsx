@@ -3,15 +3,10 @@ import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
-import {
-  FileUploadInput,
-  RadioGroup,
-  Select,
-  TextField,
-} from '../../../assets/sharedComponents/Forms';
+import { FileUploadInput, RadioGroup, Select, TextField } from '../../../assets/components/Forms';
 import NeedOfferForm from '../NeedOfferForm';
-import DetectFormData from '../../../assets/sharedComponents/DetectFormData';
-import AlertDialog from '../../../assets/sharedComponents/AlertDialog';
+import DetectFormData from '../../../assets/components/DetectFormData';
+import AlertDialog from '../../../assets/components/AlertDialog';
 import { UserContext } from '../../../providers';
 
 import type { Category, Option } from '../../../types';
