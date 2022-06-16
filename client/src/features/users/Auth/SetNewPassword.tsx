@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-
-import type { Theme } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
 
 import PasswordInput from './PasswordInput';
 import { UserContext } from '../../../providers';

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export type Asset = {
   id: number;
   title: string;

@@ -1,16 +1,22 @@
-import { Button, FormHelperText, Grid, LinearProgress, Typography } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
+import {
+  Button,
+  FormHelperText,
+  Grid,
+  LinearProgress,
+  Typography,
+  ClassNameMap,
+} from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import React from 'react';
 import { Select, TextField } from '../../../../assets/sharedComponents/Forms';
 import { Organization } from '../../../../types';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { useMutation, useQuery } from 'react-query';
 import axios, { AxiosResponse } from 'axios';
 import SimpleSnackbar from '../../../action/assets/SimpleSnackbar';
-import { green } from '@material-ui/core/colors';
+import { green } from '@mui/material/colors';
 
 const classifications = [
   { value: 'charitable', text: 'Charitable Organization' },
@@ -20,7 +26,7 @@ const classifications = [
   { value: 'other', text: 'Other' },
 ];
 
-const SignupSchema = Yup.object().shape({
+const orgValidationSchema = Yup.object().shape({
   doing_business_as: Yup.string().required('Required'),
   city: Yup.string().required('Required'),
   state: Yup.string().required('Required').min(2).max(2),
@@ -41,7 +47,7 @@ interface Props {
   triggerNextStep: (step: number) => void;
   setParentOrg: (createdOrg: Organization) => void;
   parentOrg: Organization;
-  classes: ClassNameMap<any>;
+  classes: ClassNameMap<'button' | 'header' | 'arrow' | 'sideImg' | 'signUpContainer'>;
 }
 const CreateOrgForm = ({
   setParentOrg = () => {},
@@ -63,6 +69,8 @@ const CreateOrgForm = ({
       },
     },
   );
+
+  const devNull = () => {};
 
   const orgValidateEinQuery = useQuery<
     AxiosResponse<any, any>,
@@ -108,7 +116,7 @@ const CreateOrgForm = ({
           {orgCreateMutation.isSuccess && <SimpleSnackbar message={`Organization created`} />}
         </>
       )}
-      <Formik initialValues={org} validationSchema={SignupSchema} onSubmit={() => {}}>
+      <Formik initialValues={org} validationSchema={orgValidationSchema} onSubmit={() => {}}>
         {({ handleChange, values, touched, errors, setFieldTouched, setFieldValue, isValid }) => (
           <form>
             <Grid container spacing={5}>
@@ -160,6 +168,7 @@ const CreateOrgForm = ({
                   placeholder="Legal Name"
                   value={org.name}
                   disabled={true}
+                  onChange={devNull}
                 />
                 {orgValidateEinQuery.isSuccess && !errors.ein && (
                   <FormHelperText>

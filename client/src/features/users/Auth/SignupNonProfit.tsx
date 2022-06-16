@@ -11,7 +11,7 @@ import CreateOrgForm from './Steps/CreateOrgForm';
 import UserOrgForm from './Steps/UserOrgForm';
 import StyledLink from '../../../assets/sharedComponents/StyledLink';
 import routes from '../../../routes';
-import { ApprovalStatus, Organization, Role, BaseUserEntity, UserOrg } from '../../../types';
+import { Organization, BaseUserEntity, UserOrg } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
@@ -53,11 +53,6 @@ const defaultUser: BaseUserEntity = {
   email: '',
 };
 
-const defaultUserOrg: UserOrg = {
-  approvalStatus: ApprovalStatus.pending,
-  role: Role.owner,
-};
-
 function SignupNonProfit() {
   const classes = useStyles();
   const labels = ['First Step', 'Second Step'];
@@ -70,7 +65,7 @@ function SignupNonProfit() {
   );
 
   const [userOrg, setUserOrg] = React.useState<UserOrg>(
-    (JSON.parse(sessionStorage.getItem('org') as string) as UserOrg) ?? defaultUserOrg,
+    JSON.parse(sessionStorage.getItem('org') as string) as UserOrg,
   );
 
   const onChildSetParentOrg = (org: Organization): void => {

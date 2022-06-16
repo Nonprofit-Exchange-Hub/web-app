@@ -10,7 +10,7 @@ type CustomProps = {
   type?: string;
   errorText?: string;
   disabled?: boolean;
-  onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLDivElement>;
 };

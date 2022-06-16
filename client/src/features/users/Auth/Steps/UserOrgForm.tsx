@@ -1,18 +1,18 @@
 import {
   Button,
   Checkbox,
+  ClassNameMap,
   FormControlLabel,
   FormHelperText,
   Grid,
   Typography,
-} from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import React from 'react';
 import { TextField } from '../../../../assets/sharedComponents/Forms';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import {
   ApprovalStatus,
   Organization,
@@ -42,7 +42,7 @@ type UserEntityCreateObj = BaseUserEntity & {
   password: string;
 };
 
-const SignupSchema = Yup.object().shape({
+const userOrgValidationSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
   last_name: Yup.string().required('Required'),
   role_or_title: Yup.string().required('Required'),
@@ -65,7 +65,7 @@ interface Props {
   setParentUser: (user: BaseUserEntity) => void;
   setParentUserOrg: (userOrg: UserOrg) => void;
   triggerNextStep: (step: number) => void;
-  classes: ClassNameMap<any>;
+  classes: ClassNameMap<'button' | 'header' | 'arrow' | 'sideImg' | 'signUpContainer'>;
 }
 
 const UserOrgForm = ({
@@ -173,7 +173,11 @@ const UserOrgForm = ({
     <React.Fragment>
       {submitSuccessMessage && <SimpleSnackbar message={submitSuccessMessage} />}
       {submitErrorMessage && <SimpleSnackbar message={submitErrorMessage} />}
-      <Formik initialValues={userAndOrg} validationSchema={SignupSchema} onSubmit={() => {}}>
+      <Formik
+        initialValues={userAndOrg}
+        validationSchema={userOrgValidationSchema}
+        onSubmit={() => {}}
+      >
         {({ handleChange, isValid, values, touched, errors, setFieldTouched }) => (
           <form>
             <Grid container spacing={5}>
