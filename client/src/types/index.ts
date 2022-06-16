@@ -5,7 +5,7 @@ export type Asset = {
   categories: string[];
   datePosted: string;
   location: string;
-  imgUrls: string[];
+  imgUrls?: string[];
   description: string;
   poster: User;
   organization: number;

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from '@mui/material/Typography';
 import SimpleSnackbar from '../../action/assets/SimpleSnackbar';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import EmailInput from './EmailInput';
 
@@ -91,13 +91,18 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    await fetch('http://localhost:3001/api/users/reset_password', {
+    fetch('http://localhost:3001/api/users/reset_password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
-    });
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        // sends user email, backend finds email, sends link to reset password
+        console.log(data);
+      });
 
     setIsLoading(false);
     setShowSnackbar(true);

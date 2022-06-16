@@ -5,7 +5,7 @@ import {
   MenuItem,
   OutlinedInput,
   Select as MUISelect,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import type { Option } from '../../../types';
 
@@ -38,7 +38,6 @@ function Select({ id, label, placeholder, options, value, onChange }: CustomProp
             vertical: 'top',
             horizontal: 'left',
           },
-          getContentAnchorEl: null,
         }}
         value={value}
         renderValue={(value: any) => {

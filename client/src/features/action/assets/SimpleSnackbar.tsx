@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 type Props = { message?: string };
 
 export default function SimpleSnackbar(props: Props) {
   let message = props.message || 'You Claimed This!';
   const [isOpen, isSetOpen] = React.useState<boolean>(true);
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleClose = () => {
     isSetOpen(false);
   };
   return (
@@ -18,7 +18,13 @@ export default function SimpleSnackbar(props: Props) {
         autoHideDuration={6000}
         onClose={handleClose}
         action={[
-          <IconButton key="close" aria-label="Close" color="inherit" onClick={handleClose}>
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={handleClose}
+            size="large"
+          >
             <CloseIcon />
           </IconButton>,
         ]}

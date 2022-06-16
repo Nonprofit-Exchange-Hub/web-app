@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Step, StepLabel, Stepper, Typography } from '@material-ui/core';
+import { Step, StepLabel, Stepper } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import makeStyles from '@mui/styles/makeStyles';
 
-import type { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@mui/material/styles';
 
 import { placeholderImg } from '../../../assets/temp';
 import CreateOrgForm from './Steps/CreateOrgForm';

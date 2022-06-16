@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Radio, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
-import { RadioGroup as MUIRadioGroup } from '@material-ui/core';
+import { Radio, FormControlLabel, FormControl, FormLabel } from '@mui/material';
+import { RadioGroup as MUIRadioGroup } from '@mui/material';
 
 import type { Option } from '../../../types';
 
