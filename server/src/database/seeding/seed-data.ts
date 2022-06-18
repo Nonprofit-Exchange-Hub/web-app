@@ -99,25 +99,25 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
   const organizations: CreateOrganizationDto[] = [
     {
       name: 'Childrens Home Society of Washington',
+      doing_business_as: 'Childrens Home Society of Washington',
       description: 'Support children from birth through age 12',
       website: 'https://www.childrenshomesociety.org/',
       address: '12360 LAKE CITY WAY NE, Seattle, WA 98125-5447',
       phone: '2066953200',
       city: 'Seattle',
       state: 'WA',
-      ein: 910575955,
-      tax_exempt_id: 432032452,
+      ein: '910575955',
     },
     {
       name: 'Audobon Washington',
+      doing_business_as: 'Audobon Washington',
       description: 'Advocate for sustainable conservation management',
       website: 'https://wa.audubon.org/',
       address: '5902 Lake Washington Blvd S. Seattle, WA 98118',
       phone: '2066522444',
       city: 'Seattle',
       state: 'WA',
-      ein: 916009716,
-      tax_exempt_id: 916009716,
+      ein: '916009716',
     },
   ];
   return organizations;

@@ -1,5 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Organization } from 'src/organizations/entities/organization.entity';
+import { OrganizationsService } from 'src/organizations/organizations.service';
+import { User } from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/users.service';
 
 import type { DeleteResult, Repository } from 'typeorm';
 
@@ -12,10 +16,17 @@ export class UserOrganizationsService {
   constructor(
     @InjectRepository(UserOrganization)
     private userOrganizationsRepository: Repository<UserOrganization>,
+    private userService: UsersService,
+    private organizationsSrvice: OrganizationsService,
   ) {}
 
   async create(createUserOrganizationDto: CreateUserOrganizationDto): Promise<UserOrganization> {
-    return await this.userOrganizationsRepository.save(createUserOrganizationDto);
+    const user = await this.userService.create(createUserOrganizationDto.user);
+    const organization = await this.organizationsSrvice.create(
+      createUserOrganizationDto.organization,
+    );
+
+    return await this.userOrganizationsRepository.save({ user, organization });
   }
 
   async findAll(): Promise<UserOrganization[]> {
