@@ -29,11 +29,8 @@ export class Organization {
   @Column('text')
   state: string;
 
-  @Column({ type: 'int', unique: true })
-  ein: number;
-
-  @Column('int')
-  tax_exempt_id: number;
+  @Column({ type: 'text', unique: true })
+  ein: string;
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.organization)
   users: UserOrganization[];
