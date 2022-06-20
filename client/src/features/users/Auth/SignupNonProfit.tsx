@@ -48,7 +48,6 @@ interface SignupData {
   city: string;
   state: string;
   ein: string;
-  tax_exempt_id: string;
   nonprofit_classification: string;
   firstName: string;
   last_name: string;
@@ -63,7 +62,6 @@ const initialFormData: SignupData = {
   city: '',
   state: '',
   ein: '',
-  tax_exempt_id: '',
   nonprofit_classification: '',
   firstName: '',
   last_name: '',
@@ -113,8 +111,7 @@ function SignupNonProfit() {
   // validating completion of page 1
   const step1Complete = formData.org_name !== '' && formData.city !== '';
   const step2Complete = formData.state !== '' && formData.ein !== '';
-  const step3Complete = formData.tax_exempt_id !== '' && formData.nonprofit_classification !== '';
-  const firstPageComplete = step1Complete && step2Complete && step3Complete;
+  const firstPageComplete = step1Complete && step2Complete;
 
   // validating completion of page 2
   const step4Complete = formData.firstName !== '' && formData.last_name !== '';
@@ -180,15 +177,6 @@ function SignupNonProfit() {
                     label="Entity Identification Number (EIN)"
                     placeholder="EIN"
                     value={formData.ein}
-                    onChange={handleFieldChange}
-                  />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    id="tax_exempt_id"
-                    label="Tax Exempt ID"
-                    placeholder="Tax Exempt ID"
-                    value={formData.tax_exempt_id}
                     onChange={handleFieldChange}
                   />
                 </Grid>
