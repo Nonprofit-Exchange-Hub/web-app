@@ -9,6 +9,9 @@ import { TransactionStatus } from '../../transactions/transaction-status.enum';
 import { CreateUserOrganizationDto } from 'src/user-org/dto/create-user-org.dto';
 import { ApprovalStatus, Role } from 'src/user-org/constants';
 
+// path to file saved in client folder
+const assetImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
+
 export const seedUsers = (): CreateUserDto[] => {
   const users: CreateUserDto[] = [
     {
@@ -36,6 +39,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.LIKE_NEW,
       quantity: 1,
+      imgUrls: [assetImg],
     },
     {
       title: 'chairs',
@@ -44,6 +48,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 2,
+      imgUrls: [assetImg],
     },
     {
       title: 'three turtle doves',
@@ -52,6 +57,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.GOOD,
       quantity: 3,
+      imgUrls: [assetImg],
     },
     {
       title: 'four loko',
@@ -60,6 +66,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.GOOD,
       quantity: 4,
+      imgUrls: [assetImg],
     },
     {
       title: 'five guys burgers and fries',
@@ -68,6 +75,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 5,
+      imgUrls: [assetImg],
     },
     {
       title: 'six pack',
@@ -76,6 +84,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 6,
+      imgUrls: [assetImg],
     },
     {
       title: 'seven/eleven',
@@ -84,6 +93,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.LIKE_NEW,
       quantity: 7,
+      imgUrls: [assetImg],
     },
     {
       title: 'magic eight ball',
@@ -92,6 +102,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 8,
+      imgUrls: [assetImg],
     },
     {
       title: 'the whole nine yards',
@@ -100,6 +111,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 9,
+      imgUrls: [assetImg],
     },
     {
       title: 'ten out of ten',
@@ -108,6 +120,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 10,
+      imgUrls: [assetImg],
     },
     {
       title: 'eleven eleven',
@@ -116,6 +129,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 11,
+      imgUrls: [assetImg],
     },
     {
       title: 'a dozen eggs',
@@ -124,6 +138,7 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.NONE,
       quantity: 12,
+      imgUrls: [assetImg],
     },
   ];
   return assets;
