@@ -25,8 +25,10 @@ import { Select, TextField } from '../../../assets/sharedComponents/Forms';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useMutation, useQuery } from 'react-query';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { green } from '@mui/material/colors';
+import { Redirect } from 'react-router-dom';
+import SimpleSnackbar from '../../action/assets/SimpleSnackbar';
 
 const classifications = [
   { value: 'charitable', text: 'Charitable Organization' },
@@ -131,11 +133,11 @@ function SignupNonProfit() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [einStepIsValid, seteinStepIsValid] = React.useState(false);
-  const [formDataValues, setFormDataValues] = React.useState<FormData>(
-    (JSON.parse(sessionStorage.getItem('org') as string) as FormData) ?? defaultOrg,
-  );
-
+  const [formDataValues, setFormDataValues] = React.useState<FormData>(defaultOrg);
   const [triggerEinSearch, setTriggerEinSearch] = React.useState<boolean>(false);
+  const [submitSuccessMessage, setSubmitSuccessMessage] = React.useState<string>('');
+  const [submitErrorMessage, setSubmitErrorMessage] = React.useState<string>('');
+  const [redirect, setRedirect] = React.useState<boolean>(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -148,47 +150,65 @@ function SignupNonProfit() {
   const devNull = () => {};
 
   const handleSubmit = (values: FormData) => {
-    sessionStorage.setItem('org', JSON.stringify(values));
-    orgCreateMutation.mutate({ ...values, name: formDataValues.name });
+    orgSignUpMutation.mutate({ ...values, name: formDataValues.name });
   };
 
-  const orgCreateMutation = useMutation<AxiosResponse<any, any>, Error, FormData, Error>(
+  const onOrgSignUpSuccess = (): void => {
+    setSubmitSuccessMessage('Organization created successfully. Please log in');
+    setTimeout(() => setRedirect(true), 5000);
+  };
+
+  const onOrgSignUpError = (err: any): void => {
+    if (err.response.data.status === 409) {
+      setSubmitErrorMessage(err.response.data.message ?? 'Unable to save');
+    } else {
+      setSubmitErrorMessage(`Unable to create account`);
+    }
+  };
+
+  const apiPostFormData = (data: FormData) => {
+    setSubmitErrorMessage('');
+    const { email, password, firstName, last_name } = data;
+    const {
+      name,
+      doing_business_as,
+      description,
+      website,
+      address,
+      phone,
+      city,
+      state,
+      ein,
+      nonprofit_classification,
+    } = data;
+    const user = {
+      email,
+      password,
+      firstName,
+      last_name,
+    };
+    const organization = {
+      name,
+      doing_business_as,
+      description,
+      website,
+      address,
+      phone,
+      city,
+      state,
+      ein,
+      nonprofit_classification,
+    };
+    return axios.post(`http://localhost:3001/api/userOrganizations`, { organization, user });
+  };
+
+  const orgSignUpMutation = useMutation<AxiosResponse<any, any>, AxiosError, FormData, Error>(
     (formData: FormData) => {
-      const { email, password, firstName, last_name } = formData;
-      const {
-        name,
-        doing_business_as,
-        description,
-        website,
-        address,
-        phone,
-        city,
-        state,
-        ein,
-        nonprofit_classification,
-      } = formData;
-      const user = {
-        email,
-        password,
-        firstName,
-        last_name,
-      };
-      const organization = {
-        name,
-        doing_business_as,
-        description,
-        website,
-        address,
-        phone,
-        city,
-        state,
-        ein,
-        nonprofit_classification,
-      };
-      return axios.post(`http://localhost:3001/api/userOrganizations`, { organization, user });
+      return apiPostFormData(formData);
     },
     {
-      onSuccess: (data: any) => {},
+      onSuccess: onOrgSignUpSuccess,
+      onError: (err) => onOrgSignUpError(err),
     },
   );
 
@@ -216,6 +236,10 @@ function SignupNonProfit() {
     retry: 0,
   });
 
+  if (redirect) {
+    return <Redirect to={'/login'} />;
+  }
+
   return (
     <React.Fragment>
       <Grid container>
@@ -239,6 +263,8 @@ function SignupNonProfit() {
           </Grid>
 
           <Grid item>
+            {submitSuccessMessage && <SimpleSnackbar message={submitSuccessMessage} />}
+            {submitErrorMessage && <SimpleSnackbar message={submitErrorMessage} />}
             <Formik
               initialValues={formDataValues}
               validationSchema={validationSchema}
@@ -533,7 +559,7 @@ function SignupNonProfit() {
                             onClick={handleNext}
                             disabled={!!errors.ein || !einStepIsValid}
                           >
-                            Next1
+                            Next
                           </Button>
                         )}
                         {activeStep === 1 && (
@@ -576,7 +602,6 @@ function SignupNonProfit() {
                         )}
                       </Box>
                     </Grid>
-                    {/* <FormHelperText error>{userEntityApiErrors}</FormHelperText> */}
                   </Grid>
                 </form>
               )}
