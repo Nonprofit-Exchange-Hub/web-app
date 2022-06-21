@@ -1,5 +1,15 @@
 import * as React from 'react';
-import { Button, Checkbox, FormControlLabel, FormHelperText, LinearProgress } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormHelperText,
+  LinearProgress,
+  Step,
+  StepLabel,
+  Stepper,
+} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import makeStyles from '@mui/styles/makeStyles';
@@ -17,12 +27,6 @@ import { Formik } from 'formik';
 import { useMutation, useQuery } from 'react-query';
 import axios, { AxiosResponse } from 'axios';
 import { green } from '@mui/material/colors';
-
-/**
- *
- * !Possible multi-step single form:
- * !https://piyushsinha.tech/multi-step-form-with-react-and-formik
- */
 
 const classifications = [
   { value: 'charitable', text: 'Charitable Organization' },
@@ -66,7 +70,6 @@ interface FormData {
   nonprofit_classification: string;
   firstName: string;
   last_name: string;
-  role_or_title: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -86,12 +89,13 @@ const defaultOrg: FormData = {
   nonprofit_classification: '',
   firstName: '',
   last_name: '',
-  role_or_title: '',
   email: '',
   password: '',
   confirmPassword: '',
   accept_terms: false,
 };
+
+const steps = [{ label: 'EIN number' }, { label: 'Contact details' }, { label: 'User info' }];
 
 const validationSchema = Yup.object().shape({
   doing_business_as: Yup.string().required('Required'),
@@ -108,7 +112,6 @@ const validationSchema = Yup.object().shape({
     .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, 'EIN must match: 99-9999999')
     .required('Required'),
   nonprofit_classification: Yup.string().min(2).required('Required'),
-  //
   firstName: Yup.string().required('Required'),
   last_name: Yup.string().required('Required'),
   role_or_title: Yup.string().required('Required'),
@@ -126,26 +129,27 @@ const validationSchema = Yup.object().shape({
 
 function SignupNonProfit() {
   const classes = useStyles();
-  // const labels = ['First Step', 'Second Step'];
-  // const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [org, setOrg] = React.useState<FormData>(
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [einStepIsValid, seteinStepIsValid] = React.useState(false);
+  const [formDataValues, setFormDataValues] = React.useState<FormData>(
     (JSON.parse(sessionStorage.getItem('org') as string) as FormData) ?? defaultOrg,
   );
-  // const [user, setUser] = React.useState<BaseUserEntity>(
-  //   (JSON.parse(sessionStorage.getItem('user') as string) as BaseUserEntity) ?? defaultUser,
-  // );
-
-  // const [userOrg, setUserOrg] = React.useState<UserOrg>(
-  //   JSON.parse(sessionStorage.getItem('org') as string) as UserOrg,
-  // );
 
   const [triggerEinSearch, setTriggerEinSearch] = React.useState<boolean>(false);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
   const devNull = () => {};
 
   const handleSubmit = (values: FormData) => {
     sessionStorage.setItem('org', JSON.stringify(values));
-    orgCreateMutation.mutate({ ...values, name: org.name });
+    orgCreateMutation.mutate({ ...values, name: formDataValues.name });
   };
 
   const orgCreateMutation = useMutation<AxiosResponse<any, any>, Error, FormData, Error>(
@@ -184,10 +188,7 @@ function SignupNonProfit() {
       return axios.post(`http://localhost:3001/api/userOrganizations`, { organization, user });
     },
     {
-      onSuccess: (data: any) => {
-        // triggerNextStep(1);
-        // setParentOrg((data as any).data);
-      },
+      onSuccess: (data: any) => {},
     },
   );
 
@@ -198,354 +199,389 @@ function SignupNonProfit() {
     string[]
   >({
     enabled: triggerEinSearch,
-    queryKey: ['orgValidateEinQuery', org.ein],
+    queryKey: ['orgValidateEinQuery', formDataValues.ein],
     queryFn: ({ queryKey }) => {
       const [, ein] = queryKey;
       return axios.get(`http://localhost:3001/api/organizations/ein/${ein}`);
     },
     onSuccess: (res: any) => {
       setTriggerEinSearch(false);
-      setOrg({ ...org, name: res.data.name });
+      seteinStepIsValid(true);
+      setFormDataValues({ ...formDataValues, name: res.data.name });
     },
     onError: (res: any) => {
-      setOrg({ ...org, name: '' });
+      seteinStepIsValid(false);
+      setFormDataValues({ ...formDataValues, name: '' });
     },
     retry: 0,
   });
-
-  // const handleSteps = (step: number) => {
-  //   switch (step) {
-  //     case 0:
-  //       return (
-  //         <CreateOrgForm
-  //           parentOrg={org}
-  //           setParentOrg={onChildSetParentOrg}
-  //           triggerNextStep={setActiveStep}
-  //           classes={classes}
-  //         />
-  //       );
-  //     case 1:
-  //       return (
-  //         <UserOrgForm
-  //           orgFromPreviousStep={org}
-  //           parentUser={user}
-  //           parentUserOrg={userOrg}
-  //           setParentUser={onChildSetParentUser}
-  //           setParentUserOrg={onChildSetParentUserOrg}
-  //           triggerNextStep={setActiveStep}
-  //           classes={classes}
-  //         />
-  //       );
-  //     default:
-  //       throw new Error('Unknown step');
-  //   }
-  // };
 
   return (
     <React.Fragment>
       <Grid container>
         <Grid className={classes.sideImg} item xs={5} />
         <Grid container className={classes.signUpContainer} item direction="column" xs={6}>
-          <Typography
-            className={classes.header}
-            variant="h4"
-            component="h1"
-            align="left"
-            gutterBottom
-          >
-            Let's get started.
-          </Typography>
-          <Typography component="p" align="left" gutterBottom>
-            Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
-          </Typography>
+          <Grid item>
+            <Typography
+              className={classes.header}
+              variant="h4"
+              component="h1"
+              align="left"
+              gutterBottom
+            >
+              Let's get started.
+            </Typography>
+          </Grid>
+          <Grid item sx={{ marginBottom: '30px' }}>
+            <Typography component="p" align="left" gutterBottom>
+              Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
+            </Typography>
+          </Grid>
 
-          {/* <Stepper activeStep={activeStep} alternativeLabel>
-            {labels.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper> */}
-          {/* {handleSteps(activeStep)} */}
-
-          <Formik initialValues={org} validationSchema={validationSchema} onSubmit={handleSubmit}>
-            {({
-              handleSubmit,
-              handleChange,
-              values,
-              touched,
-              errors,
-              setFieldTouched,
-              setFieldValue,
-              isValid,
-            }) => (
-              <form onSubmit={handleSubmit}>
-                <Grid container spacing={5}>
-                  <Grid item md={12} xs={12}>
-                    <Typography component="p" align="left">
-                      Step 1: About your organization
-                    </Typography>
+          <Grid item>
+            <Formik
+              initialValues={formDataValues}
+              validationSchema={validationSchema}
+              onSubmit={devNull}
+            >
+              {({
+                handleChange,
+                values,
+                touched,
+                errors,
+                setFieldTouched,
+                setFieldValue,
+                isValid,
+              }) => (
+                <form>
+                  <Grid container spacing={5} sx={{ marginY: '20px' }}>
+                    <Stepper activeStep={activeStep}>
+                      {steps.map((step, index) => (
+                        <Step key={step.label}>
+                          <StepLabel
+                            optional={
+                              index === steps.length - 1 ? (
+                                <Typography variant="caption">Last step</Typography>
+                              ) : null
+                            }
+                          >
+                            {step.label}
+                          </StepLabel>
+                        </Step>
+                      ))}
+                    </Stepper>
                   </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="ein"
-                      label="Employer Identification Number (EIN)"
-                      placeholder="EIN: 99-9999999"
-                      value={values.ein}
-                      onChange={handleChange}
-                      onKeyUp={() => {
-                        setFieldValue('ein', values.ein.trim());
-                        setOrg({ ...values, name: '' });
-                        if (!errors.ein) {
-                          setTriggerEinSearch(true);
-                          setOrg({ ...values });
-                        }
-                      }}
-                      onBlur={(e) => setFieldTouched('ein')}
-                      errorText={touched.ein && errors.ein ? errors.ein : ''}
-                    />
-                    {orgValidateEinQuery.isLoading ? (
-                      <LinearProgress color="secondary" />
-                    ) : (
-                      <>
-                        {orgValidateEinQuery.isError && (
-                          <FormHelperText error>{`Invalid EIN ${
-                            orgValidateEinQuery.error === 404 ? ': Not found' : ''
-                          }`}</FormHelperText>
-                        )}
+                  {activeStep === 0 && (
+                    <Grid container spacing={5}>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="ein"
+                          label="Employer Identification Number (EIN)"
+                          placeholder="EIN: 99-9999999"
+                          value={values.ein}
+                          onChange={handleChange}
+                          onKeyUp={() => {
+                            setFieldValue('ein', values.ein.trim());
+                            setFormDataValues({ ...values, name: '' });
+                            if (!errors.ein) {
+                              setTriggerEinSearch(true);
+                              setFormDataValues({ ...values });
+                            }
+                          }}
+                          onBlur={(e) => setFieldTouched('ein')}
+                          errorText={touched.ein && errors.ein ? errors.ein : ''}
+                        />
+                        {orgValidateEinQuery.isLoading ? (
+                          <LinearProgress color="secondary" />
+                        ) : (
+                          <>
+                            {orgValidateEinQuery.isError && (
+                              <FormHelperText sx={{ marginLeft: '13px' }} error>{`Invalid EIN ${
+                                orgValidateEinQuery.error === 404 ? ': Not found' : ''
+                              }`}</FormHelperText>
+                            )}
 
+                            {orgValidateEinQuery.isSuccess && !errors.ein && (
+                              <FormHelperText>
+                                <CheckIcon style={{ color: green[500] }} />
+                              </FormHelperText>
+                            )}
+                          </>
+                        )}
+                      </Grid>
+                      <Grid item md={12} xs={12}>
+                        <TextField
+                          id="name"
+                          label="Legal Name"
+                          placeholder="Legal Name"
+                          value={formDataValues.name}
+                          disabled={true}
+                          onChange={devNull}
+                        />
                         {orgValidateEinQuery.isSuccess && !errors.ein && (
                           <FormHelperText>
                             <CheckIcon style={{ color: green[500] }} />
                           </FormHelperText>
                         )}
-                      </>
-                    )}
+                      </Grid>
+                    </Grid>
+                  )}
+                  {activeStep === 1 && (
+                    <Grid container spacing={5}>
+                      <Grid item md={12} xs={12}>
+                        <TextField
+                          id="doing_business_as"
+                          label="Organization Name"
+                          placeholder="Organization"
+                          value={values.doing_business_as}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('doing_business_as')}
+                          errorText={
+                            touched.doing_business_as && errors.doing_business_as
+                              ? errors.doing_business_as
+                              : ''
+                          }
+                        />
+                      </Grid>
+                      <Grid item md={12} xs={12}>
+                        <TextField
+                          id="description"
+                          label="Organization Description"
+                          placeholder="Description"
+                          isMultiline={true}
+                          value={values.description}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('description')}
+                          errorText={
+                            touched.description && errors.description ? errors.description : ''
+                          }
+                        />
+                      </Grid>
+                      <Grid item md={12} xs={12}>
+                        <TextField
+                          id="address"
+                          label="Address"
+                          placeholder="Address"
+                          isMultiline={true}
+                          value={values.address}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('address')}
+                          errorText={touched.address && errors.address ? errors.address : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="city"
+                          label="City"
+                          placeholder="City"
+                          value={values.city}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('city')}
+                          errorText={touched.city && errors.city ? errors.city : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="state"
+                          label="State"
+                          placeholder="State"
+                          value={values.state}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('state')}
+                          errorText={touched.state && errors.state ? errors.state : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="phone"
+                          label="Phone"
+                          placeholder="Phone"
+                          value={values.phone}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('phone')}
+                          errorText={touched.phone && errors.phone ? errors.phone : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="website"
+                          label="Website"
+                          placeholder="Website"
+                          value={values.website}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('website')}
+                          errorText={touched.website && errors.website ? errors.website : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Select
+                          id="nonprofit_classification"
+                          label="IRS Nonprofit Organization Classification"
+                          placeholder="Select classification"
+                          options={classifications}
+                          value={values.nonprofit_classification}
+                          onChange={handleChange}
+                        />
+                        <FormHelperText error>
+                          {errors.nonprofit_classification ? errors.nonprofit_classification : ''}
+                        </FormHelperText>
+                      </Grid>
+                    </Grid>
+                  )}
+                  {activeStep === 2 && (
+                    <Grid container spacing={5}>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="firstName"
+                          label="First Name"
+                          placeholder="First Name"
+                          value={values.firstName}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('firstName')}
+                          errorText={touched.firstName ? errors.firstName : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="last_name"
+                          label="Last Name"
+                          placeholder="Last Name"
+                          value={values.last_name}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('last_name')}
+                          errorText={touched.last_name && errors.last_name ? errors.last_name : ''}
+                        />
+                      </Grid>
+                      <Grid item md={12} xs={12}>
+                        <TextField
+                          id="email"
+                          label="Email"
+                          placeholder="Email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('email')}
+                          errorText={touched.email && errors.email ? errors.email : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="password"
+                          label="Password"
+                          placeholder="Password"
+                          type="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('password')}
+                          errorText={touched.password && errors.password ? errors.password : ''}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <TextField
+                          id="confirmPassword"
+                          label="Confirm Password"
+                          placeholder="Confirm Password"
+                          type="password"
+                          value={values.confirmPassword}
+                          onChange={handleChange}
+                          onBlur={(e) => setFieldTouched('confirmPassword')}
+                          errorText={
+                            touched.password && errors.confirmPassword ? errors.confirmPassword : ''
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlLabel
+                          style={{ textAlign: 'left', display: 'block' }}
+                          control={
+                            <Checkbox
+                              color="primary"
+                              checked={values.accept_terms}
+                              onChange={handleChange}
+                              name="accept_terms"
+                              inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                            />
+                          }
+                          label={
+                            <label>
+                              Accept the{' '}
+                              <StyledLink to={routes.TermsOfService.path} target="_blank">
+                                Terms of Service
+                              </StyledLink>
+                            </label>
+                          }
+                        />
+                      </Grid>
+                    </Grid>
+                  )}
+                  <Grid container spacing={5}>
+                    <Grid item xs={12} sx={{ mt: 6, mb: 6 }}>
+                      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          disabled={activeStep === 0}
+                          onClick={handleBack}
+                          sx={{ mr: 1 }}
+                        >
+                          Back
+                        </Button>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        {activeStep === 0 && (
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={handleNext}
+                            disabled={!!errors.ein || !einStepIsValid}
+                          >
+                            Next1
+                          </Button>
+                        )}
+                        {activeStep === 1 && (
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={handleNext}
+                            disabled={
+                              (!!touched.name && !!errors.name) ||
+                              (!!touched.description && !!errors.description) ||
+                              (!!touched.address && !!errors.address) ||
+                              (!!touched.city && !!errors.city) ||
+                              (!!touched.state && !!errors.state) ||
+                              (!!touched.phone && !!errors.phone) ||
+                              (!!touched.website && !!errors.website) ||
+                              (!!touched.nonprofit_classification &&
+                                !!errors.nonprofit_classification)
+                            }
+                          >
+                            Next
+                          </Button>
+                        )}
+                        {activeStep === 2 && (
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={() => handleSubmit(values)}
+                            disabled={
+                              !isValid &&
+                              ((!!touched.firstName && !!errors.firstName) ||
+                                (!!touched.last_name && !!errors.last_name) ||
+                                (!!touched.email && !!errors.email) ||
+                                (!!touched.password && !!errors.password) ||
+                                (!!touched.confirmPassword && !!errors.confirmPassword) ||
+                                !!errors.accept_terms)
+                            }
+                          >
+                            Submit
+                          </Button>
+                        )}
+                      </Box>
+                    </Grid>
+                    {/* <FormHelperText error>{userEntityApiErrors}</FormHelperText> */}
                   </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      id="name"
-                      label="Legal Name"
-                      placeholder="Legal Name"
-                      value={org.name}
-                      disabled={true}
-                      onChange={devNull}
-                    />
-                    {orgValidateEinQuery.isSuccess && !errors.ein && (
-                      <FormHelperText>
-                        <CheckIcon style={{ color: green[500] }} />
-                      </FormHelperText>
-                    )}
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      id="doing_business_as"
-                      label="Organization Name"
-                      placeholder="Organization"
-                      value={values.doing_business_as}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('doing_business_as')}
-                      errorText={
-                        touched.doing_business_as && errors.doing_business_as
-                          ? errors.doing_business_as
-                          : ''
-                      }
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      id="description"
-                      label="Organization Description"
-                      placeholder="Description"
-                      isMultiline={true}
-                      value={values.description}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('description')}
-                      errorText={
-                        touched.description && errors.description ? errors.description : ''
-                      }
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      id="address"
-                      label="Address"
-                      placeholder="Address"
-                      isMultiline={true}
-                      value={values.address}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('address')}
-                      errorText={touched.address && errors.address ? errors.address : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="city"
-                      label="City"
-                      placeholder="City"
-                      value={values.city}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('city')}
-                      errorText={touched.city && errors.city ? errors.city : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="state"
-                      label="State"
-                      placeholder="State"
-                      value={values.state}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('state')}
-                      errorText={touched.state && errors.state ? errors.state : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="phone"
-                      label="Phone"
-                      placeholder="Phone"
-                      value={values.phone}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('phone')}
-                      errorText={touched.phone && errors.phone ? errors.phone : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="website"
-                      label="Website"
-                      placeholder="Website"
-                      value={values.website}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('website')}
-                      errorText={touched.website && errors.website ? errors.website : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <Select
-                      id="nonprofit_classification"
-                      label="IRS Nonprofit Organization Classification"
-                      placeholder="Select classification"
-                      options={classifications}
-                      value={values.nonprofit_classification}
-                      onChange={handleChange}
-                    />
-                    <FormHelperText error>
-                      {errors.nonprofit_classification ? errors.nonprofit_classification : ''}
-                    </FormHelperText>
-                  </Grid>
-                  {/* <Grid item md={12} xs={12}>
-                    <Button
-                      onClick={() => handleNext(values)}
-                      disabled={!isValid || orgValidateEinQuery.isLoading || !org.name}
-                      className={classes.button}
-                      fullWidth
-                    >
-                      Next
-                    </Button>
-                  </Grid> */}
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="firstName"
-                      label="First Name"
-                      placeholder="First Name"
-                      value={values.firstName}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('firstName')}
-                      errorText={touched.firstName ? errors.firstName : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="last_name"
-                      label="Last Name"
-                      placeholder="Last Name"
-                      value={values.last_name}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('last_name')}
-                      errorText={touched.last_name && errors.last_name ? errors.last_name : ''}
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      id="role_or_title"
-                      label="Role Title"
-                      placeholder="Role Title"
-                      value={values.role_or_title}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('role_or_title')}
-                      errorText={
-                        touched.role_or_title && errors.role_or_title ? errors.role_or_title : ''
-                      }
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      id="email"
-                      label="Email"
-                      placeholder="Email"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('email')}
-                      errorText={touched.email && errors.email ? errors.email : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="password"
-                      label="Password"
-                      placeholder="Password"
-                      type="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('password')}
-                      errorText={touched.password && errors.password ? errors.password : ''}
-                    />
-                  </Grid>
-                  <Grid item md={6} xs={12}>
-                    <TextField
-                      id="confirmPassword"
-                      label="Confirm Password"
-                      placeholder="Confirm Password"
-                      type="password"
-                      value={values.confirmPassword}
-                      onChange={handleChange}
-                      onBlur={(e) => setFieldTouched('confirmPassword')}
-                      errorText={
-                        touched.password && errors.confirmPassword ? errors.confirmPassword : ''
-                      }
-                    />
-                  </Grid>
-                  <FormControlLabel
-                    style={{ textAlign: 'left', display: 'block' }}
-                    control={
-                      <Checkbox
-                        color="primary"
-                        checked={values.accept_terms}
-                        onChange={handleChange}
-                        name="accept_terms"
-                        inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                      />
-                    }
-                    label={
-                      <label>
-                        Accept the{' '}
-                        <StyledLink to={routes.TermsOfService.path} target="_blank">
-                          Terms of Service
-                        </StyledLink>
-                      </label>
-                    }
-                  />
-
-                  {/* <FormHelperText error>{userEntityApiErrors}</FormHelperText> */}
-                  <Button disabled={!isValid} type="submit" className={classes.button} fullWidth>
-                    Submit
-                  </Button>
-                </Grid>
-              </form>
-            )}
-          </Formik>
+                </form>
+              )}
+            </Formik>
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
