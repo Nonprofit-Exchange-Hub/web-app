@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,7 +18,17 @@ export class OrganizationsService {
   ) {}
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
-    return this.organizationsRepository.save(createOrganizationDto);
+    try {
+      return this.organizationsRepository.save(createOrganizationDto);
+    } catch (err) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          message: 'This organization already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
   }
 
   async getProPublicaOrg(ein: string): Promise<PropublicaOrg> {
@@ -44,6 +54,10 @@ export class OrganizationsService {
 
   findOne(id: number): Promise<Organization> {
     return this.organizationsRepository.findOne(id);
+  }
+
+  countByNameOrEin(name: string, ein: string): Promise<number> {
+    return this.organizationsRepository.count({ name, ein });
   }
 
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {

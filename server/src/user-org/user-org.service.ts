@@ -1,8 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Organization } from 'src/organizations/entities/organization.entity';
 import { OrganizationsService } from 'src/organizations/organizations.service';
-import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 
 import type { DeleteResult, Repository } from 'typeorm';
@@ -17,16 +15,53 @@ export class UserOrganizationsService {
     @InjectRepository(UserOrganization)
     private userOrganizationsRepository: Repository<UserOrganization>,
     private userService: UsersService,
-    private organizationsSrvice: OrganizationsService,
+    private organizationsService: OrganizationsService,
   ) {}
 
   async create(createUserOrganizationDto: CreateUserOrganizationDto): Promise<UserOrganization> {
-    const user = await this.userService.create(createUserOrganizationDto.user);
-    const organization = await this.organizationsSrvice.create(
-      createUserOrganizationDto.organization,
-    );
+    const userExists = await this.userService.userEmailExists(createUserOrganizationDto.user.email);
+    if (userExists) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          message: 'A user with this email already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
 
-    return await this.userOrganizationsRepository.save({ user, organization });
+    const existingOrg = await this.organizationsService.countByNameOrEin(
+      createUserOrganizationDto.organization.name,
+      createUserOrganizationDto.organization.ein,
+    );
+    if (existingOrg > 0) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          message: 'An organization with this name and EIN already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    if (!userExists && !existingOrg) {
+      const user = await this.userService.create(createUserOrganizationDto.user);
+      const organization = await this.organizationsService.create(
+        createUserOrganizationDto.organization,
+      );
+
+      try {
+        return await this.userOrganizationsRepository.save({ user, organization });
+      } catch (err) {
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            message: 'This user is already related to this organization',
+          },
+          HttpStatus.CONFLICT,
+        );
+      }
+    }
   }
 
   async findAll(): Promise<UserOrganization[]> {
