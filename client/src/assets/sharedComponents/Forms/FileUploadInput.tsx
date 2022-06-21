@@ -7,8 +7,8 @@ import type { Theme } from '@mui/material/styles';
 const useStyles = makeStyles((theme: Theme) => ({
   buttonText: {
     width: '100%',
-    border: `1px solid ${theme.form.borderColor}`,
-    borderRadius: theme.form.borderRadius,
+    border: `1px solid grey`,
+    borderRadius: '10px',
     padding: '10px',
     marginTop: '8px',
     '& .MuiButton-label': {

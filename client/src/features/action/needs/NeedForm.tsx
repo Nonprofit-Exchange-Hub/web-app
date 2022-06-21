@@ -1,13 +1,16 @@
 import { LinkPage } from '../../../assets/sharedComponents/Forms';
 import { TextLink } from '../../../types';
+// import routes from '../../../routes';
 
 const links: TextLink[] = [
   {
-    url: '/need/goods/',
+    url: '/need/goods',
+    // url: routes.NeedFormGoods.path,
     text: 'Goods',
   },
   {
     url: '/need/volunteers',
+    // url: routes.NeedFormVolunteers.path,
     text: 'Volunteers',
   },
 ];

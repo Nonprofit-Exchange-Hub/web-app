@@ -10,13 +10,13 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
 
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
-import { GetAssetsDto } from './dto/get-asset-filter.dto';
+import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
-import { DeleteResult } from 'typeorm';
 
 @Controller('assets')
 export class AssetsController {

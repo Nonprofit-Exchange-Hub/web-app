@@ -5,7 +5,7 @@ import type { DeleteResult, Repository } from 'typeorm';
 import { Asset } from './entities/asset.entity';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-import { GetAssetsDto } from './dto/get-asset-filter.dto';
+import { GetAssetsDto } from './dto/get-asset.dto';
 
 @Injectable()
 export class AssetsService {
@@ -20,7 +20,17 @@ export class AssetsService {
   }
 
   async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
-    return this.assetsRepository.find({ where: getAssetsDto }) || [];
+    const { limit, offset, ...rest } = getAssetsDto;
+    return (
+      this.assetsRepository.find({
+        where: rest,
+        order: {
+          datePosted: 'DESC',
+        },
+        skip: offset,
+        take: limit,
+      }) || []
+    );
   }
 
   async update(id: number, updateAssetDto: UpdateAssetDto): Promise<Asset> {
