@@ -27,7 +27,6 @@ import { Formik } from 'formik';
 import { useMutation, useQuery } from 'react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { green } from '@mui/material/colors';
-import { Redirect } from 'react-router-dom';
 import SimpleSnackbar from '../../action/assets/SimpleSnackbar';
 
 const classifications = [
@@ -137,7 +136,6 @@ function SignupNonProfit() {
   const [triggerEinSearch, setTriggerEinSearch] = React.useState<boolean>(false);
   const [submitSuccessMessage, setSubmitSuccessMessage] = React.useState<string>('');
   const [submitErrorMessage, setSubmitErrorMessage] = React.useState<string>('');
-  const [redirect, setRedirect] = React.useState<boolean>(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -155,7 +153,6 @@ function SignupNonProfit() {
 
   const onOrgSignUpSuccess = (): void => {
     setSubmitSuccessMessage('Organization created successfully. Please log in');
-    setTimeout(() => setRedirect(true), 5000);
   };
 
   const onOrgSignUpError = (err: any): void => {
@@ -235,10 +232,6 @@ function SignupNonProfit() {
     },
     retry: 0,
   });
-
-  if (redirect) {
-    return <Redirect to={'/login'} />;
-  }
 
   return (
     <React.Fragment>
