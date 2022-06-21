@@ -106,7 +106,7 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
       phone: '2066953200',
       city: 'Seattle',
       state: 'WA',
-      ein: '910575955',
+      ein: '12-3456788',
     },
     {
       name: 'Audobon Washington',
@@ -117,7 +117,7 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
       phone: '2066522444',
       city: 'Seattle',
       state: 'WA',
-      ein: '916009716',
+      ein: '12-3456789',
     },
   ];
   return organizations;

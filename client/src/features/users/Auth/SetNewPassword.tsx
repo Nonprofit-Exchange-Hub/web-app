@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
+
 import type { Theme } from '@mui/material/styles';
 
 import PasswordInput from './PasswordInput';

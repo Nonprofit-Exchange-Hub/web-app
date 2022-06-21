@@ -7,7 +7,7 @@ import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
 export type PropublicaOrg = {
-  ein: number;
+  ein: string;
   name: string;
 };
 
