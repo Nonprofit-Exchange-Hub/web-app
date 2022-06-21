@@ -18,6 +18,21 @@ export class OrganizationsService {
   ) {}
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    const exists = await this.countByNameOrEin(
+      createOrganizationDto.name,
+      createOrganizationDto.ein,
+    );
+
+    if (exists > 0) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          message: 'This organization already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
+
     try {
       return this.organizationsRepository.save(createOrganizationDto);
     } catch (err) {

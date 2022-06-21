@@ -8,6 +8,9 @@ export class CreateOrganizationDto {
   doing_business_as: string;
 
   @IsNotEmpty()
+  nonprofit_classification: string;
+
+  @IsNotEmpty()
   description: string;
 
   @IsNotEmpty()
