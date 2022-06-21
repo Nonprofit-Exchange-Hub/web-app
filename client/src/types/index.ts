@@ -24,19 +24,6 @@ export type Organization = {
   nonprofit_classification: string;
 };
 
-export type UserOrg = {
-  id?: number;
-  approvalStatus: ApprovalStatus;
-  role: Role;
-};
-
-export type UserOrgCreateObj = {
-  organization: { id: number };
-  user: { id: number };
-  approvalStatus: ApprovalStatus;
-  role: Role;
-};
-
 export enum Role {
   admin = 'ADMIN',
   owner = 'OWNER',
@@ -48,11 +35,6 @@ export enum ApprovalStatus {
   pending = 'PENDING',
   denied = 'DENIED',
 }
-
-export type BaseUserEntity = User & {
-  last_name: string;
-  email: string;
-};
 
 export type User = {
   id?: number;
