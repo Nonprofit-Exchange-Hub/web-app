@@ -48,6 +48,7 @@ function Footer() {
             </Typography>
             <StyledLink to={routes.AboutUs.path}>About Us</StyledLink>
             <StyledLink to={routes.OurStory.path}>Our Story</StyledLink>
+            <StyledLink to={routes.HowItWorks.path}>How it works</StyledLink>
             <StyledLink to={routes.ContactUs.path}>Contact Us</StyledLink>
           </Grid>
           <Grid

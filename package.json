@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "lint-staged": "^12.4.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1"
   }
 }
