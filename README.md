@@ -3,6 +3,7 @@
 ## Description 
 - Platform for non-profits and citizens to collaborate in a giving economy.
 - Primary tech stack: PostgreSQL, NestJs, and React
+    - Lerna monorepo
 - Please make sure to read our [contributing/how we work doc](https://github.com/Nonprofit-Exchange-Hub/web-app/blob/main/CONTRIBUTING.md) before getting started
 
 ## Installation and Setup
@@ -18,8 +19,9 @@
         * Confirm installation of Docker Compose: `$ docker-compose --version`
 2. Download or [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) repository.
 3. Run `nvm use` to ensure you are using the proper node version
-4. Install required dependencies by running `npm install` from within `/server` directory and from the `/client` directory.
-5. Copy the below environmental variables into a `.env` file that you create in `/server` directory
+4. Install required dependencies: `npm run bootstrap`
+5. `touch packages/server/.env`
+6. Copy the below environmental variables into that `.env` file
 ```
     PORT=3001
     DATABASE_HOST=localhost
@@ -31,7 +33,7 @@
     # e2e only used when running e2e tests
     E2E_DATABASE_DB=e2e_db
 ```
-6. In that `.env` file we'll now customize some of those values
+7. In that `.env` file we'll now customize some of those values
     * If you are using the non-dockerized version of postgres, change the `DATABASE_PORT` value to `5432`
     * check if postgres is installed: `postgres --version`
     * check if postgres service is running: `brew services list | grep postgres` (leave out the piping to see all brew services)
@@ -84,16 +86,26 @@ $ pg_ctl -D /usr/local/var/postgres stop
 ## Startup
 
 1. Run `nvm use` to ensure you are using the proper node version
-2. If using postgres-dockerized workflow, from `/server` directory, run `npm run start:dev:db`
+2. Run `npm run start:dev`
+
+or, if you prefer to run with dockerized postgres:
+1. Run `nvm use` to ensure you are using the proper node version
+2. In `packages/server` directory, run `npm run start:dev:db`
     * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker ps` in terminal to view all running containers. One should match the name of `container_name` from `docker-compose.yml` file
-3. To start Nest backend in watch mode: From `/server` directory, run `npm run start:dev`.
-4. To start up React frontend: From `/client` directory, run `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.
+3. To start up React frontend: From `packages/client` directory, run `npm run start`. A browser page should start up automatically. If not, visit `localhost:3000`.
 
 ## Test
-Most tests are still in development.
+Test coverage is spotty but we have good foundations/POCs on BE at least
+
+to run all tests: `npm run checks`
+
+or if you want to run individually 👇 
 ### Backend
-From the `/server` directory.
+From the `packages/server` directory.
 ```bash
+# all tests
+$ npm run checks
+
 # unit tests
 $ npm run test
 
@@ -104,8 +116,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 ### Frontend
-From the `/client` directory.
+From the `packages/client` directory.
 ```bash
+# all tests
+$ npm run checks
+
 # unit tests
 $ npm run test
 ```
@@ -113,9 +128,10 @@ $ npm run test
 ## Postgres & Docker
 ### Running Postgres Test Database from the Docker CLI
 1. Open and run the Docker desktop app
-2. Start database: `$ npm run start:dev:db `
-3. Start server: `$ npm run start:dev`
-4. From a new terminal window:
+2. from server package `cd packages/server`
+3. Start database: `$ npm run start:dev:db `
+4. Start server: `$ npm run start:dev`
+5. From a new terminal window:
 ```
 # get a bash shell in the "postgres" docker container:
 $ docker exec -it postgres /bin/bash
