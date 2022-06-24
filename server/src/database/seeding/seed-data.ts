@@ -9,7 +9,6 @@ import { TransactionStatus } from '../../transactions/transaction-status.enum';
 import { CreateUserOrganizationDto } from 'src/user-org/dto/create-user-org.dto';
 import { ApprovalStatus, Role } from 'src/user-org/constants';
 
-// path to file saved in client folder
 const assetImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
 
 export const seedUsers = (): CreateUserDto[] => {

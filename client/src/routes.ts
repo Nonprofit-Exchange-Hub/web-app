@@ -25,7 +25,14 @@ import Help from './features/support/Help';
 import ForgotPassword from './features/users/Auth/ForgotPassword';
 import SetNewPassword from './features/users/Auth/SetNewPassword';
 
-const routes = {
+type RouteMap = {
+  [componentName: string]: {
+    component: () => JSX.Element;
+    path: string;
+  };
+};
+
+const routes: RouteMap = {
   Home: {
     component: Home,
     path: '/',
