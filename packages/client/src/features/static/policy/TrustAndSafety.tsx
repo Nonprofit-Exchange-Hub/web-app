@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
-import { Box, Grid, Container } from '@mui/material/';
+import { Box, Grid, Container } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
