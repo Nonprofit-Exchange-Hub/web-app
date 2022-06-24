@@ -30,13 +30,14 @@
 	"proxy": "http://localhost:3001",
 	"scripts": {
 		"start": "react-scripts start",
+		"start:dev": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test --watchAll=false",
 		"eject": "react-scripts eject",
 		"lint": "eslint ./src/**/*.{ts,tsx}",
 		"checks": "npm run test && npm run lint",
 		"format": "prettier --write './src/**/*.{ts,tsx}' --config ../.prettierrc",
-		"prepare": "cd .. && husky install && cd client"
+		"prepare": "cd ../.. && husky install && cd packages/client"
 	},
 	"browserslist": {
 		"production": [

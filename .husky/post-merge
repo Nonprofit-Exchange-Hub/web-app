@@ -1,8 +1,8 @@
 #!/bin/sh
 FILE="$(dirname "$0")/_/husky.sh"
 if [ ! -f "$FILE" ]; then
-  cd server && npm install && npm run prepare && cd ../client && npm install && npm run prepare && cd ..
+  npm run prepare
 fi
 
 . "$FILE"
-cd server && npm install && cd ../client && npm install && cd ..
+npm run bootstrap

@@ -1,5 +1,13 @@
 {
   "devDependencies": {
+    "lerna": "^5.1.5",
     "lint-staged": "^12.4.1"
+  },
+  "name": "web-app",
+  "scripts": {
+    "start": "lerna run start:dev",
+    "bootstrap": "lerna bootstrap",
+    "prepare": "lerna run prepare",
+    "checks": "lerna run checks"
   }
 }
