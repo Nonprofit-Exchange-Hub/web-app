@@ -12,6 +12,9 @@ export class Organization {
   name: string;
 
   @Column('text')
+  doing_business_as: string;
+
+  @Column('text')
   description: string;
 
   @Column('text')
@@ -31,6 +34,9 @@ export class Organization {
 
   @Column({ type: 'text', unique: true })
   ein: string;
+
+  @Column({ type: 'text' })
+  nonprofit_classification: string;
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.organization)
   users: UserOrganization[];

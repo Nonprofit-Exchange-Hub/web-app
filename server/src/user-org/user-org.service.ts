@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { OrganizationsService } from 'src/organizations/organizations.service';
+import { UsersService } from 'src/users/users.service';
 
 import type { DeleteResult, Repository } from 'typeorm';
 
@@ -12,10 +14,54 @@ export class UserOrganizationsService {
   constructor(
     @InjectRepository(UserOrganization)
     private userOrganizationsRepository: Repository<UserOrganization>,
+    private userService: UsersService,
+    private organizationsService: OrganizationsService,
   ) {}
 
   async create(createUserOrganizationDto: CreateUserOrganizationDto): Promise<UserOrganization> {
-    return await this.userOrganizationsRepository.save(createUserOrganizationDto);
+    const userExists = await this.userService.userEmailExists(createUserOrganizationDto.user.email);
+    if (userExists) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          message: 'A user with this email already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    const existingOrg = await this.organizationsService.countByNameOrEin(
+      createUserOrganizationDto.organization.name,
+      createUserOrganizationDto.organization.ein,
+    );
+    if (existingOrg > 0) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          message: 'An organization with this name and EIN already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    if (!userExists && !existingOrg) {
+      const user = await this.userService.create(createUserOrganizationDto.user);
+      const organization = await this.organizationsService.create(
+        createUserOrganizationDto.organization,
+      );
+
+      try {
+        return await this.userOrganizationsRepository.save({ user, organization });
+      } catch (err) {
+        throw new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            message: 'This user is already related to this organization',
+          },
+          HttpStatus.CONFLICT,
+        );
+      }
+    }
   }
 
   async findAll(): Promise<UserOrganization[]> {

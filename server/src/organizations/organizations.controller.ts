@@ -44,8 +44,8 @@ export class OrganizationsController {
   }
 
   @Get('ein/:ein')
-  getProPublicaOrg(@Param('ein') ein: number): Promise<PropublicaOrg> {
-    return this.organizationsService.getProPublicaOrg(+ein);
+  getProPublicaOrg(@Param('ein') ein: string): Promise<PropublicaOrg> {
+    return this.organizationsService.getProPublicaOrg(ein);
   }
 
   @Patch(':id')

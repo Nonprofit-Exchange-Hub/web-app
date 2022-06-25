@@ -16,6 +16,7 @@ import { UserOrganization } from './entities/user-org.entity';
 import { UserOrganizationsService } from './user-org.service';
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
+import { ApprovalStatus, Role } from './constants';
 
 @Controller('userOrganizations')
 export class UserOrganizationsController {
@@ -26,7 +27,11 @@ export class UserOrganizationsController {
     @Body() createUserOrganizationsDto: CreateUserOrganizationDto,
   ): Promise<UserOrganization> {
     try {
-      const userOrg = await this.userOrganizationsService.create(createUserOrganizationsDto);
+      const userOrg = await this.userOrganizationsService.create({
+        role: Role.owner,
+        approvalStatus: ApprovalStatus.pending,
+        ...createUserOrganizationsDto,
+      });
       return userOrg;
     } catch (error) {
       throw new HttpException(
