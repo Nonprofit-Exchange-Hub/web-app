@@ -24,6 +24,7 @@ import ContactUs from './features/support/ContactUs';
 import Help from './features/support/Help';
 import ForgotPassword from './features/users/Auth/ForgotPassword';
 import SetNewPassword from './features/users/Auth/SetNewPassword';
+import TempChat from './features/tempChat/TempChat';
 
 const routes = {
   Home: {
@@ -129,6 +130,10 @@ const routes = {
   Help: {
     component: Help,
     path: '/help',
+  },
+  TempChat: {
+    component: TempChat,
+    path: '/chat',
   },
 };
 
