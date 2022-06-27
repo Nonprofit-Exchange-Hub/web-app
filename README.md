@@ -19,7 +19,7 @@
 2. Download or [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) repository.
 3. Run `nvm use` to ensure you are using the proper node version
 4. Install required dependencies:
-  -  run `npm install` from within `/server` directory and from the `/client` directory.
+  -  run `npm ci` from within `/server` directory and from the `/client` directory.
   - run `npm run prepare` from within `/server` directory and from the `/client` directory.
 5. Copy the below environmental variables into a `.env` file that you create in `/server` directory
 ```

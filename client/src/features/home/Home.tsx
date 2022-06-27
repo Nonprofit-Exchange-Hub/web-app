@@ -168,14 +168,17 @@ function Home(): JSX.Element {
 
   React.useEffect(() => {
     // fetch assets with querySearchText
-    const donationsUrl = 'http://localhost:3001/api/assets?type=donation&limit=3&offset=0';
+    const donationsUrl = new URL(
+      '/assets?type=donation&limit=3&offset=0',
+      'http://localhost:3001/api',
+    );
     fetch(donationsUrl)
       .then((resp) => resp.json())
       .then((data: Asset[]) => {
         setDonations(data);
       });
 
-    const offersUrl = 'http://localhost:3001/api/assets?type=request&limit=3&offset=0';
+    const offersUrl = new URL('/assets?type=request&limit=3&offset=0', 'http://localhost:3001/api');
     fetch(offersUrl)
       .then((resp) => resp.json())
       .then((data: Asset[]) => {
