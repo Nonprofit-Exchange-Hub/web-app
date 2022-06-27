@@ -1,9 +1,17 @@
-import { PartialType } from '@nestjs/mapped-types';
 import { IsOptional } from 'class-validator';
 
-import { Asset } from '../entities/asset.entity';
+import { AssetType } from '../constants';
 
-export class GetAssetsDto extends PartialType(Asset) {
+export class GetAssetsDto {
+  @IsOptional()
+  id: string;
+
+  @IsOptional()
+  title: string;
+
+  @IsOptional()
+  type: AssetType;
+
   @IsOptional()
   limit: number;
 
