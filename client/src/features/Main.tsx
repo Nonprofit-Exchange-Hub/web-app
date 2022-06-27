@@ -82,6 +82,7 @@ function Main() {
         {/* support */}
         <Route exact path={routes.ContactUs.path} component={routes.ContactUs.component} />
         <Route exact path={routes.Help.path} component={routes.Help.component} />
+        <Route exact path={routes.TempChat.path} component={routes.TempChat.component} />
       </Switch>
     </main>
   );
