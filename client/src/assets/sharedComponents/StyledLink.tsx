@@ -27,7 +27,13 @@ function StyledLink({ to, target, children }: Props): JSX.Element {
   const classes = useStyles();
 
   return (
-    <Link className={classes.link} component={RouterLink} to={to} target={target}>
+    <Link
+      className={classes.link}
+      component={RouterLink}
+      to={to}
+      target={target}
+      underline={'hover'}
+    >
       {children}
     </Link>
   );

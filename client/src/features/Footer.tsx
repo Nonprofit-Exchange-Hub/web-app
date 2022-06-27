@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { Theme } from '@mui/material/styles';
-
+import Divider from '@mui/material/Divider';
 import makeStyles from '@mui/styles/makeStyles';
 
 import StyledLink from '../assets/sharedComponents/StyledLink';
@@ -11,7 +12,7 @@ import routes from '../routes';
 const useStyles = makeStyles((theme: Theme) => {
   return {
     main: {
-      backgroundColor: '#C4C4C4',
+      backgroundColor: 'white',
       padding: theme.spacing(5),
     },
     linkBlock: {
@@ -33,26 +34,13 @@ function Footer() {
 
   return (
     <footer className="Footer">
+      <Divider sx={{ borderBottomWidth: 5 }}></Divider>
       <Grid className={classes.main} container>
         <Grid container>
-          <Grid item xs={6} sm={8}></Grid>
-          <Grid
-            className={classes.linkBlock}
-            container
-            item
-            xs={3}
-            sm={2}
-            direction="column"
-            alignItems="flex-start"
-            paddingLeft={{ xs: 1, sm: 3 }}
-          >
-            <Typography className={classes.header} align="left" gutterBottom>
-              Get to know us
+          <Grid item xs={6} sm={8}>
+            <Typography className={classes.header} marginLeft={6}>
+              Tribio
             </Typography>
-            {/* <StyledLink to={routes.AboutUs.path}>About Us</StyledLink> */}
-            <StyledLink to={routes.OurStory.path}>Our Story</StyledLink>
-            <StyledLink to={routes.HowItWorks.path}>How It works</StyledLink>
-            <StyledLink to={routes.ContactUs.path}>Contact Us</StyledLink>
           </Grid>
           <Grid
             className={classes.linkBlock}
@@ -64,12 +52,46 @@ function Footer() {
             alignItems="flex-start"
             paddingLeft={{ xs: 1, sm: 3 }}
           >
-            <Typography className={classes.header} align="left" gutterBottom>
-              Resources
-            </Typography>
-            <StyledLink to={routes.TrustAndSafety.path}>Library</StyledLink>
-            <StyledLink to={routes.TrustAndSafety.path}>Trust and Safety</StyledLink>
-            <StyledLink to={routes.Help.path}>Help & FAQ</StyledLink>
+            <Box>
+              <Typography className={classes.header} align="left" gutterBottom>
+                Get to know us
+              </Typography>
+            </Box>
+            {/* <StyledLink to={routes.AboutUs.path}>About Us</StyledLink> */}
+            <Box>
+              <StyledLink to={routes.OurStory.path}>Our Story</StyledLink>
+            </Box>
+            <Box>
+              <StyledLink to={routes.HowItWorks.path}>How It works</StyledLink>
+            </Box>
+            <Box>
+              <StyledLink to={routes.ContactUs.path}>Contact Us</StyledLink>
+            </Box>
+          </Grid>
+          <Grid
+            className={classes.linkBlock}
+            container
+            item
+            xs={3}
+            sm={2}
+            direction="column"
+            alignItems="flex-start"
+            paddingLeft={{ xs: 1, sm: 3 }}
+          >
+            <Box>
+              <Typography className={classes.header} align="left" gutterBottom>
+                Resources
+              </Typography>
+            </Box>
+            <Box>
+              <StyledLink to={routes.TrustAndSafety.path}>Library</StyledLink>
+            </Box>
+            <Box>
+              <StyledLink to={routes.TrustAndSafety.path}>Trust and Safety</StyledLink>
+            </Box>
+            <Box>
+              <StyledLink to={routes.Help.path}>Help & FAQ</StyledLink>
+            </Box>
           </Grid>
         </Grid>
         <Grid
