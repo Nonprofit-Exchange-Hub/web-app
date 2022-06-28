@@ -2,15 +2,8 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import Divider from '@mui/material/Divider';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
-import { SelectChangeEvent } from '@mui/material';
-
+import Search from './Search';
 import type { Theme } from '@mui/material/styles';
 
 import NeedsAndOffers from './NeedsAndOffers';
@@ -159,12 +152,6 @@ function HeaderContentRight(): JSX.Element {
 
 function Home(): JSX.Element {
   const classes = useStyles();
-  const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('');
-  const [searchText, setSearchText] = React.useState<string>('');
-
-  const selectSearchCategory = (event: SelectChangeEvent<string>) => {
-    setSelectedSearchCategory(event.target.value as string);
-  };
 
   return (
     <>
@@ -173,34 +160,7 @@ function Home(): JSX.Element {
           <Typography className={classes.heroText} variant="h3" component="h1" color="textPrimary">
             Support local nonprofits through the giving economy.
           </Typography>
-          <div className={classes.searchBar}>
-            <FormControl className={classes.formControl}>
-              <Select
-                displayEmpty
-                value={selectedSearchCategory}
-                onChange={selectSearchCategory}
-                renderValue={(value: any) => value || 'Search for'}
-                className={classes.select}
-              >
-                <MenuItem value="Goods">Goods</MenuItem>
-                <MenuItem value="Services">Services</MenuItem>
-              </Select>
-            </FormControl>
-            <Divider className={classes.divider} orientation="vertical" />
-            <InputBase
-              className={classes.input}
-              placeholder="ex. diapers"
-              inputProps={{ 'aria-label': 'ex. diapers' }}
-              type="text"
-              value={searchText}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                setSearchText(e.target.value)
-              }
-            />
-            <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
-              <SearchIcon />
-            </NavLink>
-          </div>
+          <Search />
         </div>
       </div>
       <div className={classes.needsAndOffers}>
