@@ -4,7 +4,7 @@ import { AssetType } from '../constants';
 
 export class GetAssetsDto {
   @IsOptional()
-  id: string;
+  id: number;
 
   @IsOptional()
   title: string;

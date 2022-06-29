@@ -30,7 +30,7 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<Omit<User, 'password'>> {
-    const user = await this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOneBy({ id });
     delete user.password;
     return user;
   }
@@ -43,7 +43,7 @@ export class UsersService {
   // Search database for user with matching email.
   // Returns user on success, throws 404 error if user does not exist
   async findByEmail(email: string, includePw = false): Promise<User | Omit<User, 'password'>> {
-    const user = await this.usersRepository.findOne({ email });
+    const user = await this.usersRepository.findOneBy({ email });
 
     if (!user) {
       throw new HttpException(
@@ -59,7 +59,7 @@ export class UsersService {
   }
   // Change to whatever the display name ends up being.
   async findByUsername(firstName: string): Promise<Omit<User, 'password'>> {
-    const user = await this.usersRepository.findOne({ firstName });
+    const user = await this.usersRepository.findOneBy({ firstName });
     delete user.password;
     return user;
   }
@@ -67,7 +67,7 @@ export class UsersService {
   // TODO: Assess if there is a better way than making two requests.
   async update(id: number, updateUserDto: UpdateUserDto) {
     await this.usersRepository.update(id, updateUserDto);
-    const user = await this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOneBy({ id });
     delete user.password;
     return user;
   }
