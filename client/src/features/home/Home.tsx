@@ -14,9 +14,11 @@ import { SelectChangeEvent } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 
 import NeedsAndOffers from './NeedsAndOffers';
-import { mockData, placeholderImg } from '../../assets/temp';
+import { placeholderImg } from '../../assets/temp';
 import QuestionList from '../../assets/sharedComponents/QuestionList';
 import routes from '../../routes';
+
+import type { Asset } from '../../types';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -161,6 +163,28 @@ function Home(): JSX.Element {
   const classes = useStyles();
   const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('');
   const [searchText, setSearchText] = React.useState<string>('');
+  const [donations, setDonations] = React.useState<Asset[]>([]);
+  const [requests, setRequests] = React.useState<Asset[]>([]);
+
+  React.useEffect(() => {
+    // fetch assets with querySearchText
+    const donationsUrl = new URL(
+      '/assets?type=donation&limit=3&offset=0',
+      'http://localhost:3001/api',
+    );
+    fetch(donationsUrl)
+      .then((resp) => resp.json())
+      .then((data: Asset[]) => {
+        setDonations(data);
+      });
+
+    const offersUrl = new URL('/assets?type=request&limit=3&offset=0', 'http://localhost:3001/api');
+    fetch(offersUrl)
+      .then((resp) => resp.json())
+      .then((data: Asset[]) => {
+        setRequests(data);
+      });
+  }, []);
 
   const selectSearchCategory = (event: SelectChangeEvent<string>) => {
     setSelectedSearchCategory(event.target.value as string);
@@ -205,11 +229,11 @@ function Home(): JSX.Element {
       </div>
       <div className={classes.needsAndOffers}>
         <NeedsAndOffers
-          assets={mockData}
+          assets={requests}
           headerContentRight={<HeaderContentRight />}
           headerText="Nonprofit Needs"
         />
-        <NeedsAndOffers assets={mockData} headerText="Offers" />
+        <NeedsAndOffers assets={donations} headerText="Offers" />
       </div>
       <div className={classes.videoSection}>
         <div className={classes.videoSectionVideo}>

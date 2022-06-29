@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        border: `1px solid ${theme.form.borderColor}`,
-        borderRadius: theme.form.borderRadius,
+        border: `1px solid grey`,
+        borderRadius: '10px',
       },
     },
     '& .MuiInputBase-input': {

@@ -16,12 +16,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    alignItems: 'stretch',
   },
   card: {
     marginBottom: '30px',
     '&:not(:last-child)': {
       marginRight: '20px',
     },
+    flex: '0 0 30%',
   },
   cardImg: {
     borderRadius: '5px',
@@ -74,7 +77,7 @@ function NeedsAndOffers(props: Props): JSX.Element {
                 alt={asset.title}
               />
               <Typography variant="h6" component="h4" className={classes.cardText1}>
-                {asset.title}, {asset.categories ? asset.categories[0] : null}
+                {asset.title} {asset.categories ? asset.categories[0] : null}
               </Typography>
               <div className={classes.cardText2}>
                 <RoomOutlined />
