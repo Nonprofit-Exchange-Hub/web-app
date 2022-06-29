@@ -16,6 +16,8 @@ import { CategoriesModule } from './categories/categories.module';
 import { UserOrganizationsModule } from './user-org/user-org.module';
 import { UsersService } from './users/users.service';
 
+import { SendgridModule } from './sendgrid/sendgrid.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -33,6 +35,7 @@ import { UsersService } from './users/users.service';
     CategoriesModule,
     UserOrganizationsModule,
     TransactionsModule,
+    SendgridModule,
   ],
   controllers: [AppController],
   providers: [],

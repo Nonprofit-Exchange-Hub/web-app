@@ -91,7 +91,7 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    fetch('http://localhost:3001/api/users/reset_password', {
+    fetch('http://localhost:3001/api/sendgrid/send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
