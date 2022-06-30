@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Theme } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
 import makeStyles from '@mui/styles/makeStyles';
 
 import StyledLink from '../assets/sharedComponents/StyledLink';
@@ -26,6 +25,11 @@ const useStyles = makeStyles((theme: Theme) => {
     bottom: {
       marginTop: theme.spacing(4),
     },
+    divider: {
+      backgroundColor: 'grey',
+      padding: theme.spacing(0.5),
+      boxShadow: theme.vars.shadow.sm,
+    },
   };
 });
 
@@ -34,7 +38,7 @@ function Footer() {
 
   return (
     <footer className="Footer">
-      <Divider sx={{ borderBottomWidth: 5 }}></Divider>
+      <div className={classes.divider}></div>
       <Grid className={classes.main} container>
         <Grid container>
           <Grid item xs={6} sm={8}>
