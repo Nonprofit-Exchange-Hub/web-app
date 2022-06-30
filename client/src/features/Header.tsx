@@ -4,10 +4,21 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import makeStyles from '@mui/styles/makeStyles';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+
+import IconButton from '@mui/material/IconButton';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AppsIcon from '@mui/icons-material/Apps';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ListItemText from '@mui/material/ListItemText';
+import Loop from '@mui/icons-material/Loop';
+import Widgets from '@mui/icons-material/Widgets';
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
+import Logout from '@mui/icons-material/Logout';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -46,6 +57,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
     padding: '5px 5%',
   },
+  lastMenuItem: {
+    justifyContent: 'space-between',
+  },
 }));
 
 function Header() {
@@ -53,18 +67,27 @@ function Header() {
   const [user, setUser] = React.useContext(UserContext);
   const history = useHistory();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl1, setAnchorEl1] = React.useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
+  const open1 = Boolean(anchorEl1);
+  const open2 = Boolean(anchorEl2);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick1 = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl1(event.currentTarget);
   };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose1 = () => {
+    setAnchorEl1(null);
+  };
+  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl2(event.currentTarget);
+  };
+  const handleClose2 = () => {
+    setAnchorEl2(null);
   };
 
   const handleLogout = (): void => {
-    handleClose();
+    handleClose1();
+    handleClose2();
     setUser(null);
     fetch('http://localhost:3001/api/auth/logout', {
       credentials: 'include',
@@ -86,35 +109,115 @@ function Header() {
           <NavLink className={classes.navLink} to={routes.HowItWorks.path}>
             How It Works
           </NavLink>
-          <NavLink className={classes.navLink} to={routes.ContactUs.path}>
-            Contact Us
+          <NavLink className={classes.navLink} to={routes.Help.path}>
+            FAQs
           </NavLink>
         </div>
         <div className={classes.userButtons}>
           {user ? (
             <>
-              <IconButton aria-label="user dropdown" onClick={handleClick} size="large">
+              <IconButton
+                id="navigation-button"
+                aria-label="navigation dropdown"
+                aria-controls={open1 ? 'navigation-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open1 ? 'true' : undefined}
+                onClick={handleClick1}
+                size="large"
+              >
+                <AppsIcon />
+              </IconButton>
+              <Menu
+                id="navigation-menu"
+                anchorEl={anchorEl1}
+                keepMounted
+                open={open1}
+                onClose={handleClose1}
+                MenuListProps={{
+                  'aria-labelledby': 'navigation-button',
+                }}
+              >
+                {/* TODO change to a react router link */}
+                <MenuItem>
+                  <NavLink className={classes.navLink} to={routes.Help.path}>
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <Loop />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Exchange"
+                        secondary="Search items, volunters & organizations"
+                      ></ListItemText>
+                    </ListItem>
+                  </NavLink>
+                </MenuItem>
+                <MenuItem>
+                  <NavLink className={classes.navLink} to={routes.Help.path}>
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <Widgets />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Listing Manager"
+                        secondary="See posts you made and engaged with"
+                      ></ListItemText>
+                    </ListItem>
+                  </NavLink>
+                </MenuItem>
+                <Divider />
+                <MenuItem className={classes.lastMenuItem}>
+                  <NavLink className={classes.navLink} to={routes.Help.path}>
+                    <ListItem>
+                      <ListItemText>About & Help</ListItemText>
+                      <ListItemAvatar>
+                        <ArrowForwardIos />
+                      </ListItemAvatar>
+                    </ListItem>
+                  </NavLink>
+                </MenuItem>
+              </Menu>
+              <IconButton
+                id="profile-button"
+                aria-label="user dropdown"
+                aria-controls={open2 ? 'profile-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open2 ? 'true' : undefined}
+                onClick={handleClick2}
+                size="large"
+              >
                 <AccountCircleIcon />
               </IconButton>
-              <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                {/* TODO change to a react router link */}
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    history.push('/inbox');
-                  }}
-                >
-                  Inbox
+              <Menu
+                id="profile-menu"
+                anchorEl={anchorEl2}
+                keepMounted
+                open={open2}
+                onClose={handleClose2}
+                MenuListProps={{
+                  'aria-labelledby': 'profile-button',
+                }}
+              >
+                <MenuItem>
+                  <NavLink className={classes.navLink} to={routes.User.path}>
+                    View My Profile
+                  </NavLink>
                 </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    history.push(`/users/${user.id}`);
-                  }}
-                >
-                  User Profile
+                <MenuItem>
+                  <NavLink className={classes.navLink} to={routes.User.path}>
+                    See Dashboard
+                  </NavLink>
                 </MenuItem>
-                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                <Divider />
+                <MenuItem onClick={handleLogout} className={classes.lastMenuItem}>
+                  Log out
+                  <ListItemAvatar>
+                    <Logout />
+                  </ListItemAvatar>
+                </MenuItem>
               </Menu>
             </>
           ) : (
