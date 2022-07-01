@@ -73,22 +73,21 @@ function Header() {
   const open1 = Boolean(anchorEl1);
   const open2 = Boolean(anchorEl2);
 
-  const handleClick1 = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl1(event.currentTarget);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (event?.currentTarget?.id === 'navigation-button') {
+      setAnchorEl1(event.currentTarget);
+    } else if (event?.currentTarget?.id === 'profile-button') {
+      setAnchorEl2(event.currentTarget);
+    }
   };
-  const handleClose1 = () => {
+
+  const handleClose = () => {
     setAnchorEl1(null);
-  };
-  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl2(event.currentTarget);
-  };
-  const handleClose2 = () => {
     setAnchorEl2(null);
   };
 
   const handleLogout = (): void => {
-    handleClose1();
-    handleClose2();
+    handleClose();
     setUser(null);
     fetch('http://localhost:3001/api/auth/logout', {
       credentials: 'include',
@@ -135,7 +134,7 @@ function Header() {
                 aria-controls={open1 ? 'navigation-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open1 ? 'true' : undefined}
-                onClick={handleClick1}
+                onClick={handleClick}
                 size="large"
               >
                 <AppsIcon />
@@ -145,7 +144,7 @@ function Header() {
                 anchorEl={anchorEl1}
                 keepMounted
                 open={open1}
-                onClose={handleClose1}
+                onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'navigation-button',
                 }}
@@ -192,7 +191,7 @@ function Header() {
                 aria-controls={open2 ? 'profile-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open2 ? 'true' : undefined}
-                onClick={handleClick2}
+                onClick={handleClick}
                 size="large"
               >
                 <AccountCircleIcon />
@@ -202,7 +201,7 @@ function Header() {
                 anchorEl={anchorEl2}
                 keepMounted
                 open={open2}
-                onClose={handleClose2}
+                onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'profile-button',
                 }}
