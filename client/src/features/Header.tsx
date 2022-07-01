@@ -11,8 +11,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppsIcon from '@mui/icons-material/Apps';
-import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import ListItemText from '@mui/material/ListItemText';
 import Loop from '@mui/icons-material/Loop';
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-end',
   },
   navLink: {
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     textDecoration: 'none',
     color: 'black',
     padding: '0 10px',
@@ -57,7 +57,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
     padding: '5px 5%',
   },
-  lastMenuItem: {
+  menuItemIconRight: {
+    display: 'flex',
     justifyContent: 'space-between',
   },
 }));
@@ -103,13 +104,25 @@ function Header() {
           <NavLink to={routes.Home.path} className={classes.home}>
             <img src={Logo} alt="NEH logo placeholder" />
           </NavLink>
-          <NavLink className={classes.navLink} to={routes.AboutUs.path}>
+          <NavLink
+            className={classes.navLink}
+            to={routes.AboutUs.path}
+            activeStyle={{ fontWeight: 'bold' }}
+          >
             About Us
           </NavLink>
-          <NavLink className={classes.navLink} to={routes.HowItWorks.path}>
+          <NavLink
+            className={classes.navLink}
+            to={routes.HowItWorks.path}
+            activeStyle={{ fontWeight: 'bold' }}
+          >
             How It Works
           </NavLink>
-          <NavLink className={classes.navLink} to={routes.Help.path}>
+          <NavLink
+            className={classes.navLink}
+            to={routes.Help.path}
+            activeStyle={{ fontWeight: 'bold' }}
+          >
             FAQs
           </NavLink>
         </div>
@@ -137,48 +150,41 @@ function Header() {
                   'aria-labelledby': 'navigation-button',
                 }}
               >
-                {/* TODO change to a react router link */}
-                <MenuItem>
-                  <NavLink className={classes.navLink} to={routes.Help.path}>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <Loop />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Exchange"
-                        secondary="Search items, volunters & organizations"
-                      ></ListItemText>
-                    </ListItem>
-                  </NavLink>
-                </MenuItem>
-                <MenuItem>
-                  <NavLink className={classes.navLink} to={routes.Help.path}>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <Widgets />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Listing Manager"
-                        secondary="See posts you made and engaged with"
-                      ></ListItemText>
-                    </ListItem>
-                  </NavLink>
-                </MenuItem>
+                <NavLink className={classes.navLink} to={routes.Help.path}>
+                  <MenuItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <Loop />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Exchange"
+                      secondary="Search items, volunters & organizations"
+                    ></ListItemText>
+                  </MenuItem>
+                </NavLink>
+                <NavLink className={classes.navLink} to={routes.Help.path}>
+                  <MenuItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <Widgets />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Listing Manager"
+                      secondary="See posts you made and engaged with"
+                    ></ListItemText>
+                  </MenuItem>
+                </NavLink>
                 <Divider />
-                <MenuItem className={classes.lastMenuItem}>
-                  <NavLink className={classes.navLink} to={routes.Help.path}>
-                    <ListItem>
-                      <ListItemText>About & Help</ListItemText>
-                      <ListItemAvatar>
-                        <ArrowForwardIos />
-                      </ListItemAvatar>
-                    </ListItem>
-                  </NavLink>
-                </MenuItem>
+                <NavLink className={classes.navLink} to={routes.Help.path}>
+                  <MenuItem className={classes.menuItemIconRight}>
+                    <ListItemText>About & Help</ListItemText>
+                    <ListItemAvatar>
+                      <ArrowForwardIos />
+                    </ListItemAvatar>
+                  </MenuItem>
+                </NavLink>
               </Menu>
               <IconButton
                 id="profile-button"
@@ -212,11 +218,11 @@ function Header() {
                   </NavLink>
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleLogout} className={classes.lastMenuItem}>
-                  Log out
-                  <ListItemAvatar>
+                <MenuItem onClick={handleLogout} className={classes.menuItemIconRight}>
+                  <ListItemText>Log Out</ListItemText>
+                  <ListItemIcon>
                     <Logout />
-                  </ListItemAvatar>
+                  </ListItemIcon>
                 </MenuItem>
               </Menu>
             </>
