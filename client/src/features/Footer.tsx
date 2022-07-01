@@ -25,10 +25,8 @@ const useStyles = makeStyles((theme: Theme) => {
     bottom: {
       marginTop: theme.spacing(4),
     },
-    divider: {
-      backgroundColor: 'grey',
-      padding: theme.spacing(0.5),
-      boxShadow: theme.vars.shadow.sm,
+    footer: {
+      boxShadow: '0px -2px 1em grey',
     },
   };
 });
@@ -37,8 +35,7 @@ function Footer() {
   const classes = useStyles();
 
   return (
-    <footer className="Footer">
-      <div className={classes.divider}></div>
+    <footer className={classes.footer}>
       <Grid className={classes.main} container>
         <Grid container>
           <Grid item xs={6} sm={8}>
