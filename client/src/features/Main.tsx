@@ -27,7 +27,7 @@ function Main() {
           component={routes.TermsOfService.component}
         />
         <Route exact path={routes.PrivacyPolicy.path} component={routes.PrivacyPolicy.component} />
-
+        <Route exact path={routes.CookiePolicy.path} component={routes.CookiePolicy.component} />
         {/* users */}
         <Route exact path={routes.Login.path} component={routes.Login.component} />
         <Route

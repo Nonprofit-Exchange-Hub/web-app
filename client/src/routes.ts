@@ -24,6 +24,7 @@ import ContactUs from './features/support/ContactUs';
 import Help from './features/support/Help';
 import ForgotPassword from './features/users/Auth/ForgotPassword';
 import SetNewPassword from './features/users/Auth/SetNewPassword';
+import CookiePolicy from './features/static/policy/CookiePolicy';
 import TempChat from './features/tempChat/TempChat';
 
 type RouteMap = {
@@ -61,6 +62,10 @@ const routes: RouteMap = {
   PrivacyPolicy: {
     component: PrivacyPolicy,
     path: '/privacy-policy',
+  },
+  CookiePolicy: {
+    component: CookiePolicy,
+    path: '/cookie-policy',
   },
   ForgotPassword: {
     component: ForgotPassword,

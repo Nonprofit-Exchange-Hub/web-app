@@ -20,14 +20,19 @@ const useStyles = makeStyles(() => {
 interface Props {
   to: string;
   target?: string;
-  children: string;
 }
 
-function StyledLink({ to, target, children }: Props): JSX.Element {
+function StyledLink({ to, target, children }: React.PropsWithChildren<Props>): JSX.Element {
   const classes = useStyles();
 
   return (
-    <Link className={classes.link} component={RouterLink} to={to} target={target}>
+    <Link
+      className={classes.link}
+      component={RouterLink}
+      to={to}
+      target={target}
+      underline={'hover'}
+    >
       {children}
     </Link>
   );
