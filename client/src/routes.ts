@@ -27,7 +27,14 @@ import SetNewPassword from './features/users/Auth/SetNewPassword';
 import CookiePolicy from './features/static/policy/CookiePolicy';
 import TempChat from './features/tempChat/TempChat';
 
-const routes = {
+type RouteMap = {
+  [componentName: string]: {
+    component: () => JSX.Element;
+    path: string;
+  };
+};
+
+const routes: RouteMap = {
   Home: {
     component: Home,
     path: '/',

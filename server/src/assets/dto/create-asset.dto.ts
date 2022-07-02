@@ -23,4 +23,7 @@ export class CreateAssetDto {
   @IsOptional()
   @IsEnum(Condition)
   condition: Condition;
+
+  @IsOptional()
+  imgUrls?: string[];
 }

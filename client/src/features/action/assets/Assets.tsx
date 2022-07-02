@@ -11,7 +11,7 @@ import type { Theme } from '@mui/material/styles';
 
 import NeedsAndOffers from '../../home/NeedsAndOffers';
 import FilterGroup from '../../../assets/sharedComponents/FilterGroup';
-import { mockData, filters1, filters2, filters3 } from '../../../assets/temp';
+import { filters1, filters2, filters3 } from '../../../assets/temp';
 import routes from '../../../routes';
 import type { Asset } from '../../../types';
 
@@ -153,9 +153,8 @@ function Assets(): JSX.Element {
               </Button>
             </NavLink>
           </Paper>
-          <NeedsAndOffers headerText="Nonprofit Needs" assets={mockData} />
           <NeedsAndOffers
-            headerText="Offers"
+            headerText={selectedAssetType === 'donation' ? 'Offers' : 'Nonprofit Needs'}
             assets={selectedAssetType === 'donation' ? donations : needs}
           />
         </div>

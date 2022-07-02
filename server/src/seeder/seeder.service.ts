@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Connection, EntityMetadata, Repository } from 'typeorm';
+
 import { seedUserOrganization, seedUsers } from '../database/seeding/seed-data';
 import { seedAssets } from '../database/seeding/seed-data';
 import { seedCategories } from '../database/seeding/seed-data';
@@ -10,7 +12,7 @@ import { Asset } from '../assets/entities/asset.entity';
 import { Message } from '../messages/entities/message.entity';
 import { Transaction } from '../transactions/entities/transaction.entity';
 import { Organization } from '../organizations/entities/organization.entity';
-import { UserOrganization } from 'src/user-org/entities/user-org.entity';
+import { UserOrganization } from '../user-org/entities/user-org.entity';
 import { UsersService } from '../users/users.service';
 import { AssetsService } from '../assets/assets.service';
 import { CategoriesService } from '../categories/categories.service';
@@ -18,11 +20,10 @@ import { MessagesService } from '../messages/messages.service';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { TransactionsService } from '../transactions/transactions.service';
 import { UserOrganizationsService } from '../user-org/user-org.service';
-import { Connection, EntityMetadata, Repository } from 'typeorm';
-import { TransactionStatus } from 'src/transactions/transaction-status.enum';
-import { CreateTransactionDto } from 'src/transactions/dto/create-transaction.dto';
-import { CreateMessageDto } from 'src/messages/dto/create-message.dto';
-import { Category } from 'src/categories/entities/category.entity';
+import { TransactionStatus } from '../transactions/transaction-status.enum';
+import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
+import { CreateMessageDto } from '../messages/dto/create-message.dto';
+import { Category } from '../categories/entities/category.entity';
 
 export interface SeedAssetsResult {
   assets: Asset[];
@@ -84,9 +85,10 @@ export class SeederService {
 
     const assets = seedAssets();
     const newAssets = [];
-    for (const asset of assets) {
+    for (let i = 0; i < assets.length; i += 1) {
+      const asset = assets[i];
       Logger.log('Seeding an Asset', SeederService.name);
-      asset.poster = newUsers[0];
+      asset.poster = i % 2 !== 0 ? newUsers[0] : newUsers[1];
       await this.assetService.create(asset).catch((err) => Logger.log(err));
       newAssets.push(asset);
     }
