@@ -15,8 +15,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import ListItemText from '@mui/material/ListItemText';
-import Loop from '@mui/icons-material/Loop';
-import Widgets from '@mui/icons-material/Widgets';
+import Loop from '@mui/icons-material/LoopOutlined';
+import Widgets from '@mui/icons-material/WidgetsOutlined';
 import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
 import Logout from '@mui/icons-material/Logout';
 
@@ -28,6 +28,7 @@ import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   home: {
+    minWidth: '25px',
     maxWidth: '100px',
     flexGrow: 1,
   },
@@ -48,10 +49,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'normal',
     textDecoration: 'none',
     color: 'black',
-    padding: '0 10px',
+    // padding: '0 10px',
   },
   appBar: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
   },
   toolbar: {
@@ -150,10 +151,10 @@ function Header() {
                 }}
               >
                 <NavLink className={classes.navLink} to={routes.Help.path}>
-                  <MenuItem>
+                  <MenuItem dense>
                     <ListItemAvatar>
                       <Avatar>
-                        <Loop />
+                        <Loop color="action" />
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
@@ -163,10 +164,10 @@ function Header() {
                   </MenuItem>
                 </NavLink>
                 <NavLink className={classes.navLink} to={routes.Help.path}>
-                  <MenuItem>
+                  <MenuItem dense>
                     <ListItemAvatar>
                       <Avatar>
-                        <Widgets />
+                        <Widgets color="action" />
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
@@ -177,11 +178,11 @@ function Header() {
                 </NavLink>
                 <Divider />
                 <NavLink className={classes.navLink} to={routes.Help.path}>
-                  <MenuItem className={classes.menuItemIconRight}>
+                  <MenuItem dense className={classes.menuItemIconRight}>
                     <ListItemText>About & Help</ListItemText>
-                    <ListItemAvatar>
+                    <ListItemIcon>
                       <ArrowForwardIos />
-                    </ListItemAvatar>
+                    </ListItemIcon>
                   </MenuItem>
                 </NavLink>
               </Menu>
@@ -206,18 +207,18 @@ function Header() {
                   'aria-labelledby': 'profile-button',
                 }}
               >
-                <MenuItem>
+                <MenuItem dense>
                   <NavLink className={classes.navLink} to={routes.User.path}>
                     View My Profile
                   </NavLink>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem dense>
                   <NavLink className={classes.navLink} to={routes.User.path}>
                     See Dashboard
                   </NavLink>
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleLogout} className={classes.menuItemIconRight}>
+                <MenuItem dense onClick={handleLogout} className={classes.menuItemIconRight}>
                   <ListItemText>Log Out</ListItemText>
                   <ListItemIcon>
                     <Logout />
