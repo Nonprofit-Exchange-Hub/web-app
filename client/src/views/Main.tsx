@@ -27,7 +27,7 @@ function Main() {
           component={routes.TermsOfService.component}
         />
         <Route exact path={routes.PrivacyPolicy.path} component={routes.PrivacyPolicy.component} />
-
+        <Route exact path={routes.CookiePolicy.path} component={routes.CookiePolicy.component} />
         {/* users */}
         <Route exact path={routes.Login.path} component={routes.Login.component} />
         <Route
@@ -82,6 +82,7 @@ function Main() {
         {/* support */}
         <Route exact path={routes.ContactUs.path} component={routes.ContactUs.component} />
         <Route exact path={routes.Help.path} component={routes.Help.component} />
+        <Route exact path={routes.TempChat.path} component={routes.TempChat.component} />
       </Switch>
     </main>
   );

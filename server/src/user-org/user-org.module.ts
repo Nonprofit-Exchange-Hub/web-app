@@ -8,5 +8,6 @@ import { UserOrganizationsService } from './user-org.service';
   imports: [TypeOrmModule.forFeature([UserOrganization])],
   controllers: [UserOrganizationsController],
   providers: [UserOrganizationsService],
+  exports: [UserOrganizationsService],
 })
 export class UserOrganizationsModule {}

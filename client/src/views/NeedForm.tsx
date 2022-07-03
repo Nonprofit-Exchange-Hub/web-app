@@ -3,7 +3,7 @@ import { TextLink } from '../types';
 
 const links: TextLink[] = [
   {
-    url: '/need/goods/',
+    url: '/need/goods',
     text: 'Goods',
   },
   {

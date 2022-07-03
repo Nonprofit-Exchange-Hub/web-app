@@ -24,8 +24,17 @@ import ContactUs from './views/ContactUs';
 import Help from './views/Help';
 import ForgotPassword from './components/Users/Auth/ForgotPassword';
 import SetNewPassword from './components/Users/Auth/SetNewPassword';
+import CookiePolicy from './views/CookiePolicy';
+import TempChat from './views/TempChat';
 
-const routes = {
+type RouteMap = {
+  [componentName: string]: {
+    component: () => JSX.Element;
+    path: string;
+  };
+};
+
+const routes: RouteMap = {
   Home: {
     component: Home,
     path: '/',
@@ -53,6 +62,10 @@ const routes = {
   PrivacyPolicy: {
     component: PrivacyPolicy,
     path: '/privacy-policy',
+  },
+  CookiePolicy: {
+    component: CookiePolicy,
+    path: '/cookie-policy',
   },
   ForgotPassword: {
     component: ForgotPassword,
@@ -129,6 +142,10 @@ const routes = {
   Help: {
     component: Help,
     path: '/help',
+  },
+  TempChat: {
+    component: TempChat,
+    path: '/chat',
   },
 };
 

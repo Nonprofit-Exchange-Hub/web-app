@@ -7,7 +7,7 @@ import { Organization } from './entities/organization.entity';
 import fetch from 'node-fetch';
 
 export type PropublicaOrg = {
-  ein: number;
+  ein: string;
   name: string;
 };
 
@@ -43,7 +43,7 @@ export class OrganizationsService {
   }
 
   findOne(id: number): Promise<Organization> {
-    return this.organizationsRepository.findOne(id);
+    return this.organizationsRepository.findOneBy({ id });
   }
 
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {

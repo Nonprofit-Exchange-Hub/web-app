@@ -51,7 +51,15 @@ function LinkPage(props: React.PropsWithChildren<FormProps>) {
           <Grid container direction="row">
             {props.links.map((link, index) => {
               return (
-                <Grid container item sm={6} xs={12} direction="column" alignItems="center">
+                <Grid
+                  key={link.url}
+                  container
+                  item
+                  sm={6}
+                  xs={12}
+                  direction="column"
+                  alignItems="center"
+                >
                   <Link to={link.url} className={classes.linkText}>
                     <button className={classes.squareButton}></button>
                     <Typography variant="body1" component="div" align="center">

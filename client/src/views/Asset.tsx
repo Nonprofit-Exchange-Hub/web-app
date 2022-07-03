@@ -13,7 +13,6 @@ import RoomOutlined from '@mui/icons-material/RoomOutlined';
 import type { Theme } from '@mui/material/styles';
 
 import SimpleSnackbar from '../components/SimpleSnackbar';
-import { mockData } from '../assets/temp';
 import routes from '../routes';
 
 import type { Asset as AssetT } from '../types';
@@ -206,9 +205,11 @@ function Asset(): JSX.Element {
           <Typography className={classes.heading} variant="h3">
             {asset.title}
           </Typography>
-          <Typography className={classes.subText} variant="subtitle1">
-            {mockData[0].categories.join(', ')}
-          </Typography>
+          {asset.categories?.length && (
+            <Typography className={classes.subText} variant="subtitle1">
+              {asset.categories.join(', ')}
+            </Typography>
+          )}
           <Typography className={classes.subText} variant="subtitle1">
             {asset.organization ? '' : 'Posted By:'}
             {asset.poster.firstName}
