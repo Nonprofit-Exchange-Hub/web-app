@@ -8,14 +8,14 @@ import Typography from '@mui/material/Typography';
 
 import type { Theme } from '@mui/material/styles';
 
-import EmailInput from './EmailInput';
-import FacebookAuthBtn from './FacebookAuthBtn';
-import GoogleAuthBtn from './GoogleAuthBtn';
-import PasswordInput from './PasswordInput';
-import StyledLink from '../../StyledLink';
-import TextDivider from '../../TextDivider';
-import { UserContext } from '../../../providers';
-import routes from '../../../routes';
+import EmailInput from '../components/Users/Auth/EmailInput';
+import FacebookAuthBtn from '../components/Users/Auth/FacebookAuthBtn';
+import GoogleAuthBtn from '../components/Users/Auth/GoogleAuthBtn';
+import PasswordInput from '../components/Users/Auth/PasswordInput';
+import StyledLink from '../components/StyledLink';
+import TextDivider from '../components/TextDivider';
+import { UserContext } from '../providers';
+import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;

@@ -18,7 +18,7 @@ import { placeholderImg } from '../assets/temp';
 import QuestionList from '../components/QuestionList';
 import routes from '../routes';
 
-import type { Asset } from '../../types';
+import type { Asset } from '../types';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';

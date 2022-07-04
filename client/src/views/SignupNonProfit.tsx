@@ -9,10 +9,10 @@ import Checkbox from '@mui/material/Checkbox';
 
 import type { Theme } from '@mui/material/styles';
 
-import { placeholderImg } from '../../../assets/temp';
-import StyledLink from '../../StyledLink';
-import { TextField, Select } from '../../Forms';
-import routes from '../../../routes';
+import { placeholderImg } from '../assets/temp';
+import StyledLink from '../components/StyledLink';
+import { TextField, Select } from '../components/Forms';
+import routes from '../routes';
 
 const classifications = [
   { value: 'charitable', text: 'Charitable Organization' },

@@ -10,13 +10,13 @@ import IconButton from '@mui/material/IconButton';
 
 import type { Theme } from '@mui/material/styles';
 
-import SubHeader from './SubHeader';
-import TransactionThreadCard from './TransactionThreadCard';
-import MessageCard from './MessageCard';
-import { UserContext } from '../../../providers';
-import routes from '../../../routes';
+import SubHeader from '../components/Users/Inbox/SubHeader';
+import TransactionThreadCard from '../components/Users/Inbox/TransactionThreadCard';
+import MessageCard from '../components/Users/Inbox/MessageCard';
+import { UserContext } from '../providers';
+import routes from '../routes';
 
-import type { Message, Transaction } from '../../../types';
+import type { Message, Transaction } from '../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   inboxWrapper: {

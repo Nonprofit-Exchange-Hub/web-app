@@ -11,14 +11,14 @@ import Button from '@mui/material/Button';
 
 import type { Theme } from '@mui/material/styles';
 
-import { placeholderImg } from '../../../assets/temp';
-import EmailInput from './EmailInput';
-import FacebookAuthBtn from './FacebookAuthBtn';
-import GoogleAuthBtn from './GoogleAuthBtn';
-import PasswordInput from './PasswordInput';
-import StyledLink from '../../StyledLink';
-import TextDivider from '../../TextDivider';
-import routes from '../../../routes';
+import { placeholderImg } from '../assets/temp';
+import EmailInput from '../components/Users/Auth/EmailInput';
+import FacebookAuthBtn from '../components/Users/Auth/FacebookAuthBtn';
+import GoogleAuthBtn from '../components/Users/Auth/GoogleAuthBtn';
+import PasswordInput from '../components/Users/Auth/PasswordInput';
+import StyledLink from '../components/StyledLink';
+import TextDivider from '../components/TextDivider';
+import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
