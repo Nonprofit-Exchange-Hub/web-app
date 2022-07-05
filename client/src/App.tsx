@@ -3,9 +3,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
 import theme from './Theme';
-import Footer from './features/Footer';
-import Header from './features/Header';
-import Main from './features/Main';
+import Footer from './views/Footer';
+import Header from './views/Header';
+import Main from './views/Main';
 import { UserProvider } from './providers';
 
 import './App.css';
