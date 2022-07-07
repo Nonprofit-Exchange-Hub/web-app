@@ -1,30 +1,31 @@
-import Home from './features/home/Home';
-import AboutUs from './features/static/about/AboutUs';
-import HowItWorks from './features/static/about/HowItWorks';
-import OurStory from './features/static/about/OurStory';
-import TrustAndSafety from './features/static/policy/TrustAndSafety';
-import TermsOfService from './features/static/policy/TermsOfService';
-import PrivacyPolicy from './features/static/policy/PrivacyPolicy';
-import Login from './features/users/Auth/Login';
-import Signup from './features/users/Auth/Signup';
-import SignupCitizen from './features/users/Auth/SignupCitizen';
-import SignupNonProfit from './features/users/Auth/SignupNonProfit';
-import Inbox from './features/users/Inbox/Inbox';
-import User from './features/users/User';
-import ActionForm from './features/action/ActionForm';
-import Assets from './features/action/assets/Assets';
-import Asset from './features/action/assets/Asset';
-import NeedForm from './features/action/needs/NeedForm';
-import NeedFormGoods from './features/action/needs/NeedFormGoods';
-import NeedFormVolunteers from './features/action/needs/NeedFormVolunteers';
-import OfferForm from './features/action/offers/OfferForm';
-import OfferFormGoods from './features/action/offers/OfferFormGoods';
-import OfferFormSkills from './features/action/offers/OfferFormSkills';
-import ContactUs from './features/support/ContactUs';
-import Help from './features/support/Help';
-import ForgotPassword from './features/users/Auth/ForgotPassword';
-import SetNewPassword from './features/users/Auth/SetNewPassword';
-import TempChat from './features/tempChat/TempChat';
+import Home from './views/Home';
+import AboutUs from './views/AboutUs';
+import HowItWorks from './views/HowItWorks';
+import OurStory from './views/OurStory';
+import TrustAndSafety from './views/TrustAndSafety';
+import TermsOfService from './views/TermsOfService';
+import PrivacyPolicy from './views/PrivacyPolicy';
+import Login from './views/Login';
+import Signup from './views/Signup';
+import SignupCitizen from './views/SignupCitizen';
+import SignupNonProfit from './views/SignupNonProfit';
+import Inbox from './views/Inbox';
+import User from './views/User';
+import ActionForm from './views/ActionForm';
+import AssetsView from './views/AssetsView';
+import Asset from './views/Asset';
+import NeedForm from './views/NeedForm';
+import NeedFormGoods from './views/NeedFormGoods';
+import NeedFormVolunteers from './views/NeedFormVolunteers';
+import OfferForm from './views/OfferForm';
+import OfferFormGoods from './views/OfferFormGoods';
+import OfferFormSkills from './views/OfferFormSkills';
+import ContactUs from './views/ContactUs';
+import Help from './views/Help';
+import ForgotPassword from './components/Users/Auth/ForgotPassword';
+import SetNewPassword from './components/Users/Auth/SetNewPassword';
+import CookiePolicy from './views/CookiePolicy';
+import TempChat from './views/TempChat';
 
 type RouteMap = {
   [componentName: string]: {
@@ -61,6 +62,10 @@ const routes: RouteMap = {
   PrivacyPolicy: {
     component: PrivacyPolicy,
     path: '/privacy-policy',
+  },
+  CookiePolicy: {
+    component: CookiePolicy,
+    path: '/cookie-policy',
   },
   ForgotPassword: {
     component: ForgotPassword,
@@ -99,7 +104,7 @@ const routes: RouteMap = {
     path: '/action',
   },
   Assets: {
-    component: Assets,
+    component: AssetsView,
     path: '/assets',
   },
   Asset: {
