@@ -24,6 +24,7 @@ import type { Theme } from '@mui/material/styles';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/logo.svg'; // placeholder
+import Bell from '../assets/Bell Icon.png';
 import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -61,6 +62,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   menuItemIconRight: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  bellIcon: {
+    maxWidth: '50px',
+    maxHeight: '50px',
   },
 }));
 
@@ -129,6 +134,9 @@ function Header() {
         <div className={classes.userButtons}>
           {user ? (
             <>
+              <IconButton>
+                <img src={Bell} className={classes.bellIcon} />
+              </IconButton>
               <IconButton
                 id="navigation-button"
                 aria-label="navigation dropdown"
