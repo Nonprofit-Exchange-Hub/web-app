@@ -4,19 +4,32 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import makeStyles from '@mui/styles/makeStyles';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+
+import IconButton from '@mui/material/IconButton';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AppsIcon from '@mui/icons-material/Apps';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Avatar from '@mui/material/Avatar';
+import ListItemText from '@mui/material/ListItemText';
+import Loop from '@mui/icons-material/LoopOutlined';
+import Widgets from '@mui/icons-material/WidgetsOutlined';
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
+import Logout from '@mui/icons-material/Logout';
 
 import type { Theme } from '@mui/material/styles';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/logo.svg'; // placeholder
+import Bell from '../assets/Bell Icon.png';
 import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   home: {
+    minWidth: '25px',
     maxWidth: '100px',
     flexGrow: 1,
   },
@@ -34,17 +47,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-end',
   },
   navLink: {
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     textDecoration: 'none',
     color: 'black',
-    padding: '0 10px',
+    // padding: '0 10px',
   },
   appBar: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
   },
   toolbar: {
     padding: '5px 5%',
+  },
+  menuItemIconRight: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  bellIcon: {
+    maxWidth: '50px',
+    maxHeight: '50px',
   },
 }));
 
@@ -53,14 +74,22 @@ function Header() {
   const [user, setUser] = React.useContext(UserContext);
   const history = useHistory();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl1, setAnchorEl1] = React.useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
+  const open1 = Boolean(anchorEl1);
+  const open2 = Boolean(anchorEl2);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+    if (event?.currentTarget?.id === 'navigation-button') {
+      setAnchorEl1(event.currentTarget);
+    } else if (event?.currentTarget?.id === 'profile-button') {
+      setAnchorEl2(event.currentTarget);
+    }
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl1(null);
+    setAnchorEl2(null);
   };
 
   const handleLogout = (): void => {
@@ -80,41 +109,129 @@ function Header() {
           <NavLink to={routes.Home.path} className={classes.home}>
             <img src={Logo} alt="NEH logo placeholder" />
           </NavLink>
-          <NavLink className={classes.navLink} to={routes.AboutUs.path}>
+          <NavLink
+            className={classes.navLink}
+            to={routes.AboutUs.path}
+            activeStyle={{ fontWeight: 'bold' }}
+          >
             About Us
           </NavLink>
-          <NavLink className={classes.navLink} to={routes.HowItWorks.path}>
+          <NavLink
+            className={classes.navLink}
+            to={routes.HowItWorks.path}
+            activeStyle={{ fontWeight: 'bold' }}
+          >
             How It Works
           </NavLink>
-          <NavLink className={classes.navLink} to={routes.ContactUs.path}>
-            Contact Us
+          <NavLink
+            className={classes.navLink}
+            to={routes.Help.path}
+            activeStyle={{ fontWeight: 'bold' }}
+          >
+            FAQs
           </NavLink>
         </div>
         <div className={classes.userButtons}>
           {user ? (
             <>
-              <IconButton aria-label="user dropdown" onClick={handleClick} size="large">
+              <IconButton>
+                <img src={Bell} className={classes.bellIcon} />
+              </IconButton>
+              <IconButton
+                id="navigation-button"
+                aria-label="navigation dropdown"
+                aria-controls={open1 ? 'navigation-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open1 ? 'true' : undefined}
+                onClick={handleClick}
+                size="large"
+              >
+                <AppsIcon />
+              </IconButton>
+              <Menu
+                id="navigation-menu"
+                anchorEl={anchorEl1}
+                keepMounted
+                open={open1}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'navigation-button',
+                }}
+              >
+                <NavLink className={classes.navLink} to={routes.Help.path}>
+                  <MenuItem dense>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <Loop color="action" />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Exchange"
+                      secondary="Search items, volunters & organizations"
+                    ></ListItemText>
+                  </MenuItem>
+                </NavLink>
+                <NavLink className={classes.navLink} to={routes.Help.path}>
+                  <MenuItem dense>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <Widgets color="action" />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Listing Manager"
+                      secondary="See posts you made and engaged with"
+                    ></ListItemText>
+                  </MenuItem>
+                </NavLink>
+                <Divider />
+                <NavLink className={classes.navLink} to={routes.Help.path}>
+                  <MenuItem dense className={classes.menuItemIconRight}>
+                    <ListItemText>About & Help</ListItemText>
+                    <ListItemIcon>
+                      <ArrowForwardIos />
+                    </ListItemIcon>
+                  </MenuItem>
+                </NavLink>
+              </Menu>
+              <IconButton
+                id="profile-button"
+                aria-label="user dropdown"
+                aria-controls={open2 ? 'profile-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open2 ? 'true' : undefined}
+                onClick={handleClick}
+                size="large"
+              >
                 <AccountCircleIcon />
               </IconButton>
-              <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                {/* TODO change to a react router link */}
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    history.push('/inbox');
-                  }}
-                >
-                  Inbox
+              <Menu
+                id="profile-menu"
+                anchorEl={anchorEl2}
+                keepMounted
+                open={open2}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'profile-button',
+                }}
+              >
+                <MenuItem dense>
+                  <NavLink className={classes.navLink} to={routes.User.path}>
+                    View My Profile
+                  </NavLink>
                 </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    history.push(`/users/${user.id}`);
-                  }}
-                >
-                  User Profile
+                <MenuItem dense>
+                  <NavLink className={classes.navLink} to={routes.User.path}>
+                    See Dashboard
+                  </NavLink>
                 </MenuItem>
-                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                <Divider />
+                <MenuItem dense onClick={handleLogout} className={classes.menuItemIconRight}>
+                  <ListItemText>Log Out</ListItemText>
+                  <ListItemIcon>
+                    <Logout />
+                  </ListItemIcon>
+                </MenuItem>
               </Menu>
             </>
           ) : (
