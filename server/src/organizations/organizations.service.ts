@@ -72,7 +72,9 @@ export class OrganizationsService {
   }
 
   async countByNameOrEin(name: string, ein: string): Promise<number> {
-    return this.organizationsRepository.count({ where: { name, ein } });
+    return this.organizationsRepository.count({
+      where: [{ name }, { ein }],
+    });
   }
 
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {
