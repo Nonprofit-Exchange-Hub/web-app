@@ -100,6 +100,7 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
     {
       name: 'Childrens Home Society of Washington',
       doing_business_as: 'Childrens Home Society of Washington',
+      nonprofit_classification: 'charitable',
       description: 'Support children from birth through age 12',
       website: 'https://www.childrenshomesociety.org/',
       address: '12360 LAKE CITY WAY NE, Seattle, WA 98125-5447',
@@ -111,6 +112,7 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
     {
       name: 'Audobon Washington',
       doing_business_as: 'Audobon Washington',
+      nonprofit_classification: 'charitable',
       description: 'Advocate for sustainable conservation management',
       website: 'https://wa.audubon.org/',
       address: '5902 Lake Washington Blvd S. Seattle, WA 98118',

@@ -12,19 +12,19 @@ import { SeederService } from './seeder.service';
 import { DatabaseConnectionService } from '../database-connection.service';
 
 import * as dotenv from 'dotenv';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 dotenv.config({ path: __dirname + '/../../.env' });
 
 const dbOptions = new DatabaseConnectionService().createTypeOrmOptions();
+const seederDbOptions: PostgresConnectionOptions = {
+  ...dbOptions,
+  entities: ['./src/**/*.entity.ts'],
+} as PostgresConnectionOptions;
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      ...dbOptions,
-      autoLoadEntities: false,
-      entities: ['./src/**/*.entity.ts'],
-      keepConnectionAlive: true,
-    }),
+    TypeOrmModule.forRoot(seederDbOptions),
     UsersModule,
     AssetsModule,
     CategoriesModule,
