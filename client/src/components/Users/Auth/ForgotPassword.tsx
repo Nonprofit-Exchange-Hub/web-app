@@ -55,30 +55,6 @@ function ForgotPassword() {
   const emailResponse =
     'If this email exists as a user you will be sent an email to reset your password.';
 
-  const generateForm = () => {
-    return (
-      <Grid container item xs={12}>
-        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-          <EmailInput
-            value={formData.email}
-            placeholder="jane@nonprofit.com"
-            onChange={handleChange}
-            error={null}
-          />
-          <Button
-            className={classes.button}
-            style={{ backgroundColor: '#C4C4C4', color: 'white' }}
-            fullWidth
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? 'sending...' : 'Send Email To Set New Password'}
-          </Button>
-        </form>
-      </Grid>
-    );
-  };
-
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;
     setFormData((fData) => ({
@@ -123,7 +99,27 @@ function ForgotPassword() {
             <Typography component="p" align="left" gutterBottom>
               {showSnackbar ? emailResponse : instructions}
             </Typography>
-            {showSnackbar ? null : generateForm()}
+            {!showSnackbar && (
+              <Grid container item xs={12}>
+                <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                  <EmailInput
+                    value={formData.email}
+                    placeholder="jane@nonprofit.com"
+                    onChange={handleChange}
+                    error={null}
+                  />
+                  <Button
+                    className={classes.button}
+                    style={{ backgroundColor: '#C4C4C4', color: 'white' }}
+                    fullWidth
+                    type="submit"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'sending...' : 'Send Email To Set New Password'}
+                  </Button>
+                </form>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Paper>
