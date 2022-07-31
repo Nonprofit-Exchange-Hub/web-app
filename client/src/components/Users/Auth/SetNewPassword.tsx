@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
+import { useLocation } from 'react-router-dom';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -38,6 +39,8 @@ const useStyles = makeStyles((theme: Theme) => {
 
 function SetNewPassword() {
   const classes = useStyles();
+  const { search } = useLocation();
+  const token = search.replace('?token=', '');
 
   const [password, setPassword] = React.useState<string>('');
   const [error, setError] = React.useState<string | null>(null);
@@ -54,7 +57,7 @@ function SetNewPassword() {
     fetch(`http://localhost:3001/api/users/${user ? user.id : null}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: password }),
+      body: JSON.stringify({ password: password, token }),
       credentials: 'include',
     }).then((resp) => {
       if (resp.ok) {

@@ -45,14 +45,18 @@ export class UsersController {
         throw new Error();
       }
 
+      const token = 'test';
+
       console.log('\nhere1\n');
       const mail = {
-        // to: user.email,
-        to: 'jd2rogers2@gmail.com',
-        subject: 'sendgrid test',
+        to: user.email,
+        subject: 'Givecycle Password Reset',
         from: 'jd2rogers2@gmail.com',
-        text: 'Hello world',
-        html: '<h1>Hello</h1>',
+        html: `
+          <p>Hello ${user.firstName} ${user.last_name}</p>
+          <p>Please click <a href="localhost:3000/set-new-password?token=${token}">here</a> to reset your password</p>
+          <p>(this link is valid for 1 hour)</p>
+        `,
       };
 
       this.sendgridService.send(mail);
