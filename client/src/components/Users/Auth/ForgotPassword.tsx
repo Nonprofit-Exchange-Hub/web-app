@@ -67,23 +67,20 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    fetch('http://localhost:3001/api/users/reset_password', {
+    const response = await fetch('http://localhost:3001/api/users/reset_password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        // sends user email, backend finds email, sends link to reset password
-        console.log(data);
-      });
+    });
+    const data = await response.json();
+    console.log(data);
 
     setIsLoading(false);
     setShowSnackbar(true);
-    setFormData((fData) => ({
-      ...fData,
+    setFormData((prevState) => ({
+      ...prevState,
       email: '',
     }));
   };
