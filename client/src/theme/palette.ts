@@ -1,14 +1,16 @@
 const palette = {
   text: {
-    primary: '#000000',
-    secondary: '#999999',
+    primary: '#323232',
+    secondary: '#6E6E6E',
   },
   primary: {
-    main: '#A34AED',
+    main: '#37718E',
+    light: '#43AFBF',
     contrastText: '#FFFFFF',
   },
   secondary: {
-    main: '#999999',
+    main: '#7C4164',
+    light: '#C33D54',
     contrastText: '#FFFFFF',
   },
 };
