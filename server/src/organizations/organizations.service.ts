@@ -33,17 +33,7 @@ export class OrganizationsService {
       );
     }
 
-    try {
-      return this.organizationsRepository.save(createOrganizationDto);
-    } catch (err) {
-      throw new HttpException(
-        {
-          status: HttpStatus.CONFLICT,
-          message: 'This organization already exists',
-        },
-        HttpStatus.CONFLICT,
-      );
-    }
+    return this.organizationsRepository.save(createOrganizationDto);
   }
 
   async getProPublicaOrg(ein: string): Promise<PropublicaOrg> {

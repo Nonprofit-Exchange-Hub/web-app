@@ -22,6 +22,7 @@ export class UsersService {
       delete user.password;
       return user;
     } catch (err) {
+      Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);
       throw new HttpException(
         { status: HttpStatus.CONFLICT, message: 'Email already exists' },
         HttpStatus.CONFLICT,
