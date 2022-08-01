@@ -10,24 +10,14 @@ import { OrganizationsController } from '../../src/organizations/organizations.c
 import { OrganizationsModule } from '../../src/organizations/organizations.module';
 import { OrganizationsService } from '../../src/organizations/organizations.service';
 import { CreateOrganizationDto } from '../../src/organizations/dto/create-organization.dto';
+import { StubGen } from '../stubs/stub-factory';
 
 describe('OrganizationsController', () => {
   let app: INestApplication;
   let orgService: OrganizationsService;
   let repository: Repository<Organization>;
 
-  const seed: CreateOrganizationDto = {
-    name: 'acme, inc',
-    doing_business_as: 'acme, inc',
-    description: 'beep beep',
-    website: 'example.com',
-    address: '123 some ave',
-    phone: '123-456-7891',
-    city: 'Gotham',
-    state: 'NX',
-    ein: '99-999999',
-    nonprofit_classification: 'FAKE',
-  };
+  const seed: CreateOrganizationDto = StubGen.createOrgDto();
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -42,6 +32,10 @@ describe('OrganizationsController', () => {
     await app.init();
   });
 
+  afterAll(async () => {
+    await app.close();
+  });
+
   beforeEach(async () => {
     // seed data
     await orgService.create({ ...seed });
@@ -51,20 +45,26 @@ describe('OrganizationsController', () => {
     await repository.query(`DELETE FROM organizations;`);
   });
 
-  afterAll(async () => {
-    await app.close();
+  it('POST /organizations -> when org exists -> match on name, should return 409', async () => {
+    const { body } = await supertest
+      .agent(app.getHttpServer())
+      .post(`/organizations`)
+      .send({ ...seed, ein: '01-1234567' })
+      .set('Content-Type', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(409);
+    expect(body.message).toEqual('Error: This organization already exists');
   });
 
-  describe('POST /organizations', () => {
-    it('should return 409 with message when org already exists', async () => {
-      const { body } = await supertest
-        .agent(app.getHttpServer())
-        .post(`/organizations`)
-        .send({ ...seed })
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(409);
-      expect(body.message).toEqual('Error: This organization already exists');
-    });
+  it('POST /organizations -> when org exists -> match on ein, should return 409', async () => {
+    // extect to have 2 orgs with the same name and 2 orgs with the same ein
+    const { body } = await supertest
+      .agent(app.getHttpServer())
+      .post(`/organizations`)
+      .send({ ...seed, name: 'sprockets, inc' }) // existing but with different name
+      .set('Content-Type', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(409);
+    expect(body.message).toEqual('Error: This organization already exists');
   });
 });

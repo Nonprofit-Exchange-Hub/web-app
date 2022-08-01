@@ -10,7 +10,7 @@ import { Asset } from '../assets/entities/asset.entity';
 import { Message } from '../messages/entities/message.entity';
 import { Transaction } from '../transactions/entities/transaction.entity';
 import { Organization } from '../organizations/entities/organization.entity';
-import { UserOrganization } from 'src/user-org/entities/user-org.entity';
+import { UserOrganization } from '../user-org/entities/user-org.entity';
 import { UsersService } from '../users/users.service';
 import { AssetsService } from '../assets/assets.service';
 import { CategoriesService } from '../categories/categories.service';
@@ -19,10 +19,10 @@ import { OrganizationsService } from '../organizations/organizations.service';
 import { TransactionsService } from '../transactions/transactions.service';
 import { UserOrganizationsService } from '../user-org/user-org.service';
 import { Connection, EntityMetadata, Repository } from 'typeorm';
-import { TransactionStatus } from 'src/transactions/transaction-status.enum';
-import { CreateTransactionDto } from 'src/transactions/dto/create-transaction.dto';
-import { CreateMessageDto } from 'src/messages/dto/create-message.dto';
-import { Category } from 'src/categories/entities/category.entity';
+import { TransactionStatus } from '../transactions/transaction-status.enum';
+import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
+import { CreateMessageDto } from '../messages/dto/create-message.dto';
+import { Category } from '../categories/entities/category.entity';
 
 export interface SeedAssetsResult {
   assets: Asset[];

@@ -6,7 +6,7 @@ import { CategoriesModule } from '../categories/categories.module';
 import { OrganizationsModule } from '../organizations/organizations.module';
 import { MessagesModule } from '../messages/messages.module';
 import { TransactionsModule } from '../transactions/transactions.module';
-import { UserOrganizationsModule } from 'src/user-org/user-org.module';
+import { UserOrganizationsModule } from '../user-org/user-org.module';
 
 import { SeederService } from './seeder.service';
 import { DatabaseConnectionService } from '../database-connection.service';

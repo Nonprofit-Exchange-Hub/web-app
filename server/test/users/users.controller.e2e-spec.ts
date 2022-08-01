@@ -17,12 +17,12 @@ describe('UsersController', () => {
   let repository: Repository<User>;
 
   let existingRecordId = 0;
-  const seed = {
+  const seed = () => ({
     firstName: 'peter',
     last_name: 'parker',
     email: 'peter.parker@example.com',
     password: 'secret1234',
-  };
+  });
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -38,21 +38,14 @@ describe('UsersController', () => {
     await app.init();
   });
 
-  beforeEach(async () => {
-    // seed data
-    const { id } = await usersService.create({ ...seed });
-    existingRecordId = id;
-  });
-
-  afterEach(async () => {
-    await repository.query(`DELETE FROM users;`);
-  });
-
   afterAll(async () => {
     await app.close();
   });
 
   describe('POST /users', () => {
+    beforeEach(async () => await bootstrapBeforeEach());
+    afterEach(async () => await bootstrapAfterEach());
+
     it('should create and return created user', async () => {
       const userToCreate = userCreateDtoStub();
       const { body } = await supertest
@@ -96,6 +89,9 @@ describe('UsersController', () => {
   });
 
   describe('Get /users/{id}', () => {
+    beforeEach(async () => await bootstrapBeforeEach());
+    afterEach(async () => await bootstrapAfterEach());
+
     it('should return 200 with existing record', async () => {
       // assert
       const { body } = await supertest
@@ -106,9 +102,9 @@ describe('UsersController', () => {
         .expect(200);
       expect(body).not.toBeUndefined();
       expect(body.id).not.toBeNull();
-      expect(body.email).toEqual(seed.email);
-      expect(body.firstName).toEqual(seed.firstName);
-      expect(body.last_name).toEqual(seed.last_name);
+      expect(body.email).toEqual(seed().email);
+      expect(body.firstName).toEqual(seed().firstName);
+      expect(body.last_name).toEqual(seed().last_name);
     });
 
     it('should not return password hash', async () => {
@@ -135,6 +131,9 @@ describe('UsersController', () => {
   });
 
   describe('PATCH users/{id}', () => {
+    beforeEach(async () => await bootstrapBeforeEach());
+    afterEach(async () => await bootstrapAfterEach());
+
     it.skip('should return 403 when email validations fails', async () => {
       await supertest
         .agent(app.getHttpServer())
@@ -148,4 +147,14 @@ describe('UsersController', () => {
         .expect(403);
     });
   });
+
+  const bootstrapBeforeEach = async () => {
+    // seed data
+    const { id } = await usersService.create({ ...seed() });
+    existingRecordId = id;
+  };
+
+  const bootstrapAfterEach = async () => {
+    await repository.query(`TRUNCATE users CASCADE;`);
+  };
 });

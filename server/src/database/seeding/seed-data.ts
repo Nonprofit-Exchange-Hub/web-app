@@ -6,8 +6,8 @@ import { CreateOrganizationDto } from '../../organizations/dto/create-organizati
 import { CreateTransactionDto } from '../../transactions/dto/create-transaction.dto';
 import { AssetType, Condition } from '../../assets/constants';
 import { TransactionStatus } from '../../transactions/transaction-status.enum';
-import { CreateUserOrganizationDto } from 'src/user-org/dto/create-user-org.dto';
-import { ApprovalStatus, Role } from 'src/user-org/constants';
+import { CreateUserOrganizationDto } from '../../user-org/dto/create-user-org.dto';
+import { ApprovalStatus, Role } from '../../user-org/constants';
 
 export const seedUsers = (): CreateUserDto[] => {
   const users: CreateUserDto[] = [
