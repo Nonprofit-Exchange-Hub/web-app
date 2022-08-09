@@ -8,6 +8,7 @@ import { UsersModule } from '../users/users.module';
 import { LoginStrategy } from './strategies/login.strategy';
 import { CookieStrategy } from './strategies/cookie.strategy';
 import { jwtConstants } from './constants';
+import { WSCookieStrategy } from './strategies/ws-cookie..strategy';
 
 @Module({
   controllers: [AuthController],
@@ -20,6 +21,6 @@ import { jwtConstants } from './constants';
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [AuthService, LoginStrategy, CookieStrategy],
+  providers: [AuthService, LoginStrategy, CookieStrategy, WSCookieStrategy],
 })
 export class AuthModule {}

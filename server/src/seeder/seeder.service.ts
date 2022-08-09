@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Connection, EntityMetadata, Repository } from 'typeorm';
+
 import { seedUserOrganization, seedUsers } from '../database/seeding/seed-data';
 import { seedAssets } from '../database/seeding/seed-data';
 import { seedCategories } from '../database/seeding/seed-data';
@@ -84,9 +86,10 @@ export class SeederService {
 
     const assets = seedAssets();
     const newAssets = [];
-    for (const asset of assets) {
+    for (let i = 0; i < assets.length; i += 1) {
+      const asset = assets[i];
       Logger.log('Seeding an Asset', SeederService.name);
-      asset.poster = newUsers[0];
+      asset.poster = i % 2 !== 0 ? newUsers[0] : newUsers[1];
       await this.assetService.create(asset).catch((err) => Logger.log(err));
       newAssets.push(asset);
     }

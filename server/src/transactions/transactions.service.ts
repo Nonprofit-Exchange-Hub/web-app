@@ -19,11 +19,11 @@ export class TransactionsService {
   }
 
   async getTransactions(getTransactionsDto: GetTransactionsDto): Promise<Transaction[]> {
-    return this.transactionsRepository.find({ where: getTransactionsDto });
+    return this.transactionsRepository.find({ where: { ...getTransactionsDto } });
   }
 
   async getTransactionById(id: number): Promise<Transaction> {
-    const found = await this.transactionsRepository.findOne(id);
+    const found = await this.transactionsRepository.findOneBy({ id });
     if (!found) {
       throw new NotFoundException();
     }

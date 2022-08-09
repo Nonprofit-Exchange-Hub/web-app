@@ -9,6 +9,8 @@ import { TransactionStatus } from '../../transactions/transaction-status.enum';
 import { CreateUserOrganizationDto } from '../../user-org/dto/create-user-org.dto';
 import { ApprovalStatus, Role } from '../../user-org/constants';
 
+const assetImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
+
 export const seedUsers = (): CreateUserDto[] => {
   const users: CreateUserDto[] = [
     {
@@ -31,11 +33,12 @@ export function seedAssets(): CreateAssetDto[] {
   const assets: CreateAssetDto[] = [
     {
       title: 'paper',
-      description: 'stack of paper',
+      description: 'one stack of paper',
       type: AssetType.DONATION,
       poster: null,
       condition: Condition.LIKE_NEW,
       quantity: 1,
+      imgUrls: [assetImg],
     },
     {
       title: 'chairs',
@@ -44,6 +47,97 @@ export function seedAssets(): CreateAssetDto[] {
       poster: null,
       condition: Condition.EXCELLENT,
       quantity: 2,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'three turtle doves',
+      description: 'happy christmas harry',
+      type: AssetType.REQUEST,
+      poster: null,
+      condition: Condition.GOOD,
+      quantity: 3,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'four loko',
+      description: 'the definition of terrible in a can',
+      type: AssetType.REQUEST,
+      poster: null,
+      condition: Condition.GOOD,
+      quantity: 4,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'five guys burgers and fries',
+      description: 'yummm',
+      type: AssetType.DONATION,
+      poster: null,
+      condition: Condition.EXCELLENT,
+      quantity: 5,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'six pack',
+      description: 'nice craftiness',
+      type: AssetType.DONATION,
+      poster: null,
+      condition: Condition.EXCELLENT,
+      quantity: 6,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'seven/eleven',
+      description: 'just... never...',
+      type: AssetType.DONATION,
+      poster: null,
+      condition: Condition.LIKE_NEW,
+      quantity: 7,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'magic eight ball',
+      description: 'decidely so',
+      type: AssetType.DONATION,
+      poster: null,
+      condition: Condition.EXCELLENT,
+      quantity: 8,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'the whole nine yards',
+      description: 'sportsball',
+      type: AssetType.DONATION,
+      poster: null,
+      condition: Condition.EXCELLENT,
+      quantity: 9,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'ten out of ten',
+      description: "this isn't even a tangible thing",
+      type: AssetType.DONATION,
+      poster: null,
+      condition: Condition.EXCELLENT,
+      quantity: 10,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'eleven eleven',
+      description: 'make a wish',
+      type: AssetType.REQUEST,
+      poster: null,
+      condition: Condition.EXCELLENT,
+      quantity: 11,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'a dozen eggs',
+      description: 'bfast',
+      type: AssetType.REQUEST,
+      poster: null,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
     },
   ];
   return assets;
