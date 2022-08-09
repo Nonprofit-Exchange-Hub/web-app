@@ -55,7 +55,7 @@ export class UserOrganizationsService {
   }
 
   async findOne(id: number): Promise<UserOrganization> {
-    const userOrg = await this.userOrganizationsRepository.findOneBy({ id });
+    const userOrg = await this.userOrganizationsRepository.findOne({ id });
     return userOrg;
   }
 
@@ -64,7 +64,7 @@ export class UserOrganizationsService {
     updateUserOrganizationsDto: UpdateUserOrganizationDto,
   ): Promise<UserOrganization> {
     await this.userOrganizationsRepository.update(id, updateUserOrganizationsDto);
-    return this.userOrganizationsRepository.findOneBy({ id });
+    return this.userOrganizationsRepository.findOne({ id });
   }
 
   async remove(id: number): Promise<DeleteResult> {
