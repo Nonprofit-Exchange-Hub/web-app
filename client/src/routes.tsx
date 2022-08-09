@@ -8,7 +8,7 @@ import PrivacyPolicy from './features/static/policy/PrivacyPolicy';
 import Login from './features/users/Auth/Login';
 import Signup from './features/users/Auth/Signup';
 import SignupCitizen from './features/users/Auth/SignupCitizen';
-import SignupNonProfit from './features/users/Auth/SignupNonProfit';
+import SignupNonProfit from './features/users/Auth/SignUpNonProfit/SignupNonProfit';
 import Inbox from './features/users/Inbox/Inbox';
 import User from './features/users/User';
 import ActionForm from './features/action/ActionForm';
