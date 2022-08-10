@@ -23,13 +23,13 @@ export class CategoriesService {
   }
 
   async findOne(id: number): Promise<Category> {
-    const category = this.categoriesRepository.findOneBy({ id });
+    const category = this.categoriesRepository.findOne({ id });
     return category;
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto): Promise<Category> {
     await this.categoriesRepository.update(id, updateCategoryDto);
-    return this.categoriesRepository.findOneBy({ id });
+    return this.categoriesRepository.findOne({ id });
   }
 
   async remove(id: number): Promise<DeleteResult> {

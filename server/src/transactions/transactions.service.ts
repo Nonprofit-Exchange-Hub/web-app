@@ -23,7 +23,7 @@ export class TransactionsService {
   }
 
   async getTransactionById(id: number): Promise<Transaction> {
-    const found = await this.transactionsRepository.findOneBy({ id });
+    const found = await this.transactionsRepository.findOne({ id });
     if (!found) {
       throw new NotFoundException();
     }

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,10 +18,25 @@ export class OrganizationsService {
   ) {}
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    const exists = await this.countByNameOrEin(
+      createOrganizationDto.name,
+      createOrganizationDto.ein,
+    );
+
+    if (exists > 0) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          message: 'This organization already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
+
     return this.organizationsRepository.save(createOrganizationDto);
   }
 
-  async getProPublicaOrg(ein: number): Promise<PropublicaOrg> {
+  async getProPublicaOrg(ein: string): Promise<PropublicaOrg> {
     try {
       const res = await fetch(
         `https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`,
@@ -43,7 +58,13 @@ export class OrganizationsService {
   }
 
   findOne(id: number): Promise<Organization> {
-    return this.organizationsRepository.findOneBy({ id });
+    return this.organizationsRepository.findOne({ id });
+  }
+
+  async countByNameOrEin(name: string, ein: string): Promise<number> {
+    return this.organizationsRepository.count({
+      where: [{ name }, { ein }],
+    });
   }
 
   async update(id: number, updateOrganizationDto: UpdateOrganizationDto): Promise<Organization> {

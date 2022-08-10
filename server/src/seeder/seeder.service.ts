@@ -20,6 +20,7 @@ import { MessagesService } from '../messages/messages.service';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { TransactionsService } from '../transactions/transactions.service';
 import { UserOrganizationsService } from '../user-org/user-org.service';
+import { Connection, EntityMetadata, Repository } from 'typeorm';
 import { TransactionStatus } from '../transactions/transaction-status.enum';
 import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import { CreateMessageDto } from '../messages/dto/create-message.dto';
