@@ -17,6 +17,7 @@ import { WSCookieStrategy } from './strategies/ws-cookie..strategy';
     UsersModule,
     PassportModule,
     JwtModule.register({
+      // TODO make this an env var
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '60s' },
     }),
