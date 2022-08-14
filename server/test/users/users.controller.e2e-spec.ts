@@ -8,6 +8,7 @@ import { UsersController } from '../../src/users/users.controller';
 import { UsersService } from '../../src/users/users.service';
 import { User } from '../../src/users/entities/user.entity';
 import { UsersModule } from '../../src/users/users.module';
+import { SendgridModule } from '../../src/sendgrid/sendgrid.module';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
 
@@ -26,7 +27,7 @@ describe('UsersController', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
+      imports: [UsersModule, SendgridModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
       controllers: [UsersController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
     }).compile();
