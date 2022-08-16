@@ -24,7 +24,7 @@ import type { Theme } from '@mui/material/styles';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/logo.svg'; // placeholder
-import Bell from '../assets/Bell Icon.png';
+import Bell from '../assets/BellIcon.png';
 import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -37,7 +37,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    flexGrow: 1,
+    flexGrow: 0.75,
+  },
+  pageLinks: {
+    // marginLeft: '20px',
   },
   userButtons: {
     borderRadius: theme.shape.borderRadius,
@@ -103,7 +106,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="sticky" className={classes.appBar}>
+    <AppBar position="sticky" className={classes.appBar} color="inherit">
       <Toolbar className={classes.toolbar}>
         <div className={classes.mainNav}>
           <NavLink to={routes.Home.path} className={classes.home}>
@@ -114,21 +117,21 @@ function Header() {
             to={routes.AboutUs.path}
             activeStyle={{ fontWeight: 'bold' }}
           >
-            About Us
+            <span className={classes.pageLinks}>About Us</span>
           </NavLink>
           <NavLink
             className={classes.navLink}
             to={routes.HowItWorks.path}
             activeStyle={{ fontWeight: 'bold' }}
           >
-            How It Works
+            <span className={classes.pageLinks}>How It Works</span>
           </NavLink>
           <NavLink
             className={classes.navLink}
             to={routes.Help.path}
             activeStyle={{ fontWeight: 'bold' }}
           >
-            FAQs
+            <span className={classes.pageLinks}>FAQs</span>
           </NavLink>
         </div>
         <div className={classes.userButtons}>
