@@ -39,9 +39,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     flexGrow: 0.75,
   },
-  pageLinks: {
-    // marginLeft: '20px',
-  },
   userButtons: {
     borderRadius: theme.shape.borderRadius,
     flexGrow: 1,
@@ -107,6 +104,7 @@ function Header() {
 
   return (
     <AppBar position="sticky" className={classes.appBar} color="inherit">
+      {/* if color not set will default to primary purple */}
       <Toolbar className={classes.toolbar}>
         <div className={classes.mainNav}>
           <NavLink to={routes.Home.path} className={classes.home}>
@@ -117,21 +115,21 @@ function Header() {
             to={routes.AboutUs.path}
             activeStyle={{ fontWeight: 'bold' }}
           >
-            <span className={classes.pageLinks}>About Us</span>
+            About Us
           </NavLink>
           <NavLink
             className={classes.navLink}
             to={routes.HowItWorks.path}
             activeStyle={{ fontWeight: 'bold' }}
           >
-            <span className={classes.pageLinks}>How It Works</span>
+            How It Works
           </NavLink>
           <NavLink
             className={classes.navLink}
             to={routes.Help.path}
             activeStyle={{ fontWeight: 'bold' }}
           >
-            <span className={classes.pageLinks}>FAQs</span>
+            FAQs
           </NavLink>
         </div>
         <div className={classes.userButtons}>
@@ -159,6 +157,34 @@ function Header() {
                 onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'navigation-button',
+                }}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 1,
+                    '&:before': {
+                      content: '""',
+                      display: 'block',
+                      position: 'absolute',
+                      top: 0,
+                      right: 20,
+                      width: 10,
+                      height: 10,
+                      bgcolor: 'background.paper',
+                      transform: 'translateY(-50%) rotate(45deg)',
+                      zIndex: 0,
+                    },
+                  },
                 }}
               >
                 <NavLink className={classes.navLink} to={routes.Help.path}>
@@ -216,6 +242,34 @@ function Header() {
                 onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'profile-button',
+                }}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 1,
+                    '&:before': {
+                      content: '""',
+                      display: 'block',
+                      position: 'absolute',
+                      top: 0,
+                      right: 20,
+                      width: 10,
+                      height: 10,
+                      bgcolor: 'background.paper',
+                      transform: 'translateY(-50%) rotate(45deg)',
+                      zIndex: 0,
+                    },
+                  },
                 }}
               >
                 <MenuItem dense>
