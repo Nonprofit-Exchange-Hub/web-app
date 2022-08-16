@@ -74,22 +74,22 @@ function Header() {
   const [user, setUser] = React.useContext(UserContext);
   const history = useHistory();
 
-  const [anchorEl1, setAnchorEl1] = React.useState<null | HTMLElement>(null);
-  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
-  const open1 = Boolean(anchorEl1);
-  const open2 = Boolean(anchorEl2);
+  const [navAnchorEl, setNavAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [profileAnchorEl, setProfileAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isNavMenuOpen = Boolean(navAnchorEl);
+  const isProfileMenuOpen = Boolean(profileAnchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (event?.currentTarget?.id === 'navigation-button') {
-      setAnchorEl1(event.currentTarget);
+      setNavAnchorEl(event.currentTarget);
     } else if (event?.currentTarget?.id === 'profile-button') {
-      setAnchorEl2(event.currentTarget);
+      setProfileAnchorEl(event.currentTarget);
     }
   };
 
   const handleClose = () => {
-    setAnchorEl1(null);
-    setAnchorEl2(null);
+    setNavAnchorEl(null);
+    setProfileAnchorEl(null);
   };
 
   const handleLogout = (): void => {
@@ -141,9 +141,9 @@ function Header() {
               <IconButton
                 id="navigation-button"
                 aria-label="navigation dropdown"
-                aria-controls={open1 ? 'navigation-menu' : undefined}
+                aria-controls={isNavMenuOpen ? 'navigation-menu' : undefined}
                 aria-haspopup="true"
-                aria-expanded={open1 ? 'true' : undefined}
+                aria-expanded={isNavMenuOpen ? 'true' : undefined}
                 onClick={handleClick}
                 size="large"
               >
@@ -151,9 +151,9 @@ function Header() {
               </IconButton>
               <Menu
                 id="navigation-menu"
-                anchorEl={anchorEl1}
+                anchorEl={navAnchorEl}
                 keepMounted
-                open={open1}
+                open={isNavMenuOpen}
                 onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'navigation-button',
@@ -226,9 +226,9 @@ function Header() {
               <IconButton
                 id="profile-button"
                 aria-label="user dropdown"
-                aria-controls={open2 ? 'profile-menu' : undefined}
+                aria-controls={isProfileMenuOpen ? 'profile-menu' : undefined}
                 aria-haspopup="true"
-                aria-expanded={open2 ? 'true' : undefined}
+                aria-expanded={isProfileMenuOpen ? 'true' : undefined}
                 onClick={handleClick}
                 size="large"
               >
@@ -236,9 +236,9 @@ function Header() {
               </IconButton>
               <Menu
                 id="profile-menu"
-                anchorEl={anchorEl2}
+                anchorEl={profileAnchorEl}
                 keepMounted
-                open={open2}
+                open={isProfileMenuOpen}
                 onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'profile-button',
@@ -294,9 +294,7 @@ function Header() {
           ) : (
             <>
               <NavLink className={classes.navLink} to={routes.Signup.path}>
-                <Button color="primary" variant="contained">
-                  Sign Up
-                </Button>
+                <Button color="info">Sign Up</Button>
               </NavLink>
               <NavLink className={classes.navLink} to={routes.Login.path}>
                 <Button color="secondary" variant="contained">
