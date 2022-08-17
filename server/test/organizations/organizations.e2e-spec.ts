@@ -53,7 +53,7 @@ describe('OrganizationsController', () => {
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
       .expect(409);
-    expect(body.message).toEqual('Error: This organization already exists');
+    expect(body.message).toEqual('HttpException: This organization already exists');
   });
 
   it('POST /organizations -> when org exists -> match on ein, should return 409', async () => {
@@ -65,6 +65,6 @@ describe('OrganizationsController', () => {
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
       .expect(409);
-    expect(body.message).toEqual('Error: This organization already exists');
+    expect(body.message).toEqual('HttpException: This organization already exists');
   });
 });

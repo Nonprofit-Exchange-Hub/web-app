@@ -20,7 +20,7 @@ export class MessagesService {
   }
 
   async findOne(id: number): Promise<Message> {
-    return this.messagesRepository.findOne({ id });
+    return this.messagesRepository.findOneBy({ id });
   }
 
   async findByUser(user: User): Promise<Message[]> {
@@ -38,7 +38,7 @@ export class MessagesService {
 
   async update(id: number, updateMessageDto: UpdateMessageDto): Promise<Message> {
     await this.messagesRepository.update(id, updateMessageDto);
-    return this.messagesRepository.findOne({ id });
+    return this.messagesRepository.findOneBy({ id });
   }
 
   async remove(id: number): Promise<DeleteResult> {

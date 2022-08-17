@@ -22,7 +22,7 @@ export class StubGen {
   }
 
   public static createOrgDto(): CreateOrganizationDto {
-    const COMPANY_NAME = faker.company.companyName();
+    const COMPANY_NAME = faker.company.name();
     return {
       name: COMPANY_NAME,
       doing_business_as: COMPANY_NAME,
