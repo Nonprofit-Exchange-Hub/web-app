@@ -6,8 +6,8 @@ import { CreateOrganizationDto } from '../../organizations/dto/create-organizati
 import { CreateTransactionDto } from '../../transactions/dto/create-transaction.dto';
 import { AssetType, Condition } from '../../assets/constants';
 import { TransactionStatus } from '../../transactions/transaction-status.enum';
-import { CreateUserOrganizationDto } from 'src/user-org/dto/create-user-org.dto';
-import { ApprovalStatus, Role } from 'src/user-org/constants';
+import { CreateUserOrganizationDto } from '../../user-org/dto/create-user-org.dto';
+import { ApprovalStatus, Role } from '../../user-org/constants';
 
 const assetImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
 
@@ -193,6 +193,8 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
   const organizations: CreateOrganizationDto[] = [
     {
       name: 'Childrens Home Society of Washington',
+      doing_business_as: 'Childrens Home Society of Washington',
+      nonprofit_classification: 'charitable',
       description: 'Support children from birth through age 12',
       website: 'https://www.childrenshomesociety.org/',
       address: '12360 LAKE CITY WAY NE, Seattle, WA 98125-5447',
@@ -203,6 +205,8 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
     },
     {
       name: 'Audobon Washington',
+      doing_business_as: 'Audobon Washington',
+      nonprofit_classification: 'charitable',
       description: 'Advocate for sustainable conservation management',
       website: 'https://wa.audubon.org/',
       address: '5902 Lake Washington Blvd S. Seattle, WA 98118',

@@ -10,8 +10,34 @@ export type Asset = {
   organization: number;
 };
 
+export type Organization = {
+  id?: number;
+  name: string;
+  doing_business_as: string;
+  description: string;
+  website: string;
+  address: string;
+  phone: string;
+  city: string;
+  state: string;
+  ein: string;
+  nonprofit_classification: string;
+};
+
+export enum Role {
+  admin = 'ADMIN',
+  owner = 'OWNER',
+  revoked = 'REVOKED',
+}
+
+export enum ApprovalStatus {
+  approved = 'APPROVED',
+  pending = 'PENDING',
+  denied = 'DENIED',
+}
+
 export type User = {
-  id: number;
+  id?: number;
   firstName: string;
 };
 
