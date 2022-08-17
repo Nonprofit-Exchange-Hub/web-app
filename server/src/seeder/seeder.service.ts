@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Connection, EntityMetadata, Repository } from 'typeorm';
+import { DataSource, EntityMetadata, Repository } from 'typeorm';
 
 import { seedUserOrganization, seedUsers } from '../database/seeding/seed-data';
 import { seedAssets } from '../database/seeding/seed-data';
@@ -20,7 +20,6 @@ import { MessagesService } from '../messages/messages.service';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { TransactionsService } from '../transactions/transactions.service';
 import { UserOrganizationsService } from '../user-org/user-org.service';
-import { Connection, EntityMetadata, Repository } from 'typeorm';
 import { TransactionStatus } from '../transactions/transaction-status.enum';
 import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import { CreateMessageDto } from '../messages/dto/create-message.dto';
@@ -56,7 +55,7 @@ export class SeederService {
     private readonly messageService: MessagesService,
     private readonly transactionService: TransactionsService,
     private readonly userorgService: UserOrganizationsService,
-    private readonly connx: Connection,
+    private readonly connx: DataSource,
   ) {}
 
   /**
