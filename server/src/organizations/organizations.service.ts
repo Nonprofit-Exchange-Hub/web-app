@@ -58,7 +58,7 @@ export class OrganizationsService {
   }
 
   findOne(id: number): Promise<Organization> {
-    return this.organizationsRepository.findOne({ id });
+    return this.organizationsRepository.findOneBy({ id });
   }
 
   async countByNameOrEin(name: string, ein: string): Promise<number> {

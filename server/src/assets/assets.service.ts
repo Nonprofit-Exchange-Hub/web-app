@@ -16,7 +16,7 @@ export class AssetsService {
   }
 
   async findOne(id: number): Promise<Asset> {
-    return this.assetsRepository.findOne({ id });
+    return this.assetsRepository.findOneBy({ id });
   }
 
   async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
@@ -35,7 +35,7 @@ export class AssetsService {
 
   async update(id: number, updateAssetDto: UpdateAssetDto): Promise<Asset> {
     await this.assetsRepository.update(id, updateAssetDto);
-    return this.assetsRepository.findOne({ id });
+    return this.assetsRepository.findOneBy({ id });
   }
 
   async remove(id: number): Promise<DeleteResult> {
