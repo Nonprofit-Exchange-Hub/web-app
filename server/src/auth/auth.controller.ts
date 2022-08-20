@@ -1,4 +1,4 @@
-import { Controller, Post, Response, Request, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Response, Request, UseGuards, Get, Logger } from '@nestjs/common';
 
 import type { Request as RequestT, Response as ResponseT } from 'express';
 
@@ -22,6 +22,7 @@ export class AuthController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
+    console.log(user, 'login hit');
     const jwt = await this.authService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {

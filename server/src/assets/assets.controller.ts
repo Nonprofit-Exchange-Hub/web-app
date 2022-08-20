@@ -22,7 +22,7 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '..//users/entities/user.entity';
 
 @Controller('assets')
 export class AssetsController {
@@ -75,7 +75,11 @@ export class AssetsController {
     const { user } = request;
 
     try {
-      const updatedAsset = await this.assetsService.update(parseInt(id), updateAssetDto, user);
+      const updatedAsset = await this.assetsService.update(
+        parseInt(id),
+        updateAssetDto,
+        user as User,
+      );
       return updatedAsset;
     } catch (error) {
       throw new HttpException(
