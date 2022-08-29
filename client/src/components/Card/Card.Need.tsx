@@ -13,10 +13,8 @@ export default function NeedCard() {
     <Card type="need">
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
-          <Typography gutterBottom sx={{ fontSize: '14px' }}>
-            Apparel
-          </Typography>
-          <Typography gutterBottom sx={{ fontSize: '14px', fontWeight: 900 }}>
+          <Typography gutterBottom>Apparel</Typography>
+          <Typography gutterBottom sx={{ fontWeight: 900 }}>
             Long Term
           </Typography>
         </Box>
@@ -31,7 +29,7 @@ export default function NeedCard() {
             <Typography gutterBottom>Hurricane Relief Effort</Typography>
           </Box>
         </Box>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color={theme.palette.text.secondary}>
           Lorem ipsum dolor sit amet, mollis consectetur adipiscing elit.
         </Typography>
       </CardContent>

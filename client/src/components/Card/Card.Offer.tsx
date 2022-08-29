@@ -12,10 +12,8 @@ export default function OfferCard() {
       <CardMedia component="img" image={Example} alt="Need example" />
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography gutterBottom sx={{ fontSize: '14px' }}>
-            Apparel
-          </Typography>
-          <Typography gutterBottom sx={{ fontSize: '14px', fontWeight: 900 }}>
+          <Typography gutterBottom>Apparel</Typography>
+          <Typography gutterBottom sx={{ fontWeight: 900 }}>
             New
           </Typography>
         </Box>
