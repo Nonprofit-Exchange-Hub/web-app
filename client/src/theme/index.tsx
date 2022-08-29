@@ -12,7 +12,7 @@ const theme = createTheme({
   palette,
   transitions,
   typography,
-  spacing: [2],
+  spacing: 8,
   ...custom,
 });
 
