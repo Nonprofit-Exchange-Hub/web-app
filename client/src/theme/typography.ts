@@ -4,7 +4,7 @@ const typography = {
     fontSize: '1.3rem',
   },
   body2: {
-    fontSize: '1.1rem',
+    fontSize: '14px',
   },
   h1: {
     fontSize: '2.8rem',
