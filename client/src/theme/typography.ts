@@ -1,4 +1,5 @@
 const typography = {
+  fontFamily: ['Poppins', 'Mulish'].join(','),
   body1: {
     fontSize: '1.3rem',
   },
@@ -13,6 +14,7 @@ const typography = {
     fontSize: '2.2rem',
     fontWeight: 'bold',
   },
+  marginBottom: 0,
 };
 
 export default typography;
