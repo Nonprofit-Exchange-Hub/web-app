@@ -1,6 +1,38 @@
 import { grey } from '@mui/material/colors';
 
 const components = {
+  MuiCard: {
+    styleOverrides: {
+      root: {
+        borderRadius: '20px',
+        boxShadow: '0px 2px 4px 4px rgba(0, 0, 0, 0.25)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        h1: {
+          fontFamily: 'Poppins',
+          fontSize: '20px',
+          lineHeight: '30px',
+        },
+        outline: 'black',
+        p: {
+          fontSize: '14px',
+          fontWeight: 400,
+          marginBottom: '8px',
+          marginTop: '8px',
+        },
+        margin: '10px',
+        height: 'fit-content',
+        width: '280px',
+      },
+    },
+  },
+  MuiCardContent: {
+    styleOverrides: {
+      root: {
+        padding: '8px',
+      },
+    },
+  },
   MuiButton: {
     styleOverrides: {
       root: {
@@ -40,6 +72,9 @@ const components = {
       h3: {
         width: '100%',
         marginBottom: '35px',
+      },
+      root: {
+        marginBottom: 0,
       },
     },
   },
