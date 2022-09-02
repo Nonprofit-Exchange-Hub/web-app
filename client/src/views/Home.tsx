@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import SwipeableTextMobileStepper from '../components/Carousel';
 import { SelectChangeEvent } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -243,6 +244,7 @@ function Home(): JSX.Element {
           vestibulum consequat.
         </Typography>
       </div>
+      <SwipeableTextMobileStepper />
       <div className={classes.faqs}>
         <Typography variant="h4" component="h4" className={classes.faqsHeader}>
           FAQs
