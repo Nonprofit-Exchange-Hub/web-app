@@ -7,16 +7,15 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+const { BCRYPT_WORK_FACTOR = 10 } = process.env;
+
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
     try {
-      const hashedPw = await bcrypt.hash(
-        createUserDto.password,
-        parseInt(process.env.BCRYPT_WORK_FACTOR),
-      );
+      const hashedPw = await bcrypt.hash(createUserDto.password, parseInt(BCRYPT_WORK_FACTOR));
       createUserDto.password = hashedPw;
       const user = await this.usersRepository.save(createUserDto);
       delete user.password;
