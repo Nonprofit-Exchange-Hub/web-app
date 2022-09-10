@@ -7,7 +7,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-const { BCRYPT_WORK_FACTOR = 10 } = process.env;
+const { BCRYPT_WORK_FACTOR = '10' } = process.env;
 
 @Injectable()
 export class UsersService {
