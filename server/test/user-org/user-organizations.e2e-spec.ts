@@ -62,7 +62,7 @@ describe('UserOrgsController', () => {
       userRepository.createQueryBuilder().insert().into(User).values(userSeed).execute(),
       orgRepository.createQueryBuilder().insert().into(Organization).values(orgSeed).execute(),
     ]);
-    const savedUserOrg = repository
+    const savedUserOrg = await repository
       .createQueryBuilder()
       .insert()
       .into(UserOrganization)
