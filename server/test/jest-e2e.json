@@ -1,4 +1,9 @@
 {
+  "globals": {
+    "ts-jest": {
+      "tsconfig": "./test/tsconfig.e2e.json"
+    }
+  },
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
   "testEnvironment": "node",

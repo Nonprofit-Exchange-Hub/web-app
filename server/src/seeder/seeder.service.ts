@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Connection, EntityMetadata, Repository } from 'typeorm';
+import { DataSource, EntityMetadata, Repository } from 'typeorm';
 
 import { seedUserOrganization, seedUsers } from '../database/seeding/seed-data';
 import { seedAssets } from '../database/seeding/seed-data';
@@ -55,7 +55,7 @@ export class SeederService {
     private readonly messageService: MessagesService,
     private readonly transactionService: TransactionsService,
     private readonly userorgService: UserOrganizationsService,
-    private readonly connx: Connection,
+    private readonly connx: DataSource,
   ) {}
 
   /**
