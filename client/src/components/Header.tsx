@@ -19,12 +19,12 @@ import Loop from '@mui/icons-material/LoopOutlined';
 import Widgets from '@mui/icons-material/WidgetsOutlined';
 import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
 import Logout from '@mui/icons-material/Logout';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import type { Theme } from '@mui/material/styles';
 
 import { UserContext } from '../providers';
-import Logo from '../assets/logo.svg'; // placeholder
-import Bell from '../assets/BellIcon.png';
+import Logo from '../assets/GivingfulLogo.png';
 import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -50,10 +50,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'normal',
     textDecoration: 'none',
     color: 'black',
-    // padding: '0 10px',
   },
   appBar: {
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.palette.background.default,
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
   },
   toolbar: {
@@ -63,9 +62,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  bellIcon: {
-    maxWidth: '50px',
-    maxHeight: '50px',
+  logo: {
+    height: '30px',
   },
 }));
 
@@ -104,11 +102,11 @@ function Header() {
 
   return (
     <AppBar position="sticky" className={classes.appBar} color="inherit">
-      {/* if color not set will default to primary purple */}
+      {/* if no color defaults to primary */}
       <Toolbar className={classes.toolbar}>
         <div className={classes.mainNav}>
           <NavLink to={routes.Home.path} className={classes.home}>
-            <img src={Logo} alt="NEH logo placeholder" />
+            <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
           <NavLink
             className={classes.navLink}
@@ -136,7 +134,7 @@ function Header() {
           {user ? (
             <>
               <IconButton>
-                <img src={Bell} className={classes.bellIcon} />
+                <NotificationsIcon />
               </IconButton>
               <IconButton
                 id="navigation-button"

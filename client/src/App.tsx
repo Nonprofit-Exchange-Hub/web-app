@@ -3,8 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
 import theme from './Theme';
-import Footer from './views/Footer';
-import Header from './views/Header';
+import Footer from './components/Footer';
+import Header from './components/Header';
 import Main from './views/Main';
 import { UserProvider } from './providers';
 
