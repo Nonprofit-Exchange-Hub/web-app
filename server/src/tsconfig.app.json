@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+  },
+  "extends": "../tsconfig.json",
+  "exclude": ["test"]
+}

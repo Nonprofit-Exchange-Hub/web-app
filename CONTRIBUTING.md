@@ -42,6 +42,9 @@ Then post it in our #engineering slack channel with a quick ask for anyone to ha
 Once you believe your feature is ready for production, create a PR and reference what issue this addresses in the PR's
 description.
 
+- [Here's a good guide for creating a PR](https://github.com/firstcontributions/first-contributions#push-changes-to-github)
+- we also have a PR template, so when you fill out the PR description, please fill out and replace all the sections with the appropriate info
+
 If there any updates requested by our code owners, please make those updates on your local branch and re-push that branch with your changes.
 
 Once it's approved, squash and merge! After being merged, your changes will run through our pipeline and become live after it completes building.
