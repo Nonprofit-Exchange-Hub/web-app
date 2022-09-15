@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
-import SwipeableTextMobileStepper from '../components/Carousel';
+import Carousel from '../components/Carousel';
 import { SelectChangeEvent } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -20,6 +20,21 @@ import QuestionList from '../components/QuestionList';
 import routes from '../routes';
 
 import type { Asset } from '../types';
+
+const carouselSteps = [
+  {
+    label: 'cat 1',
+    imgPath: 'http://placekitten.com/200/200',
+  },
+  {
+    label: 'cat 2',
+    imgPath: 'http://placekitten.com/199/199',
+  },
+  {
+    label: 'cat 3',
+    imgPath: 'http://placekitten.com/201/201',
+  },
+];
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -244,7 +259,7 @@ function Home(): JSX.Element {
           vestibulum consequat.
         </Typography>
       </div>
-      <SwipeableTextMobileStepper />
+      <Carousel steps={carouselSteps} />
       <div className={classes.faqs}>
         <Typography variant="h4" component="h4" className={classes.faqsHeader}>
           FAQs

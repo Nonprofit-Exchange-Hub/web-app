@@ -1,29 +1,47 @@
 import * as React from 'react';
-import MobileStepper from '@mui/material/MobileStepper';
+// import MobileStepper from '@mui/material/MobileStepper';
 import Typography from '@mui/material/Typography';
+import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+// import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+// import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import makeStyles from '@mui/styles/makeStyles';
+import type { Theme } from '@mui/material/styles';
 
-const steps = [
-  {
-    label: 'cat 1',
-    imgPath: 'http://placekitten.com/200/200',
+const useStyles = makeStyles((theme: Theme) => ({
+  topBanner: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '1rem 0 1rem 0',
   },
-  {
-    label: 'cat 2',
-    imgPath: 'http://placekitten.com/199/199',
+  bannerLeft: {
+    display: 'flex',
   },
-  {
-    label: 'cat 3',
-    imgPath: 'http://placekitten.com/201/201',
+  bannerRight: {},
+  carouselContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-];
+  carouselWrapper: {
+    margin: 'auto',
+    width: '80%',
+  },
+  questions: {
+    margin: '0.75rem 0 0 3rem',
+    color: 'gray',
+  },
+}));
 
-function SwipeableTextMobileStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = steps.length;
+type CarouselProps = {
+  steps: { label: string; imgPath: string }[];
+};
+
+function Carousel(props: CarouselProps) {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState<number>(0);
+  const maxSteps = props.steps.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -32,35 +50,70 @@ function SwipeableTextMobileStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   return (
-    <div>
-      <Paper square elevation={0}>
-        <Typography>{steps[activeStep].label}</Typography>
-      </Paper>
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-        <img src={steps[activeStep].imgPath} alt={steps[activeStep].label} />
-        <img src={steps[activeStep].imgPath} alt={steps[activeStep].label} />
-        <img src={steps[activeStep].imgPath} alt={steps[activeStep].label} />
+    <div className={classes.carouselWrapper}>
+      <div className={classes.topBanner}>
+        <div className={classes.bannerLeft}>
+          <Paper square elevation={0}>
+            <Typography sx={{ fontFamily: 'Poppins', fontSize: '2rem' }}>
+              Recent Needs From Nonprofits
+            </Typography>
+          </Paper>
+          <a href="#" className={classes.questions}>
+            Questions?
+          </a>
+        </div>
+        <div className={classes.bannerRight}>
+          <Button
+            href="#"
+            sx={{
+              padding: '0.4rem 1rem 0.4rem 1rem',
+              border: '1px solid #323232',
+              borderRadius: '8px',
+              color: '#323232',
+              fontWeight: '900',
+              fontSize: '1rem',
+            }}
+          >
+            View More
+          </Button>
+          <Button
+            sx={{ padding: '0' }}
+            size="small"
+            onClick={handleBack}
+            disabled={activeStep === 0}
+          >
+            <ExpandCircleDownOutlinedIcon
+              sx={{
+                color: activeStep === 0 ? '#a2a1a1' : '#323232',
+                fontSize: '3rem',
+                transform: 'rotate(90deg)',
+              }}
+            />
+          </Button>
+          <Button
+            sx={{ padding: '0' }}
+            size="small"
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+          >
+            <ExpandCircleDownOutlinedIcon
+              sx={{
+                color: activeStep === maxSteps - 1 ? '#a2a1a1' : '#323232',
+                fontSize: '3rem',
+                transform: 'rotate(270deg)',
+              }}
+            />
+          </Button>
+        </div>
       </div>
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        variant="dots"
-        activeStep={activeStep}
-        nextButton={
-          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-            Next
-            <KeyboardArrowRight />
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            <KeyboardArrowLeft />
-            Back
-          </Button>
-        }
-      />
+      <div className={classes.carouselContent}>
+        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
+        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
+        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
+        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
+      </div>
     </div>
   );
 }
 
-export default SwipeableTextMobileStepper;
+export default Carousel;
