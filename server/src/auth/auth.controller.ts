@@ -22,7 +22,6 @@ export class AuthController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
-    console.log(user, 'login hit');
     const jwt = await this.authService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {
