@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import type { DeleteResult, Repository } from 'typeorm';
 
 import { Asset } from './entities/asset.entity';
-import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { User } from '../users/entities/user.entity';
