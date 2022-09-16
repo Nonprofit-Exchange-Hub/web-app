@@ -6,6 +6,7 @@ import { Asset } from './entities/asset.entity';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { User } from '../users/entities/user.entity';
+import { CreateAssetDto } from './dto/create-asset.dto';
 
 @Injectable()
 export class AssetsService {
