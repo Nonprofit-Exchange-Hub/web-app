@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
 import { StubGen } from '../stubs/stub-factory';
-import { AssetsService } from '../../src/assets/assets.service';
 import { Asset } from '../../src/assets/entities/asset.entity';
 import { AssetsModule } from '../../src/assets/assets.module';
 import { AssetsController } from '../../src/assets/assets.controller';
@@ -20,9 +19,7 @@ import * as cookieParser from 'cookie-parser';
 
 describe('AssetsController', () => {
   let app: INestApplication;
-  let assetServ: AssetsService;
   let userServ: UsersService;
-  let repository: Repository<Asset>;
   let userRepository: Repository<User>;
   let assetRepository: Repository<Asset>;
 
@@ -37,9 +34,7 @@ describe('AssetsController', () => {
     }).compile();
 
     app = module.createNestApplication();
-    assetServ = module.get<AssetsService>(AssetsService);
     userServ = module.get<UsersService>(UsersService);
-    repository = module.get(getRepositoryToken(Asset));
     userRepository = module.get(getRepositoryToken(User));
     assetRepository = module.get(getRepositoryToken(Asset));
     app.use(cookieParser('secret_placeholder'));
@@ -52,14 +47,7 @@ describe('AssetsController', () => {
 
   beforeEach(async () => {
     // seed data
-    console.log(userSeed, 'What was seeded');
-    const dbUser = await userServ.create({ ...userSeed });
-    // await assetRepository
-    //   .createQueryBuilder()
-    //   .insert()
-    //   .into(Asset)
-    //   .values({ ...seed, poster: { id: dbUser.identifiers['id'] } })
-    //   .execute();
+    await userServ.create({ ...userSeed });
   });
 
   afterEach(async () => {
@@ -68,7 +56,6 @@ describe('AssetsController', () => {
   });
 
   it('POST /assets -> when logged in -> asset should be created with logged in user', async () => {
-    console.log(userSeed);
     const loginRes = await supertest
       .agent(app.getHttpServer())
       .post(`/auth/login`)
