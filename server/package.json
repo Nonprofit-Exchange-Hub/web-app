@@ -15,11 +15,11 @@
         "start:dev:db": "sudo docker-compose up",
         "start:prod": "node dist/main",
         "lint": "eslint src/**/*.ts",
-        "test": "jest",
+        "test": "jest --config ./src/jest.config.json",
         "test:watch": "jest --watch",
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "test:e2e": "jest --config ./test/jest-e2e.json --runInBand",
         "checks": "npm run test:e2e && npm run test && npm run lint",
         "prepare": "cd .. && husky install && cd server",
         "seed:drop": "ts-node -r tsconfig-paths/register src/database/seeding/seed.ts"
