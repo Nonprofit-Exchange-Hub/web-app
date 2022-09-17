@@ -19,7 +19,7 @@ COPY ./server .
 
 RUN npm install -g npm@6
 
-RUN npm ci
+RUN npm i
 
 RUN mkdir -p /app/client
 
