@@ -7,7 +7,7 @@ COPY ./client .
 
 RUN npm install -g npm@6
 
-RUN npm ci  && npm run build
+RUN npm i  && npm run build
 
 
 
