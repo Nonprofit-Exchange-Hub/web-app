@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import Button from '@mui/material/Button';
-import Search from './Search';
+
 import type { Theme } from '@mui/material/styles';
 
+import Search from '../components/Search';
 import AssetsList from './AssetsList';
 import { placeholderImg } from '../assets/temp';
 import QuestionList from '../components/QuestionList';
@@ -84,11 +85,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   videoSectionText: {
     color: 'white',
     padding: '0 0 0 5%',
-    // fontFamily: 'Poppins',
-    // fontStyle: 'normal',
-    // fontWeight: 'normal',
-    // fontSize: '30px',
-    // lineHeight: '45px',
   },
   videoSectionVideo: {},
   needsAndOffersSub: {
@@ -127,7 +123,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   makeAPostLink: {
     textDecoration: 'none',
   },
-  search: {
+  searchContainer: {
     marginTop: '-10px',
     marginLeft: '15%',
     width: '70%',
@@ -171,7 +167,7 @@ function Home(): JSX.Element {
   return (
     <>
       <div className={classes.hero}>
-        <div className={classes.search}>
+        <div className={classes.searchContainer}>
           <Search />
         </div>
         <div className={classes.heroContent}>
