@@ -51,8 +51,8 @@ describe('AssetsController', () => {
   });
 
   afterEach(async () => {
-    await assetRepository.query('DELETE from assets');
-    await userRepository.query('DELETE from users');
+    await assetRepository.query('TRUNCATE assets CASCADE');
+    await userRepository.query('TRUNCATE users CASCADE');
   });
 
   it('POST /assets -> when logged in -> asset should be created with logged in user', async () => {
@@ -66,9 +66,9 @@ describe('AssetsController', () => {
     const { body } = await supertest
       .agent(app.getHttpServer())
       .post(`/assets`)
-      .send({ ...seed })
-      .set('Content-Type', 'application/json')
       .set('Cookie', cookie)
+      .set('Content-Type', 'application/json')
+      .send({ ...seed })
       .expect('Content-Type', /json/)
       .expect(201);
     expect(body.message).toBeUndefined();
