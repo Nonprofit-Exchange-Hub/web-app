@@ -18,18 +18,20 @@
         * Confirm installation of Docker Compose: `$ docker-compose --version`
 2. Download or [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) repository.
 3. Run `nvm use` to ensure you are using the proper node version
-4. Install required dependencies by running `npm install` from within `/server` directory and from the `/client` directory.
+4. Install required dependencies:
+  -  run `npm ci` from within `/server` directory and from the `/client` directory.
+  - run `npm run prepare` from within `/server` directory and from the `/client` directory.
 5. Copy the below environmental variables into a `.env` file that you create in `/server` directory
 ```
-    PORT=3001
-    DATABASE_HOST=localhost
-    DATABASE_PORT=8080
-    DATABASE_USER=postgres
-    DATABASE_PASSWORD=your_password
-    DATABASE_DB=test_db
-    BCRYPT_WORK_FACTOR=10   
-    # e2e only used when running e2e tests
-    E2E_DATABASE_DB=e2e_db
+PORT=3001
+DATABASE_HOST=localhost
+DATABASE_PORT=8080
+DATABASE_USER=postgres
+DATABASE_PASSWORD=your_password
+DATABASE_DB=test_db
+BCRYPT_WORK_FACTOR=10   
+# e2e only used when running e2e tests
+E2E_DATABASE_DB=e2e_db
 ```
 6. In that `.env` file we'll now customize some of those values
     * If you are using the non-dockerized version of postgres, change the `DATABASE_PORT` value to `5432`

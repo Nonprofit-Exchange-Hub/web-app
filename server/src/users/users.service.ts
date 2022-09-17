@@ -7,21 +7,21 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+const { BCRYPT_WORK_FACTOR = '10' } = process.env;
+
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
     try {
-      const hashedPw = await bcrypt.hash(
-        createUserDto.password,
-        parseInt(process.env.BCRYPT_WORK_FACTOR),
-      );
+      const hashedPw = await bcrypt.hash(createUserDto.password, parseInt(BCRYPT_WORK_FACTOR));
       createUserDto.password = hashedPw;
       const user = await this.usersRepository.save(createUserDto);
       delete user.password;
       return user;
     } catch (err) {
+      Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);
       throw new HttpException(
         { status: HttpStatus.CONFLICT, message: 'Email already exists' },
         HttpStatus.CONFLICT,
@@ -30,7 +30,7 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<Omit<User, 'password'>> {
-    const user = await this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOneBy({ id });
     delete user.password;
     return user;
   }
@@ -43,7 +43,7 @@ export class UsersService {
   // Search database for user with matching email.
   // Returns user on success, throws 404 error if user does not exist
   async findByEmail(email: string, includePw = false): Promise<User | Omit<User, 'password'>> {
-    const user = await this.usersRepository.findOne({ email });
+    const user = await this.usersRepository.findOneBy({ email });
 
     if (!user) {
       throw new HttpException(
@@ -59,7 +59,7 @@ export class UsersService {
   }
   // Change to whatever the display name ends up being.
   async findByUsername(firstName: string): Promise<Omit<User, 'password'>> {
-    const user = await this.usersRepository.findOne({ firstName });
+    const user = await this.usersRepository.findOneBy({ firstName });
     delete user.password;
     return user;
   }
@@ -67,7 +67,7 @@ export class UsersService {
   // TODO: Assess if there is a better way than making two requests.
   async update(id: number, updateUserDto: UpdateUserDto) {
     await this.usersRepository.update(id, updateUserDto);
-    const user = await this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOneBy({ id });
     delete user.password;
     return user;
   }

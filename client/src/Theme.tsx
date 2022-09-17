@@ -1,7 +1,55 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles';
+import { grey } from '@mui/material/colors';
+import { createTheme } from '@mui/material';
 
-const theme = createMuiTheme({
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+        containedSecondary: {
+          '&:hover': {
+            backgroundColor: grey[100],
+          },
+        },
+      },
+      defaultProps: {
+        disableElevation: true,
+      },
+    },
+    MuiAccordion: {
+      defaultProps: {
+        disableGutters: true,
+      },
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          paddingTop: '50px',
+          paddingBottom: '50px',
+          paddingLeft: '20px',
+          paddingRight: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        h3: {
+          width: '100%',
+          marginBottom: '35px',
+        },
+      },
+    },
+  },
   palette: {
+    background: {
+      default: '#FFFFFF',
+    },
     text: {
       primary: '#000000',
       secondary: '#999999',
@@ -31,58 +79,6 @@ const theme = createMuiTheme({
       fontWeight: 'bold',
     },
   },
-  // To add more custom variables you must add to the Theme interface in /src/types/material-ui.d.ts
-  custom: {
-    maxContentWidth: '1100px',
-    form: {
-      borderRadius: '10px',
-      borderColor: '#000000',
-    },
-  },
 });
-
-// Override anything listed in Material UI's Props for the component
-theme.props = {
-  MuiButton: {
-    disableElevation: true,
-  },
-  MuiAccordion: {
-    // disableGutters: true,        // Enable this when we get v5 of Material UI, will replace style overrides from QuestionList
-  },
-  MuiTextField: {},
-};
-
-// Override classes listed in Material UI's CSS for the component
-theme.overrides = {
-  MuiButton: {
-    root: {
-      textTransform: 'none',
-    },
-    containedPrimary: {},
-    containedSecondary: {
-      '&:hover': {
-        backgroundColor: theme.palette.grey[100],
-      },
-    },
-  },
-  MuiContainer: {
-    root: {
-      paddingTop: '50px',
-      paddingBottom: '50px',
-      paddingLeft: '20px',
-      paddingRight: '20px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  },
-  MuiTypography: {
-    h3: {
-      width: '100%',
-      marginBottom: '35px',
-    },
-  },
-};
 
 export default theme;

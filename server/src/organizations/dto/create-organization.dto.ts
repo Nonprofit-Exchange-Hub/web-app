@@ -5,6 +5,12 @@ export class CreateOrganizationDto {
   name: string;
 
   @IsNotEmpty()
+  doing_business_as: string;
+
+  @IsNotEmpty()
+  nonprofit_classification: string;
+
+  @IsNotEmpty()
   description: string;
 
   @IsNotEmpty()
@@ -23,8 +29,5 @@ export class CreateOrganizationDto {
   state: string;
 
   @IsNotEmpty()
-  ein: number;
-
-  @IsNotEmpty()
-  tax_exempt_id: number;
+  ein: string;
 }

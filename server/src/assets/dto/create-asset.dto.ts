@@ -10,6 +10,9 @@ export class CreateAssetDto {
   @IsNotEmpty()
   description: string;
 
+  @IsOptional()
+  quantity: number;
+
   @IsNotEmpty()
   poster: User;
 
@@ -20,4 +23,7 @@ export class CreateAssetDto {
   @IsOptional()
   @IsEnum(Condition)
   condition: Condition;
+
+  @IsOptional()
+  imgUrls?: string[];
 }
