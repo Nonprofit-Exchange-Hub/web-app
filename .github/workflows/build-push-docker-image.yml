@@ -2,9 +2,9 @@ name: Docker Image Build And Push
 
 on:
   push:
-    branches: [dockerized_build]
+    branches: [main]
   # pull_request:
-  #   branches: [dockerized_build]
+  #   branches: [main]
 
 jobs:
   build:
