@@ -1,4 +1,4 @@
-import { Controller, Post, Response, Request, UseGuards, Get, Logger } from '@nestjs/common';
+import { Controller, Post, Response, Request, UseGuards, Get } from '@nestjs/common';
 
 import type { Request as RequestT, Response as ResponseT } from 'express';
 
