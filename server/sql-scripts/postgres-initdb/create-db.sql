@@ -4,12 +4,12 @@
  * see the volumes in the docker-compose files
  */
 SELECT
-  'CREATE DATABASE staging_db' -- change the db name here
+  'CREATE DATABASE test_db' -- change the db name here
 WHERE
   NOT EXISTS (
     SELECT
     FROM
       pg_database
     WHERE
-      datname = 'staging_db') \gexec -- change the db name here
+      datname = 'test_db') \gexec -- change the db name here
 
