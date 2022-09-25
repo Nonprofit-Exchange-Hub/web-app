@@ -88,8 +88,8 @@ export class SeederService {
     for (let i = 0; i < assets.length; i += 1) {
       const asset = assets[i];
       Logger.log('Seeding an Asset', SeederService.name);
-      asset.poster = i % 2 !== 0 ? newUsers[0] : newUsers[1];
-      await this.assetService.create(asset).catch((err) => Logger.log(err));
+      const userToAssign = i % 2 !== 0 ? newUsers[0] : newUsers[1];
+      await this.assetService.create(asset, userToAssign).catch((err) => Logger.log(err));
       newAssets.push(asset);
     }
     Logger.log('at end of seeding the assets', SeederService.name);

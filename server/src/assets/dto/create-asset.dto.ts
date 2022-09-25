@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 
-import { User } from '../../users/entities/user.entity';
 import { AssetType, Condition } from '../constants';
 
 export class CreateAssetDto {
@@ -12,9 +11,6 @@ export class CreateAssetDto {
 
   @IsOptional()
   quantity: number;
-
-  @IsNotEmpty()
-  poster: User;
 
   @IsOptional()
   @IsEnum(AssetType)
