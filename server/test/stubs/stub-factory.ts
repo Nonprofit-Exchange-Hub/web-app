@@ -3,6 +3,8 @@ import { faker } from '@faker-js/faker';
 import { CreateOrganizationDto } from '../../src/organizations/dto/create-organization.dto';
 import { CreateUserOrganizationDto } from '../../src/user-org/dto/create-user-org.dto';
 import { ApprovalStatus, Role } from '../../src/user-org/constants';
+import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
+import { AssetType, Condition } from '../../src/assets/constants';
 
 /**
  * Generates stubs using a faker library
@@ -48,6 +50,18 @@ export class StubGen {
       approvalStatus: ApprovalStatus.approved,
       organization: { ...createOrgDto },
       user: { ...createUserDto },
+    };
+  }
+
+  // Assets //
+  public static createAssetDto(): CreateAssetDto {
+    return {
+      title: faker.commerce.product(),
+      description: faker.lorem.paragraph(1),
+      quantity: 1,
+      type: AssetType.DONATION,
+      condition: Condition.EXCELLENT,
+      imgUrls: ['https://google.com'],
     };
   }
 }
