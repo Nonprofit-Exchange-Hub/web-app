@@ -16,6 +16,7 @@ import StyledLink from '../components/StyledLink';
 import TextDivider from '../components/TextDivider';
 import { UserContext } from '../providers';
 import routes from '../routes';
+import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -79,7 +80,7 @@ function Login() {
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();
     setIsLoading(true);
-    const res = await fetch('http://localhost:3001/api/auth/login', {
+    const res = await fetch(`${APP_API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -40,6 +40,6 @@ lerna-debug.log*
 .env.production.local
 
 #test data
-**/pgdata/
+**/pgdata**/
 
 

@@ -19,6 +19,7 @@ import PasswordInput from '../components/Users/Auth/PasswordInput';
 import StyledLink from '../components/StyledLink';
 import TextDivider from '../components/TextDivider';
 import routes from '../routes';
+import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
@@ -90,7 +91,7 @@ function SignupCitizen() {
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
-    const res = await fetch('http://localhost:3001/api/users', {
+    const res = await fetch(`${APP_API_BASE_URL}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

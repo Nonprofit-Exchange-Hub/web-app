@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { APP_API_BASE_URL } from '../configs';
 
 import type { User } from '../types';
 
@@ -20,7 +21,7 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const [user, setUser] = React.useState<User | null>(null);
 
   async function fetchUser(): Promise<User | null> {
-    const res = await fetch('http://localhost:3001/api/auth/session', {
+    const res = await fetch(`${APP_API_BASE_URL}/api/auth/session`, {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -54,7 +55,7 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
 
   React.useEffect(() => {
     setUserTimeout(null, true, true);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return <UserContext.Provider value={[user, setUserTimeout]}>{children}</UserContext.Provider>;
 }
