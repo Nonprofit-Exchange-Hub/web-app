@@ -1,11 +1,8 @@
 import * as React from 'react';
-// import MobileStepper from '@mui/material/MobileStepper';
 import Typography from '@mui/material/Typography';
 import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-// import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-// import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import makeStyles from '@mui/styles/makeStyles';
 import type { Theme } from '@mui/material/styles';
 
@@ -18,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   bannerLeft: {
     display: 'flex',
   },
-  bannerRight: {},
   carouselContent: {
     display: 'flex',
     flexDirection: 'row',
@@ -34,14 +30,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+type Temp = {
+  imgPath: string;
+  label: string;
+};
+
 type CarouselProps = {
-  steps: { label: string; imgPath: string }[];
+  cardGroups: Array<Temp[]>;
+  label: string;
 };
 
 function Carousel(props: CarouselProps) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const maxSteps = props.steps.length;
+  const maxSteps = props.cardGroups.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -54,15 +56,13 @@ function Carousel(props: CarouselProps) {
       <div className={classes.topBanner}>
         <div className={classes.bannerLeft}>
           <Paper square elevation={0}>
-            <Typography sx={{ fontFamily: 'Poppins', fontSize: '2rem' }}>
-              Recent Needs From Nonprofits
-            </Typography>
+            <Typography sx={{ fontFamily: 'Poppins', fontSize: '2rem' }}>{props.label}</Typography>
           </Paper>
           <a href="#" className={classes.questions}>
             Questions?
           </a>
         </div>
-        <div className={classes.bannerRight}>
+        <div>
           <Button
             href="#"
             sx={{
@@ -107,10 +107,22 @@ function Carousel(props: CarouselProps) {
         </div>
       </div>
       <div className={classes.carouselContent}>
-        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
-        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
-        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
-        <img src={props.steps[activeStep].imgPath} alt={props.steps[activeStep].label} />
+        <img
+          src={props.cardGroups[activeStep][0].imgPath}
+          alt={props.cardGroups[activeStep][0].label}
+        />
+        <img
+          src={props.cardGroups[activeStep][1].imgPath}
+          alt={props.cardGroups[activeStep][1].label}
+        />
+        <img
+          src={props.cardGroups[activeStep][2].imgPath}
+          alt={props.cardGroups[activeStep][2].label}
+        />
+        <img
+          src={props.cardGroups[activeStep][3].imgPath}
+          alt={props.cardGroups[activeStep][3].label}
+        />
       </div>
     </div>
   );

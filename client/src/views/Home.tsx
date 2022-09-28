@@ -22,18 +22,48 @@ import routes from '../routes';
 import type { Asset } from '../types';
 
 const carouselSteps = [
-  {
-    label: 'cat 1',
-    imgPath: 'http://placekitten.com/200/200',
-  },
-  {
-    label: 'cat 2',
-    imgPath: 'http://placekitten.com/199/199',
-  },
-  {
-    label: 'cat 3',
-    imgPath: 'http://placekitten.com/201/201',
-  },
+  [
+    {
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/200/200',
+    },
+    {
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/200/200',
+    },
+    {
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/200/200',
+    },
+  ],
+  [
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/199/199',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/199/199',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/199/199',
+    },
+  ],
+  [
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/201/201',
+    },
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/201/201',
+    },
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/201/201',
+    },
+  ],
 ];
 
 const loremIpsum =
@@ -259,7 +289,7 @@ function Home(): JSX.Element {
           vestibulum consequat.
         </Typography>
       </div>
-      <Carousel steps={carouselSteps} />
+      <Carousel label={'Recent Needs From Nonprofits'} cardGroups={carouselSteps} />
       <div className={classes.faqs}>
         <Typography variant="h4" component="h4" className={classes.faqsHeader}>
           FAQs
