@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Grid, Typography, Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
