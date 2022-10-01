@@ -110,7 +110,7 @@ function Carousel(props: CarouselProps) {
       </div>
       <div className={classes.carouselContent}>
         {cardGroups[activeStep].map((card) => (
-          <img src={card.imgPath} alt={card.label} />
+          <img key={card.imgPath} src={card.imgPath} alt={card.label} />
         ))}
       </div>
     </div>
