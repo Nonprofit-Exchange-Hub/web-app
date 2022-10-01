@@ -10,9 +10,12 @@ import { CreatePocChatDto } from './dto/create-poc-chat.dto';
 import { Server, Socket } from 'socket.io';
 import { Request, UseGuards } from '@nestjs/common';
 import { WsCookieGuardGuard } from 'src/auth/guards/ws-cookie-guard.guard';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: __dirname + '/../../.env' });
 
 @WebSocketGateway(3002, {
-  cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST'], credentials: true },
+  cors: { origin: process.env.SOCKET_CORS_ORIGIN, methods: ['GET', 'POST'], credentials: true },
 })
 export class PocChatGateway {
   @WebSocketServer()
