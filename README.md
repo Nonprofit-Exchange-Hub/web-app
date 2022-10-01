@@ -23,15 +23,17 @@
   - run `npm run prepare` from within `/server` directory and from the `/client` directory.
 5. Copy the below environmental variables into a `.env` file that you create in `/server` directory
 ```
-    PORT=3001
-    DATABASE_HOST=localhost
-    DATABASE_PORT=8080
-    DATABASE_USER=postgres
-    DATABASE_PASSWORD=your_password
-    DATABASE_DB=test_db
-    BCRYPT_WORK_FACTOR=10   
-    # e2e only used when running e2e tests
-    E2E_DATABASE_DB=e2e_db
+PORT=3001
+DATABASE_HOST=localhost
+DATABASE_PORT=8080
+DATABASE_USER=postgres
+DATABASE_PASSWORD=your_password
+DATABASE_DB=test_db
+BCRYPT_WORK_FACTOR=10   
+# e2e only used when running e2e tests
+E2E_DATABASE_DB=e2e_db
+# sockets gateway cors
+SOCKET_CORS_ORIGIN="http://localhost:3000"
 ```
 6. In that `.env` file we'll now customize some of those values
     * If you are using the non-dockerized version of postgres, change the `DATABASE_PORT` value to `5432`

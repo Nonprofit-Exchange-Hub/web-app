@@ -16,6 +16,7 @@ import SimpleSnackbar from '../components/SimpleSnackbar';
 import routes from '../routes';
 
 import type { Asset as AssetT } from '../types';
+import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   topBar: {
@@ -107,7 +108,7 @@ const useAsset = (id?: string): AssetT | null => {
       return;
     }
     const newAsset = async () => {
-      const data = await fetch(`http://localhost:3001/api/assets/${id}`);
+      const data = await fetch(`${APP_API_BASE_URL}/assets/${id}`);
       const json = await data.json();
       setAsset(json);
     };

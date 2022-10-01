@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { Theme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 
-import StyledLink from '../components/StyledLink';
+import StyledLink from './StyledLink';
 import routes from '../routes';
 
 const useStyles = makeStyles((theme: Theme) => {

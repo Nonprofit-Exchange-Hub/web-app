@@ -23,7 +23,7 @@ import { PocChatModule } from './poc-chat/poc-chat.module';
     }),
     TypeOrmModule.forRootAsync({ useClass: DatabaseConnectionService }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../..', 'client/build'),
+      rootPath: join(__dirname, '/../../client', 'build'),
     }),
     AssetsModule,
     AuthModule,
