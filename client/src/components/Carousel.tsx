@@ -43,7 +43,9 @@ type CarouselProps = {
 function Carousel(props: CarouselProps) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const maxSteps = props.cardGroups.length;
+
+  const { cardGroups, label } = props;
+  const maxSteps = cardGroups.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -56,7 +58,7 @@ function Carousel(props: CarouselProps) {
       <div className={classes.topBanner}>
         <div className={classes.bannerLeft}>
           <Paper square elevation={0}>
-            <Typography sx={{ fontFamily: 'Poppins', fontSize: '2rem' }}>{props.label}</Typography>
+            <Typography sx={{ fontFamily: 'Poppins', fontSize: '2rem' }}>{label}</Typography>
           </Paper>
           <a href="#" className={classes.questions}>
             Questions?
@@ -107,22 +109,9 @@ function Carousel(props: CarouselProps) {
         </div>
       </div>
       <div className={classes.carouselContent}>
-        <img
-          src={props.cardGroups[activeStep][0].imgPath}
-          alt={props.cardGroups[activeStep][0].label}
-        />
-        <img
-          src={props.cardGroups[activeStep][1].imgPath}
-          alt={props.cardGroups[activeStep][1].label}
-        />
-        <img
-          src={props.cardGroups[activeStep][2].imgPath}
-          alt={props.cardGroups[activeStep][2].label}
-        />
-        <img
-          src={props.cardGroups[activeStep][3].imgPath}
-          alt={props.cardGroups[activeStep][3].label}
-        />
+        {cardGroups[activeStep].map((card) => (
+          <img src={card.imgPath} alt={card.label} />
+        ))}
       </div>
     </div>
   );

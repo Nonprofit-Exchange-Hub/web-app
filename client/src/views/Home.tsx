@@ -35,22 +35,34 @@ const carouselSteps = [
       label: 'cat 1',
       imgPath: 'http://placekitten.com/200/200',
     },
-  ],
-  [
     {
-      label: 'cat 2',
-      imgPath: 'http://placekitten.com/199/199',
-    },
-    {
-      label: 'cat 2',
-      imgPath: 'http://placekitten.com/199/199',
-    },
-    {
-      label: 'cat 2',
-      imgPath: 'http://placekitten.com/199/199',
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/200/200',
     },
   ],
   [
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/199/199',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/199/199',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/199/199',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/199/199',
+    },
+  ],
+  [
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/201/201',
+    },
     {
       label: 'cat 3',
       imgPath: 'http://placekitten.com/201/201',
