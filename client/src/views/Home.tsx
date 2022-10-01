@@ -2,18 +2,12 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import Divider from '@mui/material/Divider';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
-import Carousel from '../components/Carousel';
-import { SelectChangeEvent } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
+import Carousel from '../components/Carousel';
+import Search from '../components/Search';
 import AssetsList from './AssetsList';
 import { placeholderImg } from '../assets/temp';
 import QuestionList from '../components/QuestionList';
@@ -117,14 +111,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: 42,
     margin: 4,
   },
-  searchBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    background: 'white',
-    borderRadius: '10px',
-    marginTop: '20px',
-    width: '80%',
-  },
   heroText: {
     margin: 'auto',
     textAlign: 'left',
@@ -157,11 +143,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   videoSectionText: {
     color: 'white',
     padding: '0 0 0 5%',
-    // fontFamily: 'Poppins',
-    // fontStyle: 'normal',
-    // fontWeight: 'normal',
-    // fontSize: '30px',
-    // lineHeight: '45px',
   },
   videoSectionVideo: {},
   needsAndOffersSub: {
@@ -200,6 +181,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   makeAPostLink: {
     textDecoration: 'none',
   },
+  searchContainer: {
+    marginTop: '-10px',
+    marginLeft: '15%',
+    width: '70%',
+  },
 }));
 
 function HeaderContentRight(): JSX.Element {
@@ -219,8 +205,6 @@ function HeaderContentRight(): JSX.Element {
 
 function Home(): JSX.Element {
   const classes = useStyles();
-  const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('');
-  const [searchText, setSearchText] = React.useState<string>('');
   const [donations, setDonations] = React.useState<Asset[]>([]);
   const [requests, setRequests] = React.useState<Asset[]>([]);
 
@@ -238,45 +222,16 @@ function Home(): JSX.Element {
       });
   }, []);
 
-  const selectSearchCategory = (event: SelectChangeEvent<string>) => {
-    setSelectedSearchCategory(event.target.value as string);
-  };
-
   return (
     <>
       <div className={classes.hero}>
+        <div className={classes.searchContainer}>
+          <Search />
+        </div>
         <div className={classes.heroContent}>
           <Typography className={classes.heroText} variant="h3" component="h1" color="textPrimary">
             Support local nonprofits through the giving economy.
           </Typography>
-          <div className={classes.searchBar}>
-            <FormControl className={classes.formControl}>
-              <Select
-                displayEmpty
-                value={selectedSearchCategory}
-                onChange={selectSearchCategory}
-                renderValue={(value: any) => value || 'Search for'}
-                className={classes.select}
-              >
-                <MenuItem value="Goods">Goods</MenuItem>
-                <MenuItem value="Services">Services</MenuItem>
-              </Select>
-            </FormControl>
-            <Divider className={classes.divider} orientation="vertical" />
-            <InputBase
-              className={classes.input}
-              placeholder="ex. diapers"
-              inputProps={{ 'aria-label': 'ex. diapers' }}
-              type="text"
-              value={searchText}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                setSearchText(e.target.value)
-              }
-            />
-            <NavLink to={`/assets?search=${searchText}`} className={classes.iconButton}>
-              <SearchIcon />
-            </NavLink>
-          </div>
         </div>
       </div>
       <div className={classes.needsAndOffers}>
