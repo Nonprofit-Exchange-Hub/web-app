@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import Carousel from '../components/Carousel';
 import { SelectChangeEvent } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -19,6 +20,63 @@ import QuestionList from '../components/QuestionList';
 import routes from '../routes';
 
 import type { Asset } from '../types';
+
+const carouselSteps = [
+  [
+    {
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/150/150',
+    },
+    {
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/151/151',
+    },
+    {
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/152/152',
+    },
+    {
+      label: 'cat 1',
+      imgPath: 'http://placekitten.com/153/153',
+    },
+  ],
+  [
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/154/154',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/155/155',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/156/156',
+    },
+    {
+      label: 'cat 2',
+      imgPath: 'http://placekitten.com/157/157',
+    },
+  ],
+  [
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/158/158',
+    },
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/159/159',
+    },
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/160/160',
+    },
+    {
+      label: 'cat 3',
+      imgPath: 'http://placekitten.com/161/161',
+    },
+  ],
+];
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -243,6 +301,7 @@ function Home(): JSX.Element {
           vestibulum consequat.
         </Typography>
       </div>
+      <Carousel label={'Recent Needs From Nonprofits'} cardGroups={carouselSteps} />
       <div className={classes.faqs}>
         <Typography variant="h4" component="h4" className={classes.faqsHeader}>
           FAQs
