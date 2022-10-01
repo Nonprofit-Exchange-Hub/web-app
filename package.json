@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "lint-staged": "^12.4.1"
-  },
-  "dependencies": {
-    "socket.io-client": "^4.5.1"
-  }
-}
