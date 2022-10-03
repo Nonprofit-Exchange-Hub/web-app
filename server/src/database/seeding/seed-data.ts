@@ -164,12 +164,11 @@ export const seedMessages = (): CreateMessageDto[] => {
   const messages: CreateMessageDto[] = [
     {
       text: 'I would like to accept the paper products.',
-      user: null,
+      // user: null,
       transaction: null,
     },
     {
       text: 'I would like to accept the furniture.',
-      user: null,
       transaction: null,
     },
   ];
