@@ -11,6 +11,7 @@ import Search from '../components/Search';
 import AssetsList from './AssetsList';
 import { placeholderImg } from '../assets/temp';
 import QuestionList from '../components/QuestionList';
+import BannerSection from '../components/BannerSection';
 import routes from '../routes';
 
 import type { Asset } from '../types';
@@ -234,6 +235,7 @@ function Home(): JSX.Element {
           </Typography>
         </div>
       </div>
+      <BannerSection />
       <div className={classes.needsAndOffers}>
         <AssetsList
           assets={requests}
