@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 function BannerSection() {
   const classes = useStyles();
   const history = useHistory();
-  console.log(classes);
+
   return (
     <div className={classes.gridContent}>
       <Box>
