@@ -1,4 +1,3 @@
-import React from 'react';
 import Box from '@mui/material/Box';
 import Card from './Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,7 +9,7 @@ import Example from '../../assets/need-example.png';
 
 export default function NeedCard() {
   return (
-    <Card type="need">
+    <Card type="request">
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
           <Typography gutterBottom>Apparel</Typography>
