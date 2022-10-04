@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Card from './Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -5,9 +6,17 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Example from '../../assets/offer-example.png';
 
-export default function OfferCard() {
+type Props = {
+  title: string;
+  type: 'need' | 'donation';
+  date: Date;
+  org: string;
+  children?: ReactNode | ReactNode[];
+};
+
+export default function OfferCard(props: Props) {
   return (
-    <Card type="donation">
+    <Card title={props.title} type={props.type} date={props.date} org={props.org}>
       <CardMedia component="img" image={Example} alt="Need example" />
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

@@ -1,11 +1,19 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import MuiCard from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import theme from '../../theme';
 
-export default function Card(props: any) {
+type Props = {
+  title: string;
+  type: 'need' | 'donation';
+  date: Date;
+  org: string;
+  children?: ReactNode | ReactNode[];
+};
+
+export default function Card(props: Props) {
   return (
     <MuiCard>
       <CardActionArea>
@@ -20,10 +28,10 @@ export default function Card(props: any) {
           }}
         >
           <Typography variant="body2" color={theme.palette.primary.contrastText}>
-            Posted on 09/01/2022
+            {`Posted on ${props.date}`}
           </Typography>
           <Typography variant="body2" color={theme.palette.primary.contrastText}>
-            By Dress for Success
+            {`By ${props.org}`}
           </Typography>
         </Box>
       </CardActionArea>

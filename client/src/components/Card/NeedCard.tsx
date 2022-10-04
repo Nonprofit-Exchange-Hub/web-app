@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Card from './Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,9 +8,17 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import theme from '../../theme';
 import Example from '../../assets/need-example.png';
 
-export default function NeedCard() {
+type Props = {
+  title: string;
+  type: 'need' | 'donation';
+  date: Date;
+  org: string;
+  children?: ReactNode | ReactNode[];
+};
+
+export default function NeedCard(props: Props) {
   return (
-    <Card type="request">
+    <Card title={props.title} type={props.type} date={props.date} org={props.org}>
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
           <Typography gutterBottom>Apparel</Typography>
