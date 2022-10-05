@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
-import theme from './Theme';
+import theme from './theme';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Main from './views/Main';

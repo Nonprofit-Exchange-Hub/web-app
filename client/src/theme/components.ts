@@ -35,9 +35,6 @@ const components = {
   },
   MuiButton: {
     styleOverrides: {
-      root: {
-        textTransform: 'none',
-      },
       containedSecondary: {
         '&:hover': {
           backgroundColor: grey[100],
@@ -61,7 +58,6 @@ const components = {
         paddingLeft: '20px',
         paddingRight: '20px',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
       },
