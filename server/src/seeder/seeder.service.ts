@@ -134,8 +134,8 @@ export class SeederService {
     };
   }
 
-  public async seedMessagesAsync( 
-    seedOrganizationsResult: SeedOrganizationsResult
+  public async seedMessagesAsync(
+    seedOrganizationsResult: SeedOrganizationsResult,
   ): Promise<SeedMessagesResult> {
     const transaction: CreateTransactionDto = {
       donater_user: seedOrganizationsResult.users[0],
@@ -165,13 +165,15 @@ export class SeederService {
     Logger.log('Seeding a message', SeederService.name);
     for (const message of messages) {
       message.transaction = insertedTransaction;
-      await this.messageService.create(message, transaction.donater_user).catch((err) => Logger.log(err));
+      await this.messageService
+        .create(message, transaction.donater_user)
+        .catch((err) => Logger.log(err));
       newMessages.push(message);
     }
     Logger.log('at end of seeding the messages', SeederService.name);
     return {
       ...seedOrganizationsResult,
-      messages: newMessages
+      messages: newMessages,
     };
   }
 

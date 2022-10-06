@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpException,
+  HttpStatus,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
@@ -7,7 +19,6 @@ import { Message } from './entities/message.entity';
 import { DeleteResult } from 'typeorm';
 import type { Request as ExpressRequest } from 'express';
 import { User } from '../users/entities/user.entity';
-
 
 @Controller('messages')
 export class MessagesController {
@@ -18,18 +29,10 @@ export class MessagesController {
   async create(
     @Request() request: ExpressRequest,
     @Body() createMessageDto: CreateMessageDto,
-    ): Promise<Message | HttpException> {
-      const { user } = request;
-
-      try {
-        const newMessage = await this.messagesService.create(createMessageDto, user as User);
-        return newMessage;
-      } catch (error) {
-        throw new HttpException(
-          { status: HttpStatus.CONFLICT, message: `${error}` },
-          HttpStatus.CONFLICT,
-        );
-      }
+  ): Promise<Message | HttpException> {
+    const { user } = request;
+    const newMessage = await this.messagesService.create(createMessageDto, user as User);
+    return newMessage;
   }
 
   @Get()
