@@ -51,6 +51,7 @@ const defaultOrg: FormData = {
   password: '',
   confirmPassword: '',
   accept_terms: false,
+  image_url: '',
 };
 
 const steps = [{ label: 'EIN number' }, { label: 'Contact details' }, { label: 'User info' }];
@@ -267,12 +268,27 @@ export const SignUpUserAndNonprofit = () => {
                         />
                       )}
                     />
-
                     {orgValidateEinQuery.isSuccess && !errors.ein && (
                       <FormHelperText>
                         <CheckIcon style={{ color: green[500] }} />
                       </FormHelperText>
                     )}
+                  </Grid>
+                  <Grid item md={12} xs={12}>
+                    <Controller
+                      name="image_url"
+                      control={control}
+                      defaultValue={'https://blah.png'}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Organization Profile Image"
+                          placeholder="Organization Profile Image"
+                          fullWidth
+                          disabled={true}
+                        />
+                      )}
+                    />
                   </Grid>
                 </Grid>
               )}
