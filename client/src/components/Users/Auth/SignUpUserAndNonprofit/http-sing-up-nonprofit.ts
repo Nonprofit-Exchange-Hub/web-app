@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { toOrg, toUser } from './helpters';
+import { toOrg, toUser } from './helpers';
 import { FormData } from './FormData';
 
 export const httpPostNonprofitSignup = (data: FormData): Promise<AxiosResponse<any, any>> => {

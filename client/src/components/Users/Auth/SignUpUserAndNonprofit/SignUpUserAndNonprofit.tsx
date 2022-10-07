@@ -285,7 +285,6 @@ export const SignUpUserAndNonprofit = () => {
                           label="Organization Profile Image"
                           placeholder="Organization Profile Image"
                           fullWidth
-                          disabled={true}
                         />
                       )}
                     />
