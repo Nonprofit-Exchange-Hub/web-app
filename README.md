@@ -171,6 +171,10 @@ List all tables within a database after connecting to it
 - [Drop Tables psql](https://www.geeksforgeeks.org/postgresql-drop-table/#:~:text=PostgreSQL%20has%20a%20DROP%20TABLE,table%20permanently%20from%20the%20database)
 - [SSH into Docker Container](https://phase2.github.io/devtools/common-tasks/ssh-into-a-container/)
 
+## Other Resources
+### `Server`
+See [our compiled resources to get you started](server/docs/RESOURCES.md)
+
 ## Support
 
 NEH is an MIT-licensed open source project. If you'd like to join us, please [read more here](https://www.democracylab.org/projects/486).
