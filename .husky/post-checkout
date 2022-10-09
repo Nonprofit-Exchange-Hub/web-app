@@ -5,4 +5,4 @@ if [ ! -f "$FILE" ]; then
 fi
 
 . "$FILE"
-cd server && npm ci && cd ../client && npm ci && cd ..
+cd server && npm i && cd ../client && npm i && cd ..
