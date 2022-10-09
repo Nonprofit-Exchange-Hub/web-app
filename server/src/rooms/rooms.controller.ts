@@ -51,10 +51,4 @@ export class RoomsController {
     }
     return dbRoom;
   }
-
-  @Delete(':id')
-  async remove(@Param('id') id: number) {
-    await this.handleNotFound(id);
-    return this.roomsService.remove(id);
-  }
 }
