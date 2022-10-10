@@ -164,9 +164,10 @@ export class SeederService {
 
     Logger.log('Seeding a message', SeederService.name);
     for (const message of messages) {
-      message.user = seedOrganizationsResult.users[0];
       message.transaction = insertedTransaction;
-      await this.messageService.create(message).catch((err) => Logger.log(err));
+      await this.messageService
+        .create(message, transaction.donater_user)
+        .catch((err) => Logger.log(err));
       newMessages.push(message);
     }
     Logger.log('at end of seeding the messages', SeederService.name);
