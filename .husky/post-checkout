@@ -1,8 +1,8 @@
 #!/bin/sh
 FILE="$(dirname "$0")/_/husky.sh"
 if [ ! -f "$FILE" ]; then
-  cd server && npm i && npm run prepare && cd ../client && npm i && npm run prepare && cd ..
+  cd server && npm ci && npm run prepare && cd ../client && npm ci && npm run prepare && cd ..
 fi
 
 . "$FILE"
-cd server && npm i && cd ../client && npm i && cd ..
+cd server && npm ci && cd ../client && npm ci && cd ..
