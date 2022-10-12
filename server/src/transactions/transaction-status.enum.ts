@@ -1,5 +1,6 @@
 export enum TransactionStatus {
+  NEW_CLAIM = 'NEW_CLAIM',
   IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
+  COMPLETED = 'FULFILLED',
   CANCELLED = 'CANCELLED',
 }
