@@ -49,5 +49,5 @@ export class Transaction {
 
   @OneToMany(() => Message, (message) => message.transaction)
   @JoinColumn()
-  messages: Message;
+  messages: Message[];
 }
