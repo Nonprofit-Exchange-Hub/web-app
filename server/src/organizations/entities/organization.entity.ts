@@ -46,4 +46,7 @@ export class Organization {
     (transaction) => transaction.donater_organization || transaction.recipient,
   )
   transactions: Transaction[];
+
+  @Column({ type: 'text', unique: true })
+  image_url: string;
 }

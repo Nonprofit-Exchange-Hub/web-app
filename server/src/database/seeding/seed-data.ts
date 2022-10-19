@@ -187,6 +187,7 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
       city: 'Seattle',
       state: 'WA',
       ein: '12-3456788',
+      image_url: 'https://docs.nestjs.com/assets/logo-small.svg',
     },
     {
       name: 'Audobon Washington',
@@ -199,6 +200,7 @@ export const seedOrganizations = (): CreateOrganizationDto[] => {
       city: 'Seattle',
       state: 'WA',
       ein: '12-3456789',
+      image_url: 'https://docs.nestjs.com/assets/logo-small.svg',
     },
   ];
   return organizations;
