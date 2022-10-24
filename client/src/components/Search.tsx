@@ -4,6 +4,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useHistory } from 'react-router-dom';
 
@@ -43,9 +44,9 @@ function getTextFieldLabel(selectValue: string, searchText: string): string {
     case 'Nonprofits':
       return 'Search Nonprofits';
     case 'Needs':
-      return 'Search nonprofit Needs';
+      return 'Search Needs';
     case 'Offers':
-      return 'Search nonprofit Offers';
+      return 'Search Offers';
     case 'Volunteer':
       return 'Search Volunteer Openings';
     default:
@@ -66,7 +67,7 @@ function Search() {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      history.push(`/assets?search=${searchText}`);
+      history.push(`/SearchResults?search=${searchText}`, { category: selectedSearchCategory });
     }
   };
 
@@ -86,17 +87,34 @@ function Search() {
         <MenuItem value="Offers">Search Offers</MenuItem>
         <MenuItem value="Volunteer">Volunteer Openings</MenuItem>
       </Select>
-      <TextField
-        className={classes.textField}
-        InputLabelProps={{ shrink: false }}
-        label={textFieldLabel}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-          setSearchText(e.target.value)
-        }
-        onKeyDown={handleKeyDown}
-        value={searchText}
-        variant="outlined"
-      />
+      <Tooltip
+        placement="top-end"
+        componentsProps={{
+          tooltip: {
+            sx: {
+              color: 'rgba(0, 0, 0, 0.87)',
+              fontSize: 13,
+              bgcolor: 'common.white',
+              '& .MuiTooltip-arrow': {
+                color: 'common.white',
+              },
+            },
+          },
+        }}
+        title="Press 'Enter' to Begin Search"
+      >
+        <TextField
+          className={classes.textField}
+          InputLabelProps={{ shrink: false }}
+          label={textFieldLabel}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+            setSearchText(e.target.value)
+          }
+          onKeyDown={handleKeyDown}
+          value={searchText}
+          variant="outlined"
+        />
+      </Tooltip>
     </div>
   );
 }

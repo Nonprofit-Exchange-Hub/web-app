@@ -66,10 +66,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function AssetsView(): JSX.Element {
+function SearchResults(): JSX.Element {
   const classes = useStyles();
   const location = useLocation();
+  //implement below line to input filters at render
+  // const querySearchCategory = location.state.category;
   const querySearchText = queryString.parse(location.search).search;
+
   const [searchText, setSearchText] = React.useState<string>((querySearchText as string) || '');
   const [selectedFilters, setSelectedFilters] = React.useState<{ [key: string]: boolean }>({});
 
@@ -164,4 +167,4 @@ function AssetsView(): JSX.Element {
   );
 }
 
-export default AssetsView;
+export default SearchResults;
