@@ -47,6 +47,6 @@ export class Organization {
   )
   transactions: Transaction[];
 
-  @Column({ type: 'text', unique: true })
+  @Column({ type: 'text', nullable: true })
   image_url: string;
 }
