@@ -1,10 +1,12 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, Raw, Repository } from 'typeorm';
+import fetch from 'node-fetch';
+
+import { Organization } from './entities/organization.entity';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult } from 'typeorm';
-import { Organization } from './entities/organization.entity';
-import fetch from 'node-fetch';
+import { GetOrganizationDto } from './dto/get-organization.dto';
 
 export type PropublicaOrg = {
   ein: string;
@@ -53,8 +55,20 @@ export class OrganizationsService {
     }
   }
 
-  findAll(): Promise<Organization[]> {
-    return this.organizationsRepository.find();
+  find(getOrganizationDto: GetOrganizationDto): Promise<Organization[]> {
+    const { limit, offset, search } = getOrganizationDto;
+    const searches = [
+      { name: Raw((alias) => `LOWER(${alias}) LIKE '%${search.toLowerCase()}%'`) },
+      { doing_business_as: Raw((alias) => `LOWER(${alias}) LIKE '%${search.toLowerCase()}%'`) },
+      { description: Raw((alias) => `LOWER(${alias}) LIKE '%${search.toLowerCase()}%'`) },
+    ];
+
+    return this.organizationsRepository.find({
+      ...(search ? { where: searches } : {}),
+      order: { name: 'ASC' },
+      skip: offset,
+      take: limit,
+    });
   }
 
   findOne(id: number): Promise<Organization> {
