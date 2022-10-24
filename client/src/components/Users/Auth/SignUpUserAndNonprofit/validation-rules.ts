@@ -37,6 +37,9 @@ export const validationSchema = Yup.object().shape({
   accept_terms: Yup.boolean()
     .required('The terms and conditions must be accepted.')
     .oneOf([true], 'The terms and conditions must be accepted.'),
+  image_url: Yup.string()
+    .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/)
+    .required('Required'),
 });
 
 /**
@@ -51,7 +54,7 @@ export const calculateIsValid = (
   const valsAsStringArr = Object.values(vals);
   return (
     errVals.every((x) => x === undefined) &&
-    valsAsStringArr.length === 16 &&
+    valsAsStringArr.length === 17 &&
     valsAsStringArr.every((s) => !!s)
   );
 };
