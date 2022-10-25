@@ -3,16 +3,23 @@ import { NavLink, useLocation } from 'react-router-dom';
 import makeStyles from '@mui/styles/makeStyles';
 import * as queryString from 'query-string';
 import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
+// import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+// import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import type { Theme } from '@mui/material/styles';
 
 import AssetsList from './AssetsList';
+import OrgsList from './OrgsList';
+import VolunteerList from './VolunteerList';
 import FilterGroup from '../components/FilterGroup';
 import { filters1, filters2, filters3 } from '../assets/temp';
-import routes from '../routes';
 import type { Asset } from '../types';
 import { APP_API_BASE_URL } from '../configs';
 
@@ -68,12 +75,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function SearchResults(): JSX.Element {
   const classes = useStyles();
-  const location = useLocation();
+  const location = useLocation<{ category: '' }>();
   //implement below line to input filters at render
-  // const querySearchCategory = location.state.category;
+  const querySearchCategory = location.state.category || '';
   const querySearchText = queryString.parse(location.search).search;
-
+  const [searchCategory, setSearchCategory] = React.useState<string>(
+    (querySearchCategory as string) || '',
+  );
   const [searchText, setSearchText] = React.useState<string>((querySearchText as string) || '');
+  const [inputText, setInputText] = React.useState<string>('');
   const [selectedFilters, setSelectedFilters] = React.useState<{ [key: string]: boolean }>({});
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,49 +93,106 @@ function SearchResults(): JSX.Element {
     });
   };
 
-  const [selectedAssetType, setSelectedAssetType] = React.useState<'donation' | 'request'>(
-    'donation',
-  );
-  const [donations, setDonations] = React.useState<Asset[]>([]);
+  const [offers, setOffers] = React.useState<Asset[]>([]);
   const [needs, setNeeds] = React.useState<Asset[]>([]);
+  const [orgs, setOrgs] = React.useState<Asset[]>([]);
+  const [volunteer, setVolunteer] = React.useState<Asset[]>([]);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setSearchCategory(event.target.value);
+  };
+
+  const handleSearch = () => {
+    setSearchText(inputText);
+    setInputText('');
+  };
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setInputText(e.target.value);
+  };
 
   React.useEffect(() => {
-    // fetch assets with querySearchText
-    fetch(
-      `${APP_API_BASE_URL}/assets?type=${selectedAssetType}${
-        querySearchText ? `&title=${querySearchText}` : ''
-      }`,
-    )
-      .then((resp) => resp.json())
-      .then((data: Asset[]) => {
-        if (selectedAssetType === 'donation') {
-          setDonations(data);
-        } else {
-          setNeeds(data);
-        }
-      });
-  }, [location, querySearchText, selectedAssetType]);
+    // fetch assets with searchText
+    console.log(`Search this: ${searchCategory}`);
+    if (searchCategory === 'Volunteer') {
+      //TODO: Change API to /volunteer
+      fetch(`${APP_API_BASE_URL}/organizations`)
+        .then((resp) => resp.json())
+        .then((data: Asset[]) => {
+          setVolunteer(data);
+        });
+    } else if (searchCategory === 'Offers' || searchCategory === 'Needs') {
+      fetch(
+        `${APP_API_BASE_URL}/assets?type=${searchCategory === 'Needs' ? 'donation' : 'request'}${
+          searchText ? `&title=${searchText}` : ''
+        }`,
+      )
+        .then((resp) => resp.json())
+        .then((data: Asset[]) => {
+          if (searchCategory === 'Needs') {
+            setNeeds(data);
+          } else {
+            setOffers(data);
+          }
+        });
+    } else if (searchCategory === 'Nonprofits') {
+      fetch(`${APP_API_BASE_URL}/organizations`)
+        .then((resp) => resp.json())
+        .then((data: Asset[]) => {
+          setOrgs(data);
+        });
+    } else {
+      //TODO: Change API to fetch ALL data
+      fetch(`${APP_API_BASE_URL}/organizations`)
+        .then((resp) => resp.json())
+        .then((data: Asset[]) => {
+          setVolunteer(data);
+        });
+    }
+  }, [location, searchText, searchCategory]);
 
   return (
     <>
       <Paper className={classes.searchBar}>
-        <>X of Y results for "{querySearchText}"</>
-        <Paper className={classes.searchInput}>
-          <InputBase
-            placeholder="ex. diapers"
-            inputProps={{ 'aria-label': 'ex. diapers' }}
-            type="text"
-            value={searchText}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-              setSearchText(e.target.value);
-              // next line only here temporarily to prevent app from erroring out. Intended to be attached to user input in the future
-              setSelectedAssetType('donation');
-            }}
-          />
-          <NavLink to={`${routes.Assets.path}?search=${searchText}`} className={classes.iconButton}>
-            <SearchIcon />
-          </NavLink>
-        </Paper>
+        <Box sx={{ display: 'flex' }}>
+          <>
+            X of Y results for "<b>{searchText}</b>"
+          </>
+        </Box>
+        <Box sx={{ display: 'flex' }}>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={searchCategory}
+              label="Age"
+              onChange={handleChange}
+            >
+              <MenuItem value="All">All</MenuItem>
+              <MenuItem value="Nonprofits">Nonprofits</MenuItem>
+              <MenuItem value="Needs">Needs</MenuItem>
+              <MenuItem value="Offers">Offers</MenuItem>
+              <MenuItem value="Volunteer">Volunteer</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Paper className={classes.searchInput}>
+            <TextField
+              sx={{
+                '& .MuiOutlinedInput-notchedOutline': {
+                  border: '0 none',
+                },
+              }}
+              placeholder="Search"
+              inputProps={{ 'aria-label': 'ex. diapers' }}
+              type="text"
+              value={inputText}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              onChange={(e) => handleInput(e)}
+            />
+            <SearchIcon fontSize="large" onClick={handleSearch} />
+          </Paper>
+        </Box>
       </Paper>
       <div className={classes.contentWrapper}>
         <div className={classes.leftPanel}>
@@ -150,17 +217,33 @@ function SearchResults(): JSX.Element {
         </div>
         <div className={classes.rightPanel}>
           <Paper elevation={0} className={classes.createBar}>
-            {/* where is this meant to link to? */}
+            {/* TODO: where is this meant to link to? */}
             <NavLink className={classes.makeAPost} to="/create">
               <Button color="primary" variant="contained">
                 Make a Post
               </Button>
             </NavLink>
           </Paper>
-          <AssetsList
-            headerText={selectedAssetType === 'donation' ? 'Offers' : 'Nonprofit Needs'}
-            assets={selectedAssetType === 'donation' ? donations : needs}
-          />
+          {/* {TODO:   Need to combine all lists under one "List" component to decrease complexity} */}
+          {searchCategory === 'All' ? <div>All LIST</div> : <></>}
+          {searchCategory === 'Needs' || searchCategory === 'Offers' ? (
+            <AssetsList
+              headerText={searchCategory === 'Needs' ? 'Needs' : 'Offers'}
+              assets={searchCategory === 'Needs' ? offers : needs}
+            />
+          ) : (
+            <></>
+          )}
+          {searchCategory === 'Nonprofits' ? (
+            <OrgsList headerText={'Nonprofits'} assets={orgs} />
+          ) : (
+            <></>
+          )}
+          {searchCategory === 'Volunteer' ? (
+            <VolunteerList headerText={'Volunteer'} assets={volunteer} />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
