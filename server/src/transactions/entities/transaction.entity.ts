@@ -43,7 +43,7 @@ export class Transaction {
   @JoinColumn()
   asset: Asset;
 
-  @ManyToOne(() => Organization, (org) => org.donated_transactions)
+  @ManyToOne(() => Organization, (org) => org.claimed_transactions)
   @JoinColumn()
   claimer: Organization;
 
