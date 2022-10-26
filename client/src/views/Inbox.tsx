@@ -17,6 +17,7 @@ import { UserContext } from '../providers';
 import routes from '../routes';
 
 import type { Message, Transaction } from '../types';
+import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   inboxWrapper: {
@@ -102,7 +103,8 @@ const fetchTransactions = (): Promise<Transaction[]> => {
 // TODO: seed data so that messages appear without manually creating them
 
 const fetchMessages = async (): Promise<Message[]> => {
-  const res = await fetch('http://localhost:3001/api/messages');
+  const MESSAGES_API_URL = `${APP_API_BASE_URL}/messages`;
+  const res = await fetch(MESSAGES_API_URL);
   const data = await res.json();
 
   const messages = await data.map((message: any) => {
