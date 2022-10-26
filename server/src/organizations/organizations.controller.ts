@@ -8,10 +8,12 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
+import { GetOrganizationDto } from './dto/get-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
 import { PropublicaOrg } from './organizations.service';
@@ -34,8 +36,8 @@ export class OrganizationsController {
   }
 
   @Get()
-  findAll(): Promise<Organization[]> {
-    return this.organizationsService.findAll();
+  find(@Query() getOrganizationDto: GetOrganizationDto): Promise<Organization[]> {
+    return this.organizationsService.find(getOrganizationDto);
   }
 
   @Get(':id')

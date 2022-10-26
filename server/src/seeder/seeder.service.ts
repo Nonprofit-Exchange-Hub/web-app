@@ -73,8 +73,8 @@ export class SeederService {
       const exists = await this.userService.userEmailExists(user.email);
       if (!exists) {
         Logger.log('Seeding Users', SeederService.name);
-        await this.userService.create(user).catch((err) => Logger.log(err));
-        newUsers.push(user);
+        const createdUser = await this.userService.create(user).catch((err) => Logger.log(err));
+        newUsers.push(createdUser);
       }
     }
     return newUsers;
@@ -89,8 +89,10 @@ export class SeederService {
       const asset = assets[i];
       Logger.log('Seeding an Asset', SeederService.name);
       const userToAssign = i % 2 !== 0 ? newUsers[0] : newUsers[1];
-      await this.assetService.create(asset, userToAssign).catch((err) => Logger.log(err));
-      newAssets.push(asset);
+      const createdAsset = await this.assetService
+        .create(asset, userToAssign)
+        .catch((err) => Logger.log(err));
+      newAssets.push(createdAsset);
     }
     Logger.log('at end of seeding the assets', SeederService.name);
     return { assets: newAssets, users: newUsers };
@@ -164,9 +166,10 @@ export class SeederService {
 
     Logger.log('Seeding a message', SeederService.name);
     for (const message of messages) {
-      message.user = seedOrganizationsResult.users[0];
       message.transaction = insertedTransaction;
-      await this.messageService.create(message).catch((err) => Logger.log(err));
+      await this.messageService
+        .create(message, transaction.donater_user)
+        .catch((err) => Logger.log(err));
       newMessages.push(message);
     }
     Logger.log('at end of seeding the messages', SeederService.name);

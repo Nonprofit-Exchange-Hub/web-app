@@ -11,8 +11,8 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 export class MessagesService {
   constructor(@InjectRepository(Message) private messagesRepository: Repository<Message>) {}
 
-  async create(createMessageDto: CreateMessageDto): Promise<Message> {
-    return this.messagesRepository.save(createMessageDto);
+  async create(createMessageDto: CreateMessageDto, user: User): Promise<Message> {
+    return this.messagesRepository.save({ ...createMessageDto, user });
   }
 
   async findAll(): Promise<Message[]> {

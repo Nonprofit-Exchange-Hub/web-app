@@ -15,4 +15,5 @@ export interface FormData {
   password: string;
   confirmPassword: string;
   accept_terms: boolean;
+  image_url: string;
 }

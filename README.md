@@ -7,6 +7,8 @@
 
 ## Installation and Setup
 
+### docker is optional, feel free to skip it if you're not comfortable
+
 1. Setup PostgreSQL Database and OPTIONALLY wrap in Docker container
     * Install postgres if you do not have it already https://www.postgresql.org/download/
         * Make a note of your username and password
@@ -170,6 +172,10 @@ List all tables within a database after connecting to it
 - [Listing and Switching Databases for psql](https://www.liquidweb.com/kb/listing-switching-databases-postgresql/)
 - [Drop Tables psql](https://www.geeksforgeeks.org/postgresql-drop-table/#:~:text=PostgreSQL%20has%20a%20DROP%20TABLE,table%20permanently%20from%20the%20database)
 - [SSH into Docker Container](https://phase2.github.io/devtools/common-tasks/ssh-into-a-container/)
+
+## Other Resources
+### `Server`
+See [our compiled resources to get you started](server/docs/RESOURCES.md)
 
 ## Support
 

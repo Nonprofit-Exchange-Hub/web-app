@@ -46,4 +46,7 @@ export class Organization {
 
   @OneToMany(() => Transaction, (transaction) => transaction.claimer)
   claimed_transactions: Transaction[];
+
+  @Column({ type: 'text', nullable: true })
+  image_url: string;
 }
