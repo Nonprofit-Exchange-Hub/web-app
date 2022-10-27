@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Grid } from '@mui/material';
-import { Button } from '@mui/material';
+import { Grid, Button, Alert } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 import { FileUploadInput, RadioGroup, Select, TextField } from '../components/Forms';
@@ -51,6 +50,7 @@ interface ShareANeedData {
   quantity: string;
   needType: string;
   deliveryMethod: string;
+  imgUrls: string[];
 }
 
 const initialFormData: ShareANeedData = {
@@ -62,6 +62,7 @@ const initialFormData: ShareANeedData = {
   quantity: '',
   needType: '',
   deliveryMethod: '',
+  imgUrls: [''],
 };
 
 function NeedForm(): JSX.Element {
@@ -69,6 +70,9 @@ function NeedForm(): JSX.Element {
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<Option[]>([]);
   const [user] = React.useContext(UserContext);
+  const [validUrl, setValidUrl] = React.useState<boolean>(true);
+  const [imgArrLength, setImgArrLength] = React.useState<boolean>(true);
+  const [imgUnique, setImgUnique] = React.useState<boolean>(true);
 
   const history = useHistory();
 
@@ -83,6 +87,47 @@ function NeedForm(): JSX.Element {
     })();
   }, []);
 
+  const isValidUrl = (urlString: string) => {
+    let urlPattern = new RegExp(
+      '^(https?:\\/\\/)?' +
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+        '((\\d{1,3}\\.){3}\\d{1,3}))' +
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+        '(\\?[;&a-z\\d%_.~+=-]*)?' +
+        '(\\#[-a-z\\d_]*)?$',
+      'i',
+    );
+    return !!urlPattern.test(urlString);
+  };
+
+  function addPhotoUrl() {
+    let photoUrl: string = formData.imgUrls[formData.imgUrls.length - 1];
+    if (isValidUrl(photoUrl) && formData.imgUrls.length < 10 && imgUnique) {
+      setFormData({ ...formData, imgUrls: [...formData.imgUrls, ''] });
+      setValidUrl(true);
+      setImgUnique(true);
+    } else if (formData.imgUrls.length >= 10) {
+      setImgArrLength(false);
+    } else if (!imgUnique) {
+      setImgUnique(false);
+    } else {
+      setValidUrl(false);
+    }
+  }
+
+  const imageInputFields = formData.imgUrls.map((img, i) => {
+    return (
+      <TextField
+        key={i}
+        id={'imgUrls' + i}
+        label={`Photo ${i + 1}`}
+        placeholder="Insert photo url"
+        value={formData.imgUrls[i]}
+        onChange={(e) => handleChangePhotoURL(e, i)}
+      />
+    );
+  });
+
   // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
   const handleChange = (
     event:
@@ -96,8 +141,28 @@ function NeedForm(): JSX.Element {
     }));
   };
 
+  const handleChangePhotoURL = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    setFormData((fData) => {
+      if (formData.imgUrls.includes(event.target.value)) {
+        setImgUnique(false);
+      } else {
+        setImgUnique(true);
+      }
+      let newImageUrls = [...fData.imgUrls];
+      newImageUrls[index] = event.target.value;
+      return {
+        ...fData,
+        imgUrls: newImageUrls,
+      };
+    });
+  };
+
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
+    if (!isValidUrl(formData.imgUrls[formData.imgUrls.length - 1])) {
+      formData.imgUrls.pop();
+      console.log('REMOVED');
+    }
     const res = await fetch(`${APP_API_BASE_URL}/assets`, {
       method: 'POST',
       headers: {
@@ -203,6 +268,14 @@ function NeedForm(): JSX.Element {
             text="Click here to upload photos"
             onChange={handleChange}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <p>Or link photos below</p>
+          {imageInputFields}
+          {validUrl ? null : <Alert severity="info">Please add a valid URL</Alert>}
+          {imgArrLength ? null : <Alert severity="info">Limit to 10 photos</Alert>}
+          {imgUnique ? null : <Alert severity="info">No duplicate images</Alert>}
+          <Button onClick={addPhotoUrl}>click here to add another photo</Button>
         </Grid>
         <Grid item container xs={12} justifyContent="center">
           <Grid item>
