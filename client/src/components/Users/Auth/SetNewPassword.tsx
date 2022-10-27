@@ -8,6 +8,7 @@ import type { Theme } from '@mui/material/styles';
 
 import PasswordInput from './PasswordInput';
 import { UserContext } from '../../../providers';
+import { APP_API_BASE_URL } from '../../../configs';
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 function SetNewPassword() {
+  const RESOURCE_URL = `${APP_API_BASE_URL}/users`;
   const classes = useStyles();
 
   const [password, setPassword] = React.useState<string>('');
@@ -51,7 +53,7 @@ function SetNewPassword() {
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();
     // ternary in url temporary. User should be logged in(?) id should be available once BE is built
-    fetch(`http://localhost:3001/api/users/${user ? user.id : null}`, {
+    fetch(`${RESOURCE_URL}/${user ? user.id : null}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: password }),

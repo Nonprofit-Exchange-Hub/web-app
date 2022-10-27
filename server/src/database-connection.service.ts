@@ -17,9 +17,10 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
       logging: true,
       autoLoadEntities: true,
       ssl:
-        process.env.MODE === 'production' // only require ssl when in production
+        process.env.MODE === 'production' // only require ssl when in production/
           ? {
               ca: process.env.POSTGRESQL_SSL_CERT,
+              rejectUnauthorized: false,
             }
           : false,
     };

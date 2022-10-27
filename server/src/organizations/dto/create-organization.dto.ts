@@ -30,4 +30,7 @@ export class CreateOrganizationDto {
 
   @IsNotEmpty()
   ein: string;
+
+  @IsNotEmpty()
+  image_url: string;
 }
