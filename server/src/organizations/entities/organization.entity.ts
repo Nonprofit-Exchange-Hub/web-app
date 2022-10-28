@@ -41,11 +41,11 @@ export class Organization {
   @OneToMany(() => UserOrganization, (user_org) => user_org.organization)
   users: UserOrganization[];
 
-  @OneToMany(
-    () => Transaction,
-    (transaction) => transaction.donater_organization || transaction.recipient,
-  )
-  transactions: Transaction[];
+  @OneToMany(() => Transaction, (transaction) => transaction.donater_organization)
+  donated_transactions: Transaction[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.claimer)
+  claimed_transactions: Transaction[];
 
   @Column({ type: 'text', nullable: true })
   image_url: string;
