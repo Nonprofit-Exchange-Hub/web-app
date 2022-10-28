@@ -67,7 +67,7 @@ function Search() {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      history.push(`/SearchResults?search=${searchText}`, { category: selectedSearchCategory });
+      history.push(`/SearchResults?search=${searchText}&category=${selectedSearchCategory}`);
     }
   };
 

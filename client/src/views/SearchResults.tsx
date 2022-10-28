@@ -1,26 +1,23 @@
 import * as React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import makeStyles from '@mui/styles/makeStyles';
 import * as queryString from 'query-string';
+import { NavLink, useLocation } from 'react-router-dom';
+
+import makeStyles from '@mui/styles/makeStyles';
 import Paper from '@mui/material/Paper';
-// import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-// import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
 import type { Theme } from '@mui/material/styles';
 
 import AssetsList from './AssetsList';
 import OrgsList from './OrgsList';
-import VolunteerList from './VolunteerList';
 import FilterGroup from '../components/FilterGroup';
 import { filters1, filters2, filters3 } from '../assets/temp';
-import type { Asset } from '../types';
+import type { Asset, Organization } from '../types';
 import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -76,9 +73,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 function SearchResults(): JSX.Element {
   const classes = useStyles();
   const location = useLocation<{ category: '' }>();
-  //implement below line to input filters at render
-  const querySearchCategory = location.state.category || '';
-  const querySearchText = queryString.parse(location.search).search;
+
+  const { search: querySearchText, category: querySearchCategory } = queryString.parse(
+    location.search,
+  );
+
   const [searchCategory, setSearchCategory] = React.useState<string>(
     (querySearchCategory as string) || '',
   );
@@ -95,8 +94,9 @@ function SearchResults(): JSX.Element {
 
   const [offers, setOffers] = React.useState<Asset[]>([]);
   const [needs, setNeeds] = React.useState<Asset[]>([]);
-  const [orgs, setOrgs] = React.useState<Asset[]>([]);
-  const [volunteer, setVolunteer] = React.useState<Asset[]>([]);
+  const [orgs, setOrgs] = React.useState<Organization[]>([]);
+  //TODO: create Volunteer Type in types/index.ts and add below
+  const [volunteer, setVolunteer] = React.useState<Object[]>([]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSearchCategory(event.target.value);
@@ -112,8 +112,6 @@ function SearchResults(): JSX.Element {
   };
 
   React.useEffect(() => {
-    // fetch assets with searchText
-    console.log(`Search this: ${searchCategory}`);
     if (searchCategory === 'Volunteer') {
       //TODO: Change API to /volunteer
       fetch(`${APP_API_BASE_URL}/organizations`)
@@ -136,18 +134,14 @@ function SearchResults(): JSX.Element {
           }
         });
     } else if (searchCategory === 'Nonprofits') {
-      fetch(`${APP_API_BASE_URL}/organizations`)
+      fetch(`${APP_API_BASE_URL}/organizations?search=${searchText}`)
         .then((resp) => resp.json())
-        .then((data: Asset[]) => {
+        .then((data: Organization[]) => {
           setOrgs(data);
         });
     } else {
-      //TODO: Change API to fetch ALL data
-      fetch(`${APP_API_BASE_URL}/organizations`)
-        .then((resp) => resp.json())
-        .then((data: Asset[]) => {
-          setVolunteer(data);
-        });
+      //TODO: Change API to fetch ALL combined data
+      console.log('Fetch All Lists API here');
     }
   }, [location, searchText, searchCategory]);
 
@@ -224,26 +218,33 @@ function SearchResults(): JSX.Element {
               </Button>
             </NavLink>
           </Paper>
-          {/* {TODO:   Need to combine all lists under one "List" component to decrease complexity} */}
-          {searchCategory === 'All' ? <div>All LIST</div> : <></>}
+          {/* {TODO:   Need to combine all lists under one "List" component} */}
+          {/* {TODO:   Create and add a VolunteerList component below */}
+          {searchCategory === 'All' ? (
+            <div>
+              {needs.length > 0 ? <AssetsList headerText={'Needs'} assets={needs} /> : <></>}
+              {offers.length > 0 ? <AssetsList headerText={'Offers'} assets={offers} /> : <></>}
+              {orgs.length > 0 ? <OrgsList headerText={'Nonprofits'} orgs={orgs} /> : <></>}
+              {volunteer.length > 0 ? `<VolunteerList Componet TBD />` : <></>}
+            </div>
+          ) : (
+            <></>
+          )}
           {searchCategory === 'Needs' || searchCategory === 'Offers' ? (
             <AssetsList
               headerText={searchCategory === 'Needs' ? 'Needs' : 'Offers'}
-              assets={searchCategory === 'Needs' ? offers : needs}
+              assets={searchCategory === 'Needs' ? needs : offers}
             />
           ) : (
             <></>
           )}
           {searchCategory === 'Nonprofits' ? (
-            <OrgsList headerText={'Nonprofits'} assets={orgs} />
+            <OrgsList headerText={'Nonprofits'} orgs={orgs} />
           ) : (
             <></>
           )}
-          {searchCategory === 'Volunteer' ? (
-            <VolunteerList headerText={'Volunteer'} assets={volunteer} />
-          ) : (
-            <></>
-          )}
+          {searchCategory === 'Volunteer' ? `<VolunteerList Componet TBD />` : <></>}
+          {needs.length + offers.length + orgs.length + volunteer.length === 0 && 'No Results'}
         </div>
       </div>
     </>

@@ -3,16 +3,17 @@ import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import Card from '@mui/material/Card';
-import TodayOutlined from '@mui/icons-material/TodayOutlined';
+import InfoIcon from '@mui/icons-material/Info';
 import RoomOutlined from '@mui/icons-material/RoomOutlined';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 import type { Theme } from '@mui/material/styles';
 
-import type { Asset } from '../types';
+import type { Organization } from '../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  needsAndOffersSub: {
+  orgsHeaderSub: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -31,12 +32,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: '10%',
     maxWidth: '80%',
   },
-  needsAndOffersHeader: {
+  orgsHeader: {
     textAlign: 'left',
     paddingBottom: '20px',
-  },
-  needsAndOffers: {
-    padding: '10%',
   },
   cardText1: {
     padding: '0 10%',
@@ -47,45 +45,44 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 type Props = {
-  assets: Asset[];
+  orgs: Organization[];
   headerContentRight?: JSX.Element;
   headerText: string;
 };
 
-function AssetsList(props: Props): JSX.Element {
+function OrgsList(props: Props): JSX.Element {
   const classes = useStyles();
-  const { assets, headerContentRight, headerText } = props;
-  if (!assets) return <> </>;
+  const { orgs, headerContentRight, headerText } = props;
+  if (!orgs) return <> </>;
+
+  console.log('orgs', orgs);
 
   return (
     <>
       <Grid container item justifyContent="space-between">
-        <Typography variant="h4" component="h4" className={classes.needsAndOffersHeader}>
+        <Typography variant="h4" component="h4" className={classes.orgsHeader}>
           {headerText}
         </Typography>
         {headerContentRight ?? null}
       </Grid>
-      <div className={classes.needsAndOffersSub}>
-        {assets.map((asset) => (
-          <NavLink to={`/asset/${asset.id}`} key={asset.id} className={classes.card}>
+      <div className={classes.orgsHeaderSub}>
+        {orgs.map((org) => (
+          <NavLink to={`/to={/organizations/${org.id}`} key={org.id} className={classes.card}>
             <Card variant="outlined">
-              <img
-                src={
-                  asset?.imgUrls?.[0] ??
-                  'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png'
-                }
-                className={classes.cardImg}
-                alt={asset.title}
-              />
-              <Typography variant="h6" component="h4" className={classes.cardText1}>
-                {asset.title} {asset.categories ? asset.categories[0] : null}
-              </Typography>
-              <div className={classes.cardText2}>
-                <RoomOutlined />
-                {asset.location}
-                <TodayOutlined />
-                {new Date(asset.datePosted).toLocaleDateString()}
-              </div>
+              <Box sx={{ display: 'flex' }}>
+                <Typography variant="h6" component="h4" className={classes.cardText1}>
+                  {org.name}
+                </Typography>
+                <div className={classes.cardText2}>
+                  <InfoIcon />
+                  {org.description}
+                </div>
+                <div className={classes.cardText2}>
+                  <RoomOutlined />
+                  {org.address}
+                  <br />
+                </div>
+              </Box>
             </Card>
           </NavLink>
         ))}
@@ -94,4 +91,4 @@ function AssetsList(props: Props): JSX.Element {
   );
 }
 
-export default AssetsList;
+export default OrgsList;
