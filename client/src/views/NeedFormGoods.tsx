@@ -123,7 +123,7 @@ function NeedForm(): JSX.Element {
         label={`Photo ${i + 1}`}
         placeholder="Insert photo url"
         value={formData.imgUrls[i]}
-        onChange={(e) => handleChangePhotoURL(e, i)}
+        onChange={(e) => handleChangePhotoUrl(e, i)}
       />
     );
   });
@@ -141,7 +141,7 @@ function NeedForm(): JSX.Element {
     }));
   };
 
-  const handleChangePhotoURL = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleChangePhotoUrl = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     setFormData((fData) => {
       if (formData.imgUrls.includes(event.target.value)) {
         setImgUnique(false);
@@ -273,7 +273,7 @@ function NeedForm(): JSX.Element {
           <p>Or link photos below</p>
           {imageInputFields}
           {validUrl ? null : <Alert severity="info">Please add a valid URL</Alert>}
-          {imgArrLength ? null : <Alert severity="info">Limit to 10 photos</Alert>}
+          {imgArrLength ? null : <Alert severity="info">Limit of 10 photos reached</Alert>}
           {imgUnique ? null : <Alert severity="info">No duplicate images</Alert>}
           <Button onClick={addPhotoUrl}>click here to add another photo</Button>
         </Grid>
