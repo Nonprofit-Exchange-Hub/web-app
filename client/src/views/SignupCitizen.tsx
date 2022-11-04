@@ -61,6 +61,7 @@ interface UserSignupData {
   email: string;
   password: string;
   accept_terms?: boolean;
+  email_opt_out?: boolean;
 }
 
 const initialFormData: UserSignupData = {
@@ -69,6 +70,7 @@ const initialFormData: UserSignupData = {
   email: '',
   password: '',
   accept_terms: false,
+  email_opt_out: false,
 };
 
 function SignupCitizen() {
@@ -83,6 +85,7 @@ function SignupCitizen() {
     setFormData((fData) => ({
       ...fData,
       [name]: name === 'accept_terms' ? checked : value,
+      [name]: name === 'email_opt_out' ? checked : value,
     }));
   };
 
@@ -205,6 +208,19 @@ function SignupCitizen() {
                   </StyledLink>
                 </label>
               }
+            />
+            <FormControlLabel
+              style={{ textAlign: 'left', display: 'block' }}
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={formData.email_opt_out}
+                  onChange={handleChange}
+                  name="email_opt_out"
+                  inputProps={{ 'aria-label': 'email_opt_out_checkbox' }}
+                />
+              }
+              label={'Opt Out Of Email Notifications'}
             />
 
             <Button

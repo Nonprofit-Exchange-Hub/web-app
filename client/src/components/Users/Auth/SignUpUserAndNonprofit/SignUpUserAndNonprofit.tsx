@@ -52,6 +52,7 @@ const defaultOrg: FormData = {
   confirmPassword: '',
   accept_terms: false,
   image_url: '',
+  email_opt_out: false,
 };
 
 const steps = [{ label: 'EIN number' }, { label: 'Contact details' }, { label: 'User info' }];
@@ -566,6 +567,31 @@ export const SignUpUserAndNonprofit = () => {
                       )}
                     />
                   </Grid>
+                  {/* <Grid item xs={12}>
+                    <Controller
+                      name="email_opt_out"
+                      control={control}
+                      defaultValue={false}
+                      render={({ field }) => (
+                        <FormControlLabel
+                          style={{ textAlign: 'left', display: 'block' }}
+                          control={
+                            <Checkbox
+                              {...field}
+                              color="primary"
+                              name="email_opt_out"
+                              inputProps={{ 'aria-label': 'email_opt_out_checkbox' }}
+                            />
+                          }
+                          label={
+                            <label>
+                              Opt Out Of Email Notifications{' '}
+                            </label>
+                          }
+                        />
+                      )}
+                    />
+                  </Grid> */}
                 </Grid>
               )}
 
