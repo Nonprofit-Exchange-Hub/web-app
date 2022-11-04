@@ -10,6 +10,7 @@ import { User } from '../../src/users/entities/user.entity';
 import { UsersModule } from '../../src/users/users.module';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
+import { FilesService } from '../../src/files/files.service';
 
 describe('UsersController', () => {
   let app: INestApplication;
@@ -28,7 +29,7 @@ describe('UsersController', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [UsersModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
       controllers: [UsersController],
-      providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
+      providers: [{ provide: getRepositoryToken(User), useClass: Repository }, FilesService],
     }).compile();
 
     app = module.createNestApplication();
