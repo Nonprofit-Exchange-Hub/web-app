@@ -35,5 +35,5 @@ export class User {
   organizations: UserOrganization[];
 
   @Column({ type: 'text', nullable: true })
-  profile_image_url: string;
+  profile_image_url?: string;
 }
