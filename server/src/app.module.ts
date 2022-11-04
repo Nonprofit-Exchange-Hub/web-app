@@ -15,6 +15,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { CategoriesModule } from './categories/categories.module';
 import { UserOrganizationsModule } from './user-org/user-org.module';
 import { PocChatModule } from './poc-chat/poc-chat.module';
+import { FilesService } from './files/files.service';
 
 @Module({
   imports: [
@@ -36,6 +37,6 @@ import { PocChatModule } from './poc-chat/poc-chat.module';
     PocChatModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [FilesService],
 })
 export class AppModule {}
