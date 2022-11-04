@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { FilesService } from '../files/files.service';
 
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
@@ -11,7 +12,10 @@ describe('UsersController', () => {
       controllers: [UsersController],
       //TODO I put a empty mock for UserService. For real testing we'll need
       // to create a mock since we are using TypeORM
-      providers: [{ provide: UsersService, useValue: {} }],
+      providers: [
+        { provide: UsersService, useValue: {} },
+        { provide: FilesService, useValue: {} },
+      ],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
