@@ -92,7 +92,7 @@ export class AssetsController {
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<DeleteResult | HttpException> {
     const assetToDelete = await this.assetsService.remove(parseInt(id));
-    console.log(assetToDelete);
+
     if (assetToDelete.affected === 0) {
       throw new HttpException(
         { staus: HttpStatus.NOT_FOUND, message: 'Asset not found' },
