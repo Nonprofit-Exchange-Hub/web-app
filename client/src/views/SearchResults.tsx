@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as queryString from 'query-string';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import makeStyles from '@mui/styles/makeStyles';
 import Paper from '@mui/material/Paper';
@@ -72,10 +72,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function SearchResults(): JSX.Element {
   const classes = useStyles();
-  const location = useLocation<{ category: '' }>();
+  const history = useHistory();
 
   const { search: querySearchText, category: querySearchCategory } = queryString.parse(
-    location.search,
+    history.location.search,
   );
 
   const [searchCategory, setSearchCategory] = React.useState<string>(
@@ -95,7 +95,7 @@ function SearchResults(): JSX.Element {
   const [offers, setOffers] = React.useState<Asset[]>([]);
   const [needs, setNeeds] = React.useState<Asset[]>([]);
   const [orgs, setOrgs] = React.useState<Organization[]>([]);
-  //TODO: create Volunteer Type in types/index.ts and add below
+  //TODO: create Volunteer Type in types/index.ts and change Object[] to Volunteer[] below
   const [volunteer, setVolunteer] = React.useState<Object[]>([]);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -141,9 +141,11 @@ function SearchResults(): JSX.Element {
         });
     } else {
       //TODO: Change API to fetch ALL combined data
-      console.log('Fetch All Lists API here');
+      console.log('Fetches "All Lists" API here');
     }
-  }, [location, searchText, searchCategory]);
+
+    history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
+  }, [history, searchText, searchCategory]);
 
   return (
     <>
