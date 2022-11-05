@@ -13,24 +13,34 @@ type Props = {
   type: 'need' | 'donation';
   date: Date;
   org: string;
+  description: string;
+  condition: string;
+  location: string;
+  imgUrls?: string[];
   children?: ReactNode | ReactNode[];
 };
 
 export default function NeedCard(props: Props) {
+  const image = props.imgUrls?.length ? props.imgUrls[0] : Example;
+
   return (
     <Card title={props.title} type={props.type} date={props.date} org={props.org}>
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
-          <Typography gutterBottom>Apparel</Typography>
+          <Typography gutterBottom>
+            {props.condition === '' ? 'unknown' : props.condition}
+          </Typography>
           <Typography gutterBottom sx={{ fontWeight: 900 }}>
-            Long Term
+            {props.type}
           </Typography>
         </Box>
-        <Typography variant="h1">Blazers</Typography>
+        <Typography variant="h1">{props.title}</Typography>
         <Box sx={{ marginTop: theme.spacing(1) }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <LocationOnIcon />
-            <Typography gutterBottom>Seattle, WA</Typography>
+            <Typography gutterBottom>
+              {props.location === null ? 'unknown' : props.location}
+            </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <LocationOnIcon />
@@ -38,10 +48,10 @@ export default function NeedCard(props: Props) {
           </Box>
         </Box>
         <Typography variant="body2" color={theme.palette.text.secondary}>
-          Lorem ipsum dolor sit amet, mollis consectetur adipiscing elit.
+          {props.description}
         </Typography>
       </CardContent>
-      <CardMedia component="img" image={Example} alt="Need example" />
+      <CardMedia component="img" image={image} alt="Need example" />
     </Card>
   );
 }

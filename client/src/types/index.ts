@@ -2,12 +2,16 @@ export type Asset = {
   id: number;
   title: string;
   categories: string[];
-  datePosted: string;
+  datePosted: Date;
   location: string;
   imgUrls?: string[];
   description: string;
   poster: User;
   organization: number;
+  type: 'need' | 'donation';
+  date: Date;
+  org: string;
+  condition: string;
 };
 
 export type Organization = {
