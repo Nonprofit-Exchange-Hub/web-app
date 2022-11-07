@@ -15,6 +15,7 @@ import BannerSection from '../components/BannerSection';
 import routes from '../routes';
 
 import type { Asset } from '../types';
+import { APP_API_BASE_URL } from '../configs';
 
 const carouselSteps = [
   [
@@ -204,18 +205,27 @@ function HeaderContentRight(): JSX.Element {
 }
 
 function Home(): JSX.Element {
+  const ASSETS_API_URL = `${APP_API_BASE_URL}/assets`;
   const classes = useStyles();
   const [donations, setDonations] = React.useState<Asset[]>([]);
   const [requests, setRequests] = React.useState<Asset[]>([]);
 
   React.useEffect(() => {
     // fetch assets with querySearchText
-    fetch('http://localhost:3001/api/assets?type=donation&limit=3&offset=0')
+    const assetsApiDonate = new URL(ASSETS_API_URL);
+    assetsApiDonate.searchParams.append('type', 'donation');
+    assetsApiDonate.searchParams.append('limit', '3');
+    assetsApiDonate.searchParams.append('offset', '0');
+    fetch(assetsApiDonate.href)
       .then((resp) => resp.json())
       .then((data: Asset[]) => {
         setDonations(data);
       });
-    fetch('http://localhost:3001/api/assets?type=request&limit=3&offset=0')
+    const assetsApiRequest = new URL(ASSETS_API_URL);
+    assetsApiRequest.searchParams.append('type', 'request');
+    assetsApiRequest.searchParams.append('limit', '3');
+    assetsApiRequest.searchParams.append('offset', '0');
+    fetch(assetsApiRequest.href)
       .then((resp) => resp.json())
       .then((data: Asset[]) => {
         setRequests(data);
