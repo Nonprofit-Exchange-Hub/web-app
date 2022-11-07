@@ -8,6 +8,7 @@ import theme from '../../theme';
 type Props = {
   title: string;
   type: 'need' | 'donation';
+  sx?: object;
   date: Date;
   org: string;
   children?: ReactNode | ReactNode[];
@@ -15,7 +16,7 @@ type Props = {
 
 export default function Card(props: Props) {
   return (
-    <MuiCard>
+    <MuiCard sx={props.sx || {}}>
       <CardActionArea>
         {props.children}
         <Box

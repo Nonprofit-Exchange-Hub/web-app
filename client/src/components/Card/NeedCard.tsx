@@ -11,22 +11,29 @@ import Example from '../../assets/need-example.png';
 type Props = {
   title: string;
   type: 'need' | 'donation';
-  date: Date;
+  sx?: object;
+  datePosted: Date;
   org: string;
   children?: ReactNode | ReactNode[];
 };
 
 export default function NeedCard(props: Props) {
   return (
-    <Card title={props.title} type={props.type} date={props.date} org={props.org}>
+    <Card
+      title={props.title}
+      type={props.type}
+      date={props.datePosted}
+      org={props.org}
+      sx={props.sx || {}}
+    >
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
-          <Typography gutterBottom>Apparel</Typography>
+          <Typography gutterBottom>{props.title}</Typography>
           <Typography gutterBottom sx={{ fontWeight: 900 }}>
             Long Term
           </Typography>
         </Box>
-        <Typography variant="h1">Blazers</Typography>
+        <Typography variant="h1">{props.title}</Typography>
         <Box sx={{ marginTop: theme.spacing(1) }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <LocationOnIcon />
@@ -38,7 +45,7 @@ export default function NeedCard(props: Props) {
           </Box>
         </Box>
         <Typography variant="body2" color={theme.palette.text.secondary}>
-          Lorem ipsum dolor sit amet, mollis consectetur adipiscing elit.
+          {' '}
         </Typography>
       </CardContent>
       <CardMedia component="img" image={Example} alt="Need example" />
