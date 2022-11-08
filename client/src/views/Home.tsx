@@ -88,11 +88,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundImage: `url("${placeholderImg}")`,
     backgroundSize: '100%',
     backgroundPosition: 'center center',
-    minHeight: '500px',
+    minHeight: '150px',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   input: {
@@ -184,8 +184,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: 'none',
   },
   searchContainer: {
-    marginTop: '-10px',
-    marginLeft: '15%',
+    maxWidth: '980px',
     width: '70%',
   },
 }));
@@ -222,7 +221,6 @@ function Home(): JSX.Element {
       .then((data: Asset[]) => {
         setDonations(data);
       });
-
     const assetsApiRequest = new URL(ASSETS_API_URL);
     assetsApiRequest.searchParams.append('type', 'request');
     assetsApiRequest.searchParams.append('limit', '3');
@@ -239,11 +237,6 @@ function Home(): JSX.Element {
       <div className={classes.hero}>
         <div className={classes.searchContainer}>
           <Search />
-        </div>
-        <div className={classes.heroContent}>
-          <Typography className={classes.heroText} variant="h3" component="h1" color="textPrimary">
-            Support local nonprofits through the giving economy.
-          </Typography>
         </div>
       </div>
       <BannerSection />

@@ -14,22 +14,47 @@ const useStyles = makeStyles((theme: Theme) => ({
   searchBar: {
     fontFamily: 'DM Sans',
     display: 'flex',
-    flexDirection: 'row',
     width: '100%',
+    borderRadius: '10px',
+    boxShadow: '0px 2px 4px 2px rgba(0, 0, 0, 0.25)',
   },
   select: {
     background: theme.palette.background.default,
-    borderRadius: '5px',
+    borderRadius: '10px',
     flexBasis: '30%',
-    left: '6px',
     position: 'relative',
     zIndex: 10,
+    borderBottom: 'none',
+    paddingInline: '20px',
+    [`&:before`]: {
+      border: 'none !important',
+    },
+    [`& svg`]: {
+      right: '26px',
+    },
   },
   textField: {
     background: theme.palette.background.default,
-    borderRadius: '5px',
+    borderRadius: '10px',
     flexBasis: '70%',
     color: 'red',
+    // height: '48px',
+    boxSizing: 'border-box',
+    border: '1px solid red',
+    [`& label`]: {
+      marginTop: '-8px',
+      marginLeft: '20px',
+    },
+    [`& div`]: {
+      marginTop: '0px !important',
+      [`&:before`]: {
+        borderBottom: 'none !important',
+      },
+      [`& input`]: {
+        height: '48px',
+        paddingLeft: '20px',
+      },
+    },
   },
 }));
 
@@ -80,6 +105,7 @@ function Search() {
         onChange={handleDropdownChange}
         renderValue={(value: string) => (value ? `Search ${value}` : 'Search All')}
         value={selectedSearchCategory}
+        variant="standard"
       >
         <MenuItem value="All">Search All</MenuItem>
         <MenuItem value="Nonprofits">Search Nonprofits</MenuItem>
