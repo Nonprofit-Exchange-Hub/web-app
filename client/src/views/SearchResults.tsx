@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import * as queryString from 'query-string';
 import { NavLink, useHistory } from 'react-router-dom';
@@ -92,6 +93,8 @@ function SearchResults(): JSX.Element {
   const [volunteer, setVolunteer] = React.useState<Object[]>([]);
 
   function fetchSearchData() {
+    console.log('searchCategory', searchCategory);
+    console.log('searchText', searchText);
     if (searchCategory === 'Volunteer') {
       //TODO: Change API to /volunteer
       fetch(`${APP_API_BASE_URL}/organizations`)
@@ -131,10 +134,6 @@ function SearchResults(): JSX.Element {
     });
   };
 
-  const handleCategoryChange = (event: SelectChangeEvent) => {
-    setSearchCategory(event.target.value);
-  };
-
   const handleSearch = () => {
     fetchSearchData();
     history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
@@ -142,8 +141,7 @@ function SearchResults(): JSX.Element {
 
   React.useEffect(() => {
     fetchSearchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchCategory]);
 
   return (
     <>
@@ -160,7 +158,9 @@ function SearchResults(): JSX.Element {
               id="demo-simple-select"
               value={searchCategory}
               label="Age"
-              onChange={handleCategoryChange}
+              onChange={(e: SelectChangeEvent) => {
+                setSearchCategory(e.target.value);
+              }}
             >
               <MenuItem value="All">All</MenuItem>
               <MenuItem value="Nonprofits">Nonprofits</MenuItem>
@@ -200,23 +200,10 @@ function SearchResults(): JSX.Element {
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
                   setSearchText(e.target.value);
-                  // next line only here temporarily to prevent app from erroring out. Intended to be attached to user input in the future
-                  // setSearchCategory('donation');
                 }}
               />
             </Tooltip>
             <SearchIcon fontSize="large" onClick={handleSearch} />
-            {/* <TextField
-              placeholder="ex. diapers"
-              inputProps={{ 'aria-label': 'ex. diapers' }}
-              type="text"
-              value={searchText}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-                setSearchText(e.target.value);
-                // next line only here temporarily to prevent app from erroring out. Intended to be attached to user input in the future
-                // setSearchCategory('donation');
-              }}
-            /> */}
           </Paper>
         </Box>
       </Paper>
