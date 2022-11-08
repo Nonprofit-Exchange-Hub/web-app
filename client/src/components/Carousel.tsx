@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
 import type { Theme } from '@mui/material/styles';
+import NeedCard from './Card/NeedCard';
+import type { Asset } from '../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   topBanner: {
@@ -30,22 +32,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type Temp = {
-  imgPath: string;
-  label: string;
-};
-
 type CarouselProps = {
-  cardGroups: Array<Temp[]>;
   label: string;
+  assets: Array<Asset>;
 };
 
 function Carousel(props: CarouselProps) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
 
-  const { cardGroups, label } = props;
-  const maxSteps = cardGroups.length;
+  const { label, assets } = props;
+  const displayCount = 5;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -53,6 +50,7 @@ function Carousel(props: CarouselProps) {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
   return (
     <div className={classes.carouselWrapper}>
       <div className={classes.topBanner}>
@@ -96,11 +94,11 @@ function Carousel(props: CarouselProps) {
             sx={{ padding: '0' }}
             size="small"
             onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
+            disabled={assets.length - 1 < (activeStep + 1) * displayCount}
           >
             <ExpandCircleDownOutlinedIcon
               sx={{
-                color: activeStep === maxSteps - 1 ? '#a2a1a1' : '#323232',
+                color: assets.length - 1 < (activeStep + 1) * displayCount ? '#a2a1a1' : '#323232',
                 fontSize: '3rem',
                 transform: 'rotate(270deg)',
               }}
@@ -109,9 +107,21 @@ function Carousel(props: CarouselProps) {
         </div>
       </div>
       <div className={classes.carouselContent}>
-        {cardGroups[activeStep].map((card) => (
-          <img key={card.imgPath} src={card.imgPath} alt={card.label} />
-        ))}
+        {assets
+          .slice(activeStep * displayCount, activeStep * displayCount + displayCount)
+          .map((card) => (
+            <NeedCard
+              key={card.id}
+              title={card.title}
+              type={card.type}
+              date={card.datePosted}
+              description={card.description}
+              org={card.poster.firstName}
+              condition={card.condition}
+              location={card.location}
+              imgUrls={card.imgUrls}
+            />
+          ))}
       </div>
     </div>
   );
