@@ -4,14 +4,15 @@ import { NavLink, useHistory } from 'react-router-dom';
 
 import makeStyles from '@mui/styles/makeStyles';
 import Paper from '@mui/material/Paper';
-import SearchIcon from '@mui/icons-material/Search';
-import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import type { Theme } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import Tooltip from '@mui/material/Tooltip';
 
 import AssetsList from './AssetsList';
 import OrgsList from './OrgsList';
@@ -82,15 +83,7 @@ function SearchResults(): JSX.Element {
     (querySearchCategory as string) || '',
   );
   const [searchText, setSearchText] = React.useState<string>((querySearchText as string) || '');
-  const [inputText, setInputText] = React.useState<string>('');
   const [selectedFilters, setSelectedFilters] = React.useState<{ [key: string]: boolean }>({});
-
-  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFilters({
-      ...selectedFilters,
-      [event.target.value]: event.target.checked,
-    });
-  };
 
   const [offers, setOffers] = React.useState<Asset[]>([]);
   const [needs, setNeeds] = React.useState<Asset[]>([]);
@@ -98,20 +91,7 @@ function SearchResults(): JSX.Element {
   //TODO: create Volunteer Type in types/index.ts and change Object[] to Volunteer[] below
   const [volunteer, setVolunteer] = React.useState<Object[]>([]);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSearchCategory(event.target.value);
-  };
-
-  const handleSearch = () => {
-    setSearchText(inputText);
-    setInputText('');
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setInputText(e.target.value);
-  };
-
-  React.useEffect(() => {
+  function fetchSearchData() {
     if (searchCategory === 'Volunteer') {
       //TODO: Change API to /volunteer
       fetch(`${APP_API_BASE_URL}/organizations`)
@@ -141,18 +121,36 @@ function SearchResults(): JSX.Element {
         });
     } else {
       //TODO: Change API to fetch ALL combined data
-      console.log('Fetches "All Lists" API here');
     }
+  }
 
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFilters({
+      ...selectedFilters,
+      [event.target.value]: event.target.checked,
+    });
+  };
+
+  const handleCategoryChange = (event: SelectChangeEvent) => {
+    setSearchCategory(event.target.value);
+  };
+
+  const handleSearch = () => {
+    fetchSearchData();
     history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
-  }, [history, searchText, searchCategory]);
+  };
+
+  React.useEffect(() => {
+    fetchSearchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <Paper className={classes.searchBar}>
         <Box sx={{ display: 'flex' }}>
           <>
-            X of Y results for "<b>{searchText}</b>"
+            X of Y results for "<b>{querySearchText}</b>"
           </>
         </Box>
         <Box sx={{ display: 'flex' }}>
@@ -162,7 +160,7 @@ function SearchResults(): JSX.Element {
               id="demo-simple-select"
               value={searchCategory}
               label="Age"
-              onChange={handleChange}
+              onChange={handleCategoryChange}
             >
               <MenuItem value="All">All</MenuItem>
               <MenuItem value="Nonprofits">Nonprofits</MenuItem>
@@ -173,20 +171,52 @@ function SearchResults(): JSX.Element {
           </FormControl>
 
           <Paper className={classes.searchInput}>
-            <TextField
-              sx={{
-                '& .MuiOutlinedInput-notchedOutline': {
-                  border: '0 none',
+            <Tooltip
+              placement="top-end"
+              componentsProps={{
+                tooltip: {
+                  sx: {
+                    color: 'rgba(0, 0, 0, 0.87)',
+                    fontSize: 13,
+                    bgcolor: 'common.white',
+                    '& .MuiTooltip-arrow': {
+                      color: 'common.white',
+                    },
+                  },
                 },
               }}
-              placeholder="Search"
+              title="Press 'Enter' key or Click the Icon to Search"
+            >
+              <TextField
+                sx={{
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    border: '0 none',
+                  },
+                }}
+                placeholder="Search"
+                inputProps={{ 'aria-label': 'ex. diapers' }}
+                type="text"
+                value={searchText}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+                  setSearchText(e.target.value);
+                  // next line only here temporarily to prevent app from erroring out. Intended to be attached to user input in the future
+                  // setSearchCategory('donation');
+                }}
+              />
+            </Tooltip>
+            <SearchIcon fontSize="large" onClick={handleSearch} />
+            {/* <TextField
+              placeholder="ex. diapers"
               inputProps={{ 'aria-label': 'ex. diapers' }}
               type="text"
-              value={inputText}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              onChange={(e) => handleInput(e)}
-            />
-            <SearchIcon fontSize="large" onClick={handleSearch} />
+              value={searchText}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+                setSearchText(e.target.value);
+                // next line only here temporarily to prevent app from erroring out. Intended to be attached to user input in the future
+                // setSearchCategory('donation');
+              }}
+            /> */}
           </Paper>
         </Box>
       </Paper>

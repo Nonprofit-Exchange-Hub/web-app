@@ -55,8 +55,6 @@ function OrgsList(props: Props): JSX.Element {
   const { orgs, headerContentRight, headerText } = props;
   if (!orgs) return <> </>;
 
-  console.log('orgs', orgs);
-
   return (
     <>
       <Grid container item justifyContent="space-between">
