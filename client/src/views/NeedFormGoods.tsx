@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Button, Alert } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 import { FileUploadInput, RadioGroup, Select, TextField } from '../components/Forms';
@@ -7,6 +7,7 @@ import NeedOfferForm from './NeedOfferForm';
 import DetectFormData from '../components/DetectFormData';
 import AlertDialog from '../components/AlertDialog';
 import { UserContext } from '../providers';
+import { validationSchema, urlSchema } from './validation-NeedFormGoods';
 
 import type { Category, Option } from '../types';
 import { APP_API_BASE_URL } from '../configs';
@@ -70,9 +71,7 @@ function NeedForm(): JSX.Element {
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<Option[]>([]);
   const [user] = React.useContext(UserContext);
-  const [validUrl, setValidUrl] = React.useState<boolean>(true);
-  const [imgArrLength, setImgArrLength] = React.useState<boolean>(true);
-  const [imgUnique, setImgUnique] = React.useState<boolean>(true);
+  // const [errors, setErrors] = React.useState({ imgUrls: '' });
 
   const history = useHistory();
 
@@ -87,31 +86,9 @@ function NeedForm(): JSX.Element {
     })();
   }, []);
 
-  const isValidUrl = (urlString: string) => {
-    let urlPattern = new RegExp(
-      '^(https?:\\/\\/)?' +
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
-        '((\\d{1,3}\\.){3}\\d{1,3}))' +
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
-        '(\\?[;&a-z\\d%_.~+=-]*)?' +
-        '(\\#[-a-z\\d_]*)?$',
-      'i',
-    );
-    return !!urlPattern.test(urlString);
-  };
-
   function addPhotoUrl() {
-    let photoUrl: string = formData.imgUrls[formData.imgUrls.length - 1];
-    if (isValidUrl(photoUrl) && formData.imgUrls.length < 10 && imgUnique) {
+    if (formData.imgUrls.length < 10) {
       setFormData({ ...formData, imgUrls: [...formData.imgUrls, ''] });
-      setValidUrl(true);
-      setImgUnique(true);
-    } else if (formData.imgUrls.length >= 10) {
-      setImgArrLength(false);
-    } else if (!imgUnique) {
-      setImgUnique(false);
-    } else {
-      setValidUrl(false);
     }
   }
 
@@ -143,11 +120,16 @@ function NeedForm(): JSX.Element {
 
   const handleChangePhotoUrl = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     setFormData((fData) => {
-      if (formData.imgUrls.includes(event.target.value)) {
-        setImgUnique(false);
-      } else {
-        setImgUnique(true);
-      }
+      let validatedUrls;
+      urlSchema
+        .validate({ url: event.target.value })
+        .then((success) => {
+          validatedUrls = success;
+          console.log(validatedUrls);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       let newImageUrls = [...fData.imgUrls];
       newImageUrls[index] = event.target.value;
       return {
@@ -159,26 +141,26 @@ function NeedForm(): JSX.Element {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    if (!isValidUrl(formData.imgUrls[formData.imgUrls.length - 1])) {
-      formData.imgUrls.pop();
-      console.log('REMOVED');
-    }
-    const res = await fetch(`${APP_API_BASE_URL}/assets`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...formData,
-        poster: user,
-      }),
-    });
-    const data = await res.json();
-    if (res.status === 201) {
-      history.push('/asset/' + data.id);
-    } else {
-      // TODO: Display error modal
-      console.error(data.message);
+    const isValid = await validationSchema.isValid(formData);
+    console.log(isValid);
+    if (isValid) {
+      const res = await fetch(`${APP_API_BASE_URL}/assets`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          poster: user,
+        }),
+      });
+      const data = await res.json();
+      if (res.status === 201) {
+        history.push('/asset/' + data.id);
+      } else {
+        // TODO: Display error modal
+        console.error(data.message);
+      }
     }
   };
 
@@ -272,9 +254,6 @@ function NeedForm(): JSX.Element {
         <Grid item xs={12}>
           <p>Or link photos below</p>
           {imageInputFields}
-          {validUrl ? null : <Alert severity="info">Please add a valid URL</Alert>}
-          {imgArrLength ? null : <Alert severity="info">Limit of 10 photos reached</Alert>}
-          {imgUnique ? null : <Alert severity="info">No duplicate images</Alert>}
           <Button onClick={addPhotoUrl}>click here to add another photo</Button>
         </Grid>
         <Grid item container xs={12} justifyContent="center">
