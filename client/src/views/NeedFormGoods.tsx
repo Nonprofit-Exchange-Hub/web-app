@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, FormControl, FormHelperText } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 import { FileUploadInput, RadioGroup, Select, TextField } from '../components/Forms';
@@ -71,7 +71,7 @@ function NeedForm(): JSX.Element {
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<Option[]>([]);
   const [user] = React.useContext(UserContext);
-  // const [errors, setErrors] = React.useState({ imgUrls: '' });
+  const [urlError, setUrlError] = React.useState(null);
 
   const history = useHistory();
 
@@ -94,14 +94,17 @@ function NeedForm(): JSX.Element {
 
   const imageInputFields = formData.imgUrls.map((img, i) => {
     return (
-      <TextField
-        key={i}
-        id={'imgUrls' + i}
-        label={`Photo ${i + 1}`}
-        placeholder="Insert photo url"
-        value={formData.imgUrls[i]}
-        onChange={(e) => handleChangePhotoUrl(e, i)}
-      />
+      <FormControl>
+        <TextField
+          key={i}
+          id={'imgUrls' + i}
+          label={`Photo ${i + 1}`}
+          placeholder="Insert photo url"
+          value={formData.imgUrls[i]}
+          onChange={(e) => handleChangePhotoUrl(e, i)}
+        />
+        <FormHelperText>{urlError}</FormHelperText>
+      </FormControl>
     );
   });
 
@@ -126,9 +129,10 @@ function NeedForm(): JSX.Element {
         .then((success) => {
           validatedUrls = success;
           console.log(validatedUrls);
+          setUrlError(null);
         })
         .catch((error) => {
-          console.log(error);
+          setUrlError(error.message);
         });
       let newImageUrls = [...fData.imgUrls];
       newImageUrls[index] = event.target.value;
@@ -142,7 +146,6 @@ function NeedForm(): JSX.Element {
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     const isValid = await validationSchema.isValid(formData);
-    console.log(isValid);
     if (isValid) {
       const res = await fetch(`${APP_API_BASE_URL}/assets`, {
         method: 'POST',
