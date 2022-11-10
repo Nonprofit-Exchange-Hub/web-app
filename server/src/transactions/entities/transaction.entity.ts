@@ -3,8 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TransactionStatus } from '../transaction-status.enum';
@@ -21,7 +24,7 @@ export class Transaction {
   @Column({
     type: 'enum',
     enum: TransactionStatus,
-    default: TransactionStatus.IN_PROGRESS,
+    default: TransactionStatus.NEW_CLAIM,
   })
   status: TransactionStatus;
 
@@ -32,7 +35,7 @@ export class Transaction {
   @JoinColumn()
   donater_user: User;
 
-  @ManyToOne(() => Organization, (organization) => organization.transactions)
+  @ManyToOne(() => Organization, (organization) => organization.donated_transactions)
   @JoinColumn()
   donater_organization?: Organization;
 
@@ -40,11 +43,11 @@ export class Transaction {
   @JoinColumn()
   asset: Asset;
 
-  @ManyToOne(() => Organization, (recipient) => recipient.transactions)
+  @ManyToOne(() => Organization, (org) => org.claimed_transactions)
   @JoinColumn()
-  recipient: Organization;
+  claimer: Organization;
 
   @OneToMany(() => Message, (message) => message.transaction)
   @JoinColumn()
-  messages: Message;
+  messages: Message[];
 }

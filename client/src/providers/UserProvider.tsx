@@ -21,7 +21,7 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const [user, setUser] = React.useState<User | null>(null);
 
   async function fetchUser(): Promise<User | null> {
-    const res = await fetch(`${APP_API_BASE_URL}/api/auth/session`, {
+    const res = await fetch(`${APP_API_BASE_URL}/auth/session`, {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
