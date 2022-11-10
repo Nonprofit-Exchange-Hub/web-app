@@ -13,9 +13,10 @@ import { placeholderImg } from '../assets/temp';
 import QuestionList from '../components/QuestionList';
 import BannerSection from '../components/BannerSection';
 import routes from '../routes';
+import CallToActionCards from '../components/CallToActionCards';
+import { APP_API_BASE_URL } from '../configs';
 
 import type { Asset } from '../types';
-import { APP_API_BASE_URL } from '../configs';
 
 const carouselSteps = [
   [
@@ -240,6 +241,7 @@ function Home(): JSX.Element {
         </div>
       </div>
       <BannerSection />
+      <CallToActionCards />
       <div className={classes.needsAndOffers}>
         <AssetsList
           assets={requests}
