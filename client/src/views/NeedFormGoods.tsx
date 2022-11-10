@@ -7,7 +7,7 @@ import NeedOfferForm from './NeedOfferForm';
 import DetectFormData from '../components/DetectFormData';
 import AlertDialog from '../components/AlertDialog';
 import { UserContext } from '../providers';
-import { validationSchema, urlSchema } from './validation-NeedFormGoods';
+import { validationSchema, urlSchema } from './NeedFormGoods-validation';
 
 import type { Category, Option } from '../types';
 import { APP_API_BASE_URL } from '../configs';
@@ -71,7 +71,7 @@ function NeedForm(): JSX.Element {
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<Option[]>([]);
   const [user] = React.useContext(UserContext);
-  const [urlError, setUrlError] = React.useState(null);
+  const [urlError, setUrlError] = React.useState({ '0': '' });
 
   const history = useHistory();
 
@@ -103,7 +103,7 @@ function NeedForm(): JSX.Element {
           value={formData.imgUrls[i]}
           onChange={(e) => handleChangePhotoUrl(e, i)}
         />
-        <FormHelperText>{urlError}</FormHelperText>
+        <FormHelperText>{urlError[`${i}` as keyof typeof urlError]}</FormHelperText>
       </FormControl>
     );
   });
@@ -129,10 +129,16 @@ function NeedForm(): JSX.Element {
         .then((success) => {
           validatedUrls = success;
           console.log(validatedUrls);
-          setUrlError(null);
+          setUrlError((urlError) => ({
+            ...urlError,
+            [`${index}`]: '',
+          }));
         })
         .catch((error) => {
-          setUrlError(error.message);
+          setUrlError((urlError) => ({
+            ...urlError,
+            [`${index}`]: error.message,
+          }));
         });
       let newImageUrls = [...fData.imgUrls];
       newImageUrls[index] = event.target.value;
