@@ -19,7 +19,7 @@ import QuestionList from '../components/QuestionList';
 import routes from '../routes';
 
 import type { Asset } from '../types';
-import CTACard from '../components/CTACard';
+import CallToActionCards from '../components/CallToActionCards';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -222,11 +222,7 @@ function Home(): JSX.Element {
           </div>
         </div>
       </div>
-      <div>
-        <div>
-          <CTACard />
-        </div>
-      </div>
+      <CallToActionCards />
       <div className={classes.needsAndOffers}>
         <AssetsList
           assets={requests}

@@ -8,7 +8,6 @@ import { IconButton, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { makeStyles } from '@mui/styles';
 
-//     backgroundColor: '#37718E', //primary dark blue color
 const useStyles = makeStyles((theme) => ({
   CTAGrid: {
     justifyContent: 'center',
@@ -78,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CTACard() {
+function CallToActionCards() {
   const classes = useStyles({});
 
   const loremIpsum =
@@ -197,7 +196,6 @@ function CTACard() {
                   />
                 </IconButton>
               </Grid>
-              {/* </div> */}
             </CardContent>
           </Card>
         </Grid>
@@ -260,4 +258,4 @@ function CTACard() {
   );
 }
 
-export default CTACard;
+export default CallToActionCards;
