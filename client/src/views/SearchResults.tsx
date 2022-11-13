@@ -93,8 +93,6 @@ function SearchResults(): JSX.Element {
   const [volunteer, setVolunteer] = React.useState<Object[]>([]);
 
   function fetchSearchData() {
-    console.log('searchCategory', searchCategory);
-    console.log('searchText', searchText);
     if (searchCategory === 'Volunteer') {
       //TODO: Change API to /volunteer
       fetch(`${APP_API_BASE_URL}/organizations`)
