@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
@@ -22,9 +21,9 @@ function App(): JSX.Element {
         <ReactQueryDevtools />
         <UserProvider>
           <BrowserRouter
-            getUserConfirmation={() => {
-              // intentionally left empty callback to block the default browser prompt.
-            }}
+          // getUserConfirmation={() => {
+          //   // intentionally left empty callback to block the default browser prompt.
+          // }}
           >
             <div className="App">
               <Header />

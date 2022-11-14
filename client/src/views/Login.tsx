@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -62,7 +62,7 @@ interface Error {
 
 function Login() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
   const [, setUser] = React.useContext(UserContext);
@@ -102,7 +102,7 @@ function Login() {
     } else {
       setUser(response.user, false, true);
       setError(null);
-      history.push('/');
+      navigate('/');
     }
   };
 

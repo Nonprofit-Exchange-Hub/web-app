@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Input from '@mui/material/Input';
@@ -73,7 +73,7 @@ const initialFormData: UserSignupData = {
 
 function SignupCitizen() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
@@ -103,7 +103,7 @@ function SignupCitizen() {
     if (data.status === 409) {
       setEmailError(data.message);
     } else {
-      history.push('/');
+      navigate('/');
     }
   };
 

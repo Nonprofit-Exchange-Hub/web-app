@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { FileUploadInput, RadioGroup, Select, TextField } from '../components/Forms';
 import NeedOfferForm from './NeedOfferForm';
-import DetectFormData from '../components/DetectFormData';
-import AlertDialog from '../components/AlertDialog';
+// REMOVED due to V6 incompatibility: import DetectFormData from '../components/DetectFormData';
+// REMOVED due to V6 incompatibility: import AlertDialog from '../components/AlertDialog';
 import { UserContext } from '../providers';
 
 import type { Category, Option } from '../types';
@@ -66,15 +66,15 @@ const initialFormData: ShareANeedData = {
 
 function NeedForm(): JSX.Element {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
-  const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
+  // REMOVED due to V6 incompatibility: const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<Option[]>([]);
   const [user] = React.useContext(UserContext);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  React.useEffect(() => {
-    setFormInProgress(() => DetectFormData(formData));
-  }, [formData]);
+  // REMOVED due to V6 incompatibility: React.useEffect(() => {
+  //   setFormInProgress(() => DetectFormData(formData));
+  // }, [formData]);
 
   React.useEffect(() => {
     (async function () {
@@ -110,7 +110,7 @@ function NeedForm(): JSX.Element {
     });
     const data = await res.json();
     if (res.status === 201) {
-      history.push('/asset/' + data.id);
+      navigate('/asset/' + data.id);
     } else {
       // TODO: Display error modal
       console.error(data.message);
@@ -119,7 +119,8 @@ function NeedForm(): JSX.Element {
 
   return (
     <NeedOfferForm title="Share a Need: Goods">
-      <AlertDialog when={formInProgress} onConfirmation={() => true} onCancel={() => false} />
+      {/* TODO: Router v6 doesn't support useBlocker, UsePrompt - find a way to promp user if form isn't complete before switching routes OR wait for Router update*/}
+      {/* REMOVED due to V6 incompatibility: <AlertDialog when={formInProgress} onConfirmation={() => true} onCancel={() => false} /> */}
       <Grid container spacing={5}>
         <Grid item md={8} xs={12}>
           <TextField

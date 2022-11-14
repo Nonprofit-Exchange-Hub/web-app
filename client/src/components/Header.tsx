@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -72,7 +72,7 @@ function Header() {
   const LOGOUT_URL = `${APP_API_BASE_URL}/logout`;
   const classes = useStyles();
   const [user, setUser] = React.useContext(UserContext);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [navAnchorEl, setNavAnchorEl] = React.useState<null | HTMLElement>(null);
   const [profileAnchorEl, setProfileAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -99,7 +99,7 @@ function Header() {
       credentials: 'include',
       method: 'GET',
     });
-    history.push('/');
+    navigate('/');
   };
 
   return (
@@ -113,21 +113,21 @@ function Header() {
           <NavLink
             className={classes.navLink}
             to={routes.AboutUs.path}
-            activeStyle={{ fontWeight: 'bold' }}
+            style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : '' })}
           >
             About Us
           </NavLink>
           <NavLink
             className={classes.navLink}
             to={routes.HowItWorks.path}
-            activeStyle={{ fontWeight: 'bold' }}
+            style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : '' })}
           >
             How It Works
           </NavLink>
           <NavLink
             className={classes.navLink}
             to={routes.Help.path}
-            activeStyle={{ fontWeight: 'bold' }}
+            style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : '' })}
           >
             FAQs
           </NavLink>

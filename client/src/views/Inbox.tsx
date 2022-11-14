@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import makeStyles from '@mui/styles/makeStyles';
@@ -122,7 +122,7 @@ const fetchMessages = async (): Promise<Message[]> => {
   return messages;
 };
 
-// TODO use SubHeader component in Offer and Assets pages
+// TODO: use SubHeader component in Offer and Assets pages
 
 // maybe call it SearchBar and have an optional leftContent prop?
 function MessageInboxView(): JSX.Element {
@@ -158,7 +158,7 @@ function MessageInboxView(): JSX.Element {
   }, [selectedTransaction]);
 
   if (!user) {
-    return <Redirect to={routes.Home.path} />;
+    return <Route path={routes.Home.path} />;
   } else {
     return (
       <>

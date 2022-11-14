@@ -29,122 +29,122 @@ import TempChat from './views/TempChat';
 
 type RouteMap = {
   [componentName: string]: {
-    component: () => JSX.Element;
+    component: JSX.Element;
     path: string;
   };
 };
 
 const routes: RouteMap = {
   Home: {
-    component: Home,
+    component: <Home />,
     path: '/',
   },
   AboutUs: {
-    component: AboutUs,
+    component: <AboutUs />,
     path: '/about-us',
   },
   HowItWorks: {
-    component: HowItWorks,
+    component: <HowItWorks />,
     path: '/how-it-works',
   },
   OurStory: {
-    component: OurStory,
+    component: <OurStory />,
     path: '/our-story',
   },
   TrustAndSafety: {
-    component: TrustAndSafety,
+    component: <TrustAndSafety />,
     path: '/trust-and-safety',
   },
   TermsOfService: {
-    component: TermsOfService,
+    component: <TermsOfService />,
     path: '/terms-of-service',
   },
   PrivacyPolicy: {
-    component: PrivacyPolicy,
+    component: <PrivacyPolicy />,
     path: '/privacy-policy',
   },
   CookiePolicy: {
-    component: CookiePolicy,
+    component: <CookiePolicy />,
     path: '/cookie-policy',
   },
   ForgotPassword: {
-    component: ForgotPassword,
+    component: <ForgotPassword />,
     path: '/forgot-password',
   },
   SetNewPassword: {
-    component: SetNewPassword,
+    component: <SetNewPassword />,
     path: '/set-new-password',
   },
   Login: {
-    component: Login,
+    component: <Login />,
     path: '/login',
   },
   Signup: {
-    component: Signup,
+    component: <Signup />,
     path: '/signup',
   },
   SignupCitizen: {
-    component: SignupCitizen,
+    component: <SignupCitizen />,
     path: '/signup-citizen',
   },
   SignupNonProfit: {
-    component: SignupNonProfit,
+    component: <SignupNonProfit />,
     path: '/signup-nonprofit',
   },
   Inbox: {
-    component: Inbox,
+    component: <Inbox />,
     path: '/inbox',
   },
   User: {
-    component: User,
+    component: <User />,
     path: '/users/:userId',
   },
   ActionForm: {
-    component: ActionForm,
+    component: <ActionForm />,
     path: '/action',
   },
   Assets: {
-    component: AssetsView,
+    component: <AssetsView />,
     path: '/assets',
   },
   Asset: {
-    component: Asset,
+    component: <Asset />,
     path: '/asset/:assetId',
   },
   NeedForm: {
-    component: NeedForm,
+    component: <NeedForm />,
     path: '/need',
   },
   NeedFormGoods: {
-    component: NeedFormGoods,
+    component: <NeedFormGoods />,
     path: '/need/goods',
   },
   NeedFormVolunteers: {
-    component: NeedFormVolunteers,
+    component: <NeedFormVolunteers />,
     path: '/need/volunteers',
   },
   OfferForm: {
-    component: OfferForm,
+    component: <OfferForm />,
     path: '/offer',
   },
   OfferFormGoods: {
-    component: OfferFormGoods,
+    component: <OfferFormGoods />,
     path: '/offer/goods',
   },
   OfferFormSkills: {
-    component: OfferFormSkills,
+    component: <OfferFormSkills />,
     path: '/offer/skills',
   },
   ContactUs: {
-    component: ContactUs,
+    component: <ContactUs />,
     path: '/contact-us',
   },
   Help: {
-    component: Help,
+    component: <Help />,
     path: '/help',
   },
   TempChat: {
-    component: TempChat,
+    component: <TempChat />,
     path: '/chat',
   },
 };

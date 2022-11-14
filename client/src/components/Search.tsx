@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -58,7 +58,7 @@ function Search() {
   const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('Needs');
   const [searchText, setSearchText] = React.useState<string>('');
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleDropdownChange = (event: SelectChangeEvent<string>) => {
     setSelectedSearchCategory(event.target.value as string);
@@ -66,7 +66,7 @@ function Search() {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      history.push(`/assets?search=${searchText}`);
+      navigate(`/assets?search=${searchText}`);
     }
   };
 

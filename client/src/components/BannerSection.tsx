@@ -1,4 +1,5 @@
-import { useHistory } from 'react-router-dom';
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Grid, Typography, Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import type { Theme } from '@mui/material/styles';
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function BannerSection() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div className={classes.gridContent}>
@@ -68,16 +69,10 @@ function BannerSection() {
                 maxWidth: '800px',
               }}
             >
-              <button
-                onClick={() => history.push('/signup-nonprofit')}
-                className={classes.gridButtons}
-              >
+              <button onClick={() => navigate('/signup-nonprofit')} className={classes.gridButtons}>
                 Join as a Nonprofit
               </button>
-              <button
-                onClick={() => history.push('/signup-citizen')}
-                className={classes.gridButtons}
-              >
+              <button onClick={() => navigate('/signup-citizen')} className={classes.gridButtons}>
                 Join as an Individual
               </button>
             </div>

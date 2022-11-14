@@ -1,89 +1,67 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import routes from '../routes';
 
 function Main() {
   return (
     <main>
-      <Switch>
-        <Route exact path={routes.Home.path} component={routes.Home.component} />
+      <Routes>
+        <Route path={routes.Home.path}>
+          <Route index element={routes.Home.component} />
 
-        {/* static */}
-        {/* static: about */}
-        <Route exact path={routes.AboutUs.path} component={routes.AboutUs.component} />
-        <Route exact path={routes.HowItWorks.path} component={routes.HowItWorks.component} />
-        <Route exact path={routes.OurStory.path} component={routes.OurStory.component} />
+          {/* static */}
+          {/* static: about */}
+          <Route path={routes.AboutUs.path} element={routes.AboutUs.component} />
+          <Route path={routes.HowItWorks.path} element={routes.HowItWorks.component} />
+          <Route path={routes.OurStory.path} element={routes.OurStory.component} />
 
-        {/* static: policy */}
-        <Route
-          exact
-          path={routes.TrustAndSafety.path}
-          component={routes.TrustAndSafety.component}
-        />
-        <Route
-          exact
-          path={routes.TermsOfService.path}
-          component={routes.TermsOfService.component}
-        />
-        <Route exact path={routes.PrivacyPolicy.path} component={routes.PrivacyPolicy.component} />
-        <Route exact path={routes.CookiePolicy.path} component={routes.CookiePolicy.component} />
-        {/* users */}
-        <Route exact path={routes.Login.path} component={routes.Login.component} />
-        <Route
-          exact
-          path={routes.ForgotPassword.path}
-          component={routes.ForgotPassword.component}
-        />
-        <Route
-          exact
-          path={routes.SetNewPassword.path}
-          component={routes.SetNewPassword.component}
-        />
-        <Route exact path={routes.Signup.path} component={routes.Signup.component} />
-        <Route exact path={routes.SignupCitizen.path} component={routes.SignupCitizen.component} />
-        <Route
-          exact
-          path={routes.SignupNonProfit.path}
-          component={routes.SignupNonProfit.component}
-        />
-        <Route exact path={routes.Inbox.path} component={routes.Inbox.component} />
-        <Route exact path={routes.User.path} component={routes.User.component} />
+          {/* static: policy */}
+          <Route path={routes.TrustAndSafety.path} element={routes.TrustAndSafety.component} />
+          <Route path={routes.TermsOfService.path} element={routes.TermsOfService.component} />
+          <Route path={routes.PrivacyPolicy.path} element={routes.PrivacyPolicy.component} />
+          <Route path={routes.CookiePolicy.path} element={routes.CookiePolicy.component} />
 
-        {/* action */}
-        <Route exact path={routes.ActionForm.path} component={routes.ActionForm.component} />
+          {/* users */}
+          <Route path={routes.Login.path} element={routes.Login.component} />
+          <Route path={routes.ForgotPassword.path} element={routes.ForgotPassword.component} />
+          <Route path={routes.SetNewPassword.path} element={routes.SetNewPassword.component} />
+          <Route path={routes.Signup.path} element={routes.Signup.component} />
+          <Route path={routes.SignupCitizen.path} element={routes.SignupCitizen.component} />
+          <Route path={routes.SignupNonProfit.path} element={routes.SignupNonProfit.component} />
+          <Route path={routes.Inbox.path} element={routes.Inbox.component} />
+          <Route path={routes.User.path} element={routes.User.component} />
 
-        {/* action: assets */}
-        <Route exact path={routes.Assets.path} component={routes.Assets.component} />
-        <Route exact path={routes.Asset.path} component={routes.Asset.component} />
+          {/* action */}
+          <Route path={routes.ActionForm.path} element={routes.ActionForm.component} />
 
-        {/* action: needs */}
-        <Route exact path={routes.NeedForm.path} component={routes.NeedForm.component} />
-        <Route exact path={routes.NeedFormGoods.path} component={routes.NeedFormGoods.component} />
-        <Route
-          exact
-          path={routes.NeedFormVolunteers.path}
-          component={routes.NeedFormVolunteers.component}
-        />
+          {/* action: assets */}
+          <Route path={routes.Assets.path} element={routes.Assets.component} />
+          <Route path={routes.Asset.path} element={routes.Asset.component} />
 
-        {/* action: offers */}
-        <Route exact path={routes.OfferForm.path} component={routes.OfferForm.component} />
-        <Route
-          exact
-          path={routes.OfferFormGoods.path}
-          component={routes.OfferFormGoods.component}
-        />
-        <Route
-          exact
-          path={routes.OfferFormSkills.path}
-          component={routes.OfferFormSkills.component}
-        />
+          {/* action: needs */}
+          <Route path={routes.NeedForm.path}>
+            <Route index element={routes.NeedForm.component} />
+            <Route path={routes.NeedFormGoods.path} element={routes.NeedFormGoods.component} />
+            <Route
+              path={routes.NeedFormVolunteers.path}
+              element={routes.NeedFormVolunteers.component}
+            />
+          </Route>
 
-        {/* support */}
-        <Route exact path={routes.ContactUs.path} component={routes.ContactUs.component} />
-        <Route exact path={routes.Help.path} component={routes.Help.component} />
-        <Route exact path={routes.TempChat.path} component={routes.TempChat.component} />
-      </Switch>
+          {/* action: offers */}
+          <Route path={routes.OfferForm.path}>
+            <Route index element={routes.OfferForm.component} />
+            <Route path={routes.OfferFormGoods.path} element={routes.OfferFormGoods.component} />
+            <Route path={routes.OfferFormSkills.path} element={routes.OfferFormSkills.component} />
+          </Route>
+
+          {/* support */}
+          <Route path={routes.ContactUs.path} element={routes.ContactUs.component} />
+          <Route path={routes.Help.path} element={routes.Help.component} />
+          <Route path={routes.TempChat.path} element={routes.TempChat.component} />
+        </Route>
+      </Routes>
     </main>
   );
 }
