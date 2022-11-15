@@ -14,7 +14,7 @@ export class CreateTransactionDto {
   @IsOptional()
   donater_organization?: Organization;
 
-  @IsNotEmpty({ message: 'asset_id is required' })
+  @IsNotEmpty({ message: 'asset is required' })
   asset: Asset;
 
   @IsOptional()

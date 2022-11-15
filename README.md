@@ -7,6 +7,8 @@
 
 ## Installation and Setup
 
+### docker is optional, feel free to skip it if you're not comfortable
+
 1. Setup PostgreSQL Database and OPTIONALLY wrap in Docker container
     * Install postgres if you do not have it already https://www.postgresql.org/download/
         * Make a note of your username and password

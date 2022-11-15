@@ -38,6 +38,7 @@ export class StubGen {
         allowLeadingZeros: false,
       })}`,
       nonprofit_classification: 'FAKE',
+      image_url: 'https://docs.nestjs.com/assets/logo-small.svg',
     };
   }
 

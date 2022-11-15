@@ -25,6 +25,7 @@ export const toOrg = (
   state: string;
   ein: string;
   nonprofit_classification: string;
+  image_url: string;
 } => {
   const {
     name,
@@ -37,6 +38,7 @@ export const toOrg = (
     state,
     ein,
     nonprofit_classification,
+    image_url,
   } = formData;
   return {
     name,
@@ -49,5 +51,6 @@ export const toOrg = (
     state,
     ein,
     nonprofit_classification,
+    image_url,
   };
 };
