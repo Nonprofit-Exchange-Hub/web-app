@@ -1,4 +1,4 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
@@ -26,6 +26,7 @@ export class CookieAuthGuard extends AuthGuard() {
     try {
       user = await this.jwtService.verify(jwt, { secret: jwtConstants.secret });
     } catch (_e) {
+      Logger.error(_e, CookieAuthGuard.name);
       return false;
     }
 

@@ -8,12 +8,13 @@ import { AuthService } from './auth.service';
 import { COOKIE_KEY } from './constants';
 
 import type { User } from '../users/entities/user.entity';
+import { UsersService } from '../users/users.service';
 
 type AuthedRequest = RequestT & { user: User };
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private userService: UsersService) {}
 
   @Post('login')
   @UseGuards(LoginAuthGuard)
@@ -40,7 +41,10 @@ export class AuthController {
   @UseGuards(CookieAuthGuard)
   async session(@Request() request: AuthedRequest): Promise<{ user: Omit<User, 'password'> }> {
     const { user } = request;
-    return { user };
+    const { firstName, last_name, email, profile_image_url } = await this.userService.findOne(
+      user.id,
+    );
+    return { user: { ...user, firstName, last_name, email, profile_image_url } };
   }
 
   @Get('logout')
