@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { forwardRef, INestApplication } from '@nestjs/common';
 import * as supertest from 'supertest';
 import { Repository } from 'typeorm';
 
@@ -11,6 +11,7 @@ import { UsersModule } from '../../src/users/users.module';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
 import { FilesService } from '../../src/files/files.service';
+import { AuthModule } from '../../src/auth/auth.module';
 
 describe('UsersController', () => {
   let app: INestApplication;
@@ -27,7 +28,7 @@ describe('UsersController', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
+      imports: [UsersModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS), forwardRef(() => AuthModule)],
       controllers: [UsersController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }, FilesService],
     }).compile();
