@@ -93,28 +93,28 @@ function SearchResults(): JSX.Element {
   const [volunteer, setVolunteer] = React.useState<Object[]>([]);
 
   function fetchSearchData() {
-    if (searchCategory === 'Volunteer') {
+    if (querySearchCategory === 'Volunteer') {
       //TODO: Change API to /volunteer
       fetch(`${APP_API_BASE_URL}/organizations`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
           setVolunteer(data);
         });
-    } else if (searchCategory === 'Offers' || searchCategory === 'Needs') {
+    } else if (querySearchCategory === 'Offers' || querySearchCategory === 'Needs') {
       fetch(
-        `${APP_API_BASE_URL}/assets?type=${searchCategory === 'Needs' ? 'donation' : 'request'}${
-          searchText ? `&title=${searchText}` : ''
-        }`,
+        `${APP_API_BASE_URL}/assets?type=${
+          querySearchCategory === 'Needs' ? 'donation' : 'request'
+        }${searchText ? `&title=${searchText}` : ''}`,
       )
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
-          if (searchCategory === 'Needs') {
+          if (querySearchCategory === 'Needs') {
             setNeeds(data);
           } else {
             setOffers(data);
           }
         });
-    } else if (searchCategory === 'Nonprofits') {
+    } else if (querySearchCategory === 'Nonprofits') {
       fetch(`${APP_API_BASE_URL}/organizations?search=${searchText}`)
         .then((resp) => resp.json())
         .then((data: Organization[]) => {
@@ -133,13 +133,13 @@ function SearchResults(): JSX.Element {
   };
 
   const handleSearch = () => {
-    fetchSearchData();
     history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
   };
 
   React.useEffect(() => {
+    history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
     fetchSearchData();
-  }, [searchCategory]);
+  }, [querySearchText, searchCategory]);
 
   return (
     <>
