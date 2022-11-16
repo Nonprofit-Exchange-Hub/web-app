@@ -22,6 +22,9 @@ export class User {
   @Column('text')
   password: string;
 
+  @Column({ type: 'bool', default: false })
+  email_notification_opt_out: boolean;
+
   @OneToMany(() => Asset, (asset) => asset.poster)
   assets: Asset[];
 
