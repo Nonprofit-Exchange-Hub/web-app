@@ -7,7 +7,7 @@ import {
   OneToMany,
   CreateDateColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../account-manager/entities/user.entity';
 
 import { AssetType, Condition } from '../constants';
 import { Transaction } from '../../transactions/entities/transaction.entity';

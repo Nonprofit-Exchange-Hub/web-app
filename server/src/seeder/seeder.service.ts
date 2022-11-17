@@ -7,13 +7,12 @@ import { seedCategories } from '../database/seeding/seed-data';
 import { seedMessages } from '../database/seeding/seed-data';
 import { seedOrganizations } from '../database/seeding/seed-data';
 import { seedTransactions } from '../database/seeding/seed-data';
-import { User } from '../users/entities/user.entity';
+import { User } from '../account-manager/entities/user.entity';
 import { Asset } from '../assets/entities/asset.entity';
 import { Message } from '../messages/entities/message.entity';
 import { Transaction } from '../transactions/entities/transaction.entity';
 import { Organization } from '../organizations/entities/organization.entity';
 import { UserOrganization } from '../user-org/entities/user-org.entity';
-import { UsersService } from '../users/users.service';
 import { AssetsService } from '../assets/assets.service';
 import { CategoriesService } from '../categories/categories.service';
 import { MessagesService } from '../messages/messages.service';
@@ -24,6 +23,7 @@ import { TransactionStatus } from '../transactions/transaction-status.enum';
 import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import { CreateMessageDto } from '../messages/dto/create-message.dto';
 import { Category } from '../categories/entities/category.entity';
+import { UsersService } from '../account-manager/users.service';
 
 export interface SeedAssetsResult {
   assets: Asset[];

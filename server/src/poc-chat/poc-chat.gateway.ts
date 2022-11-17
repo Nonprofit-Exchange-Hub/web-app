@@ -9,8 +9,8 @@ import { PocChatService } from './poc-chat.service';
 import { CreatePocChatDto } from './dto/create-poc-chat.dto';
 import { Server, Socket } from 'socket.io';
 import { Request, UseGuards } from '@nestjs/common';
-import { WsCookieGuardGuard } from 'src/auth/guards/ws-cookie-guard.guard';
 import * as dotenv from 'dotenv';
+import { WsCookieGuardGuard } from '../account-manager/guards/ws-cookie-guard.guard';
 
 dotenv.config({ path: __dirname + '/../../.env' });
 

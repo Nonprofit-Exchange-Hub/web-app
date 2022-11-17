@@ -12,7 +12,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
+import { CookieAuthGuard } from '../account-manager/guards/cookie-auth.guard';
 import { DeleteResult } from 'typeorm';
 
 import type { Request as ExpressRequest } from 'express';
@@ -22,7 +22,7 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
-import { User } from '../users/entities/user.entity';
+import { User } from '../account-manager/entities/user.entity';
 
 @Controller('assets')
 export class AssetsController {

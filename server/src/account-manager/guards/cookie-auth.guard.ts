@@ -3,10 +3,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 
-import { COOKIE_KEY, jwtConstants } from '../constants';
+import { COOKIE_KEY, jwtConstants } from '../../account-manager/constants';
 
-import type { User } from '../../users/entities/user.entity';
-import { CookieStrategy } from '../strategies/cookie.strategy';
+import type { User } from '../../account-manager/entities/user.entity';
+import { CookieStrategy } from '../../account-manager/strategies/cookie.strategy';
 
 @Injectable()
 export class CookieAuthGuard extends AuthGuard() {

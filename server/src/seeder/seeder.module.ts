@@ -1,6 +1,5 @@
 import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from '../users/users.module';
 import { AssetsModule } from '../assets/assets.module';
 import { CategoriesModule } from '../categories/categories.module';
 import { OrganizationsModule } from '../organizations/organizations.module';
@@ -13,6 +12,7 @@ import { DatabaseConnectionService } from '../database-connection.service';
 
 import * as dotenv from 'dotenv';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { AccountManagerModule } from '../account-manager/account-manager.module';
 
 dotenv.config({ path: __dirname + '/../../.env' });
 
@@ -25,7 +25,7 @@ const seederDbOptions: PostgresConnectionOptions = {
 @Module({
   imports: [
     TypeOrmModule.forRoot(seederDbOptions),
-    UsersModule,
+    AccountManagerModule,
     AssetsModule,
     CategoriesModule,
     OrganizationsModule,

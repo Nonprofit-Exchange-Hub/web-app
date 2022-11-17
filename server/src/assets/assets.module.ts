@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AssetsService } from './assets.service';
 import { AssetsController } from './assets.controller';
 import { Asset } from './entities/asset.entity';
-import { AuthModule } from '../auth/auth.module';
+import { AccountManagerModule } from '../account-manager/account-manager.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Asset]), AuthModule],
+  imports: [TypeOrmModule.forFeature([Asset]), AccountManagerModule],
   controllers: [AssetsController],
   providers: [AssetsService],
   exports: [AssetsService],

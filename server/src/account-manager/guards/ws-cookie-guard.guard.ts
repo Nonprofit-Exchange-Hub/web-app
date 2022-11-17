@@ -1,10 +1,10 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
-import { jwtConstants } from '../constants';
-import { User } from 'src/users/entities/user.entity';
+import { jwtConstants } from '../../account-manager/constants';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
-import { WSCookieStrategy } from '../strategies/ws-cookie..strategy';
+import { WSCookieStrategy } from '../../account-manager/strategies/ws-cookie..strategy';
 import * as c from 'cookie-parser';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class WsCookieGuardGuard extends AuthGuard() {

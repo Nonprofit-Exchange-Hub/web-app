@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm/repository/Repository';
 
-import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from '../account-manager/entities/user.entity';
+import { CreateUserDto } from '../account-manager/dto/create-user.dto';
+import { UpdateUserDto } from '../account-manager/dto/update-user.dto';
 
 const { BCRYPT_WORK_FACTOR = '10' } = process.env;
 

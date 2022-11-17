@@ -6,16 +6,15 @@ import { join } from 'path';
 
 import { DatabaseConnectionService } from './database-connection.service';
 import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
 import { AssetsModule } from './assets/assets.module';
 import { MessagesModule } from './messages/messages.module';
-import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { CategoriesModule } from './categories/categories.module';
 import { UserOrganizationsModule } from './user-org/user-org.module';
 import { PocChatModule } from './poc-chat/poc-chat.module';
 import { FilesService } from './files/files.service';
+import { AccountManagerModule } from './account-manager/account-manager.module';
 
 @Module({
   imports: [
@@ -26,15 +25,15 @@ import { FilesService } from './files/files.service';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '/../../client', 'build'),
     }),
+    AccountManagerModule,
     AssetsModule,
-    AuthModule,
     MessagesModule,
     OrganizationsModule,
-    UsersModule,
     CategoriesModule,
     UserOrganizationsModule,
     TransactionsModule,
     PocChatModule,
+    AccountManagerModule,
   ],
   controllers: [AppController],
   providers: [FilesService],

@@ -17,7 +17,7 @@ import { UserOrganizationsService } from './user-org.service';
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
 import { ApprovalStatus, Role } from './constants';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../account-manager/users.service';
 import { OrganizationsService } from '../organizations/organizations.service';
 
 @Controller('userOrganizations')

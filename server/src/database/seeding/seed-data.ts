@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { CreateUserDto } from '../../account-manager/dto/create-user.dto';
 import { CreateAssetDto } from '../../assets/dto/create-asset.dto';
 import { CreateCategoryDto } from '../../categories/dto/create-category.dto';
 import { CreateMessageDto } from '../../messages/dto/create-message.dto';
