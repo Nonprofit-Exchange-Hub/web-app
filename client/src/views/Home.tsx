@@ -21,55 +21,6 @@ const faqQuestions = [
 ];
 
 const useStyles = makeStyles((theme: Theme) => ({
-  hero: {
-    backgroundImage: `url("${placeholderImg}")`,
-    backgroundSize: '100%',
-    backgroundPosition: 'center center',
-    minHeight: '500px',
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    '&:hover': {
-      backgroundColor: 'inherit',
-      borderRadius: '10px',
-    },
-  },
-  divider: {
-    height: 42,
-    margin: 4,
-  },
-  heroText: {
-    margin: 'auto',
-    textAlign: 'left',
-  },
-  heroContent: {
-    width: '50%',
-    marginLeft: '10%',
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 90,
-  },
-  select: {
-    '&:before': {
-      borderBottom: 'none',
-    },
-    '&:hover:not(.Mui-disabled):before': {
-      borderBottom: 'none',
-    },
-  },
   videoSection: {
     backgroundColor: '#1fc8db',
     backgroundImage: 'linear-gradient(140deg, #ffffff 0%, #66ffff 50%, #000000 75%)',
@@ -83,22 +34,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: 'white',
     padding: '0 0 0 5%',
   },
-  videoSectionVideo: {},
-  needsAndOffersSub: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  card: {
-    margin: '3%',
-  },
-  cardImg: {
-    borderRadius: '5px',
-    margin: '10%',
-    maxWidth: '80%',
-  },
-  needsAndOffersHeader: {
-    textAlign: 'left',
-  },
   needsAndOffers: {
     padding: '10%',
   },
@@ -108,12 +43,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   faqsHeader: {
     paddingBottom: '30px',
   },
-  cardText1: {
-    padding: '0 10%',
-  },
-  cardText2: {
-    padding: '0 10% 10%',
-  },
   makeAPostButton: {
     marginLeft: '15px',
   },
@@ -121,9 +50,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: 'none',
   },
   searchContainer: {
-    marginTop: '-10px',
-    marginLeft: '15%',
+    maxWidth: '980px',
     width: '70%',
+    margin: '30px auto',
   },
 }));
 
@@ -132,21 +61,12 @@ function Home(): JSX.Element {
 
   return (
     <>
-      <div className={classes.hero}>
-        <div className={classes.searchContainer}>
-          <Search />
-        </div>
-        <div className={classes.heroContent}>
-          <Typography className={classes.heroText} variant="h3" component="h1" color="textPrimary">
-            Support local nonprofits through the giving economy.
-          </Typography>
-        </div>
+      <div className={classes.searchContainer}>
+        <Search />
       </div>
       <BannerSection />
       <div className={classes.videoSection}>
-        <div className={classes.videoSectionVideo}>
-          <img src={placeholderImg} alt="video placeholder" />
-        </div>
+        <img src={placeholderImg} alt="video placeholder" />
         <Typography
           variant="h4"
           component="div"
