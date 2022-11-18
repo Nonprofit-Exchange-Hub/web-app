@@ -58,9 +58,7 @@ function Carousel(props: CarouselProps) {
           <Paper square elevation={0}>
             <Typography sx={{ fontFamily: 'Poppins', fontSize: '2rem' }}>{label}</Typography>
           </Paper>
-          <a href="#" className={classes.questions}>
-            Questions?
-          </a>
+          <div className={classes.questions}>Questions?</div>
         </div>
         <div>
           <Button
@@ -114,7 +112,7 @@ function Carousel(props: CarouselProps) {
               key={card.id}
               title={card.title}
               type={card.type}
-              date={card.datePosted}
+              datePosted={card.datePosted}
               description={card.description}
               org={card.poster.firstName}
               condition={card.condition}

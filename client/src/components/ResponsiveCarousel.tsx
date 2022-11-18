@@ -35,23 +35,26 @@ type ResponsiveCarouselProps = {
   fetchMethod: Function;
   renderCard: Function;
   cardWidth: number;
+  showControls: boolean;
 };
 
 function ResponsiveCarousel(props: ResponsiveCarouselProps) {
   const classes = useStyles();
+  const noPadding = { padding: 0, margin: 0, minWidth: '32px' };
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [itemsPerRow, setItemsPerRow] = React.useState<number>(0);
   const [cardsData, setCardsData] = React.useState<Array<any>>([]);
   const [hasReachedEnd, setHasReachedEnd] = React.useState<boolean>(false);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
-  const cardMargin = 30;
+  const cardMargin = 10;
+  const MaxItems = 5;
   const { label, cardWidth } = props;
 
   const updateItemsPerRow = () => {
     let itemsThatFit = itemsPerRow;
     if (wrapperRef && wrapperRef.current) {
       itemsThatFit = Math.floor(wrapperRef.current.offsetWidth / (cardWidth + cardMargin));
-      setItemsPerRow(itemsThatFit);
+      setItemsPerRow(Math.min(itemsThatFit, MaxItems));
     }
     return itemsThatFit;
   };
@@ -94,8 +97,30 @@ function ResponsiveCarousel(props: ResponsiveCarouselProps) {
       return newIndex < 0 ? 0 : newIndex;
     });
   };
-
   const isOnLastPage = hasReachedEnd && cardsData.length <= currentIndex + itemsPerRow;
+  const ForwardAndBack = (
+    <div style={{ display: 'inline-block', marginLeft: '2em' }}>
+      <Button sx={noPadding} size="small" onClick={handleBack} disabled={currentIndex === 0}>
+        <ExpandCircleDownOutlinedIcon
+          sx={{
+            color: currentIndex === 0 ? '#a2a1a1' : '#323232',
+            fontSize: '3rem',
+            transform: 'rotate(90deg)',
+          }}
+        />
+      </Button>
+      <Button sx={noPadding} size="small" onClick={handleNext} disabled={isOnLastPage}>
+        <ExpandCircleDownOutlinedIcon
+          sx={{
+            color: isOnLastPage ? '#a2a1a1' : '#323232',
+            fontSize: '3rem',
+            transform: 'rotate(270deg)',
+          }}
+        />
+      </Button>
+    </div>
+  );
+
   return (
     <div className={classes.carouselWrapper} ref={wrapperRef}>
       <div className={classes.topBanner}>
@@ -118,29 +143,7 @@ function ResponsiveCarousel(props: ResponsiveCarouselProps) {
           >
             View More
           </Button>
-          <Button
-            sx={{ padding: '0' }}
-            size="small"
-            onClick={handleBack}
-            disabled={currentIndex === 0}
-          >
-            <ExpandCircleDownOutlinedIcon
-              sx={{
-                color: currentIndex === 0 ? '#a2a1a1' : '#323232',
-                fontSize: '3rem',
-                transform: 'rotate(90deg)',
-              }}
-            />
-          </Button>
-          <Button sx={{ padding: '0' }} size="small" onClick={handleNext} disabled={isOnLastPage}>
-            <ExpandCircleDownOutlinedIcon
-              sx={{
-                color: isOnLastPage ? '#a2a1a1' : '#323232',
-                fontSize: '3rem',
-                transform: 'rotate(270deg)',
-              }}
-            />
-          </Button>
+          {props.showControls ? ForwardAndBack : null}
         </div>
       </div>
       <div className={classes.carouselContent}>

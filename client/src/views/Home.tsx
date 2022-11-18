@@ -9,6 +9,7 @@ import { placeholderImg } from '../assets/temp';
 import QuestionList from '../components/QuestionList';
 import BannerSection from '../components/BannerSection';
 import NeedsCarousel from '../components/NeedsCarousel';
+import DonationsCarousel from '../components/DonationsCarousel';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -157,6 +158,7 @@ function Home(): JSX.Element {
         </Typography>
       </div>
       <NeedsCarousel label={'Recent Needs From Nonprofits'} />
+      <DonationsCarousel label={'Recent Offers From Users'} />
       <div className={classes.faqs}>
         <Typography variant="h4" component="h4" className={classes.faqsHeader}>
           FAQs

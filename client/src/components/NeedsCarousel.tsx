@@ -11,19 +11,26 @@ export default function NeedsCarousel(props: NeedsCarouselProps) {
     <NeedCard
       key={need.id}
       type="need"
-      title={need.id}
+      title={need.title}
       sx={{ marginRight: '1em' }}
-      datePosted={need.datePosted}
+      datePosted={new Date(need.datePosted)}
       org="place"
+      imgUrls={need.imageUrls}
+      description={need.description}
+      condition={need.condition}
+      location={need.location}
     />
   );
 
   return (
-    <ResponsiveCarousel
-      fetchMethod={fetchNeeds}
-      renderCard={renderCard}
-      cardWidth={200}
-      label={props.label || ''}
-    />
+    <div style={{ marginTop: '4em', minHeight: '300px' }}>
+      <ResponsiveCarousel
+        fetchMethod={fetchNeeds}
+        renderCard={renderCard}
+        cardWidth={250}
+        showControls={true}
+        label={props.label || ''}
+      />
+    </div>
   );
 }

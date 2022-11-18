@@ -23,7 +23,6 @@ type Props = {
 
 export default function NeedCard(props: Props) {
   const image = props.imgUrls?.length ? props.imgUrls[0] : Example;
-
   return (
     <Card
       title={props.title}
@@ -33,28 +32,26 @@ export default function NeedCard(props: Props) {
       sx={props.sx || {}}
     >
       <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
-          <Typography gutterBottom>
-            {props.condition === '' ? 'unknown' : props.condition}
-          </Typography>
-          <Typography gutterBottom sx={{ fontWeight: 900 }}>
-            {props.type}
-          </Typography>
-        </Box>
         <Typography variant="h1">{props.title}</Typography>
         <Box sx={{ marginTop: theme.spacing(1) }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <LocationOnIcon />
-            <Typography gutterBottom>
-              {props.location === null ? 'unknown' : props.location}
-            </Typography>
+            {props.location ? (
+              <>
+                <LocationOnIcon />
+                <Typography gutterBottom>{props.location}</Typography>
+              </>
+            ) : null}
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <LocationOnIcon />
             <Typography gutterBottom>Hurricane Relief Effort</Typography>
           </Box>
         </Box>
-        <Typography variant="body2" color={theme.palette.text.secondary}>
+        <Typography
+          variant="body2"
+          color={theme.palette.text.secondary}
+          style={{ height: '3em', overflow: 'hidden' }}
+        >
           {props.description}
         </Typography>
       </CardContent>
