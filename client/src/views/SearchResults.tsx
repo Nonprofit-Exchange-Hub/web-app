@@ -10,17 +10,19 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import type { Theme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import Tooltip from '@mui/material/Tooltip';
+
+import type { Theme } from '@mui/material/styles';
 
 import AssetsList from './AssetsList';
 import OrgsList from './OrgsList';
 import FilterGroup from '../components/FilterGroup';
 import { filters1, filters2, filters3 } from '../assets/temp';
-import type { Asset, Organization } from '../types';
 import { APP_API_BASE_URL } from '../configs';
+
+import type { Asset, Organization } from '../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchBar: {
@@ -104,7 +106,7 @@ function SearchResults(): JSX.Element {
       fetch(
         `${APP_API_BASE_URL}/assets?type=${
           querySearchCategory === 'Needs' ? 'donation' : 'request'
-        }${searchText ? `&title=${searchText}` : ''}`,
+        }${querySearchText ? `&title=${querySearchText}` : ''}`,
       )
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
@@ -115,7 +117,7 @@ function SearchResults(): JSX.Element {
           }
         });
     } else if (querySearchCategory === 'Nonprofits') {
-      fetch(`${APP_API_BASE_URL}/organizations?search=${searchText}`)
+      fetch(`${APP_API_BASE_URL}/organizations?search=${querySearchText}`)
         .then((resp) => resp.json())
         .then((data: Organization[]) => {
           setOrgs(data);
@@ -137,16 +139,15 @@ function SearchResults(): JSX.Element {
   };
 
   React.useEffect(() => {
-    history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
     fetchSearchData();
-  }, [querySearchText, searchCategory]);
+  }, [querySearchText, querySearchCategory]);
 
   return (
     <>
       <Paper className={classes.searchBar}>
         <Box sx={{ display: 'flex' }}>
           <>
-            X of Y results for "<b>{querySearchText}</b>"
+            X of Y results for "<b>{searchText}</b>"
           </>
         </Box>
         <Box sx={{ display: 'flex' }}>
@@ -237,7 +238,7 @@ function SearchResults(): JSX.Element {
           </Paper>
           {/* {TODO:   Need to combine all lists under one "List" component} */}
           {/* {TODO:   Create and add a VolunteerList component below */}
-          {searchCategory === 'All' ? (
+          {querySearchCategory === 'All' ? (
             <div>
               {needs.length > 0 ? <AssetsList headerText={'Needs'} assets={needs} /> : <></>}
               {offers.length > 0 ? <AssetsList headerText={'Offers'} assets={offers} /> : <></>}
@@ -247,20 +248,20 @@ function SearchResults(): JSX.Element {
           ) : (
             <></>
           )}
-          {searchCategory === 'Needs' || searchCategory === 'Offers' ? (
+          {querySearchCategory === 'Needs' || querySearchCategory === 'Offers' ? (
             <AssetsList
-              headerText={searchCategory === 'Needs' ? 'Needs' : 'Offers'}
-              assets={searchCategory === 'Needs' ? needs : offers}
+              headerText={querySearchCategory === 'Needs' ? 'Needs' : 'Offers'}
+              assets={querySearchCategory === 'Needs' ? needs : offers}
             />
           ) : (
             <></>
           )}
-          {searchCategory === 'Nonprofits' ? (
+          {querySearchCategory === 'Nonprofits' ? (
             <OrgsList headerText={'Nonprofits'} orgs={orgs} />
           ) : (
             <></>
           )}
-          {searchCategory === 'Volunteer' ? `<VolunteerList Componet TBD />` : <></>}
+          {querySearchCategory === 'Volunteer' ? `<VolunteerList Componet TBD />` : <></>}
           {needs.length + offers.length + orgs.length + volunteer.length === 0 && 'No Results'}
         </div>
       </div>
