@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import * as queryString from 'query-string';
 import { NavLink, useHistory } from 'react-router-dom';
