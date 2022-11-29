@@ -2,11 +2,14 @@ import { DeepRequired, FieldErrorsImpl } from 'react-hook-form';
 import { FormData } from './FormData';
 import * as Yup from 'yup';
 import { classifications } from './Classifications';
+import { US_STATE_ABBREVIATIONS } from '../../../../configs';
 
 export const validationSchema = Yup.object().shape({
   doing_business_as: Yup.string().required('Required'),
   city: Yup.string().required('Required'),
-  state: Yup.string().required('Required').min(2).max(2),
+  state: Yup.string()
+    .required('Required')
+    .oneOf(US_STATE_ABBREVIATIONS, 'Please enter a valid US state e.g., WA'),
   ein: Yup.string()
     .matches(/^[0-9]\d?-\d{7}$/, 'EIN must match: 99-9999999')
     .required('Required'),
@@ -15,10 +18,7 @@ export const validationSchema = Yup.object().shape({
   website: Yup.string().required('Required'),
   address: Yup.string().required('Required'),
   phone: Yup.string()
-    .matches(
-      /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
-      'Phone number must match (999) 999-9999',
-    )
+    .matches(/\d{3}-\d{3}-\d{4}/, 'Phone number must match 999-999-9999')
     .required('Required'),
   nonprofit_classification: Yup.string()
     .required('Required')
@@ -38,7 +38,7 @@ export const validationSchema = Yup.object().shape({
     .required('The terms and conditions must be accepted.')
     .oneOf([true], 'The terms and conditions must be accepted.'),
   image_url: Yup.string()
-    .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/)
+    .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/, 'Please use a valid image url')
     .required('Required'),
 });
 
