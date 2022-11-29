@@ -7,7 +7,9 @@ import { US_STATE_ABBREVIATIONS } from '../../../../configs';
 export const validationSchema = Yup.object().shape({
   doing_business_as: Yup.string().required('Required'),
   city: Yup.string().required('Required'),
-  state: Yup.string().required('Required').oneOf(US_STATE_ABBREVIATIONS),
+  state: Yup.string()
+    .required('Required')
+    .oneOf(US_STATE_ABBREVIATIONS, 'Please enter a valid US state e.g., WA'),
   ein: Yup.string()
     .matches(/^[0-9]\d?-\d{7}$/, 'EIN must match: 99-9999999')
     .required('Required'),
