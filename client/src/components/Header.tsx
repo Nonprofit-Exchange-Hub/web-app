@@ -26,6 +26,7 @@ import type { Theme } from '@mui/material/styles';
 import { UserContext } from '../providers';
 import Logo from '../assets/GivingfulLogo.png';
 import routes from '../routes';
+import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   home: {
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function Header() {
+  const LOGOUT_URL = `${APP_API_BASE_URL}/logout`;
   const classes = useStyles();
   const [user, setUser] = React.useContext(UserContext);
   const history = useHistory();
@@ -93,7 +95,7 @@ function Header() {
   const handleLogout = (): void => {
     handleClose();
     setUser(null);
-    fetch('http://localhost:3001/api/auth/logout', {
+    fetch(LOGOUT_URL, {
       credentials: 'include',
       method: 'GET',
     });

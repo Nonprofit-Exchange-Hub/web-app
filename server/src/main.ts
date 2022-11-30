@@ -17,7 +17,7 @@ async function bootstrap() {
     // TODO get env related base url
     origin: 'http://localhost:3000',
   });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useStaticAssets(resolve('./src/public'));
   app.setBaseViewsDir(resolve('./src/views'));
   app.setViewEngine('hbs');
