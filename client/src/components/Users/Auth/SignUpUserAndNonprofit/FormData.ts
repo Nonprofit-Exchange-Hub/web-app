@@ -16,4 +16,5 @@ export interface FormData {
   confirmPassword: string;
   accept_terms: boolean;
   image_url: string;
+  email_notification_opt_out: boolean;
 }

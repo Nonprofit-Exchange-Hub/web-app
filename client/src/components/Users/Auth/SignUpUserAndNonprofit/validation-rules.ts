@@ -40,6 +40,7 @@ export const validationSchema = Yup.object().shape({
   image_url: Yup.string()
     .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/, 'Please use a valid image url')
     .required('Required'),
+  email_notification_opt_out: Yup.boolean(),
 });
 
 /**
@@ -51,7 +52,8 @@ export const calculateIsValid = (
   vals: FormData,
 ): boolean => {
   const errVals = Object.values(errors);
-  const valsAsStringArr = Object.values(vals);
+  const { email_notification_opt_out, ...keysToValidate } = vals;
+  const valsAsStringArr = Object.values(keysToValidate);
   return (
     errVals.every((x) => x === undefined) &&
     valsAsStringArr.length === 17 &&
