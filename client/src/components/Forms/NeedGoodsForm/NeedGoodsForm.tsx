@@ -94,9 +94,8 @@ function NeedGoodsForm(): JSX.Element {
 
   const imageInputFields = formData.imgUrls.map((img, i) => {
     return (
-      <FormControl>
+      <FormControl key={i}>
         <TextField
-          key={i}
           id={'imgUrls' + i}
           label={`Photo ${i + 1}`}
           placeholder="Insert photo url"
@@ -155,6 +154,7 @@ function NeedGoodsForm(): JSX.Element {
     if (isValid) {
       const res = await fetch(`${APP_API_BASE_URL}/assets`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
