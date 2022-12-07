@@ -4,6 +4,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useHistory } from 'react-router-dom';
 
@@ -13,22 +14,47 @@ const useStyles = makeStyles((theme: Theme) => ({
   searchBar: {
     fontFamily: 'DM Sans',
     display: 'flex',
-    flexDirection: 'row',
     width: '100%',
+    borderRadius: '10px',
+    boxShadow: '0px 2px 4px 2px rgba(0, 0, 0, 0.25)',
   },
   select: {
     background: theme.palette.background.default,
-    borderRadius: '5px',
+    borderRadius: '10px',
     flexBasis: '30%',
-    left: '6px',
     position: 'relative',
     zIndex: 10,
+    borderBottom: 'none',
+    paddingInline: '20px',
+    [`&:before`]: {
+      border: 'none !important',
+    },
+    [`& svg`]: {
+      right: '26px',
+    },
   },
   textField: {
     background: theme.palette.background.default,
-    borderRadius: '5px',
+    borderRadius: '10px',
     flexBasis: '70%',
     color: 'red',
+    // height: '48px',
+    boxSizing: 'border-box',
+    border: '1px solid red',
+    [`& label`]: {
+      marginTop: '-8px',
+      marginLeft: '20px',
+    },
+    [`& div`]: {
+      marginTop: '0px !important',
+      [`&:before`]: {
+        borderBottom: 'none !important',
+      },
+      [`& input`]: {
+        height: '48px',
+        paddingLeft: '20px',
+      },
+    },
   },
 }));
 
@@ -43,9 +69,9 @@ function getTextFieldLabel(selectValue: string, searchText: string): string {
     case 'Nonprofits':
       return 'Search Nonprofits';
     case 'Needs':
-      return 'Search nonprofit Needs';
+      return 'Search Needs';
     case 'Offers':
-      return 'Search nonprofit Offers';
+      return 'Search Offers';
     case 'Volunteer':
       return 'Search Volunteer Openings';
     default:
@@ -66,7 +92,7 @@ function Search() {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      history.push(`/assets?search=${searchText}`);
+      history.push(`/SearchResults?search=${searchText}&category=${selectedSearchCategory}`);
     }
   };
 
@@ -79,6 +105,7 @@ function Search() {
         onChange={handleDropdownChange}
         renderValue={(value: string) => (value ? `Search ${value}` : 'Search All')}
         value={selectedSearchCategory}
+        variant="standard"
       >
         <MenuItem value="All">Search All</MenuItem>
         <MenuItem value="Nonprofits">Search Nonprofits</MenuItem>
@@ -86,17 +113,34 @@ function Search() {
         <MenuItem value="Offers">Search Offers</MenuItem>
         <MenuItem value="Volunteer">Volunteer Openings</MenuItem>
       </Select>
-      <TextField
-        className={classes.textField}
-        InputLabelProps={{ shrink: false }}
-        label={textFieldLabel}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-          setSearchText(e.target.value)
-        }
-        onKeyDown={handleKeyDown}
-        value={searchText}
-        variant="outlined"
-      />
+      <Tooltip
+        placement="top-end"
+        componentsProps={{
+          tooltip: {
+            sx: {
+              color: 'rgba(0, 0, 0, 0.87)',
+              fontSize: 13,
+              bgcolor: 'common.white',
+              '& .MuiTooltip-arrow': {
+                color: 'common.white',
+              },
+            },
+          },
+        }}
+        title="Press 'Enter' to Begin Search"
+      >
+        <TextField
+          className={classes.textField}
+          InputLabelProps={{ shrink: false }}
+          label={textFieldLabel}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+            setSearchText(e.target.value)
+          }
+          onKeyDown={handleKeyDown}
+          value={searchText}
+          variant="outlined"
+        />
+      </Tooltip>
     </div>
   );
 }
