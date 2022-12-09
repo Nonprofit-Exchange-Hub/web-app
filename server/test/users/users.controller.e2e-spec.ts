@@ -24,6 +24,7 @@ describe('UsersController', () => {
     last_name: 'parker',
     email: 'peter.parker@example.com',
     password: 'secret1234',
+    email_notification_opt_out: false,
   });
 
   beforeAll(async () => {
