@@ -43,6 +43,7 @@ export class UsersController {
     try {
       const user = await this.usersService.findByEmail(req.body.email);
       if (!user) {
+        // any error hits catch, error type and msg not important
         throw new Error();
       }
 
@@ -65,7 +66,7 @@ export class UsersController {
       await this.sendgridService.send(mail);
       response.status(200);
     } catch (e) {
-      console.log('\n\ne', e);
+      // always respond 200 so hackerz don't know which emails are active and not
       response.status(200);
     }
   }
