@@ -15,6 +15,7 @@ import { UserOrganizationsModule } from './user-org/user-org.module';
 import { PocChatModule } from './poc-chat/poc-chat.module';
 import { FilesService } from './files/files.service';
 import { AccountManagerModule } from './account-manager/account-manager.module';
+import { SendgridService } from './sendgrid/sendgrid.service';
 
 @Module({
   imports: [
@@ -36,6 +37,6 @@ import { AccountManagerModule } from './account-manager/account-manager.module';
     AccountManagerModule,
   ],
   controllers: [AppController],
-  providers: [FilesService],
+  providers: [FilesService, SendgridService],
 })
 export class AppModule {}

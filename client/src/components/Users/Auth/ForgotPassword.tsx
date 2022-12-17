@@ -56,34 +56,10 @@ function ForgotPassword() {
   const emailResponse =
     'If this email exists as a user you will be sent an email to reset your password.';
 
-  const generateForm = () => {
-    return (
-      <Grid container item xs={12}>
-        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-          <EmailInput
-            value={formData.email}
-            placeholder="jane@nonprofit.com"
-            onChange={handleChange}
-            error={null}
-          />
-          <Button
-            className={classes.button}
-            style={{ backgroundColor: '#C4C4C4', color: 'white' }}
-            fullWidth
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? 'sending...' : 'Send Email To Set New Password'}
-          </Button>
-        </form>
-      </Grid>
-    );
-  };
-
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;
-    setFormData((fData) => ({
-      ...fData,
+    setFormData((prevState) => ({
+      ...prevState,
       [name]: value,
     }));
   };
@@ -92,25 +68,24 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    await fetch(`${APP_API_BASE_URL}/api/auth/reset_password`, {
+    const resp = await fetch(`${APP_API_BASE_URL}/api/auth/reset_password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        // sends user email, backend finds email, sends link to reset password
-        console.log(data);
-      });
+    });
 
-    setIsLoading(false);
-    setShowSnackbar(true);
-    setFormData((fData) => ({
-      ...fData,
-      email: '',
-    }));
+    if (resp.statusText === 'OK') {
+      setIsLoading(false);
+      setShowSnackbar(true);
+      setFormData((fData) => ({
+        ...fData,
+        email: '',
+      }));
+    } else {
+      // alert user to try again
+    }
   };
 
   return (
@@ -124,7 +99,27 @@ function ForgotPassword() {
             <Typography component="p" align="left" gutterBottom>
               {showSnackbar ? emailResponse : instructions}
             </Typography>
-            {showSnackbar ? null : generateForm()}
+            {showSnackbar ? null : (
+              <Grid container item xs={12}>
+                <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                  <EmailInput
+                    value={formData.email}
+                    placeholder="jane@nonprofit.com"
+                    onChange={handleChange}
+                    error={null}
+                  />
+                  <Button
+                    className={classes.button}
+                    style={{ backgroundColor: '#C4C4C4', color: 'white' }}
+                    fullWidth
+                    type="submit"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'sending...' : 'Send Email To Set New Password'}
+                  </Button>
+                </form>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Paper>

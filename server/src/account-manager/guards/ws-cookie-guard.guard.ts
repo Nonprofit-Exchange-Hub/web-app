@@ -1,5 +1,4 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
-import { jwtConstants } from '../../account-manager/constants';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { WSCookieStrategy } from '../../account-manager/strategies/ws-cookie..strategy';
@@ -34,7 +33,7 @@ export class WsCookieGuardGuard extends AuthGuard() {
     let user: User;
     try {
       user = await this.jwtService.verify(jwtPayload, {
-        secret: jwtConstants.secret,
+        secret: process.env.JWT_SECRET,
       });
     } catch (error) {
       return false;

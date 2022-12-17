@@ -21,6 +21,7 @@ export const userEntityStub = (
     messages,
     transactions,
     organizations,
+    email_notification_opt_out: false,
   };
 };
 
@@ -30,5 +31,6 @@ export const userCreateDtoStub = (): CreateUserDto => {
     last_name: 'fakeLast',
     email: 'fakeUser@test.com',
     password: 'Secret1234$',
+    email_notification_opt_out: false,
   };
 };

@@ -30,6 +30,6 @@ export class AccountManagerService {
   }
 
   async createJwt(user: Omit<User, 'password'>) {
-    return this.jwtService.sign({ ...user }, { expiresIn: '1h', secret: jwtConstants.secret });
+    return this.jwtService.sign({ ...user }, { expiresIn: '1h', secret: process.env.JWT_SECRET });
   }
 }

@@ -3,7 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 
-import { COOKIE_KEY, jwtConstants } from '../../account-manager/constants';
+import { COOKIE_KEY } from '../../account-manager/constants';
 
 import type { User } from '../../account-manager/entities/user.entity';
 import { CookieStrategy } from '../../account-manager/strategies/cookie.strategy';
@@ -24,7 +24,7 @@ export class CookieAuthGuard extends AuthGuard() {
 
     let user: User = {} as User;
     try {
-      user = await this.jwtService.verify(jwt, { secret: jwtConstants.secret });
+      user = await this.jwtService.verify(jwt, { secret: process.env.JWT_SECRET });
     } catch (_e) {
       Logger.error(_e, CookieAuthGuard.name);
       return false;
