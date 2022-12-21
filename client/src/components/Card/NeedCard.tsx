@@ -14,6 +14,7 @@ type Props = {
   sx?: object;
   datePosted: Date;
   poster: any;
+  org?: string;
   description: string;
   condition: string;
   location: string;
@@ -32,28 +33,32 @@ export default function NeedCard(props: Props) {
       org={props.poster.firstName}
     >
       <CardContent>
-        <Typography variant="h1">{props.title}</Typography>
-        <Box sx={{ marginTop: theme.spacing(1) }}>
+        <Box sx={{ marginTop: theme.spacing(1), padding: '0.5em' }}>
+          <Typography variant="h1">{props.title}</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {props.location ? (
               <>
                 <LocationOnIcon />
-                <Typography gutterBottom>{props.location}</Typography>
+                <Typography sx={{ marginLeft: '0.5em' }} gutterBottom>
+                  {props.location}
+                </Typography>
               </>
             ) : null}
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '-0.5em' }}>
             <LocationOnIcon />
             <Typography gutterBottom>Hurricane Relief Effort</Typography>
           </Box>
+          <Box sx={{ marginTop: theme.spacing(1) }}>
+            <Typography
+              variant="body2"
+              color={theme.palette.text.secondary}
+              style={{ height: '3em', overflow: 'hidden', marginLeft: '0.5em' }}
+            >
+              {props.description}
+            </Typography>
+          </Box>
         </Box>
-        <Typography
-          variant="body2"
-          color={theme.palette.text.secondary}
-          style={{ height: '3em', overflow: 'hidden' }}
-        >
-          {props.description}
-        </Typography>
       </CardContent>
       <CardMedia component="img" image={image} alt="Need example" />
     </Card>
