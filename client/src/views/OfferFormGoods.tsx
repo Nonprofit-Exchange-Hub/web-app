@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
 
 import { FileUploadInput, RadioGroup, Select, TextField } from '../components/Forms';
-import NeedOfferForm from './NeedOfferForm';
+import NeedOfferForm from '../components/Forms/NeedOfferForm';
 
 const categories = [
   { value: 'figs', text: 'Figs' },

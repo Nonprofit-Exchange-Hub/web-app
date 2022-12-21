@@ -55,6 +55,7 @@ type Props = {
 function AssetsList(props: Props): JSX.Element {
   const classes = useStyles();
   const { assets, headerContentRight, headerText } = props;
+  if (!assets) return <> </>;
 
   return (
     <>
