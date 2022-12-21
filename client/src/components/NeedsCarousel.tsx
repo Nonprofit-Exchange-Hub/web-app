@@ -14,7 +14,6 @@ export default function NeedsCarousel(props: NeedsCarouselProps) {
       title={need.title}
       sx={{ marginRight: '1em' }}
       datePosted={new Date(need.datePosted)}
-      org="place"
       poster={need.poster}
       imgUrls={need.imageUrls}
       description={need.description}

@@ -13,7 +13,6 @@ type Props = {
   type: 'need' | 'donation';
   sx?: object;
   datePosted: Date;
-  org: string;
   poster: any;
   description: string;
   condition: string;
@@ -29,7 +28,6 @@ export default function NeedCard(props: Props) {
       title={props.title}
       type={props.type}
       date={props.datePosted}
-      org={props.org}
       sx={props.sx || {}}
       org={props.poster.firstName}
     >
