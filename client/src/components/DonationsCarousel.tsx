@@ -28,7 +28,7 @@ export default function DonationsCarousel(props: DonationsCarouselProps) {
         fetchMethod={fetchDonations}
         renderCard={renderCard}
         cardWidth={250}
-        showControls={false}
+        showControls={true}
         label={props.label || ''}
       />
     </div>

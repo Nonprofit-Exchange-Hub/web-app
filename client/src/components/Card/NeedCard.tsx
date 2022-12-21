@@ -14,6 +14,7 @@ type Props = {
   sx?: object;
   datePosted: Date;
   org: string;
+  poster: any;
   description: string;
   condition: string;
   location: string;
@@ -30,6 +31,7 @@ export default function NeedCard(props: Props) {
       date={props.datePosted}
       org={props.org}
       sx={props.sx || {}}
+      org={props.poster.firstName}
     >
       <CardContent>
         <Typography variant="h1">{props.title}</Typography>
