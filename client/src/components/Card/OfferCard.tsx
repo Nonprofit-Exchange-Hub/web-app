@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Example from '../../assets/offer-example.png';
+import { Tooltip } from '@mui/material';
 
 type Props = {
   title: string;
@@ -18,9 +19,17 @@ type Props = {
   imgUrls?: Array<string>;
   children?: ReactNode | ReactNode[];
 };
+const ellipsesStyle = {
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  width: '100%',
+  boxSizing: 'border-box',
+  overflow: 'hidden',
+};
 
 export default function OfferCard(props: Props) {
   const posterName = props.poster ? `${props.poster.firstName}` : 'Anonymous';
+
   return (
     <Card title={props.title} type={props.type} date={props.datePosted} org={posterName}>
       <CardMedia
@@ -39,7 +48,11 @@ export default function OfferCard(props: Props) {
             {props.condition}
           </Typography>
         </Box>
-        <Typography variant="h1">{props.title}</Typography>
+        <Tooltip title={props.title}>
+          <Typography variant="h1" sx={ellipsesStyle}>
+            {props.title}
+          </Typography>
+        </Tooltip>
       </CardContent>
     </Card>
   );

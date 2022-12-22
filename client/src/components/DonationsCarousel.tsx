@@ -12,7 +12,6 @@ export default function DonationsCarousel(props: DonationsCarouselProps) {
       key={donation.id}
       type="donation"
       title={donation.title}
-      sx={{ marginRight: '2em' }}
       datePosted={new Date(donation.datePosted)}
       poster={donation.poster}
       imgUrls={donation.imageUrls}
