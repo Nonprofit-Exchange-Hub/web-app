@@ -11,7 +11,7 @@ type Props = {
   title: string;
   type: 'need' | 'donation';
   datePosted: Date;
-  sx: object;
+  sx?: object;
   description: string;
   condition: string;
   category: string;
