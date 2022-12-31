@@ -276,26 +276,6 @@ export const SignUpUserAndNonprofit = () => {
                   </Grid>
                   <Grid item md={12} xs={12}>
                     <Controller
-                      name="image_url"
-                      control={control}
-                      defaultValue={'https://blah.png'}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Organization Profile Image"
-                          placeholder="Organization Profile Image"
-                          fullWidth
-                        />
-                      )}
-                    />
-                  </Grid>
-                </Grid>
-              )}
-
-              {activeStep === 1 && (
-                <Grid container spacing={5}>
-                  <Grid item md={12} xs={12}>
-                    <Controller
                       name="doing_business_as"
                       control={control}
                       defaultValue={''}
@@ -315,6 +295,26 @@ export const SignUpUserAndNonprofit = () => {
                       )}
                     />
                   </Grid>
+                  <Grid item md={12} xs={12}>
+                    <Controller
+                      name="image_url"
+                      control={control}
+                      defaultValue={'https://blah.png'}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Organization Profile Image"
+                          placeholder="Organization Profile Image"
+                          fullWidth
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              )}
+
+              {activeStep === 1 && (
+                <Grid container spacing={5}>
                   <Grid item md={12} xs={12}>
                     <Controller
                       name="description"
