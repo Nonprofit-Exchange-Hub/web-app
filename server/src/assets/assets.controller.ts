@@ -29,7 +29,6 @@ import { User } from '../users/entities/user.entity';
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}
 
-  // @UseGuards(CookieAuthGuard)
   @UseGuards(IsOrgAuthGuard)
   @Post()
   async create(
