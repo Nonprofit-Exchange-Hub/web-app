@@ -25,7 +25,7 @@ export class IsOrgAuthGuard extends AuthGuard() {
     let user: User = {} as User;
     try {
       user = await this.jwtService.verify(jwt, { secret: process.env.JWT_SECRET });
-      const userOrgs = this.userOrgService.getAllByUserId(user.id);
+      const userOrgs = await this.userOrgService.getAllByUserId(user.id);
 
       // check that the user has an org to post on behalf of
       // check that there is only 1 org (temp)
