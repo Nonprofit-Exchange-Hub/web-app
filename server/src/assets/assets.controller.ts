@@ -13,6 +13,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
+import { IsOrgAuthGuard } from '../auth/guards/is-org-auth.guard';
 import { DeleteResult } from 'typeorm';
 
 import type { Request as ExpressRequest } from 'express';
@@ -28,7 +29,8 @@ import { User } from '../users/entities/user.entity';
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}
 
-  @UseGuards(CookieAuthGuard)
+  // @UseGuards(CookieAuthGuard)
+  @UseGuards(IsOrgAuthGuard)
   @Post()
   async create(
     @Request() request: ExpressRequest,

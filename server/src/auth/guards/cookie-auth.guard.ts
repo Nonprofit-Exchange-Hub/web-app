@@ -1,6 +1,5 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 
 import { COOKIE_KEY } from '../constants';
