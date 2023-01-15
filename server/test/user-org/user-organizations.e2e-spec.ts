@@ -15,8 +15,8 @@ import { UserOrganizationsController } from '../../src/user-org/user-org.control
 import { User } from '../../src/users/entities/user.entity';
 
 import { StubGen } from '../stubs/stub-factory';
-import { UsersModule } from '../../src/users/users.module';
 import { OrganizationsModule } from '../../src/organizations/organizations.module';
+import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 
 describe('UserOrgsController', () => {
   let app: INestApplication;
@@ -35,7 +35,7 @@ describe('UserOrgsController', () => {
       imports: [
         UserOrganizationsModule,
         TypeOrmModule.forRoot(TEST_DB_OPTIONS),
-        UsersModule,
+        AcccountManagerModule,
         OrganizationsModule,
       ],
       controllers: [UserOrganizationsController],

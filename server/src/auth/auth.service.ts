@@ -5,11 +5,15 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
 
+/**
+ * @Deprecated @See AccountManagerModule
+ */
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
   async validateUser(email: string, password: string): Promise<Omit<User, 'password'>> {
+    throw new Error('Deprecated service. Use the new account manager module');
     try {
       const user = (await this.usersService.findByEmail(email, true)) as User;
 
@@ -30,6 +34,7 @@ export class AuthService {
   }
 
   async createJwt(user: Omit<User, 'password'>) {
+    throw new Error('Deprecated service. Use the new account manager module');
     return this.jwtService.sign({ ...user }, { expiresIn: '1h', secret: process.env.JWT_SECRET });
   }
 }

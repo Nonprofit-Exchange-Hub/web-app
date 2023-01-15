@@ -5,6 +5,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { WSCookieStrategy } from '../strategies/ws-cookie..strategy';
 import * as c from 'cookie-parser';
 
+/**
+ * @Deprecated see Account module for the current version
+ */
 @Injectable()
 export class WsCookieGuardGuard extends AuthGuard() {
   constructor(private jwtService: JwtService) {
@@ -12,6 +15,7 @@ export class WsCookieGuardGuard extends AuthGuard() {
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    throw new Error('Deprecated AuthGuard. Use the new account manager module');
     const client = context.switchToWs().getClient();
     const cookies: string[] = client.handshake.headers.cookie.split('; ');
 

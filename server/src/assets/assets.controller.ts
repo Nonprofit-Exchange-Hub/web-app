@@ -12,7 +12,6 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
 import { DeleteResult } from 'typeorm';
 
 import type { Request as ExpressRequest } from 'express';
@@ -23,12 +22,13 @@ import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
 import { User } from '../users/entities/user.entity';
+import { CookieAuthV2Guard } from '../acccount-manager/guards/cookie-authv2.guard';
 
 @Controller('assets')
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}
 
-  @UseGuards(CookieAuthGuard)
+  @UseGuards(CookieAuthV2Guard)
   @Post()
   async create(
     @Request() request: ExpressRequest,
@@ -65,7 +65,7 @@ export class AssetsController {
     return foundAsset;
   }
 
-  @UseGuards(CookieAuthGuard)
+  @UseGuards(CookieAuthV2Guard)
   @Patch(':id')
   async update(
     @Request() request: ExpressRequest,

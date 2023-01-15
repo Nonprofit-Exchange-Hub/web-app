@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { LoginV2Strategy as LoginNewV2Strategy } from '../strategies/loginv2.strategy';
 
 /*
   dev note:
@@ -10,4 +11,8 @@ import { AuthGuard } from '@nestjs/passport';
 */
 
 @Injectable()
-export class LoginV2AuthGuard extends AuthGuard('local') {}
+export class LoginNewV2AuthGuard extends AuthGuard('local') {
+  constructor() {
+    super({ defaultStrategy: LoginNewV2Strategy });
+  }
+}

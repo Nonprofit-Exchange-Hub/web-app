@@ -1,17 +1,22 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SendgridService } from '../sendgrid/sendgrid.service';
 import { User } from '../users/entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
+import { AccountManagerController } from './account-manager.controller';
+import { CookieV2Strategy } from './strategies/cookiev2.strategy';
+import { LoginV2Strategy } from './strategies/loginv2.strategy';
+import { WSCookieV2Strategy } from './strategies/ws-cookiev2..strategy';
 import { UsersV2Service } from './userv2.service';
 
 const providers = [
   AccountManagerService,
   UsersV2Service,
-  LoginStrategy,
-  CookieStrategy,
-  WSCookieStrategy,
+  LoginV2Strategy,
+  CookieV2Strategy,
+  WSCookieV2Strategy,
   JwtService,
 ];
 
@@ -24,8 +29,8 @@ const providers = [
     }),
     TypeOrmModule.forFeature([User]),
   ],
-  controllers: [AuthController],
-  providers: [...providers],
+  controllers: [AccountManagerController],
+  providers: [...providers, SendgridService],
   exports: providers,
 })
 export class AcccountManagerModule {}

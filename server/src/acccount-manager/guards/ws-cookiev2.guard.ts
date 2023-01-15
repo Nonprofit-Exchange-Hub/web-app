@@ -33,7 +33,7 @@ export class WsCookieV2Guard extends AuthGuard() {
     let user: User;
     try {
       user = await this.jwtService.verify(jwtPayload, {
-        secret: jwtConstants.secret,
+        secret: process.env.JWT_SECRET,
       });
     } catch (error) {
       return false;

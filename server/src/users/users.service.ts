@@ -9,11 +9,15 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 const { BCRYPT_WORK_FACTOR = '10' } = process.env;
 
+/**
+ * @Deprecated @See AccountManagerModule
+ */
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
+    throw new Error('Deprecated service. Use the new account manager module');
     try {
       const hashedPw = await bcrypt.hash(createUserDto.password, parseInt(BCRYPT_WORK_FACTOR));
       createUserDto.password = hashedPw;
@@ -30,12 +34,14 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<Omit<User, 'password'>> {
+    throw new Error('Deprecated service. Use the new account manager module');
     const user = await this.usersRepository.findOneBy({ id });
     delete user.password;
     return user;
   }
 
   async userEmailExists(email: string): Promise<boolean> {
+    throw new Error('Deprecated service. Use the new account manager module');
     const usersFound = await this.usersRepository.count({ where: { email } });
     return usersFound > 0;
   }
@@ -43,6 +49,7 @@ export class UsersService {
   // Search database for user with matching email.
   // Returns user on success, throws 404 error if user does not exist
   async findByEmail(email: string, includePw = false): Promise<User | Omit<User, 'password'>> {
+    throw new Error('Deprecated service. Use the new account manager module');
     const user = await this.usersRepository.findOneBy({ email });
 
     if (!user) {
@@ -59,6 +66,7 @@ export class UsersService {
   }
   // Change to whatever the display name ends up being.
   async findByUsername(firstName: string): Promise<Omit<User, 'password'>> {
+    throw new Error('Deprecated service. Use the new account manager module');
     const user = await this.usersRepository.findOneBy({ firstName });
     delete user.password;
     return user;
@@ -66,6 +74,7 @@ export class UsersService {
 
   // TODO: Assess if there is a better way than making two requests.
   async update(id: number, updateUserDto: UpdateUserDto) {
+    throw new Error('Deprecated service. Use the new account manager module');
     await this.usersRepository.update(id, updateUserDto);
     const user = await this.usersRepository.findOneBy({ id });
     delete user.password;
@@ -73,6 +82,7 @@ export class UsersService {
   }
 
   async remove(id: number) {
+    throw new Error('Deprecated service. Use the new account manager module');
     return this.usersRepository.delete(id);
   }
 }

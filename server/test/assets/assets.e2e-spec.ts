@@ -12,14 +12,16 @@ import { AssetsController } from '../../src/assets/assets.controller';
 import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
 import { User } from '../../src/users/entities/user.entity';
 import { CreateUserDto } from '../../src/users/dto/create-user.dto';
-import { UsersModule } from '../../src/users/users.module';
-import { UsersService } from '../../src/users/users.service';
 import { AuthModule } from '../../src/auth/auth.module';
 import * as cookieParser from 'cookie-parser';
+import { AccountManagerService } from '../../src/acccount-manager/account-manager.service';
+import { UsersV2Service } from '../../src/acccount-manager/userv2.service';
+import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 
 describe('AssetsController', () => {
   let app: INestApplication;
-  let userServ: UsersService;
+  let userServ: UsersV2Service;
+  let accountManagerServ: AccountManagerService;
   let userRepository: Repository<User>;
   let assetRepository: Repository<Asset>;
 
@@ -28,13 +30,19 @@ describe('AssetsController', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AssetsModule, UsersModule, AuthModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
+      imports: [
+        AssetsModule,
+        AuthModule,
+        TypeOrmModule.forRoot(TEST_DB_OPTIONS),
+        AcccountManagerModule,
+      ],
       controllers: [AssetsController],
       providers: [{ provide: getRepositoryToken(Asset), useClass: Repository }],
     }).compile();
 
     app = module.createNestApplication();
-    userServ = module.get<UsersService>(UsersService);
+    accountManagerServ = module.get<AccountManagerService>(AccountManagerService);
+    userServ = module.get<UsersV2Service>(UsersV2Service);
     userRepository = module.get(getRepositoryToken(User));
     assetRepository = module.get(getRepositoryToken(Asset));
     app.use(cookieParser('secret_placeholder'));

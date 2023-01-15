@@ -10,35 +10,33 @@ import {
   ParseIntPipe,
   Patch,
   Delete,
-  Put,
-  UseInterceptors,
-  UploadedFile,
-  BadRequestException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 
 import type { Request as RequestT, Response as ResponseT } from 'express';
-
-import { LoginAuthGuard } from './guards/login-auth.guard';
-import { CookieAuthGuard } from './guards/cookie-auth.guard';
 import { COOKIE_KEY } from './constants';
-
-import type { User } from './entities/user.entity';
+import { SendgridService } from '../sendgrid/sendgrid.service';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { UpdateUserDto } from '../users/dto/update-user.dto';
+import { User } from '../users/entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UsersService } from './users.service';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { FileSizes } from '../files/file-sizes';
-import { FilesService } from '../files/files.service';
+import { CookieAuthV2Guard } from './guards/cookie-authv2.guard';
+import { LoginNewV2AuthGuard } from './guards/loginv2-auth.guard';
+import { UsersV2Service } from './userv2.service';
 
 type AuthedRequest = RequestT & { user: User };
 
+/**
+ * controller handles the requests required for account management
+ * including CRUD'ing the user entity
+ */
 @Controller('auth')
-export class AuthController {
+export class AccountManagerController {
   constructor(
     private accountManagerService: AccountManagerService,
-    private usersService: UsersService,
-    private readonly fileService: FilesService,
+    private readonly sendgridService: SendgridService,
+    private usersService: UsersV2Service,
+    private jwtService: JwtService,
   ) {}
 
   @Post('register')
@@ -50,7 +48,7 @@ export class AuthController {
   }
 
   @Post('login')
-  @UseGuards(LoginAuthGuard)
+  @UseGuards(LoginNewV2AuthGuard)
   async login(
     @Request() request: AuthedRequest,
     @Response({ passthrough: true }) response: ResponseT,
@@ -71,13 +69,11 @@ export class AuthController {
   }
 
   @Post('session')
-  @UseGuards(CookieAuthGuard)
+  @UseGuards(CookieAuthV2Guard)
   async session(@Request() request: AuthedRequest): Promise<{ user: Omit<User, 'password'> }> {
     const { user } = request;
-    const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
-      user.id,
-    );
-    return { user: { ...user, firstName, last_name, email, profile_image_url } };
+    const { firstName, last_name, email } = await this.usersService.findOne(user.id);
+    return { user: { ...user, firstName, last_name, email } };
   }
 
   @Get('logout')
@@ -91,38 +87,34 @@ export class AuthController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     try {
-      // const user = await this.usersService.findByEmail(req.body.email);
-      // TODO send email the user
-    } catch (e) {
-      response.status(200).send();
-    }
-  }
+      const user = await this.usersService.findByEmail(req.body.email);
+      if (!user) {
+        // any error hits catch, error type and msg not important
+        throw new Error();
+      }
 
-  @Put('profile/:id')
-  @UseGuards(CookieAuthGuard)
-  @UseInterceptors(FileInterceptor('profile_image_url', { limits: { fileSize: FileSizes.MB } }))
-  async upsertProfile(
-    @Param('id') id: number,
-    @UploadedFile()
-    file: Express.Multer.File,
-  ) {
-    if (/\.(jpe?g|png|gif)$/i.test(file.filename)) {
-      return new BadRequestException(
-        'Only valid image extensions allowed (.jpg, .jpeg, .png, .gif)',
+      const jwt = await this.jwtService.sign(
+        { valid: true },
+        { expiresIn: '1h', secret: process.env.JWT_SECRET },
       );
+
+      const mail = {
+        to: user.email,
+        subject: 'Givecycle Password Reset',
+        from: 'jd2rogers2@gmail.com',
+        html: `
+          <p>Hello ${user.firstName} ${user.last_name}</p>
+          <p>Please click <a href="http://localhost:3000/set-new-password?token=${jwt}">here</a> to reset your password</p>
+          <p>(this link is valid for 1 hour)</p>
+        `,
+      };
+
+      await this.sendgridService.send(mail);
+      response.status(200);
+    } catch (e) {
+      // always respond 200 so hackerz don't know which emails are active and not
+      response.status(200);
     }
-    return this.saveFile(id, file);
-  }
-
-  private async saveFile(id: number, file: Express.Multer.File) {
-    const dbUser = await this.usersService.findOne(id);
-
-    if (!dbUser) {
-      return new BadRequestException('User not found');
-    }
-
-    const fileUrl = await this.fileService.uploadFile(file, id, 'userprofile', 'replace');
-    return await this.usersService.update(id, { ...dbUser, profile_image_url: fileUrl });
   }
 
   @Get('users/:id')
@@ -135,7 +127,7 @@ export class AuthController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  @Delete('uses/:id')
+  @Delete('users/:id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(id);
   }

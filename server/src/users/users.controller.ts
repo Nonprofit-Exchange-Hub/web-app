@@ -9,6 +9,7 @@ import {
   Request,
   Response,
   ParseIntPipe,
+  BadRequestException,
 } from '@nestjs/common';
 import type { Response as ResponseT } from 'express';
 import { JwtService } from '@nestjs/jwt';
@@ -19,7 +20,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { SendgridService } from '../sendgrid/sendgrid.service';
 
-@Controller('users')
+/**
+ * @Deprecated @See AccountManagerModule
+ */
+@Controller('deprecated/users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -31,6 +35,7 @@ export class UsersController {
   async create(
     @Body() createUserDto: CreateUserDto,
   ): Promise<Omit<User, 'password' | 'accept_terms'>> {
+    throw new BadRequestException('Deprecated resource. Use the new account manager module');
     const user = await this.usersService.create(createUserDto);
     return user;
   }
@@ -40,6 +45,7 @@ export class UsersController {
     @Request() req,
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
+    throw new BadRequestException('Deprecated resource. Use the new account manager module');
     try {
       const user = await this.usersService.findByEmail(req.body.email);
       if (!user) {
@@ -73,16 +79,19 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
+    throw new BadRequestException('Deprecated resource. Use the new account manager module');
     return this.usersService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
+    throw new BadRequestException('Deprecated resource. Use the new account manager module');
     return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
+    throw new BadRequestException('Deprecated resource. Use the new account manager module');
     return this.usersService.remove(id);
   }
 }

@@ -17,14 +17,14 @@ import { UserOrganizationsService } from './user-org.service';
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
 import { ApprovalStatus, Role } from './constants';
-import { UsersService } from '../users/users.service';
 import { OrganizationsService } from '../organizations/organizations.service';
+import { UsersV2Service } from '../acccount-manager/userv2.service';
 
 @Controller('userOrganizations')
 export class UserOrganizationsController {
   constructor(
     private readonly userOrganizationsService: UserOrganizationsService,
-    private readonly userService: UsersService,
+    private readonly userService: UsersV2Service,
     private readonly orgService: OrganizationsService,
   ) {}
 
