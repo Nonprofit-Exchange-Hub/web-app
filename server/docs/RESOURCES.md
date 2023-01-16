@@ -42,7 +42,7 @@ Unit tests, you probably don't have to worry about this for now
 Javascript classes that describe a database table. Typeorm reads this file and creates a database table based on what we define there
 
 #### `___.dto.ts`
-[`Data Transfer Objects`] - they are used to transfer data between different app layers. These model the shape of data that interacts with the controller and the data that the service expects. Controllers expose these to validate the data the user or client sends and we also use these to map the data it returns to the client. It tells the client and the developers what data to expect in a request and what data to expect on a response.
+[`Data Transfer Objects`] - they are used to transfer data between different app layers. These DTOs model the shape of data that interacts with the controller and the data that the service expects. Controllers expose these to validate the data the user or client sends and we also use these to map the data it returns to the client. It tells the client and the developers what data to send with a request and what data to expect on a response.
 
 [`NestJs`]:https://docs.nestjs.com/
 [REST]:https://www.redhat.com/en/topics/api/what-is-a-rest-api

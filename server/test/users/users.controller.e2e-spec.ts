@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as supertest from 'supertest';
 import { Repository } from 'typeorm';
+import { JwtModule } from '@nestjs/jwt';
 
 import { userCreateDtoStub } from '../stubs';
 import { UsersController } from '../../src/users/users.controller';
@@ -10,6 +11,7 @@ import { User } from '../../src/users/entities/user.entity';
 import { UsersModule } from '../../src/users/users.module';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
+import { SendgridModule } from '../../src/sendgrid/sendgrid.module';
 
 describe('UsersController', () => {
   let app: INestApplication;
@@ -22,11 +24,20 @@ describe('UsersController', () => {
     last_name: 'parker',
     email: 'peter.parker@example.com',
     password: 'secret1234',
+    email_notification_opt_out: false,
   });
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
+      imports: [
+        UsersModule,
+        TypeOrmModule.forRoot(TEST_DB_OPTIONS),
+        SendgridModule,
+        JwtModule.register({
+          secret: '',
+          signOptions: { expiresIn: '60s' },
+        }),
+      ],
       controllers: [UsersController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
     }).compile();
