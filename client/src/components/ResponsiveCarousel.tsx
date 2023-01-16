@@ -77,7 +77,6 @@ function ResponsiveCarousel(props: ResponsiveCarouselProps) {
     if (cardsRequested > 0 && !hasReachedEnd) {
       const onSuccess = (data: Array<any>) => {
         if (data.length < cardsRequested) {
-          console.log('cardsRequested', cardsRequested);
           setHasReachedEnd(true);
         }
         setCardsData([...cardsData, ...data]);

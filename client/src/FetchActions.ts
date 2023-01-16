@@ -33,7 +33,6 @@ export const fetchNeeds = (
   abortController?: AbortController,
   onError = (statusCode?: Number, statusText?: string) => {},
 ) => {
-  console.log(`fetching needs with offset ${offset}`);
   const assetsApiRequest = new URL(`${APP_API_BASE_URL}/assets`);
   assetsApiRequest.searchParams.append('type', 'request');
   assetsApiRequest.searchParams.append('limit', limit);
@@ -48,7 +47,6 @@ export const fetchDonations = (
   abortController?: AbortController,
   onError = (statusCode?: Number, statusText?: string) => {},
 ) => {
-  console.log(`fetching needs with offset ${offset}`);
   const assetsApiRequest = new URL(`${APP_API_BASE_URL}/assets`);
   assetsApiRequest.searchParams.append('type', 'donation');
   assetsApiRequest.searchParams.append('limit', limit);
