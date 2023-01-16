@@ -73,7 +73,7 @@ export default function NeedCard(props: Props) {
           </Box>
         </Box>
       </CardContent>
-      <CardMedia component="img" image={image} alt="Need example" />
+      <CardMedia component="img" image={image} alt="Need example" sx={{ height: '90px' }} />
     </Card>
   );
 }
