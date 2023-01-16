@@ -9,7 +9,7 @@ type Props = {
   title: string;
   type: 'need' | 'donation';
   sx?: object;
-  date: Date;
+  datePosted: Date;
   avatarUrl?: string;
   org: string;
   children?: ReactNode | ReactNode[];
@@ -52,7 +52,7 @@ export default function Card(props: Props) {
               color={theme.palette.secondary.contrastText}
               sx={{ fontSize: '0.9em !important', fontWeight: '300', marginBottom: '0 !important' }}
             >
-              {`Posted on ${props.date ? props.date.toLocaleDateString() : ''}`}
+              {`Posted on ${props.datePosted ? props.datePosted.toLocaleDateString() : ''}`}
             </Typography>
             <Typography
               variant="body2"

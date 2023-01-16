@@ -37,7 +37,7 @@ export default function NeedCard(props: Props) {
     <Card
       title={props.title}
       type={props.type}
-      date={props.datePosted}
+      datePosted={props.datePosted}
       sx={props.sx || {}}
       org={props.poster.firstName}
     >

@@ -31,7 +31,7 @@ export default function OfferCard(props: Props) {
   const posterName = props.poster ? `${props.poster.firstName}` : 'Anonymous';
 
   return (
-    <Card title={props.title} type={props.type} date={props.datePosted} org={posterName}>
+    <Card title={props.title} type={props.type} datePosted={props.datePosted} org={posterName}>
       <CardMedia
         component="img"
         image={props.imgUrls ? props.imgUrls[0] : Example}
