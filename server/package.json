@@ -36,6 +36,7 @@
         "@nestjs/serve-static": "^2.2.2",
         "@nestjs/typeorm": "^8.1.4",
         "@nestjs/websockets": "^8.4.7",
+        "@sendgrid/mail": "^7.7.0",
         "@types/cookie-parser": "^1.4.2",
         "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
