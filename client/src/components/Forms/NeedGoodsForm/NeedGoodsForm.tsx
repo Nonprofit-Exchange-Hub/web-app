@@ -122,12 +122,9 @@ function NeedGoodsForm(): JSX.Element {
 
   const handleChangePhotoUrl = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     setFormData((fData) => {
-      let validatedUrls;
       urlSchema
         .validate({ url: event.target.value })
-        .then((success) => {
-          validatedUrls = success;
-          console.log(validatedUrls);
+        .then(() => {
           setUrlError((urlError) => ({
             ...urlError,
             [`${index}`]: '',

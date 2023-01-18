@@ -22,6 +22,7 @@ export class AssetsService {
 
   async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
     const { limit, offset, ...rest } = getAssetsDto;
+
     return (
       this.assetsRepository.find({
         where: rest,
