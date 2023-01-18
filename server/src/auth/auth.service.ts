@@ -1,9 +1,9 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
+
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
-import { JwtService } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
@@ -30,6 +30,6 @@ export class AuthService {
   }
 
   async createJwt(user: Omit<User, 'password'>) {
-    return this.jwtService.sign({ ...user }, { expiresIn: '1h', secret: jwtConstants.secret });
+    return this.jwtService.sign({ ...user }, { expiresIn: '1h', secret: process.env.JWT_SECRET });
   }
 }

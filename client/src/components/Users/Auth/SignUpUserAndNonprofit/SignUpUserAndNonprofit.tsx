@@ -33,6 +33,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { classifications } from './Classifications';
 import { httpGetValidateEin, httpPostNonprofitSignup } from './http-sing-up-nonprofit';
+import InputMask from 'react-input-mask';
 
 const defaultOrg: FormData = {
   name: '',
@@ -52,6 +53,7 @@ const defaultOrg: FormData = {
   confirmPassword: '',
   accept_terms: false,
   image_url: '',
+  email_notification_opt_out: false,
 };
 
 const steps = [{ label: 'EIN number' }, { label: 'Contact details' }, { label: 'User info' }];
@@ -276,26 +278,6 @@ export const SignUpUserAndNonprofit = () => {
                   </Grid>
                   <Grid item md={12} xs={12}>
                     <Controller
-                      name="image_url"
-                      control={control}
-                      defaultValue={'https://blah.png'}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Organization Profile Image"
-                          placeholder="Organization Profile Image"
-                          fullWidth
-                        />
-                      )}
-                    />
-                  </Grid>
-                </Grid>
-              )}
-
-              {activeStep === 1 && (
-                <Grid container spacing={5}>
-                  <Grid item md={12} xs={12}>
-                    <Controller
                       name="doing_business_as"
                       control={control}
                       defaultValue={''}
@@ -315,6 +297,28 @@ export const SignUpUserAndNonprofit = () => {
                       )}
                     />
                   </Grid>
+                  <Grid item md={12} xs={12}>
+                    <Controller
+                      name="image_url"
+                      control={control}
+                      defaultValue={'https://blah.png'}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Organization Profile Image"
+                          placeholder="Organization Profile Image"
+                          fullWidth
+                          helperText={errors.image_url?.message ? errors.image_url.message : ''}
+                          error={!!errors.image_url}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              )}
+
+              {activeStep === 1 && (
+                <Grid container spacing={5}>
                   <Grid item md={12} xs={12}>
                     <Controller
                       name="description"
@@ -373,13 +377,14 @@ export const SignUpUserAndNonprofit = () => {
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="State"
-                          placeholder="State"
-                          helperText={errors.state ? errors.state.message : ''}
-                          error={!!errors.state}
-                        />
+                        <InputMask mask={'aa'} {...field} onChange={field.onChange}>
+                          <TextField
+                            label="State"
+                            placeholder="State"
+                            helperText={errors.state ? errors.state.message : ''}
+                            error={!!errors.state}
+                          />
+                        </InputMask>
                       )}
                     />
                   </Grid>
@@ -389,13 +394,14 @@ export const SignUpUserAndNonprofit = () => {
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Phone"
-                          placeholder="Phone"
-                          error={!!errors.phone}
-                          helperText={errors.phone ? errors.phone.message : ''}
-                        />
+                        <InputMask mask={'999-999-9999'} {...field} onChange={field.onChange}>
+                          <TextField
+                            label="Phone"
+                            placeholder="Phone"
+                            error={!!errors.phone}
+                            helperText={errors.phone ? errors.phone.message : ''}
+                          />
+                        </InputMask>
                       )}
                     />
                   </Grid>
@@ -562,6 +568,27 @@ export const SignUpUserAndNonprofit = () => {
                               </StyledLink>
                             </label>
                           }
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Controller
+                      name="email_notification_opt_out"
+                      control={control}
+                      defaultValue={false}
+                      render={({ field }) => (
+                        <FormControlLabel
+                          style={{ textAlign: 'left', display: 'block' }}
+                          control={
+                            <Checkbox
+                              {...field}
+                              color="primary"
+                              name="email_notification_opt_out"
+                              inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
+                            />
+                          }
+                          label={<label>Opt Out Of Email Notifications </label>}
                         />
                       )}
                     />

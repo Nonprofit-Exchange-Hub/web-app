@@ -12,7 +12,7 @@ import SignupNonProfit from './views/SignupNonProfit';
 import Inbox from './views/Inbox';
 import User from './views/User';
 import ActionForm from './views/ActionForm';
-import AssetsView from './views/AssetsView';
+import SearchResults from './views/SearchResults';
 import Asset from './views/Asset';
 import NeedForm from './views/NeedForm';
 import NeedFormGoods from './views/NeedFormGoods';
@@ -104,8 +104,8 @@ const routes: RouteMap = {
     path: '/action',
   },
   Assets: {
-    component: AssetsView,
-    path: '/assets',
+    component: SearchResults,
+    path: '/SearchResults',
   },
   Asset: {
     component: Asset,

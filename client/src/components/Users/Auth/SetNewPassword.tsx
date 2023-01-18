@@ -62,7 +62,6 @@ function SetNewPassword() {
       if (resp.ok) {
         resp.json().then((data) => {
           // send user to home page/message lets them know password was changed successfully
-          console.log(data);
         });
       } else {
         resp.json().then((errors) => setError(errors));

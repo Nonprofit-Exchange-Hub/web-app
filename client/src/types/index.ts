@@ -9,7 +9,6 @@ export type Asset = {
   poster: User;
   organization: number;
   type: 'need' | 'donation';
-  date: Date;
   org: string;
   condition: string;
 };

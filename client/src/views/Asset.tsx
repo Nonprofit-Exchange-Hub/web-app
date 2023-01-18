@@ -220,8 +220,10 @@ function Asset(): JSX.Element {
             {asset.location}
           </Typography>
           <Typography className={classes.subText} variant="subtitle1">
-            <TodayOutlined />
-            {asset.datePosted}
+            <>
+              <TodayOutlined />
+              {asset.datePosted}
+            </>
           </Typography>
           {aboutInfo()}
           <Button
