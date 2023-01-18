@@ -27,7 +27,7 @@
 ```
 PORT=3001
 DATABASE_HOST=localhost
-DATABASE_PORT=8080
+DATABASE_PORT=5432
 DATABASE_USER=postgres
 DATABASE_PASSWORD=your_password
 DATABASE_DB=test_db
@@ -36,6 +36,9 @@ BCRYPT_WORK_FACTOR=10
 E2E_DATABASE_DB=e2e_db
 # sockets gateway cors
 SOCKET_CORS_ORIGIN="http://localhost:3000"
+JWT_SECRET=foobar
+# reach out to a team lead for the below value if you need it to work on email notification works
+SENDGRID_API_KEY=
 ```
 6. In that `.env` file we'll now customize some of those values
     * If you are using the non-dockerized version of postgres, change the `DATABASE_PORT` value to `5432`
