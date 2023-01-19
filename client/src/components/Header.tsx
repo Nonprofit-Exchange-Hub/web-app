@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function Header() {
-  const LOGOUT_URL = `${APP_API_BASE_URL}/logout`;
+  const LOGOUT_URL = `${APP_API_BASE_URL}/auth/logout`;
   const classes = useStyles();
   const [user, setUser] = React.useContext(UserContext);
   const history = useHistory();
