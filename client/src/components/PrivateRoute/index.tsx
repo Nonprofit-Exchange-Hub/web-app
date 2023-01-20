@@ -5,6 +5,7 @@ import routes from '../../routes';
 
 const PrivateRoute = ({ children }) => {
   const [user] = useContext(UserContext);
+  console.log(user);
   return user ? children : <Redirect to={routes.Login.path} />;
 };
 
