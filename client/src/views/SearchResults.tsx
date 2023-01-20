@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as queryString from 'query-string';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import makeStyles from '@mui/styles/makeStyles';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,26 +12,34 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 import type { Theme } from '@mui/material/styles';
 
 import AssetsList from './AssetsList';
 import OrgsList from './OrgsList';
 import FilterGroup from '../components/FilterGroup';
+import SearchCategoryCard from '../components/SearchCategoryCard';
 import { filters1, filters2, filters3 } from '../assets/temp';
 import { APP_API_BASE_URL } from '../configs';
 
 import type { Asset, Organization } from '../types';
+// import { createBinary } from 'typescript';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  searchResultsContainer: {
+    display: 'grid',
+    padding: '20px 10%',
+    gridTemplateRows: 'auto',
+    gridTemplateAreas: `' searchBar '
+                      'searchBody '`,
+    gap: '4em 0',
+  },
   searchBar: {
-    backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: '10px 5%',
-    borderRadius: 0,
-    alignItems: 'center',
+    gridArea: 'searchBar',
+    // backgroundColor: 'white',
+    boxShadow: 'none',
+    margin: '20px 100px',
   },
   iconButton: {
     padding: 10,
@@ -42,29 +50,34 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   searchInput: {
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: '10px',
+    width: '100%',
+    height: '70px',
   },
-  contentWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+  searchBody: {
+    gridArea: 'searchBody',
+    display: 'grid',
+    gridTemplateColumns: '300px 1fr',
+    gridTemplateRows: 'auto',
+    gridTemplateAreas: `'leftPanel rightPanel'`,
+    gap: '1em',
   },
   leftPanel: {
-    borderRight: '1px solid grey',
-    width: '20%',
+    gridArea: 'leftPanel',
+    minWidth: '200px',
+    width: '100%',
+    display: 'grid',
+    gap: '1em',
   },
-  createBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  groupHeader: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    marginLeft: '15%',
   },
+  createBar: {},
   rightPanel: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    padding: '10px 5%',
-    width: '80%',
+    gridArea: 'rightPanel',
   },
   makeAPost: {
     fontWeight: 'bold',
@@ -142,20 +155,40 @@ function SearchResults(): JSX.Element {
   }, [querySearchText, querySearchCategory]);
 
   return (
-    <>
-      <Paper className={classes.searchBar}>
-        <Box sx={{ display: 'flex' }}>
-          <>
-            X of Y results for "<b>{searchText}</b>"
-          </>
-        </Box>
-        <Box sx={{ display: 'flex' }}>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+    <div className={classes.searchResultsContainer}>
+      <div className={classes.searchBar}>
+        {/* <>
+          X of Y results for "<b>{searchText}</b>"
+        </> */}
+        <Box
+          sx={{
+            display: 'flex',
+            borderRadius: '10px',
+            overflow: 'hidden',
+            boxShadow: '1px 1px 5px 1px rgba(0,0,0,0.2)',
+            height: '50px',
+            alignItems: 'center',
+          }}
+        >
+          <FormControl
+            // variant="standard"
+            sx={{
+              minWidth: '200px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={searchCategory}
               label="Age"
+              sx={{
+                '& #demo-simple-select': {
+                  fontSize: '20px',
+                  paddingLeft: '20%',
+                },
+              }}
               onChange={(e: SelectChangeEvent) => {
                 setSearchCategory(e.target.value);
               }}
@@ -175,7 +208,7 @@ function SearchResults(): JSX.Element {
                 tooltip: {
                   sx: {
                     color: 'rgba(0, 0, 0, 0.87)',
-                    fontSize: 13,
+                    fontSize: '18px',
                     bgcolor: 'common.white',
                     '& .MuiTooltip-arrow': {
                       color: 'common.white',
@@ -192,7 +225,7 @@ function SearchResults(): JSX.Element {
                   },
                 }}
                 placeholder="Search"
-                inputProps={{ 'aria-label': 'ex. diapers' }}
+                inputProps={{ 'aria-label': 'ex. diapers', style: { fontSize: '18px' } }}
                 type="text"
                 value={searchText}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -204,36 +237,52 @@ function SearchResults(): JSX.Element {
             <SearchIcon fontSize="large" onClick={handleSearch} />
           </Paper>
         </Box>
-      </Paper>
-      <div className={classes.contentWrapper}>
+      </div>
+      <div className={classes.searchBody}>
         <div className={classes.leftPanel}>
-          <FilterGroup
-            header="Location"
-            onHandleCheck={handleCheck}
-            filters={filters1}
-            selectedFilters={selectedFilters}
-          />
-          <FilterGroup
-            header="Category"
-            onHandleCheck={handleCheck}
-            filters={filters2}
-            selectedFilters={selectedFilters}
-          />
-          <FilterGroup
-            header="Nonprofit"
-            onHandleCheck={handleCheck}
-            filters={filters3}
-            selectedFilters={selectedFilters}
-          />
+          <SearchCategoryCard />
+          <Typography
+            variant="inherit"
+            component="h5"
+            color="textPrimary"
+            className={classes.groupHeader}
+          >
+            Location
+          </Typography>
+          <span style={{ fontSize: '15px' }}>
+            <a href="#">Join now</a> to view posts from your local community.
+          </span>
+          <div
+            style={{ paddingTop: '40px', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          >
+            <FilterGroup
+              header="Delivery Method"
+              onHandleCheck={handleCheck}
+              filters={filters1}
+              selectedFilters={selectedFilters}
+            />
+            <FilterGroup
+              header="Condition"
+              onHandleCheck={handleCheck}
+              filters={filters2}
+              selectedFilters={selectedFilters}
+            />
+            <FilterGroup
+              header="Categories"
+              onHandleCheck={handleCheck}
+              filters={filters3}
+              selectedFilters={selectedFilters}
+            />
+          </div>
         </div>
         <div className={classes.rightPanel}>
           <Paper elevation={0} className={classes.createBar}>
             {/* TODO: where is this meant to link to? */}
-            <NavLink className={classes.makeAPost} to="/create">
+            {/* <NavLink className={classes.makeAPost} to="/create">
               <Button color="primary" variant="contained">
                 Make a Post
               </Button>
-            </NavLink>
+            </NavLink> */}
           </Paper>
           {/* {TODO:   Need to combine all lists under one "List" component} */}
           {/* {TODO:   Create and add a VolunteerList component below */}
@@ -249,7 +298,7 @@ function SearchResults(): JSX.Element {
           )}
           {querySearchCategory === 'Needs' || querySearchCategory === 'Offers' ? (
             <AssetsList
-              headerText={querySearchCategory === 'Needs' ? 'Needs' : 'Offers'}
+              headerText={querySearchCategory === 'Needs' ? 'All Recent Needed Items' : 'Offers'}
               assets={querySearchCategory === 'Needs' ? needs : offers}
             />
           ) : (
@@ -264,7 +313,7 @@ function SearchResults(): JSX.Element {
           {needs.length + offers.length + orgs.length + volunteer.length === 0 && 'No Results'}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -60,7 +60,7 @@ function AssetsList(props: Props): JSX.Element {
   return (
     <>
       <Grid container item justifyContent="space-between">
-        <Typography variant="h4" component="h4" className={classes.needsAndOffersHeader}>
+        <Typography variant="h3" component="h4" className={classes.needsAndOffersHeader}>
           {headerText}
         </Typography>
         {headerContentRight ?? null}
