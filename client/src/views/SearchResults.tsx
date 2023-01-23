@@ -18,6 +18,7 @@ import type { Theme } from '@mui/material/styles';
 
 import AssetsList from './AssetsList';
 import OrgsList from './OrgsList';
+import SortBy from '../components/SortBy';
 import FilterGroup from '../components/FilterGroup';
 import SearchCategoryCard from '../components/SearchCategoryCard';
 import { filters1, filters2, filters3 } from '../assets/temp';
@@ -76,6 +77,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: '15%',
   },
   createBar: {},
+  rightHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   rightPanel: {
     gridArea: 'rightPanel',
   },
@@ -276,39 +281,42 @@ function SearchResults(): JSX.Element {
           </div>
         </div>
         <div className={classes.rightPanel}>
-          <Paper elevation={0} className={classes.createBar}>
-            {/* TODO: where is this meant to link to? */}
-            {/* <NavLink className={classes.makeAPost} to="/create">
-              <Button color="primary" variant="contained">
-                Make a Post
-              </Button>
-            </NavLink> */}
-          </Paper>
-          {/* {TODO:   Need to combine all lists under one "List" component} */}
-          {/* {TODO:   Create and add a VolunteerList component below */}
-          {querySearchCategory === 'All' ? (
-            <div>
-              {needs.length > 0 ? <AssetsList headerText={'Needs'} assets={needs} /> : <></>}
-              {offers.length > 0 ? <AssetsList headerText={'Offers'} assets={offers} /> : <></>}
-              {orgs.length > 0 ? <OrgsList headerText={'Nonprofits'} orgs={orgs} /> : <></>}
-              {volunteer.length > 0 ? `<VolunteerList Componet TBD />` : <></>}
-            </div>
-          ) : (
-            <></>
-          )}
-          {querySearchCategory === 'Needs' || querySearchCategory === 'Offers' ? (
-            <AssetsList
-              headerText={querySearchCategory === 'Needs' ? 'All Recent Needed Items' : 'Offers'}
-              assets={querySearchCategory === 'Needs' ? needs : offers}
-            />
-          ) : (
-            <></>
-          )}
-          {querySearchCategory === 'Nonprofits' ? (
-            <OrgsList headerText={'Nonprofits'} orgs={orgs} />
-          ) : (
-            <></>
-          )}
+          <div className={classes.rightHeader}>
+            <Paper elevation={0} className={classes.createBar}>
+              {/* TODO: where is this meant to link to? */}
+              {/* <NavLink className={classes.makeAPost} to="/create">
+                <Button color="primary" variant="contained">
+                  Make a Post
+                </Button>
+              </NavLink> */}
+            </Paper>
+            {/* {TODO:   Need to combine all lists under one "List" component} */}
+            {/* {TODO:   Create and add a VolunteerList component below */}
+            {querySearchCategory === 'All' ? (
+              <div>
+                {needs.length > 0 ? <AssetsList headerText={'Needs'} assets={needs} /> : <></>}
+                {offers.length > 0 ? <AssetsList headerText={'Offers'} assets={offers} /> : <></>}
+                {orgs.length > 0 ? <OrgsList headerText={'Nonprofits'} orgs={orgs} /> : <></>}
+                {volunteer.length > 0 ? `<VolunteerList Componet TBD />` : <></>}
+              </div>
+            ) : (
+              <></>
+            )}
+            {querySearchCategory === 'Needs' || querySearchCategory === 'Offers' ? (
+              <AssetsList
+                headerText={querySearchCategory === 'Needs' ? 'All Recent Needed Items' : 'Offers'}
+                assets={querySearchCategory === 'Needs' ? needs : offers}
+              />
+            ) : (
+              <></>
+            )}
+            {querySearchCategory === 'Nonprofits' ? (
+              <OrgsList headerText={'Nonprofits'} orgs={orgs} />
+            ) : (
+              <></>
+            )}
+            <SortBy />
+          </div>
           {querySearchCategory === 'Volunteer' ? `<VolunteerList Componet TBD />` : <></>}
           {needs.length + offers.length + orgs.length + volunteer.length === 0 && 'No Results'}
         </div>

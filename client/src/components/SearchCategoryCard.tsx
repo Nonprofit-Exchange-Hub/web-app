@@ -6,12 +6,13 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
+//still need to implement functionality of the filters
 const useStyles = makeStyles({
   container: {
     background: 'linear-gradient(180deg, #37718E 0%, #285469 100%)',
     borderRadius: '20px',
     display: 'flex',
-    gap: '0.3em',
+    gap: '0.8em',
     padding: '30px 0 30px 20px',
   },
   root: {
