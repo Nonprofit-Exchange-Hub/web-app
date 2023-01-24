@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from '../routes/PrivateRouteWrapper';
-
+import renderPrivateRoute from '../routes/PrivateRouteWrapper';
 import routes from '../routes/routes';
-
-const renderPrivateRoute = (roles: string[], Component: () => JSX.Element) => {
-  return () => (
-    <PrivateRoute roles={roles}>
-      <Component />
-    </PrivateRoute>
-  );
-};
 
 const {
   Home,

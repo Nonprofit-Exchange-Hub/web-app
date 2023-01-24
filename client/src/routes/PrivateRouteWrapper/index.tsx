@@ -15,4 +15,12 @@ const PrivateRoute = ({ roles, children }: Props) => {
   return user ? children : <Redirect to={routes.Login.path} />;
 };
 
-export default PrivateRoute;
+const renderPrivateRoute = (roles: string[], Component: () => JSX.Element) => {
+  return () => (
+    <PrivateRoute roles={roles}>
+      <Component />
+    </PrivateRoute>
+  );
+};
+
+export default renderPrivateRoute;
