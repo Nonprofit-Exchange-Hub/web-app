@@ -12,7 +12,7 @@ import AssetsList from './AssetsList';
 import { placeholderImg } from '../assets/temp';
 import QuestionList from '../components/QuestionList';
 import BannerSection from '../components/BannerSection';
-import routes from '../routes';
+import routes from '../routes/routes';
 import CallToActionCards from '../components/CallToActionCards';
 import { APP_API_BASE_URL } from '../configs';
 

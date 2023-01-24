@@ -25,7 +25,7 @@ import type { Theme } from '@mui/material/styles';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/GivingfulLogo.png';
-import routes from '../routes';
+import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({

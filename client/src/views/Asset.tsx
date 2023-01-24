@@ -13,7 +13,7 @@ import RoomOutlined from '@mui/icons-material/RoomOutlined';
 import type { Theme } from '@mui/material/styles';
 
 import SimpleSnackbar from '../components/SimpleSnackbar';
-import routes from '../routes';
+import routes from '../routes/routes';
 
 import type { Asset as AssetT } from '../types';
 import { APP_API_BASE_URL } from '../configs';

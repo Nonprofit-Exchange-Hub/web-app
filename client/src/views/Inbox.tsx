@@ -14,7 +14,7 @@ import SubHeader from '../components/Users/Inbox/SubHeader';
 import TransactionThreadCard from '../components/Users/Inbox/TransactionThreadCard';
 import MessageCard from '../components/Users/Inbox/MessageCard';
 import { UserContext } from '../providers';
-import routes from '../routes';
+import routes from '../routes/routes';
 
 import type { Message, Transaction } from '../types';
 import { APP_API_BASE_URL } from '../configs';
