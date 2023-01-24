@@ -132,9 +132,7 @@ function MessageInboxView(): JSX.Element {
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);
   const [messages, setMessages] = React.useState<Message[]>([]);
 
-  const handleSendMessage = () => {
-    console.log(messages);
-  };
+  const handleSendMessage = () => {};
 
   // todo switch to custom hook
   React.useEffect(() => {

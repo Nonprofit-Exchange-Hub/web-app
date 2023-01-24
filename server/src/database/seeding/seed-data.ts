@@ -129,6 +129,46 @@ export function seedAssets(): CreateAssetDto[] {
       quantity: 12,
       imgUrls: [assetImg],
     },
+    {
+      title: 'Thirteen',
+      description: 'lucky lucky lucky',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 13,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Fourteen',
+      description: 'seven twice',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Fifteen',
+      description: 'adds up to six?',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Sixteen',
+      description: 'sixteen candles',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Seventeen',
+      description: 'on the edge of 17',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
   ];
   return assets;
 }
