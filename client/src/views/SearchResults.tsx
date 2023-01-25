@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     gridTemplateAreas: `' searchBar '
                       'searchBody '`,
     gap: '4em 0',
+    backgroundColor: '#f7fbfd',
   },
   searchBar: {
     gridArea: 'searchBar',
@@ -80,6 +81,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   rightHeader: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'top',
   },
   rightPanel: {
     gridArea: 'rightPanel',
@@ -192,6 +195,7 @@ function SearchResults(): JSX.Element {
                 '& #demo-simple-select': {
                   fontSize: '20px',
                   paddingLeft: '20%',
+                  backgroundColor: 'white',
                 },
               }}
               onChange={(e: SelectChangeEvent) => {
