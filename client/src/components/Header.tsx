@@ -57,7 +57,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
   },
   toolbar: {
-    padding: '5px 5%',
+    margin: 'auto',
+    padding: '5px 0',
+    width: '83.3%',
   },
   menuItemIconRight: {
     display: 'flex',
