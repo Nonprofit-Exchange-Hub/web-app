@@ -19,7 +19,7 @@ type Props = {
 export default function NeedCard(props: Props) {
   return (
     <Card title={props.title} type={props.type} date={props.date} org={props.org}>
-      <CardContent>
+      <CardContent sx={{ margin: '5% 5% 0% 5%' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
           <Typography gutterBottom>Apparel</Typography>
           <Typography gutterBottom sx={{ fontWeight: 900 }}>

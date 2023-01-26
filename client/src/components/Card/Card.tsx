@@ -15,12 +15,12 @@ type Props = {
 
 export default function Card(props: Props) {
   return (
-    <MuiCard>
+    <MuiCard sx={{ width: '20em' }}>
       <CardActionArea>
         {props.children}
         <Box
           sx={{
-            padding: '0.5rem',
+            padding: '0.5em 8% 5% 8%',
             background:
               props.type === 'need'
                 ? `${theme.palette.primary.gradient}`

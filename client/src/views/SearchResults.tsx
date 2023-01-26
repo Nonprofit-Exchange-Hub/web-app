@@ -18,7 +18,6 @@ import type { Theme } from '@mui/material/styles';
 
 import AssetsList from './AssetsList';
 import OrgsList from './OrgsList';
-import SortBy from '../components/SortBy';
 import FilterGroup from '../components/FilterGroup';
 import SearchCategoryCard from '../components/SearchCategoryCard';
 import { filters1, filters2, filters3 } from '../assets/temp';
@@ -69,7 +68,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     gridArea: 'leftPanel',
     minWidth: '200px',
     width: '100%',
-    display: 'grid',
+    display: 'flex',
+    flexDirection: 'column',
     gap: '1em',
   },
   groupHeader: {
@@ -81,7 +81,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   rightHeader: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'top',
   },
   rightPanel: {
@@ -165,9 +164,6 @@ function SearchResults(): JSX.Element {
   return (
     <div className={classes.searchResultsContainer}>
       <div className={classes.searchBar}>
-        {/* <>
-          X of Y results for "<b>{searchText}</b>"
-        </> */}
         <Box
           sx={{
             display: 'flex',
@@ -319,7 +315,6 @@ function SearchResults(): JSX.Element {
             ) : (
               <></>
             )}
-            <SortBy />
           </div>
           {querySearchCategory === 'Volunteer' ? `<VolunteerList Componet TBD />` : <></>}
           {needs.length + offers.length + orgs.length + volunteer.length === 0 && 'No Results'}
