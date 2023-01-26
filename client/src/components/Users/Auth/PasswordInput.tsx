@@ -12,7 +12,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import type { Theme } from '@mui/material/styles';
 
 import StyledLink from '../../StyledLink';
-import routes from '../../../routes';
+import routes from '../../../routes/routes';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {

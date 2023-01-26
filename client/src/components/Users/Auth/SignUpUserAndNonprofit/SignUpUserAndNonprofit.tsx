@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CheckIcon from '@mui/icons-material/Check';
 
-import routes from '../../../../routes';
+import routes from '../../../../routes/routes';
 import StyledLink from '../../../StyledLink';
 
 import { useMutation, useQuery } from 'react-query';

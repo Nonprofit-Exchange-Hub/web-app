@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 
 import CallToActionCard from './CallToActionCard';
-import routes from '../routes';
+import routes from '../routes/routes';
 
 const useStyles = makeStyles((theme) => ({
   grid: {

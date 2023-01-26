@@ -15,7 +15,7 @@ import PasswordInput from '../components/Users/Auth/PasswordInput';
 import StyledLink from '../components/StyledLink';
 import TextDivider from '../components/TextDivider';
 import { UserContext } from '../providers';
-import routes from '../routes';
+import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => {
