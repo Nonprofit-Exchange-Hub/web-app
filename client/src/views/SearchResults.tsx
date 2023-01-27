@@ -104,7 +104,7 @@ function SearchResults(): JSX.Element {
     } else if (querySearchCategory === 'Offers' || querySearchCategory === 'Needs') {
       fetch(
         `${APP_API_BASE_URL}/assets?type=${
-          querySearchCategory === 'Needs' ? 'donation' : 'request'
+          querySearchCategory === 'Needs' ? 'request' : 'donation'
         }${querySearchText ? `&title=${querySearchText}` : ''}`,
       )
         .then((resp) => resp.json())

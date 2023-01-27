@@ -7,6 +7,7 @@ import { UpdateAssetDto } from './dto/update-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { User } from '../users/entities/user.entity';
 import { CreateAssetDto } from './dto/create-asset.dto';
+import { Like } from 'typeorm';
 
 @Injectable()
 export class AssetsService {
@@ -21,11 +22,12 @@ export class AssetsService {
   }
 
   async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
-    const { limit, offset, ...rest } = getAssetsDto;
+    const { limit, offset, title, ...rest } = getAssetsDto;
+    const whereParams = title ? { title: Like(`%${title}%`), ...rest } : { ...rest };
 
     return (
       this.assetsRepository.find({
-        where: rest,
+        where: whereParams,
         order: {
           datePosted: 'DESC',
         },
