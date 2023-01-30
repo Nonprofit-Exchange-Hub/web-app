@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import { Box, Stepper, Step, StepLabel } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -76,9 +77,17 @@ const initialFormData: UserSignupData = {
 function SignupCitizen() {
   const classes = useStyles();
   const history = useHistory();
+  const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
+
+  const steps = [
+    { label: 'Basic Information' },
+    { label: 'Personal Information' },
+    { label: 'Interests' },
+    { label: 'Profile' },
+  ];
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
@@ -110,6 +119,15 @@ function SignupCitizen() {
     }
   };
 
+  // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
   return (
     <div className="SignupCitizen">
       <Grid container>
@@ -132,105 +150,166 @@ function SignupCitizen() {
             <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
           </Grid>
           <TextDivider>or</TextDivider>
+          <Grid container spacing={0} justifyContent="center" sx={{ marginY: '20px' }}>
+            <Stepper activeStep={activeStep} alternativeLabel>
+              {steps.map((step, index) => (
+                <Step key={step.label}>
+                  <StepLabel
+                    optional={
+                      index === steps.length - 1 ? (
+                        <Typography variant="caption">Last step</Typography>
+                      ) : null
+                    }
+                  >
+                    {step.label}
+                  </StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </Grid>
+
           <form onSubmit={handleSubmit}>
-            <Grid container item xs={12} justifyContent="space-between">
-              <Grid item xs={5}>
-                <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="firstName">
-                    First Name
-                  </label>
-                  <Input
-                    className={classes.input}
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    autoComplete="given-name"
-                    placeholder="Jane"
-                    fullWidth
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    disableUnderline
-                    required
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item xs={2} />
-              <Grid item xs={5}>
-                <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="last_name">
-                    Last Name
-                  </label>
-                  <Input
-                    className={classes.input}
-                    type="text"
-                    id="last_name"
-                    name="last_name"
-                    autoComplete="family-name"
-                    placeholder="Individual"
-                    fullWidth
-                    value={formData.last_name}
-                    onChange={handleChange}
-                    disableUnderline
-                    required
-                  />
-                </FormControl>
+            {activeStep === 0 && (
+              <>
+                <Grid container item xs={12} justifyContent="space-between">
+                  <Grid item xs={5}>
+                    <FormControl fullWidth>
+                      <label className={classes.label} htmlFor="firstName">
+                        First Name
+                      </label>
+                      <Input
+                        className={classes.input}
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        autoComplete="given-name"
+                        placeholder="Jane"
+                        fullWidth
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={2} />
+                  <Grid item xs={5}>
+                    <FormControl fullWidth>
+                      <label className={classes.label} htmlFor="last_name">
+                        Last Name
+                      </label>
+                      <Input
+                        className={classes.input}
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        autoComplete="family-name"
+                        placeholder="Individual"
+                        fullWidth
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid container />
+                <EmailInput
+                  value={formData.email}
+                  placeholder="jane@citizen.com"
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                  error={emailError}
+                />
+                <PasswordInput
+                  value={formData.password}
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                />
+                <FormControlLabel
+                  style={{ textAlign: 'left', display: 'block' }}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={formData.accept_terms}
+                      onChange={handleChange}
+                      name="accept_terms"
+                      inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                    />
+                  }
+                  label={
+                    <label>
+                      Accept the{' '}
+                      <StyledLink to={routes.TermsOfService.path} target="_blank">
+                        Terms of Service
+                      </StyledLink>
+                    </label>
+                  }
+                />
+                <FormControlLabel
+                  style={{ textAlign: 'left', display: 'block' }}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={formData.email_notification_opt_out}
+                      onChange={handleChange}
+                      name="email_notification_opt_out"
+                      inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
+                    />
+                  }
+                  label={'Opt Out Of Email Notifications'}
+                />
+              </>
+            )}
+
+            {activeStep === 1 && <h1>Personal Info</h1>}
+
+            {activeStep === 2 && <h1>Interests</h1>}
+
+            {activeStep === 3 && <h1>Profile Pic and Bio</h1>}
+
+            <Grid container spacing={5}>
+              <Grid item xs={12} sx={{ mt: 6, mb: 6 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    sx={{ mr: 1 }}
+                  >
+                    Back
+                  </Button>
+                  <Box sx={{ flex: '1 1 auto' }} />
+                  {activeStep === 0 && (
+                    <Button color="primary" variant="contained" onClick={handleNext}>
+                      Next
+                    </Button>
+                  )}
+                  {activeStep === 1 && (
+                    <Button color="primary" variant="contained" onClick={handleNext}>
+                      Next
+                    </Button>
+                  )}
+                  {activeStep === 2 && (
+                    <Button color="primary" variant="contained" onClick={handleNext}>
+                      Next
+                    </Button>
+                  )}
+                  {activeStep === 3 && (
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      type="submit"
+                      disabled={!formData.accept_terms}
+                    >
+                      Sign Up
+                    </Button>
+                  )}
+                </Box>
               </Grid>
             </Grid>
-            <Grid container />
-            <EmailInput
-              value={formData.email}
-              placeholder="jane@citizen.com"
-              onChange={handleChange}
-              showStartAdornment={true}
-              error={emailError}
-            />
-            <PasswordInput
-              value={formData.password}
-              onChange={handleChange}
-              showStartAdornment={true}
-            />
-            <FormControlLabel
-              style={{ textAlign: 'left', display: 'block' }}
-              control={
-                <Checkbox
-                  color="primary"
-                  checked={formData.accept_terms}
-                  onChange={handleChange}
-                  name="accept_terms"
-                  inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                />
-              }
-              label={
-                <label>
-                  Accept the{' '}
-                  <StyledLink to={routes.TermsOfService.path} target="_blank">
-                    Terms of Service
-                  </StyledLink>
-                </label>
-              }
-            />
-            <FormControlLabel
-              style={{ textAlign: 'left', display: 'block' }}
-              control={
-                <Checkbox
-                  color="primary"
-                  checked={formData.email_notification_opt_out}
-                  onChange={handleChange}
-                  name="email_notification_opt_out"
-                  inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
-                />
-              }
-              label={'Opt Out Of Email Notifications'}
-            />
-
-            <Button
-              className={classes.button}
-              fullWidth
-              type="submit"
-              disabled={!formData.accept_terms}
-            >
-              Sign Up
-            </Button>
             {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
             {isLoading && <Typography>Loading</Typography>}
           </form>
