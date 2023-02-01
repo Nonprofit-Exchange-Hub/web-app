@@ -16,10 +16,10 @@ jobs:
       with:
         node-version: 16
 
-    - name: Start project compose services
-      run: docker-compose -f server/ci.docker-compose.yml up -d
-
     - name: load default env variables
       run: cp server/sample.env server/.env
+
+    - name: Start project compose services
+      run: docker-compose -f server/ci.docker-compose.yml up -d
 
     - run: cd server && npm ci && npm run test:e2e
