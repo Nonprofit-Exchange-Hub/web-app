@@ -20,7 +20,7 @@ jobs:
       run: docker compose -f server/ci.docker-compose.yml up -d
 
     - name: load default env variables
-      run: cp sample.env .env
+      run: cp server/sample.env server/.env
 
     - run: npm ci
     - run: npm run test:e2e
