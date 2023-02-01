@@ -17,7 +17,7 @@ jobs:
         node-version: 16
 
     - name: Start project compose services
-      run: docker compose -f server/ci.docker-compose.yml up -d
+      run: docker-compose -f server/ci.docker-compose.yml up -d
 
     - name: load default env variables
       run: cp server/sample.env server/.env
