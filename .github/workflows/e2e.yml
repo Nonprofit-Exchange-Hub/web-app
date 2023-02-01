@@ -22,5 +22,4 @@ jobs:
     - name: load default env variables
       run: cp server/sample.env server/.env
 
-    - run: npm ci
-    - run: npm run test:e2e
+    - run: cd server && npm ci && npm run test:e2e
