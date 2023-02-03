@@ -8,7 +8,17 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-import { Box, Stepper, Step, StepLabel, Select, MenuItem } from '@mui/material';
+import {
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Select,
+  MenuItem,
+  Chip,
+  Avatar,
+  TextField,
+} from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -61,6 +71,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'bold',
     textAlign: 'left',
   },
+  chip: {
+    boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.25)',
+    height: 44,
+  },
 }));
 
 interface UserSignupData {
@@ -81,6 +95,26 @@ const initialFormData: UserSignupData = {
   email_notification_opt_out: false,
 };
 
+const interests = [
+  'Animal Care & Services',
+  'Poverty',
+  'Housing & Homeless',
+  'Youth & Children',
+  'Disaster Relief',
+  'Health Care & Welness',
+  'Environment & Sustainability',
+  'Sports & Recreation',
+  'Seniors',
+  'Religion, Faith & Spirituality',
+  'Civic Engagement',
+  'LGTBQIA+',
+  'Civil Rights & Advocacy',
+  'Military & Veterans',
+  'Social Justice',
+  'Education & Literacy',
+  'Arts & Culture',
+];
+
 function SignupCitizen() {
   const classes = useStyles();
   const history = useHistory();
@@ -95,6 +129,19 @@ function SignupCitizen() {
     { label: 'Interests' },
     { label: 'Profile' },
   ];
+
+  const makeChips = () => {
+    return interests.map((interest) => {
+      return (
+        <Chip
+          className={classes.chip}
+          label={interest}
+          variant="outlined"
+          onClick={() => console.log(interest)}
+        />
+      );
+    });
+  };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
@@ -293,7 +340,7 @@ function SignupCitizen() {
                   align="left"
                   gutterBottom
                 >
-                  Tell Us About Yourself
+                  Tell us about yourself
                 </Typography>
                 <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                   Personal Information
@@ -302,9 +349,7 @@ function SignupCitizen() {
                 <Grid xs={12} sx={{ height: '50px' }} />
                 <Grid container item xs={12} spacing={2}>
                   <Grid item xs={12}>
-                    <label className={classes.label} htmlFor="location">
-                      Where are you located?
-                    </label>
+                    <label className={classes.label}>Where are you located?</label>
                   </Grid>
                   <Grid item xs={6}>
                     {/* Pull locations from an api probably */}
@@ -331,10 +376,79 @@ function SignupCitizen() {
                 </Grid>
               </>
             )}
+
             {/* PAGE THREE ######################################################## */}
-            {activeStep === 2 && <h1>Interests</h1>}
+            {activeStep === 2 && (
+              <>
+                <Typography
+                  className={classes.header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                  gutterBottom
+                >
+                  Tell us about your interests
+                </Typography>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                  Your Interests
+                </Typography>
+                <Typography>Please select one or more interest.</Typography>
+                <Grid xs={12} sx={{ height: '50px' }} />
+                <Grid container item xs={12} spacing={2}>
+                  <Grid item xs={12}>
+                    <label className={classes.label}>
+                      What type on nonprofits are you interested in?
+                    </label>
+                  </Grid>
+                  <Grid item xs={12}>
+                    {makeChips()}
+                  </Grid>
+                </Grid>
+              </>
+            )}
             {/* PAGE FOUR ######################################################## */}
-            {activeStep === 3 && <h1>Profile Pic and Bio</h1>}
+            {activeStep === 3 && (
+              <>
+                <Typography
+                  className={classes.header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                  gutterBottom
+                >
+                  Upload your profile icon
+                </Typography>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                  Your Profile
+                </Typography>
+                <Typography>
+                  You can update this information later in the settings of your account.
+                </Typography>
+                <Grid item xs={12} sx={{ height: '50px' }} />
+                <Grid container item xs={12} alignItems="center">
+                  <Grid item xs={3}>
+                    <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <input accept="image/*" hidden id="upload-file" type="file" />
+                    <label htmlFor="upload-file">
+                      <Button className={classes.button} component="span">
+                        Upload
+                      </Button>
+                    </label>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sx={{ height: '50px' }} />
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                  About Yourself
+                </Typography>
+                <Grid item xs={10}>
+                  <TextField multiline rows={4} fullWidth placeholder="Tell us about yourself..." />
+                </Grid>
+              </>
+            )}
 
             <Grid container spacing={5}>
               <Grid item xs={12} sx={{ mt: 2, mb: 6 }}>
@@ -381,6 +495,7 @@ function SignupCitizen() {
             {isLoading && <Typography>Loading</Typography>}
           </form>
         </Grid>
+        <Grid item xs={12} sx={{ height: '65px' }} />
       </Grid>
     </div>
   );

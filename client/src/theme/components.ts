@@ -33,6 +33,14 @@ const components = {
       },
     },
   },
+  MuiChip: {
+    styleOverrides: {
+      root: {
+        margin: 5,
+        borderRadius: 10,
+      },
+    },
+  },
   MuiButton: {
     styleOverrides: {
       root: {
