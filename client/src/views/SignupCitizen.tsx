@@ -23,10 +23,6 @@ import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  // containerAll: {
-  //   height: '120vh',
-  //   alignItems: 'center',
-  // },
   sideImg: {
     backgroundImage: `url("${placeholderImg}")`,
     backgroundSize: 'cover',
@@ -156,14 +152,14 @@ function SignupCitizen() {
           >
             Let's get started.
           </Typography>
-          <Typography component="p" align="left" gutterBottom>
+          {/* <Typography
+            component="p"
+            align="left"
+            gutterBottom
+            sx={{ fontSize: '15px', color: '#404040', marginBottom: '16px' }}
+          >
             Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
-          </Typography>
-          <Grid container item justifyContent="space-between">
-            <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
-            <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
-          </Grid>
-          <TextDivider>or</TextDivider>
+          </Typography> */}
           <Grid container spacing={0} justifyContent="center" sx={{ marginY: '20px' }}>
             <Stepper activeStep={activeStep} alternativeLabel>
               {steps.map((step, index) => (
@@ -185,6 +181,11 @@ function SignupCitizen() {
           <form onSubmit={handleSubmit}>
             {activeStep === 0 && (
               <>
+                <Grid container item>
+                  <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
+                  <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
+                </Grid>
+                <TextDivider>or</TextDivider>
                 <Grid container item xs={12}>
                   <Grid item xs={5}>
                     <FormControl>
@@ -206,8 +207,8 @@ function SignupCitizen() {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={2} />
-                  <Grid item xs={5}>
+                  {/* <Grid item xs={2} /> */}
+                  <Grid item xs={7}>
                     <FormControl fullWidth>
                       <label className={classes.label} htmlFor="last_name">
                         Last Name
@@ -242,7 +243,10 @@ function SignupCitizen() {
                   showStartAdornment={true}
                 />
                 <FormControlLabel
-                  style={{ textAlign: 'left', display: 'block' }}
+                  style={{
+                    textAlign: 'left',
+                    display: 'block',
+                  }}
                   control={
                     <Checkbox
                       color="primary"
@@ -274,6 +278,14 @@ function SignupCitizen() {
                   }
                   label={'Opt Out Of Email Notifications'}
                 />
+                <Typography
+                  component="p"
+                  align="left"
+                  gutterBottom
+                  sx={{ fontSize: '15px', color: '#404040', margin: '16px 0' }}
+                >
+                  Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
+                </Typography>
               </>
             )}
 
@@ -284,8 +296,8 @@ function SignupCitizen() {
             {activeStep === 3 && <h1>Profile Pic and Bio</h1>}
 
             <Grid container spacing={5}>
-              <Grid item xs={12} sx={{ mt: 6, mb: 6 }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Grid item xs={12} sx={{ mt: 2, mb: 6 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -295,7 +307,7 @@ function SignupCitizen() {
                   >
                     Back
                   </Button>
-                  <Box sx={{ flex: '1 1 auto' }} />
+                  <Box sx={{ flex: '1 auto 1' }} />
                   {activeStep === 0 && (
                     <Button color="primary" variant="contained" onClick={handleNext}>
                       Next
