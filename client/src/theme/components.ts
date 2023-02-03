@@ -53,6 +53,13 @@ const components = {
       disableGutters: true,
     },
   },
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: 10,
+      },
+    },
+  },
   MuiContainer: {
     styleOverrides: {
       root: {

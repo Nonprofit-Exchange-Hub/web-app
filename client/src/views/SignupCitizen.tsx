@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-import { Box, Stepper, Step, StepLabel } from '@mui/material';
+import { Box, Stepper, Step, StepLabel, Select, MenuItem } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -142,24 +142,6 @@ function SignupCitizen() {
         <Grid className={classes.sideImg} item xs={3} />
         <Grid item xs={1} />
         <Grid container className={classes.signUpContainer} item direction="column" xs={7}>
-          <Typography
-            className={classes.header}
-            variant="h4"
-            fontSize="58px"
-            component="h1"
-            align="left"
-            gutterBottom
-          >
-            Let's get started.
-          </Typography>
-          {/* <Typography
-            component="p"
-            align="left"
-            gutterBottom
-            sx={{ fontSize: '15px', color: '#404040', marginBottom: '16px' }}
-          >
-            Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
-          </Typography> */}
           <Grid container spacing={0} justifyContent="center" sx={{ marginY: '20px' }}>
             <Stepper activeStep={activeStep} alternativeLabel>
               {steps.map((step, index) => (
@@ -179,8 +161,19 @@ function SignupCitizen() {
           </Grid>
 
           <form onSubmit={handleSubmit}>
+            {/* PAGE ONE ###########################################################*/}
             {activeStep === 0 && (
               <>
+                <Typography
+                  className={classes.header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                  gutterBottom
+                >
+                  Let's get started
+                </Typography>
                 <Grid container item>
                   <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
                   <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
@@ -289,10 +282,58 @@ function SignupCitizen() {
               </>
             )}
 
-            {activeStep === 1 && <h1>Personal Info</h1>}
-
+            {/* PAGE TWO ######################################################## */}
+            {activeStep === 1 && (
+              <>
+                <Typography
+                  className={classes.header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                  gutterBottom
+                >
+                  Tell Us About Yourself
+                </Typography>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                  Personal Information
+                </Typography>
+                <Typography>You can always update this information later as needed.</Typography>
+                <Grid xs={12} sx={{ height: '50px' }} />
+                <Grid container item xs={12} spacing={2}>
+                  <Grid item xs={12}>
+                    <label className={classes.label} htmlFor="location">
+                      Where are you located?
+                    </label>
+                  </Grid>
+                  <Grid item xs={6}>
+                    {/* Pull locations from an api probably */}
+                    <Select className={classes.input} placeholder="city" fullWidth>
+                      <MenuItem value={'Seattle'}>Seattle</MenuItem>
+                      <MenuItem value={'Nashville'}>Nashville</MenuItem>
+                      <MenuItem value={'New York'}>New York</MenuItem>
+                    </Select>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Select className={classes.input} placeholder="state" fullWidth>
+                      <MenuItem value={'Washington'}>Washington</MenuItem>
+                      <MenuItem value={'Tennessee'}>Tennessee</MenuItem>
+                      <MenuItem value={'New York'}>New York</MenuItem>
+                    </Select>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Select className={classes.input} placeholder="zip" fullWidth>
+                      <MenuItem value={'12345'}>12345</MenuItem>
+                      <MenuItem value={'23456'}>23456</MenuItem>
+                      <MenuItem value={'34567'}>34567</MenuItem>
+                    </Select>
+                  </Grid>
+                </Grid>
+              </>
+            )}
+            {/* PAGE THREE ######################################################## */}
             {activeStep === 2 && <h1>Interests</h1>}
-
+            {/* PAGE FOUR ######################################################## */}
             {activeStep === 3 && <h1>Profile Pic and Bio</h1>}
 
             <Grid container spacing={5}>
