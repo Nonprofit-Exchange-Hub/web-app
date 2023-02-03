@@ -116,7 +116,7 @@ const interests = [
 ];
 
 function SignupCitizen() {
-  const classes = useStyles();
+  const { sideImg, signUpContainer, button, header, input, label, chip } = useStyles();
   const history = useHistory();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -134,7 +134,7 @@ function SignupCitizen() {
     return interests.map((interest) => {
       return (
         <Chip
-          className={classes.chip}
+          className={chip}
           label={interest}
           variant="outlined"
           onClick={() => console.log(interest)}
@@ -187,9 +187,9 @@ function SignupCitizen() {
     <div className="SignupCitizen">
       <Grid container>
         <Grid item xs={12} sx={{ height: '60px' }} />
-        <Grid className={classes.sideImg} item xs={3} />
+        <Grid className={sideImg} item xs={3} />
         <Grid item xs={1} />
-        <Grid container className={classes.signUpContainer} item direction="column" xs={7}>
+        <Grid container className={signUpContainer} item direction="column" xs={7}>
           <Grid container spacing={0} justifyContent="center" sx={{ marginY: '20px' }}>
             <Stepper activeStep={activeStep} alternativeLabel>
               {steps.map((step, index) => (
@@ -213,7 +213,7 @@ function SignupCitizen() {
             {activeStep === 0 && (
               <>
                 <Typography
-                  className={classes.header}
+                  className={header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -230,11 +230,11 @@ function SignupCitizen() {
                 <Grid container item xs={12}>
                   <Grid item xs={5}>
                     <FormControl>
-                      <label className={classes.label} htmlFor="firstName">
+                      <label className={label} htmlFor="firstName">
                         First Name
                       </label>
                       <Input
-                        className={classes.input}
+                        className={input}
                         type="text"
                         id="firstName"
                         name="firstName"
@@ -250,11 +250,11 @@ function SignupCitizen() {
                   </Grid>
                   <Grid item xs={7}>
                     <FormControl fullWidth>
-                      <label className={classes.label} htmlFor="last_name">
+                      <label className={label} htmlFor="last_name">
                         Last Name
                       </label>
                       <Input
-                        className={classes.input}
+                        className={input}
                         type="text"
                         id="last_name"
                         name="last_name"
@@ -333,7 +333,7 @@ function SignupCitizen() {
             {activeStep === 1 && (
               <>
                 <Typography
-                  className={classes.header}
+                  className={header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -342,36 +342,28 @@ function SignupCitizen() {
                 >
                   Tell us about yourself
                 </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
                   Personal Information
                 </Typography>
                 <Typography>You can always update this information later as needed.</Typography>
                 <Grid xs={12} sx={{ height: '50px' }} />
                 <Grid container item xs={12} spacing={2}>
                   <Grid item xs={12}>
-                    <label className={classes.label}>Where are you located?</label>
+                    <label className={label}>Where are you located?</label>
                   </Grid>
                   <Grid item xs={6}>
                     {/* Pull locations from an api probably */}
-                    <Select className={classes.input} placeholder="city" fullWidth>
-                      <MenuItem value={'Seattle'}>Seattle</MenuItem>
-                      <MenuItem value={'Nashville'}>Nashville</MenuItem>
-                      <MenuItem value={'New York'}>New York</MenuItem>
-                    </Select>
+                    <Input className={input} placeholder="city" fullWidth disableUnderline></Input>
                   </Grid>
                   <Grid item xs={6}>
-                    <Select className={classes.input} placeholder="state" fullWidth>
+                    <Select className={input} placeholder="state" fullWidth>
                       <MenuItem value={'Washington'}>Washington</MenuItem>
                       <MenuItem value={'Tennessee'}>Tennessee</MenuItem>
                       <MenuItem value={'New York'}>New York</MenuItem>
                     </Select>
                   </Grid>
                   <Grid item xs={4}>
-                    <Select className={classes.input} placeholder="zip" fullWidth>
-                      <MenuItem value={'12345'}>12345</MenuItem>
-                      <MenuItem value={'23456'}>23456</MenuItem>
-                      <MenuItem value={'34567'}>34567</MenuItem>
-                    </Select>
+                    <Input className={input} placeholder="zip" fullWidth disableUnderline></Input>
                   </Grid>
                 </Grid>
               </>
@@ -381,7 +373,7 @@ function SignupCitizen() {
             {activeStep === 2 && (
               <>
                 <Typography
-                  className={classes.header}
+                  className={header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -390,16 +382,14 @@ function SignupCitizen() {
                 >
                   Tell us about your interests
                 </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
                   Your Interests
                 </Typography>
                 <Typography>Please select one or more interest.</Typography>
                 <Grid xs={12} sx={{ height: '50px' }} />
                 <Grid container item xs={12} spacing={2}>
                   <Grid item xs={12}>
-                    <label className={classes.label}>
-                      What type on nonprofits are you interested in?
-                    </label>
+                    <label className={label}>What type on nonprofits are you interested in?</label>
                   </Grid>
                   <Grid item xs={12}>
                     {makeChips()}
@@ -412,7 +402,7 @@ function SignupCitizen() {
             {activeStep === 3 && (
               <>
                 <Typography
-                  className={classes.header}
+                  className={header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -421,7 +411,7 @@ function SignupCitizen() {
                 >
                   Upload your profile icon
                 </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
                   Your Profile
                 </Typography>
                 <Typography>
@@ -435,14 +425,14 @@ function SignupCitizen() {
                   <Grid item xs={3}>
                     <input accept="image/*" hidden id="upload-file" type="file" />
                     <label htmlFor="upload-file">
-                      <Button className={classes.button} component="span">
+                      <Button className={button} component="span">
                         Upload
                       </Button>
                     </label>
                   </Grid>
                 </Grid>
                 <Grid item xs={12} sx={{ height: '50px' }} />
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
                   About Yourself
                 </Typography>
                 <Grid item xs={10}>
@@ -456,7 +446,7 @@ function SignupCitizen() {
             {activeStep === 4 && (
               <>
                 <Typography
-                  className={classes.header}
+                  className={header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -465,7 +455,7 @@ function SignupCitizen() {
                 >
                   Sign up Complete!
                 </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
                   Your name {/* USERS NAME GOES HERE */}
                 </Typography>
                 <Typography>Your Email {/* USERS EMAIL GOES HERE */}</Typography>
