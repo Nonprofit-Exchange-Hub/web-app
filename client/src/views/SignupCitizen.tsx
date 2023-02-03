@@ -154,6 +154,7 @@ function SignupCitizen() {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
+    handleNext();
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
@@ -221,7 +222,7 @@ function SignupCitizen() {
                 >
                   Let's get started
                 </Typography>
-                <Grid container item>
+                <Grid container item sx={{ paddingBottom: '16px' }}>
                   <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
                   <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
                 </Grid>
@@ -247,7 +248,6 @@ function SignupCitizen() {
                       />
                     </FormControl>
                   </Grid>
-                  {/* <Grid item xs={2} /> */}
                   <Grid item xs={7}>
                     <FormControl fullWidth>
                       <label className={classes.label} htmlFor="last_name">
@@ -407,6 +407,7 @@ function SignupCitizen() {
                 </Grid>
               </>
             )}
+
             {/* PAGE FOUR ######################################################## */}
             {activeStep === 3 && (
               <>
@@ -450,53 +451,92 @@ function SignupCitizen() {
               </>
             )}
 
-            <Grid container spacing={5}>
-              <Grid item xs={12} sx={{ mt: 2, mb: 6 }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    sx={{ mr: 1 }}
-                  >
-                    Back
-                  </Button>
-                  <Box sx={{ flex: '1 auto 1' }} />
-                  {activeStep === 0 && (
-                    <Button color="primary" variant="contained" onClick={handleNext}>
-                      Next
-                    </Button>
-                  )}
-                  {activeStep === 1 && (
-                    <Button color="primary" variant="contained" onClick={handleNext}>
-                      Next
-                    </Button>
-                  )}
-                  {activeStep === 2 && (
-                    <Button color="primary" variant="contained" onClick={handleNext}>
-                      Next
-                    </Button>
-                  )}
-                  {activeStep === 3 && (
+            {/* PAGE FIVE ######################################################## */}
+            {/* SHOWN SHEN SIGNUP DONE ######################################################## */}
+            {activeStep === 4 && (
+              <>
+                <Typography
+                  className={classes.header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                  gutterBottom
+                >
+                  Sign up Complete!
+                </Typography>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                  Your name {/* USERS NAME GOES HERE */}
+                </Typography>
+                <Typography>Your Email {/* USERS EMAIL GOES HERE */}</Typography>
+                <Grid item xs={12} sx={{ height: '50px' }} />
+                <Typography>
+                  Please check your email to finish the identity verification process. Otherwise,
+                  start posting your organization needs.
+                </Typography>
+              </>
+            )}
+
+            {activeStep !== 4 && (
+              <Grid container spacing={5}>
+                <Grid item xs={12} sx={{ mt: 2, mb: 6 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Button
                       color="primary"
                       variant="contained"
-                      type="submit"
-                      disabled={!formData.accept_terms}
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      sx={{ mr: 1 }}
                     >
-                      Sign Up
+                      Back
                     </Button>
-                  )}
-                </Box>
+                    <Box sx={{ flex: '1 auto 1' }} />
+                    {activeStep === 0 && (
+                      <Button color="primary" variant="contained" onClick={handleNext}>
+                        Next
+                      </Button>
+                    )}
+                    {activeStep === 1 && (
+                      <Button color="primary" variant="contained" onClick={handleNext}>
+                        Next
+                      </Button>
+                    )}
+                    {activeStep === 2 && (
+                      <Button color="primary" variant="contained" onClick={handleNext}>
+                        Next
+                      </Button>
+                    )}
+                    {activeStep === 3 && (
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        disabled={!formData.accept_terms}
+                      >
+                        Sign Up
+                      </Button>
+                    )}
+                  </Box>
+                </Grid>
               </Grid>
-            </Grid>
+            )}
             {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
             {isLoading && <Typography>Loading</Typography>}
           </form>
         </Grid>
         <Grid item xs={12} sx={{ height: '65px' }} />
       </Grid>
+      {activeStep === 4 && (
+        <>
+          <Grid container xs={12} justifyContent="center">
+            <Grid container xs={10} justifyContent="space-between">
+              <Button>Back To Home Page</Button>
+              <Button>View Your Profile</Button>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sx={{ height: '30px' }} />
+        </>
+      )}
     </div>
   );
 }
