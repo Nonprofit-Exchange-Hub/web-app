@@ -35,6 +35,9 @@ const components = {
   },
   MuiButton: {
     styleOverrides: {
+      root: {
+        borderRadius: '10px',
+      },
       containedSecondary: {
         '&:hover': {
           backgroundColor: grey[100],

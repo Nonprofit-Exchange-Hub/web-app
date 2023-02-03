@@ -23,11 +23,17 @@ import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  // containerAll: {
+  //   height: '120vh',
+  //   alignItems: 'center',
+  // },
   sideImg: {
     backgroundImage: `url("${placeholderImg}")`,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
+    borderTopRightRadius: '15px',
+    borderBottomRightRadius: '15px',
   },
   signUpContainer: {
     margin: theme.spacing(5),
@@ -39,19 +45,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: '#C4C4C4',
     color: 'white',
   },
-  header: { fontWeight: 'bold' },
+  header: {
+    fontWeight: 'bold',
+    paddingBottom: '40px',
+  },
   input: {
-    height: 62,
+    height: 44,
     border: '1px solid #C4C4C4',
+    borderRadius: 10,
     boxSizing: 'border-box',
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    fontSize: 18,
+    fontSize: 14,
     marginBottom: 20,
   },
   label: {
     color: '#000000',
+    fontWeight: 'bold',
     textAlign: 'left',
   },
 }));
@@ -131,11 +142,14 @@ function SignupCitizen() {
   return (
     <div className="SignupCitizen">
       <Grid container>
-        <Grid className={classes.sideImg} item xs={5} />
-        <Grid container className={classes.signUpContainer} item direction="column" xs={6}>
+        <Grid item xs={12} sx={{ height: '60px' }} />
+        <Grid className={classes.sideImg} item xs={3} />
+        <Grid item xs={1} />
+        <Grid container className={classes.signUpContainer} item direction="column" xs={7}>
           <Typography
             className={classes.header}
             variant="h4"
+            fontSize="58px"
             component="h1"
             align="left"
             gutterBottom
@@ -171,9 +185,9 @@ function SignupCitizen() {
           <form onSubmit={handleSubmit}>
             {activeStep === 0 && (
               <>
-                <Grid container item xs={12} justifyContent="space-between">
+                <Grid container item xs={12}>
                   <Grid item xs={5}>
-                    <FormControl fullWidth>
+                    <FormControl>
                       <label className={classes.label} htmlFor="firstName">
                         First Name
                       </label>
