@@ -30,7 +30,7 @@ import PasswordInput from '../components/Users/Auth/PasswordInput';
 import StyledLink from '../components/StyledLink';
 import TextDivider from '../components/TextDivider';
 import routes from '../routes/routes';
-import { APP_API_BASE_URL } from '../configs';
+import { APP_API_BASE_URL, US_STATE_NAMES } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   sideImg: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   button: {
     borderRadius: 0,
-    height: 62,
+    height: 44,
     textTransform: 'none',
     backgroundColor: '#C4C4C4',
     color: 'white',
@@ -140,6 +140,12 @@ function SignupCitizen() {
           onClick={() => console.log(interest)}
         />
       );
+    });
+  };
+
+  const makeStateSelectOptions = () => {
+    return US_STATE_NAMES.map((state) => {
+      return <MenuItem value={state}>{state}</MenuItem>;
     });
   };
 
@@ -338,7 +344,6 @@ function SignupCitizen() {
                   fontSize="58px"
                   component="h1"
                   align="left"
-                  gutterBottom
                 >
                   Tell us about yourself
                 </Typography>
@@ -346,20 +351,17 @@ function SignupCitizen() {
                   Personal Information
                 </Typography>
                 <Typography>You can always update this information later as needed.</Typography>
-                <Grid xs={12} sx={{ height: '50px' }} />
+                <Grid item xs={12} sx={{ height: '50px' }} />
                 <Grid container item xs={12} spacing={2}>
                   <Grid item xs={12}>
                     <label className={label}>Where are you located?</label>
                   </Grid>
                   <Grid item xs={6}>
-                    {/* Pull locations from an api probably */}
                     <Input className={input} placeholder="city" fullWidth disableUnderline></Input>
                   </Grid>
                   <Grid item xs={6}>
                     <Select className={input} placeholder="state" fullWidth>
-                      <MenuItem value={'Washington'}>Washington</MenuItem>
-                      <MenuItem value={'Tennessee'}>Tennessee</MenuItem>
-                      <MenuItem value={'New York'}>New York</MenuItem>
+                      {makeStateSelectOptions()}
                     </Select>
                   </Grid>
                   <Grid item xs={4}>
@@ -378,7 +380,6 @@ function SignupCitizen() {
                   fontSize="58px"
                   component="h1"
                   align="left"
-                  gutterBottom
                 >
                   Tell us about your interests
                 </Typography>
@@ -386,7 +387,7 @@ function SignupCitizen() {
                   Your Interests
                 </Typography>
                 <Typography>Please select one or more interest.</Typography>
-                <Grid xs={12} sx={{ height: '50px' }} />
+                <Grid item xs={12} sx={{ height: '50px' }} />
                 <Grid container item xs={12} spacing={2}>
                   <Grid item xs={12}>
                     <label className={label}>What type on nonprofits are you interested in?</label>
@@ -407,7 +408,6 @@ function SignupCitizen() {
                   fontSize="58px"
                   component="h1"
                   align="left"
-                  gutterBottom
                 >
                   Upload your profile icon
                 </Typography>
@@ -425,7 +425,12 @@ function SignupCitizen() {
                   <Grid item xs={3}>
                     <input accept="image/*" hidden id="upload-file" type="file" />
                     <label htmlFor="upload-file">
-                      <Button className={button} component="span">
+                      <Button
+                        className={button}
+                        component="span"
+                        color="secondary"
+                        variant="contained"
+                      >
                         Upload
                       </Button>
                     </label>
@@ -451,14 +456,13 @@ function SignupCitizen() {
                   fontSize="58px"
                   component="h1"
                   align="left"
-                  gutterBottom
                 >
                   Sign up Complete!
                 </Typography>
                 <Typography className={label} sx={{ fontWeight: 'bold' }}>
-                  Your name {/* USERS NAME GOES HERE */}
+                  Your name {/* USER'S NAME GOES HERE */}
                 </Typography>
-                <Typography>Your Email {/* USERS EMAIL GOES HERE */}</Typography>
+                <Typography>Your Email {/* USER'S EMAIL GOES HERE */}</Typography>
                 <Grid item xs={12} sx={{ height: '50px' }} />
                 <Typography>
                   Please check your email to finish the identity verification process. Otherwise,
@@ -473,26 +477,26 @@ function SignupCitizen() {
                   <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Button
                       color="primary"
-                      variant="contained"
+                      variant="outlined"
                       disabled={activeStep === 0}
                       onClick={handleBack}
                       sx={{ mr: 1 }}
                     >
                       Back
                     </Button>
-                    <Box sx={{ flex: '1 auto 1' }} />
+                    <Box />
                     {activeStep === 0 && (
-                      <Button color="primary" variant="contained" onClick={handleNext}>
+                      <Button color="primary" variant="outlined" onClick={handleNext}>
                         Next
                       </Button>
                     )}
                     {activeStep === 1 && (
-                      <Button color="primary" variant="contained" onClick={handleNext}>
+                      <Button color="primary" variant="outlined" onClick={handleNext}>
                         Next
                       </Button>
                     )}
                     {activeStep === 2 && (
-                      <Button color="primary" variant="contained" onClick={handleNext}>
+                      <Button color="primary" variant="outlined" onClick={handleNext}>
                         Next
                       </Button>
                     )}
@@ -520,8 +524,12 @@ function SignupCitizen() {
         <>
           <Grid container xs={12} justifyContent="center">
             <Grid container xs={10} justifyContent="space-between">
-              <Button>Back To Home Page</Button>
-              <Button>View Your Profile</Button>
+              <Button color="primary" variant="outlined">
+                Back To Home Page
+              </Button>
+              <Button color="primary" variant="outlined">
+                View Your Profile
+              </Button>
             </Grid>
           </Grid>
           <Grid item xs={12} sx={{ height: '30px' }} />
