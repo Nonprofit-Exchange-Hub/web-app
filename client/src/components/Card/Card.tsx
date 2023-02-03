@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import MuiCard from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
+import MuiBox from '@mui/material/Box';
 import { Avatar, CardActionArea } from '@mui/material';
 import theme from '../../theme';
 
@@ -17,13 +18,12 @@ type Props = {
 
 export default function Card(props: Props) {
   return (
-    <MuiCard sx={props.sx || {}}>
+    <MuiCard sx={{ width: '20em' }}>
       <CardActionArea>
         {props.children}
         <Box
           sx={{
-            display: 'flex',
-            padding: '0.5rem',
+            padding: '0.5em 8% 5% 8%',
             background:
               props.type === 'need'
                 ? `${theme.palette.primary.gradient}`
@@ -42,9 +42,9 @@ export default function Card(props: Props) {
             src={props.avatarUrl || ''}
             alt={props.org}
           >
-            {props.org.slice(0, 1)}
+            {props.org?.slice(0, 1)}
           </Avatar>
-          <div
+          <MuiBox
             style={{ display: 'inline-flex', flexDirection: 'column', justifyContent: 'center' }}
           >
             <Typography
@@ -61,7 +61,7 @@ export default function Card(props: Props) {
             >
               by {`${props.org}`}
             </Typography>
-          </div>
+          </MuiBox>
         </Box>
       </CardActionArea>
     </MuiCard>

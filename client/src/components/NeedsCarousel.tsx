@@ -18,6 +18,7 @@ export default function NeedsCarousel(props: NeedsCarouselProps) {
       description={need.description}
       condition={need.condition}
       location={need.location}
+      org={need.org}
     />
   );
 

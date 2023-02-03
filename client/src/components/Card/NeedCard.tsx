@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import theme from '../../theme';
 import Example from '../../assets/need-example.png';
-import { Tooltip } from '@mui/material';
 
 type Props = {
   title: string;
@@ -15,7 +14,7 @@ type Props = {
   sx?: object;
   datePosted: Date;
   poster: any;
-  org?: string;
+  org: string;
   description: string;
   condition: string;
   location: string;
@@ -23,31 +22,19 @@ type Props = {
   children?: ReactNode | ReactNode[];
 };
 
-const ellipsesStyle = {
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  width: '100%',
-  boxSizing: 'border-box',
-  overflow: 'hidden',
-};
-
 export default function NeedCard(props: Props) {
   const image = props.imgUrls?.length ? props.imgUrls[0] : Example;
   return (
-    <Card
-      title={props.title}
-      type={props.type}
-      datePosted={props.datePosted}
-      sx={props.sx || {}}
-      org={props.poster.firstName}
-    >
-      <CardContent>
-        <Box sx={{ marginTop: theme.spacing(1), padding: '0.5em' }}>
-          <Tooltip title={props.title}>
-            <Typography variant="h1" sx={ellipsesStyle}>
-              {props.title}
-            </Typography>
-          </Tooltip>
+    <Card title={props.title} type={props.type} datePosted={props.datePosted} org={props.org}>
+      <CardContent sx={{ margin: '5% 5% 0% 5%' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
+          <Typography gutterBottom>Apparel</Typography>
+          <Typography gutterBottom sx={{ fontWeight: 900 }}>
+            Long Term
+          </Typography>
+        </Box>
+        <Typography variant="h1">Blazers</Typography>
+        <Box sx={{ marginTop: theme.spacing(1) }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {props.location ? (
               <>
