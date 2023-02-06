@@ -48,7 +48,7 @@ function SetNewPassword() {
     setPassword(evt.target.value);
   };
 
-  const [user] = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();
