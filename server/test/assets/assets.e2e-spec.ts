@@ -15,6 +15,7 @@ import { CreateUserDto } from '../../src/users/dto/create-user.dto';
 import { UsersModule } from '../../src/users/users.module';
 import { UsersService } from '../../src/users/users.service';
 import { AuthModule } from '../../src/auth/auth.module';
+import { UserOrganizationsModule } from '../../src/user-org/user-org.module';
 import * as cookieParser from 'cookie-parser';
 
 describe('AssetsController', () => {
@@ -28,7 +29,7 @@ describe('AssetsController', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AssetsModule, UsersModule, AuthModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
+      imports: [AssetsModule, UsersModule, AuthModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS), UserOrganizationsModule],
       controllers: [AssetsController],
       providers: [{ provide: getRepositoryToken(Asset), useClass: Repository }],
     }).compile();

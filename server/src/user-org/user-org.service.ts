@@ -59,6 +59,17 @@ export class UserOrganizationsService {
     return userOrg;
   }
 
+  async getAllByUserId(userId: number): Promise<UserOrganization[]> {
+    const userOrgs = await this.userOrganizationsRepository.find({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+    });
+    return userOrgs;
+  }
+
   async update(
     id: number,
     updateUserOrganizationsDto: UpdateUserOrganizationDto,

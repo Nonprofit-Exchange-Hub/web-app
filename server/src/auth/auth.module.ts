@@ -8,6 +8,8 @@ import { UsersModule } from '../users/users.module';
 import { LoginStrategy } from './strategies/login.strategy';
 import { CookieStrategy } from './strategies/cookie.strategy';
 import { WSCookieStrategy } from './strategies/ws-cookie..strategy';
+// import { UserOrganizationsService } from '../user-org/user-org.service';
+import { UserOrganizationsModule } from '../user-org/user-org.module';
 
 @Module({
   controllers: [AuthController],
@@ -19,6 +21,7 @@ import { WSCookieStrategy } from './strategies/ws-cookie..strategy';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },
     }),
+    UserOrganizationsModule,
   ],
   providers: [AuthService, LoginStrategy, CookieStrategy, WSCookieStrategy],
 })

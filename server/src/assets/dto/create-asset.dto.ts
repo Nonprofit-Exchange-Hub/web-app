@@ -9,7 +9,7 @@ export class CreateAssetDto {
   @IsNotEmpty()
   description: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   quantity: number;
 
   @IsOptional()
