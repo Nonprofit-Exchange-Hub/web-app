@@ -1,12 +1,12 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
-import { User } from 'src/users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
-import { WSCookieStrategy } from '../strategies/ws-cookie..strategy';
 import * as c from 'cookie-parser';
+import { User } from '../entities/user.entity';
+import { WSCookieStrategy } from '../strategies/ws-cookie.strategy';
 
 @Injectable()
-export class WsCookieGuardGuard extends AuthGuard() {
+export class WsCookieGuard extends AuthGuard() {
   constructor(private jwtService: JwtService) {
     super({ defaultStrategy: WSCookieStrategy });
   }

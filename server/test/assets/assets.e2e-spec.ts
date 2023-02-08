@@ -10,16 +10,17 @@ import { Asset } from '../../src/assets/entities/asset.entity';
 import { AssetsModule } from '../../src/assets/assets.module';
 import { AssetsController } from '../../src/assets/assets.controller';
 import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
-import { User } from '../../src/users/entities/user.entity';
-import { CreateUserDto } from '../../src/users/dto/create-user.dto';
-import { UsersModule } from '../../src/users/users.module';
-import { UsersService } from '../../src/users/users.service';
-import { AuthModule } from '../../src/auth/auth.module';
+import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
 import * as cookieParser from 'cookie-parser';
+import { AccountManagerService } from '../../src/acccount-manager/account-manager.service';
+import { UsersService } from '../../src/acccount-manager/user.service';
+import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 
 describe('AssetsController', () => {
   let app: INestApplication;
   let userServ: UsersService;
+  let accountManagerServ: AccountManagerService;
   let userRepository: Repository<User>;
   let assetRepository: Repository<Asset>;
 
@@ -28,12 +29,13 @@ describe('AssetsController', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AssetsModule, UsersModule, AuthModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS)],
+      imports: [AssetsModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS), AcccountManagerModule],
       controllers: [AssetsController],
       providers: [{ provide: getRepositoryToken(Asset), useClass: Repository }],
     }).compile();
 
     app = module.createNestApplication();
+    accountManagerServ = module.get<AccountManagerService>(AccountManagerService);
     userServ = module.get<UsersService>(UsersService);
     userRepository = module.get(getRepositoryToken(User));
     assetRepository = module.get(getRepositoryToken(Asset));
