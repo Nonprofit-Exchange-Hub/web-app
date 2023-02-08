@@ -10,7 +10,7 @@ import { CreatePocChatDto } from './dto/create-poc-chat.dto';
 import { Server, Socket } from 'socket.io';
 import { Request, UseGuards } from '@nestjs/common';
 import * as dotenv from 'dotenv';
-import { WsCookieV2Guard } from '../acccount-manager/guards/ws-cookiev2.guard';
+import { WsCookieGuard } from '../acccount-manager/guards/ws-cookie-auth.guard';
 
 dotenv.config({ path: __dirname + '/../../.env' });
 
@@ -23,7 +23,7 @@ export class PocChatGateway {
 
   constructor(private readonly pocChatService: PocChatService) {}
 
-  @UseGuards(WsCookieV2Guard)
+  @UseGuards(WsCookieGuard)
   @SubscribeMessage('createPocChat')
   async create(
     @MessageBody() createPocChatDto: CreatePocChatDto,
@@ -37,19 +37,19 @@ export class PocChatGateway {
     this.server.emit('message', messages);
   }
 
-  @UseGuards(WsCookieV2Guard)
+  @UseGuards(WsCookieGuard)
   @SubscribeMessage('findAllPocChat')
   findAll() {
     return this.pocChatService.findAll();
   }
 
   @SubscribeMessage('join')
-  @UseGuards(WsCookieV2Guard)
+  @UseGuards(WsCookieGuard)
   joinRoom(@MessageBody('name') name: string, @ConnectedSocket() client: Socket) {
     return this.pocChatService.identify(name, client.id);
   }
 
-  @UseGuards(WsCookieV2Guard)
+  @UseGuards(WsCookieGuard)
   @SubscribeMessage('typing')
   async typing(
     @MessageBody('isTyping') isTyping: boolean,

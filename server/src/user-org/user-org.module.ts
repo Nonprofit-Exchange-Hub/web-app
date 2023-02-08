@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AcccountManagerModule } from '../acccount-manager/acccount-manager.module';
-import { UsersV2Service } from '../acccount-manager/userv2.service';
+import { UsersService } from '../acccount-manager/user.service';
 import { Organization } from '../organizations/entities/organization.entity';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { User } from '../acccount-manager/entities/user.entity';
@@ -15,7 +15,7 @@ import { UserOrganizationsService } from './user-org.service';
     AcccountManagerModule,
   ],
   controllers: [UserOrganizationsController],
-  providers: [UserOrganizationsService, UsersV2Service, OrganizationsService],
+  providers: [UserOrganizationsService, UsersService, OrganizationsService],
   exports: [UserOrganizationsService],
 })
 export class UserOrganizationsModule {}

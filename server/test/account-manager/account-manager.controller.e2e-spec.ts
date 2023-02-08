@@ -9,13 +9,13 @@ import { User } from '../../src/acccount-manager/entities/user.entity';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
 import { SendgridModule } from '../../src/sendgrid/sendgrid.module';
-import { UsersV2Service } from '../../src/acccount-manager/userv2.service';
+import { UsersService } from '../../src/acccount-manager/user.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 import { AccountManagerController } from '../../src/acccount-manager/account-manager.controller';
 
 describe('AccountManagerController', () => {
   let app: INestApplication;
-  let usersService: UsersV2Service;
+  let usersService: UsersService;
   let repository: Repository<User>;
 
   let existingRecordId = 0;
@@ -43,7 +43,7 @@ describe('AccountManagerController', () => {
     }).compile();
 
     app = module.createNestApplication();
-    usersService = module.get<UsersV2Service>(UsersV2Service);
+    usersService = module.get<UsersService>(UsersService);
     repository = module.get(getRepositoryToken(User));
     // jest.clearAllMocks();
     await app.init();

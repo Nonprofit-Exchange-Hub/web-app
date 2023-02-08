@@ -9,7 +9,7 @@ import { User } from './entities/user.entity';
 const { BCRYPT_WORK_FACTOR = '10' } = process.env;
 
 @Injectable()
-export class UsersV2Service {
+export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
@@ -20,7 +20,7 @@ export class UsersV2Service {
       delete user.password;
       return user;
     } catch (err) {
-      Logger.error(`${err.message}: \n${err.stack}`, UsersV2Service.name);
+      Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);
       throw new HttpException(
         { status: HttpStatus.CONFLICT, message: 'Email already exists' },
         HttpStatus.CONFLICT,

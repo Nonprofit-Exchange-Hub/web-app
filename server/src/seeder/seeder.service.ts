@@ -23,7 +23,7 @@ import { TransactionStatus } from '../transactions/transaction-status.enum';
 import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import { CreateMessageDto } from '../messages/dto/create-message.dto';
 import { Category } from '../categories/entities/category.entity';
-import { UsersV2Service } from '../acccount-manager/userv2.service';
+import { UsersService } from '../acccount-manager/user.service';
 
 export interface SeedAssetsResult {
   assets: Asset[];
@@ -48,7 +48,7 @@ export interface SeedUserOrgResult extends SeedTransactionsResult {
 @Injectable()
 export class SeederService {
   constructor(
-    private readonly userService: UsersV2Service,
+    private readonly userService: UsersService,
     private readonly assetService: AssetsService,
     private readonly categoryService: CategoriesService,
     private readonly organizationService: OrganizationsService,

@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { AccountManagerService } from '../account-manager.service';
 
 @Injectable()
-export class LoginV2Strategy extends PassportStrategy(Strategy) {
+export class LoginStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AccountManagerService) {
     // Change the expected validation field from username to email
     super({ usernameField: 'email' });

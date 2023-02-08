@@ -20,9 +20,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
-import { CookieAuthV2Guard } from './guards/cookie-authv2.guard';
-import { LoginNewV2AuthGuard } from './guards/loginv2-auth.guard';
-import { UsersV2Service } from './userv2.service';
+import { CookieAuthGuard } from './guards/cookie-auth.guard';
+import { LoginAuthGuard } from './guards/login-auth.guard';
+import { UsersService } from './user.service';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -35,7 +35,7 @@ export class AccountManagerController {
   constructor(
     private accountManagerService: AccountManagerService,
     private readonly sendgridService: SendgridService,
-    private usersService: UsersV2Service,
+    private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
 
@@ -48,7 +48,7 @@ export class AccountManagerController {
   }
 
   @Post('login')
-  @UseGuards(LoginNewV2AuthGuard)
+  @UseGuards(LoginAuthGuard)
   async login(
     @Request() request: AuthedRequest,
     @Response({ passthrough: true }) response: ResponseT,
@@ -69,7 +69,7 @@ export class AccountManagerController {
   }
 
   @Post('session')
-  @UseGuards(CookieAuthV2Guard)
+  @UseGuards(CookieAuthGuard)
   async session(@Request() request: AuthedRequest): Promise<{ user: Omit<User, 'password'> }> {
     const { user } = request;
     const { firstName, last_name, email } = await this.usersService.findOne(user.id);

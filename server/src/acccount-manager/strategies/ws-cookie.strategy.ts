@@ -3,4 +3,4 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class WSCookieV2Strategy extends PassportStrategy(Strategy) {}
+export class WSCookieStrategy extends PassportStrategy(Strategy) {}

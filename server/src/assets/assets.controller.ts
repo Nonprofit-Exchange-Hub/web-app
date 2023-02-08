@@ -22,13 +22,13 @@ import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
 import { User } from '../acccount-manager/entities/user.entity';
-import { CookieAuthV2Guard } from '../acccount-manager/guards/cookie-authv2.guard';
+import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
 
 @Controller('assets')
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}
 
-  @UseGuards(CookieAuthV2Guard)
+  @UseGuards(CookieAuthGuard)
   @Post()
   async create(
     @Request() request: ExpressRequest,
@@ -65,7 +65,7 @@ export class AssetsController {
     return foundAsset;
   }
 
-  @UseGuards(CookieAuthV2Guard)
+  @UseGuards(CookieAuthGuard)
   @Patch(':id')
   async update(
     @Request() request: ExpressRequest,

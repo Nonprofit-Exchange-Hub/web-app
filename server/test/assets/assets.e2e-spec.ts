@@ -13,13 +13,13 @@ import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
 import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
 import * as cookieParser from 'cookie-parser';
 import { AccountManagerService } from '../../src/acccount-manager/account-manager.service';
-import { UsersV2Service } from '../../src/acccount-manager/userv2.service';
+import { UsersService } from '../../src/acccount-manager/user.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 import { User } from '../../src/acccount-manager/entities/user.entity';
 
 describe('AssetsController', () => {
   let app: INestApplication;
-  let userServ: UsersV2Service;
+  let userServ: UsersService;
   let accountManagerServ: AccountManagerService;
   let userRepository: Repository<User>;
   let assetRepository: Repository<Asset>;
@@ -36,7 +36,7 @@ describe('AssetsController', () => {
 
     app = module.createNestApplication();
     accountManagerServ = module.get<AccountManagerService>(AccountManagerService);
-    userServ = module.get<UsersV2Service>(UsersV2Service);
+    userServ = module.get<UsersService>(UsersService);
     userRepository = module.get(getRepositoryToken(User));
     assetRepository = module.get(getRepositoryToken(Asset));
     app.use(cookieParser('secret_placeholder'));

@@ -18,13 +18,13 @@ import { Message } from './entities/message.entity';
 import { DeleteResult } from 'typeorm';
 import type { Request as ExpressRequest } from 'express';
 import { User } from '../acccount-manager/entities/user.entity';
-import { CookieAuthV2Guard } from '../acccount-manager/guards/cookie-authv2.guard';
+import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
 
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
-  @UseGuards(CookieAuthV2Guard)
+  @UseGuards(CookieAuthGuard)
   @Post()
   async create(
     @Request() request: ExpressRequest,

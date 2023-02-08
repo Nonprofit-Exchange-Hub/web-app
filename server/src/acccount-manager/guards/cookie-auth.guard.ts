@@ -2,14 +2,14 @@ import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
-import { CookieV2Strategy } from '../strategies/cookiev2.strategy';
+import { CookieStrategy } from '../strategies/cookie.strategy';
 import { COOKIE_KEY } from '../constants';
 import { User } from '../entities/user.entity';
 
 @Injectable()
-export class CookieAuthV2Guard extends AuthGuard() {
+export class CookieAuthGuard extends AuthGuard() {
   constructor(private jwtService: JwtService) {
-    super({ defaultStrategy: CookieV2Strategy });
+    super({ defaultStrategy: CookieStrategy });
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -24,7 +24,7 @@ export class CookieAuthV2Guard extends AuthGuard() {
     try {
       user = await this.jwtService.verify(jwt, { secret: process.env.JWT_SECRET });
     } catch (_e) {
-      Logger.error(_e, CookieAuthV2Guard.name);
+      Logger.error(_e, CookieAuthGuard.name);
       return false;
     }
 
