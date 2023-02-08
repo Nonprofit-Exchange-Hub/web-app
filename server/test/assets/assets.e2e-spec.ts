@@ -10,13 +10,12 @@ import { Asset } from '../../src/assets/entities/asset.entity';
 import { AssetsModule } from '../../src/assets/assets.module';
 import { AssetsController } from '../../src/assets/assets.controller';
 import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
-import { User } from '../../src/acccount-manager/entities/user.entity';
 import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
-import { AuthModule } from '../../src/auth/auth.module';
 import * as cookieParser from 'cookie-parser';
 import { AccountManagerService } from '../../src/acccount-manager/account-manager.service';
 import { UsersV2Service } from '../../src/acccount-manager/userv2.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 
 describe('AssetsController', () => {
   let app: INestApplication;
@@ -30,12 +29,7 @@ describe('AssetsController', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        AssetsModule,
-        AuthModule,
-        TypeOrmModule.forRoot(TEST_DB_OPTIONS),
-        AcccountManagerModule,
-      ],
+      imports: [AssetsModule, TypeOrmModule.forRoot(TEST_DB_OPTIONS), AcccountManagerModule],
       controllers: [AssetsController],
       providers: [{ provide: getRepositoryToken(Asset), useClass: Repository }],
     }).compile();
