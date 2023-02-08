@@ -68,7 +68,7 @@ function ForgotPassword() {
     evt.preventDefault();
     setIsLoading(true);
 
-    const resp = await fetch(`${APP_API_BASE_URL}/users/reset_password`, {
+    const resp = await fetch(`${APP_API_BASE_URL}/auth/reset_password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
