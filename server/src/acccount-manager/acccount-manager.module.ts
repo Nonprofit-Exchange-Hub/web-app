@@ -8,7 +8,7 @@ import { AccountManagerService } from './account-manager.service';
 import { AccountManagerController } from './account-manager.controller';
 import { CookieV2Strategy } from './strategies/cookiev2.strategy';
 import { LoginV2Strategy } from './strategies/loginv2.strategy';
-import { WSCookieV2Strategy } from './strategies/ws-cookiev2..strategy';
+import { WSCookieV2Strategy } from './strategies/ws-cookiev2.strategy';
 import { UsersV2Service } from './userv2.service';
 
 const providers = [

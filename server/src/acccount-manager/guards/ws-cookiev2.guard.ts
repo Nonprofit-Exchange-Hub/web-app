@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import * as c from 'cookie-parser';
 import { User } from '../../users/entities/user.entity';
-import { WSCookieV2Strategy } from '../strategies/ws-cookiev2..strategy';
+import { WSCookieV2Strategy } from '../strategies/ws-cookiev2.strategy';
 
 @Injectable()
 export class WsCookieV2Guard extends AuthGuard() {
