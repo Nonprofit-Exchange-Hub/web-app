@@ -3,7 +3,7 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { User } from '../users/entities/user.entity';
+import { User } from './entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
 import { AccountManagerController } from './account-manager.controller';
 import { CookieV2Strategy } from './strategies/cookiev2.strategy';

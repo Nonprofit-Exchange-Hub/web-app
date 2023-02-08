@@ -21,7 +21,7 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
-import { User } from '../users/entities/user.entity';
+import { User } from '../acccount-manager/entities/user.entity';
 import { CookieAuthV2Guard } from '../acccount-manager/guards/cookie-authv2.guard';
 
 @Controller('assets')

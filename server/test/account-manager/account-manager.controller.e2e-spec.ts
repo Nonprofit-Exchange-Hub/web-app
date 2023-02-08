@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { JwtModule } from '@nestjs/jwt';
 
 import { userCreateDtoStub } from '../stubs';
-import { User } from '../../src/users/entities/user.entity';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
 import { SendgridModule } from '../../src/sendgrid/sendgrid.module';

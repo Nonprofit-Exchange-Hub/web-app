@@ -9,10 +9,10 @@ import { Organization } from '../../src/organizations/entities/organization.enti
 import { CreateOrganizationDto } from '../../src/organizations/dto/create-organization.dto';
 import { UserOrganization } from '../../src/user-org/entities/user-org.entity';
 import { CreateUserOrganizationDto } from '../../src/user-org/dto/create-user-org.dto';
-import { CreateUserDto } from '../../src/users/dto/create-user.dto';
+import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
 import { UserOrganizationsModule } from '../../src/user-org/user-org.module';
 import { UserOrganizationsController } from '../../src/user-org/user-org.controller';
-import { User } from '../../src/users/entities/user.entity';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 
 import { StubGen } from '../stubs/stub-factory';
 import { OrganizationsModule } from '../../src/organizations/organizations.module';

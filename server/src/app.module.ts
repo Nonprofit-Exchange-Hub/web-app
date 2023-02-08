@@ -6,10 +6,8 @@ import { join } from 'path';
 
 import { DatabaseConnectionService } from './database-connection.service';
 import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
 import { AssetsModule } from './assets/assets.module';
 import { MessagesModule } from './messages/messages.module';
-import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { CategoriesModule } from './categories/categories.module';
@@ -28,10 +26,9 @@ import { AcccountManagerModule } from './acccount-manager/acccount-manager.modul
       rootPath: join(__dirname, '/../../client', 'build'),
     }),
     AssetsModule,
-    AuthModule,
+    AcccountManagerModule,
     MessagesModule,
     OrganizationsModule,
-    UsersModule,
     CategoriesModule,
     UserOrganizationsModule,
     TransactionsModule,

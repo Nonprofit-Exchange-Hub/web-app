@@ -11,20 +11,20 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { CookieAuthGuard } from '../auth/guards/cookie-auth.guard';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { Message } from './entities/message.entity';
 import { DeleteResult } from 'typeorm';
 import type { Request as ExpressRequest } from 'express';
-import { User } from '../users/entities/user.entity';
+import { User } from '../acccount-manager/entities/user.entity';
+import { CookieAuthV2Guard } from '../acccount-manager/guards/cookie-authv2.guard';
 
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
-  @UseGuards(CookieAuthGuard)
+  @UseGuards(CookieAuthV2Guard)
   @Post()
   async create(
     @Request() request: ExpressRequest,

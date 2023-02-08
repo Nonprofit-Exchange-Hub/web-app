@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { CookieV2Strategy } from '../strategies/cookiev2.strategy';
 import { COOKIE_KEY } from '../constants';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class CookieAuthV2Guard extends AuthGuard() {

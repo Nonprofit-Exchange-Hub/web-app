@@ -1,7 +1,7 @@
 import { Message } from '../../src/messages/entities/message.entity';
 import { Asset } from '../../src/assets/entities/asset.entity';
-import { CreateUserDto } from '../../src/users/dto/create-user.dto';
-import { User } from '../../src/users/entities/user.entity';
+import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 import { Transaction } from '../../src/transactions/entities/transaction.entity';
 import { UserOrganization } from '../../src/user-org/entities/user-org.entity';
 

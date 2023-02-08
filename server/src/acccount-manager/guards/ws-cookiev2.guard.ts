@@ -2,7 +2,7 @@ import { ExecutionContext, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import * as c from 'cookie-parser';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../entities/user.entity';
 import { WSCookieV2Strategy } from '../strategies/ws-cookiev2.strategy';
 
 @Injectable()

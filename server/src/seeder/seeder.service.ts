@@ -7,7 +7,7 @@ import { seedCategories } from '../database/seeding/seed-data';
 import { seedMessages } from '../database/seeding/seed-data';
 import { seedOrganizations } from '../database/seeding/seed-data';
 import { seedTransactions } from '../database/seeding/seed-data';
-import { User } from '../users/entities/user.entity';
+import { User } from '../acccount-manager/entities/user.entity';
 import { Asset } from '../assets/entities/asset.entity';
 import { Message } from '../messages/entities/message.entity';
 import { Transaction } from '../transactions/entities/transaction.entity';
