@@ -41,19 +41,17 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   }
 
   async function setUserTimeout(
-    user: User | null,
+    currentUser: User | null,
     shouldFetch = false,
     shouldStartTimer = false,
   ): Promise<void> {
-    let newUser: User | null = user;
+    let newUser: User | null = currentUser;
     if (shouldFetch) {
-      setIsLoading(true);
       newUser = await fetchUser();
     }
 
     setUser(newUser);
-
-    if (isLoading) setIsLoading(false);
+    setIsLoading(false);
 
     if (shouldStartTimer && newUser) {
       setTimeout(() => {
