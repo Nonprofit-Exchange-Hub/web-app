@@ -13,7 +13,6 @@ import { Message } from '../messages/entities/message.entity';
 import { Transaction } from '../transactions/entities/transaction.entity';
 import { Organization } from '../organizations/entities/organization.entity';
 import { UserOrganization } from '../user-org/entities/user-org.entity';
-import { UsersService } from '../users/users.service';
 import { AssetsService } from '../assets/assets.service';
 import { CategoriesService } from '../categories/categories.service';
 import { MessagesService } from '../messages/messages.service';
@@ -24,6 +23,7 @@ import { TransactionStatus } from '../transactions/transaction-status.enum';
 import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import { CreateMessageDto } from '../messages/dto/create-message.dto';
 import { Category } from '../categories/entities/category.entity';
+import { UsersV2Service } from '../acccount-manager/userv2.service';
 
 export interface SeedAssetsResult {
   assets: Asset[];
@@ -48,7 +48,7 @@ export interface SeedUserOrgResult extends SeedTransactionsResult {
 @Injectable()
 export class SeederService {
   constructor(
-    private readonly userService: UsersService,
+    private readonly userService: UsersV2Service,
     private readonly assetService: AssetsService,
     private readonly categoryService: CategoriesService,
     private readonly organizationService: OrganizationsService,
