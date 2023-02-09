@@ -15,6 +15,7 @@ import { UserOrganizationsModule } from './user-org/user-org.module';
 import { PocChatModule } from './poc-chat/poc-chat.module';
 import { SendgridService } from './sendgrid/sendgrid.service';
 import { AcccountManagerModule } from './acccount-manager/acccount-manager.module';
+import { FileStorageModule } from './file-storage/file-storage.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AcccountManagerModule } from './acccount-manager/acccount-manager.modul
     TransactionsModule,
     PocChatModule,
     AcccountManagerModule,
+    FileStorageModule,
   ],
   controllers: [AppController],
   providers: [SendgridService],

@@ -30,7 +30,9 @@ export class UsersService {
 
   async findOne(id: number): Promise<Omit<User, 'password'>> {
     const user = await this.usersRepository.findOneBy({ id });
-    delete user.password;
+    if (user) {
+      delete user.password;
+    }
     return user;
   }
 
