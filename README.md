@@ -23,7 +23,7 @@
 4. Install required dependencies:
   -  run `npm ci` from within `/server` directory and from the `/client` directory.
   - run `npm run prepare` from within `/server` directory and from the `/client` directory.
-5. Copy the below environmental variables into a `.env` file that you create in `/server` directory
+5. Copy the existing `sample.env` file into a `.env` file in `/server` directory. It will look like this below. Change your secrets accordingly
 ```
 PORT=3001
 DATABASE_HOST=localhost
@@ -94,7 +94,7 @@ $ pg_ctl -D /usr/local/var/postgres stop
 
 1. Run `nvm use` to ensure you are using the proper node version
 2. If using postgres-dockerized workflow, from `/server` directory, run `npm run start:dev:db`
-    * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker ps` in terminal to view all running containers. One should match the name of `container_name` from `docker-compose.yml` file
+    * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker-compose ps` in terminal to view the docker-compose container name from `docker-compose.yml` file.
 3. To start Nest backend in watch mode: From `/server` directory, run `npm run start:dev`
 4. in another terminal, still inside `/server`: `npm run seed:drop` to create some dev data
 5. To start up React frontend: From `/client` directory, run `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.

@@ -127,7 +127,7 @@ const fetchMessages = async (): Promise<Message[]> => {
 // maybe call it SearchBar and have an optional leftContent prop?
 function MessageInboxView(): JSX.Element {
   const classes = useStyles();
-  const [user] = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);
   const [messages, setMessages] = React.useState<Message[]>([]);

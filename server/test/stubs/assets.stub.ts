@@ -1,4 +1,4 @@
-import { User } from '../../src/users/entities/user.entity';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 import { AssetType, Condition } from '../../src/assets/constants';
 import { Asset } from '../../src/assets/entities/asset.entity';
 import { Transaction } from '../../src/transactions/entities/transaction.entity';
