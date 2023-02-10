@@ -21,25 +21,29 @@ export interface IFileStorage {
 }
 
 Injectable();
+/**
+ * FilesStorageService resolves the file storage scheme based on custom rules
+ * Current providers:
+ *   - Azure blob - production
+ *   - Disk - local dev
+ */
 export class FilesStorageService {
-  /**
-   * We can change the provider inside the `@Inject` decorator
-   * @param storageProvider
-   */
   constructor(
-    // Change to LOCAL_STORAGE_PROVIDER_TOKEN in development
-    // @Inject(LOCAL_STORAGE_PROVIDER_TOKEN) private readonly storageProvider: IFileStorage,
-    @Inject(AZURE_BLOB_PROVIDER_TOKEN) private readonly storageProvider: IFileStorage,
+    @Inject(AZURE_BLOB_PROVIDER_TOKEN) private readonly azureStorage: IFileStorage,
+    @Inject(LOCAL_STORAGE_PROVIDER_TOKEN) private readonly diskStorage: IFileStorage,
   ) {}
 
   /**
-   * This method wraps the file storage implementaion behind an interface
-   * Can be consumed by a service regardless of the specific implementation,
-   * e.g Azure, local, S3, etc.
+   * This method resolves the file storage implementaion depending on the evironment
+   * or other customizations
    * @param storageArgs
    * @returns the stored file path
    */
   public async storeImage(storageArgs: FileStorageArgs): Promise<string> {
-    return await this.storageProvider.uploadFile(storageArgs);
+    if (process.env.MODE === 'production') {
+      return await this.azureStorage.uploadFile(storageArgs);
+    } else {
+      return await this.diskStorage.uploadFile(storageArgs);
+    }
   }
 }

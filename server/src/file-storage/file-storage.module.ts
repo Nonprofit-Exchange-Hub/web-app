@@ -15,6 +15,6 @@ import {
     { provide: LOCAL_STORAGE_PROVIDER_TOKEN, useClass: LocalStorageProvider },
     FilesStorageService,
   ],
-  exports: [FilesStorageService],
+  exports: [FilesStorageService, AZURE_BLOB_PROVIDER_TOKEN, LOCAL_STORAGE_PROVIDER_TOKEN],
 })
 export class FileStorageModule {}
