@@ -16,4 +16,7 @@ export class CreateUserDto {
 
   @IsBoolean()
   email_notification_opt_out: boolean;
+
+  @IsBoolean()
+  email_verified: boolean;
 }

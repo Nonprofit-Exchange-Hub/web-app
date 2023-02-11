@@ -39,11 +39,41 @@ export class AccountManagerController {
     private jwtService: JwtService,
   ) {}
 
+  @Patch('verify-email')
+  async verifyEmail(@Param('token') token: string): Promise<boolean> {
+    try {
+      const user = await this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+      this.usersService.update(user.id, { email_verified: true });
+      return true;
+    } catch {
+      throw Error('jwt verify fail');
+    }
+  }
+
   @Post('register')
   async register(
     @Body() createUserDto: CreateUserDto,
   ): Promise<Omit<User, 'password' | 'accept_terms'>> {
     const user = await this.usersService.create(createUserDto);
+
+    const jwt = await this.jwtService.sign(user, {
+      expiresIn: '1h',
+      secret: process.env.JWT_SECRET,
+    });
+    const mail = {
+      to: user.email,
+      subject: 'Givingful Email Verification',
+      from: 'admin@nonprofitcircle.org',
+      html: `
+        <p>Hello ${user.firstName} ${user.last_name}</p>
+        <p>Please click <a href="${process.env.FE_DOMAIN}/email-verification?token=${jwt}">here</a> to verify your email.</p>
+        <p>(this link is valid for 1 hour)</p>
+        <p>Thank you!!</p>
+        <p>The Givingful Team</p>
+      `,
+    };
+    await this.sendgridService.send(mail);
+
     return user;
   }
 
@@ -100,12 +130,14 @@ export class AccountManagerController {
 
       const mail = {
         to: user.email,
-        subject: 'Givecycle Password Reset',
-        from: 'jd2rogers2@gmail.com',
+        subject: 'Givingful Password Reset',
+        from: 'admin@nonprofitcircle.org',
         html: `
           <p>Hello ${user.firstName} ${user.last_name}</p>
-          <p>Please click <a href="http://localhost:3000/set-new-password?token=${jwt}">here</a> to reset your password</p>
+          <p>Please click <a href="${process.env.FE_DOMAIN}/set-new-password?token=${jwt}">here</a> to reset your password</p>
           <p>(this link is valid for 1 hour)</p>
+          <p>Thank you!!</p>
+          <p>The Givingful Team</p>
         `,
       };
 
