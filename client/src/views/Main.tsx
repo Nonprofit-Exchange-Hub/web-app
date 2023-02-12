@@ -32,6 +32,7 @@ const {
   ContactUs,
   Help,
   TempChat,
+  EmailVerification,
 } = routes;
 
 function Main() {
@@ -115,6 +116,7 @@ function Main() {
         <Route exact path={ContactUs.path} component={ContactUs.component} />
         <Route exact path={Help.path} component={Help.component} />
         <Route exact path={TempChat.path} component={TempChat.component} />
+        <Route exact path={EmailVerification.path} component={EmailVerification.component} />
       </Switch>
     </main>
   );

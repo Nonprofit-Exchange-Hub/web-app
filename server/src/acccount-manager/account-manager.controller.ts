@@ -4,6 +4,8 @@ import {
   Response,
   Request,
   UseGuards,
+  HttpException,
+  HttpStatus,
   Get,
   Body,
   Param,
@@ -40,9 +42,9 @@ export class AccountManagerController {
   ) {}
 
   @Patch('verify-email')
-  async verifyEmail(@Param('token') token: string): Promise<boolean> {
+  async verifyEmail(@Body() body: { token: string }): Promise<boolean> {
     try {
-      const user = await this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+      const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
       this.usersService.update(user.id, { email_verified: true });
       return true;
     } catch {
@@ -56,10 +58,13 @@ export class AccountManagerController {
   ): Promise<Omit<User, 'password' | 'accept_terms'>> {
     const user = await this.usersService.create(createUserDto);
 
-    const jwt = await this.jwtService.sign(user, {
-      expiresIn: '1h',
-      secret: process.env.JWT_SECRET,
-    });
+    const jwt = await this.jwtService.sign(
+      { ...user },
+      {
+        expiresIn: '1h',
+        secret: process.env.JWT_SECRET,
+      },
+    );
     const mail = {
       to: user.email,
       subject: 'Givingful Email Verification',
@@ -84,6 +89,13 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
+    if (!user.email_verified) {
+      throw new HttpException(
+        { status: HttpStatus.UNAUTHORIZED, message: 'Unauthorized' },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
     const jwt = await this.accountManagerService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {
