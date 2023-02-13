@@ -1,5 +1,3 @@
-import { grey } from '@mui/material/colors';
-
 const components = {
   MuiCard: {
     styleOverrides: {
@@ -35,10 +33,9 @@ const components = {
   },
   MuiButton: {
     styleOverrides: {
-      containedSecondary: {
-        '&:hover': {
-          backgroundColor: grey[100],
-        },
+      root: {
+        borderRadius: '10px',
+        fontSize: '16px',
       },
     },
     defaultProps: {

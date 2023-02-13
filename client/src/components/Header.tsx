@@ -282,7 +282,6 @@ function Header() {
                     See Dashboard
                   </NavLink>
                 </MenuItem>
-                <Divider />
                 <MenuItem dense onClick={handleLogout} className={classes.menuItemIconRight}>
                   <ListItemText>Log Out</ListItemText>
                   <ListItemIcon>
@@ -294,11 +293,13 @@ function Header() {
           ) : (
             <>
               <NavLink className={classes.navLink} to={routes.Signup.path}>
-                <Button color="info">Sign Up</Button>
+                <Button color="secondary" variant="contained" sx={{ marginRight: '20px' }}>
+                  Join Now
+                </Button>
               </NavLink>
               <NavLink className={classes.navLink} to={routes.Login.path}>
-                <Button color="secondary" variant="contained">
-                  Login
+                <Button color="black" variant="outlined" sx={{ marginRight: '150px' }}>
+                  Sign In
                 </Button>
               </NavLink>
             </>
