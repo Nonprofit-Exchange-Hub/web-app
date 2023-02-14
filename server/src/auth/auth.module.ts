@@ -7,7 +7,6 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { LoginStrategy } from './strategies/login.strategy';
 import { CookieStrategy } from './strategies/cookie.strategy';
-import { jwtConstants } from './constants';
 import { WSCookieStrategy } from './strategies/ws-cookie..strategy';
 
 @Module({
@@ -17,7 +16,7 @@ import { WSCookieStrategy } from './strategies/ws-cookie..strategy';
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: jwtConstants.secret,
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },
     }),
   ],

@@ -33,6 +33,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { classifications } from './Classifications';
 import { httpGetValidateEin, httpPostNonprofitSignup } from './http-sing-up-nonprofit';
+import InputMask from 'react-input-mask';
 
 const defaultOrg: FormData = {
   name: '',
@@ -286,6 +287,8 @@ export const SignUpUserAndNonprofit = () => {
                           label="Organization Profile Image"
                           placeholder="Organization Profile Image"
                           fullWidth
+                          helperText={errors.image_url?.message ? errors.image_url.message : ''}
+                          error={!!errors.image_url}
                         />
                       )}
                     />
@@ -374,13 +377,14 @@ export const SignUpUserAndNonprofit = () => {
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="State"
-                          placeholder="State"
-                          helperText={errors.state ? errors.state.message : ''}
-                          error={!!errors.state}
-                        />
+                        <InputMask mask={'aa'} {...field} onChange={field.onChange}>
+                          <TextField
+                            label="State"
+                            placeholder="State"
+                            helperText={errors.state ? errors.state.message : ''}
+                            error={!!errors.state}
+                          />
+                        </InputMask>
                       )}
                     />
                   </Grid>
@@ -390,13 +394,14 @@ export const SignUpUserAndNonprofit = () => {
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Phone"
-                          placeholder="Phone"
-                          error={!!errors.phone}
-                          helperText={errors.phone ? errors.phone.message : ''}
-                        />
+                        <InputMask mask={'999-999-9999'} {...field} onChange={field.onChange}>
+                          <TextField
+                            label="Phone"
+                            placeholder="Phone"
+                            error={!!errors.phone}
+                            helperText={errors.phone ? errors.phone.message : ''}
+                          />
+                        </InputMask>
                       )}
                     />
                   </Grid>
