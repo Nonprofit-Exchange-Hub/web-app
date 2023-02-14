@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Input from '@mui/material/Input';
@@ -117,7 +116,6 @@ const interests = [
 
 function SignupCitizen() {
   const { sideImg, signUpContainer, button, header, input, label, chip } = useStyles();
-  const history = useHistory();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
@@ -160,7 +158,6 @@ function SignupCitizen() {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    handleNext();
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
@@ -176,7 +173,7 @@ function SignupCitizen() {
     if (data.status === 409) {
       setEmailError(data.message);
     } else {
-      history.push('/');
+      handleNext();
     }
   };
 
@@ -447,7 +444,7 @@ function SignupCitizen() {
             )}
 
             {/* PAGE FIVE ######################################################## */}
-            {/* SHOWN SHEN SIGNUP DONE ######################################################## */}
+            {/* SHOWN WHEN SIGNUP DONE ######################################################## */}
             {activeStep === 4 && (
               <>
                 <Typography
