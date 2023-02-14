@@ -161,7 +161,7 @@ function SignupCitizen() {
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
-    const res = await fetch(`${APP_API_BASE_URL}/users`, {
+    const res = await fetch(`${APP_API_BASE_URL}/auth/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

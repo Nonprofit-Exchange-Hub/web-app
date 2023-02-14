@@ -9,9 +9,12 @@ type Props = {
 };
 
 const PrivateRoute = ({ roles, children }: Props) => {
-  const [user] = useContext(UserContext);
+  const { user, isLoading } = useContext(UserContext);
   // use cookies
   // insert user.roles.includes(roles) check
+  if (isLoading) {
+    return <div>LOADING</div>;
+  }
   return user ? children : <Redirect to={routes.Login.path} />;
 };
 

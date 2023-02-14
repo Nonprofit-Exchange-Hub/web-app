@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 function SetNewPassword() {
-  const RESOURCE_URL = `${APP_API_BASE_URL}/users`;
+  const RESOURCE_URL = `${APP_API_BASE_URL}/auth/users`;
   const classes = useStyles();
 
   const [password, setPassword] = React.useState<string>('');
@@ -48,7 +48,7 @@ function SetNewPassword() {
     setPassword(evt.target.value);
   };
 
-  const [user] = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();

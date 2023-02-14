@@ -11,7 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TransactionStatus } from '../transaction-status.enum';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../acccount-manager/entities/user.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Organization } from '../../organizations/entities/organization.entity';
 import { Message } from '../../messages/entities/message.entity';
