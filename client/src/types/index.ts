@@ -42,6 +42,8 @@ export enum ApprovalStatus {
 export type User = {
   id?: number;
   firstName: string;
+  last_name?: string;
+  email?: string;
 };
 
 export type Transaction = {

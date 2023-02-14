@@ -29,6 +29,7 @@ import PasswordInput from '../components/Users/Auth/PasswordInput';
 import StyledLink from '../components/StyledLink';
 import TextDivider from '../components/TextDivider';
 import routes from '../routes/routes';
+import { UserContext } from '../providers';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -120,7 +121,7 @@ function SignupCitizen() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
-  const [user, setUser] = React.useState({ firstName: '', last_name: '', email: '' }); //temporary, use UserContext
+  const { user, setUser } = React.useContext(UserContext);
 
   const steps = [
     { label: 'Basic Information' },
@@ -459,9 +460,9 @@ function SignupCitizen() {
                   Sign up Complete!
                 </Typography>
                 <Typography className={label} sx={{ fontWeight: 'bold' }}>
-                  Name: {user.firstName} {user.last_name}
+                  Name: {user && user.firstName} {user && user.last_name}
                 </Typography>
-                <Typography>Email: {user.email}</Typography>
+                <Typography>Email: {user && user.email}</Typography>
                 <Grid item xs={12} sx={{ height: '50px' }} />
                 <Typography>
                   Please check your email to finish the identity verification process. Otherwise,
