@@ -11,17 +11,19 @@ import type { Theme } from '@mui/material/styles';
 const useStyles = makeStyles((theme: Theme) => {
   return {
     input: {
-      height: 62,
+      height: 44,
       border: '1px solid #C4C4C4',
+      borderRadius: 10,
       boxSizing: 'border-box',
       padding: theme.spacing(1),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
-      fontSize: 18,
+      fontSize: 14,
       marginBottom: 20,
     },
     label: {
       color: '#000000',
+      fontWeight: 'bold',
       textAlign: 'left',
     },
   };
