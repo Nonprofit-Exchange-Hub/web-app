@@ -120,6 +120,7 @@ function SignupCitizen() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
+  const [user, setUser] = React.useState({ firstName: '', last_name: '', email: '' }); //temporary, use UserContext
 
   const steps = [
     { label: 'Basic Information' },
@@ -161,7 +162,7 @@ function SignupCitizen() {
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
-    const res = await fetch(`${APP_API_BASE_URL}/auth/users`, {
+    const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -173,6 +174,7 @@ function SignupCitizen() {
     if (data.status === 409) {
       setEmailError(data.message);
     } else {
+      setUser(data);
       handleNext();
     }
   };
@@ -457,9 +459,9 @@ function SignupCitizen() {
                   Sign up Complete!
                 </Typography>
                 <Typography className={label} sx={{ fontWeight: 'bold' }}>
-                  Your name {/* USER'S NAME GOES HERE */}
+                  Name: {user.firstName} {user.last_name}
                 </Typography>
-                <Typography>Your Email {/* USER'S EMAIL GOES HERE */}</Typography>
+                <Typography>Email: {user.email}</Typography>
                 <Grid item xs={12} sx={{ height: '50px' }} />
                 <Typography>
                   Please check your email to finish the identity verification process. Otherwise,
