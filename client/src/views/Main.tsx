@@ -1,88 +1,120 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import renderPrivateRoute from '../routes/PrivateRouteWrapper';
+import routes from '../routes/routes';
 
-import routes from '../routes';
+const {
+  Home,
+  AboutUs,
+  HowItWorks,
+  OurStory,
+  TrustAndSafety,
+  TermsOfService,
+  PrivacyPolicy,
+  CookiePolicy,
+  ForgotPassword,
+  SetNewPassword,
+  Login,
+  Signup,
+  SignupCitizen,
+  SignupNonProfit,
+  Inbox,
+  User,
+  ActionForm,
+  Assets,
+  Asset,
+  NeedForm,
+  NeedFormGoods,
+  NeedFormVolunteers,
+  OfferForm,
+  OfferFormGoods,
+  OfferFormSkills,
+  ContactUs,
+  Help,
+  TempChat,
+} = routes;
 
 function Main() {
   return (
     <main>
       <Switch>
-        <Route exact path={routes.Home.path} component={routes.Home.component} />
+        <Route exact path={Home.path} component={Home.component} />
 
         {/* static */}
         {/* static: about */}
-        <Route exact path={routes.AboutUs.path} component={routes.AboutUs.component} />
-        <Route exact path={routes.HowItWorks.path} component={routes.HowItWorks.component} />
-        <Route exact path={routes.OurStory.path} component={routes.OurStory.component} />
+        <Route exact path={AboutUs.path} component={AboutUs.component} />
+        <Route exact path={HowItWorks.path} component={HowItWorks.component} />
+        <Route exact path={OurStory.path} component={OurStory.component} />
 
         {/* static: policy */}
-        <Route
-          exact
-          path={routes.TrustAndSafety.path}
-          component={routes.TrustAndSafety.component}
-        />
-        <Route
-          exact
-          path={routes.TermsOfService.path}
-          component={routes.TermsOfService.component}
-        />
-        <Route exact path={routes.PrivacyPolicy.path} component={routes.PrivacyPolicy.component} />
-        <Route exact path={routes.CookiePolicy.path} component={routes.CookiePolicy.component} />
-        {/* users */}
-        <Route exact path={routes.Login.path} component={routes.Login.component} />
-        <Route
-          exact
-          path={routes.ForgotPassword.path}
-          component={routes.ForgotPassword.component}
-        />
-        <Route
-          exact
-          path={routes.SetNewPassword.path}
-          component={routes.SetNewPassword.component}
-        />
-        <Route exact path={routes.Signup.path} component={routes.Signup.component} />
-        <Route exact path={routes.SignupCitizen.path} component={routes.SignupCitizen.component} />
-        <Route
-          exact
-          path={routes.SignupNonProfit.path}
-          component={routes.SignupNonProfit.component}
-        />
-        <Route exact path={routes.Inbox.path} component={routes.Inbox.component} />
-        <Route exact path={routes.User.path} component={routes.User.component} />
+        <Route exact path={TrustAndSafety.path} component={TrustAndSafety.component} />
+        <Route exact path={TermsOfService.path} component={TermsOfService.component} />
+        <Route exact path={PrivacyPolicy.path} component={PrivacyPolicy.component} />
+        <Route exact path={CookiePolicy.path} component={CookiePolicy.component} />
 
-        {/* action */}
-        <Route exact path={routes.ActionForm.path} component={routes.ActionForm.component} />
+        {/* users */}
+        <Route exact path={Login.path} component={Login.component} />
+        <Route exact path={ForgotPassword.path} component={ForgotPassword.component} />
+        <Route exact path={SetNewPassword.path} component={SetNewPassword.component} />
+        <Route exact path={Signup.path} component={Signup.component} />
+        <Route exact path={SignupCitizen.path} component={SignupCitizen.component} />
+        <Route exact path={SignupNonProfit.path} component={SignupNonProfit.component} />
 
         {/* action: assets */}
-        <Route exact path={routes.Assets.path} component={routes.Assets.component} />
-        <Route exact path={routes.Asset.path} component={routes.Asset.component} />
+        <Route exact path={Assets.path} component={Assets.component} />
+        <Route exact path={Asset.path} component={Asset.component} />
 
-        {/* action: needs */}
-        <Route exact path={routes.NeedForm.path} component={routes.NeedForm.component} />
-        <Route exact path={routes.NeedFormGoods.path} component={routes.NeedFormGoods.component} />
+        {/* Private Routes */}
+        <Route exact path={User.path} render={renderPrivateRoute(User.roles, User.component)} />
+
+        <Route exact path={Inbox.path} render={renderPrivateRoute(Inbox.roles, Inbox.component)} />
+
+        {/* action */}
         <Route
           exact
-          path={routes.NeedFormVolunteers.path}
-          component={routes.NeedFormVolunteers.component}
+          path={ActionForm.path}
+          render={renderPrivateRoute(ActionForm.roles, ActionForm.component)}
+        />
+
+        {/* action: needs */}
+        <Route
+          exact
+          path={NeedForm.path}
+          render={renderPrivateRoute(NeedForm.roles, NeedForm.component)}
+        />
+        <Route
+          exact
+          path={NeedFormGoods.path}
+          render={renderPrivateRoute(NeedFormGoods.roles, NeedFormGoods.component)}
+        />
+        <Route
+          exact
+          path={NeedFormVolunteers.path}
+          render={renderPrivateRoute(NeedFormVolunteers.roles, NeedFormVolunteers.component)}
         />
 
         {/* action: offers */}
-        <Route exact path={routes.OfferForm.path} component={routes.OfferForm.component} />
         <Route
           exact
-          path={routes.OfferFormGoods.path}
-          component={routes.OfferFormGoods.component}
+          path={OfferForm.path}
+          render={renderPrivateRoute(OfferForm.roles, OfferForm.component)}
         />
         <Route
           exact
-          path={routes.OfferFormSkills.path}
-          component={routes.OfferFormSkills.component}
+          path={OfferFormGoods.path}
+          render={renderPrivateRoute(OfferFormGoods.roles, OfferFormGoods.component)}
         />
+        <Route
+          exact
+          path={OfferFormSkills.path}
+          render={renderPrivateRoute(OfferFormSkills.roles, OfferFormSkills.component)}
+        />
+        {/* End Private Routes*/}
 
         {/* support */}
-        <Route exact path={routes.ContactUs.path} component={routes.ContactUs.component} />
-        <Route exact path={routes.Help.path} component={routes.Help.component} />
-        <Route exact path={routes.TempChat.path} component={routes.TempChat.component} />
+        <Route exact path={ContactUs.path} component={ContactUs.component} />
+        <Route exact path={Help.path} component={Help.component} />
+        <Route exact path={TempChat.path} component={TempChat.component} />
       </Switch>
     </main>
   );

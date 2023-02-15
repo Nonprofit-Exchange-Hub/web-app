@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CheckIcon from '@mui/icons-material/Check';
 
-import routes from '../../../../routes';
+import routes from '../../../../routes/routes';
 import StyledLink from '../../../StyledLink';
 
 import { useMutation, useQuery } from 'react-query';
@@ -278,6 +278,27 @@ export const SignUpUserAndNonprofit = () => {
                   </Grid>
                   <Grid item md={12} xs={12}>
                     <Controller
+                      name="doing_business_as"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          label="Organization Name"
+                          placeholder="Organization"
+                          helperText={
+                            errors.doing_business_as?.message
+                              ? errors.doing_business_as.message
+                              : ''
+                          }
+                          error={!!errors.doing_business_as}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item md={12} xs={12}>
+                    <Controller
                       name="image_url"
                       control={control}
                       defaultValue={'https://blah.png'}
@@ -298,27 +319,6 @@ export const SignUpUserAndNonprofit = () => {
 
               {activeStep === 1 && (
                 <Grid container spacing={5}>
-                  <Grid item md={12} xs={12}>
-                    <Controller
-                      name="doing_business_as"
-                      control={control}
-                      defaultValue={''}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          fullWidth
-                          label="Organization Name"
-                          placeholder="Organization"
-                          helperText={
-                            errors.doing_business_as?.message
-                              ? errors.doing_business_as.message
-                              : ''
-                          }
-                          error={!!errors.doing_business_as}
-                        />
-                      )}
-                    />
-                  </Grid>
                   <Grid item md={12} xs={12}>
                     <Controller
                       name="description"

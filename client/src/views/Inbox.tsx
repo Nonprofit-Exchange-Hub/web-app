@@ -14,7 +14,7 @@ import SubHeader from '../components/Users/Inbox/SubHeader';
 import TransactionThreadCard from '../components/Users/Inbox/TransactionThreadCard';
 import MessageCard from '../components/Users/Inbox/MessageCard';
 import { UserContext } from '../providers';
-import routes from '../routes';
+import routes from '../routes/routes';
 
 import type { Message, Transaction } from '../types';
 import { APP_API_BASE_URL } from '../configs';
@@ -127,14 +127,12 @@ const fetchMessages = async (): Promise<Message[]> => {
 // maybe call it SearchBar and have an optional leftContent prop?
 function MessageInboxView(): JSX.Element {
   const classes = useStyles();
-  const [user] = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);
   const [messages, setMessages] = React.useState<Message[]>([]);
 
-  const handleSendMessage = () => {
-    console.log(messages);
-  };
+  const handleSendMessage = () => {};
 
   // todo switch to custom hook
   React.useEffect(() => {

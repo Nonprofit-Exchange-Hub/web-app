@@ -7,41 +7,73 @@ import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import theme from '../../theme';
 import Example from '../../assets/need-example.png';
+import { Tooltip } from '@mui/material';
 
 type Props = {
   title: string;
   type: 'need' | 'donation';
-  date: Date;
-  org: string;
+  sx?: object;
+  datePosted: Date;
+  poster: any;
+  org?: string;
+  description: string;
+  condition: string;
+  location: string;
+  imgUrls?: string[];
   children?: ReactNode | ReactNode[];
 };
 
+const ellipsesStyle = {
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  width: '100%',
+  boxSizing: 'border-box',
+  overflow: 'hidden',
+};
+
 export default function NeedCard(props: Props) {
+  const image = props.imgUrls?.length ? props.imgUrls[0] : Example;
   return (
-    <Card title={props.title} type={props.type} date={props.date} org={props.org}>
+    <Card
+      title={props.title}
+      type={props.type}
+      datePosted={props.datePosted}
+      sx={props.sx || {}}
+      org={props.poster.firstName}
+    >
       <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between ' }}>
-          <Typography gutterBottom>Apparel</Typography>
-          <Typography gutterBottom sx={{ fontWeight: 900 }}>
-            Long Term
-          </Typography>
-        </Box>
-        <Typography variant="h1">Blazers</Typography>
-        <Box sx={{ marginTop: theme.spacing(1) }}>
+        <Box sx={{ marginTop: theme.spacing(1), padding: '0.5em' }}>
+          <Tooltip title={props.title}>
+            <Typography variant="h1" sx={ellipsesStyle}>
+              {props.title}
+            </Typography>
+          </Tooltip>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <LocationOnIcon />
-            <Typography gutterBottom>Seattle, WA</Typography>
+            {props.location ? (
+              <>
+                <LocationOnIcon />
+                <Typography sx={{ marginLeft: '0.5em' }} gutterBottom>
+                  {props.location}
+                </Typography>
+              </>
+            ) : null}
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '-0.5em' }}>
             <LocationOnIcon />
             <Typography gutterBottom>Hurricane Relief Effort</Typography>
           </Box>
+          <Box sx={{ marginTop: theme.spacing(1) }}>
+            <Typography
+              variant="body2"
+              color={theme.palette.text.secondary}
+              style={{ height: '3em', overflow: 'hidden', marginLeft: '0.5em' }}
+            >
+              {props.description}
+            </Typography>
+          </Box>
         </Box>
-        <Typography variant="body2" color={theme.palette.text.secondary}>
-          Lorem ipsum dolor sit amet, mollis consectetur adipiscing elit.
-        </Typography>
       </CardContent>
-      <CardMedia component="img" image={Example} alt="Need example" />
+      <CardMedia component="img" image={image} alt="Need example" sx={{ height: '90px' }} />
     </Card>
   );
 }
