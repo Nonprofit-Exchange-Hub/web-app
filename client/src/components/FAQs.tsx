@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import QuestionList from './QuestionList';
-import { placeholderImg } from '../assets/temp';
+import FAQsImage from '../assets/Sign-Step4.svg';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -23,13 +23,14 @@ const useStyles = makeStyles(() => ({
   },
   faqsVisual: {
     width: '33%',
+    maxHeight: '651px',
     background: '#FFC958',
-    borderRadius: '0px 20px 0px 0px',
+    borderRadius: '0px 20px 20px 0px',
     position: 'relative',
-    padding: '20px',
+    padding: '58px 64px 117px 130px',
   },
   faqsImage: {
-    objectFit: 'none',
+    objectFit: 'contain',
     width: '100%',
     height: '100%',
   },
@@ -57,7 +58,7 @@ function FAQs() {
   return (
     <div className={classes.faqs}>
       <div className={classes.faqsVisual}>
-        <img src={placeholderImg} alt="FAQs Image" className={classes.faqsImage} />
+        <img src={FAQsImage} alt="FAQs Image" className={classes.faqsImage} />
       </div>
       <div className={classes.faqsInfo}>
         <Typography variant="h4" component="h4">
