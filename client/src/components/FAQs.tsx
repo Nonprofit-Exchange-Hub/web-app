@@ -26,13 +26,12 @@ const useStyles = makeStyles(() => ({
     background: '#FFC958',
     borderRadius: '0px 20px 0px 0px',
     position: 'relative',
+    padding: '20px',
   },
   faqsImage: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    paddingTop: '40px',
-    paddingRight: '40px',
+    objectFit: 'none',
+    width: '100%',
+    height: '100%',
   },
   faqsInfo: {
     width: '67%',
