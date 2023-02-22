@@ -81,8 +81,10 @@ export class AccountManagerController {
   @UseGuards(CookieAuthGuard)
   async session(@Request() request: AuthedRequest): Promise<{ user: Omit<User, 'password'> }> {
     const { user } = request;
-    const { firstName, last_name, email } = await this.usersService.findOne(user.id);
-    return { user: { ...user, firstName, last_name, email } };
+    const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
+      user.id,
+    );
+    return { user: { ...user, firstName, last_name, email, profile_image_url } };
   }
 
   @Get('logout')
