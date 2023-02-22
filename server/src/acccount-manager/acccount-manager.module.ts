@@ -10,6 +10,8 @@ import { CookieStrategy } from './strategies/cookie.strategy';
 import { LoginStrategy } from './strategies/login.strategy';
 import { WSCookieStrategy } from './strategies/ws-cookie.strategy';
 import { UsersService } from './user.service';
+import { FileStorageModule } from '../file-storage/file-storage.module';
+import { FilesStorageService } from '../file-storage/file-storage.service';
 
 const providers = [
   AccountManagerService,
@@ -28,9 +30,10 @@ const providers = [
       signOptions: { expiresIn: '60s' },
     }),
     TypeOrmModule.forFeature([User]),
+    FileStorageModule,
   ],
   controllers: [AccountManagerController],
-  providers: [...providers, SendgridService],
+  providers: [...providers, SendgridService, FilesStorageService],
   exports: providers,
 })
 export class AcccountManagerModule {}

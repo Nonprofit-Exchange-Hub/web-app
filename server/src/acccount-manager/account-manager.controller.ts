@@ -10,6 +10,11 @@ import {
   ParseIntPipe,
   Patch,
   Delete,
+  Put,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -23,6 +28,9 @@ import { AccountManagerService } from './account-manager.service';
 import { CookieAuthGuard } from './guards/cookie-auth.guard';
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { UsersService } from './user.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { FileSizes } from '../file-storage/domain';
+import { FilesStorageService } from '../file-storage/file-storage.service';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -37,6 +45,7 @@ export class AccountManagerController {
     private readonly sendgridService: SendgridService,
     private usersService: UsersService,
     private jwtService: JwtService,
+    private fileStorageService: FilesStorageService,
   ) {}
 
   @Post('register')
@@ -115,6 +124,47 @@ export class AccountManagerController {
       // always respond 200 so hackerz don't know which emails are active and not
       response.status(200);
     }
+  }
+
+  @Put('users/profile/:id')
+  @UseGuards(CookieAuthGuard)
+  @UseInterceptors(
+    FileInterceptor('profile_image_url', {
+      limits: { fileSize: FileSizes.MB },
+    }),
+  )
+  async upsertProfile(
+    @Param('id') id: number,
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
+    if (/\.(jpe?g|png|gif)$/i.test(file.filename)) {
+      return new BadRequestException(
+        'Only valid image extensions allowed (.jpg, .jpeg, .png, .gif)',
+      );
+    }
+    return this.saveFile(id, file);
+  }
+
+  private async saveFile(id: number, file: Express.Multer.File) {
+    let dbUser: Omit<User, 'password'>;
+    try {
+      dbUser = await this.usersService.findOne(id);
+    } catch {
+      throw new InternalServerErrorException('There was an unexpected error with your request');
+    }
+
+    if (!dbUser) {
+      return new BadRequestException('User not found');
+    }
+
+    const fileUrl = await this.fileStorageService.storeImage({
+      file,
+      userId: id,
+      prefix: 'userprofile',
+      replaceFlag: 'replace',
+    });
+    return await this.usersService.update(id, { ...dbUser, profile_image_url: fileUrl });
   }
 
   @Get('users/:id')
