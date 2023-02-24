@@ -60,6 +60,13 @@ const components = {
       },
     },
   },
+  MuiInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: '10px',
+      },
+    },
+  },
   MuiTypography: {
     styleOverrides: {
       h3: {
