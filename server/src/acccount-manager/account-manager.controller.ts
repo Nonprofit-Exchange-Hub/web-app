@@ -65,19 +65,19 @@ export class AccountManagerController {
         secret: process.env.JWT_SECRET,
       },
     );
-    const mail = {
-      to: user.email,
-      subject: 'Givingful Email Verification',
-      from: 'admin@nonprofitcircle.org',
-      html: `
-        <p>Hello ${user.firstName} ${user.last_name}</p>
-        <p>Please click <a href="${process.env.FE_DOMAIN}/email-verification?token=${jwt}">here</a> to verify your email.</p>
-        <p>(this link is valid for 1 hour)</p>
-        <p>Thank you!!</p>
-        <p>The Givingful Team</p>
-      `,
-    };
-    await this.sendgridService.send(mail);
+    // const mail = {
+    //   to: user.email,
+    //   subject: 'Givingful Email Verification',
+    //   from: 'admin@nonprofitcircle.org',
+    //   html: `
+    //     <p>Hello ${user.firstName} ${user.last_name}</p>
+    //     <p>Please click <a href="${process.env.FE_DOMAIN}/email-verification?token=${jwt}">here</a> to verify your email.</p>
+    //     <p>(this link is valid for 1 hour)</p>
+    //     <p>Thank you!!</p>
+    //     <p>The Givingful Team</p>
+    //   `,
+    // };
+    // await this.sendgridService.send(mail);
 
     return user;
   }
