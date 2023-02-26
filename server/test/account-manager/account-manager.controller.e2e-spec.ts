@@ -12,6 +12,7 @@ import { SendgridModule } from '../../src/sendgrid/sendgrid.module';
 import { UsersService } from '../../src/acccount-manager/user.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 import { AccountManagerController } from '../../src/acccount-manager/account-manager.controller';
+import { SendgridService } from '../../src/sendgrid/sendgrid.service';
 
 describe('AccountManagerController', () => {
   let app: INestApplication;
@@ -41,6 +42,11 @@ describe('AccountManagerController', () => {
       ],
       controllers: [AccountManagerController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
+    })
+    .useMocker((token) => {
+      if (token === SendgridService) {
+        return { send: jest.fn().mockResolvedValue(true) };
+      }
     }).compile();
 
     app = module.createNestApplication();
