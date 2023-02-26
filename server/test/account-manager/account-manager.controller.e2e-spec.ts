@@ -48,9 +48,10 @@ describe('AccountManagerController', () => {
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
     })
     .useMocker((token) => {
-      if (token === SendgridService) {
-        return { send: jest.fn(mailObj => true) };
-      }
+      console.log('=========', token);
+      // if (token === SendgridService) {
+      //   return { send: jest.fn(mailObj => true) };
+      // }
     }).compile();
 
     app = module.createNestApplication();
