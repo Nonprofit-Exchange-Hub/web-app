@@ -87,7 +87,7 @@ export class AccountManagerController {
       `,
     };
     console.log('--------------------', this.sendgridService);
-    // await this.sendgridService.send(mail);
+    await this.sendgridService.send(mail);
 
     return user;
   }

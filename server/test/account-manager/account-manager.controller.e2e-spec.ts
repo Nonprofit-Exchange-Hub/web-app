@@ -46,13 +46,16 @@ describe('AccountManagerController', () => {
       ],
       controllers: [AccountManagerController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
+    // })
+    // .useMocker((token) => {
+    //   console.log('=========', token);
+    //   // if (token === SendgridService) {
+    //   //   return { send: jest.fn(mailObj => true) };
+    //   // }
     })
-    .useMocker((token) => {
-      console.log('=========', token);
-      // if (token === SendgridService) {
-      //   return { send: jest.fn(mailObj => true) };
-      // }
-    }).compile();
+    .overrideProvider(SendgridService)
+    .useValue({ send: mailObj => true })
+    .compile();
 
     app = module.createNestApplication();
     usersService = module.get<UsersService>(UsersService);
