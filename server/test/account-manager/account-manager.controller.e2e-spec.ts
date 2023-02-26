@@ -13,11 +13,14 @@ import { UsersService } from '../../src/acccount-manager/user.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 import { AccountManagerController } from '../../src/acccount-manager/account-manager.controller';
 import { SendgridService } from '../../src/sendgrid/sendgrid.service';
+import { FilesStorageService } from '../../src/file-storage/file-storage.service';
+import { FileStorageModule } from '../../src/file-storage/file-storage.module';
 
 describe('AccountManagerController', () => {
   let app: INestApplication;
   let usersService: UsersService;
   let repository: Repository<User>;
+  let fileStorageService: FilesStorageService;
 
   let existingRecordId = 0;
   const seed = () => ({
@@ -39,6 +42,7 @@ describe('AccountManagerController', () => {
           secret: '',
           signOptions: { expiresIn: '60s' },
         }),
+        FileStorageModule,
       ],
       controllers: [AccountManagerController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
@@ -52,6 +56,7 @@ describe('AccountManagerController', () => {
     app = module.createNestApplication();
     usersService = module.get<UsersService>(UsersService);
     repository = module.get(getRepositoryToken(User));
+    fileStorageService = module.get<FilesStorageService>(FilesStorageService);
     // jest.clearAllMocks();
     await app.init();
   });

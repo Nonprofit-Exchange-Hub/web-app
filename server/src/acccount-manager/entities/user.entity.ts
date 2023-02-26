@@ -39,4 +39,7 @@ export class User {
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.user)
   organizations: UserOrganization[];
+
+  @Column({ type: 'text', nullable: true })
+  profile_image_url?: string;
 }
