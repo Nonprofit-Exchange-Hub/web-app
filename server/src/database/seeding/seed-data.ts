@@ -18,6 +18,7 @@ export const seedUsers = (): CreateUserDto[] => {
       last_name: 'user1Last',
       email: 'user1First@example.com',
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: false,
     },
     {
@@ -25,6 +26,7 @@ export const seedUsers = (): CreateUserDto[] => {
       last_name: 'user2Last',
       email: 'user2First@example.com',
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: true,
     },
   ];

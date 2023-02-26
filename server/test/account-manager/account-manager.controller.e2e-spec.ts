@@ -12,6 +12,7 @@ import { SendgridModule } from '../../src/sendgrid/sendgrid.module';
 import { UsersService } from '../../src/acccount-manager/user.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 import { AccountManagerController } from '../../src/acccount-manager/account-manager.controller';
+import { SendgridService } from '../../src/sendgrid/sendgrid.service';
 import { FilesStorageService } from '../../src/file-storage/file-storage.service';
 import { FileStorageModule } from '../../src/file-storage/file-storage.module';
 
@@ -27,6 +28,7 @@ describe('AccountManagerController', () => {
     last_name: 'parker',
     email: 'peter.parker@example.com',
     password: 'secret1234',
+    email_verified: true,
     email_notification_opt_out: false,
   });
 
@@ -44,7 +46,10 @@ describe('AccountManagerController', () => {
       ],
       controllers: [AccountManagerController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
-    }).compile();
+    })
+    .overrideProvider(SendgridService)
+    .useValue({ send: mailObj => true })
+    .compile();
 
     app = module.createNestApplication();
     usersService = module.get<UsersService>(UsersService);

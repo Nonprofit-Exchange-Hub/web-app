@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsBoolean } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsBoolean, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -16,4 +16,8 @@ export class CreateUserDto {
 
   @IsBoolean()
   email_notification_opt_out: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  email_verified?: boolean;
 }
