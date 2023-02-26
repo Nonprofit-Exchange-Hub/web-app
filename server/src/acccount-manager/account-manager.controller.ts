@@ -86,7 +86,7 @@ export class AccountManagerController {
         <p>The Givingful Team</p>
       `,
     };
-    await this.sendgridService.send(mail);
+    // await this.sendgridService.send(mail);
 
     return user;
   }
