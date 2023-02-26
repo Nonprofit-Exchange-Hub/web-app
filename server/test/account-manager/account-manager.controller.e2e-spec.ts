@@ -49,7 +49,7 @@ describe('AccountManagerController', () => {
     })
     .useMocker((token) => {
       if (token === SendgridService) {
-        return { send: jest.fn().mockResolvedValue(true) };
+        return { send: jest.fn(mailObj => true) };
       }
     }).compile();
 
