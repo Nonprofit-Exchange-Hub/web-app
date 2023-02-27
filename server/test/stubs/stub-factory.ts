@@ -20,6 +20,7 @@ export class StubGen {
       last_name: faker.name.lastName(),
       email: faker.internet.email(),
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: false,
     };
   }
