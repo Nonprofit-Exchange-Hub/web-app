@@ -4,6 +4,8 @@ import {
   Response,
   Request,
   UseGuards,
+  HttpException,
+  HttpStatus,
   Get,
   Body,
   Param,
@@ -42,17 +44,50 @@ type AuthedRequest = RequestT & { user: User };
 export class AccountManagerController {
   constructor(
     private accountManagerService: AccountManagerService,
-    private readonly sendgridService: SendgridService,
+    private sendgridService: SendgridService,
     private usersService: UsersService,
     private jwtService: JwtService,
     private fileStorageService: FilesStorageService,
   ) {}
+
+  @Patch('verify-email')
+  async verifyEmail(@Body() body: { token: string }): Promise<boolean> {
+    try {
+      const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
+      this.usersService.update(user.id, { email_verified: true });
+      return true;
+    } catch {
+      throw Error('jwt verify fail');
+    }
+  }
 
   @Post('register')
   async register(
     @Body() createUserDto: CreateUserDto,
   ): Promise<Omit<User, 'password' | 'accept_terms'>> {
     const user = await this.usersService.create(createUserDto);
+
+    const jwt = await this.jwtService.sign(
+      { ...user },
+      {
+        expiresIn: '1h',
+        secret: process.env.JWT_SECRET,
+      },
+    );
+    const mail = {
+      to: user.email,
+      subject: 'Givingful Email Verification',
+      from: 'admin@nonprofitcircle.org',
+      html: `
+        <p>Hello ${user.firstName} ${user.last_name}</p>
+        <p>Please click <a href="${process.env.FE_DOMAIN}/email-verification?token=${jwt}">here</a> to verify your email.</p>
+        <p>(this link is valid for 1 hour)</p>
+        <p>Thank you!!</p>
+        <p>The Givingful Team</p>
+      `,
+    };
+    await this.sendgridService.send(mail);
+
     return user;
   }
 
@@ -63,6 +98,13 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
+    if (!user.email_verified) {
+      throw new HttpException(
+        { status: HttpStatus.UNAUTHORIZED, message: 'Unauthorized' },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
     const jwt = await this.accountManagerService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {
@@ -109,12 +151,14 @@ export class AccountManagerController {
 
       const mail = {
         to: user.email,
-        subject: 'Givecycle Password Reset',
-        from: 'jd2rogers2@gmail.com',
+        subject: 'Givingful Password Reset',
+        from: 'admin@nonprofitcircle.org',
         html: `
           <p>Hello ${user.firstName} ${user.last_name}</p>
-          <p>Please click <a href="http://localhost:3000/set-new-password?token=${jwt}">here</a> to reset your password</p>
+          <p>Please click <a href="${process.env.FE_DOMAIN}/set-new-password?token=${jwt}">here</a> to reset your password</p>
           <p>(this link is valid for 1 hour)</p>
+          <p>Thank you!!</p>
+          <p>The Givingful Team</p>
         `,
       };
 
