@@ -33,7 +33,6 @@ const ellipsesStyle = {
 };
 
 export default function NeedCard(props: Props) {
-  console.log(props);
   const image = props.imgUrls?.length ? props.imgUrls[0] : Example;
   return (
     <Card

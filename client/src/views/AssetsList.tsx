@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   card: {
     marginBottom: '30px',
+    textDecoration: 'none',
   },
   cardImg: {
     borderRadius: '5px',
