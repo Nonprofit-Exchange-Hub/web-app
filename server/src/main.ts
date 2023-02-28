@@ -16,8 +16,7 @@ async function bootstrap() {
   app.setGlobalPrefix('/api');
   app.enableCors({
     credentials: true,
-    // TODO get env related base url
-    origin: 'http://localhost:3000',
+    origin: process.env.FE_DOMAIN,
   });
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.use(cookieParser('secret_placeholder'));
@@ -29,7 +28,7 @@ async function bootstrap() {
     .addTag('nonprofit')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(process.env.PORT || 3001);
 }
