@@ -1,5 +1,5 @@
 import { Message } from '../../src/messages/entities/message.entity';
-import { User } from '../../src/users/entities/user.entity';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 import { Transaction } from '../../src/transactions/entities/transaction.entity';
 
 export const messageStub = (user?: User, transaction?: Transaction): Message => {

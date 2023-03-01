@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { Organization } from '../../organizations/entities/organization.entity';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../acccount-manager/entities/user.entity';
 import { ApprovalStatus, Role } from '../constants';
 
 @Entity('user_organizations')

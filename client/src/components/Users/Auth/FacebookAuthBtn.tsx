@@ -8,8 +8,7 @@ import type { Theme } from '@mui/material/styles';
 const useStyles = makeStyles((theme: Theme) => {
   return {
     button: {
-      borderRadius: 0,
-      height: 62,
+      height: 44,
       textTransform: 'none',
     },
   };

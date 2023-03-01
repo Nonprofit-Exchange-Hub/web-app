@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  npc-ci-db:
+    container_name: npc-ci-db
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_DB}
+    volumes:
+      - ./sql-scripts/postgres-initdb/create-e2e-db.sql:/docker-entrypoint-initdb.d/init.sql # runs slq script on startup

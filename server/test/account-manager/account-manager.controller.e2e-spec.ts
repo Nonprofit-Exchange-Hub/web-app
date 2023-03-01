@@ -5,18 +5,22 @@ import { Repository } from 'typeorm';
 import { JwtModule } from '@nestjs/jwt';
 
 import { userCreateDtoStub } from '../stubs';
-import { UsersController } from '../../src/users/users.controller';
-import { UsersService } from '../../src/users/users.service';
-import { User } from '../../src/users/entities/user.entity';
-import { UsersModule } from '../../src/users/users.module';
+import { User } from '../../src/acccount-manager/entities/user.entity';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { TEST_DB_OPTIONS } from '../testing-constants';
 import { SendgridModule } from '../../src/sendgrid/sendgrid.module';
+import { UsersService } from '../../src/acccount-manager/user.service';
+import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
+import { AccountManagerController } from '../../src/acccount-manager/account-manager.controller';
+import { SendgridService } from '../../src/sendgrid/sendgrid.service';
+import { FilesStorageService } from '../../src/file-storage/file-storage.service';
+import { FileStorageModule } from '../../src/file-storage/file-storage.module';
 
-describe('UsersController', () => {
+describe('AccountManagerController', () => {
   let app: INestApplication;
   let usersService: UsersService;
   let repository: Repository<User>;
+  let fileStorageService: FilesStorageService;
 
   let existingRecordId = 0;
   const seed = () => ({
@@ -24,27 +28,33 @@ describe('UsersController', () => {
     last_name: 'parker',
     email: 'peter.parker@example.com',
     password: 'secret1234',
+    email_verified: true,
     email_notification_opt_out: false,
   });
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        UsersModule,
+        AcccountManagerModule,
         TypeOrmModule.forRoot(TEST_DB_OPTIONS),
         SendgridModule,
         JwtModule.register({
           secret: '',
           signOptions: { expiresIn: '60s' },
         }),
+        FileStorageModule,
       ],
-      controllers: [UsersController],
+      controllers: [AccountManagerController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
-    }).compile();
+    })
+    .overrideProvider(SendgridService)
+    .useValue({ send: mailObj => true })
+    .compile();
 
     app = module.createNestApplication();
     usersService = module.get<UsersService>(UsersService);
     repository = module.get(getRepositoryToken(User));
+    fileStorageService = module.get<FilesStorageService>(FilesStorageService);
     // jest.clearAllMocks();
     await app.init();
   });
@@ -53,7 +63,7 @@ describe('UsersController', () => {
     await app.close();
   });
 
-  describe('POST /users', () => {
+  describe('POST /auth/register', () => {
     beforeEach(async () => await bootstrapBeforeEach());
     afterEach(async () => await bootstrapAfterEach());
 
@@ -61,7 +71,7 @@ describe('UsersController', () => {
       const userToCreate = userCreateDtoStub();
       const { body } = await supertest
         .agent(app.getHttpServer())
-        .post(`/users`)
+        .post(`/auth/register`)
         .send(userCreateDtoStub())
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
@@ -77,7 +87,7 @@ describe('UsersController', () => {
     it.skip('should return 403 when email validations fails', async () => {
       await supertest
         .agent(app.getHttpServer())
-        .post(`/users`)
+        .post(`/auth/register`)
         .send({
           ...userCreateDtoStub(),
           email: 'bademail.com',
@@ -90,7 +100,7 @@ describe('UsersController', () => {
     it('should return 409 with message when email already exists', async () => {
       const { body } = await supertest
         .agent(app.getHttpServer())
-        .post(`/users`)
+        .post(`/auth/register`)
         .send({ ...seed })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
@@ -99,7 +109,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('Get /users/{id}', () => {
+  describe('Get /auth/users/{id}', () => {
     beforeEach(async () => await bootstrapBeforeEach());
     afterEach(async () => await bootstrapAfterEach());
 
@@ -107,7 +117,7 @@ describe('UsersController', () => {
       // assert
       const { body } = await supertest
         .agent(app.getHttpServer())
-        .get(`/users/${existingRecordId}`)
+        .get(`/auth/users/${existingRecordId}`)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200);
@@ -122,7 +132,7 @@ describe('UsersController', () => {
       // assert
       const { body } = await supertest
         .agent(app.getHttpServer())
-        .get(`/users/${existingRecordId}`)
+        .get(`/auth/users/${existingRecordId}`)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200);
@@ -135,7 +145,7 @@ describe('UsersController', () => {
       // assert
       await supertest
         .agent(app.getHttpServer())
-        .get(`/users/10000`)
+        .get(`/auth/users/10000`)
         .set('Accept', 'application/json')
         .expect(404);
     });
@@ -148,7 +158,7 @@ describe('UsersController', () => {
     it.skip('should return 403 when email validations fails', async () => {
       await supertest
         .agent(app.getHttpServer())
-        .patch(`/users/${existingRecordId}`)
+        .patch(`/auth/users/${existingRecordId}`)
         .send({
           ...userCreateDtoStub(),
           email: 'bademail.com',
