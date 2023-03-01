@@ -119,7 +119,7 @@ const routes: RouteMap = {
   },
   ActionForm: {
     component: ActionForm,
-    roles: ['OWNER', 'ADMIN'],
+    roles: [],
     path: '/action',
   },
   Assets: {

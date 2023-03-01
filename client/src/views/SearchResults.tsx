@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as queryString from 'query-string';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import makeStyles from '@mui/styles/makeStyles';
 import Paper from '@mui/material/Paper';
@@ -21,9 +20,9 @@ import FilterGroup from '../components/FilterGroup';
 import SearchCategoryCard from '../components/SearchCategoryCard';
 import { filters1, filters2, filters3 } from '../assets/temp';
 import { APP_API_BASE_URL } from '../configs';
+import routes from '../routes/routes';
 
 import type { Asset, Organization } from '../types';
-// import { createBinary } from 'typescript';
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchResultsContainer: {
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   searchBar: {
     gridArea: 'searchBar',
-    // backgroundColor: 'white',
     boxShadow: 'none',
     margin: '20px 100px',
   },
@@ -96,9 +94,9 @@ function SearchResults(): JSX.Element {
   const classes = useStyles();
   const history = useHistory();
 
-  const { search: querySearchText, category: querySearchCategory } = queryString.parse(
-    history.location.search,
-  );
+  const searchParams = new URLSearchParams(history.location.search);
+  const querySearchText = searchParams.get('search');
+  const querySearchCategory = searchParams.get('category');
 
   const [searchCategory, setSearchCategory] = React.useState<string>(
     (querySearchCategory as string) || '',
@@ -109,23 +107,22 @@ function SearchResults(): JSX.Element {
   const [offers, setOffers] = React.useState<Asset[]>([]);
   const [needs, setNeeds] = React.useState<Asset[]>([]);
   const [orgs, setOrgs] = React.useState<Organization[]>([]);
-  //TODO: create Volunteer Type in types/index.ts and change Object[] to Volunteer[] below
+  // TODO: create Volunteer Type in types/index.ts and change Object[] to Volunteer[] below
   const [volunteer, setVolunteer] = React.useState<Object[]>([]);
 
   function fetchSearchData() {
     if (querySearchCategory === 'Volunteer') {
-      //TODO: Change API to /volunteer
+      // TODO: Change API to /volunteer
       fetch(`${APP_API_BASE_URL}/organizations`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
           setVolunteer(data);
         });
     } else if (querySearchCategory === 'Offers' || querySearchCategory === 'Needs') {
-      fetch(
-        `${APP_API_BASE_URL}/assets?type=${
-          querySearchCategory === 'Needs' ? 'donation' : 'request'
-        }${querySearchText ? `&title=${querySearchText}` : ''}`,
-      )
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set('type', querySearchCategory === 'Needs' ? 'request' : 'donation');
+      newSearchParams.set('title', querySearchText || '');
+      fetch(`${APP_API_BASE_URL}/assets?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
           if (querySearchCategory === 'Needs') {
@@ -135,13 +132,15 @@ function SearchResults(): JSX.Element {
           }
         });
     } else if (querySearchCategory === 'Nonprofits') {
-      fetch(`${APP_API_BASE_URL}/organizations?search=${querySearchText}`)
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set('search', querySearchText || '');
+      fetch(`${APP_API_BASE_URL}/organizations?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Organization[]) => {
           setOrgs(data);
         });
     } else {
-      //TODO: Change API to fetch ALL combined data
+      // TODO: Change API to fetch ALL combined data
     }
   }
 
@@ -160,6 +159,7 @@ function SearchResults(): JSX.Element {
     fetchSearchData();
   }, [querySearchText, querySearchCategory]);
 
+  console.log('reouts', routes);
   return (
     <div className={classes.searchResultsContainer}>
       <div className={classes.searchBar}>
@@ -174,7 +174,6 @@ function SearchResults(): JSX.Element {
           }}
         >
           <FormControl
-            // variant="standard"
             sx={{
               minWidth: '200px',
               display: 'flex',
@@ -254,7 +253,10 @@ function SearchResults(): JSX.Element {
             Location
           </Typography>
           <span style={{ fontSize: '15px' }}>
-            <a href="#">Join now</a> to view posts from your local community.
+            <NavLink className={classes.makeAPost} to={routes.Signup.path}>
+              Join now
+            </NavLink>{' '}
+            to view posts from your local community.
           </span>
           <div
             style={{ paddingTop: '40px', display: 'flex', flexDirection: 'column', gap: '1rem' }}
@@ -281,14 +283,6 @@ function SearchResults(): JSX.Element {
         </div>
         <div className={classes.rightPanel}>
           <div className={classes.rightHeader}>
-            <Paper elevation={0} className={classes.createBar}>
-              {/* TODO: where is this meant to link to? */}
-              {/* <NavLink className={classes.makeAPost} to="/create">
-                <Button color="primary" variant="contained">
-                  Make a Post
-                </Button>
-              </NavLink> */}
-            </Paper>
             {/* {TODO:   Need to combine all lists under one "List" component} */}
             {/* {TODO:   Create and add a VolunteerList component below */}
             {querySearchCategory === 'All' ? (

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   needsAndOffersSub: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     flexWrap: 'wrap',
     alignItems: 'stretch',
     width: '100%',
