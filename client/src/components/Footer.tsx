@@ -27,7 +27,13 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     footer: {
       boxShadow: '0px -2px 1em grey',
-      position: 'fixed',
+      // [theme.breakpoints.down('md')]: {
+      //   position: 'fixed',
+      // },
+      // [theme.breakpoints.up('md')]: {
+      //   position: 'relative',
+      // },
+      position: 'relative',
       bottom: 0,
       left: 0,
       right: 0,
