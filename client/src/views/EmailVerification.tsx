@@ -2,14 +2,14 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
-import * as queryString from 'query-string';
 
 import { APP_API_BASE_URL } from '../configs';
 
 function EmailVerification() {
   const [fail, setFail] = React.useState(false);
   const history = useHistory();
-  const { token } = queryString.parse(history.location.search);
+  const searchParams = new URLSearchParams(history.location.search);
+  const token = searchParams.get('token');
 
   React.useEffect(() => {
     const verifyEmail = async () => {
