@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsBoolean } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsBoolean, IsOptional, Validate } from 'class-validator';
+import { UserInterestNamesIsArray, UserInterestsProps } from './user-interest.validator';
+
+export class UserInterests {
+  @IsNotEmpty()
+  names: string[];
+}
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -16,4 +22,9 @@ export class CreateUserDto {
 
   @IsBoolean()
   email_notification_opt_out: boolean;
+
+  @IsOptional()
+  @Validate(UserInterestsProps)
+  @Validate(UserInterestNamesIsArray)
+  interests?: UserInterests;
 }

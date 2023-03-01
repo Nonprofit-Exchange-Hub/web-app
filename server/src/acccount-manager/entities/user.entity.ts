@@ -39,4 +39,10 @@ export class User {
 
   @Column({ type: 'text', nullable: true })
   profile_image_url?: string;
+
+  @Column({
+    type: 'jsonb',
+    nullable: true,
+  })
+  interests: { names: string[] };
 }
