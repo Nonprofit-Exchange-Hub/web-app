@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as queryString from 'query-string';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import makeStyles from '@mui/styles/makeStyles';
@@ -77,9 +76,9 @@ function SearchResults(): JSX.Element {
   const classes = useStyles();
   const history = useHistory();
 
-  const { search: querySearchText, category: querySearchCategory } = queryString.parse(
-    history.location.search,
-  );
+  const searchParams = new URLSearchParams(history.location.search);
+  const querySearchText = searchParams.get('search');
+  const querySearchCategory = searchParams.get('category');
 
   const [searchCategory, setSearchCategory] = React.useState<string>(
     (querySearchCategory as string) || '',
@@ -95,18 +94,17 @@ function SearchResults(): JSX.Element {
 
   function fetchSearchData() {
     if (querySearchCategory === 'Volunteer') {
-      //TODO: Change API to /volunteer
+      // TODO: Change API to /volunteer
       fetch(`${APP_API_BASE_URL}/organizations`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
           setVolunteer(data);
         });
     } else if (querySearchCategory === 'Offers' || querySearchCategory === 'Needs') {
-      fetch(
-        `${APP_API_BASE_URL}/assets?type=${
-          querySearchCategory === 'Needs' ? 'request' : 'donation'
-        }${querySearchText ? `&title=${querySearchText}` : ''}`,
-      )
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set('type', querySearchCategory === 'Needs' ? 'request' : 'donation');
+      newSearchParams.set('title', querySearchText || '');
+      fetch(`${APP_API_BASE_URL}/assets?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
           if (querySearchCategory === 'Needs') {
@@ -116,7 +114,9 @@ function SearchResults(): JSX.Element {
           }
         });
     } else if (querySearchCategory === 'Nonprofits') {
-      fetch(`${APP_API_BASE_URL}/organizations?search=${querySearchText}`)
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set('search', querySearchText || '');
+      fetch(`${APP_API_BASE_URL}/organizations?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Organization[]) => {
           setOrgs(data);
