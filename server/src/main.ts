@@ -26,6 +26,7 @@ async function bootstrap() {
     .setDescription('Our API monolith')
     .setVersion('0.0')
     .addTag('nonprofit')
+    .addCookieAuth('NEH_is_cool')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
