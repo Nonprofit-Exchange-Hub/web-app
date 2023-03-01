@@ -85,4 +85,9 @@ export class CategoriesController {
     }
     return categoryToDelete;
   }
+
+  @Post('validate')
+  async validate(@Body() categories: string[]): Promise<boolean> {
+    return this.categoriesService.validateCategories(categories);
+  }
 }

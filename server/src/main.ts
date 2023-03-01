@@ -16,7 +16,7 @@ async function bootstrap() {
     // TODO get env related base url
     origin: 'http://localhost:3000',
   });
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
   app.use(cookieParser('secret_placeholder'));
   await app.listen(process.env.PORT || 3001);
 }
