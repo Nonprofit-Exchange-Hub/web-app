@@ -25,6 +25,9 @@ export class User {
   @Column({ type: 'bool', default: false })
   email_notification_opt_out: boolean;
 
+  @Column({ type: 'bool', default: false })
+  email_verified: boolean;
+
   @OneToMany(() => Asset, (asset) => asset.poster)
   assets: Asset[];
 
@@ -36,4 +39,7 @@ export class User {
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.user)
   organizations: UserOrganization[];
+
+  @Column({ type: 'text', nullable: true })
+  profile_image_url?: string;
 }

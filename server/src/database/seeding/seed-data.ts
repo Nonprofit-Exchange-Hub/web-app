@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { CreateUserDto } from '../../acccount-manager/dto/create-user.dto';
 import { CreateAssetDto } from '../../assets/dto/create-asset.dto';
 import { CreateCategoryDto } from '../../categories/dto/create-category.dto';
 import { CreateMessageDto } from '../../messages/dto/create-message.dto';
@@ -18,6 +18,7 @@ export const seedUsers = (): CreateUserDto[] => {
       last_name: 'user1Last',
       email: 'user1First@example.com',
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: false,
     },
     {
@@ -25,6 +26,7 @@ export const seedUsers = (): CreateUserDto[] => {
       last_name: 'user2Last',
       email: 'user2First@example.com',
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: true,
     },
   ];

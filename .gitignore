@@ -41,5 +41,7 @@ lerna-debug.log*
 
 #test data
 **/pgdata**/
+**/public/userprofile**
+**/public/organizationlogo**
 
 

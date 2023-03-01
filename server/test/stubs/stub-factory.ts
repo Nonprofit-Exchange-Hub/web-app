@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../src/users/dto/create-user.dto';
+import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
 import { faker } from '@faker-js/faker';
 import { CreateOrganizationDto } from '../../src/organizations/dto/create-organization.dto';
 import { CreateUserOrganizationDto } from '../../src/user-org/dto/create-user-org.dto';
@@ -20,6 +20,7 @@ export class StubGen {
       last_name: faker.name.lastName(),
       email: faker.internet.email(),
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: false,
     };
   }

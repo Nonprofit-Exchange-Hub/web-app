@@ -2,10 +2,9 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm/repository/Repository';
-
-import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 const { BCRYPT_WORK_FACTOR = '10' } = process.env;
 
@@ -31,7 +30,9 @@ export class UsersService {
 
   async findOne(id: number): Promise<Omit<User, 'password'>> {
     const user = await this.usersRepository.findOneBy({ id });
-    delete user.password;
+    if (user) {
+      delete user.password;
+    }
     return user;
   }
 

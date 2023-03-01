@@ -65,7 +65,7 @@ function Login() {
   const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const [, setUser] = React.useContext(UserContext);
+  const { setUser } = React.useContext(UserContext);
 
   const [formData, setFormData] = React.useState<UserLoginData>(initialFormData);
 

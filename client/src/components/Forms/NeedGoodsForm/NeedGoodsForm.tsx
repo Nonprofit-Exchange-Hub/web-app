@@ -70,7 +70,7 @@ function NeedGoodsForm(): JSX.Element {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<Option[]>([]);
-  const [user] = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
   const [urlError, setUrlError] = React.useState({ '0': '' });
 
   const history = useHistory();
