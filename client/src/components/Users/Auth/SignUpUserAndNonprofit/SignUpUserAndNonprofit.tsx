@@ -10,9 +10,6 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  Step,
-  StepLabel,
-  Stepper,
   TextField,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -55,8 +52,6 @@ const defaultOrg: FormData = {
   image_url: '',
   email_notification_opt_out: false,
 };
-
-const steps = [{ label: 'EIN number' }, { label: 'Contact details' }, { label: 'User info' }];
 
 export const SignUpUserAndNonprofit = () => {
   const classes = useStyles();
@@ -169,9 +164,21 @@ export const SignUpUserAndNonprofit = () => {
     retry: 0,
   });
 
+  const orgValidateStateQuery = {
+    isError: false,
+    isSuccess: true,
+    isLoading: false,
+  };
+
+  const orgValidateCityQuery = {
+    isError: false,
+    isSuccess: true,
+    isLoading: false,
+  };
+
   return (
     <React.Fragment>
-      <Grid container>
+      <Grid container sx={{ paddingTop: '115px' }}>
         <Grid className={classes.sideImg} item xs={5} />
         <Grid container className={classes.signUpContainer} item direction="column" xs={6}>
           <Grid item>
@@ -181,12 +188,19 @@ export const SignUpUserAndNonprofit = () => {
               component="h1"
               align="left"
               gutterBottom
+              fontSize={'58px'}
             >
               Let's get started.
             </Typography>
           </Grid>
           <Grid item sx={{ marginBottom: '30px' }}>
-            <Typography component="p" align="left" gutterBottom>
+            <Typography
+              component="p"
+              align="left"
+              gutterBottom
+              fontSize={'15px'}
+              marginTop={'10px'}
+            >
               Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
             </Typography>
           </Grid>
@@ -194,47 +208,158 @@ export const SignUpUserAndNonprofit = () => {
           <Grid item>
             {submitSuccessMessage && <SimpleSnackbar message={submitSuccessMessage} />}
             {submitErrorMessage && <SimpleSnackbar message={submitErrorMessage} />}
-
-            <Grid container spacing={5} sx={{ marginY: '20px' }}>
-              <Stepper activeStep={activeStep}>
-                {steps.map((step, index) => (
-                  <Step key={step.label}>
-                    <StepLabel
-                      optional={
-                        index === steps.length - 1 ? (
-                          <Typography variant="caption">Last step</Typography>
-                        ) : null
-                      }
-                    >
-                      {step.label}
-                    </StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
-            </Grid>
-
             <form onSubmit={handleSubmit(onSubmit)}>
               {activeStep === 0 && (
                 <Grid container spacing={5}>
+                  <Grid item md={12} xs={12}>
+                    <Controller
+                      name="name"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <>
+                          <Typography sx={{ fontSize: '16px', marginBottom: '10px' }}>
+                            Organization Name
+                          </Typography>
+                          <TextField
+                            hiddenLabel
+                            {...field}
+                            fullWidth
+                            onKeyUp={() => {
+                              if (!errors.ein) {
+                                // setTriggerEinSearch(true);
+                              }
+                            }}
+                            error={!!errors.name?.message}
+                            helperText={errors.name?.message ?? ''}
+                          />
+                        </>
+                      )}
+                    />
+                    {orgValidateEinQuery.isLoading ? (
+                      <LinearProgress color="secondary" />
+                    ) : (
+                      <>
+                        {orgValidateEinQuery.isError && (
+                          <FormHelperText
+                            sx={{ marginLeft: '13px' }}
+                            error
+                          >{`Invalid EIN ${einApiValidateError}`}</FormHelperText>
+                        )}
+                        {orgValidateEinQuery.isSuccess && !errors.name && (
+                          <FormHelperText>
+                            <CheckIcon style={{ color: green[500] }} />
+                          </FormHelperText>
+                        )}
+                      </>
+                    )}
+                  </Grid>
                   <Grid item md={6} xs={12}>
+                    <Controller
+                      name="city"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <>
+                          <Typography sx={{ fontSize: '16px', marginBottom: '10px' }}>
+                            City
+                          </Typography>
+                          <TextField
+                            {...field}
+                            fullWidth
+                            label="Add location data here"
+                            onKeyUp={() => {
+                              if (!errors.ein) {
+                                // setTriggerEinSearch(true);E
+                              }
+                            }}
+                            error={!!errors.city?.message}
+                            helperText={errors.city?.message ?? ''}
+                          />
+                        </>
+                      )}
+                    />
+                    {orgValidateCityQuery.isLoading ? (
+                      <LinearProgress color="secondary" />
+                    ) : (
+                      <>
+                        {orgValidateCityQuery.isError && (
+                          <FormHelperText
+                            sx={{ marginLeft: '13px' }}
+                            error
+                          >{`Invalid EIN ${einApiValidateError}`}</FormHelperText>
+                        )}
+                        {orgValidateCityQuery.isSuccess && !errors.city && (
+                          <FormHelperText>
+                            <CheckIcon style={{ color: green[500] }} />
+                          </FormHelperText>
+                        )}
+                      </>
+                    )}
+                  </Grid>
+                  <Grid item md={6} xs={12}>
+                    <Controller
+                      name="state"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <>
+                          <Typography sx={{ fontSize: '16px', marginBottom: '10px' }}>
+                            State
+                          </Typography>
+                          <TextField
+                            {...field}
+                            fullWidth
+                            label="Add location data here"
+                            onKeyUp={() => {
+                              if (!errors.state) {
+                                // setTriggerEinSearch(true);
+                              }
+                            }}
+                            error={!!errors.state?.message}
+                          />
+                        </>
+                      )}
+                    />
+                    {orgValidateStateQuery.isLoading ? (
+                      <LinearProgress color="secondary" />
+                    ) : (
+                      <>
+                        {orgValidateStateQuery.isError && (
+                          <FormHelperText sx={{ marginLeft: '13px' }} error>{``}</FormHelperText>
+                        )}
+                        {orgValidateStateQuery.isSuccess && !errors.state && (
+                          <FormHelperText>
+                            <CheckIcon style={{ color: green[500] }} />
+                          </FormHelperText>
+                        )}
+                      </>
+                    )}
+                  </Grid>
+                  <Grid item md={12} xs={12}>
                     <Controller
                       name="ein"
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          fullWidth
-                          label="Employer Identification Number (EIN)"
-                          placeholder="EIN: 99-9999999"
-                          onKeyUp={() => {
-                            if (!errors.ein) {
-                              setTriggerEinSearch(true);
-                            }
-                          }}
-                          error={!!errors.ein?.message}
-                          helperText={errors.ein?.message ?? ''}
-                        />
+                        <>
+                          <Typography sx={{ fontSize: '16px', marginBottom: '10px' }}>
+                            Employer Identification Number (EIN)
+                          </Typography>
+                          <TextField
+                            hiddenLabel
+                            {...field}
+                            fullWidth
+                            placeholder="XX-XXXXXX"
+                            onKeyUp={() => {
+                              if (!errors.ein) {
+                                setTriggerEinSearch(true);
+                              }
+                            }}
+                            error={!!errors.ein?.message}
+                            helperText={errors.ein?.message ?? ''}
+                          />
+                        </>
                       )}
                     />
                     {orgValidateEinQuery.isLoading ? (
@@ -257,39 +382,27 @@ export const SignUpUserAndNonprofit = () => {
                   </Grid>
                   <Grid item md={12} xs={12}>
                     <Controller
-                      name="name"
-                      control={control}
-                      defaultValue={''}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Legal Name"
-                          placeholder="Legal Name"
-                          fullWidth
-                          disabled={true}
-                        />
-                      )}
-                    />
-                    {orgValidateEinQuery.isSuccess && !errors.ein && (
-                      <FormHelperText>
-                        <CheckIcon style={{ color: green[500] }} />
-                      </FormHelperText>
-                    )}
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <Controller
-                      name="image_url"
+                      name="nonprofit_classification"
                       control={control}
                       defaultValue={'https://blah.png'}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Organization Profile Image"
-                          placeholder="Organization Profile Image"
-                          fullWidth
-                          helperText={errors.image_url?.message ? errors.image_url.message : ''}
-                          error={!!errors.image_url}
-                        />
+                        <>
+                          <Typography sx={{ fontSize: '16px', marginBottom: '10px' }}>
+                            IRS Nonprofit Organization Classification
+                          </Typography>
+                          <TextField
+                            hiddenLabel
+                            {...field}
+                            fullWidth
+                            onKeyUp={() => {
+                              if (!errors.nonprofit_classification) {
+                                // setTriggerEinSearch(true);
+                              }
+                            }}
+                            error={!!errors.nonprofit_classification?.message}
+                            helperText={errors.nonprofit_classification?.message ?? ''}
+                          />
+                        </>
                       )}
                     />
                   </Grid>
