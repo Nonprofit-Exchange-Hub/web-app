@@ -128,102 +128,277 @@ function SignupCitizen() {
         <Grid container className={classes.signUpContainer} item direction="column" xs={6}>
           <Grid item>
             <Typography
-              className={classes.header}
-              variant="h4"
-              component="h1"
               align="left"
+              color="#674E67"
+              component="h1"
+              lineHeight="87px"
+              fontSize="58px"
               gutterBottom
-              fontSize={'58px'}
+              variant="h4"
             >
               Let's get started.
             </Typography>
           </Grid>
-          <Grid item sx={{ marginBottom: '30px' }}>
-            <Typography
-              component="p"
-              align="left"
-              gutterBottom
-              fontSize={'15px'}
-              marginTop={'10px'}
-            >
-              Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
-            </Typography>
-          </Grid>
           <form onSubmit={handleSubmit}>
-            <Grid container item xs={12} justifyContent="space-between">
-              <Grid item xs={4}>
-                <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="firstName">
-                    First Name
-                  </label>
-                  <Input
-                    className={classes.input}
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    autoComplete="given-name"
-                    fullWidth
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    disableUnderline
-                    required
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item xs={8} paddingLeft={'20px'}>
-                <FormControl fullWidth>
-                  <label className={classes.label} htmlFor="last_name">
-                    Last Name
-                  </label>
-                  <Input
-                    className={classes.input}
-                    type="text"
-                    id="last_name"
-                    name="last_name"
-                    autoComplete="family-name"
-                    fullWidth
-                    value={formData.last_name}
-                    onChange={handleChange}
-                    disableUnderline
-                    required
-                  />
-                </FormControl>
-              </Grid>
-            </Grid>
-            <Grid container />
-            <EmailInput
-              value={formData.email}
-              placeholder=""
-              onChange={handleChange}
-              showStartAdornment={true}
-              error={emailError}
-            />
-            <PasswordInput
-              value={formData.password}
-              onChange={handleChange}
-              showStartAdornment={true}
-            />
-            <FormControlLabel
-              style={{ textAlign: 'left', display: 'block' }}
-              control={
-                <Checkbox
-                  color="primary"
-                  checked={formData.accept_terms}
+            {activeStep === 0 && (
+              <>
+                <Grid container item xs={12} justifyContent="space-between">
+                  <Grid container sx={{ marginTop: '60px' }}>
+                    <Typography
+                      align="left"
+                      component="h1"
+                      lineHeight="33px"
+                      fontSize="22px"
+                      gutterBottom
+                      variant="h4"
+                    >
+                      Basic Information
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={{ marginBottom: '30px' }}>
+                    <Typography
+                      component="p"
+                      align="left"
+                      gutterBottom
+                      fontSize={'15px'}
+                      marginTop={'10px'}
+                    >
+                      Already have an account? <StyledLink to={routes.Login.path}>Login</StyledLink>
+                    </Typography>
+                  </Grid>
+                  <Grid container>
+                    <Grid item xs={4}>
+                      <FormControl fullWidth>
+                        <label className={classes.label} htmlFor="firstName">
+                          First Name
+                        </label>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          autoComplete="given-name"
+                          fullWidth
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={8} paddingLeft={'20px'}>
+                      <FormControl fullWidth>
+                        <label className={classes.label} htmlFor="last_name">
+                          Last Name
+                        </label>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="last_name"
+                          name="last_name"
+                          autoComplete="family-name"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid container />
+                <EmailInput
+                  value={formData.email}
+                  placeholder=""
                   onChange={handleChange}
-                  name="accept_terms"
-                  inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                  sx={{ borderRadius: '50px' }}
+                  showStartAdornment={true}
+                  error={emailError}
                 />
-              }
-              label={
-                <label>
-                  Accept the{' '}
-                  <StyledLink to={routes.TermsOfService.path} target="_blank">
-                    Terms and Agreements
-                  </StyledLink>
-                </label>
-              }
-            />
+                <PasswordInput
+                  value={formData.password}
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                />
+                <FormControlLabel
+                  style={{ textAlign: 'left', display: 'block' }}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={formData.accept_terms}
+                      onChange={handleChange}
+                      name="accept_terms"
+                      inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                      sx={{ borderRadius: '50px' }}
+                    />
+                  }
+                  label={
+                    <label>
+                      Accept the{' '}
+                      <StyledLink to={routes.TermsOfService.path} target="_blank">
+                        Terms and Agreements
+                      </StyledLink>
+                    </label>
+                  }
+                />
+              </>
+            )}
+            {activeStep === 1 && (
+              <>
+                <Grid container item xs={12} justifyContent="space-between">
+                  <Grid item xs={4}>
+                    <FormControl fullWidth>
+                      <label className={classes.label} htmlFor="firstName">
+                        First Name
+                      </label>
+                      <Input
+                        className={classes.input}
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        autoComplete="given-name"
+                        fullWidth
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={8} paddingLeft={'20px'}>
+                    <FormControl fullWidth>
+                      <label className={classes.label} htmlFor="last_name">
+                        Last Name
+                      </label>
+                      <Input
+                        className={classes.input}
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        autoComplete="family-name"
+                        fullWidth
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid container />
+                <EmailInput
+                  value={formData.email}
+                  placeholder=""
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                  error={emailError}
+                />
+                <PasswordInput
+                  value={formData.password}
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                />
+                <FormControlLabel
+                  style={{ textAlign: 'left', display: 'block' }}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={formData.accept_terms}
+                      onChange={handleChange}
+                      name="accept_terms"
+                      inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                      sx={{ borderRadius: '50px' }}
+                    />
+                  }
+                  label={
+                    <label>
+                      Accept the{' '}
+                      <StyledLink to={routes.TermsOfService.path} target="_blank">
+                        Terms and Agreements
+                      </StyledLink>
+                    </label>
+                  }
+                />
+              </>
+            )}
+            {activeStep === 2 && (
+              <>
+                <Grid container item xs={12} justifyContent="space-between">
+                  <Grid item xs={4}>
+                    <FormControl fullWidth>
+                      <label className={classes.label} htmlFor="firstName">
+                        First Name
+                      </label>
+                      <Input
+                        className={classes.input}
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        autoComplete="given-name"
+                        fullWidth
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={8} paddingLeft={'20px'}>
+                    <FormControl fullWidth>
+                      <label className={classes.label} htmlFor="last_name">
+                        Last Name
+                      </label>
+                      <Input
+                        className={classes.input}
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        autoComplete="family-name"
+                        fullWidth
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid container />
+                <EmailInput
+                  value={formData.email}
+                  placeholder=""
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                  error={emailError}
+                />
+                <PasswordInput
+                  value={formData.password}
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                />
+                <FormControlLabel
+                  style={{ textAlign: 'left', display: 'block' }}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={formData.accept_terms}
+                      onChange={handleChange}
+                      name="accept_terms"
+                      inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                      sx={{ borderRadius: '50px' }}
+                    />
+                  }
+                  label={
+                    <label>
+                      Accept the{' '}
+                      <StyledLink to={routes.TermsOfService.path} target="_blank">
+                        Terms and Agreements
+                      </StyledLink>
+                    </label>
+                  }
+                />
+              </>
+            )}
             {isLoading && <Typography>Loading</Typography>}
             <Grid container spacing={5}>
               <Grid item xs={12} sx={{ mt: 6, mb: 6 }}>
