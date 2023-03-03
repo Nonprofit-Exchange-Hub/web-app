@@ -24,7 +24,6 @@ import { placeholderImg } from '../assets/temp';
 import EmailInput from '../components/Users/Auth/EmailInput';
 import PasswordInput from '../components/Users/Auth/PasswordInput';
 import StyledLink from '../components/StyledLink';
-import TextDivider from '../components/TextDivider';
 import routes from '../routes/routes';
 import { UserContext } from '../providers';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../configs';
@@ -155,20 +154,6 @@ function SignupCitizen() {
     }));
   };
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const stepOneInvalid = false;
-  const stepTwoInvalid = false;
-  const onSubmit = () => {
-    console.log('nice');
-  };
-
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     setIsLoading(true);
@@ -239,11 +224,6 @@ function SignupCitizen() {
                 >
                   Let's get started
                 </Typography>
-                <Grid container item sx={{ paddingBottom: '16px' }}>
-                  <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
-                  <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
-                </Grid>
-                <TextDivider>or</TextDivider>
                 <Grid container item xs={12}>
                   <Grid item xs={5}>
                     <FormControl>

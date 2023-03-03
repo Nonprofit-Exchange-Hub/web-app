@@ -213,46 +213,24 @@ export const SignUpUserAndNonprofit = () => {
                 <Grid container spacing={5}>
                   <Grid item md={12} xs={12}>
                     <Controller
-                      name="name"
+                      name="doing_business_as"
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <>
-                          <Typography sx={{ fontSize: '16px', marginBottom: '10px' }}>
-                            Organization Name
-                          </Typography>
-                          <TextField
-                            hiddenLabel
-                            {...field}
-                            fullWidth
-                            onKeyUp={() => {
-                              if (!errors.ein) {
-                                // setTriggerEinSearch(true);
-                              }
-                            }}
-                            error={!!errors.name?.message}
-                            helperText={errors.name?.message ?? ''}
-                          />
-                        </>
+                        <TextField
+                          {...field}
+                          fullWidth
+                          label="Organization Name"
+                          placeholder="Organization"
+                          helperText={
+                            errors.doing_business_as?.message
+                              ? errors.doing_business_as.message
+                              : ''
+                          }
+                          error={!!errors.doing_business_as}
+                        />
                       )}
                     />
-                    {orgValidateEinQuery.isLoading ? (
-                      <LinearProgress color="secondary" />
-                    ) : (
-                      <>
-                        {orgValidateEinQuery.isError && (
-                          <FormHelperText
-                            sx={{ marginLeft: '13px' }}
-                            error
-                          >{`Invalid EIN ${einApiValidateError}`}</FormHelperText>
-                        )}
-                        {orgValidateEinQuery.isSuccess && !errors.name && (
-                          <FormHelperText>
-                            <CheckIcon style={{ color: green[500] }} />
-                          </FormHelperText>
-                        )}
-                      </>
-                    )}
                   </Grid>
                   <Grid item md={6} xs={12}>
                     <Controller
@@ -379,48 +357,6 @@ export const SignUpUserAndNonprofit = () => {
                         )}
                       </>
                     )}
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <Controller
-                      name="name"
-                      control={control}
-                      defaultValue={''}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Legal Name"
-                          placeholder="Legal Name"
-                          fullWidth
-                          disabled={true}
-                        />
-                      )}
-                    />
-                    {orgValidateEinQuery.isSuccess && !errors.ein && (
-                      <FormHelperText>
-                        <CheckIcon style={{ color: green[500] }} />
-                      </FormHelperText>
-                    )}
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <Controller
-                      name="doing_business_as"
-                      control={control}
-                      defaultValue={''}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          fullWidth
-                          label="Organization Name"
-                          placeholder="Organization"
-                          helperText={
-                            errors.doing_business_as?.message
-                              ? errors.doing_business_as.message
-                              : ''
-                          }
-                          error={!!errors.doing_business_as}
-                        />
-                      )}
-                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
                     <Controller

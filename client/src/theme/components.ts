@@ -44,11 +44,6 @@ const components = {
       root: {
         borderRadius: '10px',
       },
-      containedSecondary: {
-        '&:hover': {
-          backgroundColor: grey[100],
-        },
-      },
     },
     defaultProps: {
       disableElevation: true,
