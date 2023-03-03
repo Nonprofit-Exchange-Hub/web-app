@@ -8,9 +8,8 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-
+import Box from '@mui/material/Box';
 import type { Theme } from '@mui/material/styles';
-
 import { placeholderImg } from '../assets/temp';
 import EmailInput from '../components/Users/Auth/EmailInput';
 import PasswordInput from '../components/Users/Auth/PasswordInput';
@@ -73,6 +72,7 @@ const initialFormData: UserSignupData = {
 function SignupCitizen() {
   const classes = useStyles();
   const history = useHistory();
+  const [activeStep, setActiveStep] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
@@ -84,6 +84,20 @@ function SignupCitizen() {
       [name]: name === 'accept_terms' ? checked : value,
       [name]: name === 'email_notification_opt_out' ? checked : value,
     }));
+  };
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const stepOneInvalid = false;
+  const stepTwoInvalid = false;
+  const onSubmit = () => {
+    console.log('nice');
   };
 
   const handleSubmit = async (evt: React.FormEvent) => {
@@ -198,6 +212,7 @@ function SignupCitizen() {
                   onChange={handleChange}
                   name="accept_terms"
                   inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                  sx={{ borderRadius: '50px' }}
                 />
               }
               label={
@@ -209,16 +224,48 @@ function SignupCitizen() {
                 </label>
               }
             />
-            <Button
-              className={classes.button}
-              fullWidth
-              type="submit"
-              disabled={!formData.accept_terms}
-            >
-              Sign Up
-            </Button>
-            {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
             {isLoading && <Typography>Loading</Typography>}
+            <Grid container spacing={5}>
+              <Grid item xs={12} sx={{ mt: 6, mb: 6 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    sx={{ mr: 1, display: `${activeStep === 0 && 'none'}` }}
+                  >
+                    Back
+                  </Button>
+                  <Box sx={{ flex: '1 1 auto' }} />
+                  {activeStep === 0 && (
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={handleNext}
+                      disabled={stepOneInvalid}
+                    >
+                      Next
+                    </Button>
+                  )}
+                  {activeStep === 1 && (
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={handleNext}
+                      disabled={stepTwoInvalid}
+                    >
+                      Next
+                    </Button>
+                  )}
+                  {activeStep === 2 && (
+                    <Button color="primary" variant="contained" disabled={false} onClick={onSubmit}>
+                      Submit
+                    </Button>
+                  )}
+                </Box>
+              </Grid>
+            </Grid>
           </form>
         </Grid>
       </Grid>

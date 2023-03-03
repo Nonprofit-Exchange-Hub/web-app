@@ -717,7 +717,7 @@ export const SignUpUserAndNonprofit = () => {
                       variant="contained"
                       disabled={activeStep === 0}
                       onClick={handleBack}
-                      sx={{ mr: 1 }}
+                      sx={{ mr: 1, display: `${activeStep === 0 && 'none'}` }}
                     >
                       Back
                     </Button>
