@@ -25,7 +25,7 @@ import type { Theme } from '@mui/material/styles';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/GivingfulLogo.png';
-import routes from '../routes';
+import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -57,7 +57,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
   },
   toolbar: {
-    padding: '5px 5%',
+    margin: 'auto',
+    padding: '5px 0',
+    width: '83.3%',
   },
   menuItemIconRight: {
     display: 'flex',
@@ -69,9 +71,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function Header() {
-  const LOGOUT_URL = `${APP_API_BASE_URL}/logout`;
+  const LOGOUT_URL = `${APP_API_BASE_URL}/auth/logout`;
   const classes = useStyles();
-  const [user, setUser] = React.useContext(UserContext);
+  const { user, setUser } = React.useContext(UserContext);
   const history = useHistory();
 
   const [navAnchorEl, setNavAnchorEl] = React.useState<null | HTMLElement>(null);

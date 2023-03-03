@@ -1,0 +1,25 @@
+name: Run integration tests
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Use Node.js 16
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: load default env variables
+      run: cp server/sample.env server/.env
+
+    - name: Start project compose services
+      run: docker-compose -f server/ci.docker-compose.yml up -d
+
+    - run: cd server && npm ci --legacy-peer-deps && npm run test:e2e

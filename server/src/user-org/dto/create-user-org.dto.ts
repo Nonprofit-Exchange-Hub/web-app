@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
 import { CreateOrganizationDto } from '../../organizations/dto/create-organization.dto';
-import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { CreateUserDto } from '../../acccount-manager/dto/create-user.dto';
 
 import { ApprovalStatus, Role } from '../constants';
 

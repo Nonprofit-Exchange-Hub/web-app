@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrganizationsService } from '../organizations/organizations.service';
-import { UsersService } from '../users/users.service';
 
 import type { DeleteResult, Repository } from 'typeorm';
 
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
 import { UserOrganization } from './entities/user-org.entity';
+import { UsersService } from '../acccount-manager/user.service';
 
 @Injectable()
 export class UserOrganizationsService {

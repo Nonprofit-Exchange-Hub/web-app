@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { CreateUserDto } from '../../acccount-manager/dto/create-user.dto';
 import { CreateAssetDto } from '../../assets/dto/create-asset.dto';
 import { CreateCategoryDto } from '../../categories/dto/create-category.dto';
 import { CreateMessageDto } from '../../messages/dto/create-message.dto';
@@ -18,6 +18,7 @@ export const seedUsers = (): CreateUserDto[] => {
       last_name: 'user1Last',
       email: 'user1First@example.com',
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: false,
     },
     {
@@ -25,6 +26,7 @@ export const seedUsers = (): CreateUserDto[] => {
       last_name: 'user2Last',
       email: 'user2First@example.com',
       password: 'Secret1234%',
+      email_verified: true,
       email_notification_opt_out: true,
     },
   ];
@@ -124,6 +126,46 @@ export function seedAssets(): CreateAssetDto[] {
     {
       title: 'a dozen eggs',
       description: 'bfast',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Thirteen',
+      description: 'lucky lucky lucky',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 13,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Fourteen',
+      description: 'seven twice',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Fifteen',
+      description: 'adds up to six?',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Sixteen',
+      description: 'sixteen candles',
+      type: AssetType.REQUEST,
+      condition: Condition.NONE,
+      quantity: 12,
+      imgUrls: [assetImg],
+    },
+    {
+      title: 'Seventeen',
+      description: 'on the edge of 17',
       type: AssetType.REQUEST,
       condition: Condition.NONE,
       quantity: 12,

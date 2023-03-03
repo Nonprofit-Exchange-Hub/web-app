@@ -31,11 +31,23 @@ const components = {
       },
     },
   },
+  MuiChip: {
+    styleOverrides: {
+      root: {
+        margin: 5,
+        borderRadius: 10,
+      },
+    },
+  },
   MuiButton: {
     styleOverrides: {
       root: {
         borderRadius: '10px',
-        fontSize: '16px',
+      },
+      containedSecondary: {
+        '&:hover': {
+          backgroundColor: grey[100],
+        },
       },
     },
     defaultProps: {
@@ -45,6 +57,13 @@ const components = {
   MuiAccordion: {
     defaultProps: {
       disableGutters: true,
+    },
+  },
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: 10,
+      },
     },
   },
   MuiContainer: {

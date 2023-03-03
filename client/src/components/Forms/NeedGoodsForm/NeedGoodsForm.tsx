@@ -70,7 +70,7 @@ function NeedGoodsForm(): JSX.Element {
   const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
   const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<Option[]>([]);
-  const [user] = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
   const [urlError, setUrlError] = React.useState({ '0': '' });
 
   const history = useHistory();
@@ -122,12 +122,9 @@ function NeedGoodsForm(): JSX.Element {
 
   const handleChangePhotoUrl = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     setFormData((fData) => {
-      let validatedUrls;
       urlSchema
         .validate({ url: event.target.value })
-        .then((success) => {
-          validatedUrls = success;
-          console.log(validatedUrls);
+        .then(() => {
           setUrlError((urlError) => ({
             ...urlError,
             [`${index}`]: '',

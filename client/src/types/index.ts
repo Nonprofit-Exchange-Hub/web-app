@@ -2,12 +2,15 @@ export type Asset = {
   id: number;
   title: string;
   categories: string[];
-  datePosted: string;
+  datePosted: Date;
   location: string;
   imgUrls?: string[];
   description: string;
   poster: User;
   organization: number;
+  type: 'need' | 'donation';
+  org: string;
+  condition: string;
 };
 
 export type Organization = {
@@ -39,6 +42,8 @@ export enum ApprovalStatus {
 export type User = {
   id?: number;
   firstName: string;
+  last_name?: string;
+  email?: string;
 };
 
 export type Transaction = {

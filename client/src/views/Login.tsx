@@ -15,7 +15,7 @@ import PasswordInput from '../components/Users/Auth/PasswordInput';
 import StyledLink from '../components/StyledLink';
 import TextDivider from '../components/TextDivider';
 import { UserContext } from '../providers';
-import routes from '../routes';
+import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -65,7 +65,7 @@ function Login() {
   const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const [, setUser] = React.useContext(UserContext);
+  const { setUser } = React.useContext(UserContext);
 
   const [formData, setFormData] = React.useState<UserLoginData>(initialFormData);
 

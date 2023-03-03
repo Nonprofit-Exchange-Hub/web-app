@@ -1,6 +1,6 @@
 # Nonprofit Circle (working name)
 
-## Description 
+## Description
 - Platform for non-profits and citizens to collaborate in a giving economy.
 - Primary tech stack: PostgreSQL, NestJs, and React
 - Please make sure to read our [contributing/how we work doc](https://github.com/Nonprofit-Exchange-Hub/web-app/blob/main/CONTRIBUTING.md) before getting started
@@ -23,11 +23,11 @@
 4. Install required dependencies:
   -  run `npm ci` from within `/server` directory and from the `/client` directory.
   - run `npm run prepare` from within `/server` directory and from the `/client` directory.
-5. Copy the below environmental variables into a `.env` file that you create in `/server` directory
+5. Copy the existing `sample.env` file into a `.env` file in `/server` directory. It will look like this below. Change your secrets accordingly
 ```
 PORT=3001
 DATABASE_HOST=localhost
-DATABASE_PORT=8080
+DATABASE_PORT=5432
 DATABASE_USER=postgres
 DATABASE_PASSWORD=your_password
 DATABASE_DB=test_db
@@ -36,6 +36,9 @@ BCRYPT_WORK_FACTOR=10
 E2E_DATABASE_DB=e2e_db
 # sockets gateway cors
 SOCKET_CORS_ORIGIN="http://localhost:3000"
+JWT_SECRET=foobar
+# reach out to a team lead for the below value if you need it to work on email notification works
+SENDGRID_API_KEY=
 ```
 6. In that `.env` file we'll now customize some of those values
     * If you are using the non-dockerized version of postgres, change the `DATABASE_PORT` value to `5432`
@@ -91,7 +94,7 @@ $ pg_ctl -D /usr/local/var/postgres stop
 
 1. Run `nvm use` to ensure you are using the proper node version
 2. If using postgres-dockerized workflow, from `/server` directory, run `npm run start:dev:db`
-    * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker ps` in terminal to view all running containers. One should match the name of `container_name` from `docker-compose.yml` file
+    * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker-compose ps` in terminal to view the docker-compose container name from `docker-compose.yml` file.
 3. To start Nest backend in watch mode: From `/server` directory, run `npm run start:dev`
 4. in another terminal, still inside `/server`: `npm run seed:drop` to create some dev data
 5. To start up React frontend: From `/client` directory, run `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.
@@ -142,7 +145,7 @@ $ \dt
 #You can now run SQL commands and queries here
 ```
 
-### Access psql inside a docker container in a single line: 
+### Access psql inside a docker container in a single line:
 `$ docker exec -it <container-id> psql -U <username> -d <database-name>`
 
 source: [StackOverflow](https://stackoverflow.com/questions/53974488/how-to-delete-and-recreate-a-postgres-database-using-a-single-docker-command)
@@ -185,4 +188,3 @@ NEH is an MIT-licensed open source project. If you'd like to join us, please [re
 ## License
 
 NEH is [MIT licensed](LICENSE).
-
