@@ -64,6 +64,7 @@ const components = {
     styleOverrides: {
       root: {
         borderRadius: '10px',
+        marginTop: '10px',
       },
     },
   },

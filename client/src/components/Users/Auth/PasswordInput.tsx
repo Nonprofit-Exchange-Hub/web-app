@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme: Theme) => {
       height: 62,
       border: '1px solid #C4C4C4',
       boxSizing: 'border-box',
-      padding: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
+      padding: '10px 20px',
       fontSize: 18,
       marginBottom: 20,
     },
     label: {
-      color: '#000000',
+      color: '#323232',
+      fontSize: '16px',
+      fontWeight: 600,
       textAlign: 'left',
     },
   };
