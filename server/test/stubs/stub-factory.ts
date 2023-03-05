@@ -22,6 +22,9 @@ export class StubGen {
       password: 'Secret1234%',
       email_verified: true,
       email_notification_opt_out: false,
+      city: 'Seattle',
+      state: 'WA',
+      zip_code: '98101',
     };
   }
 
@@ -36,6 +39,7 @@ export class StubGen {
       phone: '123-456-7891',
       city: faker.address.city(),
       state: faker.address.state(),
+      zip_code: faker.address.zipCode(),
       ein: `${faker.random.numeric(2, { allowLeadingZeros: false })}-${faker.random.numeric(6, {
         allowLeadingZeros: false,
       })}`,

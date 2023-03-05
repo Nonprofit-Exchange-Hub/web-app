@@ -1,5 +1,4 @@
 import { IsEmail, IsNotEmpty, IsBoolean, IsOptional } from 'class-validator';
-
 export class CreateUserDto {
   @IsNotEmpty()
   firstName: string;
@@ -13,6 +12,18 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   password: string;
+
+  @IsOptional()
+  bio?: string;
+
+  @IsNotEmpty()
+  city: string;
+
+  @IsNotEmpty()
+  state: string;
+
+  @IsNotEmpty()
+  zip_code: string;
 
   @IsBoolean()
   email_notification_opt_out: boolean;
