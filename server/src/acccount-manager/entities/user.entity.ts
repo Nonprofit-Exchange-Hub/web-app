@@ -47,5 +47,5 @@ export class User {
     type: 'jsonb',
     nullable: true,
   })
-  interests: { names: string[] };
+  interests?: { names: string[] };
 }
