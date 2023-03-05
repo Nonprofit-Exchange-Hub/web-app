@@ -26,6 +26,7 @@ import ForgotPassword from '../components/Users/Auth/ForgotPassword';
 import SetNewPassword from '../components/Users/Auth/SetNewPassword';
 import CookiePolicy from '../views/CookiePolicy';
 import TempChat from '../views/TempChat';
+import EmailVerification from '../views/EmailVerification';
 
 type RouteMap = {
   [componentName: string]: {
@@ -118,7 +119,7 @@ const routes: RouteMap = {
   },
   ActionForm: {
     component: ActionForm,
-    roles: ['OWNER', 'ADMIN'],
+    roles: [],
     path: '/action',
   },
   Assets: {
@@ -175,6 +176,11 @@ const routes: RouteMap = {
     component: TempChat,
     roles: [],
     path: '/chat',
+  },
+  EmailVerification: {
+    component: EmailVerification,
+    roles: [],
+    path: '/email-verification',
   },
 };
 

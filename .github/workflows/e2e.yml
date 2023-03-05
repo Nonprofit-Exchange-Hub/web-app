@@ -22,4 +22,4 @@ jobs:
     - name: Start project compose services
       run: docker-compose -f server/ci.docker-compose.yml up -d
 
-    - run: cd server && npm ci && npm run test:e2e
+    - run: cd server && npm ci --legacy-peer-deps && npm run test:e2e

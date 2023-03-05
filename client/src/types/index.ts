@@ -44,6 +44,7 @@ export type User = {
   firstName: string;
   last_name?: string;
   email?: string;
+  profile_image_url?: string;
 };
 
 export type Transaction = {

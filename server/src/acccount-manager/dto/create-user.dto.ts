@@ -27,4 +27,7 @@ export class CreateUserDto {
   @Validate(UserInterestsProps)
   @Validate(UserInterestNamesIsArray)
   interests?: UserInterests;
+  
+  @IsBoolean()
+  email_verified?: boolean;
 }

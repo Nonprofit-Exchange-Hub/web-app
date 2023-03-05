@@ -1,6 +1,6 @@
 # Nonprofit Circle (working name)
 
-## Description 
+## Description
 - Platform for non-profits and citizens to collaborate in a giving economy.
 - Primary tech stack: PostgreSQL, NestJs, and React
 - Please make sure to read our [contributing/how we work doc](https://github.com/Nonprofit-Exchange-Hub/web-app/blob/main/CONTRIBUTING.md) before getting started
@@ -145,7 +145,7 @@ $ \dt
 #You can now run SQL commands and queries here
 ```
 
-### Access psql inside a docker container in a single line: 
+### Access psql inside a docker container in a single line:
 `$ docker exec -it <container-id> psql -U <username> -d <database-name>`
 
 source: [StackOverflow](https://stackoverflow.com/questions/53974488/how-to-delete-and-recreate-a-postgres-database-using-a-single-docker-command)
@@ -188,4 +188,3 @@ NEH is an MIT-licensed open source project. If you'd like to join us, please [re
 ## License
 
 NEH is [MIT licensed](LICENSE).
-
