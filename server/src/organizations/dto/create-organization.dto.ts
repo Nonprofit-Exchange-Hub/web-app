@@ -1,5 +1,10 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
+export class OrgCategories {
+  @IsNotEmpty()
+  names: string[];
+}
+
 export class CreateOrganizationDto {
   @IsNotEmpty()
   name: string;
@@ -45,4 +50,7 @@ export class CreateOrganizationDto {
 
   @IsNotEmpty()
   image_url: string;
+
+  @IsOptional()
+  categories?: OrgCategories;
 }
