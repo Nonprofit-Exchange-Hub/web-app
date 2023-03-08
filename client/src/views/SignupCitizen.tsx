@@ -7,17 +7,7 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-import {
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  Select,
-  MenuItem,
-  Chip,
-  Avatar,
-  TextField,
-} from '@mui/material';
+import { Box, Select, MenuItem, Chip, Avatar, TextField, SelectChangeEvent } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 import { placeholderImg } from '../assets/temp';
@@ -119,13 +109,6 @@ function SignupCitizen() {
   const [formData, setFormData] = React.useState(initialFormData);
   const { user, setUser } = React.useContext(UserContext);
 
-  const steps = [
-    { label: 'Basic Information' },
-    { label: 'Personal Information' },
-    { label: 'Interests' },
-    { label: 'Profile' },
-  ];
-
   const makeChips = () => {
     return interests.map((interest) => {
       return (
@@ -145,12 +128,28 @@ function SignupCitizen() {
     });
   };
 
+  const makeCitySelectOptions = (state: string) => {
+    // TODO: get list of cities from state
+    console.log(state);
+    let cities = Array.from(Array(50).keys()).map((num) => <MenuItem value={num}>{num}</MenuItem>);
+    return cities;
+  };
+
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
     setFormData((fData) => ({
       ...fData,
       [name]: name === 'accept_terms' ? checked : value,
       [name]: name === 'email_notification_opt_out' ? checked : value,
+    }));
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string>, child: React.ReactNode): void => {
+    const { name, value }: { name: string; value: string } = event.target;
+    setFormData((fData) => ({
+      ...fData,
+      [name]: name === 'city' && value,
+      [name]: name === 'state' && value,
     }));
   };
 
@@ -192,24 +191,6 @@ function SignupCitizen() {
         <Grid className={sideImg} item xs={3} />
         <Grid item xs={1} />
         <Grid container className={signUpContainer} item direction="column" xs={7}>
-          <Grid container spacing={0} justifyContent="center" sx={{ marginY: '20px' }}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepLabel
-                    optional={
-                      index === steps.length - 1 ? (
-                        <Typography variant="caption">Last step</Typography>
-                      ) : null
-                    }
-                  >
-                    {step.label}
-                  </StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Grid>
-
           <form onSubmit={handleSubmit}>
             {/* PAGE ONE ###########################################################*/}
             {activeStep === 0 && (
@@ -218,6 +199,7 @@ function SignupCitizen() {
                   className={header}
                   variant="h4"
                   fontSize="58px"
+                  lineHeight="87px"
                   component="h1"
                   align="left"
                   gutterBottom
@@ -225,7 +207,7 @@ function SignupCitizen() {
                   Let's get started
                 </Typography>
                 <Grid container item xs={12}>
-                  <Grid item xs={5}>
+                  <Grid item xs={5} sx={{ paddingRight: '10px' }}>
                     <FormControl>
                       <label className={label} htmlFor="firstName">
                         First Name
@@ -282,7 +264,9 @@ function SignupCitizen() {
                 <FormControlLabel
                   style={{
                     textAlign: 'left',
-                    display: 'block',
+                    display: 'flex',
+                    alignContent: 'center',
+                    alignItems: 'center',
                   }}
                   control={
                     <Checkbox
@@ -291,38 +275,22 @@ function SignupCitizen() {
                       onChange={handleChange}
                       name="accept_terms"
                       inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                      sx={{
+                        input: {
+                          "[(type = 'checkbox')]": { '::before': { outline: '1px solid black' } },
+                        },
+                      }}
                     />
                   }
                   label={
                     <label>
                       Accept the{' '}
                       <StyledLink to={routes.TermsOfService.path} target="_blank">
-                        Terms of Service
+                        Terms and Agreements
                       </StyledLink>
                     </label>
                   }
                 />
-                <FormControlLabel
-                  style={{ textAlign: 'left', display: 'block' }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={formData.email_notification_opt_out}
-                      onChange={handleChange}
-                      name="email_notification_opt_out"
-                      inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
-                    />
-                  }
-                  label={'Opt Out Of Email Notifications'}
-                />
-                <Typography
-                  component="p"
-                  align="left"
-                  gutterBottom
-                  sx={{ fontSize: '15px', color: '#404040', margin: '16px 0' }}
-                >
-                  Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
-                </Typography>
               </>
             )}
 
@@ -348,10 +316,44 @@ function SignupCitizen() {
                     <label className={label}>Where are you located?</label>
                   </Grid>
                   <Grid item xs={6}>
-                    <Input className={input} placeholder="city" fullWidth disableUnderline></Input>
+                    <Select
+                      className={input}
+                      displayEmpty
+                      fullWidth
+                      onChange={handleSelectChange}
+                      MenuProps={{
+                        anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+                        sx: {
+                          borderRadius: '10px',
+                          boxShadow: '0px 2px 4px 2px rgba(0, 0, 0, 0.25)',
+                          padding: '20px',
+                          height: '240px',
+                        },
+                      }}
+                      name="city"
+                      renderValue={() => <MenuItem value="">City</MenuItem>}
+                    >
+                      {makeCitySelectOptions('WA')}
+                    </Select>
                   </Grid>
                   <Grid item xs={6}>
-                    <Select className={input} placeholder="state" fullWidth>
+                    <Select
+                      className={input}
+                      displayEmpty
+                      fullWidth
+                      onChange={handleSelectChange}
+                      MenuProps={{
+                        anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+                        sx: {
+                          borderRadius: '10px',
+                          boxShadow: '0px 2px 4px 2px rgba(0, 0, 0, 0.25)',
+                          padding: '20px',
+                          height: '240px',
+                        },
+                      }}
+                      name="state"
+                      renderValue={() => <MenuItem value="">State</MenuItem>}
+                    >
                       {makeStateSelectOptions()}
                     </Select>
                   </Grid>
@@ -465,13 +467,14 @@ function SignupCitizen() {
             {activeStep !== 4 && (
               <Grid container spacing={5}>
                 <Grid item xs={12} sx={{ mt: 2, mb: 6 }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+                  <Box
+                    sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+                  >
                     <Button
                       color="primary"
                       variant="outlined"
-                      disabled={activeStep === 0}
                       onClick={handleBack}
-                      sx={{ mr: 1 }}
+                      sx={{ display: activeStep === 0 ? 'none' : 'inherit', mr: 1 }}
                     >
                       Back
                     </Button>
