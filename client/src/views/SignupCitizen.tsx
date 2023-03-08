@@ -325,7 +325,6 @@ function SignupCitizen() {
                         anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                         sx: {
                           borderRadius: '10px',
-                          boxShadow: '0px 2px 4px 2px rgba(0, 0, 0, 0.25)',
                           padding: '20px',
                           height: '240px',
                         },
@@ -346,7 +345,6 @@ function SignupCitizen() {
                         anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                         sx: {
                           borderRadius: '10px',
-                          boxShadow: '0px 2px 4px 2px rgba(0, 0, 0, 0.25)',
                           padding: '20px',
                           height: '240px',
                         },
