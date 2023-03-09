@@ -33,6 +33,8 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
+import { LoginDto, ResetPasswordDto, VerifyEmailDto } from './dto/auth.dto';
+import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -40,6 +42,7 @@ type AuthedRequest = RequestT & { user: User };
  * controller handles the requests required for account management
  * including CRUD'ing the user entity
  */
+@ApiTags('auth')
 @Controller('auth')
 export class AccountManagerController {
   constructor(
@@ -51,7 +54,7 @@ export class AccountManagerController {
   ) {}
 
   @Patch('verify-email')
-  async verifyEmail(@Body() body: { token: string }): Promise<boolean> {
+  async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
       this.usersService.update(user.id, { email_verified: true });
@@ -97,6 +100,7 @@ export class AccountManagerController {
     return user;
   }
 
+  @ApiBody({ type: LoginDto })
   @Post('login')
   @UseGuards(LoginAuthGuard)
   async login(
@@ -140,6 +144,7 @@ export class AccountManagerController {
     response.clearCookie(COOKIE_KEY).send();
   }
 
+  @ApiBody({ type: ResetPasswordDto })
   @Post('reset_password')
   async resetPassword(
     @Request() req,
@@ -178,10 +183,22 @@ export class AccountManagerController {
     }
   }
 
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        profile_image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Put('users/profile/:id')
   @UseGuards(CookieAuthGuard)
   @UseInterceptors(
-    FileInterceptor('profile_image_url', {
+    FileInterceptor('profile_image', {
       limits: { fileSize: FileSizes.MB },
     }),
   )
@@ -219,16 +236,22 @@ export class AccountManagerController {
     return await this.usersService.update(id, { ...dbUser, profile_image_url: fileUrl });
   }
 
+  @ApiExcludeEndpoint()
+  @UseGuards(CookieAuthGuard)
   @Get('users/:id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
   }
 
+  @ApiExcludeEndpoint()
+  @UseGuards(CookieAuthGuard)
   @Patch('users/:id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
+  @ApiExcludeEndpoint()
+  @UseGuards(CookieAuthGuard)
   @Delete('users/:id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(id);
