@@ -18,14 +18,6 @@ import routes from '../routes/routes';
 import type { Asset, Organization } from '../types';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  searchBody: {
-    gridArea: 'searchBody',
-    display: 'grid',
-    gridTemplateColumns: '300px 1fr',
-    gridTemplateRows: 'auto',
-    gridTemplateAreas: `'leftPanel rightPanel'`,
-    gap: '1em',
-  },
   searchResultsContainer: {
     display: 'grid',
     padding: '20px 10%',
@@ -41,6 +33,14 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: 'inherit',
       borderRadius: '10px',
     },
+  },
+  searchBody: {
+    gridArea: 'searchBody',
+    display: 'grid',
+    gridTemplateColumns: '300px 1fr',
+    gridTemplateRows: 'auto',
+    gridTemplateAreas: `'leftPanel rightPanel'`,
+    gap: '1em',
   },
   leftPanel: {
     gridArea: 'leftPanel',
