@@ -4,12 +4,6 @@ import NeedsCarousel from '../components/NeedsCarousel';
 import DonationsCarousel from '../components/DonationsCarousel';
 import FAQs from '../components/FAQs';
 
-// searchContainer: {
-//   maxWidth: '980px',
-//   width: '70%',
-//   margin: '30px auto',
-// },
-
 function Home(): JSX.Element {
   return (
     <>

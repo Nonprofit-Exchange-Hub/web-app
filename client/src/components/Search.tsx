@@ -3,12 +3,10 @@ import { useHistory } from 'react-router-dom';
 import makeStyles from '@mui/styles/makeStyles';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
-import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -47,83 +45,55 @@ function Search() {
 
   return (
     <div className={classes.searchBar}>
-      <Box
+      <Paper
+        component="form"
         sx={{
-          display: 'flex',
-          border: '1px solid rgba(110, 110, 110, .22)',
           borderRadius: '10px',
-          overflow: 'hidden',
-          height: '50px',
+          display: 'flex',
           alignItems: 'center',
+          justifyContent: 'flex-start',
+          width: '100%',
+          boxShadow: 'none',
+          border: '1px solid rgba(110, 110, 110, .22)',
+          height: '50px',
         }}
       >
-        <FormControl
+        <Select
+          value={searchCategory}
           sx={{
-            minWidth: '200px',
-            display: 'flex',
-            justifyContent: 'center',
+            fontSize: '20px',
+            '.MuiOutlinedInput-notchedOutline': { border: 0 },
+            height: '50px',
+          }}
+          onChange={(e: SelectChangeEvent) => {
+            setSearchCategory(e.target.value);
           }}
         >
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={searchCategory}
-            sx={{
-              '& #demo-simple-select': {
-                fontSize: '20px',
-                paddingLeft: '20%',
-                backgroundColor: 'white',
-              },
-            }}
-            onChange={(e: SelectChangeEvent) => {
-              setSearchCategory(e.target.value);
-            }}
-            inputProps={{ sx: { border: 'none' } }}
-          >
-            <MenuItem value="All">All</MenuItem>
-            <MenuItem value="Nonprofits">Nonprofits</MenuItem>
-            <MenuItem value="Needs">Needs</MenuItem>
-            <MenuItem value="Offers">Offers</MenuItem>
-            <MenuItem value="Volunteer">Volunteer</MenuItem>
-          </Select>
-        </FormControl>
-
-        <Paper className={classes.searchInput}>
-          <Tooltip
-            placement="top-end"
-            componentsProps={{
-              tooltip: {
-                sx: {
-                  color: 'rgba(0, 0, 0, 0.87)',
-                  fontSize: '18px',
-                  bgcolor: 'common.white',
-                  '& .MuiTooltip-arrow': {
-                    color: 'common.white',
-                  },
-                },
-              },
-            }}
-            title="Press 'Enter' key or Click the Icon to Search"
-          >
-            <TextField
-              sx={{
-                '& .MuiOutlinedInput-notchedOutline': {
-                  border: 'none',
-                },
-              }}
-              placeholder="Search"
-              inputProps={{ 'aria-label': 'ex. diapers', style: { fontSize: '18px' } }}
-              type="text"
-              value={searchText}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-                setSearchText(e.target.value);
-              }}
-            />
-          </Tooltip>
-          <SearchIcon fontSize="large" onClick={handleSearch} sx={{ paddingRight: '10px' }} />
-        </Paper>
-      </Box>
+          <MenuItem value="All">All</MenuItem>
+          <MenuItem value="Nonprofits">Nonprofits</MenuItem>
+          <MenuItem value="Needs">Needs</MenuItem>
+          <MenuItem value="Offers">Offers</MenuItem>
+          <MenuItem value="Volunteer">Volunteer</MenuItem>
+        </Select>
+        <TextField
+          sx={{
+            '& .MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+          }}
+          placeholder="Search"
+          inputProps={{ 'aria-label': 'ex. diapers', style: { fontSize: '18px' } }}
+          type="text"
+          value={searchText}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setSearchText(e.target.value);
+          }}
+        />
+        <IconButton onClick={handleSearch} sx={{ paddingRight: '10px', marginLeft: 'auto' }}>
+          <SearchIcon fontSize="large" />
+        </IconButton>
+      </Paper>
     </div>
   );
 }
