@@ -24,6 +24,14 @@ export class OrganizationsController {
 
   @Post()
   async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    if (createOrganizationDto.categories) {
+      const res = await this.organizationsService.validateOrgCategories(
+        createOrganizationDto.categories.names,
+      );
+      if (!res) {
+        throw new BadRequestException('Invalid Categories');
+      }
+    }
     try {
       const newOrg = await this.organizationsService.create(createOrganizationDto);
       return newOrg;

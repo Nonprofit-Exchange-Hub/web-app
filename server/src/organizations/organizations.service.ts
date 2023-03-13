@@ -7,6 +7,7 @@ import { Organization } from './entities/organization.entity';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { GetOrganizationDto } from './dto/get-organization.dto';
+import { CategoriesService } from 'src/categories/categories.service';
 
 export type PropublicaOrg = {
   ein: string;
@@ -17,6 +18,7 @@ export type PropublicaOrg = {
 export class OrganizationsService {
   constructor(
     @InjectRepository(Organization) private organizationsRepository: Repository<Organization>,
+    private categoriesService: CategoriesService,
   ) {}
 
   async create(createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
@@ -73,6 +75,10 @@ export class OrganizationsService {
 
   findOne(id: number): Promise<Organization> {
     return this.organizationsRepository.findOneBy({ id });
+  }
+
+  async validateOrgCategories(interests: string[]) {
+    return this.categoriesService.validateCategories(interests); //get from categories service
   }
 
   async countByNameOrEin(name: string, ein: string): Promise<number> {
