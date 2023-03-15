@@ -125,7 +125,7 @@ const routes: RouteMap = {
   Assets: {
     component: SearchResults,
     roles: ['OWNER', 'ADMIN'],
-    path: '/SearchResults',
+    path: '/search-results',
   },
   Asset: {
     component: Asset,

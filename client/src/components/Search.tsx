@@ -40,7 +40,7 @@ function Search() {
   const [searchText, setSearchText] = React.useState<string>((querySearchText as string) || '');
 
   const handleSearch = () => {
-    history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
+    history.push(`/search-results?search=${searchText}&category=${searchCategory}`);
   };
 
   return (

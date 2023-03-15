@@ -30,7 +30,7 @@ export default function NeedsCarousel(props: NeedsCarouselProps) {
         cardWidth={250}
         showControls={true}
         label={props.label || ''}
-        viewMoreTo="/SearchResults?category=Needs"
+        viewMoreTo="/search-results?category=Needs"
       />
     </div>
   );
