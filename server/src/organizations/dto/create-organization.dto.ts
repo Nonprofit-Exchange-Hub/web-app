@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateOrganizationDto {
   @IsNotEmpty()
@@ -16,6 +16,15 @@ export class CreateOrganizationDto {
   @IsNotEmpty()
   website: string;
 
+  @IsOptional()
+  facebook?: string;
+
+  @IsOptional()
+  twitter?: string;
+
+  @IsOptional()
+  instagram?: string;
+
   @IsNotEmpty()
   address: string;
 
@@ -27,6 +36,9 @@ export class CreateOrganizationDto {
 
   @IsNotEmpty()
   state: string;
+
+  @IsNotEmpty()
+  zip_code: string;
 
   @IsNotEmpty()
   ein: string;
