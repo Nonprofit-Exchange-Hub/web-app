@@ -62,7 +62,9 @@ export class AccountManagerController {
   }
 
   @Post('register')
-  async register(@Body() createUserDto: CreateUserDto) {
+  async register(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<Omit<User, 'password' | 'accept_terms'>> {
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
       if (!res) {
