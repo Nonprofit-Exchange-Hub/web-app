@@ -33,8 +33,14 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
-import { LoginDto, ResetPasswordDto, VerifyEmailDto } from './dto/auth.dto';
-import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
+import {
+  LoginDto,
+  ResetPasswordDto,
+  VerifyEmailDto,
+  ReturnSessionDto,
+  ReturnUserDto,
+} from './dto/auth.dto';
+import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -65,9 +71,7 @@ export class AccountManagerController {
   }
 
   @Post('register')
-  async register(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<Omit<User, 'password' | 'accept_terms'>> {
+  async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
       if (!res) {
@@ -131,7 +135,7 @@ export class AccountManagerController {
 
   @Post('session')
   @UseGuards(CookieAuthGuard)
-  async session(@Request() request: AuthedRequest): Promise<{ user: Omit<User, 'password'> }> {
+  async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
     const { user } = request;
     const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
       user.id,
@@ -202,11 +206,12 @@ export class AccountManagerController {
       limits: { fileSize: FileSizes.MB },
     }),
   )
+  @ApiResponse({ status: 200, type: ReturnUserDto })
   async upsertProfile(
     @Param('id') id: number,
     @UploadedFile()
     file: Express.Multer.File,
-  ) {
+  ): Promise<ReturnUserDto | BadRequestException> {
     if (/\.(jpe?g|png|gif)$/i.test(file.filename)) {
       return new BadRequestException(
         'Only valid image extensions allowed (.jpg, .jpeg, .png, .gif)',

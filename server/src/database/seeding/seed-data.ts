@@ -22,7 +22,6 @@ export const seedUsers = (): CreateUserDto[] => {
       city: 'Seattle',
       state: 'Washington',
       zip_code: '98101',
-      email_verified: true,
       email_notification_opt_out: false,
     },
     {
@@ -34,7 +33,6 @@ export const seedUsers = (): CreateUserDto[] => {
       city: 'Seattle',
       state: 'Washington',
       zip_code: '98101',
-      email_verified: true,
       email_notification_opt_out: true,
     },
   ];
