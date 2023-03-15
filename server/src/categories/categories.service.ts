@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, In, Repository } from 'typeorm';
 
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { GetCategoriesDto } from './dto/get-categories-filter.dto';
@@ -21,6 +21,13 @@ export class CategoriesService {
 
   async getCategories(getCategoriesDto: GetCategoriesDto): Promise<Category[]> {
     return this.categoriesRepository.find({ where: getCategoriesDto });
+  }
+
+  async validateCategories(categories: string[]): Promise<boolean> {
+    const found = await this.categoriesRepository.countBy({
+      name: In(categories),
+    });
+    return found === categories.length;
   }
 
   async findOne(id: number): Promise<Category> {
