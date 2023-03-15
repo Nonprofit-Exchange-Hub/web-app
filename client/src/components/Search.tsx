@@ -35,9 +35,9 @@ function Search() {
   const querySearchCategory = searchParams.get('category');
 
   const [searchCategory, setSearchCategory] = React.useState<string>(
-    (querySearchCategory as string) || 'Needs',
+    String(querySearchCategory ?? 'Needs'),
   );
-  const [searchText, setSearchText] = React.useState<string>((querySearchText as string) || '');
+  const [searchText, setSearchText] = React.useState<string>(String(querySearchText ?? ''));
 
   const handleSearch = () => {
     history.push(`/search-results?search=${searchText}&category=${searchCategory}`);
@@ -90,7 +90,11 @@ function Search() {
             setSearchText(e.target.value);
           }}
         />
-        <IconButton onClick={handleSearch} sx={{ paddingRight: '10px', marginLeft: 'auto' }}>
+        <IconButton
+          onClick={handleSearch}
+          sx={{ paddingRight: '10px', marginLeft: 'auto' }}
+          disabled={!searchText}
+        >
           <SearchIcon fontSize="large" />
         </IconButton>
       </Paper>
