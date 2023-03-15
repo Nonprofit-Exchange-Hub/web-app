@@ -18,7 +18,7 @@ async function bootstrap() {
     credentials: true,
     origin: process.env.FE_DOMAIN,
   });
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
   app.use(cookieParser('secret_placeholder'));
 
   const config = new DocumentBuilder()

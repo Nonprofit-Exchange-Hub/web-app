@@ -12,6 +12,7 @@ import { WSCookieStrategy } from './strategies/ws-cookie.strategy';
 import { UsersService } from './user.service';
 import { FileStorageModule } from '../file-storage/file-storage.module';
 import { FilesStorageService } from '../file-storage/file-storage.service';
+import { CategoriesModule } from '../categories/categories.module';
 
 const providers = [
   AccountManagerService,
@@ -31,6 +32,7 @@ const providers = [
     }),
     TypeOrmModule.forFeature([User]),
     FileStorageModule,
+    CategoriesModule,
   ],
   controllers: [AccountManagerController],
   providers: [...providers, SendgridService, FilesStorageService],

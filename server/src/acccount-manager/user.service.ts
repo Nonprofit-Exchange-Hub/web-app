@@ -36,6 +36,17 @@ export class UsersService {
     return user;
   }
 
+  /**
+   * Filter users by their interests
+   * @param interests
+   * @returns list of users matching a list of interest names
+   */
+  async geUsersByInterests(interests: { names: string[] }): Promise<Omit<User[], 'password'>> {
+    return await this.usersRepository.query(
+      `SELECT * from users WHERE interests->'names' @> '${JSON.stringify(interests.names)}'::jsonb`,
+    );
+  }
+
   async userEmailExists(email: string): Promise<boolean> {
     const usersFound = await this.usersRepository.count({ where: { email } });
     return usersFound > 0;

@@ -65,6 +65,12 @@ export class AccountManagerController {
   async register(
     @Body() createUserDto: CreateUserDto,
   ): Promise<Omit<User, 'password' | 'accept_terms'>> {
+    if (createUserDto.interests) {
+      const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
+      if (!res) {
+        throw new BadRequestException('Invalid Categories');
+      }
+    }
     const user = await this.usersService.create(createUserDto);
 
     const jwt = await this.jwtService.sign(
