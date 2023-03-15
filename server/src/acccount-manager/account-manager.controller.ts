@@ -63,7 +63,7 @@ export class AccountManagerController {
   async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
-      this.usersService.update(user.id, { email_verified: true });
+      this.usersService.update(user.id, { ...user, email_verified: true });
       return true;
     } catch {
       throw Error('jwt verify fail');
@@ -98,6 +98,7 @@ export class AccountManagerController {
         <p>Thank you!!</p>
         <p>The Givingful Team</p>
       `,
+      mailSettings: { sandboxMode: { enable: process.env.MODE !== 'production' } },
     };
     await this.sendgridService.send(mail);
 

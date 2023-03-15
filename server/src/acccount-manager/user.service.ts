@@ -3,8 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm/repository/Repository';
 import { ReturnUserDto } from './dto/auth.dto';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserInternal } from './dto/create-user.internal';
+import { CreateUserInternal, UpdateUserInternal } from './dto/create-user.internal';
 import { User } from './entities/user.entity';
 
 const { BCRYPT_WORK_FACTOR = '10' } = process.env;
@@ -13,7 +12,7 @@ const { BCRYPT_WORK_FACTOR = '10' } = process.env;
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<ReturnUserDto> {
+  async create(createUserDto: CreateUserInternal): Promise<ReturnUserDto> {
     try {
       const hashedPw = await bcrypt.hash(createUserDto.password, parseInt(BCRYPT_WORK_FACTOR));
       createUserDto.password = hashedPw;
