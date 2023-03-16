@@ -19,7 +19,9 @@ import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
 import { ApprovalStatus, Role } from './constants';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { UsersService } from '../acccount-manager/user.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('userOrganizations')
 @Controller('userOrganizations')
 export class UserOrganizationsController {
   constructor(

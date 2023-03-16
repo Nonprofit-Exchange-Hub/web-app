@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm/repository/Repository';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ReturnUserDto } from './dto/auth.dto';
+import { CreateUserInternal, UpdateUserInternal } from './dto/create-user.internal';
 import { User } from './entities/user.entity';
 
 const { BCRYPT_WORK_FACTOR = '10' } = process.env;
@@ -12,7 +12,7 @@ const { BCRYPT_WORK_FACTOR = '10' } = process.env;
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
+  async create(createUserDto: CreateUserInternal): Promise<ReturnUserDto> {
     try {
       const hashedPw = await bcrypt.hash(createUserDto.password, parseInt(BCRYPT_WORK_FACTOR));
       createUserDto.password = hashedPw;
@@ -77,7 +77,7 @@ export class UsersService {
   }
 
   // TODO: Assess if there is a better way than making two requests.
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserInternal) {
     await this.usersRepository.update(id, updateUserDto);
     const user = await this.usersRepository.findOneBy({ id });
     delete user.password;

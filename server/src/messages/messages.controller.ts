@@ -19,7 +19,9 @@ import { DeleteResult } from 'typeorm';
 import type { Request as ExpressRequest } from 'express';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('messages')
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}

@@ -25,7 +25,6 @@ async function bootstrap() {
     .setTitle('Nonprofit Circle API')
     .setDescription('Our API monolith')
     .setVersion('0.0')
-    .addTag('nonprofit')
     .addCookieAuth('NEH_is_cool')
     .build();
   const document = SwaggerModule.createDocument(app, config);
