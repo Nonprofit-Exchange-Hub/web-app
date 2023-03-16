@@ -1,10 +1,6 @@
 import { IsNotEmpty, IsOptional, Validate } from 'class-validator';
-import { UserInterestNamesIsArray, UserInterestsProps } from './user-interest.validator';
-
-export class OrgCategories {
-  @IsNotEmpty()
-  names: string[];
-}
+import { Interests } from 'src/shared/interests.dto';
+import { InterestNamesIsArray, InterestsProps } from 'src/shared/interests.validator';
 
 export class CreateOrganizationDto {
   @IsNotEmpty()
@@ -53,7 +49,7 @@ export class CreateOrganizationDto {
   image_url: string;
 
   @IsOptional()
-  @Validate(UserInterestsProps)
-  @Validate(UserInterestNamesIsArray) //get from user-interest.validator, move that file to shared version
-  categories?: OrgCategories;
+  @Validate(InterestsProps)
+  @Validate(InterestNamesIsArray)
+  categories?: Interests;
 }
