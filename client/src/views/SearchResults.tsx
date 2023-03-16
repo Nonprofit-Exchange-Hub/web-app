@@ -2,14 +2,6 @@ import * as React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import makeStyles from '@mui/styles/makeStyles';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import type { Theme } from '@mui/material/styles';
@@ -18,6 +10,7 @@ import AssetsList from './AssetsList';
 import OrgsList from './OrgsList';
 import FilterGroup from '../components/FilterGroup';
 import SearchCategoryCard from '../components/SearchCategoryCard';
+import Search from '../components/Search';
 import { filters1, filters2, filters3 } from '../assets/temp';
 import { APP_API_BASE_URL } from '../configs';
 import routes from '../routes/routes';
@@ -34,24 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     gap: '4em 0',
     backgroundColor: '#f7fbfd',
   },
-  searchBar: {
-    gridArea: 'searchBar',
-    boxShadow: 'none',
-    margin: '20px 100px',
-  },
   iconButton: {
     padding: 10,
     '&:hover': {
       backgroundColor: 'inherit',
       borderRadius: '10px',
     },
-  },
-  searchInput: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    height: '70px',
   },
   searchBody: {
     gridArea: 'searchBody',
@@ -74,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'bold',
     marginLeft: '15%',
   },
-  createBar: {},
   rightHeader: {
     display: 'flex',
     flexDirection: 'row',
@@ -98,12 +78,7 @@ function SearchResults(): JSX.Element {
   const querySearchText = searchParams.get('search');
   const querySearchCategory = searchParams.get('category');
 
-  const [searchCategory, setSearchCategory] = React.useState<string>(
-    (querySearchCategory as string) || '',
-  );
-  const [searchText, setSearchText] = React.useState<string>((querySearchText as string) || '');
   const [selectedFilters, setSelectedFilters] = React.useState<{ [key: string]: boolean }>({});
-
   const [offers, setOffers] = React.useState<Asset[]>([]);
   const [needs, setNeeds] = React.useState<Asset[]>([]);
   const [orgs, setOrgs] = React.useState<Organization[]>([]);
@@ -151,96 +126,13 @@ function SearchResults(): JSX.Element {
     });
   };
 
-  const handleSearch = () => {
-    history.push(`/SearchResults?search=${searchText}&category=${searchCategory}`);
-  };
-
   React.useEffect(() => {
     fetchSearchData();
   }, [querySearchText, querySearchCategory]);
 
-  console.log('reouts', routes);
   return (
     <div className={classes.searchResultsContainer}>
-      <div className={classes.searchBar}>
-        <Box
-          sx={{
-            display: 'flex',
-            borderRadius: '10px',
-            overflow: 'hidden',
-            boxShadow: '1px 1px 5px 1px rgba(0,0,0,0.2)',
-            height: '50px',
-            alignItems: 'center',
-          }}
-        >
-          <FormControl
-            sx={{
-              minWidth: '200px',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={searchCategory}
-              label="Age"
-              sx={{
-                '& #demo-simple-select': {
-                  fontSize: '20px',
-                  paddingLeft: '20%',
-                  backgroundColor: 'white',
-                },
-              }}
-              onChange={(e: SelectChangeEvent) => {
-                setSearchCategory(e.target.value);
-              }}
-            >
-              <MenuItem value="All">All</MenuItem>
-              <MenuItem value="Nonprofits">Nonprofits</MenuItem>
-              <MenuItem value="Needs">Needs</MenuItem>
-              <MenuItem value="Offers">Offers</MenuItem>
-              <MenuItem value="Volunteer">Volunteer</MenuItem>
-            </Select>
-          </FormControl>
-
-          <Paper className={classes.searchInput}>
-            <Tooltip
-              placement="top-end"
-              componentsProps={{
-                tooltip: {
-                  sx: {
-                    color: 'rgba(0, 0, 0, 0.87)',
-                    fontSize: '18px',
-                    bgcolor: 'common.white',
-                    '& .MuiTooltip-arrow': {
-                      color: 'common.white',
-                    },
-                  },
-                },
-              }}
-              title="Press 'Enter' key or Click the Icon to Search"
-            >
-              <TextField
-                sx={{
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    border: '0 none',
-                  },
-                }}
-                placeholder="Search"
-                inputProps={{ 'aria-label': 'ex. diapers', style: { fontSize: '18px' } }}
-                type="text"
-                value={searchText}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-                  setSearchText(e.target.value);
-                }}
-              />
-            </Tooltip>
-            <SearchIcon fontSize="large" onClick={handleSearch} />
-          </Paper>
-        </Box>
-      </div>
+      <Search />
       <div className={classes.searchBody}>
         <div className={classes.leftPanel}>
           <SearchCategoryCard />

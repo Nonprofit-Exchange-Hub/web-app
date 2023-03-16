@@ -15,9 +15,6 @@ const useStyles = makeStyles({
     gap: '0.8em',
     padding: '30px 0 30px 20px',
   },
-  root: {
-    // backgroundColor: 'white',
-  },
   icon: {
     borderRadius: '50%',
     width: 18,
@@ -54,7 +51,6 @@ function StyledRadio(props: RadioProps) {
 
   return (
     <Radio
-      className={classes.root}
       disableRipple
       color="default"
       checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
@@ -77,6 +73,7 @@ export default function SearchCategoryCard() {
       >
         {categories.map((t) => (
           <FormControlLabel
+            key={t}
             value={t}
             control={<StyledRadio color="secondary" size="medium" />}
             label={<span style={{ fontSize: '18px', color: 'white' }}>{t}</span>}
