@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material';
+import { Grid, ThemeProvider } from '@mui/material';
 
 import theme from './theme';
 import Footer from './components/Footer';
@@ -26,11 +26,17 @@ function App(): JSX.Element {
               // intentionally left empty callback to block the default browser prompt.
             }}
           >
-            <div className="App">
+            <Grid
+              className="App"
+              display="flex"
+              flexDirection="column"
+              height="100vh"
+              justifyContent="space-between"
+            >
               <Header />
               <Main />
               <Footer />
-            </div>
+            </Grid>
           </BrowserRouter>
         </UserProvider>
       </QueryClientProvider>
