@@ -8,11 +8,13 @@ import { User } from '../acccount-manager/entities/user.entity';
 import { UserOrganization } from './entities/user-org.entity';
 import { UserOrganizationsController } from './user-org.controller';
 import { UserOrganizationsService } from './user-org.service';
+import { CategoriesModule } from 'src/categories/categories.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserOrganization, User, Organization]),
     AcccountManagerModule,
+    CategoriesModule,
   ],
   controllers: [UserOrganizationsController],
   providers: [UserOrganizationsService, UsersService, OrganizationsService],
