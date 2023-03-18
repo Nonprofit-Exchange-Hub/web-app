@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { addsearchabletoassets1679101636074 } from 'sql-scripts/migrations/1679101636074-add_searchable_to_assets';
+
 @Injectable()
 export class DatabaseConnectionService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
