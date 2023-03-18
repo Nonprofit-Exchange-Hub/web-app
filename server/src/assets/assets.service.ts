@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import type { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, Raw, Repository } from 'typeorm';
 
 import { Asset } from './entities/asset.entity';
 import { UpdateAssetDto } from './dto/update-asset.dto';
@@ -22,19 +22,30 @@ export class AssetsService {
   }
 
   async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
-    const { limit, offset, title, ...rest } = getAssetsDto;
-    const whereParams = title ? { title: Like(`%${title}%`), ...rest } : { ...rest };
-
-    return (
-      this.assetsRepository.find({
-        where: whereParams,
-        order: {
-          datePosted: 'DESC',
-        },
-        skip: offset,
-        take: limit,
-      }) || []
-    );
+    const { limit, offset, search, ...rest } = getAssetsDto;
+    if (search) {
+      return this.assetsRepository
+        .createQueryBuilder()
+        .select('asset')
+        .from(Asset, 'asset')
+        .where(`"asset"."searchtitle" @@ plainto_tsquery('english', :query)`, {
+          query: `${search}`,
+        })
+        .orderBy(`plainto_tsquery('english', :query)`, 'DESC')
+        .limit(limit)
+        .getMany();
+    } else {
+      return (
+        this.assetsRepository.find({
+          where: { ...rest },
+          order: {
+            datePosted: 'DESC',
+          },
+          skip: offset,
+          take: limit,
+        }) || []
+      );
+    }
   }
 
   async update(id: number, updateAssetDto: UpdateAssetDto, poster: User): Promise<Asset> {

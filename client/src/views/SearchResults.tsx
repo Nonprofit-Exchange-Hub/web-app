@@ -96,7 +96,7 @@ function SearchResults(): JSX.Element {
     } else if (querySearchCategory === 'Offers' || querySearchCategory === 'Needs') {
       const newSearchParams = new URLSearchParams();
       newSearchParams.set('type', querySearchCategory === 'Needs' ? 'request' : 'donation');
-      newSearchParams.set('title', querySearchText || '');
+      newSearchParams.set('search', querySearchText || '');
       fetch(`${APP_API_BASE_URL}/assets?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {

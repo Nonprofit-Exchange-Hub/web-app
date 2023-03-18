@@ -6,9 +6,9 @@ import {
   JoinColumn,
   OneToMany,
   CreateDateColumn,
+  Index,
 } from 'typeorm';
 import { User } from '../../acccount-manager/entities/user.entity';
-
 import { AssetType, Condition } from '../constants';
 import { Transaction } from '../../transactions/entities/transaction.entity';
 
@@ -36,6 +36,14 @@ export class Asset {
     default: Condition.NONE,
   })
   condition: Condition;
+
+  @Index()
+  @Column({
+    generatedType: 'STORED',
+    type: 'tsvector',
+    asExpression: `to_tsvector('english', title)`,
+  })
+  searchtitle: string;
 
   @Column({
     type: 'text',
