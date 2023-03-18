@@ -37,7 +37,7 @@ export class Asset {
   })
   condition: Condition;
 
-  @Index()
+  @Index('searchtitleindex', { synchronize: false }) // GIN type indexes are not supported by TypeOrm and require manual migration
   @Column({
     generatedType: 'STORED',
     type: 'tsvector',
