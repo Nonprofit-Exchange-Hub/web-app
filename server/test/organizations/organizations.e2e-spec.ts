@@ -81,4 +81,16 @@ describe('OrganizationsController', () => {
     "interests must contain a names key"
   ]);
   });
+
+  it('POST /organizations -> when org categories are valid -> should return 200', async () => {
+    const org = { ...seed, categories: { names: ['Environment'] } }
+    const { body } = await supertest
+      .agent(app.getHttpServer())
+      .post(`/organizations`)
+      .send(org)
+      .set('Content-Type', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200);
+    expect(body.message).toEqual(org);
+    });
 });
