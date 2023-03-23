@@ -67,4 +67,18 @@ describe('OrganizationsController', () => {
       .expect(409);
     expect(body.message).toEqual('HttpException: This organization already exists');
   });
+
+  it('POST /organizations -> when org categories does not have names key -> should return 400', async () => {
+    const { body } = await supertest
+      .agent(app.getHttpServer())
+      .post(`/organizations`)
+      .send({ ...seed, categories: ['Environment'] })
+      .set('Content-Type', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400);
+    expect(body.message).toEqual([
+    "interests names must contain a valid array of strings",
+    "interests must contain a names key"
+  ]);
+  });
 });
