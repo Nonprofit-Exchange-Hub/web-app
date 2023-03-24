@@ -8,7 +8,7 @@ import { User } from '../acccount-manager/entities/user.entity';
 import { UserOrganization } from './entities/user-org.entity';
 import { UserOrganizationsController } from './user-org.controller';
 import { UserOrganizationsService } from './user-org.service';
-import { CategoriesModule } from 'src/categories/categories.module';
+import { CategoriesModule } from '../categories/categories.module';
 
 @Module({
   imports: [

@@ -77,9 +77,9 @@ describe('OrganizationsController', () => {
       .expect('Content-Type', /json/)
       .expect(400);
     expect(body.message).toEqual([
-    "interests names must contain a valid array of strings",
-    "interests must contain a names key"
-  ]);
+      "interests names must contain a valid array of strings",
+      "interests must contain a names key"
+    ]);
   });
 
   it('POST /organizations -> when org categories are valid -> should return 200', async () => {

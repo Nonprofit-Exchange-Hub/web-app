@@ -7,7 +7,7 @@ import { Organization } from './entities/organization.entity';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { GetOrganizationDto } from './dto/get-organization.dto';
-import { CategoriesService } from 'src/categories/categories.service';
+import { CategoriesService } from '../categories/categories.service';
 
 export type PropublicaOrg = {
   ein: string;

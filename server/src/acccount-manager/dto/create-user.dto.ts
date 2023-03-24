@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsBoolean, IsOptional, Validate } from 'class-validator';
-import { InterestsProps, InterestNamesIsArray } from 'src/shared/interests.validator';
-import { Interests } from 'src/shared/interests.dto';
+import { InterestsProps, InterestNamesIsArray } from '../../shared/interests.validator';
+import { Interests } from '../../shared/interests.dto';
 
 export class CreateUserDto {
   @IsNotEmpty()

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, Validate } from 'class-validator';
-import { Interests } from 'src/shared/interests.dto';
-import { InterestNamesIsArray, InterestsProps } from 'src/shared/interests.validator';
+import { Interests } from '../../shared/interests.dto';
+import { InterestNamesIsArray, InterestsProps } from '../../shared/interests.validator';
 
 export class CreateOrganizationDto {
   @IsNotEmpty()
