@@ -3,11 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TransactionStatus } from '../transaction-status.enum';
@@ -35,9 +32,15 @@ export class Transaction {
   @JoinColumn()
   donater_user: User;
 
+  @Column({ nullable: true })
+  donater_userId: number;
+
   @ManyToOne(() => Organization, (organization) => organization.donated_transactions)
   @JoinColumn()
   donater_organization?: Organization;
+
+  @Column({ nullable: true })
+  donater_organizationId: number;
 
   @ManyToOne(() => Asset, (asset) => asset.transactions, { eager: true })
   @JoinColumn()
@@ -47,7 +50,9 @@ export class Transaction {
   @JoinColumn()
   claimer: Organization;
 
+  @Column({ nullable: true }) // TODO: update seeder to always have claimerID
+  claimerId: number;
+
   @OneToMany(() => Message, (message) => message.transaction)
-  @JoinColumn()
   messages: Message[];
 }

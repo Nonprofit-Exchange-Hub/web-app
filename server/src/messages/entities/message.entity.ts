@@ -1,3 +1,4 @@
+import { Organization } from 'src/organizations/entities/organization.entity';
 import {
   Entity,
   Column,
@@ -5,6 +6,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 
 import { User } from '../../acccount-manager/entities/user.entity';
@@ -24,9 +26,13 @@ export class Message {
   })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.messages, { eager: true })
+  @ManyToOne(() => User, (user) => user.messages)
   @JoinColumn()
-  user: User;
+  sending_user: User;
+
+  @ManyToOne(() => Organization, (org) => org.messages)
+  @JoinColumn()
+  sending_org: Organization;
 
   @ManyToOne(() => Transaction, (transaction) => transaction.messages)
   @JoinColumn()

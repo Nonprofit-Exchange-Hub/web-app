@@ -22,6 +22,40 @@ export class TransactionsService {
     return this.transactionsRepository.find({ where: { ...getTransactionsDto } });
   }
 
+  async find_by_user_with_messages(user_id: number): Promise<Transaction[]> {
+    return this.transactionsRepository.find({
+      relations: {
+        donater_user: true,
+        donater_organization: true,
+        claimer: true,
+        messages: true,
+      },
+      where: {
+        donater_user: {
+          id: user_id,
+        },
+      },
+    });
+  }
+
+  async find_by_org_with_messages(org_id: number): Promise<Transaction[]> {
+    return this.transactionsRepository.find({
+      relations: { donater_user: true, donater_organization: true, claimer: true, messages: true },
+      where: [
+        {
+          donater_organization: {
+            id: org_id,
+          },
+        },
+        {
+          claimer: {
+            id: org_id,
+          },
+        },
+      ],
+    });
+  }
+
   async getTransactionById(id: number): Promise<Transaction> {
     const found = await this.transactionsRepository.findOneBy({ id });
     if (!found) {

@@ -23,18 +23,21 @@ export class MessagesService {
     return this.messagesRepository.findOneBy({ id });
   }
 
-  async findByUser(user: User): Promise<Message[]> {
-    const messages = this.messagesRepository.find({ where: { user: { id: user.id } } });
+  async findByUser(user_id: number): Promise<Message[]> {
+    const messages = this.messagesRepository.find({
+      where: {
+        sending_user: { id: user_id },
+      },
+    });
     return messages;
   }
 
-  // when transactions are set up
-  // async findByTransaction(transaction: Transaction): Promise<Message[]> {
-  //   const messages = this.messagesRepository.find({
-  //     where: { transaction: transaction },
-  //   });
-  //   return messages;
-  // }
+  async findByTransaction(transaction_id: number): Promise<Message[]> {
+    const messages = this.messagesRepository.find({
+      where: { transaction: { id: transaction_id } },
+    });
+    return messages;
+  }
 
   async update(id: number, updateMessageDto: UpdateMessageDto): Promise<Message> {
     await this.messagesRepository.update(id, updateMessageDto);

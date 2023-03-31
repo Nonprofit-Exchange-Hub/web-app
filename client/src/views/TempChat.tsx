@@ -8,6 +8,7 @@ const TempChat = () => {
   useEffect(() => {
     const opts: Partial<ManagerOptions & SocketOptions> = {
       withCredentials: true,
+      transports: ['websocket'],
     };
     const newSocket = io(`http://${window.location.hostname}:3002`, opts);
     setSocket(newSocket);

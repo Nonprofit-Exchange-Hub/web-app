@@ -8,10 +8,12 @@ import {
 import { PocChatService } from './poc-chat.service';
 import { CreatePocChatDto } from './dto/create-poc-chat.dto';
 import { Server, Socket } from 'socket.io';
-import { Request, UseGuards } from '@nestjs/common';
+import { Logger, Request, UseGuards } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { WsCookieGuard } from '../acccount-manager/guards/ws-cookie-auth.guard';
-
+import { TransactionsService } from 'src/transactions/transactions.service';
+import { MessagesService } from 'src/messages/messages.service';
+import { UsersService } from 'src/acccount-manager/user.service';
 dotenv.config({ path: __dirname + '/../../.env' });
 
 @WebSocketGateway(3002, {
@@ -20,10 +22,14 @@ dotenv.config({ path: __dirname + '/../../.env' });
 export class PocChatGateway {
   @WebSocketServer()
   server: Server;
+  constructor(
+    private readonly pocChatService: PocChatService,
+    private transactionsService: TransactionsService,
+    private messagesService: MessagesService,
+    private usersService: UsersService,
+  ) {}
 
-  constructor(private readonly pocChatService: PocChatService) {}
-
-  @UseGuards(WsCookieGuard)
+  // @UseGuards(WsCookieGuard)
   @SubscribeMessage('createPocChat')
   async create(
     @MessageBody() createPocChatDto: CreatePocChatDto,
@@ -37,7 +43,7 @@ export class PocChatGateway {
     this.server.emit('message', messages);
   }
 
-  @UseGuards(WsCookieGuard)
+  // @UseGuards(WsCookieGuard)
   @SubscribeMessage('findAllPocChat')
   findAll() {
     return this.pocChatService.findAll();
@@ -45,17 +51,64 @@ export class PocChatGateway {
 
   @SubscribeMessage('join')
   @UseGuards(WsCookieGuard)
-  joinRoom(@MessageBody('name') name: string, @ConnectedSocket() client: Socket) {
-    return this.pocChatService.identify(name, client.id);
+  joinRoom(
+    @MessageBody('transactionId') transactionId: number,
+    @MessageBody('orgId') org_id: number,
+    @ConnectedSocket() client: Socket,
+    @Request() request: Request,
+  ) {
+    const user = request['user'];
+    const isValid = this._can_user_join(user, transactionId, org_id);
+    if (isValid) {
+      client.join(`${transactionId}`);
+      Logger.log('joining room');
+      client.emit('join', { success: true });
+    } else {
+      client.emit('join', { success: false });
+    }
   }
 
   @UseGuards(WsCookieGuard)
+  @SubscribeMessage('message')
+  async sendMessage(
+    @MessageBody('text') text: string,
+    @MessageBody('transactionId') transactionId: number,
+    @MessageBody('orgId') org_id: number,
+    @ConnectedSocket() client: Socket,
+    @Request() request: Request,
+  ) {
+    client
+      .to(`${transactionId}`)
+      .emit('sendMessage', { text: text, sendingUserId: request['user'].id, sendingOrgId: org_id });
+  }
+
   @SubscribeMessage('typing')
-  async typing(
+  @UseGuards(WsCookieGuard)
+  typing(
     @MessageBody('isTyping') isTyping: boolean,
     @ConnectedSocket() client: Socket,
     @Request() req: Request,
   ) {
-    client.broadcast.emit('typing', { name: req['user'].firstName, isTyping });
+    Logger.log('recieved typing');
+    client.emit('typing', { name: req['user'].firstName, isTyping });
+  }
+
+  async _can_user_join(user, transaction_id, org_id = null) {
+    const transaction = await this.transactionsService.getTransactionById(transaction_id);
+    if (!transaction) {
+      return false;
+    }
+    if (org_id) {
+      if (!user.organizations.reduce((acc, org) => org.id === org_id && acc, true)) {
+        // user id does not match org_id so return false
+        return false;
+      }
+      if (org_id !== transaction.donater_organizationId && org_id !== transaction.claimerId) {
+        return false;
+      }
+    } else if (user.id !== transaction_id.donater_userId) {
+      return false;
+    }
+    return true;
   }
 }

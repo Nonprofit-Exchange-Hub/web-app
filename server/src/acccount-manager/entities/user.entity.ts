@@ -46,7 +46,7 @@ export class User {
   @OneToMany(() => Transaction, (transaction) => transaction.donater_user)
   transactions: Transaction[];
 
-  @OneToMany(() => Message, (message) => message.user)
+  @OneToMany(() => Message, (message) => message.sending_user)
   messages: Message[];
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.user)
