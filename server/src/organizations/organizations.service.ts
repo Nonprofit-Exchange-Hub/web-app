@@ -78,7 +78,7 @@ export class OrganizationsService {
   }
 
   async validateOrgCategories(interests: string[]) {
-    return this.categoriesService.validateCategories(interests); //get from categories service
+    return this.categoriesService.validateCategories(interests);
   }
 
   async countByNameOrEin(name: string, ein: string): Promise<number> {
