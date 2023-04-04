@@ -24,12 +24,11 @@
         "prepare": "cd .. && husky install && cd server",
         "typeorm": "ts-node ./node_modules/typeorm/cli",
         "typeorm:migration-run": "npm run typeorm migration:run -- -d ./src/datasource.ts",
-        "typeorm:migration-generate": "npm run typeorm -- -d ./src/datasource.ts migration:generate ./migrations/$npm_config_name",
-        "typeorm:migration-create": "npm run typeorm -- migration:create ./migrations/$npm_config_name",
+        "typeorm:migration-generate": "npm run typeorm -- -d ./src/datasource.ts migration:generate ./src/migrations/migration",
+        "typeorm:migration-create": "npm run typeorm -- migration:create ./src/migrations/migration",
         "typeorm:migration-revert": "npm run typeorm -- -d ./src/datasource.ts migration:revert",
         "typeorm:schema-drop": "npm run typeorm -- -d ./src/datasource.ts schema:drop",
-        "typeorm:schema-sync": "npm run typeorm -- -d ./src/datasource.ts schema:sync",
-        "seed:drop": "ts-node -r tsconfig-paths/register src/database/seeding/seed.ts"
+        "db:seed": "ts-node -r tsconfig-paths/register src/database/seeding/seed.ts"
     },
     "dependencies": {
         "@azure/storage-blob": "^12.12.0",
