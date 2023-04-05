@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 't
 
 import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
-import { Message } from 'src/messages/entities/message.entity';
+import { Message } from '../../messages/entities/message.entity';
 
 @Entity('organizations')
 export class Organization {
