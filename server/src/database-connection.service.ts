@@ -14,7 +14,7 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
       database: process.env.DATABASE_DB,
       synchronize: true, //shouldn't be used in production
       dropSchema: false, //toggle to true to clear database schema
-      logging: 'all',
+      logging: true,
       autoLoadEntities: true,
       ssl:
         process.env.MODE === 'production' // only require ssl when in production/
