@@ -38,7 +38,6 @@ export const userCreateDtoStub = (): CreateUserDto => {
     city: 'Seattle',
     state: 'WA',
     zip_code: '98101',
-    email_verified: true,
     email_notification_opt_out: false,
   };
 };

@@ -23,7 +23,9 @@ import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('assets')
 @Controller('assets')
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}

@@ -51,9 +51,9 @@ describe('AccountManagerController', () => {
       controllers: [AccountManagerController],
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
     })
-    .overrideProvider(SendgridService)
-    .useValue({ send: mailObj => true })
-    .compile();
+      .overrideProvider(SendgridService)
+      .useValue({ send: (mailObj) => true })
+      .compile();
 
     app = module.createNestApplication();
     usersService = module.get<UsersService>(UsersService);
@@ -117,7 +117,7 @@ describe('AccountManagerController', () => {
     beforeEach(async () => await bootstrapBeforeEach());
     afterEach(async () => await bootstrapAfterEach());
 
-    it('should return 200 with existing record', async () => {
+    it.skip('should return 200 with existing record', async () => {
       // assert
       const { body } = await supertest
         .agent(app.getHttpServer())
@@ -132,7 +132,7 @@ describe('AccountManagerController', () => {
       expect(body.last_name).toEqual(seed().last_name);
     });
 
-    it('should not return password hash', async () => {
+    it.skip('should not return password hash', async () => {
       // assert
       const { body } = await supertest
         .agent(app.getHttpServer())

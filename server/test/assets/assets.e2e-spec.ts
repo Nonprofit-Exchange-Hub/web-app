@@ -10,12 +10,12 @@ import { Asset } from '../../src/assets/entities/asset.entity';
 import { AssetsModule } from '../../src/assets/assets.module';
 import { AssetsController } from '../../src/assets/assets.controller';
 import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
-import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
 import * as cookieParser from 'cookie-parser';
 import { AccountManagerService } from '../../src/acccount-manager/account-manager.service';
 import { UsersService } from '../../src/acccount-manager/user.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 import { User } from '../../src/acccount-manager/entities/user.entity';
+import { CreateUserInternal } from '../../src/acccount-manager/dto/create-user.internal';
 
 describe('AssetsController', () => {
   let app: INestApplication;
@@ -25,7 +25,7 @@ describe('AssetsController', () => {
   let assetRepository: Repository<Asset>;
 
   const seed: CreateAssetDto = { ...StubGen.createAssetDto() };
-  const userSeed: CreateUserDto = { ...StubGen.createUserDto() };
+  const userSeed: CreateUserInternal = { ...StubGen.createUserDto() };
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({

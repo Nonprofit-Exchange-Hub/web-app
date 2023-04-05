@@ -33,6 +33,14 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
+import {
+  LoginDto,
+  ResetPasswordDto,
+  VerifyEmailDto,
+  ReturnSessionDto,
+  ReturnUserDto,
+} from './dto/auth.dto';
+import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -40,6 +48,7 @@ type AuthedRequest = RequestT & { user: User };
  * controller handles the requests required for account management
  * including CRUD'ing the user entity
  */
+@ApiTags('auth')
 @Controller('auth')
 export class AccountManagerController {
   constructor(
@@ -51,10 +60,10 @@ export class AccountManagerController {
   ) {}
 
   @Patch('verify-email')
-  async verifyEmail(@Body() body: { token: string }): Promise<boolean> {
+  async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
-      this.usersService.update(user.id, { email_verified: true });
+      this.usersService.update(user.id, { ...user, email_verified: true });
       return true;
     } catch {
       throw Error('jwt verify fail');
@@ -62,9 +71,7 @@ export class AccountManagerController {
   }
 
   @Post('register')
-  async register(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<Omit<User, 'password' | 'accept_terms'>> {
+  async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
       if (!res) {
@@ -91,12 +98,14 @@ export class AccountManagerController {
         <p>Thank you!!</p>
         <p>The Givingful Team</p>
       `,
+      mailSettings: { sandboxMode: { enable: process.env.MODE !== 'production' } },
     };
     await this.sendgridService.send(mail);
 
     return user;
   }
 
+  @ApiBody({ type: LoginDto })
   @Post('login')
   @UseGuards(LoginAuthGuard)
   async login(
@@ -127,7 +136,7 @@ export class AccountManagerController {
 
   @Post('session')
   @UseGuards(CookieAuthGuard)
-  async session(@Request() request: AuthedRequest): Promise<{ user: Omit<User, 'password'> }> {
+  async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
     const { user } = request;
     const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
       user.id,
@@ -140,6 +149,7 @@ export class AccountManagerController {
     response.clearCookie(COOKIE_KEY).send();
   }
 
+  @ApiBody({ type: ResetPasswordDto })
   @Post('reset_password')
   async resetPassword(
     @Request() req,
@@ -178,18 +188,31 @@ export class AccountManagerController {
     }
   }
 
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        profile_image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Put('users/profile/:id')
   @UseGuards(CookieAuthGuard)
   @UseInterceptors(
-    FileInterceptor('profile_image_url', {
+    FileInterceptor('profile_image', {
       limits: { fileSize: FileSizes.MB },
     }),
   )
+  @ApiResponse({ status: 200, type: ReturnUserDto })
   async upsertProfile(
     @Param('id') id: number,
     @UploadedFile()
     file: Express.Multer.File,
-  ) {
+  ): Promise<ReturnUserDto | BadRequestException> {
     if (/\.(jpe?g|png|gif)$/i.test(file.filename)) {
       return new BadRequestException(
         'Only valid image extensions allowed (.jpg, .jpeg, .png, .gif)',
@@ -219,16 +242,22 @@ export class AccountManagerController {
     return await this.usersService.update(id, { ...dbUser, profile_image_url: fileUrl });
   }
 
+  @ApiExcludeEndpoint()
+  @UseGuards(CookieAuthGuard)
   @Get('users/:id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
   }
 
+  @ApiExcludeEndpoint()
+  @UseGuards(CookieAuthGuard)
   @Patch('users/:id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
+  @ApiExcludeEndpoint()
+  @UseGuards(CookieAuthGuard)
   @Delete('users/:id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(id);

@@ -18,7 +18,9 @@ import { GetOrganizationDto } from './dto/get-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
 import { PropublicaOrg } from './organizations.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('organizations')
 @Controller('organizations')
 export class OrganizationsController {
   constructor(private readonly organizationsService: OrganizationsService) {}

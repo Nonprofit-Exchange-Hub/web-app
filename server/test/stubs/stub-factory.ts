@@ -1,10 +1,10 @@
-import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
 import { faker } from '@faker-js/faker';
 import { CreateOrganizationDto } from '../../src/organizations/dto/create-organization.dto';
 import { CreateUserOrganizationDto } from '../../src/user-org/dto/create-user-org.dto';
 import { ApprovalStatus, Role } from '../../src/user-org/constants';
 import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
 import { AssetType, Condition } from '../../src/assets/constants';
+import { CreateUserInternal } from '../../src/acccount-manager/dto/create-user.internal';
 
 /**
  * Generates stubs using a faker library
@@ -14,7 +14,7 @@ export class StubGen {
    *
    * @returns CreateUserDto
    */
-  public static createUserDto(): CreateUserDto {
+  public static createUserDto(): CreateUserInternal {
     return {
       firstName: faker.name.firstName(),
       last_name: faker.name.lastName(),
@@ -49,7 +49,7 @@ export class StubGen {
   }
 
   public static createUserOrgDto(
-    createUserDto: CreateUserDto,
+    createUserDto: CreateUserInternal,
     createOrgDto: CreateOrganizationDto,
   ): CreateUserOrganizationDto {
     return {
