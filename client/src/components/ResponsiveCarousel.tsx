@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
+
 import type { Theme } from '@mui/material/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -36,6 +38,7 @@ type ResponsiveCarouselProps = {
   renderCard: Function;
   cardWidth: number;
   showControls: boolean;
+  viewMoreTo: string;
 };
 
 function ResponsiveCarousel(props: ResponsiveCarouselProps) {
@@ -48,7 +51,7 @@ function ResponsiveCarousel(props: ResponsiveCarouselProps) {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const cardMargin = 10;
   const MaxItems = 5;
-  const { label, cardWidth } = props;
+  const { label, cardWidth, viewMoreTo } = props;
 
   const updateItemsPerRow = () => {
     let itemsThatFit = itemsPerRow;
@@ -129,19 +132,20 @@ function ResponsiveCarousel(props: ResponsiveCarouselProps) {
           </Paper>
         </div>
         <div>
-          <Button
-            href="#"
-            sx={{
-              padding: '0.4rem 1rem 0.4rem 1rem',
-              border: '1px solid #323232',
-              borderRadius: '8px',
-              color: '#323232',
-              fontWeight: '900',
-              fontSize: '1rem',
-            }}
-          >
-            View More
-          </Button>
+          <NavLink to={viewMoreTo} style={{ textDecoration: 'none' }}>
+            <Button
+              sx={{
+                padding: '0.4rem 1rem 0.4rem 1rem',
+                border: '1px solid #323232',
+                borderRadius: '8px',
+                color: '#323232',
+                fontWeight: '900',
+                fontSize: '1rem',
+              }}
+            >
+              View More
+            </Button>
+          </NavLink>
           {props.showControls ? ForwardAndBack : null}
         </div>
       </div>

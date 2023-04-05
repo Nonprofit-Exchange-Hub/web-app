@@ -9,7 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 
 import IconButton from '@mui/material/IconButton';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppsIcon from '@mui/icons-material/Apps';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -27,6 +26,7 @@ import { UserContext } from '../providers';
 import Logo from '../assets/GivingfulLogo.png';
 import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
+import { UserAvatar } from './Users/UserAvatar';
 
 const useStyles = makeStyles((theme: Theme) => ({
   home: {
@@ -234,7 +234,10 @@ function Header() {
                 onClick={handleClick}
                 size="large"
               >
-                <AccountCircleIcon />
+                <UserAvatar
+                  userFirstName={user.firstName}
+                  profileImageUrl={user.profile_image_url ?? ''}
+                />
               </IconButton>
               <Menu
                 id="profile-menu"

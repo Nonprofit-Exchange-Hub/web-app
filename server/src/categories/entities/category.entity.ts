@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 
 @Entity('categories')
 export class Category {
@@ -6,6 +6,7 @@ export class Category {
   id: number;
 
   @Column('text')
+  @Index()
   name: string;
 
   @Column('boolean')

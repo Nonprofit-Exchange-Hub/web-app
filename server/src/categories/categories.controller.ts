@@ -10,6 +10,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
 
 import { CategoriesService } from './categories.service';
@@ -20,6 +21,7 @@ import { Category } from './entities/category.entity';
 
 // TODO ticket for adding auth guards https://github.com/Nonprofit-Exchange-Hub/web-app/issues/84
 
+@ApiTags('categories')
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
@@ -84,5 +86,10 @@ export class CategoriesController {
       );
     }
     return categoryToDelete;
+  }
+
+  @Post('validate')
+  async validate(@Body() categories: string[]): Promise<boolean> {
+    return this.categoriesService.validateCategories(categories);
   }
 }

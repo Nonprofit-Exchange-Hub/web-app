@@ -20,6 +20,15 @@ export class Organization {
   @Column('text')
   website: string;
 
+  @Column({ type: 'text', nullable: true })
+  facebook?: string;
+
+  @Column({ type: 'text', nullable: true })
+  twitter?: string;
+
+  @Column({ type: 'text', nullable: true })
+  instagram?: string;
+
   @Column('text')
   address: string;
 
@@ -31,6 +40,9 @@ export class Organization {
 
   @Column('text')
   state: string;
+
+  @Column({ type: 'text', nullable: true })
+  zip_code: string;
 
   @Column({ type: 'text', unique: true })
   ein: string;
@@ -49,4 +61,10 @@ export class Organization {
 
   @Column({ type: 'text', nullable: true })
   image_url: string;
+
+  @Column({
+    type: 'jsonb',
+    nullable: true,
+  })
+  categories: { names: string[] };
 }

@@ -22,6 +22,18 @@ export class User {
   @Column('text')
   password: string;
 
+  @Column({ type: 'text', nullable: true })
+  bio?: string;
+
+  @Column({ type: 'text', nullable: true })
+  city: string;
+
+  @Column({ type: 'text', nullable: true })
+  state: string;
+
+  @Column({ type: 'text', nullable: true })
+  zip_code: string;
+
   @Column({ type: 'bool', default: false })
   email_notification_opt_out: boolean;
 
@@ -42,4 +54,10 @@ export class User {
 
   @Column({ type: 'text', nullable: true })
   profile_image_url?: string;
+
+  @Column({
+    type: 'jsonb',
+    nullable: true,
+  })
+  interests?: { names: string[] };
 }

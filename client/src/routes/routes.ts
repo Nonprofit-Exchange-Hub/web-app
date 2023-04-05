@@ -115,7 +115,7 @@ const routes: RouteMap = {
   User: {
     component: User,
     roles: ['OWNER', 'ADMIN'],
-    path: '/users/:userId',
+    path: '/profile/:id?',
   },
   ActionForm: {
     component: ActionForm,
@@ -125,7 +125,7 @@ const routes: RouteMap = {
   Assets: {
     component: SearchResults,
     roles: ['OWNER', 'ADMIN'],
-    path: '/SearchResults',
+    path: '/search-results',
   },
   Asset: {
     component: Asset,

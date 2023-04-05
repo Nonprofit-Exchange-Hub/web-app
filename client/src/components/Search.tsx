@@ -1,146 +1,103 @@
 import * as React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { SelectChangeEvent } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Tooltip from '@mui/material/Tooltip';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useHistory } from 'react-router-dom';
+import makeStyles from '@mui/styles/makeStyles';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
 
 import type { Theme } from '@mui/material/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchBar: {
-    fontFamily: 'DM Sans',
+    gridArea: 'searchBar',
+    boxShadow: 'none',
+    margin: '50px auto',
+    width: '70%',
+  },
+  searchInput: {
     display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     width: '100%',
-    borderRadius: '10px',
-    boxShadow: '0px 2px 4px 2px rgba(0, 0, 0, 0.25)',
-  },
-  select: {
-    background: theme.palette.background.default,
-    borderRadius: '10px',
-    flexBasis: '30%',
-    position: 'relative',
-    zIndex: 10,
-    borderBottom: 'none',
-    paddingInline: '20px',
-    [`&:before`]: {
-      border: 'none !important',
-    },
-    [`& svg`]: {
-      right: '26px',
-    },
-  },
-  textField: {
-    background: theme.palette.background.default,
-    borderRadius: '10px',
-    flexBasis: '70%',
-    color: 'red',
-    // height: '48px',
-    boxSizing: 'border-box',
-    border: '1px solid red',
-    [`& label`]: {
-      marginTop: '-8px',
-      marginLeft: '20px',
-    },
-    [`& div`]: {
-      marginTop: '0px !important',
-      [`&:before`]: {
-        borderBottom: 'none !important',
-      },
-      [`& input`]: {
-        height: '48px',
-        paddingLeft: '20px',
-      },
-    },
+    height: '70px',
   },
 }));
 
-function getTextFieldLabel(selectValue: string, searchText: string): string {
-  if (searchText) {
-    return '';
-  }
-
-  switch (selectValue) {
-    case 'All':
-      return 'Search all categories';
-    case 'Nonprofits':
-      return 'Search Nonprofits';
-    case 'Needs':
-      return 'Search Needs';
-    case 'Offers':
-      return 'Search Offers';
-    case 'Volunteer':
-      return 'Search Volunteer Openings';
-    default:
-      return 'Search all categories';
-  }
-}
-
 function Search() {
   const classes = useStyles();
-  const [selectedSearchCategory, setSelectedSearchCategory] = React.useState<string>('Needs');
-  const [searchText, setSearchText] = React.useState<string>('');
-
   const history = useHistory();
 
-  const handleDropdownChange = (event: SelectChangeEvent<string>) => {
-    setSelectedSearchCategory(event.target.value as string);
+  const searchParams = new URLSearchParams(history.location.search);
+  const querySearchText = searchParams.get('search');
+  const querySearchCategory = searchParams.get('category');
+
+  const [searchCategory, setSearchCategory] = React.useState<string>(
+    String(querySearchCategory ?? 'Needs'),
+  );
+  const [searchText, setSearchText] = React.useState<string>(String(querySearchText ?? ''));
+
+  const handleSearch = () => {
+    history.push(`/search-results?search=${searchText}&category=${searchCategory}`);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      history.push(`/SearchResults?search=${searchText}&category=${selectedSearchCategory}`);
-    }
-  };
-
-  const textFieldLabel = getTextFieldLabel(selectedSearchCategory, searchText);
   return (
     <div className={classes.searchBar}>
-      <Select
-        className={classes.select}
-        IconComponent={KeyboardArrowDownIcon}
-        onChange={handleDropdownChange}
-        renderValue={(value: string) => (value ? `Search ${value}` : 'Search All')}
-        value={selectedSearchCategory}
-        variant="standard"
-      >
-        <MenuItem value="All">Search All</MenuItem>
-        <MenuItem value="Nonprofits">Search Nonprofits</MenuItem>
-        <MenuItem value="Needs">Search Needs</MenuItem>
-        <MenuItem value="Offers">Search Offers</MenuItem>
-        <MenuItem value="Volunteer">Volunteer Openings</MenuItem>
-      </Select>
-      <Tooltip
-        placement="top-end"
-        componentsProps={{
-          tooltip: {
-            sx: {
-              color: 'rgba(0, 0, 0, 0.87)',
-              fontSize: 13,
-              bgcolor: 'common.white',
-              '& .MuiTooltip-arrow': {
-                color: 'common.white',
-              },
-            },
-          },
+      <Paper
+        component="form"
+        sx={{
+          borderRadius: '10px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          width: '100%',
+          boxShadow: 'none',
+          border: '1px solid rgba(110, 110, 110, .22)',
+          height: '50px',
         }}
-        title="Press 'Enter' to Begin Search"
       >
+        <Select
+          value={searchCategory}
+          sx={{
+            fontSize: '20px',
+            '.MuiOutlinedInput-notchedOutline': { border: 0 },
+            height: '50px',
+          }}
+          onChange={(e: SelectChangeEvent) => {
+            setSearchCategory(e.target.value);
+          }}
+        >
+          <MenuItem value="All">All</MenuItem>
+          <MenuItem value="Nonprofits">Nonprofits</MenuItem>
+          <MenuItem value="Needs">Needs</MenuItem>
+          <MenuItem value="Offers">Offers</MenuItem>
+          <MenuItem value="Volunteer">Volunteer</MenuItem>
+        </Select>
         <TextField
-          className={classes.textField}
-          InputLabelProps={{ shrink: false }}
-          label={textFieldLabel}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-            setSearchText(e.target.value)
-          }
-          onKeyDown={handleKeyDown}
+          sx={{
+            '& .MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+          }}
+          placeholder="Search"
+          inputProps={{ 'aria-label': 'ex. diapers', style: { fontSize: '18px' } }}
+          type="text"
           value={searchText}
-          variant="outlined"
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setSearchText(e.target.value);
+          }}
         />
-      </Tooltip>
+        <IconButton
+          onClick={handleSearch}
+          sx={{ paddingRight: '10px', marginLeft: 'auto' }}
+          disabled={!searchText}
+        >
+          <SearchIcon fontSize="large" />
+        </IconButton>
+      </Paper>
     </div>
   );
 }

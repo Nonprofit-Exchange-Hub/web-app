@@ -1,10 +1,10 @@
-import { CreateUserDto } from '../../src/acccount-manager/dto/create-user.dto';
 import { faker } from '@faker-js/faker';
 import { CreateOrganizationDto } from '../../src/organizations/dto/create-organization.dto';
 import { CreateUserOrganizationDto } from '../../src/user-org/dto/create-user-org.dto';
 import { ApprovalStatus, Role } from '../../src/user-org/constants';
 import { CreateAssetDto } from '../../src/assets/dto/create-asset.dto';
 import { AssetType, Condition } from '../../src/assets/constants';
+import { CreateUserInternal } from '../../src/acccount-manager/dto/create-user.internal';
 
 /**
  * Generates stubs using a faker library
@@ -14,7 +14,7 @@ export class StubGen {
    *
    * @returns CreateUserDto
    */
-  public static createUserDto(): CreateUserDto {
+  public static createUserDto(): CreateUserInternal {
     return {
       firstName: faker.name.firstName(),
       last_name: faker.name.lastName(),
@@ -22,6 +22,9 @@ export class StubGen {
       password: 'Secret1234%',
       email_verified: true,
       email_notification_opt_out: false,
+      city: 'Seattle',
+      state: 'WA',
+      zip_code: '98101',
     };
   }
 
@@ -36,6 +39,7 @@ export class StubGen {
       phone: '123-456-7891',
       city: faker.address.city(),
       state: faker.address.state(),
+      zip_code: faker.address.zipCode(),
       ein: `${faker.random.numeric(2, { allowLeadingZeros: false })}-${faker.random.numeric(6, {
         allowLeadingZeros: false,
       })}`,
@@ -45,7 +49,7 @@ export class StubGen {
   }
 
   public static createUserOrgDto(
-    createUserDto: CreateUserDto,
+    createUserDto: CreateUserInternal,
     createOrgDto: CreateOrganizationDto,
   ): CreateUserOrganizationDto {
     return {

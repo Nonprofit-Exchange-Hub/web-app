@@ -3,10 +3,15 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { User } from './entities/user.entity';
 import { UsersService } from './user.service';
+import { CategoriesService } from '../categories/categories.service';
 
 @Injectable()
 export class AccountManagerService {
-  constructor(private usersService: UsersService, private jwtService: JwtService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+    private categoriesService: CategoriesService,
+  ) {}
 
   async validateUser(email: string, password: string): Promise<Omit<User, 'password'>> {
     try {
@@ -26,6 +31,10 @@ export class AccountManagerService {
       err.response.status = HttpStatus.UNAUTHORIZED;
       throw err;
     }
+  }
+
+  async validateInterests(interests: string[]) {
+    return this.categoriesService.validateCategories(interests);
   }
 
   async createJwt(user: Omit<User, 'password'>) {

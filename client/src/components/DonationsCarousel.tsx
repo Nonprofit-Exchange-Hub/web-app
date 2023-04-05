@@ -29,6 +29,7 @@ export default function DonationsCarousel(props: DonationsCarouselProps) {
         cardWidth={250}
         showControls={true}
         label={props.label || ''}
+        viewMoreTo="/search-results?category=Offers"
       />
     </div>
   );

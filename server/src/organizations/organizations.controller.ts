@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   HttpException,
+  BadRequestException,
   HttpStatus,
   Query,
 } from '@nestjs/common';
@@ -17,13 +18,23 @@ import { GetOrganizationDto } from './dto/get-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
 import { PropublicaOrg } from './organizations.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('organizations')
 @Controller('organizations')
 export class OrganizationsController {
   constructor(private readonly organizationsService: OrganizationsService) {}
 
   @Post()
   async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+    if (createOrganizationDto.categories) {
+      const res = await this.organizationsService.validateOrgCategories(
+        createOrganizationDto.categories.names,
+      );
+      if (!res) {
+        throw new BadRequestException('Invalid Categories');
+      }
+    }
     try {
       const newOrg = await this.organizationsService.create(createOrganizationDto);
       return newOrg;

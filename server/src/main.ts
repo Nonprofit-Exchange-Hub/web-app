@@ -18,14 +18,13 @@ async function bootstrap() {
     credentials: true,
     origin: process.env.FE_DOMAIN,
   });
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
   app.use(cookieParser('secret_placeholder'));
 
   const config = new DocumentBuilder()
     .setTitle('Nonprofit Circle API')
     .setDescription('Our API monolith')
     .setVersion('0.0')
-    .addTag('nonprofit')
     .addCookieAuth('NEH_is_cool')
     .build();
   const document = SwaggerModule.createDocument(app, config);
