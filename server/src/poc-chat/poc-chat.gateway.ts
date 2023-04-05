@@ -61,7 +61,6 @@ export class PocChatGateway {
     const isValid = this._can_user_join(user, transactionId, org_id);
     if (isValid) {
       client.join(`${transactionId}`);
-      Logger.log('joining room');
       client.emit('join', { success: true });
     } else {
       client.emit('join', { success: false });
@@ -77,9 +76,13 @@ export class PocChatGateway {
     @ConnectedSocket() client: Socket,
     @Request() request: Request,
   ) {
-    client
-      .to(`${transactionId}`)
-      .emit('sendMessage', { text: text, sendingUserId: request['user'].id, sendingOrgId: org_id });
+    if (client.rooms.has(`${transactionId}`)) {
+      client.to(`${transactionId}`).emit('sendMessage', {
+        text: text,
+        sendingUserId: request['user'].id,
+        sendingOrgId: org_id,
+      });
+    }
   }
 
   @SubscribeMessage('typing')
@@ -103,7 +106,7 @@ export class PocChatGateway {
         // user id does not match org_id so return false
         return false;
       }
-      if (org_id !== transaction.donater_organizationId && org_id !== transaction.claimerId) {
+      if (org_id !== transaction.donaterOrganizationId && org_id !== transaction.claimerId) {
         return false;
       }
     } else if (user.id !== transaction_id.donater_userId) {

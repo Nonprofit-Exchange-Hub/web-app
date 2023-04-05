@@ -22,38 +22,44 @@ export class TransactionsService {
     return this.transactionsRepository.find({ where: { ...getTransactionsDto } });
   }
 
-  async find_by_user_with_messages(user_id: number): Promise<Transaction[]> {
-    return this.transactionsRepository.find({
-      relations: {
-        donater_user: true,
-        donater_organization: true,
-        claimer: true,
-        messages: true,
-      },
-      where: {
-        donater_user: {
-          id: user_id,
-        },
-      },
-    });
+  async find_by_user_with_latest_message(user_id: number): Promise<Transaction[]> {
+    // get an "inbox" of latest messages, one per transaction (for users without an organization))
+
+    return this.transactionsRepository
+      .createQueryBuilder('transaction')
+      .distinctOn(['transaction.id'])
+      .leftJoinAndSelect('transaction.messages', 'message')
+      .leftJoinAndSelect('transaction.donaterUser', 'donaterUser', 'user.id = :user_id', {
+        user_id: user_id,
+      })
+      .orderBy('transaction.id', 'DESC')
+      .addOrderBy('message.id', 'DESC')
+      .getMany();
   }
 
-  async find_by_org_with_messages(org_id: number): Promise<Transaction[]> {
-    return this.transactionsRepository.find({
-      relations: { donater_user: true, donater_organization: true, claimer: true, messages: true },
-      where: [
-        {
-          donater_organization: {
-            id: org_id,
-          },
-        },
-        {
-          claimer: {
-            id: org_id,
-          },
-        },
-      ],
-    });
+  async find_by_org_with_latest_message(org_id: number): Promise<Transaction[]> {
+    // get an "inbox" of latest messages, one per transaction (for an org)
+
+    return this.transactionsRepository
+      .createQueryBuilder('transaction')
+      .distinctOn(['transaction.id'])
+      .leftJoinAndSelect('transaction.messages', 'message')
+      .leftJoinAndSelect(
+        'transaction.donaterOrganizationId',
+        'donaterOrganization',
+        'donaterOrganization.id = :org_id',
+        { org_id: org_id },
+      )
+      .leftJoinAndSelect('transaction.claimerId', 'claimer', 'claimer.id = :claimer_id', {
+        claimer_id: org_id,
+      })
+      .where('transaction.claimerId =:claimer_id', { claimer_id: org_id })
+      .orWhere('transaction.donaterOrganizationId =:donaterOrganization', {
+        donaterOrganization: org_id,
+      })
+      .orderBy('transaction.id', 'DESC')
+      .addOrderBy('message.id', 'DESC')
+      .getMany();
   }
 
   async getTransactionById(id: number): Promise<Transaction> {

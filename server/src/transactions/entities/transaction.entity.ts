@@ -33,14 +33,14 @@ export class Transaction {
   donater_user: User;
 
   @Column({ nullable: true })
-  donater_userId: number;
+  donaterUserId: number;
 
   @ManyToOne(() => Organization, (organization) => organization.donated_transactions)
   @JoinColumn()
   donater_organization?: Organization;
 
   @Column({ nullable: true })
-  donater_organizationId: number;
+  donaterOrganizationId: number;
 
   @ManyToOne(() => Asset, (asset) => asset.transactions, { eager: true })
   @JoinColumn()
@@ -53,6 +53,6 @@ export class Transaction {
   @Column({ nullable: true }) // TODO: update seeder to always have claimerID
   claimerId: number;
 
-  @OneToMany(() => Message, (message) => message.transaction)
+  @OneToMany(() => Message, (message) => message.transaction, { eager: true })
   messages: Message[];
 }
