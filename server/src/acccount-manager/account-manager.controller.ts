@@ -41,6 +41,8 @@ import {
   ReturnUserDto,
 } from './dto/auth.dto';
 import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TransactionsService } from '../transactions/transactions.service';
+import { Transaction } from '../transactions/entities/transaction.entity';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -57,6 +59,7 @@ export class AccountManagerController {
     private usersService: UsersService,
     private jwtService: JwtService,
     private fileStorageService: FilesStorageService,
+    private transactionService: TransactionsService,
   ) {}
 
   @Patch('verify-email')
@@ -261,5 +264,11 @@ export class AccountManagerController {
   @Delete('users/:id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(id);
+  }
+
+  @Get('users/:id/transactions')
+  // TODO move to users/:id/transactions
+  userInbox(@Param('id') user_id: number): Promise<Transaction[]> {
+    return this.transactionService.find_by_org_with_latest_message(user_id);
   }
 }

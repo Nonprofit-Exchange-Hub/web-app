@@ -13,6 +13,7 @@ import { UsersService } from './user.service';
 import { FileStorageModule } from '../file-storage/file-storage.module';
 import { FilesStorageService } from '../file-storage/file-storage.service';
 import { CategoriesModule } from '../categories/categories.module';
+import { TransactionsService } from '../transactions/transactions.service';
 
 const providers = [
   AccountManagerService,
@@ -35,7 +36,7 @@ const providers = [
     CategoriesModule,
   ],
   controllers: [AccountManagerController],
-  providers: [...providers, SendgridService, FilesStorageService],
+  providers: [...providers, SendgridService, FilesStorageService, TransactionsService],
   exports: providers,
 })
 export class AcccountManagerModule {}
