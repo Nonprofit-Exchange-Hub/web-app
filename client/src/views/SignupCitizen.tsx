@@ -8,6 +8,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { Box, Select, MenuItem, Chip, Avatar, TextField, SelectChangeEvent } from '@mui/material';
+import SignUpStep1Image from '../react-svg-assets/SignUpStep1';
+import SignUpStep2Image from '../react-svg-assets/SignUpStep2';
+import SignUpStep3Image from '../react-svg-assets/SignUpStep3';
+import SignUpStep4Image from '../react-svg-assets/SignUpStep4';
 
 import type { Theme } from '@mui/material/styles';
 import { placeholderImg } from '../assets/temp';
@@ -29,13 +33,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   signUpContainer: {
     margin: theme.spacing(5),
-  },
-  button: {
-    borderRadius: 0,
-    height: 44,
-    textTransform: 'none',
-    backgroundColor: '#C4C4C4',
-    color: 'white',
   },
   header: {
     fontWeight: 'bold',
@@ -102,7 +99,7 @@ const interests = [
 ];
 
 function SignupCitizen() {
-  const { sideImg, signUpContainer, button, header, input, label, chip } = useStyles();
+  const { sideImg, signUpContainer, header, input, label, chip } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
@@ -187,121 +184,129 @@ function SignupCitizen() {
   return (
     <Grid container className="SignupCitizen">
       <Grid item xs={12} sx={{ height: '60px' }} />
-      <Grid className={sideImg} item xs={3} />
-      <Grid item xs={1} />
-      <Grid container className={signUpContainer} item direction="column" xs={7}>
+      <Grid container className={sideImg} item xs={2}>
+        {(activeStep === 0 && <SignUpStep1Image />) ||
+          (activeStep === 1 && <SignUpStep2Image />) ||
+          (activeStep === 2 && <SignUpStep3Image />) ||
+          (activeStep === 3 && <SignUpStep4Image />)}
+      </Grid>
+      <Grid container className={signUpContainer} item direction="column" xs={5}>
         <form onSubmit={handleSubmit}>
           {/* PAGE ONE ###########################################################*/}
           {activeStep === 0 && (
-            <>
-              <Typography
-                className={header}
-                variant="h4"
-                fontSize="58px"
-                lineHeight="87px"
-                component="h1"
-                align="left"
-                gutterBottom
-              >
-                Let's get started
-              </Typography>
-              <Grid container item xs={12}>
-                <Grid item xs={5} sx={{ paddingRight: '10px' }}>
-                  <FormControl>
-                    <label className={label} htmlFor="firstName">
-                      First Name
-                    </label>
-                    <Input
-                      className={input}
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      autoComplete="given-name"
-                      placeholder="Jane"
-                      fullWidth
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      disableUnderline
-                      required
-                    />
-                  </FormControl>
+            <Box sx={{ height: '100%' }}>
+              <Grid container>
+                <Typography
+                  className={header}
+                  variant="h4"
+                  fontSize="58px"
+                  lineHeight="87px"
+                  component="h1"
+                  align="left"
+                  sx={{ color: '#674E67' }}
+                  gutterBottom
+                >
+                  Let's get started
+                </Typography>
+                <Grid container item xs={12}>
+                  <Grid item xs={5} sx={{ paddingRight: '10px' }}>
+                    <FormControl>
+                      <label className={label} htmlFor="firstName">
+                        First Name
+                      </label>
+                      <Input
+                        className={input}
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        autoComplete="given-name"
+                        placeholder="Jane"
+                        fullWidth
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={7}>
+                    <FormControl fullWidth>
+                      <label className={label} htmlFor="last_name">
+                        Last Name
+                      </label>
+                      <Input
+                        className={input}
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        autoComplete="family-name"
+                        placeholder="Individual"
+                        fullWidth
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        disableUnderline
+                        required
+                      />
+                    </FormControl>
+                  </Grid>
                 </Grid>
-                <Grid item xs={7}>
-                  <FormControl fullWidth>
-                    <label className={label} htmlFor="last_name">
-                      Last Name
-                    </label>
-                    <Input
-                      className={input}
-                      type="text"
-                      id="last_name"
-                      name="last_name"
-                      autoComplete="family-name"
-                      placeholder="Individual"
-                      fullWidth
-                      value={formData.last_name}
+                <Grid container />
+                <EmailInput
+                  value={formData.email}
+                  placeholder="jane@citizen.com"
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                  error={emailError}
+                />
+                <PasswordInput
+                  value={formData.password}
+                  onChange={handleChange}
+                  showStartAdornment={true}
+                />
+                <FormControlLabel
+                  style={{
+                    textAlign: 'left',
+                    display: 'flex',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={formData.accept_terms}
                       onChange={handleChange}
-                      disableUnderline
-                      required
+                      name="accept_terms"
+                      inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                      sx={{
+                        input: {
+                          "[(type = 'checkbox')]": { '::before': { outline: '1px solid black' } },
+                        },
+                      }}
                     />
-                  </FormControl>
-                </Grid>
+                  }
+                  label={
+                    <label>
+                      Accept the{' '}
+                      <StyledLink to={routes.TermsOfService.path} target="_blank">
+                        Terms and Agreements
+                      </StyledLink>
+                    </label>
+                  }
+                />
               </Grid>
-              <Grid container />
-              <EmailInput
-                value={formData.email}
-                placeholder="jane@citizen.com"
-                onChange={handleChange}
-                showStartAdornment={true}
-                error={emailError}
-              />
-              <PasswordInput
-                value={formData.password}
-                onChange={handleChange}
-                showStartAdornment={true}
-              />
-              <FormControlLabel
-                style={{
-                  textAlign: 'left',
-                  display: 'flex',
-                  alignContent: 'center',
-                  alignItems: 'center',
-                }}
-                control={
-                  <Checkbox
-                    color="primary"
-                    checked={formData.accept_terms}
-                    onChange={handleChange}
-                    name="accept_terms"
-                    inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                    sx={{
-                      input: {
-                        "[(type = 'checkbox')]": { '::before': { outline: '1px solid black' } },
-                      },
-                    }}
-                  />
-                }
-                label={
-                  <label>
-                    Accept the{' '}
-                    <StyledLink to={routes.TermsOfService.path} target="_blank">
-                      Terms and Agreements
-                    </StyledLink>
-                  </label>
-                }
-              />
-            </>
+            </Box>
           )}
 
           {/* PAGE TWO ######################################################## */}
           {activeStep === 1 && (
-            <>
+            <Box sx={{ height: '100%' }}>
               <Typography
                 className={header}
                 variant="h4"
                 fontSize="58px"
                 component="h1"
                 align="left"
+                sx={{ color: '#674E67' }}
               >
                 Tell us about yourself
               </Typography>
@@ -358,18 +363,19 @@ function SignupCitizen() {
                   <Input className={input} placeholder="zip" fullWidth disableUnderline></Input>
                 </Grid>
               </Grid>
-            </>
+            </Box>
           )}
 
           {/* PAGE THREE ######################################################## */}
           {activeStep === 2 && (
-            <>
+            <Box sx={{ height: '100%' }}>
               <Typography
                 className={header}
                 variant="h4"
                 fontSize="58px"
                 component="h1"
                 align="left"
+                sx={{ color: '#674E67' }}
               >
                 Tell us about your interests
               </Typography>
@@ -386,18 +392,19 @@ function SignupCitizen() {
                   {makeChips()}
                 </Grid>
               </Grid>
-            </>
+            </Box>
           )}
 
           {/* PAGE FOUR ######################################################## */}
           {activeStep === 3 && (
-            <>
+            <Box sx={{ height: '100%' }}>
               <Typography
                 className={header}
                 variant="h4"
                 fontSize="58px"
                 component="h1"
                 align="left"
+                sx={{ color: '#674E67' }}
               >
                 Upload your profile icon
               </Typography>
@@ -408,7 +415,7 @@ function SignupCitizen() {
                 You can update this information later in the settings of your account.
               </Typography>
               <Grid item xs={12} sx={{ height: '50px' }} />
-              <Grid container item xs={12} alignItems="center">
+              <Grid container item xs={12} lg={6} alignItems="center">
                 <Grid item xs={3}>
                   <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
                 </Grid>
@@ -416,10 +423,13 @@ function SignupCitizen() {
                   <input accept="image/*" hidden id="upload-file" type="file" />
                   <label htmlFor="upload-file">
                     <Button
-                      className={button}
-                      component="span"
-                      color="secondary"
-                      variant="contained"
+                      sx={{
+                        backgroundColor: '#EF6A60',
+                        color: 'white',
+                        borderRadius: '4px',
+                        padding: '10px',
+                      }}
+                      color="primary"
                     >
                       Upload
                     </Button>
@@ -427,19 +437,19 @@ function SignupCitizen() {
                 </Grid>
               </Grid>
               <Grid item xs={12} sx={{ height: '50px' }} />
-              <Typography className={label} sx={{ fontWeight: 'bold' }}>
+              <Typography className={label} sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
                 About Yourself
               </Typography>
               <Grid item xs={10}>
                 <TextField multiline rows={4} fullWidth placeholder="Tell us about yourself..." />
               </Grid>
-            </>
+            </Box>
           )}
 
           {/* PAGE FIVE ######################################################## */}
           {/* SHOWN WHEN SIGNUP DONE ######################################################## */}
           {activeStep === 4 && (
-            <>
+            <Box sx={{ height: '100%' }}>
               <Typography
                 className={header}
                 variant="h4"
@@ -457,7 +467,7 @@ function SignupCitizen() {
                 <strong>Please check your e-mail</strong> to finish the identity verification
                 process. Afterwards, start contributing!
               </Typography>
-            </>
+            </Box>
           )}
 
           <Grid container spacing={5}>

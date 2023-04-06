@@ -1,4 +1,25 @@
 const components = {
+  MuiAccordion: {
+    defaultProps: {
+      disableGutters: true,
+    },
+  },
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        border: '1px solid #323232',
+        borderRadius: '10px',
+        fontSize: '16px',
+        fontWeight: '600',
+        lineHeight: '24px',
+        padding: '8px, 10px, 8px, 20px',
+        color: '#323232',
+      },
+    },
+    defaultProps: {
+      disableElevation: true,
+    },
+  },
   MuiCard: {
     styleOverrides: {
       root: {
@@ -35,29 +56,10 @@ const components = {
     styleOverrides: {
       root: {
         margin: 5,
+        background: '#FFFFFF',
+        border: 'none',
         borderRadius: 10,
-      },
-    },
-  },
-  MuiButton: {
-    styleOverrides: {
-      root: {
-        borderRadius: '10px',
-      },
-    },
-    defaultProps: {
-      disableElevation: true,
-    },
-  },
-  MuiAccordion: {
-    defaultProps: {
-      disableGutters: true,
-    },
-  },
-  MuiOutlinedInput: {
-    styleOverrides: {
-      root: {
-        borderRadius: 10,
+        boxShadow: '#000000 0px 1px 4px 1px rgba(0, 0, 0, 0.25)',
       },
     },
   },
@@ -71,6 +73,13 @@ const components = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+      },
+    },
+  },
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: 10,
       },
     },
   },

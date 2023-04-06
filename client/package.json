@@ -57,6 +57,7 @@
 		]
 	},
 	"devDependencies": {
+		"@svgr/cli": "^7.0.0",
 		"@types/jest": "^26.0.23",
 		"@types/jsonwebtoken": "^8.5.4",
 		"@types/node": "^15.6.0",
