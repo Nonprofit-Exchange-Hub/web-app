@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional, Validate } from 'class-validator';
+import { Interests } from '../../shared/interests.dto';
+import { InterestNamesIsArray, InterestsProps } from '../../shared/interests.validator';
 
 export class CreateOrganizationDto {
   @IsNotEmpty()
@@ -45,4 +47,9 @@ export class CreateOrganizationDto {
 
   @IsNotEmpty()
   image_url: string;
+
+  @IsOptional()
+  @Validate(InterestsProps)
+  @Validate(InterestNamesIsArray)
+  categories?: Interests;
 }
