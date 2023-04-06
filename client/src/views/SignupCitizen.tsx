@@ -99,7 +99,7 @@ const interests = [
 ];
 
 function SignupCitizen() {
-  const { sideImg, signUpContainer, header, input, label, chip } = useStyles();
+  const { signUpContainer, header, input, label, chip } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
@@ -182,15 +182,23 @@ function SignupCitizen() {
   };
 
   return (
-    <Grid container className="SignupCitizen">
-      <Grid item xs={12} sx={{ height: '60px' }} />
-      <Grid container className={sideImg} item xs={2}>
-        {(activeStep === 0 && <SignUpStep1Image />) ||
-          (activeStep === 1 && <SignUpStep2Image />) ||
-          (activeStep === 2 && <SignUpStep3Image />) ||
-          (activeStep === 3 && <SignUpStep4Image />)}
-      </Grid>
-      <Grid container className={signUpContainer} item direction="column" xs={5}>
+    <Box className="SignupCitizen" display={'flex'} flexDirection={'row'} justifyContent={'left'}>
+      <Box
+        sx={{
+          backgroundColor: '#FFC958',
+          borderRadius: '0 20px 20px 0',
+          maxHeight: '690px',
+          maxWidth: '446px',
+          padding: '19px 60px 120px 130px',
+        }}
+      >
+        {(activeStep === 0 && <SignUpStep1Image height={'569px'} width={'256px'} />) ||
+          (activeStep === 1 && <SignUpStep2Image height={'569px'} width={'256px'} />) ||
+          (activeStep === 2 && <SignUpStep3Image height={'569px'} width={'256px'} />) ||
+          (activeStep === 3 && <SignUpStep2Image height={'569px'} width={'256px'} />) ||
+          (activeStep === 4 && <SignUpStep4Image height={'569px'} width={'256px'} />)}
+      </Box>
+      <Box className={signUpContainer} sx={{ marginBottom: '78px' }}>
         <form onSubmit={handleSubmit}>
           {/* PAGE ONE ###########################################################*/}
           {activeStep === 0 && (
@@ -533,9 +541,8 @@ function SignupCitizen() {
           {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
           {isLoading && <Typography>Loading</Typography>}
         </form>
-      </Grid>
-      <Grid item xs={12} sx={{ height: '65px' }} />
-    </Grid>
+      </Box>
+    </Box>
   );
 }
 

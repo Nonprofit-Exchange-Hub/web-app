@@ -31,6 +31,7 @@ function App(): JSX.Element {
               display="flex"
               flexDirection="column"
               height="100vh"
+              width="100vw"
               justifyContent="space-between"
             >
               <Header />
