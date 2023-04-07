@@ -29,9 +29,14 @@ export class TransactionsService {
       .createQueryBuilder('transaction')
       .distinctOn(['transaction.id'])
       .leftJoinAndSelect('transaction.messages', 'message')
-      .leftJoinAndSelect('transaction.donaterUser', 'donaterUser', 'user.id = :user_id', {
-        user_id: user_id,
-      })
+      .innerJoinAndSelect(
+        'transaction.donater_user',
+        'donater_user',
+        'donater_user.id = :user_id',
+        {
+          user_id: user_id,
+        },
+      )
       .orderBy('transaction.id', 'DESC')
       .addOrderBy('message.id', 'DESC')
       .getMany();
@@ -45,22 +50,23 @@ export class TransactionsService {
       .distinctOn(['transaction.id'])
       .leftJoinAndSelect('transaction.messages', 'message')
       .leftJoinAndSelect(
-        'transaction.donaterOrganizationId',
+        'transaction.donater_organizations',
         'donaterOrganization',
         'donaterOrganization.id = :org_id',
         { org_id: org_id },
       )
-      .leftJoinAndSelect('transaction.claimerId', 'claimer', 'claimer.id = :claimer_id', {
+      .leftJoinAndSelect('transaction.claimer', 'claimer', 'claimer.id = :claimer_id', {
         claimer_id: org_id,
       })
       .where('transaction.claimerId =:claimer_id', { claimer_id: org_id })
-      .orWhere('transaction.donaterOrganizationId =:donaterOrganization', {
-        donaterOrganization: org_id,
+      .orWhere('transaction.donaterOrganizationId =:org_id', {
+        org_id: org_id,
       })
       .orderBy('transaction.id', 'DESC')
       .addOrderBy('message.id', 'DESC')
       .getMany();
   }
+
   async getTransactionWithRelations(id: number): Promise<Transaction> {
     const found = await this.transactionsRepository.findOne({
       relations: { messages: true, donater_user: true, donater_organization: true, claimer: true },

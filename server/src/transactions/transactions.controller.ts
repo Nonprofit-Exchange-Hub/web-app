@@ -7,8 +7,8 @@ import {
   Param,
   Delete,
   Patch,
-  Logger,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 
 import { TransactionsService } from './transactions.service';
@@ -17,7 +17,7 @@ import { Transaction } from './entities/transaction.entity';
 import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
+import { CookieAuthGuard } from 'src/acccount-manager/guards/cookie-auth.guard';
 
 @ApiTags('transactions')
 @Controller('transactions')
@@ -34,6 +34,20 @@ export class TransactionsController {
     return this.transactionsService.getTransactions(getTransactionsDto);
   }
 
+  @UseGuards(CookieAuthGuard)
+  @Get('/inbox')
+  // returns trasnactions with latest messages
+  async userInbox(@Request() req: Request): Promise<Transaction[]> {
+    const user = req['user'];
+    const userOrgs = user.organizations; // TODO: load a users organizations
+    const org_id = userOrgs && userOrgs.length > 0 ? userOrgs[0].organizationId : false;
+    if (org_id) {
+      return this.transactionsService.find_by_org_with_latest_message(org_id);
+    } else {
+      return this.transactionsService.find_by_user_with_latest_message(user.id);
+    }
+  }
+
   @Get('/:id')
   getTransactionById(@Param('id') id: number): Promise<Transaction> {
     return this.transactionsService.getTransactionById(id);
@@ -45,19 +59,6 @@ export class TransactionsController {
     @Body() updateTransactionStatusDto: UpdateTransactionDto,
   ): Promise<Transaction> {
     return this.transactionsService.updateTransaction(id, updateTransactionStatusDto);
-  }
-
-  @Get('/inbox')
-  // returns trasnactions with latest messages
-  userInbox(@Request() req: Request): Promise<Transaction[]> {
-    const user = req['user'];
-    const user_orgs = user.organizations;
-    const org_id = user_orgs.length > 0 ? user_orgs[0].organizationId : false;
-    if (org_id) {
-      return this.transactionsService.find_by_org_with_latest_message(org_id);
-    } else {
-      return this.transactionsService.find_by_user_with_latest_message(user.id);
-    }
   }
 
   @Delete('/:id')
