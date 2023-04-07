@@ -7,7 +7,8 @@ export const messageStub = (user?: User, transaction?: Transaction): Message => 
     id: 1,
     text: 'fakeMessage',
     created_date: new Date(2021, 11, 6),
-    user: user || new User(),
+    sending_user: user || new User(),
+    sending_org: null,
     transaction: transaction || new Transaction(),
   };
 };
