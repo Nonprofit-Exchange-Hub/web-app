@@ -18,16 +18,11 @@ import { Organization } from './entities/organization.entity';
 import { DeleteResult } from 'typeorm';
 import { PropublicaOrg } from './organizations.service';
 import { ApiTags } from '@nestjs/swagger';
-import { TransactionsService } from '../transactions/transactions.service';
-import { Transaction } from '../transactions/entities/transaction.entity';
 
 @ApiTags('organizations')
 @Controller('organizations')
 export class OrganizationsController {
-  constructor(
-    private readonly organizationsService: OrganizationsService,
-    private readonly transactionsService: TransactionsService,
-  ) {}
+  constructor(private readonly organizationsService: OrganizationsService) {}
 
   @Post()
   async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
@@ -63,11 +58,6 @@ export class OrganizationsController {
     @Body() updateOrganizationDto: UpdateOrganizationDto,
   ): Promise<Organization> {
     return this.organizationsService.update(+id, updateOrganizationDto);
-  }
-
-  @Get('/:id/transactions')
-  orgInbox(@Param('id') org_id: number): Promise<Transaction[]> {
-    return this.transactionsService.find_by_org_with_latest_message(org_id);
   }
 
   @Delete(':id')

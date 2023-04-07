@@ -1,4 +1,15 @@
-import { Controller, Post, Body, Get, Query, Param, Delete, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  Param,
+  Delete,
+  Patch,
+  Logger,
+  Request,
+} from '@nestjs/common';
 
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -6,6 +17,7 @@ import { Transaction } from './entities/transaction.entity';
 import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
 
 @ApiTags('transactions')
 @Controller('transactions')
@@ -33,6 +45,19 @@ export class TransactionsController {
     @Body() updateTransactionStatusDto: UpdateTransactionDto,
   ): Promise<Transaction> {
     return this.transactionsService.updateTransaction(id, updateTransactionStatusDto);
+  }
+
+  @Get('/inbox')
+  // returns trasnactions with latest messages
+  userInbox(@Request() req: Request): Promise<Transaction[]> {
+    const user = req['user'];
+    const user_orgs = user.organizations;
+    const org_id = user_orgs.length > 0 ? user_orgs[0].organizationId : false;
+    if (org_id) {
+      return this.transactionsService.find_by_org_with_latest_message(org_id);
+    } else {
+      return this.transactionsService.find_by_user_with_latest_message(user.id);
+    }
   }
 
   @Delete('/:id')

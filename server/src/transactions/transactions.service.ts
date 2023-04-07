@@ -61,6 +61,16 @@ export class TransactionsService {
       .addOrderBy('message.id', 'DESC')
       .getMany();
   }
+  async getTransactionWithRelations(id: number): Promise<Transaction> {
+    const found = await this.transactionsRepository.findOne({
+      relations: { messages: true, donater_user: true, donater_organization: true, claimer: true },
+      where: { id: id },
+    });
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
+  }
 
   async getTransactionById(id: number): Promise<Transaction> {
     const found = await this.transactionsRepository.findOneBy({ id });

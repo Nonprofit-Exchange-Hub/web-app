@@ -19,6 +19,9 @@ export class UserOrganization {
   @ManyToOne(() => Organization, (org) => org.users, { eager: true })
   organization!: Organization;
 
+  @Column()
+  organizationId: number;
+
   @Column({
     type: 'enum',
     enum: Role,

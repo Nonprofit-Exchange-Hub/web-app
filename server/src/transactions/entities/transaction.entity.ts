@@ -53,6 +53,6 @@ export class Transaction {
   @Column({ nullable: true }) // TODO: update seeder to always have claimerID
   claimerId: number;
 
-  @OneToMany(() => Message, (message) => message.transaction, { eager: true })
+  @OneToMany(() => Message, (message) => message.transaction)
   messages: Message[];
 }
