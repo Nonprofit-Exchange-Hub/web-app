@@ -38,7 +38,7 @@ export class TransactionsService {
         },
       )
       .orderBy('transaction.id', 'DESC')
-      .addOrderBy('message.id', 'DESC')
+      .addOrderBy('message.created_date', 'DESC')
       .getMany();
   }
 
@@ -50,7 +50,7 @@ export class TransactionsService {
       .distinctOn(['transaction.id'])
       .leftJoinAndSelect('transaction.messages', 'message')
       .leftJoinAndSelect(
-        'transaction.donater_organizations',
+        'transaction.donater_organization',
         'donaterOrganization',
         'donaterOrganization.id = :org_id',
         { org_id: org_id },
@@ -63,7 +63,7 @@ export class TransactionsService {
         org_id: org_id,
       })
       .orderBy('transaction.id', 'DESC')
-      .addOrderBy('message.id', 'DESC')
+      .addOrderBy('message.created_date', 'DESC')
       .getMany();
   }
 
