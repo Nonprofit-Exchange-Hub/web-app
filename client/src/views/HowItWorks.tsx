@@ -144,7 +144,17 @@ function HowItWorks() {
           </Grid>
         </Container>
       </Box>
-
+      <Typography sx={{
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: 500,
+        fontSize: '40px',
+        lineHeight: '48px',
+        textAlign: 'center',
+        mt: '2rem'
+      }}>
+        How it Works
+      </Typography>
       <Container>
         <InstructionGrid
           instructionList={
@@ -157,3 +167,7 @@ function HowItWorks() {
 }
 
 export default HowItWorks;
+
+function HowItWorksCards() {
+
+}
