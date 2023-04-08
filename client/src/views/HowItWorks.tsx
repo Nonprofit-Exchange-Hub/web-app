@@ -10,21 +10,27 @@ const loremIpsum =
 
 const nonprofitInstructionList = [
   {
-    title: '1. Post your Need.',
-    body: loremIpsum,
+    title: 'Sign up with Givingful',
+    body: 'Create a profile to let our community know about your nonprofit.',
     image: 'https://picsum.photos/seed/nonprofit/600',
   },
   {
-    title: '2. Connect with donors.',
-    body: loremIpsum,
+    title: 'Share your nonprofit’s needs',
+    body: 'Post a description of items and skills that can help your organization.',
     image: 'https://picsum.photos/seed/nonprofit/600',
   },
   {
-    title: '3. Accomplish Goal.',
-    body: loremIpsum,
+    title: 'Claim an offer',
+    body: 'Coordinate to receive goods offered by those in the community.',
     image: 'https://picsum.photos/seed/nonprofit/600',
   },
-];
+  {
+    title: 'Succeed in your goals',
+    body: 'See your nonprofit thrive with your community’s help.',
+    image: 'https://picsum.photos/seed/nonprofit/600',
+  },
+]; 
+
 const citizenInstructionList = [
   {
     title: '1. Post your donation',
