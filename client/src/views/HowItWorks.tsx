@@ -2,11 +2,8 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import { Box, Grid, Container } from '@mui/material';
-
 import type { Theme } from '@mui/material/styles';
-
-import QuestionList from '../components/QuestionList';
-import { BulletGrid, InstructionGrid } from '../components/DisplayGrids';
+import { InstructionGrid } from '../components/DisplayGrids';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -43,41 +40,6 @@ const citizenInstructionList = [
     title: '3. Make a difference',
     body: loremIpsum,
     image: 'https://picsum.photos/seed/picsum/600',
-  },
-];
-
-const nonprofitBulletList = {
-  title: "Whatever your nonprofit goal, we're here to help.",
-  list: [
-    loremIpsum.slice(0, 97),
-    loremIpsum.slice(0, 97),
-    loremIpsum.slice(0, 97),
-    loremIpsum.slice(0, 97),
-  ],
-};
-const citizenBulletList = {
-  title: "We're helping you make a difference in your community.",
-  list: [
-    loremIpsum.slice(0, 97),
-    loremIpsum.slice(0, 97),
-    loremIpsum.slice(0, 97),
-    loremIpsum.slice(0, 97),
-  ],
-};
-
-const nonprofitQuestions = [
-  { question: 'Can we post for volunteer help?', answer: loremIpsum.slice(0, 150) },
-  {
-    question: 'Can we keep working with a person we exchanged with?',
-    answer: loremIpsum.slice(0, 150),
-  },
-  { question: 'How do we see what has been donated previously?', answer: loremIpsum.slice(0, 150) },
-];
-const citizenQuestions = [
-  { question: 'Can I offer to volunteer?', answer: loremIpsum.slice(0, 150) },
-  {
-    question: 'Can I keep working with a nonprofit I exchanged with?',
-    answer: loremIpsum.slice(0, 150),
   },
 ];
 
@@ -162,7 +124,7 @@ function HowItWorks() {
                   tabSelected === 'nonprofit' ? classes.selected : ''
                 }`}
               >
-                I'm on a nonprofit team
+                For Nonprofits
               </h3>
             </Grid>
             <Grid
@@ -176,7 +138,7 @@ function HowItWorks() {
               <h3
                 className={`${classes.button} ${tabSelected === 'citizen' ? classes.selected : ''}`}
               >
-                I'm a citizen
+                For Individuals
               </h3>
             </Grid>
           </Grid>
@@ -189,30 +151,6 @@ function HowItWorks() {
             tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList
           }
         ></InstructionGrid>
-      </Container>
-
-      <Box className={`${classes.greySection}`}>
-        <Container>
-          <Typography variant="h3" component="h3" align="center">
-            {tabSelected === 'nonprofit' ? nonprofitBulletList.title : citizenBulletList.title}
-          </Typography>
-          <BulletGrid
-            list={tabSelected === 'nonprofit' ? nonprofitBulletList.list : citizenBulletList.list}
-          ></BulletGrid>
-        </Container>
-      </Box>
-
-      <Container>
-        <Box className={`${classes.questionSection}`}>
-          <Typography variant="h3" component="h3" align="left">
-            Still have questions?
-          </Typography>
-          <Box className={classes.questions}>
-            <QuestionList
-              questionList={tabSelected === 'nonprofit' ? nonprofitQuestions : citizenQuestions}
-            ></QuestionList>
-          </Box>
-        </Box>
       </Container>
     </>
   );
