@@ -1,9 +1,11 @@
+/* eslint-disable prettier/prettier */
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import { Box, Grid, Container } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import { InstructionGrid } from '../components/DisplayGrids';
+import HowItworksImage from '../assets/HowItWorksIllustration.svg';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -161,6 +163,7 @@ function HowItWorks() {
       }}>
         How it Works
       </Typography>
+      <img src={HowItworksImage} alt="How It Works" width="100%"/>
 
       <HowItWorksCards instructionList={ tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList } />
 
@@ -185,13 +188,26 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
   return (
     <Box sx={{
       display: 'flex',
-      alignItems: 'center',
       justifyContent: 'center',
+      gap: '30px',
     }}>
       {props.instructionList.map((instructionItem) => {
-          return instructionItem.title + " "
+          return (
+            <Box>
+              <Typography sx={{
+                fontSize: '1.5rem',
+                fontWeight: 600,
+
+              }}>
+                {instructionItem.title}
+              </Typography>
+              <Typography>
+                {instructionItem.body}
+              </Typography>
+            </Box>
+          );
         })
       }
   </Box>
-  )
+  );
 }
