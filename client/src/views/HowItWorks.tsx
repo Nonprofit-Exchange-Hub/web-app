@@ -67,8 +67,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyItems: 'start',
   },
   tabMenuLink: {
-    padding: '0px',
+    padding: '10px',
     paddingBottom: '0!important',
+    minWidth: '200px'
   },
   button: {
     fontFamily: 'Poppins',
@@ -76,6 +77,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   selected: {
     fontWeight: 500,
+    borderRadius: '5px',
     borderBottom: `8px solid #EF6A60`,
   },
   hidden: {
@@ -102,7 +104,7 @@ function HowItWorks() {
               container
               item
               sm={2}
-              xs={12}
+              xs={6}
               onClick={() => handleClickTab('nonprofit')}
               className={classes.tabMenuLink}
             >
@@ -118,7 +120,7 @@ function HowItWorks() {
               container
               item
               sm={2}
-              xs={12}
+              xs={6}
               onClick={() => handleClickTab('citizen')}
               className={classes.tabMenuLink}
             >
@@ -162,8 +164,9 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
     }}>
       {props.instructionList.map((instructionItem) => {
           return (
-            <Box sx={{ textAlign: 'left', marginX: '10px' }}>
-              <Typography sx={{                 
+            <Box sx={{textAlign: 'center', marginX: '10px' }}>
+              <Typography sx={{    
+                minHeight: '90px',              
                 fontSize: '1.8rem',
                 fontWeight: 600,
                 mt: '20px',
