@@ -161,6 +161,9 @@ function HowItWorks() {
       }}>
         How it Works
       </Typography>
+
+      <HowItWorksCards instructionList={ tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList } />
+
       <Container>
         <InstructionGrid
           instructionList={
@@ -174,6 +177,21 @@ function HowItWorks() {
 
 export default HowItWorks;
 
-function HowItWorksCards() {
+type HowItWorksCardsProps = {
+  instructionList: { title: string; body: string; image: string }[];
+};
 
+function HowItWorksCards(props: HowItWorksCardsProps) {
+  return (
+    <Box sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      {props.instructionList.map((instructionItem) => {
+          return instructionItem.title + " "
+        })
+      }
+  </Box>
+  )
 }
