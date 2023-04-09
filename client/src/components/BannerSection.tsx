@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '0.8rem 2rem 0.8rem 2rem',
     cursor: 'pointer',
   },
-  gridContent: {
-    
-  },
   bannerRight: {
     padding: '1.8rem 2rem 2rem 2rem',
     background: '#FFC958',
@@ -36,37 +33,47 @@ function BannerSection() {
   const history = useHistory();
 
   return (
-    <div className={classes.gridContent} >
-      <Box >
-        <Grid container spacing={3} sx={{ height: '600px'}}>
-          <Grid xs={6} item alignItems="center" justifyContent="center"sx={{ display: 'flex' }}>
-            <Box sx={{ width: '550px', mt: '14rem', mb: '4rem' }}>
-              <Typography sx={{ fontSize: '4rem', margin: '0rem 0 0rem 0', letterSpacing: '0.005em' }}>
-                Support Local
-              </Typography>
-              <Typography sx={{ fontSize: '6.5rem', lineHeight: '100px', margin: '0 0 0 0', letterSpacing: '-1.5px'  }}>
-                Nonprofits
-              </Typography>
-              <Typography sx={{ fontSize: '1.7rem', margin: '2.2rem 0 3.3rem 0' }}>
-                Be part of our community of volunteers, nonprofits, and individuals through the
-                Givingful exchange platform.
-              </Typography>
-              <button
-                onClick={() => history.push('/signup')}
-                className={classes.gridButtons}
-              >
-                Join Now
-              </button>
-            </Box>
-          </Grid>
-          <Grid item xs={6} className={classes.bannerRight} alignItems="center" sx={{ display: 'flex', borderRadius: '0px 0px 0px 20px' }}>
-            <Box sx={{ minWidth: '600px', mt: '14rem', mb: '4rem', ml: '2rem' }}>
-              <img src={MainImage} alt="Banner Image" className={classes.MainImage} />
-            </Box> 
-          </Grid>
+    <Box>
+      <Grid container spacing={3} sx={{ height: '600px' }}>
+        <Grid xs={6} item alignItems="center" justifyContent="center" sx={{ display: 'flex' }}>
+          <Box sx={{ width: '550px', mt: '14rem', mb: '4rem' }}>
+            <Typography
+              sx={{ fontSize: '4rem', margin: '0rem 0 0rem 0', letterSpacing: '0.005em' }}
+            >
+              Support Local
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: '6.5rem',
+                lineHeight: '100px',
+                margin: '0 0 0 0',
+                letterSpacing: '-1.5px',
+              }}
+            >
+              Nonprofits
+            </Typography>
+            <Typography sx={{ fontSize: '1.7rem', margin: '2.2rem 0 3.3rem 0' }}>
+              Be part of our community of volunteers, nonprofits, and individuals through the
+              Givingful exchange platform.
+            </Typography>
+            <button onClick={() => history.push('/signup')} className={classes.gridButtons}>
+              Join Now
+            </button>
+          </Box>
         </Grid>
-      </Box>
-    </div>
+        <Grid
+          item
+          xs={6}
+          className={classes.bannerRight}
+          alignItems="center"
+          sx={{ display: 'flex', borderRadius: '0px 0px 0px 20px' }}
+        >
+          <Box sx={{ minWidth: '600px', mt: '14rem', mb: '4rem', ml: '2rem' }}>
+            <img src={MainImage} alt="Banner" className={classes.MainImage} />
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
