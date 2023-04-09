@@ -35,16 +35,14 @@ function BannerSection() {
   return (
     <Box>
       <Grid container spacing={3} sx={{ height: '600px' }}>
-        <Grid xs={6} item alignItems="center" justifyContent="center" sx={{ display: 'flex' }}>
-          <Box sx={{ width: '550px', mt: '14rem', mb: '4rem' }}>
-            <Typography
-              sx={{ fontSize: '4rem', margin: '0rem 0 0rem 0', letterSpacing: '0.005em' }}
-            >
+        <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
+          <Box sx={{ width: '550px', mt: '150px', mb: '88px', ml: '40px' }}>
+            <Typography sx={{ fontSize: '3.5rem', margin: '0 0 0 0', letterSpacing: '0.005em' }}>
               Support Local
             </Typography>
             <Typography
               sx={{
-                fontSize: '6.5rem',
+                fontSize: '5.7rem',
                 lineHeight: '100px',
                 margin: '0 0 0 0',
                 letterSpacing: '-1.5px',
@@ -52,7 +50,7 @@ function BannerSection() {
             >
               Nonprofits
             </Typography>
-            <Typography sx={{ fontSize: '1.7rem', margin: '2.2rem 0 3.3rem 0' }}>
+            <Typography sx={{ fontSize: '1.5rem', margin: '30px 0 55px 0' }}>
               Be part of our community of volunteers, nonprofits, and individuals through the
               Givingful exchange platform.
             </Typography>
@@ -68,7 +66,7 @@ function BannerSection() {
           alignItems="center"
           sx={{ display: 'flex', borderRadius: '0px 0px 0px 20px' }}
         >
-          <Box sx={{ minWidth: '600px', mt: '14rem', mb: '4rem', ml: '2rem' }}>
+          <Box sx={{ minWidth: '550px', mt: '150px', mb: '88px', ml: '20px' }}>
             <img src={MainImage} alt="Banner" className={classes.MainImage} />
           </Box>
         </Grid>
