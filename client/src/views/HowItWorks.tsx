@@ -2,13 +2,12 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
-import { Box, Grid, Container } from '@mui/material';
-import type { Theme } from '@mui/material/styles';
-import { InstructionGrid } from '../components/DisplayGrids';
+import { Box, Grid } from '@mui/material';
+import type { Theme } from '@mui/material/styles'; 
 import HowItworksImage from '../assets/HowItWorksIllustration.svg';
 
 const loremIpsum =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
 
 const nonprofitInstructionList = [
   {
@@ -35,69 +34,52 @@ const nonprofitInstructionList = [
 
 const citizenInstructionList = [
   {
-    title: '1. Post your donation',
+    title: 'Sign up with Givingful',
+    body: 'Create a profile to let our community know about your nonprofit.',
+    image: 'https://picsum.photos/seed/nonprofit/600',
+  },
+  {
+    title: 'Post your donation',
     body: loremIpsum,
     image: 'https://picsum.photos/seed/picsum/600',
   },
   {
-    title: '2. Connect with nonprofits',
+    title: 'Connect with nonprofits',
     body: loremIpsum,
     image: 'https://picsum.photos/seed/picsum/600',
   },
   {
-    title: '3. Make a difference',
+    title: 'Make a difference',
     body: loremIpsum,
     image: 'https://picsum.photos/seed/picsum/600',
   },
 ];
 
 const useStyles = makeStyles((theme: Theme) => ({
-  questionSection: {
-    width: '100%',
-    padding: '0 10px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  greySection: {
-    backgroundColor: '#C4C4C4',
-  },
   columns: {
     display: 'flex',
   },
-  titleBox: {
-    height: 200,
-    backgroundColor: '#C4C4C4',
-  },
   tabs: {
-    margin: 'auto',
     padding: '0',
-    borderBottom: '1px solid #C4C4C4',
-    '& .MuiContainer-root': {
-      paddingTop: 0,
-      paddingBottom: 0,
-    },
+  },
+  tabsGrid: {
+    gridTemplateColumns: 'repeat(2, 3fr)',
+    justifyItems: 'start',
   },
   tabMenuLink: {
-    padding: '20px',
+    padding: '0px',
     paddingBottom: '0!important',
   },
   button: {
-    fontSize: '2rem',
-    margin: '20px 0 0 0',
-    borderBottom: '11px solid #FFFFFF',
+    fontFamily: 'Poppins',
+    fontSize: '1.5rem',
+  },
+  selected: {
+    fontWeight: 500,
+    borderBottom: `8px solid #EF6A60`,
   },
   hidden: {
     display: 'none',
-  },
-  selected: {
-    borderBottom: `11px solid ${theme.palette.primary.main}`,
-  },
-  questions: {
-    alignSelf: 'flex-end',
-    width: '100%',
-    maxWidth: '700px',
   },
 }));
 
@@ -113,44 +95,40 @@ function HowItWorks() {
   };
 
   return (
-    <>
-      <Box className={`${classes.titleBox}`}></Box>
-
+    <Box sx={{ margin: 'auto', width: '80%', marginY: '50px'}}>
       <Box className={`${classes.tabs}`}>
-        <Container>
-          <Grid container justifyContent="space-between">
+          <Grid container className={`${classes.tabsGrid}`}>
             <Grid
               container
               item
-              sm={6}
+              sm={2}
               xs={12}
               onClick={() => handleClickTab('nonprofit')}
               className={classes.tabMenuLink}
             >
-              <h3
+              <Box
                 className={`${classes.button} ${
                   tabSelected === 'nonprofit' ? classes.selected : ''
                 }`}
               >
                 For Nonprofits
-              </h3>
+              </Box>
             </Grid>
             <Grid
               container
               item
-              sm={6}
+              sm={2}
               xs={12}
               onClick={() => handleClickTab('citizen')}
               className={classes.tabMenuLink}
             >
-              <h3
+              <Box
                 className={`${classes.button} ${tabSelected === 'citizen' ? classes.selected : ''}`}
               >
                 For Individuals
-              </h3>
+              </Box>
             </Grid>
           </Grid>
-        </Container>
       </Box>
       <Typography sx={{
         fontFamily: 'Poppins',
@@ -159,22 +137,13 @@ function HowItWorks() {
         fontSize: '40px',
         lineHeight: '48px',
         textAlign: 'center',
-        mt: '2rem'
+        marginY: '40px'
       }}>
         How it Works
       </Typography>
       <img src={HowItworksImage} alt="How It Works" width="100%"/>
-
       <HowItWorksCards instructionList={ tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList } />
-
-      <Container>
-        <InstructionGrid
-          instructionList={
-            tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList
-          }
-        ></InstructionGrid>
-      </Container>
-    </>
+    </Box>
   );
 }
 
@@ -193,15 +162,19 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
     }}>
       {props.instructionList.map((instructionItem) => {
           return (
-            <Box>
-              <Typography sx={{
-                fontSize: '1.5rem',
+            <Box sx={{ textAlign: 'left', marginX: '10px' }}>
+              <Typography sx={{                 
+                fontSize: '1.8rem',
                 fontWeight: 600,
-
+                mt: '20px',
+                mb: '20px'
               }}>
                 {instructionItem.title}
               </Typography>
-              <Typography>
+              <Typography sx={{
+                fontSize: '1.2rem',
+                mb: '20px'
+              }}>
                 {instructionItem.body}
               </Typography>
             </Box>
