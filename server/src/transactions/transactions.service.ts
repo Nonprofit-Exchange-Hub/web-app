@@ -70,9 +70,17 @@ export class TransactionsService {
       .getMany();
   }
 
-  async getTransactionWithRelations(id: number): Promise<Transaction> {
+  async getTransactionWithRelations(
+    id: number,
+    relations: any = {
+      messages: true,
+      donater_user: true,
+      donater_organization: true,
+      claimer: true,
+    },
+  ): Promise<Transaction> {
     const found = await this.transactionsRepository.findOne({
-      relations: { messages: true, donater_user: true, donater_organization: true, claimer: true },
+      relations: relations,
       where: { id: id },
     });
     if (!found) {

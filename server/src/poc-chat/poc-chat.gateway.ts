@@ -101,11 +101,14 @@ export class PocChatGateway {
   }
 
   async _createMessage(user, transaction_id, text) {
-    const transaction = await this.transactionsService.getTransactionById(transaction_id);
+    const transaction = await this.transactionsService.getTransactionWithRelations(transaction_id, {
+      claimer: true,
+      donater_organization: true,
+    });
     const sending_user = user;
     const from_claimer =
       user.organizations &&
-      user.organizations.find((org) => org.organizationId === transaction.claimer.id);
+      user.organizations.find((org) => org.organizationId === transaction.claimerId);
     const sending_org =
       (from_claimer ? transaction.claimer : transaction.donater_organization) || null;
     const receiving_org = !from_claimer && transaction.donater_organization;
