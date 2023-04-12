@@ -9,7 +9,7 @@ import {
 import { PocChatService } from './poc-chat.service';
 import { CreatePocChatDto } from './dto/create-poc-chat.dto';
 import { Server, Socket } from 'socket.io';
-import { Logger, Request, UseGuards } from '@nestjs/common';
+import { Request, UseGuards } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { WsCookieGuard } from '../acccount-manager/guards/ws-cookie-auth.guard';
 import { TransactionsService } from '../transactions/transactions.service';
@@ -78,7 +78,6 @@ export class PocChatGateway {
   ) {
     if (client.rooms.has(`${transactionId}`)) {
       const message = await this._createMessage(request['user'], transactionId, text);
-      Logger.log(message);
       this.server.to(`${transactionId}`).emit('message', message);
     }
   }
