@@ -12,9 +12,9 @@ import { Server, Socket } from 'socket.io';
 import { Logger, Request, UseGuards } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { WsCookieGuard } from '../acccount-manager/guards/ws-cookie-auth.guard';
-import { TransactionsService } from 'src/transactions/transactions.service';
-import { MessagesService } from 'src/messages/messages.service';
-import { UsersService } from 'src/acccount-manager/user.service';
+import { TransactionsService } from '../transactions/transactions.service';
+import { MessagesService } from '../messages/messages.service';
+import { UsersService } from '../acccount-manager/user.service';
 dotenv.config({ path: __dirname + '/../../.env' });
 
 @WebSocketGateway(3002, {

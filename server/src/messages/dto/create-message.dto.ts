@@ -1,8 +1,8 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
 import { Transaction } from '../../transactions/entities/transaction.entity';
-import { User } from 'src/acccount-manager/entities/user.entity';
-import { Organization } from 'src/organizations/entities/organization.entity';
+import { User } from '../../acccount-manager/entities/user.entity';
+import { Organization } from '../../organizations/entities/organization.entity';
 
 export class CreateMessageDto {
   @IsNotEmpty()

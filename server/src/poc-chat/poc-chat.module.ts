@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PocChat } from './entities/poc-chat.entity';
 import { AcccountManagerModule } from '../acccount-manager/acccount-manager.module';
 import { TransactionsService } from 'src/transactions/transactions.service';
-import { MessagesService } from 'src/messages/messages.service';
-import { Transaction } from 'src/transactions/entities/transaction.entity';
-import { Message } from 'src/messages/entities/message.entity';
+import { MessagesService } from '../messages/messages.service';
+import { Transaction } from '../transactions/entities/transaction.entity';
+import { Message } from '../messages/entities/message.entity';
 
 @Module({
   imports: [
