@@ -4,7 +4,7 @@ import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
-import { Receivedmessage } from 'src/received-messages/entities/received-messages.entity';
+import { Receivedmessage } from '../../received-messages/entities/received-messages.entity';
 
 @Entity('users')
 export class User {
