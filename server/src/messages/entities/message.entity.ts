@@ -29,7 +29,7 @@ export class Message {
   })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.messages)
+  @ManyToOne(() => User, (user) => user.sentMessages)
   @JoinColumn()
   sending_user: User;
 

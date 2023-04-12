@@ -48,7 +48,7 @@ export class User {
   transactions: Transaction[];
 
   @OneToMany(() => Message, (message) => message.sending_user)
-  messages: Message[];
+  sentMessages: Message[];
 
   @OneToMany(() => Receivedmessage, (received) => received.message)
   receivedMessages: Message[];
