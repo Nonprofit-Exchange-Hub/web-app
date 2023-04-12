@@ -2,8 +2,9 @@ import {
   WebSocketGateway,
   SubscribeMessage,
   MessageBody,
-  WebSocketServer,
   ConnectedSocket,
+  WsResponse,
+  WebSocketServer,
 } from '@nestjs/websockets';
 import { PocChatService } from './poc-chat.service';
 import { CreatePocChatDto } from './dto/create-poc-chat.dto';
@@ -44,10 +45,10 @@ export class PocChatGateway {
   }
 
   // @UseGuards(WsCookieGuard)
-  @SubscribeMessage('findAllPocChat')
-  findAll() {
-    return this.pocChatService.findAll();
-  }
+  // @SubscribeMessage('findAllPocChat')
+  // findAll() {
+  //   return this.pocChatService.findAll();
+  // }
 
   @SubscribeMessage('join')
   @UseGuards(WsCookieGuard)
@@ -61,9 +62,9 @@ export class PocChatGateway {
     const isValid = this._can_user_join(user, transactionId, org_id);
     if (isValid) {
       client.join(`${transactionId}`);
-      client.emit('join', { success: true });
+      return { event: 'join', data: { success: true } } as WsResponse;
     } else {
-      client.emit('join', { success: false });
+      return { event: 'join', data: { success: false } } as WsResponse;
     }
   }
 
@@ -76,8 +77,9 @@ export class PocChatGateway {
     @Request() request: Request,
   ) {
     if (client.rooms.has(`${transactionId}`)) {
-      const message = this._createMessage(request['user'], transactionId, text);
-      client.broadcast.to(`${transactionId}`).emit('sendMessage', message);
+      const message = await this._createMessage(request['user'], transactionId, text);
+      Logger.log(message);
+      this.server.to(`${transactionId}`).emit('message', message);
     }
   }
 
@@ -89,10 +91,13 @@ export class PocChatGateway {
     @ConnectedSocket() client: Socket,
     @Request() req: Request,
   ) {
+    const name =
+      req['user'].organizations.length > 0
+        ? req['user'].organizations[0].organization.name
+        : req['user'].firstName;
+
     if (client.rooms.has(`${transactionId}`)) {
-      client.broadcast
-        .to(`${transactionId}`)
-        .emit('typing', { name: req['user'].firstName, isTyping });
+      client.to(`${transactionId}`).emit('typing', { name: name, isTyping });
     }
   }
 
@@ -105,8 +110,12 @@ export class PocChatGateway {
     const sending_org =
       (from_claimer ? transaction.claimer : transaction.donater_organization) || null;
     const receiving_org = !from_claimer && transaction.donater_organization;
-    const message = this.messagesService.create({ text, transaction, sending_org, sending_user });
-    Logger.log(message);
+    const message = await this.messagesService.create({
+      text,
+      transaction,
+      sending_org,
+      sending_user,
+    });
     if (receiving_org) {
       // TODO: create seen message record
     }

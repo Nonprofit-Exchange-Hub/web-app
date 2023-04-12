@@ -50,7 +50,7 @@ export class TransactionsController {
 
   @Get('/:id')
   getTransactionById(@Param('id') id: number): Promise<Transaction> {
-    return this.transactionsService.getTransactionById(id);
+    return this.transactionsService.getTransactionWithRelations(id);
   }
 
   @Patch('/:id')
