@@ -72,16 +72,12 @@ export class PocChatGateway {
   async sendMessage(
     @MessageBody('text') text: string,
     @MessageBody('transactionId') transactionId: number,
-    @MessageBody('orgId') org_id: number,
     @ConnectedSocket() client: Socket,
     @Request() request: Request,
   ) {
     if (client.rooms.has(`${transactionId}`)) {
-      client.to(`${transactionId}`).emit('sendMessage', {
-        text: text,
-        sendingUserId: request['user'].id,
-        sendingOrgId: org_id,
-      });
+      const message = this._createMessage(request['user'], transactionId, text);
+      client.broadcast.to(`${transactionId}`).emit('sendMessage', message);
     }
   }
 
@@ -89,11 +85,32 @@ export class PocChatGateway {
   @UseGuards(WsCookieGuard)
   typing(
     @MessageBody('isTyping') isTyping: boolean,
+    @MessageBody('transactionId') transactionId: number,
     @ConnectedSocket() client: Socket,
     @Request() req: Request,
   ) {
-    Logger.log('recieved typing');
-    client.emit('typing', { name: req['user'].firstName, isTyping });
+    if (client.rooms.has(`${transactionId}`)) {
+      client.broadcast
+        .to(`${transactionId}`)
+        .emit('typing', { name: req['user'].firstName, isTyping });
+    }
+  }
+
+  async _createMessage(user, transaction_id, text) {
+    const transaction = await this.transactionsService.getTransactionById(transaction_id);
+    const sending_user = user;
+    const from_claimer =
+      user.organizations &&
+      user.organizations.find((org) => org.organizationId === transaction.claimer.id);
+    const sending_org =
+      (from_claimer ? transaction.claimer : transaction.donater_organization) || null;
+    const receiving_org = !from_claimer && transaction.donater_organization;
+    const message = this.messagesService.create({ text, transaction, sending_org, sending_user });
+    Logger.log(message);
+    if (receiving_org) {
+      // TODO: create seen message record
+    }
+    return message;
   }
 
   async _can_user_join(user, transaction_id, org_id = null) {
@@ -102,7 +119,7 @@ export class PocChatGateway {
       return false;
     }
     if (org_id) {
-      if (!user.organizations.reduce((acc, org) => org.id === org_id && acc, true)) {
+      if (!user.organizations.find((org) => org.organizationId === org_id)) {
         // user id does not match org_id so return false
         return false;
       }

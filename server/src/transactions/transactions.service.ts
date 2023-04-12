@@ -28,6 +28,7 @@ export class TransactionsService {
     return this.transactionsRepository
       .createQueryBuilder('transaction')
       .distinctOn(['transaction.id'])
+      .leftJoinAndSelect('transaction.asset', 'asset')
       .leftJoinAndSelect('transaction.messages', 'message')
       .innerJoinAndSelect(
         'transaction.donater_user',
@@ -44,10 +45,10 @@ export class TransactionsService {
 
   async find_by_org_with_latest_message(org_id: number): Promise<Transaction[]> {
     // get an "inbox" of latest messages, one per transaction (for an org)
-
     return this.transactionsRepository
       .createQueryBuilder('transaction')
       .distinctOn(['transaction.id'])
+      .leftJoinAndSelect('transaction.asset', 'asset')
       .leftJoinAndSelect('transaction.messages', 'message')
       .leftJoinAndSelect(
         'transaction.donater_organization',

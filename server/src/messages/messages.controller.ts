@@ -33,7 +33,7 @@ export class MessagesController {
     @Body() createMessageDto: CreateMessageDto,
   ): Promise<Message | HttpException> {
     const { user } = request;
-    const newMessage = await this.messagesService.create(createMessageDto, user as User);
+    const newMessage = await this.messagesService.create(createMessageDto);
     return newMessage;
   }
 

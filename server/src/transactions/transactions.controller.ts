@@ -39,7 +39,7 @@ export class TransactionsController {
   // returns trasnactions with latest messages
   async userInbox(@Request() req: Request): Promise<Transaction[]> {
     const user = req['user'];
-    const userOrgs = user.organizations; // TODO: load a users organizations
+    const userOrgs = await user.organizations;
     const org_id = userOrgs && userOrgs.length > 0 ? userOrgs[0].organizationId : false;
     if (org_id) {
       return this.transactionsService.find_by_org_with_latest_message(org_id);

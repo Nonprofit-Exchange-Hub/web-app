@@ -7,10 +7,13 @@ import {
   CreateDateColumn,
   JoinColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 
 import { User } from '../../acccount-manager/entities/user.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
+import { IsOptional } from 'class-validator';
+import { Receivedmessage } from 'src/received-messages/entities/received-messages.entity';
 
 @Entity('messages')
 export class Message {
@@ -32,9 +35,12 @@ export class Message {
 
   @ManyToOne(() => Organization, (org) => org.messages)
   @JoinColumn()
-  sending_org: Organization;
+  sending_org?: Organization;
 
   @ManyToOne(() => Transaction, (transaction) => transaction.messages)
   @JoinColumn()
   transaction: Transaction;
+
+  @OneToMany(() => Receivedmessage, (userMessage) => userMessage.message)
+  readReceipts?: Receivedmessage[];
 }
