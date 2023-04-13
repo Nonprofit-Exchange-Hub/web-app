@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import Input from '@mui/material/Input';
+// import Input from '@mui/material/Input';
 
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -11,8 +11,8 @@ import {
   Stepper,
   Step,
   StepLabel,
-  Select,
-  MenuItem,
+  // Select,
+  // MenuItem,
   Chip,
   Avatar,
   TextField,
@@ -26,13 +26,14 @@ import StyledLink from '../../../../components/StyledLink';
 import TextDivider from '../../../../components/TextDivider';
 import routes from '../../../../routes/routes';
 import { UserContext } from '../../../../providers';
-import { US_STATE_NAMES } from '../../../../configs';
+// import { US_STATE_NAMES } from '../../../../configs';
 
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validation-rules';
 import { useStyles } from './styles';
 import { UserSignupData } from './UserSignupData';
+import InputMask from 'react-input-mask';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -41,6 +42,9 @@ const initialFormData: UserSignupData = {
   password: '',
   accept_terms: false,
   email_notification_opt_out: false,
+  city: '',
+  state: '',
+  zip: '',
 };
 
 const interests = [
@@ -76,11 +80,11 @@ function SignupCitizen() {
     resolver: yupResolver(validationSchema),
   });
 
-  const { sideImg, signUpContainer, button, header, input, label, chip } = useStyles();
+  const { sideImg, signUpContainer, button, header, label, chip } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading] = React.useState<boolean>(false);
   // const [emailError, setEmailError] = React.useState<string>('');
-  const [formData, setFormData] = React.useState(initialFormData);
+  const [formData] = React.useState(initialFormData);
   const { user } = React.useContext(UserContext);
 
   const steps = [
@@ -103,20 +107,20 @@ function SignupCitizen() {
     });
   };
 
-  const makeStateSelectOptions = () => {
-    return US_STATE_NAMES.map((state) => {
-      return <MenuItem value={state}>{state}</MenuItem>;
-    });
-  };
+  // const makeStateSelectOptions = () => {
+  //   return US_STATE_NAMES.map((state) => {
+  //     return <MenuItem value={state}>{state}</MenuItem>;
+  //   });
+  // };
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
-    setFormData((fData) => ({
-      ...fData,
-      [name]: name === 'accept_terms' ? checked : value,
-      [name]: name === 'email_notification_opt_out' ? checked : value,
-    }));
-  };
+  // const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+  //   const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
+  //   setFormData((fData) => ({
+  //     ...fData,
+  //     [name]: name === 'accept_terms' ? checked : value,
+  //     [name]: name === 'email_notification_opt_out' ? checked : value,
+  //   }));
+  // };
 
   // const handleSubmit = async (evt: React.FormEvent) => {
   //   evt.preventDefault();
@@ -294,18 +298,24 @@ function SignupCitizen() {
                     />
                   )}
                 />
-                <FormControlLabel
-                  style={{ textAlign: 'left', display: 'block' }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={formData.email_notification_opt_out}
-                      onChange={handleChange}
-                      name="email_notification_opt_out"
-                      inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
+                <Controller
+                  name="email_notification_opt_out"
+                  control={control}
+                  defaultValue={false}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      style={{ textAlign: 'left', display: 'block' }}
+                      control={
+                        <Checkbox
+                          {...field}
+                          color="primary"
+                          name="email_notification_opt_out"
+                          inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
+                        />
+                      }
+                      label={<label>Opt Out Of Email Notifications </label>}
                     />
-                  }
-                  label={'Opt Out Of Email Notifications'}
+                  )}
                 />
                 <Typography
                   component="p"
@@ -340,15 +350,58 @@ function SignupCitizen() {
                     <label className={label}>Where are you located?</label>
                   </Grid>
                   <Grid item xs={6}>
-                    <Input className={input} placeholder="city" fullWidth disableUnderline></Input>
+                    {/* <Input className={input} placeholder="city" fullWidth disableUnderline></Input> */}
+                    <Controller
+                      name="city"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="City"
+                          placeholder="City"
+                          helperText={errors.city?.message ? errors.city?.message : ''}
+                          error={!!errors.city}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                    <Select className={input} placeholder="state" fullWidth>
-                      {makeStateSelectOptions()}
-                    </Select>
+                    {/* <Select className={input} placeholder="state" fullWidth> */}
+                    <Controller
+                      name="state"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <InputMask mask={'aa'} {...field} onChange={field.onChange}>
+                          <TextField
+                            label="State"
+                            placeholder="State"
+                            helperText={errors.state ? errors.state.message : ''}
+                            error={!!errors.state}
+                          />
+                        </InputMask>
+                      )}
+                    />
+                    {/* {makeStateSelectOptions()} */}
+                    {/* </Select> */}
                   </Grid>
                   <Grid item xs={4}>
-                    <Input className={input} placeholder="zip" fullWidth disableUnderline></Input>
+                    {/* <Input className={input} placeholder="zip" fullWidth disableUnderline></Input> */}
+                    <Controller
+                      name="zip"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="zip"
+                          placeholder="Zip"
+                          helperText={errors.zip?.message ? errors.zip?.message : ''}
+                          error={!!errors.zip}
+                        />
+                      )}
+                    />
                   </Grid>
                 </Grid>
               </>

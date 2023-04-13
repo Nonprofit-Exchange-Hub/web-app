@@ -5,4 +5,7 @@ export interface UserSignupData {
   password: string;
   accept_terms?: boolean;
   email_notification_opt_out?: boolean;
+  city: string;
+  state: string;
+  zip: string;
 }
