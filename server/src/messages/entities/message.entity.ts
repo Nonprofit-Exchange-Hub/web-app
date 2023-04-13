@@ -33,9 +33,15 @@ export class Message {
   @JoinColumn()
   sending_user: User;
 
+  @Column({ nullable: true })
+  sendingUserId: number;
+
   @ManyToOne(() => Organization, (org) => org.messages)
   @JoinColumn()
   sending_org?: Organization;
+
+  @Column({ nullable: true })
+  sendingOrgId: number;
 
   @ManyToOne(() => Transaction, (transaction) => transaction.messages)
   @JoinColumn()
