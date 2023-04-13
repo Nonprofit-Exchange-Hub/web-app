@@ -1,6 +1,7 @@
 import { DeepRequired, FieldErrorsImpl } from 'react-hook-form';
 import * as Yup from 'yup';
 // import { FormData } from './FormData';
+import { US_STATE_ABBREVIATIONS } from '../../../../configs';
 
 export const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
@@ -12,6 +13,11 @@ export const validationSchema = Yup.object().shape({
   accept_terms: Yup.boolean()
     .required('The terms and conditions must be accepted.')
     .oneOf([true], 'The terms and conditions must be accepted.'),
+  email_notification_opt_out: Yup.boolean(),
+  city: Yup.string().required('Required'),
+  state: Yup.string()
+    .required('Required')
+    .oneOf(US_STATE_ABBREVIATIONS, 'Please enter a valid US state e.g., WA'),
 });
 
 /**

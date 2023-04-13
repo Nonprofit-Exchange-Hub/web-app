@@ -1,8 +1,7 @@
 import * as React from 'react';
-import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Input from '@mui/material/Input';
-import makeStyles from '@mui/styles/makeStyles';
+
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -19,72 +18,21 @@ import {
   TextField,
 } from '@mui/material';
 
-import type { Theme } from '@mui/material/styles';
-
-import { placeholderImg } from '../../../../assets/temp';
-import EmailInput from '../EmailInput';
+// import EmailInput from '../EmailInput';
 import FacebookAuthBtn from '../FacebookAuthBtn';
 import GoogleAuthBtn from '../GoogleAuthBtn';
-import PasswordInput from '../PasswordInput';
+// import PasswordInput from '../PasswordInput';
 import StyledLink from '../../../../components/StyledLink';
 import TextDivider from '../../../../components/TextDivider';
 import routes from '../../../../routes/routes';
 import { UserContext } from '../../../../providers';
-import { APP_API_BASE_URL, US_STATE_NAMES } from '../../../../configs';
+import { US_STATE_NAMES } from '../../../../configs';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  sideImg: {
-    backgroundImage: `url("${placeholderImg}")`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center center',
-    backgroundRepeat: 'no-repeat',
-    borderTopRightRadius: '15px',
-    borderBottomRightRadius: '15px',
-  },
-  signUpContainer: {
-    margin: theme.spacing(5),
-  },
-  button: {
-    borderRadius: 0,
-    height: 44,
-    textTransform: 'none',
-    backgroundColor: '#C4C4C4',
-    color: 'white',
-  },
-  header: {
-    fontWeight: 'bold',
-    paddingBottom: '40px',
-  },
-  input: {
-    height: 44,
-    border: '1px solid #C4C4C4',
-    borderRadius: 10,
-    boxSizing: 'border-box',
-    padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    fontSize: 14,
-    marginBottom: 20,
-  },
-  label: {
-    color: '#000000',
-    fontWeight: 'bold',
-    textAlign: 'left',
-  },
-  chip: {
-    boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.25)',
-    height: 44,
-  },
-}));
-
-interface UserSignupData {
-  firstName: string;
-  last_name: string;
-  email: string;
-  password: string;
-  accept_terms?: boolean;
-  email_notification_opt_out?: boolean;
-}
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validationSchema } from './validation-rules';
+import { useStyles } from './styles';
+import { UserSignupData } from './UserSignupData';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -116,12 +64,24 @@ const interests = [
 ];
 
 function SignupCitizen() {
+  const classes = useStyles();
+  const {
+    control,
+    // getValues,
+    // handleSubmit,
+    formState: { errors },
+  } = useForm<UserSignupData>({
+    defaultValues: initialFormData,
+    mode: 'onChange',
+    resolver: yupResolver(validationSchema),
+  });
+
   const { sideImg, signUpContainer, button, header, input, label, chip } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [emailError, setEmailError] = React.useState<string>('');
+  const [isLoading] = React.useState<boolean>(false);
+  // const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
-  const { user, setUser } = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
 
   const steps = [
     { label: 'Basic Information' },
@@ -158,27 +118,27 @@ function SignupCitizen() {
     }));
   };
 
-  const handleSubmit = async (evt: React.FormEvent) => {
-    evt.preventDefault();
-    setIsLoading(true);
-    // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
-    delete formData.accept_terms;
-    const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    setIsLoading(false);
-    if (data.status === 409) {
-      setEmailError(data.message);
-    } else {
-      setUser(data);
-      handleNext();
-    }
-  };
+  // const handleSubmit = async (evt: React.FormEvent) => {
+  //   evt.preventDefault();
+  //   setIsLoading(true);
+  //   // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
+  //   delete formData.accept_terms;
+  //   const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(formData),
+  //   });
+  //   const data = await res.json();
+  //   setIsLoading(false);
+  //   if (data.status === 409) {
+  //     setEmailError(data.message);
+  //   } else {
+  //     setUser(data);
+  //     handleNext();
+  //   }
+  // };
 
   // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = () => {
@@ -213,8 +173,13 @@ function SignupCitizen() {
               ))}
             </Stepper>
           </Grid>
-
-          <form onSubmit={handleSubmit}>
+          {/*
+          <form onSubmit={handleSubmit}> */}
+          <form
+            onSubmit={() => {
+              console.log('submitted!!');
+            }}
+          >
             {/* PAGE ONE ###########################################################*/}
             {activeStep === 0 && (
               <>
@@ -235,81 +200,99 @@ function SignupCitizen() {
                 <TextDivider>or</TextDivider>
                 <Grid container item xs={12}>
                   <Grid item xs={5}>
-                    <FormControl>
-                      <label className={label} htmlFor="firstName">
-                        First Name
-                      </label>
-                      <Input
-                        className={input}
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        autoComplete="given-name"
-                        placeholder="Jane"
-                        fullWidth
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        disableUnderline
-                        required
-                      />
-                    </FormControl>
+                    <Controller
+                      name="firstName"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          label="First Name"
+                          className={classes.input}
+                          placeholder="First Name"
+                          error={!!errors.firstName?.message} //when
+                          helperText={errors.firstName?.message ?? ''}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item xs={7}>
-                    <FormControl fullWidth>
-                      <label className={label} htmlFor="last_name">
-                        Last Name
-                      </label>
-                      <Input
-                        className={input}
-                        type="text"
-                        id="last_name"
-                        name="last_name"
-                        autoComplete="family-name"
-                        placeholder="Individual"
-                        fullWidth
-                        value={formData.last_name}
-                        onChange={handleChange}
-                        disableUnderline
-                        required
-                      />
-                    </FormControl>
+                    <Controller
+                      name="last_name"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          label="Last Name"
+                          className={classes.input}
+                          placeholder="Last Name"
+                          error={!!errors.last_name?.message}
+                          helperText={errors.last_name?.message ?? ''}
+                        />
+                      )}
+                    />
                   </Grid>
                 </Grid>
                 <Grid container />
-                <EmailInput
-                  value={formData.email}
-                  placeholder="jane@citizen.com"
-                  onChange={handleChange}
-                  showStartAdornment={true}
-                  error={emailError}
-                />
-                <PasswordInput
-                  value={formData.password}
-                  onChange={handleChange}
-                  showStartAdornment={true}
-                />
-                <FormControlLabel
-                  style={{
-                    textAlign: 'left',
-                    display: 'block',
-                  }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={formData.accept_terms}
-                      onChange={handleChange}
-                      name="accept_terms"
-                      inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue={''}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Email"
+                      placeholder="Email"
+                      error={!!errors.email}
+                      helperText={errors.email ? errors.email.message : ''}
                     />
-                  }
-                  label={
-                    <label>
-                      Accept the{' '}
-                      <StyledLink to={routes.TermsOfService.path} target="_blank">
-                        Terms of Service
-                      </StyledLink>
-                    </label>
-                  }
+                  )}
+                />
+
+                <Controller
+                  name="password"
+                  control={control}
+                  defaultValue={''}
+                  // showStartAdornment={true}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Password"
+                      placeholder="Password"
+                      type="password"
+                      error={!!errors.password}
+                      helperText={errors.password ? errors.password.message : ''}
+                    />
+                  )}
+                />
+                <Controller
+                  name="accept_terms"
+                  control={control}
+                  defaultValue={false}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      style={{ textAlign: 'left', display: 'block' }}
+                      control={
+                        <Checkbox
+                          {...field}
+                          color="primary"
+                          name="accept_terms"
+                          inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                        />
+                      }
+                      label={
+                        <label>
+                          Accept the{' '}
+                          <StyledLink to={routes.TermsOfService.path} target="_blank">
+                            Terms of Service
+                          </StyledLink>
+                        </label>
+                      }
+                    />
+                  )}
                 />
                 <FormControlLabel
                   style={{ textAlign: 'left', display: 'block' }}
