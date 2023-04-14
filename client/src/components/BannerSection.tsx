@@ -36,7 +36,7 @@ function BannerSection() {
     <Box>
       <Grid container spacing={3} sx={{ height: '600px' }}>
         <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
-          <Box sx={{ width: '550px', mt: '150px', mb: '88px', ml: '40px' }}>
+          <Box sx={{ width: '550px', mt: '180px', mb: '66px', ml: '40px' }}>
             <Typography sx={{ fontSize: '3.5rem', margin: '0 0 0 0', letterSpacing: '0.005em' }}>
               Support Local
             </Typography>
@@ -66,7 +66,7 @@ function BannerSection() {
           alignItems="center"
           sx={{ display: 'flex', borderRadius: '0px 0px 0px 20px' }}
         >
-          <Box sx={{ minWidth: '550px', mt: '150px', mb: '88px', ml: '20px' }}>
+          <Box sx={{ minWidth: '550px', mt: '180px', mb: '66px', ml: '20px' }}>
             <img src={MainImage} alt="Banner" className={classes.MainImage} />
           </Box>
         </Grid>
