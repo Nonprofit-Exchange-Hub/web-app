@@ -83,7 +83,7 @@ function TransactionThreadCard({
                 {otherUser}
               </Typography>
               <Typography variant="subtitle2" style={{ display: 'inline-block' }}>
-                `Re: ${transaction.asset.title}`
+                {`Re: ${transaction.asset.title}`}
               </Typography>
             </>
           }
