@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../acccount-manager/dto/create-user.dto';
+import { CreateUserInternal } from '../../acccount-manager/dto/create-user.internal';
 import { CreateAssetDto } from '../../assets/dto/create-asset.dto';
 import { CreateCategoryDto } from '../../categories/dto/create-category.dto';
 import { CreateMessageDto } from '../../messages/dto/create-message.dto';
@@ -11,8 +11,8 @@ import { ApprovalStatus, Role } from '../../user-org/constants';
 
 const assetImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
 
-export const seedUsers = (): CreateUserDto[] => {
-  const users: CreateUserDto[] = [
+export const seedUsers = (): CreateUserInternal[] => {
+  const users: CreateUserInternal[] = [
     {
       firstName: 'user1First',
       last_name: 'user1Last',
