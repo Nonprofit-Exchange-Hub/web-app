@@ -25,6 +25,7 @@ export const userEntityStub = (
     assets: assets,
     transactions,
     receivedMessages,
+    sentMessages,
     organizations,
     email_verified: true,
     email_notification_opt_out: false,

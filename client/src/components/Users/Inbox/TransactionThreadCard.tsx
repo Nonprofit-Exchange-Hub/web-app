@@ -20,9 +20,6 @@ function TransactionThreadCard({
   user?: User | null;
 }): JSX.Element {
   const message = transaction.messages[0];
-  const sendingOrg = [transaction.donater_organization, transaction.claimer].find(
-    (org) => org && org.id === message.sendingOrgId,
-  );
   const renderMessage = () => {
     if (message) {
       return (
@@ -33,10 +30,7 @@ function TransactionThreadCard({
             variant="body2"
             color="text.primary"
           >
-            {(sendingOrg && sendingOrg.name) ||
-              (message.sendingUserId === (user && user.id)
-                ? ' Me: '
-                : `${transaction.donater_user.firstName} ${transaction.donater_user.last_name}: `)}
+            {message.sendingUserId === (user && user.id) ? ' Me: ' : ''}
           </Typography>
           {message.text}
         </React.Fragment>
@@ -46,19 +40,26 @@ function TransactionThreadCard({
   const userOrg =
     user && user.organizations && user.organizations[0] && user.organizations[0].organization.id;
   const userIsClaimer = userOrg === transaction.claimer.id;
+  const isCurrentUser =
+    (userOrg && message && message.sendingOrgId === userOrg) ||
+    (user && message && message.sendingUserId === user.id);
   const donaterIsOrg = !!transaction.donater_organization;
 
-  let otherUser = '';
+  let otherUserName = '';
+  let otherUserImage = '' as string | undefined;
   if (userIsClaimer) {
-    // other user is donater
+    // other user is claimer
     if (donaterIsOrg) {
-      otherUser = transaction.donater_organization && transaction.donater_organization.name;
+      const otherUser = transaction.donater_organization && transaction.donater_organization;
+      otherUserName = otherUser.name;
     } else {
-      otherUser = transaction.donater_user && transaction.donater_user.firstName;
+      const otherUser = transaction.donater_user && transaction.donater_user;
+      otherUserName = otherUser.firstName;
+      otherUserImage = otherUser.profile_image_url;
     }
   } else {
     // other user is claimer
-    otherUser = transaction.claimer && transaction.claimer.name;
+    otherUserName = transaction.claimer && transaction.claimer.name;
   }
 
   return (
@@ -69,18 +70,14 @@ function TransactionThreadCard({
         onClick={() => onClick(transaction)}
       >
         <ListItemAvatar>
-          {!sendingOrg && (
-            <Avatar
-              alt={transaction.donater_user.firstName}
-              src={transaction.donater_user.profile_image_url}
-            />
-          )}
+          {otherUserImage && <Avatar alt={otherUserName} src={otherUserImage} />}
         </ListItemAvatar>
         <ListItemText
           primary={
             <>
-              <Typography variant="subtitle1" style={{ display: 'inline-block' }}>
-                {otherUser}
+              <Typography variant="subtitle2" style={{ display: 'inline-block' }}>
+                {message ? (isCurrentUser ? 'To : ' : 'From: ') : ''}
+                {otherUserName}
               </Typography>
               <Typography variant="subtitle2" style={{ display: 'inline-block' }}>
                 {`Re: ${transaction.asset.title}`}
