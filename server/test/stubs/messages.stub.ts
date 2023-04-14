@@ -10,5 +10,7 @@ export const messageStub = (user?: User, transaction?: Transaction): Message => 
     sending_user: user || new User(),
     sending_org: null,
     transaction: transaction || new Transaction(),
+    sendingOrgId: null,
+    sendingUserId: null,
   };
 };
