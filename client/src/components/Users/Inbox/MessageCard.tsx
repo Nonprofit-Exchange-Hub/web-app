@@ -3,7 +3,7 @@ import makeStyles from '@mui/styles/makeStyles';
 
 import type { Theme } from '@mui/material/styles';
 
-import type { Message } from '../../../types';
+import { Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) => ({
   currentUserMessage: {
@@ -25,17 +25,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function MessageCard({
+  text,
+  senderName,
   isCurrentUser,
-  message,
+  dateString,
 }: {
+  senderName: string;
+  text: string;
   isCurrentUser: boolean;
-  message: Message;
+  dateString: string;
 }): JSX.Element {
   const classes = useStyles();
-
   return (
     <div className={isCurrentUser ? classes.currentUserMessage : classes.otherUserMessage}>
-      {message.user.firstName}: {message.text}
+      <Typography variant="subtitle2" color="text.primary">
+        {text}
+      </Typography>
+      <Typography variant="body2" color="text.primary">
+        {dateString}
+      </Typography>
     </div>
   );
 }

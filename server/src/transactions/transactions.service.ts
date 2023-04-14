@@ -31,6 +31,7 @@ export class TransactionsService {
       .leftJoinAndSelect('transaction.asset', 'asset')
       .leftJoinAndSelect('transaction.messages', 'message')
       .leftJoinAndSelect('transaction.donater_organization', 'donater_organization')
+      .leftJoinAndSelect('transaction.claimer', 'claimer')
       .innerJoinAndSelect(
         'transaction.donater_user',
         'donater_user',

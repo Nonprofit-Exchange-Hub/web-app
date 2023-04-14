@@ -1,10 +1,12 @@
+import { SendOutlined } from '@mui/icons-material';
+import { IconButton, TextField } from '@mui/material';
 import React, { useState } from 'react';
 
-const NewMessage = ({ socket }: any) => {
+const NewMessage = ({ socket, transactionId, classes }: any) => {
   const [value, setValue] = useState('');
   const submitForm = (e: any) => {
     e.preventDefault();
-    socket.emit('createPocChat', { text: value });
+    socket.emit('message', { text: value, transactionId: transactionId, fromClaimer: false });
     setValue('');
   };
 
@@ -23,8 +25,9 @@ const NewMessage = ({ socket }: any) => {
   };
 
   return (
-    <form onSubmit={submitForm}>
-      <input
+    <form onSubmit={submitForm} className={classes.messageInputForm}>
+      <TextField
+        className={classes.messageInput}
         autoFocus
         value={value}
         placeholder="Type your message"
@@ -32,6 +35,9 @@ const NewMessage = ({ socket }: any) => {
         onBlur={handleBlur}
         onFocus={handleOnFocus}
       />
+      <IconButton aria-label="send message" type="submit" size="large">
+        <SendOutlined />
+      </IconButton>
     </form>
   );
 };
