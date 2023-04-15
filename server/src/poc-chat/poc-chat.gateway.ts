@@ -78,7 +78,7 @@ export class PocChatGateway {
   ) {
     if (client.rooms.has(`${transactionId}`)) {
       const message = await this._createMessage(request['user'], transactionId, text);
-      this.server.to(`${transactionId}`).emit('message', message);
+      this.server.to(`${transactionId}`).emit(`message_${transactionId}`, message);
     }
   }
 

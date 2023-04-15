@@ -27,7 +27,7 @@ const TempChat = (props: TempChatProps) => {
     // to do - send org id if user is logged in as an organization
 
     setSocket(newSocket);
-    newSocket.on('message', (res: any) => {
+    newSocket.on(`message_${transaction.id}`, (res: any) => {
       console.log(res);
       setNewMessages((prev) => [...prev, res]);
     });
