@@ -59,7 +59,7 @@ function User() {
     const pageContent = () => {
       return (
         <Grid container xs={12}>
-          <Grid container xs={3.5} sx={{ height: '700px' }}>
+          <Grid container xs={3.5} sx={{ height: '900px' }}>
             <Grid item container xs={12} justifyContent="center" alignItems="center">
               <Grid item xs={12} />
               <Grid item sx={{ marginTop: '2rem', marginBottom: '1rem' }}>
@@ -90,7 +90,7 @@ function User() {
           </Grid>
           <Divider orientation="vertical" variant="middle" flexItem />
           <Grid item xs={0.5} />
-          <Grid container xs={6.5} sx={{ height: '700px' }}>
+          <Grid container xs={6.5} sx={{ height: '900px' }}>
             <Grid item xs={12} />
             <Grid item container xs={12}>
               <Grid item xs={12}>
