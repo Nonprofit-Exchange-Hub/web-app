@@ -8,16 +8,17 @@ import { Typography } from '@mui/material';
 const useStyles = makeStyles((theme: Theme) => ({
   currentUserMessage: {
     alignSelf: 'flex-end',
-    border: '1px solid black',
+    border: '1px solid lightgrey',
     borderRadius: '10px',
     padding: '5px',
     maxWidth: '70%',
     marginLeft: '30%',
+    background: 'rgba(196, 196, 196, 0.3)',
   },
   otherUserMessage: {
     alignSelf: 'flex-start',
-    background: 'rgba(196, 196, 196, 0.3)',
-    border: '1px solid black',
+    background: 'lightblue',
+    border: '1px solid lightgrey',
     borderRadius: '10px',
     padding: '5px',
     maxWidth: '70%',

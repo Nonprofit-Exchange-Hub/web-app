@@ -45,10 +45,30 @@ const TempChat = (props: TempChatProps) => {
     return () => newSocket.close() as any;
   }, [transaction]);
 
+  const userOrg =
+    user && user.organizations && user.organizations[0] && user.organizations[0].organization.id;
+  const userIsClaimer = userOrg === transaction.claimer.id;
+  const donaterIsOrg = !!transaction.donater_organization;
+
+  let otherUserName = '';
+  if (userIsClaimer) {
+    // other user is claimer
+    if (donaterIsOrg) {
+      const otherUser = transaction.donater_organization && transaction.donater_organization;
+      otherUserName = otherUser.name;
+    } else {
+      const otherUser = transaction.donater_user && transaction.donater_user;
+      otherUserName = otherUser.firstName;
+    }
+  } else {
+    // other user is claimer
+    otherUserName = transaction.claimer && transaction.claimer.name;
+  }
+
   return (
     <Box className={classes.messagesWrapper}>
-      <Typography variant="h5" component="h5" className={classes.sectionHeader}>
-        Re: {transaction.asset.title}
+      <Typography variant="h6" className={classes.sectionHeader}>
+        Message with {otherUserName}
       </Typography>
       {socket ? (
         <div>

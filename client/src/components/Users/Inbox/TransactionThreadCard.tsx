@@ -75,13 +75,11 @@ function TransactionThreadCard({
         <ListItemText
           primary={
             <>
-              <Typography variant="subtitle2" style={{ display: 'inline-block' }}>
+              <Typography variant="subtitle2">
                 {message ? (isCurrentUser ? 'To : ' : 'From: ') : ''}
                 {otherUserName}
               </Typography>
-              <Typography variant="subtitle2" style={{ display: 'inline-block' }}>
-                {`Re: ${transaction.asset.title}`}
-              </Typography>
+              <Typography variant="subtitle2">{`Topic: ${transaction.asset.title}`}</Typography>
             </>
           }
           secondary={renderMessage()}

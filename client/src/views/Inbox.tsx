@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'left',
   },
   sectionWrapper: {
-    border: '1px solid black',
+    border: '1px solid lightgrey',
     borderRadius: '10px',
     display: 'flex',
     flexDirection: 'column',
@@ -151,9 +151,6 @@ function MessageInboxView(): JSX.Element {
 
   const transactionList = (
     <div className={`${classes.sectionWrapper} ${classes.threadsSection}`}>
-      <Typography variant="h5" component="h5" className={classes.sectionHeader}>
-        Inbox
-      </Typography>
       {transactions.length && transactions.length > 0 ? transactionCards : noTransactionsMessage}
     </div>
   );
