@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { Avatar, Divider, Grid, Typography, Rating, Chip, Button } from '@mui/material';
 import { UserContext } from '../providers';
 import { AssignmentTurnedIn, NoteAdd, ArrowForward, Edit } from '@mui/icons-material';
@@ -34,7 +34,7 @@ const styles = {
 
 function User() {
   const { button, chip, editIcon } = styles;
-  const { id } = useParams<{ id: string }>();
+  // const { id } = useParams<{ id: string }>();
   const { user } = React.useContext(UserContext);
 
   if (user) {
@@ -126,12 +126,8 @@ function User() {
         </Grid>
       );
     };
-
-    if (id) {
-      return pageContent();
-    } else {
-      return <div>My Profile</div>;
-    }
+    return pageContent();
   }
+  return <div>My Profile</div>;
 }
 export default User;
