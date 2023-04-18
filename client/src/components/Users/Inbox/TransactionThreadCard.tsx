@@ -60,6 +60,7 @@ function TransactionThreadCard({
   } else {
     // other user is claimer
     otherUserName = transaction.claimer && transaction.claimer.name;
+    otherUserImage = transaction.claimer && transaction.claimer.image_url;
   }
 
   return (

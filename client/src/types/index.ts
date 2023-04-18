@@ -25,6 +25,7 @@ export type Organization = {
   state: string;
   ein: string;
   nonprofit_classification: string;
+  image_url: string;
 };
 
 export enum Role {
