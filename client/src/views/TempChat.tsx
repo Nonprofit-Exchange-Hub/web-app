@@ -14,6 +14,7 @@ type TempChatProps = {
 const TempChat = (props: TempChatProps) => {
   const { classes, transaction, messages, user } = props;
   const [socket, setSocket] = useState<any>(null);
+  const [connected, setConnected] = useState<boolean>(false);
   const [newMessages, setNewMessages] = useState<Message[]>([]);
   const [showTypingGesture, setShowTypingGesture] = useState<boolean>(false);
   const [userTyping, setUserTyping] = useState<string>('');
@@ -23,7 +24,11 @@ const TempChat = (props: TempChatProps) => {
       withCredentials: true,
     };
     const newSocket = io(`http://${window.location.hostname}:3002`, opts);
-    newSocket.emit('join', { transactionId: transaction.id });
+
+    newSocket.on('connect', () => {
+      newSocket.emit('join', { transactionId: transaction.id });
+      setConnected(true);
+    });
     // to do - send org id if user is logged in as an organization
 
     setSocket(newSocket);
@@ -35,9 +40,11 @@ const TempChat = (props: TempChatProps) => {
     newSocket.on('join', (res: any) => {
       console.log(res);
     });
+    newSocket.on('disconnect', (res: any) => {
+      setConnected(false);
+    });
 
     newSocket.on('typing', (res: { name: string; isTyping: boolean }) => {
-      console.log(res);
       setShowTypingGesture(res.isTyping);
       setUserTyping(res.name);
     });
@@ -82,8 +89,9 @@ const TempChat = (props: TempChatProps) => {
       ) : (
         <div>Not Connected</div>
       )}
-      {showTypingGesture && <p>... {userTyping} is typing</p>}
       <Box className={classes.messageInputWrapper}>
+        {showTypingGesture && <p>... {userTyping} is typing</p>}
+        {!connected ? 'Connecting to server...' : null}
         <NewMessage socket={socket} transactionId={transaction.id} classes={classes} />
       </Box>
     </Box>

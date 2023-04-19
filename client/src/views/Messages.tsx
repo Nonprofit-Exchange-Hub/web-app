@@ -2,7 +2,7 @@ import React from 'react';
 import { Message } from '../types';
 import MessageCard from '../components/Users/Inbox/MessageCard';
 
-function Messages({ socket, messages, transaction, user }: any) {
+function Messages({ messages, transaction, user }: any) {
   const formatDate = (date: string): string => {
     return new Date(date).toLocaleString('en-US');
   };

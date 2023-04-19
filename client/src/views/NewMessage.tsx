@@ -6,8 +6,10 @@ const NewMessage = ({ socket, transactionId, classes }: any) => {
   const [value, setValue] = useState('');
   const submitForm = (e: any) => {
     e.preventDefault();
-    socket.emit('message', { text: value, transactionId: transactionId, fromClaimer: false });
-    setValue('');
+    if (socket.connected) {
+      socket.emit('message', { text: value, transactionId: transactionId, fromClaimer: false });
+      setValue('');
+    }
   };
 
   const handleOnChange = (e: any): void => {
