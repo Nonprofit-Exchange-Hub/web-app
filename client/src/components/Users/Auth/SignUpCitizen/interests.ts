@@ -1,4 +1,4 @@
-export const interests = [
+export const interests: string[] = [
   'Animal Care & Services',
   'Poverty',
   'Housing & Homeless',

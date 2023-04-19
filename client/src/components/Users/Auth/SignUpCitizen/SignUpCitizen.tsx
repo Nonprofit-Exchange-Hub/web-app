@@ -31,6 +31,8 @@ const initialFormData: UserSignupData = {
   city: '',
   state: '',
   zip: '',
+  interests: '',
+  aboutyourself: '',
 };
 
 const steps = [
@@ -455,7 +457,24 @@ const SignupCitizen = () => {
                   About Yourself
                 </Typography>
                 <Grid item xs={10}>
-                  <TextField multiline rows={4} fullWidth placeholder="Tell us about yourself..." />
+                  {/* <TextField multiline rows={4} fullWidth placeholder="Tell us about yourself..." /> */}
+                  <Controller
+                    name="aboutyourself"
+                    control={control}
+                    defaultValue={''}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Tell us about yourself"
+                        placeholder="Tell us about yourself"
+                        error={!!errors.aboutyourself}
+                        helperText={errors.aboutyourself ? errors.aboutyourself.message : ''}
+                        multiline
+                        rows={4}
+                        fullWidth
+                      />
+                    )}
+                  />
                 </Grid>
               </>
             )}

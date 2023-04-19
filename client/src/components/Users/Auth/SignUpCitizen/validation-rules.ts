@@ -1,6 +1,6 @@
 import { DeepRequired, FieldErrorsImpl } from 'react-hook-form';
 import * as Yup from 'yup';
-// import { FormData } from './FormData';
+import { interests } from './interests';
 import { US_STATE_ABBREVIATIONS } from '../../../../configs';
 
 export const validationSchema = Yup.object().shape({
@@ -21,9 +21,11 @@ export const validationSchema = Yup.object().shape({
   zip: Yup.string()
     .required('Required')
     .min(5, 'Zipcode is too short - should be 5 digits minimum.'),
+  interests: Yup.string().required('Required').not(['Select classification']).oneOf(interests),
   image_url: Yup.string()
     .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/, 'Please use a valid image url')
     .required('Required'),
+  aboutyourself: Yup.string().required('Required'),
 });
 
 /**

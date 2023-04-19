@@ -8,4 +8,6 @@ export interface UserSignupData {
   city: string;
   state: string;
   zip: string;
+  interests: string;
+  aboutyourself: string;
 }
