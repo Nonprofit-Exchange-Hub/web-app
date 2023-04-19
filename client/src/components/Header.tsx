@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import makeStyles from '@mui/styles/makeStyles';
@@ -125,13 +129,18 @@ function Header() {
           <NavLink to={routes.Home.path} className={classes.home}>
             <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
-          <NavLink
-            className={classes.navLink}
-            to={routes.AboutUs.path}
-            activeStyle={{ fontWeight: 'bold' }}
-          >
-            About Us
-          </NavLink>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}> About </AccordionSummary>
+            <AccordionDetails>
+              <NavLink
+                className={classes.navLink}
+                to={routes.AboutUs.path}
+                activeStyle={{ fontWeight: 'bold' }}
+              >
+                About Us
+              </NavLink>
+            </AccordionDetails>
+          </Accordion>
           <NavLink
             className={classes.navLink}
             to={routes.HowItWorks.path}
