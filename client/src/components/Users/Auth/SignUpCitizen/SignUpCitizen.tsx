@@ -1,37 +1,23 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 // import Input from '@mui/material/Input';
-
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-import {
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  // Select,
-  // MenuItem,
-  Chip,
-  Avatar,
-  TextField,
-} from '@mui/material';
+import { Box, Stepper, Step, StepLabel, Chip, Avatar, TextField } from '@mui/material';
 
-// import EmailInput from '../EmailInput';
 import FacebookAuthBtn from '../FacebookAuthBtn';
 import GoogleAuthBtn from '../GoogleAuthBtn';
-// import PasswordInput from '../PasswordInput';
 import StyledLink from '../../../../components/StyledLink';
 import TextDivider from '../../../../components/TextDivider';
 import routes from '../../../../routes/routes';
 import { UserContext } from '../../../../providers';
-// import { US_STATE_NAMES } from '../../../../configs';
-
+import { useStyles } from './styles';
+import { interests } from './interests';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validation-rules';
-import { useStyles } from './styles';
 import { UserSignupData } from './UserSignupData';
 import InputMask from 'react-input-mask';
 
@@ -47,28 +33,21 @@ const initialFormData: UserSignupData = {
   zip: '',
 };
 
-const interests = [
-  'Animal Care & Services',
-  'Poverty',
-  'Housing & Homeless',
-  'Youth & Children',
-  'Disaster Relief',
-  'Health Care & Welness',
-  'Environment & Sustainability',
-  'Sports & Recreation',
-  'Seniors',
-  'Religion, Faith & Spirituality',
-  'Civic Engagement',
-  'LGTBQIA+',
-  'Civil Rights & Advocacy',
-  'Military & Veterans',
-  'Social Justice',
-  'Education & Literacy',
-  'Arts & Culture',
+const steps = [
+  { label: 'Basic Information' },
+  { label: 'Personal Information' },
+  { label: 'Interests' },
+  { label: 'Profile' },
 ];
 
-function SignupCitizen() {
-  const classes = useStyles();
+const SignupCitizen = () => {
+  // const classes = useStyles();
+  const { sideImg, signUpContainer, button, header, label, chip } = useStyles();
+  const [activeStep, setActiveStep] = React.useState<number>(0);
+  const [isLoading] = React.useState<boolean>(false);
+  // const [emailError, setEmailError] = React.useState<string>('');
+  const [formData] = React.useState(initialFormData);
+  const { user } = React.useContext(UserContext);
   const {
     control,
     // getValues,
@@ -79,20 +58,6 @@ function SignupCitizen() {
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
   });
-
-  const { sideImg, signUpContainer, button, header, label, chip } = useStyles();
-  const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [isLoading] = React.useState<boolean>(false);
-  // const [emailError, setEmailError] = React.useState<string>('');
-  const [formData] = React.useState(initialFormData);
-  const { user } = React.useContext(UserContext);
-
-  const steps = [
-    { label: 'Basic Information' },
-    { label: 'Personal Information' },
-    { label: 'Interests' },
-    { label: 'Profile' },
-  ];
 
   const makeChips = () => {
     return interests.map((interest) => {
@@ -106,6 +71,25 @@ function SignupCitizen() {
       );
     });
   };
+  // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  // const stepOneInvalid = !dirtyFields.ein || !!errors.ein || !basicInfotepIsValid;
+
+  const stepOneInValid =
+    !!errors.firstName?.message ||
+    !!errors.last_name?.message ||
+    !!errors.email?.message ||
+    !!errors.password?.message ||
+    !!errors.accept_terms?.message;
+
+  const stepTwoInvalid = !!errors.city?.message || !!errors.state?.message || !!errors.zip?.message;
 
   // const makeStateSelectOptions = () => {
   //   return US_STATE_NAMES.map((state) => {
@@ -143,15 +127,6 @@ function SignupCitizen() {
   //     handleNext();
   //   }
   // };
-
-  // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
 
   return (
     <div className="SignupCitizen">
@@ -202,7 +177,7 @@ function SignupCitizen() {
                   <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
                 </Grid>
                 <TextDivider>or</TextDivider>
-                <Grid container item xs={12}>
+                <Grid container item xs={12} spacing={5}>
                   <Grid item xs={5}>
                     <Controller
                       name="firstName"
@@ -213,7 +188,6 @@ function SignupCitizen() {
                           {...field}
                           fullWidth
                           label="First Name"
-                          className={classes.input}
                           placeholder="First Name"
                           error={!!errors.firstName?.message} //when
                           helperText={errors.firstName?.message ?? ''}
@@ -231,7 +205,6 @@ function SignupCitizen() {
                           {...field}
                           fullWidth
                           label="Last Name"
-                          className={classes.input}
                           placeholder="Last Name"
                           error={!!errors.last_name?.message}
                           helperText={errors.last_name?.message ?? ''}
@@ -241,6 +214,7 @@ function SignupCitizen() {
                   </Grid>
                 </Grid>
                 <Grid container />
+
                 <Controller
                   name="email"
                   control={control}
@@ -272,51 +246,55 @@ function SignupCitizen() {
                     />
                   )}
                 />
-                <Controller
-                  name="accept_terms"
-                  control={control}
-                  defaultValue={false}
-                  render={({ field }) => (
-                    <FormControlLabel
-                      style={{ textAlign: 'left', display: 'block' }}
-                      control={
-                        <Checkbox
-                          {...field}
-                          color="primary"
-                          name="accept_terms"
-                          inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                        />
-                      }
-                      label={
-                        <label>
-                          Accept the{' '}
-                          <StyledLink to={routes.TermsOfService.path} target="_blank">
-                            Terms of Service
-                          </StyledLink>
-                        </label>
-                      }
-                    />
-                  )}
-                />
-                <Controller
-                  name="email_notification_opt_out"
-                  control={control}
-                  defaultValue={false}
-                  render={({ field }) => (
-                    <FormControlLabel
-                      style={{ textAlign: 'left', display: 'block' }}
-                      control={
-                        <Checkbox
-                          {...field}
-                          color="primary"
-                          name="email_notification_opt_out"
-                          inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
-                        />
-                      }
-                      label={<label>Opt Out Of Email Notifications </label>}
-                    />
-                  )}
-                />
+                <Grid item xs={12}>
+                  <Controller
+                    name="accept_terms"
+                    control={control}
+                    defaultValue={false}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        style={{ textAlign: 'left', display: 'block' }}
+                        control={
+                          <Checkbox
+                            {...field}
+                            color="primary"
+                            name="accept_terms"
+                            inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                          />
+                        }
+                        label={
+                          <label>
+                            Accept the{' '}
+                            <StyledLink to={routes.TermsOfService.path} target="_blank">
+                              Terms of Service
+                            </StyledLink>
+                          </label>
+                        }
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    name="email_notification_opt_out"
+                    control={control}
+                    defaultValue={false}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        style={{ textAlign: 'left', display: 'block' }}
+                        control={
+                          <Checkbox
+                            {...field}
+                            color="primary"
+                            name="email_notification_opt_out"
+                            inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
+                          />
+                        }
+                        label={<label>Opt Out Of Email Notifications </label>}
+                      />
+                    )}
+                  />
+                </Grid>
                 <Typography
                   component="p"
                   align="left"
@@ -395,7 +373,7 @@ function SignupCitizen() {
                       render={({ field }) => (
                         <TextField
                           {...field}
-                          label="zip"
+                          label="Zip"
                           placeholder="Zip"
                           helperText={errors.zip?.message ? errors.zip?.message : ''}
                           error={!!errors.zip}
@@ -522,12 +500,22 @@ function SignupCitizen() {
                     </Button>
                     <Box />
                     {activeStep === 0 && (
-                      <Button color="primary" variant="outlined" onClick={handleNext}>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        onClick={handleNext}
+                        disabled={stepOneInValid}
+                      >
                         Next
                       </Button>
                     )}
                     {activeStep === 1 && (
-                      <Button color="primary" variant="outlined" onClick={handleNext}>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        onClick={handleNext}
+                        disabled={stepTwoInvalid}
+                      >
                         Next
                       </Button>
                     )}
@@ -573,6 +561,6 @@ function SignupCitizen() {
       )}
     </div>
   );
-}
+};
 
 export default SignupCitizen;

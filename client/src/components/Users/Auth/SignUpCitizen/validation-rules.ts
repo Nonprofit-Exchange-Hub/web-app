@@ -18,7 +18,9 @@ export const validationSchema = Yup.object().shape({
   state: Yup.string()
     .required('Required')
     .oneOf(US_STATE_ABBREVIATIONS, 'Please enter a valid US state e.g., WA'),
-  zip: Yup.string().required('Required'),
+  zip: Yup.string()
+    .required('Required')
+    .min(5, 'Zipcode is too short - should be 5 digits minimum.'),
   image_url: Yup.string()
     .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/, 'Please use a valid image url')
     .required('Required'),
