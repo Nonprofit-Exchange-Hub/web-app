@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import makeStyles from '@mui/styles/makeStyles';
@@ -95,20 +91,26 @@ function Header() {
 
   const [navAnchorEl, setNavAnchorEl] = React.useState<null | HTMLElement>(null);
   const [profileAnchorEl, setProfileAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [aboutAnchorEl, setAboutAnchorEl] = React.useState<null | HTMLElement>(null);
+
   const isNavMenuOpen = Boolean(navAnchorEl);
   const isProfileMenuOpen = Boolean(profileAnchorEl);
+  const isAboutMenuOpen = Boolean(aboutAnchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (event?.currentTarget?.id === 'navigation-button') {
       setNavAnchorEl(event.currentTarget);
     } else if (event?.currentTarget?.id === 'profile-button') {
       setProfileAnchorEl(event.currentTarget);
+    } else if (event?.currentTarget.id === 'about-button') {
+      setAboutAnchorEl(event.currentTarget);
     }
   };
 
   const handleClose = () => {
     setNavAnchorEl(null);
     setProfileAnchorEl(null);
+    setAboutAnchorEl(null);
   };
 
   const handleLogout = (): void => {
@@ -129,9 +131,55 @@ function Header() {
           <NavLink to={routes.Home.path} className={classes.home}>
             <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}> About </AccordionSummary>
-            <AccordionDetails>
+          <Button
+            id="about-button"
+            aria-label="about dropdown"
+            aria-controls={isAboutMenuOpen ? 'about-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={isAboutMenuOpen ? 'true' : undefined}
+            onClick={handleClick}
+          >
+            About
+          </Button>
+          <Menu
+            id="about-menu"
+            anchorEl={aboutAnchorEl}
+            keepMounted
+            open={isAboutMenuOpen}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'about-button',
+            }}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                mt: 1,
+                '&:before': {
+                  content: '""',
+                  display: 'block',
+                  position: 'absolute',
+                  top: 0,
+                  right: 20,
+                  width: 10,
+                  height: 10,
+                  bgcolor: 'background.paper',
+                  transform: 'translateY(-50%) rotate(45deg)',
+                  zIndex: 0,
+                },
+              },
+            }}
+          >
+            <MenuItem>
               <NavLink
                 className={classes.navLink}
                 to={routes.AboutUs.path}
@@ -139,15 +187,17 @@ function Header() {
               >
                 About Us
               </NavLink>
-            </AccordionDetails>
-          </Accordion>
-          <NavLink
-            className={classes.navLink}
-            to={routes.HowItWorks.path}
-            activeStyle={{ fontWeight: 'bold' }}
-          >
-            How It Works
-          </NavLink>
+            </MenuItem>
+            <MenuItem>
+              <NavLink
+                className={classes.navLink}
+                to={routes.HowItWorks.path}
+                activeStyle={{ fontWeight: 'bold' }}
+              >
+                How It Works
+              </NavLink>
+            </MenuItem>
+          </Menu>
           <NavLink
             className={classes.navLink}
             to={routes.Help.path}
