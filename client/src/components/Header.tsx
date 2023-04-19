@@ -52,10 +52,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: 'none',
     color: 'black',
   },
+  aboutButton: {
+    color: '#323232!important',
+    textTransform: 'capitalize',
+  },
   signUp: {
     backgroundColor: '#EF6A60!important',
     color: 'white!important',
     borderRadius: '10px',
+    border: '1px solid #EF6A60!important',
     marginRight: '5px!important',
   },
   signIn: {
@@ -92,18 +97,31 @@ function Header() {
   const [navAnchorEl, setNavAnchorEl] = React.useState<null | HTMLElement>(null);
   const [profileAnchorEl, setProfileAnchorEl] = React.useState<null | HTMLElement>(null);
   const [aboutAnchorEl, setAboutAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [exchangeAnchorEl, setExchangeAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const isNavMenuOpen = Boolean(navAnchorEl);
   const isProfileMenuOpen = Boolean(profileAnchorEl);
   const isAboutMenuOpen = Boolean(aboutAnchorEl);
+  const isExchangeMenuOpen = Boolean(exchangeAnchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (event?.currentTarget?.id === 'navigation-button') {
-      setNavAnchorEl(event.currentTarget);
-    } else if (event?.currentTarget?.id === 'profile-button') {
-      setProfileAnchorEl(event.currentTarget);
-    } else if (event?.currentTarget.id === 'about-button') {
-      setAboutAnchorEl(event.currentTarget);
+    switch (event?.currentTarget?.id) {
+      case 'navigation-button': {
+        setNavAnchorEl(event.currentTarget);
+        break;
+      }
+      case 'profile-button': {
+        setProfileAnchorEl(event.currentTarget);
+        break;
+      }
+      case 'about-button': {
+        setAboutAnchorEl(event.currentTarget);
+        break;
+      }
+      case 'exchange-button': {
+        setExchangeAnchorEl(event.currentTarget);
+        break;
+      }
     }
   };
 
@@ -111,6 +129,7 @@ function Header() {
     setNavAnchorEl(null);
     setProfileAnchorEl(null);
     setAboutAnchorEl(null);
+    setExchangeAnchorEl(null);
   };
 
   const handleLogout = (): void => {
@@ -132,12 +151,72 @@ function Header() {
             <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
           <Button
+            id="exchange-button"
+            aria-label="exchange dropdown"
+            aria-controls={isExchangeMenuOpen ? 'about-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={isExchangeMenuOpen ? 'true' : undefined}
+            onClick={handleClick}
+            className="aboutButton"
+          >
+            Exchange
+          </Button>
+          <Menu
+            id="exchange-menu"
+            anchorEl={exchangeAnchorEl}
+            keepMounted
+            open={isExchangeMenuOpen}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'exchange-button',
+            }}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                mt: 1,
+                '&:before': {
+                  content: '""',
+                  display: 'block',
+                  position: 'absolute',
+                  top: 0,
+                  right: 20,
+                  width: 10,
+                  height: 10,
+                  bgcolor: 'background.paper',
+                  transform: 'translateY(-50%) rotate(45deg)',
+                  zIndex: 0,
+                },
+              },
+            }}
+          >
+            <MenuItem>
+              <NavLink
+                className={classes.navLink}
+                to={routes.Help.path}
+                activeStyle={{ fontWeight: 'bold' }}
+              >
+                FAQs
+              </NavLink>
+            </MenuItem>
+          </Menu>
+          <Button
             id="about-button"
             aria-label="about dropdown"
             aria-controls={isAboutMenuOpen ? 'about-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={isAboutMenuOpen ? 'true' : undefined}
             onClick={handleClick}
+            className="aboutButton"
           >
             About
           </Button>
@@ -198,13 +277,6 @@ function Header() {
               </NavLink>
             </MenuItem>
           </Menu>
-          <NavLink
-            className={classes.navLink}
-            to={routes.Help.path}
-            activeStyle={{ fontWeight: 'bold' }}
-          >
-            FAQs
-          </NavLink>
         </div>
         <div className={classes.userButtons}>
           {user ? (
@@ -371,11 +443,11 @@ function Header() {
           ) : (
             <>
               <NavLink className={classes.navLink} to={routes.Signup.path}>
-                <Button className={classes.signUp}>Sign Up</Button>
+                <Button className={classes.signUp}>Join Now</Button>
               </NavLink>
               <NavLink className={classes.navLink} to={routes.Login.path}>
                 <Button className={classes.signIn} variant="contained">
-                  Login
+                  Sign In
                 </Button>
               </NavLink>
             </>
