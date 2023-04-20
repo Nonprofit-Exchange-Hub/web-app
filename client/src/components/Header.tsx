@@ -19,6 +19,8 @@ import Widgets from '@mui/icons-material/WidgetsOutlined';
 import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
 import Logout from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -39,6 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexGrow: 0.75,
+    width: 'inherit',
+    marginRight: '5px',
   },
   userButtons: {
     borderRadius: theme.shape.borderRadius,
@@ -52,16 +56,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: 'none',
     color: 'black',
   },
-  aboutButton: {
+  infoButtons: {
     color: '#323232!important',
-    textTransform: 'capitalize',
   },
   signUp: {
     backgroundColor: '#EF6A60!important',
     color: 'white!important',
     borderRadius: '10px',
     border: '1px solid #EF6A60!important',
-    marginRight: '5px!important',
+    marginRight: '1rem!important',
+    width: '100px',
   },
   signIn: {
     backgroundColor: 'white!important',
@@ -69,6 +73,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: '10px',
     border: '1px solid #323232!important',
     marginLeft: '5px!important',
+    width: '100px',
   },
   appBar: {
     backgroundColor: theme.palette.background.default,
@@ -150,133 +155,146 @@ function Header() {
           <NavLink to={routes.Home.path} className={classes.home}>
             <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
-          <Button
-            id="exchange-button"
-            aria-label="exchange dropdown"
-            aria-controls={isExchangeMenuOpen ? 'about-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={isExchangeMenuOpen ? 'true' : undefined}
-            onClick={handleClick}
-            className="aboutButton"
-          >
-            Exchange
-          </Button>
-          <Menu
-            id="exchange-menu"
-            anchorEl={exchangeAnchorEl}
-            keepMounted
-            open={isExchangeMenuOpen}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'exchange-button',
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: 'visible',
-                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                mt: 1,
-                '&:before': {
-                  content: '""',
-                  display: 'block',
-                  position: 'absolute',
-                  top: 0,
-                  right: 20,
-                  width: 10,
-                  height: 10,
-                  bgcolor: 'background.paper',
-                  transform: 'translateY(-50%) rotate(45deg)',
-                  zIndex: 0,
+          <div>
+            <Button
+              id="exchange-button"
+              aria-label="exchange dropdown"
+              aria-controls={isExchangeMenuOpen ? 'about-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={isExchangeMenuOpen ? 'true' : undefined}
+              onClick={handleClick}
+              endIcon={isExchangeMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              sx={{
+                textTransform: 'capitalize',
+                color: '#323232',
+              }}
+            >
+              Exchange
+            </Button>
+            <Menu
+              id="exchange-menu"
+              anchorEl={exchangeAnchorEl}
+              keepMounted
+              open={isExchangeMenuOpen}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'exchange-button',
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1,
+                  marginLeft: '0.7em',
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 20,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                    marginLeft: '0.7em',
+                  },
                 },
-              },
-            }}
-          >
-            <MenuItem>
-              <NavLink
-                className={classes.navLink}
-                to={routes.Help.path}
-                activeStyle={{ fontWeight: 'bold' }}
-              >
-                FAQs
-              </NavLink>
-            </MenuItem>
-          </Menu>
-          <Button
-            id="about-button"
-            aria-label="about dropdown"
-            aria-controls={isAboutMenuOpen ? 'about-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={isAboutMenuOpen ? 'true' : undefined}
-            onClick={handleClick}
-            className="aboutButton"
-          >
-            About
-          </Button>
-          <Menu
-            id="about-menu"
-            anchorEl={aboutAnchorEl}
-            keepMounted
-            open={isAboutMenuOpen}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'about-button',
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: 'visible',
-                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                mt: 1,
-                '&:before': {
-                  content: '""',
-                  display: 'block',
-                  position: 'absolute',
-                  top: 0,
-                  right: 20,
-                  width: 10,
-                  height: 10,
-                  bgcolor: 'background.paper',
-                  transform: 'translateY(-50%) rotate(45deg)',
-                  zIndex: 0,
+              }}
+            >
+              <MenuItem>
+                <NavLink
+                  className={classes.navLink}
+                  to={routes.Help.path}
+                  activeStyle={{ fontWeight: 'bold' }}
+                >
+                  FAQs
+                </NavLink>
+              </MenuItem>
+            </Menu>
+            <Button
+              id="about-button"
+              aria-label="about dropdown"
+              aria-controls={isAboutMenuOpen ? 'about-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={isAboutMenuOpen ? 'true' : undefined}
+              onClick={handleClick}
+              endIcon={isAboutMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              sx={{
+                textTransform: 'capitalize',
+                color: '#323232',
+              }}
+            >
+              About
+            </Button>
+            <Menu
+              id="about-menu"
+              anchorEl={aboutAnchorEl}
+              keepMounted
+              open={isAboutMenuOpen}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'about-button',
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1,
+                  marginLeft: '0.7em',
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 20,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
                 },
-              },
-            }}
-          >
-            <MenuItem>
-              <NavLink
-                className={classes.navLink}
-                to={routes.AboutUs.path}
-                activeStyle={{ fontWeight: 'bold' }}
-              >
-                About Us
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink
-                className={classes.navLink}
-                to={routes.HowItWorks.path}
-                activeStyle={{ fontWeight: 'bold' }}
-              >
-                How It Works
-              </NavLink>
-            </MenuItem>
-          </Menu>
+              }}
+            >
+              <MenuItem>
+                <NavLink
+                  className={classes.navLink}
+                  to={routes.AboutUs.path}
+                  activeStyle={{ fontWeight: 'bold' }}
+                >
+                  About Us
+                </NavLink>
+              </MenuItem>
+              <MenuItem>
+                <NavLink
+                  className={classes.navLink}
+                  to={routes.HowItWorks.path}
+                  activeStyle={{ fontWeight: 'bold' }}
+                >
+                  How It Works
+                </NavLink>
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
         <div className={classes.userButtons}>
           {user ? (
