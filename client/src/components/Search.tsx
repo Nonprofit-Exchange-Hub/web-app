@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: 'none',
     margin: '50px auto',
     width: '70%',
+    height: '100px',
     position: 'absolute',
     top: '3rem',
     bottom: 0,

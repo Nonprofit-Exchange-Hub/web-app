@@ -1,5 +1,5 @@
 import makeStyles from '@mui/styles/makeStyles';
-import { Typography, Button } from '@mui/material';
+import { Typography } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import { useHistory } from 'react-router-dom';
 
@@ -9,21 +9,29 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: '#C7244B',
     borderRadius: '10px',
     fontFamily: 'Poppins',
-    fontSize: '22px',
     fontWeight: 'semi-bold',
     border: 'none',
-    padding: '0.8rem 2rem 0.8rem 2rem',
-    cursor: 'pointer',
   },
 }));
 
-function CTA() {
+type Props = {
+  text: string;
+};
+
+function CTA({ text }: Props) {
   const classes = useStyles();
   const history = useHistory();
 
   return (
     <button onClick={() => history.push('/signup')} className={classes.CTA}>
-        Join Now
+      <Typography
+        sx={{
+          fontSize: '22px',
+          padding: '18px 32px 18px 32px',
+        }}
+      >
+        {text}
+      </Typography>
     </button>
   );
 }

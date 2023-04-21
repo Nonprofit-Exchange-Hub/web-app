@@ -1,8 +1,8 @@
-import { Grid, Typography, Box, Button } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import type { Theme } from '@mui/material/styles';
 import MainImage from '../assets/MainImage.svg';
-import CTA from './Buttons/CTA'
+import CTA from './Buttons/CTA';
 
 const useStyles = makeStyles((theme: Theme) => ({
   gridTitle: {
@@ -34,11 +34,11 @@ function BannerText() {
         Nonprofits
       </Typography>
       <Typography sx={{ fontSize: '1.5rem', margin: '30px 0 55px 0' }}>
-        Be part of our community of volunteers, nonprofits, and individuals through the
-        Givingful exchange platform.
+        Be part of our community of volunteers, nonprofits, and individuals through the Givingful
+        exchange platform.
       </Typography>
     </>
-  )
+  );
 }
 
 function BannerSection() {
@@ -49,8 +49,8 @@ function BannerSection() {
       <Grid container spacing={3} sx={{ height: '600px' }}>
         <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
           <Box sx={{ width: '550px', mt: '180px', mb: '66px', ml: '40px' }}>
-            <BannerText/>
-            <CTA />
+            <BannerText />
+            <CTA text="Join Now" />
           </Box>
         </Grid>
         <Grid
