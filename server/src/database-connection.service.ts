@@ -1,6 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
-
+import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import { User } from './acccount-manager/entities/user.entity';
+import { PocChat } from './poc-chat/entities/poc-chat.entity';
+import { Asset } from './assets/entities/asset.entity';
+import { Category } from './categories/entities/category.entity';
+import { Organization } from './organizations/entities/organization.entity';
+import { UserOrganization } from './user-org/entities/user-org.entity';
+import { Transaction } from './transactions/entities/transaction.entity';
+import { Message } from './messages/entities/message.entity';
+import { migrations1680314012852 } from './migrations/1680314012852-migrations';
+dotenv.config();
 @Injectable()
 export class DatabaseConnectionService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
@@ -12,10 +22,21 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DB,
-      synchronize: true, //shouldn't be used in production
+      synchronize: false, //shouldn't be used in production
       dropSchema: false, //toggle to true to clear database schema
       logging: true,
       autoLoadEntities: true,
+      entities: [
+        User,
+        Category,
+        Organization,
+        UserOrganization,
+        Transaction,
+        Asset,
+        PocChat,
+        Message,
+      ],
+      migrations: [migrations1680314012852],
       ssl:
         process.env.MODE === 'production' // only require ssl when in production/
           ? {

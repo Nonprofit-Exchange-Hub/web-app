@@ -22,7 +22,13 @@
         "test:e2e": "jest --config ./test/jest-e2e.json --runInBand",
         "checks": "npm run && npm run test && npm run lint",
         "prepare": "cd .. && husky install && cd server",
-        "seed:drop": "ts-node -r tsconfig-paths/register src/database/seeding/seed.ts"
+        "typeorm": "ts-node ./node_modules/typeorm/cli",
+        "typeorm:migration-run": "npm run typeorm migration:run -- -d ./src/datasource.ts",
+        "typeorm:migration-generate": "npm run typeorm -- -d ./src/datasource.ts migration:generate ./src/migrations/migration",
+        "typeorm:migration-create": "npm run typeorm -- migration:create ./src/migrations/migration",
+        "typeorm:migration-revert": "npm run typeorm -- -d ./src/datasource.ts migration:revert",
+        "typeorm:schema-drop": "npm run typeorm -- -d ./src/datasource.ts schema:drop",
+        "db:seed": "ts-node -r tsconfig-paths/register src/database/seeding/seed.ts"
     },
     "dependencies": {
         "@azure/storage-blob": "^12.12.0",
