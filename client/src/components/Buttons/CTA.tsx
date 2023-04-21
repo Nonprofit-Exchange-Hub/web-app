@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 type Props = {
   text: string;
 };
-
+//more props - styleOverrides
 function CTA({ text }: Props) {
   const classes = useStyles();
   const history = useHistory();
