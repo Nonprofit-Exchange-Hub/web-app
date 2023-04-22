@@ -4,7 +4,7 @@ FILE="$(dirname "$0")/_/husky.sh"
 DIFF=$(git diff --numstat $1 -- server/package.json)
 DIFF2=$(git diff --numstat $1 -- client/package.json)
 
-# Check if the variable gis empty
+# Check if the diff is empty
 if [ -z "$DIFF" ]; then
   echo 'Server Package.json unchanged'
 else
