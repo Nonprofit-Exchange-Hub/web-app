@@ -41,14 +41,22 @@ interface Props {
   error?: string | null;
   showStartAdornment?: boolean;
   showForgot?: boolean;
+  label?: string | null;
+  id?: string | null;
+  name?: string | null;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 function PasswordInput({
   onChange,
+  onBlur,
   value,
   error,
   showStartAdornment = false,
   showForgot = false,
+  label = null,
+  id = null,
+  name = null,
 }: Props) {
   const classes = useStyles();
 
@@ -61,9 +69,9 @@ function PasswordInput({
 
   return (
     <FormControl fullWidth error={Boolean(error)}>
-      <label className={classes.label} htmlFor="password">
+      <label className={classes.label} htmlFor={id || 'password'}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          Password
+          {label || 'Password'}
           {/* to prop to be updated to use routes once page is set up */}
           {showForgot && <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>}
         </div>
@@ -71,11 +79,12 @@ function PasswordInput({
       {error && <FormHelperText error>{error}</FormHelperText>}
       <Input
         className={classes.input}
-        id="password"
-        name="password"
+        id={id || 'password'}
+        name={name || 'password'}
         type={showPassword ? 'text' : 'password'}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         autoComplete={showForgot ? 'current-password' : 'new-password'}
         disableUnderline
         error={Boolean(error)}

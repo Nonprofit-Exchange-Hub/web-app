@@ -10,6 +10,10 @@ const typography = {
     fontSize: '2.8rem',
     fontWeight: 'bold',
   },
+  h2: {
+    fontSize: '3.625rem',
+    fontWeight: 400,
+  },
   h3: {
     fontSize: '2.2rem',
     fontWeight: 'bold',

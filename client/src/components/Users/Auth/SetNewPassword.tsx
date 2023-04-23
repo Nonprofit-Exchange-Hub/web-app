@@ -10,6 +10,8 @@ import PasswordInput from './PasswordInput';
 import { UserContext } from '../../../providers';
 import { APP_API_BASE_URL } from '../../../configs';
 
+import SetNewPasswordImg from '../../../assets/set-new-password.svg';
+
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
   const yPadding = 6;
@@ -28,30 +30,107 @@ const useStyles = makeStyles((theme: Theme) => {
       paddingRight: theme.spacing(xPadding),
       margin: 'auto',
     },
-    header: { fontWeight: 'bold', marginBottom: 68 },
+    form: {
+      width: '100%',
+      paddingTop: 74,
+    },
+    ctaContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      gap: 10,
+      paddingTop: 50,
+    },
+    ctaBtn: {
+      borderRadius: 8,
+      color: 'white',
+      height: 40,
+      padding: '8px 20px',
+    },
     button: {
       borderRadius: 0,
       height: 62,
       textTransform: 'none',
     },
+    container: {
+      display: 'flex',
+      flexDirection: 'row',
+      paddingTop: 134,
+      paddingBottom: 160,
+    },
+    imgContainer: {
+      maxWidth: 446,
+      flexShrink: 300,
+    },
+    setNewPasswordImg: {
+      width: '100%',
+    },
   };
 });
+
+const PASSWORD_MIN_LENGTH = 6;
+
+const ERRORS = {
+  PASSWORD_MIN_LENGTH: `Password needs to be at least ${PASSWORD_MIN_LENGTH} characters.`,
+  PASSWORD_MISMATCH: 'Password does not match.',
+};
 
 function SetNewPassword() {
   const RESOURCE_URL = `${APP_API_BASE_URL}/auth/users`;
   const classes = useStyles();
 
   const [password, setPassword] = React.useState<string>('');
+  const [confirmPassword, setConfirmPassword] = React.useState<string>('');
+
   const [error, setError] = React.useState<string | null>(null);
+  const [confirmPasswordError, setConfirmPasswordError] = React.useState<string | null>(null);
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     setPassword(evt.target.value);
+  };
+
+  const handleBlurPassword = (): void => {
+    if (password.length < PASSWORD_MIN_LENGTH) {
+      setError(ERRORS.PASSWORD_MIN_LENGTH);
+    } else {
+      setError(null);
+    }
+  };
+
+  const handleChangeConfirmPassword = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    setConfirmPassword(evt.target.value);
+  };
+
+  const handleBlurConfirmPassword = (): void => {
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(ERRORS.PASSWORD_MISMATCH);
+    } else {
+      setConfirmPasswordError(null);
+    }
+  };
+
+  const handleClickReset = (): void => {
+    setPassword('');
+    setError(null);
+    setConfirmPassword('');
+    setConfirmPasswordError(null);
   };
 
   const { user } = React.useContext(UserContext);
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(ERRORS.PASSWORD_MISMATCH);
+      return;
+    }
+
+    if (password.length < PASSWORD_MIN_LENGTH) {
+      setError(ERRORS.PASSWORD_MIN_LENGTH);
+      return;
+    }
+
     // ternary in url temporary. User should be logged in(?) id should be available once BE is built
     fetch(`${RESOURCE_URL}/${user ? user.id : null}`, {
       method: 'PATCH',
@@ -70,21 +149,54 @@ function SetNewPassword() {
   };
 
   return (
-    <div>
-      <Paper elevation={3} className={classes.paper}>
-        <Typography className={classes.header} variant="h3" component="h1" align="center">
-          I Forget My Passwords Too
+    <div className={classes.container}>
+      <div className={classes.imgContainer}>
+        <img src={SetNewPasswordImg} alt="FAQs Image" className={classes.setNewPasswordImg} />
+      </div>
+      <Paper elevation={0} className={classes.paper}>
+        <Typography variant="h2" align="center">
+          Create New Password
         </Typography>
-        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-          <PasswordInput value={password} onChange={handleChange} error={error ? error : null} />
-          <Button
-            className={classes.button}
-            style={{ backgroundColor: '#C4C4C4', color: 'white' }}
-            fullWidth
-            type="submit"
-          >
-            Reset Password
-          </Button>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <PasswordInput
+            error={error ? error : null}
+            onBlur={handleBlurPassword}
+            onChange={handleChange}
+            label="New Password"
+            showStartAdornment
+            value={password}
+          />
+          <PasswordInput
+            error={confirmPasswordError ? confirmPasswordError : null}
+            onChange={handleChangeConfirmPassword}
+            onBlur={handleBlurConfirmPassword}
+            label="Confirm New Password"
+            value={confirmPassword}
+            name="confirmPassword"
+            id="confirmPassword"
+            showStartAdornment
+          />
+          <div className={classes.ctaContainer}>
+            <Button
+              onClick={handleClickReset}
+              className={classes.ctaBtn}
+              variant="outlined"
+              color="inherit"
+              disableElevation
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={Boolean(error || confirmPasswordError)}
+              className={classes.ctaBtn}
+              variant="contained"
+              color="primary"
+              type="submit"
+              disableElevation
+            >
+              Save Changes
+            </Button>
+          </div>
         </form>
       </Paper>
     </div>
