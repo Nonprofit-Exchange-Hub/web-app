@@ -6,13 +6,13 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme: Theme) => ({
   CTAButton: {
     color: 'white',
-    backgroundColor: '#C7244B',
+    backgroundColor: '#EF6A60',
     borderRadius: '10px',
     fontFamily: 'Poppins',
     fontWeight: 'semi-bold',
     border: 'none',
     '&:hover': {
-      backgroundColor: '#C7244B',
+      backgroundColor: '#EF6A60',
       cursor: 'pointer',
     },
   },
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 type Props = {
   text: string;
 };
-//more props - styleOverrides
+
 function CTAButton({ text }: Props) {
   const classes = useStyles();
   const history = useHistory();
@@ -31,11 +31,7 @@ function CTAButton({ text }: Props) {
       <Typography
         sx={{
           fontSize: '22px',
-          padding: '18px 32px 18px 32px',
-          '&:hover': {
-            backgroundColor: '#C7244B',
-            cursor: 'pointer',
-          },
+          padding: '15px 25px 15px 25px',
         }}
       >
         {text}
