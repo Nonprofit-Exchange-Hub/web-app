@@ -93,10 +93,12 @@ $ pg_ctl -D /usr/local/var/postgres stop
 ## Startup
 
 1. Run `nvm use` to ensure you are using the proper node version
+2. If the database is being run for the first time:
+    1. from the server directory, `npm run typeorm:migration-run` to add the schema to the database
+    2. Next, `npm run db:seed` to create some dev data
 2. If using postgres-dockerized workflow, from `/server` directory, run `npm run start:dev:db`
     * Terminal should show a successful start of the docker container, but this can be confirmed by running `docker-compose ps` in terminal to view the docker-compose container name from `docker-compose.yml` file.
 3. To start Nest backend in watch mode: From `/server` directory, run `npm run start:dev`
-4. in another terminal, still inside `/server`: `npm run seed:drop` to create some dev data
 5. To start up React frontend: From `/client` directory, run `npm start`. A browser page should start up automatically. If not, visit `localhost:3000`.
 
 ## Test
@@ -119,6 +121,38 @@ From the `/client` directory.
 # unit tests
 $ npm run test
 ```
+
+## Migrations 
+   TypeOrm manages migrations using a migrations table.
+   
+   ### Bringing you database up to data
+   You must do the following to bring your migrations table up to date:
+
+    `npm run typeorm:schema-drop` to clear the current database
+    `npm run typeorm:migration-run` to make the database and migration table reflect the existing migrations
+
+    **Whenever you pull main**,
+        If there are changes to the migrations folder, navigate to /server and run  `npm run typeorm:migrate` to bring your database up date.
+  ### Making database changes
+- make sure your database is in sync with main:
+    - on the main branch, make sure your database is up to date, run all pending migrations, then run `npm run typeorom:migration-generate`. It should fail, as you have not made any changes to main. If migrations are generated when no changes have been made to main, it means that either a) main is missing a migration. (In this case, reach out on slack) or b) you ran migrations on a feature branch and forgot to revert them.
+
+- checkout the feature branch, run `npm run typeorm:migration-generate` to generate a new migration with your database changes
+- add the migration file into the DatabaseConnectionService server/src/database-connection.service.ts
+- `npm run typeorm:migration-run` to update your database with the changes
+
+Before moving back to main you must revert the migrations you just made, running `npm run typeorm:migration-revert`. If you made multiple migrations, you must migrate multiple times
+
+### Merging a pull request with database changes
+    If any of the database changes in the migration on the pull request conflict with or duplicate other changes made recently, or you just want to be safe, delete the migration in the pull request and re-generate the migration file as described in "making database changes"
+
+
+### Migration package scripts
+"typeorm:migration-run" - runs pending migrations
+        "typeorm:migration-generate": generates a migration bringing the current database up to date with your entities
+        "typeorm:migration-create": creates an empty migration file
+        "typeorm:migration-revert": reverts the last migration you ran
+        "typeorm:schema-drop": deletes all tables in the database
 
 ## Postgres & Docker
 ### Running Postgres Test Database from the Docker CLI
