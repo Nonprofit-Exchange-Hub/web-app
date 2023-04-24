@@ -2,7 +2,7 @@ import { Grid, Typography, Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import type { Theme } from '@mui/material/styles';
 import MainImage from '../assets/MainImage.svg';
-import CTA from './Buttons/CTA';
+import CTAButton from './Buttons/CTAButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
   gridTitle: {
@@ -50,7 +50,7 @@ function BannerSection() {
         <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
           <Box sx={{ width: '550px', mt: '180px', mb: '66px', ml: '40px' }}>
             <BannerText />
-            <CTA text="Join Now" />
+            <CTAButton text="Join Now" />
           </Box>
         </Grid>
         <Grid
