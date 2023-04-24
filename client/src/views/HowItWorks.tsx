@@ -164,15 +164,22 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
     <Box sx={{
       display: 'flex',
       justifyContent: 'center',
-      gap: '30px',
+      gap: '0px',
     }}>
       {props.instructionList.map((instructionItem, i) => {
           return (
-            <Box sx={{textAlign: 'center', marginX: '10px' }}>
-              <img src={howItWorksImages[i]} alt="How It Works" width="100%"/>
+            <Box sx={{
+              textAlign: 'center', 
+              marginX: '10px',
+              border: "0px solid black",
+              flex: '1' 
+            }}>
+              <Box sx={{ height: '200px', display: 'flex', alignItems: 'bottom', }}>
+                <img src={howItWorksImages[i]} alt="How It Works" width="100%"/>
+              </Box>
 
               <Typography sx={{    
-                minHeight: '90px',              
+                minHeight: '100px',              
                 fontSize: '1.8rem',
                 fontWeight: 600,
                 mt: '20px',
@@ -180,10 +187,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
               }}>
                 {instructionItem.title}
               </Typography>
-              <Typography sx={{
-                fontSize: '1.2rem',
-                mb: '20px'
-              }}>
+              <Typography variant='body1'>
                 {instructionItem.body}
               </Typography>
             </Box>

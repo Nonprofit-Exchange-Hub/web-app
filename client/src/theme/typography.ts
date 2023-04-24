@@ -14,6 +14,10 @@ const typography = {
     fontSize: '2.2rem',
     fontWeight: 'bold',
   },
+  h4: {
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+  },
   marginBottom: 0,
 };
 
