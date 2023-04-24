@@ -4,7 +4,10 @@ import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import { Box, Grid } from '@mui/material';
 import type { Theme } from '@mui/material/styles'; 
-import HowItworksImage from '../assets/HowItWorksIllustration.svg';
+import HowItworks1 from '../assets/HowItWorks/HowItWorks1.svg';
+import HowItworks2 from '../assets/HowItWorks/HowItWorks2.svg';
+import HowItworks3 from '../assets/HowItWorks/HowItWorks3.svg';
+import HowItworks4 from '../assets/HowItWorks/HowItWorks4.svg';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
@@ -143,7 +146,6 @@ function HowItWorks() {
       }}>
         How it Works
       </Typography>
-      <img src={HowItworksImage} alt="How It Works" width="100%"/>
       <HowItWorksCards instructionList={ tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList } />
     </Box>
   );
@@ -156,15 +158,19 @@ type HowItWorksCardsProps = {
 };
 
 function HowItWorksCards(props: HowItWorksCardsProps) {
+  const howItWorksImages = [HowItworks1, HowItworks2, HowItworks3, HowItworks4];
+  
   return (
     <Box sx={{
       display: 'flex',
       justifyContent: 'center',
       gap: '30px',
     }}>
-      {props.instructionList.map((instructionItem) => {
+      {props.instructionList.map((instructionItem, i) => {
           return (
             <Box sx={{textAlign: 'center', marginX: '10px' }}>
+              <img src={howItWorksImages[i]} alt="How It Works" width="100%"/>
+
               <Typography sx={{    
                 minHeight: '90px',              
                 fontSize: '1.8rem',
