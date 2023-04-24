@@ -13,6 +13,9 @@ const typography = {
   h2: {
     fontSize: '3.625rem',
     fontWeight: 400,
+    '@media (max-width:600px)': {
+      fontSize: '2.5rem',
+    },
   },
   h3: {
     fontSize: '2.2rem',

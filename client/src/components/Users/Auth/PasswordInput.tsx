@@ -44,7 +44,7 @@ interface Props {
   label?: string | null;
   id?: string | null;
   name?: string | null;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement> | null;
 }
 
 function PasswordInput({
@@ -67,6 +67,14 @@ function PasswordInput({
     setShowPassword(!showPassword);
   };
 
+  let additionalProps = {};
+
+  if (onBlur) {
+    additionalProps = {
+      onBlur,
+    };
+  }
+
   return (
     <FormControl fullWidth error={Boolean(error)}>
       <label className={classes.label} htmlFor={id || 'password'}>
@@ -84,7 +92,6 @@ function PasswordInput({
         type={showPassword ? 'text' : 'password'}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
         autoComplete={showForgot ? 'current-password' : 'new-password'}
         disableUnderline
         error={Boolean(error)}
@@ -108,6 +115,7 @@ function PasswordInput({
             </IconButton>
           </InputAdornment>
         }
+        {...additionalProps}
       />
     </FormControl>
   );

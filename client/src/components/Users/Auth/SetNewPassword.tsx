@@ -59,8 +59,12 @@ const useStyles = makeStyles((theme: Theme) => {
       paddingBottom: 160,
     },
     imgContainer: {
+      display: 'block',
       maxWidth: 446,
-      flexShrink: 300,
+      minWidth: 200,
+      '@media (max-width:1050px)': {
+        display: 'none',
+      },
     },
     setNewPasswordImg: {
       width: '100%',
@@ -68,11 +72,11 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-const PASSWORD_MIN_LENGTH = 6;
+const PASSWORD_MIN_LENGTH = 8;
 
 const ERRORS = {
   PASSWORD_MIN_LENGTH: `Password needs to be at least ${PASSWORD_MIN_LENGTH} characters.`,
-  PASSWORD_MISMATCH: 'Password does not match.',
+  PASSWORD_MISMATCH: 'Passwords do not match.',
 };
 
 function SetNewPassword() {
@@ -135,7 +139,7 @@ function SetNewPassword() {
     fetch(`${RESOURCE_URL}/${user ? user.id : null}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: password }),
+      body: JSON.stringify({ password }),
       credentials: 'include',
     }).then((resp) => {
       if (resp.ok) {
