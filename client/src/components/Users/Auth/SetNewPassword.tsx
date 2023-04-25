@@ -13,21 +13,24 @@ import { APP_API_BASE_URL } from '../../../configs';
 import SetNewPasswordImg from '../../../assets/set-new-password.svg';
 
 const useStyles = makeStyles((theme: Theme) => {
-  const xPadding = 12;
+  // const xPadding = 12;
   const yPadding = 6;
   const yMargin = 8;
 
   return {
     paper: {
-      maxWidth: 821 - theme.spacing(xPadding),
+      width: '60%',
+      // maxWidth: 821 - theme.spacing(xPadding),
       maxHeight: 732 - theme.spacing(yPadding),
       borderRadius: 10,
       marginTop: theme.spacing(yMargin),
       marginBottom: theme.spacing(yMargin),
-      paddingTop: theme.spacing(yPadding),
+      // paddingTop: theme.spacing(yPadding),
       paddingBottom: theme.spacing(yPadding),
-      paddingLeft: theme.spacing(xPadding),
-      paddingRight: theme.spacing(xPadding),
+      paddingLeft: 84,
+      paddingRight: 130,
+      // paddingLeft: theme.spacing(xPadding),
+      // paddingRight: theme.spacing(xPadding),
       margin: 'auto',
     },
     form: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      gap: 10,
+      gap: 28,
       paddingTop: 50,
     },
     ctaBtn: {
