@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Button } from '@mui/material';
 import type { Theme } from '@mui/material/styles'; 
 import HowItworks1 from '../assets/HowItWorks/HowItWorks1.svg';
 import HowItworks2 from '../assets/HowItWorks/HowItWorks2.svg';
@@ -17,21 +17,25 @@ const nonprofitInstructionList = [
     title: 'Sign up with Givingful',
     body: 'Create a profile to let our community know about your nonprofit.',
     image: 'https://picsum.photos/seed/nonprofit/600',
+    buttonText: 'View More',
   },
   {
     title: 'Share your nonprofit’s needs',
     body: 'Post a description of items and skills that can help your organization.',
     image: 'https://picsum.photos/seed/nonprofit/600',
+    buttonText: 'Post a Need',
   },
   {
     title: 'Claim an offer',
     body: 'Coordinate to receive goods offered by those in the community.',
     image: 'https://picsum.photos/seed/nonprofit/600',
+    buttonText: 'See Offers',
   },
   {
     title: 'Succeed in your goals',
     body: 'See your nonprofit thrive with your community’s help.',
     image: 'https://picsum.photos/seed/nonprofit/600',
+    buttonText: 'Read Testimonials',
   },
 ]; 
 
@@ -40,21 +44,25 @@ const citizenInstructionList = [
     title: 'Sign up with Givingful',
     body: 'Create a profile to let our community know about your nonprofit.',
     image: 'https://picsum.photos/seed/nonprofit/600',
+    buttonText: 'View More',
   },
   {
     title: 'Post your donation',
     body: loremIpsum,
     image: 'https://picsum.photos/seed/picsum/600',
+    buttonText: 'View More',
   },
   {
     title: 'Connect with nonprofits',
     body: loremIpsum,
     image: 'https://picsum.photos/seed/picsum/600',
+    buttonText: 'View More',
   },
   {
     title: 'Make a difference',
     body: loremIpsum,
     image: 'https://picsum.photos/seed/picsum/600',
+    buttonText: 'View More',
   },
 ];
 
@@ -154,7 +162,7 @@ function HowItWorks() {
 export default HowItWorks;
 
 type HowItWorksCardsProps = {
-  instructionList: { title: string; body: string; image: string }[];
+  instructionList: { title: string; body: string; image: string, buttonText: string }[];
 };
 
 function HowItWorksCards(props: HowItWorksCardsProps) {
@@ -177,7 +185,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
               <Box sx={{ height: '200px', display: 'flex', alignItems: 'bottom', }}>
                 <img src={howItWorksImages[i]} alt="How It Works" width="100%"/>
               </Box>
-              <Box sx={{marginX: '10px',}}>
+              <Box sx={{marginX: '10px', minHeight: '230px'}}>
                 <Typography sx={{    
                   minHeight: '100px',              
                   fontSize: '1.8rem',
@@ -191,6 +199,18 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                   {instructionItem.body}
                 </Typography>
               </Box>
+              {/* reminder - make standard button template */}
+              <Button
+              sx={{
+                padding: '0.4rem 1rem 0.4rem 1rem',
+                border: '1px solid #323232',
+                borderRadius: '8px',
+                color: '#323232',
+                fontWeight: '900',
+                fontSize: '1rem',
+              }}>
+                {instructionItem.buttonText}
+              </Button>
             </Box>
           );
         })
