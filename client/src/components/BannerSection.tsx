@@ -1,7 +1,7 @@
 import { Grid, Typography, Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import type { Theme } from '@mui/material/styles';
-import MainImage from '../assets/MainImage.svg';
+import MainImage from '../assets/banner-section-main.svg';
 import CTAButton from './Buttons/CTAButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
