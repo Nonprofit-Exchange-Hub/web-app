@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme: Theme) => {
       fontWeight: 'bold',
       textAlign: 'left',
     },
+    sublabel: {
+      color: '#6E6E6E',
+      fontSize: 14,
+      fontWeight: 300,
+      marginLeft: 5,
+    },
   };
 });
 
@@ -45,6 +51,7 @@ interface Props {
   id?: string | null;
   name?: string | null;
   onBlur?: React.FocusEventHandler<HTMLInputElement> | null;
+  sublabel?: string | null;
 }
 
 function PasswordInput({
@@ -57,6 +64,7 @@ function PasswordInput({
   label = null,
   id = null,
   name = null,
+  sublabel = null,
 }: Props) {
   const classes = useStyles();
 
@@ -79,7 +87,10 @@ function PasswordInput({
     <FormControl fullWidth error={Boolean(error)}>
       <label className={classes.label} htmlFor={id || 'password'}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          {label || 'Password'}
+          <div>
+            {label || 'Password'}
+            {sublabel && <span className={classes.sublabel}>{sublabel}</span>}
+          </div>
           {/* to prop to be updated to use routes once page is set up */}
           {showForgot && <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>}
         </div>

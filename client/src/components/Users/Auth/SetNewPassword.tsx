@@ -77,6 +77,7 @@ const ERRORS = {
 function SetNewPassword() {
   const RESOURCE_URL = `${APP_API_BASE_URL}/auth/users`;
   const classes = useStyles();
+  const sublabel = `(${PASSWORD_MIN_LENGTH} or more characters)`;
 
   const [password, setPassword] = React.useState<string>('');
   const [confirmPassword, setConfirmPassword] = React.useState<string>('');
@@ -158,10 +159,11 @@ function SetNewPassword() {
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <PasswordInput
-            error={error ? error : null}
             onBlur={handleBlurPassword}
+            error={error ? error : null}
             onChange={handleChange}
             label="New Password"
+            sublabel={sublabel}
             showStartAdornment
             value={password}
           />
