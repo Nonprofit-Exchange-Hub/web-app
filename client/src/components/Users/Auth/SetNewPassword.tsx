@@ -47,11 +47,6 @@ const useStyles = makeStyles((theme: Theme) => {
       height: 40,
       padding: '8px 20px',
     },
-    button: {
-      borderRadius: 0,
-      height: 62,
-      textTransform: 'none',
-    },
     container: {
       display: 'flex',
       flexDirection: 'row',
