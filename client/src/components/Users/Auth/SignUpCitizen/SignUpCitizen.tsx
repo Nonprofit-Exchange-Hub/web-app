@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-// import Input from '@mui/material/Input';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,6 +15,7 @@ import {
   OutlinedInput,
   Select,
   MenuItem,
+  FormLabel,
 } from '@mui/material';
 
 import FacebookAuthBtn from '../FacebookAuthBtn';
@@ -54,18 +54,16 @@ const steps = [
 ];
 
 const SignupCitizen = () => {
-  // const classes = useStyles();
   const { sideImg, signUpContainer, button, header, label, chip } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [, setEmailError] = React.useState<string>('');
   const [formData] = React.useState(initialFormData);
   const { user, setUser } = React.useContext(UserContext);
+
   const {
     control,
-    // getValues,
-    // handleSubmit,
-    formState: { errors, dirtyFields, isValid },
+    formState: { errors, dirtyFields },
   } = useForm<UserSignupData>({
     defaultValues: initialFormData,
     mode: 'onChange',
@@ -114,18 +112,8 @@ const SignupCitizen = () => {
     });
   };
 
-  // const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-  //   const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
-  //   setFormData((fData) => ({
-  //     ...fData,
-  //     [name]: name === 'accept_terms' ? checked : value,
-  //     [name]: name === 'email_notification_opt_out' ? checked : value,
-  //   }));
-  // };
-
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    console.log('hit submit!!');
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
@@ -148,8 +136,8 @@ const SignupCitizen = () => {
 
   return (
     <div className="SignupCitizen">
-      <p>dirtyFields: {JSON.stringify(dirtyFields)}</p>
-      <p>isValid: {isValid.toString()}</p>
+      {/* <p>dirtyFields: {JSON.stringify(dirtyFields)}</p>
+      <p>isValid: {isValid.toString()}</p> */}
       <Grid container>
         <Grid item xs={12} sx={{ height: '60px' }} />
         <Grid className={sideImg} item xs={3} />
@@ -172,8 +160,7 @@ const SignupCitizen = () => {
               ))}
             </Stepper>
           </Grid>
-          {/*
-          <form onSubmit={handleSubmit}> */}
+
           <form onSubmit={handleSubmit}>
             {/* PAGE ONE ###########################################################*/}
             {activeStep === 0 && (
@@ -193,7 +180,7 @@ const SignupCitizen = () => {
                   <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
                 </Grid>
                 <TextDivider>or</TextDivider>
-                <Grid container item xs={12} spacing={5}>
+                <Grid container item xs={12} spacing={3}>
                   <Grid item xs={5}>
                     <Controller
                       name="firstName"
@@ -228,40 +215,41 @@ const SignupCitizen = () => {
                       )}
                     />
                   </Grid>
+                  <Grid item xs={5}>
+                    <Controller
+                      name="email"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Email"
+                          placeholder="Email"
+                          error={!!errors.email}
+                          helperText={errors.email ? errors.email.message : ''}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={7}>
+                    <Controller
+                      name="password"
+                      control={control}
+                      defaultValue={''}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Password"
+                          placeholder="Password"
+                          type="password"
+                          error={!!errors.password}
+                          helperText={errors.password ? errors.password.message : ''}
+                        />
+                      )}
+                    />
+                  </Grid>
                 </Grid>
                 <Grid container />
-
-                <Controller
-                  name="email"
-                  control={control}
-                  defaultValue={''}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Email"
-                      placeholder="Email"
-                      error={!!errors.email}
-                      helperText={errors.email ? errors.email.message : ''}
-                    />
-                  )}
-                />
-
-                <Controller
-                  name="password"
-                  control={control}
-                  defaultValue={''}
-                  // showStartAdornment={true}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Password"
-                      placeholder="Password"
-                      type="password"
-                      error={!!errors.password}
-                      helperText={errors.password ? errors.password.message : ''}
-                    />
-                  )}
-                />
                 <Grid item xs={12}>
                   <Controller
                     name="accept_terms"
@@ -344,7 +332,6 @@ const SignupCitizen = () => {
                     <label className={label}>Where are you located?</label>
                   </Grid>
                   <Grid item xs={6}>
-                    {/* <Input className={input} placeholder="city" fullWidth disableUnderline></Input> */}
                     <Controller
                       name="city"
                       control={control}
@@ -364,24 +351,28 @@ const SignupCitizen = () => {
                     <Controller
                       name="state"
                       control={control}
-                      defaultValue={''}
                       render={({ field }) => (
-                        <Select
-                          {...field}
-                          placeholder="state"
-                          variant="outlined"
-                          autoWidth
-                          input={<OutlinedInput />}
-                          inputProps={{ 'aria-label': 'Without label' }}
-                          displayEmpty
-                        >
-                          {makeStateSelectOptions()}
-                        </Select>
+                        <>
+                          <FormLabel>State</FormLabel>
+                          <Select
+                            {...field}
+                            placeholder="Select state"
+                            variant="outlined"
+                            autoWidth
+                            input={<OutlinedInput />}
+                            inputProps={{ 'aria-label': 'Without label' }}
+                            displayEmpty
+                          >
+                            <MenuItem disabled value="">
+                              <em>Select state</em>
+                            </MenuItem>
+                            {makeStateSelectOptions()}
+                          </Select>
+                        </>
                       )}
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    {/* <Input className={input} placeholder="zip" fullWidth disableUnderline></Input> */}
                     <Controller
                       name="zip"
                       control={control}
@@ -471,7 +462,6 @@ const SignupCitizen = () => {
                   About Yourself
                 </Typography>
                 <Grid item xs={10}>
-                  {/* <TextField multiline rows={4} fullWidth placeholder="Tell us about yourself..." /> */}
                   <Controller
                     name="aboutyourself"
                     control={control}
@@ -480,7 +470,7 @@ const SignupCitizen = () => {
                       <TextField
                         {...field}
                         label="Tell us about yourself"
-                        placeholder="Tell us about yourself"
+                        placeholder="Tell us about yourself..."
                         error={!!errors.aboutyourself}
                         helperText={errors.aboutyourself ? errors.aboutyourself.message : ''}
                         multiline
