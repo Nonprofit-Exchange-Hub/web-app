@@ -75,13 +75,15 @@ function PasswordInput({
     setShowPassword(!showPassword);
   };
 
-  let additionalProps = {};
+  const getAdditionalProps = () => {
+    let additionalProps: { [key: string]: any } = {};
 
-  if (onBlur) {
-    additionalProps = {
-      onBlur,
-    };
-  }
+    if (onBlur) {
+      additionalProps['onBlur'] = onBlur;
+    }
+
+    return additionalProps;
+  };
 
   return (
     <FormControl fullWidth error={Boolean(error)}>
@@ -126,7 +128,7 @@ function PasswordInput({
             </IconButton>
           </InputAdornment>
         }
-        {...additionalProps}
+        {...getAdditionalProps()}
       />
     </FormControl>
   );
