@@ -20,17 +20,13 @@ const useStyles = makeStyles((theme: Theme) => {
   return {
     paper: {
       width: '60%',
-      // maxWidth: 821 - theme.spacing(xPadding),
       maxHeight: 732 - theme.spacing(yPadding),
       borderRadius: 10,
       marginTop: theme.spacing(yMargin),
       marginBottom: theme.spacing(yMargin),
-      // paddingTop: theme.spacing(yPadding),
       paddingBottom: theme.spacing(yPadding),
       paddingLeft: 84,
       paddingRight: 130,
-      // paddingLeft: theme.spacing(xPadding),
-      // paddingRight: theme.spacing(xPadding),
       margin: 'auto',
     },
     form: {
