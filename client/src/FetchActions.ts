@@ -54,3 +54,12 @@ export const fetchDonations = (
 
   getRequest(assetsApiRequest.href + assetsApiRequest.hash, onSuccess, abortController, onError);
 };
+
+export const fetchInbox = (
+  onSuccess: Function,
+  abortController?: AbortController,
+  onError = (statusCode?: Number, statusText?: string) => {},
+) => {
+  const assetsApiRequest = new URL(`${APP_API_BASE_URL}/transactions/inbox`);
+  getRequest(assetsApiRequest.href + assetsApiRequest.hash, onSuccess, abortController, onError);
+};

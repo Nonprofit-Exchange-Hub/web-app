@@ -1,9 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
+import { Receivedmessage } from '../../received-messages/entities/received-messages.entity';
 
 @Entity('users')
 export class User {
@@ -46,10 +47,13 @@ export class User {
   @OneToMany(() => Transaction, (transaction) => transaction.donater_user)
   transactions: Transaction[];
 
-  @OneToMany(() => Message, (message) => message.user)
-  messages: Message[];
+  @OneToMany(() => Message, (message) => message.sending_user)
+  sentMessages: Message[];
 
-  @OneToMany(() => UserOrganization, (user_org) => user_org.user)
+  @OneToMany(() => Receivedmessage, (received) => received.message)
+  receivedMessages: Message[];
+
+  @OneToMany(() => UserOrganization, (user_org) => user_org.user, { eager: true })
   organizations: UserOrganization[];
 
   @Column({ type: 'text', nullable: true })
