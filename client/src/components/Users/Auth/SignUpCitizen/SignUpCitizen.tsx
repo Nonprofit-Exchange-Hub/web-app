@@ -5,7 +5,18 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-import { Box, Stepper, Step, StepLabel, Chip, Avatar, TextField } from '@mui/material';
+import {
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Chip,
+  Avatar,
+  TextField,
+  OutlinedInput,
+  Select,
+  MenuItem,
+} from '@mui/material';
 
 import FacebookAuthBtn from '../FacebookAuthBtn';
 import GoogleAuthBtn from '../GoogleAuthBtn';
@@ -19,7 +30,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validation-rules';
 import { UserSignupData } from './UserSignupData';
-import InputMask from 'react-input-mask';
+import { APP_API_BASE_URL, US_STATE_NAMES } from '../../../../configs';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -46,15 +57,15 @@ const SignupCitizen = () => {
   // const classes = useStyles();
   const { sideImg, signUpContainer, button, header, label, chip } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [isLoading] = React.useState<boolean>(false);
-  // const [emailError, setEmailError] = React.useState<string>('');
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [, setEmailError] = React.useState<string>('');
   const [formData] = React.useState(initialFormData);
-  const { user } = React.useContext(UserContext);
+  const { user, setUser } = React.useContext(UserContext);
   const {
     control,
     // getValues,
     // handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields, isValid },
   } = useForm<UserSignupData>({
     defaultValues: initialFormData,
     mode: 'onChange',
@@ -82,22 +93,26 @@ const SignupCitizen = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  // const stepOneInvalid = !dirtyFields.ein || !!errors.ein || !basicInfotepIsValid;
-
   const stepOneInValid =
-    !!errors.firstName?.message ||
-    !!errors.last_name?.message ||
-    !!errors.email?.message ||
-    !!errors.password?.message ||
-    !!errors.accept_terms?.message;
+    !dirtyFields.firstName ||
+    !dirtyFields.last_name ||
+    !dirtyFields.email ||
+    !dirtyFields.password ||
+    !dirtyFields.accept_terms ||
+    !!errors.firstName ||
+    !!errors.last_name ||
+    !!errors.email ||
+    !!errors.password ||
+    !!errors.accept_terms;
 
-  const stepTwoInvalid = !!errors.city?.message || !!errors.state?.message || !!errors.zip?.message;
+  const stepTWoInValid =
+    !dirtyFields.zip || !!errors.city?.message || !!errors.state?.message || !!errors.zip?.message;
 
-  // const makeStateSelectOptions = () => {
-  //   return US_STATE_NAMES.map((state) => {
-  //     return <MenuItem value={state}>{state}</MenuItem>;
-  //   });
-  // };
+  const makeStateSelectOptions = () => {
+    return US_STATE_NAMES.map((state) => {
+      return <MenuItem value={state}>{state}</MenuItem>;
+    });
+  };
 
   // const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
   //   const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
@@ -108,30 +123,33 @@ const SignupCitizen = () => {
   //   }));
   // };
 
-  // const handleSubmit = async (evt: React.FormEvent) => {
-  //   evt.preventDefault();
-  //   setIsLoading(true);
-  //   // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
-  //   delete formData.accept_terms;
-  //   const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(formData),
-  //   });
-  //   const data = await res.json();
-  //   setIsLoading(false);
-  //   if (data.status === 409) {
-  //     setEmailError(data.message);
-  //   } else {
-  //     setUser(data);
-  //     handleNext();
-  //   }
-  // };
+  const handleSubmit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    console.log('hit submit!!');
+    setIsLoading(true);
+    // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
+    delete formData.accept_terms;
+    const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    setIsLoading(false);
+    if (data.status === 409) {
+      setEmailError(data.message);
+    } else {
+      setUser(data);
+      handleNext();
+    }
+  };
 
   return (
     <div className="SignupCitizen">
+      <p>dirtyFields: {JSON.stringify(dirtyFields)}</p>
+      <p>isValid: {isValid.toString()}</p>
       <Grid container>
         <Grid item xs={12} sx={{ height: '60px' }} />
         <Grid className={sideImg} item xs={3} />
@@ -156,11 +174,7 @@ const SignupCitizen = () => {
           </Grid>
           {/*
           <form onSubmit={handleSubmit}> */}
-          <form
-            onSubmit={() => {
-              console.log('submitted!!');
-            }}
-          >
+          <form onSubmit={handleSubmit}>
             {/* PAGE ONE ###########################################################*/}
             {activeStep === 0 && (
               <>
@@ -347,24 +361,24 @@ const SignupCitizen = () => {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    {/* <Select className={input} placeholder="state" fullWidth> */}
                     <Controller
                       name="state"
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <InputMask mask={'aa'} {...field} onChange={field.onChange}>
-                          <TextField
-                            label="State"
-                            placeholder="State"
-                            helperText={errors.state ? errors.state.message : ''}
-                            error={!!errors.state}
-                          />
-                        </InputMask>
+                        <Select
+                          {...field}
+                          placeholder="state"
+                          variant="outlined"
+                          autoWidth
+                          input={<OutlinedInput />}
+                          inputProps={{ 'aria-label': 'Without label' }}
+                          displayEmpty
+                        >
+                          {makeStateSelectOptions()}
+                        </Select>
                       )}
                     />
-                    {/* {makeStateSelectOptions()} */}
-                    {/* </Select> */}
                   </Grid>
                   <Grid item xs={4}>
                     {/* <Input className={input} placeholder="zip" fullWidth disableUnderline></Input> */}
@@ -533,7 +547,7 @@ const SignupCitizen = () => {
                         color="primary"
                         variant="outlined"
                         onClick={handleNext}
-                        disabled={stepTwoInvalid}
+                        disabled={stepTWoInValid}
                       >
                         Next
                       </Button>
@@ -548,7 +562,8 @@ const SignupCitizen = () => {
                         color="primary"
                         variant="contained"
                         type="submit"
-                        disabled={!formData.accept_terms}
+                        // disabled={!formData.accept_terms}
+                        onClick={handleSubmit}
                       >
                         Sign Up
                       </Button>
