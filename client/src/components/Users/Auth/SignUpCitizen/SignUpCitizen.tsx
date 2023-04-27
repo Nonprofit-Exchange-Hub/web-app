@@ -136,8 +136,6 @@ const SignupCitizen = () => {
 
   return (
     <div className="SignupCitizen">
-      {/* <p>dirtyFields: {JSON.stringify(dirtyFields)}</p>
-      <p>isValid: {isValid.toString()}</p> */}
       <Grid container>
         <Grid item xs={12} sx={{ height: '60px' }} />
         <Grid className={sideImg} item xs={3} />
