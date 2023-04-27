@@ -13,7 +13,6 @@ import { APP_API_BASE_URL } from '../../../configs';
 import SetNewPasswordImg from '../../../assets/set-new-password.svg';
 
 const useStyles = makeStyles((theme: Theme) => {
-  // const xPadding = 12;
   const yPadding = 6;
   const yMargin = 8;
 
