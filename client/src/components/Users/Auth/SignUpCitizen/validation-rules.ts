@@ -25,19 +25,3 @@ export const validationSchema = Yup.object().shape({
   aboutyourself: Yup.string().required('Required'),
 });
 
-/**
- * Custom implementation of form validity
- * @returns true when all fields have a value and no errors exist
- */
-export const calculateIsValid = (
-  errors: FieldErrorsImpl<DeepRequired<FormData>>,
-  vals: FormData,
-): boolean => {
-  const errVals = Object.values(errors);
-  const valsAsStringArr = Object.values(vals);
-  return (
-    errVals.every((x) => x === undefined) &&
-    valsAsStringArr.length === 17 &&
-    valsAsStringArr.every((s) => !!s)
-  );
-};
