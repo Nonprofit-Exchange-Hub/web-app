@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
@@ -8,15 +7,24 @@ import Typography from '@mui/material/Typography';
 
 import type { Theme } from '@mui/material/styles';
 
-import EmailInput from '../components/Users/Auth/EmailInput';
 import FacebookAuthBtn from '../components/Users/Auth/FacebookAuthBtn';
 import GoogleAuthBtn from '../components/Users/Auth/GoogleAuthBtn';
-import PasswordInput from '../components/Users/Auth/PasswordInput';
 import StyledLink from '../components/StyledLink';
 import TextDivider from '../components/TextDivider';
 import { UserContext } from '../providers';
 import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
+import LoginForm from '../components/Users/Auth/Login/LoginForm';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Button } from '@mui/material';
+
+// Currently this is loaded from a route navigation.
+// instead it should run independently of a route navigation and be controlled
+// with the global `Login` button
 
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 12;
@@ -68,6 +76,18 @@ function Login() {
   const { setUser } = React.useContext(UserContext);
 
   const [formData, setFormData] = React.useState<UserLoginData>(initialFormData);
+
+  const [open, setOpen] = React.useState(true);
+
+  const onClose = (e: any, reason: string) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+  };
+
+  const buttonClose = () => {
+    setOpen(false);
+  };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;
@@ -122,32 +142,22 @@ function Login() {
           <Grid item xs={12}>
             <TextDivider>or</TextDivider>
           </Grid>
-          <Grid container item xs={12}>
-            <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-              <EmailInput
-                value={formData.email}
-                placeholder="jane@nonprofit.com"
-                onChange={handleChange}
-                error={error?.type === 'email' ? error.message : null}
-              />
-              <PasswordInput
-                value={formData.password}
-                onChange={handleChange}
-                showForgot={true}
-                error={error?.type === 'password' ? error.message : null}
-              />
-              <Button
-                className={classes.button}
-                style={{ backgroundColor: '#C4C4C4', color: 'white' }}
-                fullWidth
-                type="submit"
-              >
-                Sign In
-              </Button>
-              {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
-              {isLoading && <Typography>Loading</Typography>}
-            </form>
-          </Grid>
+          <div>
+            <Dialog disableEscapeKeyDown={true} open={open} onClose={onClose}>
+              <DialogTitle>Subscribe</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  <LoginForm
+                    {...{ handleSubmit, formData, handleChange, error, classes, isLoading }}
+                  />
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={buttonClose}>Cancel</Button>
+                <Button onClick={buttonClose}>Subscribe</Button>
+              </DialogActions>
+            </Dialog>
+          </div>
           <Grid item xs={12}>
             <Typography align="left">
               Not signed up yet? <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>

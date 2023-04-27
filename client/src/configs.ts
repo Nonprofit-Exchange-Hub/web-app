@@ -1,4 +1,5 @@
-export const APP_API_BASE_URL = `${window.location.protocol + '//' + window.location.host}/api`;
+// export const APP_API_BASE_URL = `${window.location.protocol + '//' + window.location.host}/api`;
+export const APP_API_BASE_URL = `https://npc-fm7ocfzuva-uw.a.run.app/api`;
 
 export const US_STATE_ABBREVIATIONS = [
   'AK',
