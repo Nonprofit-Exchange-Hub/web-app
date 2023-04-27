@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useParams } from 'react-router-dom';
 import { Avatar, Divider, Grid, Typography, Rating, Chip, Button } from '@mui/material';
 import { UserContext } from '../providers';
 import { AssignmentTurnedIn, NoteAdd, ArrowForward, Edit } from '@mui/icons-material';
@@ -34,7 +33,6 @@ const styles = {
 
 function User() {
   const { button, chip, editIcon } = styles;
-  // const { id } = useParams<{ id: string }>();
   const { user } = React.useContext(UserContext);
 
   if (user) {
