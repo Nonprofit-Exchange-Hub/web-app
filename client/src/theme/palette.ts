@@ -4,7 +4,7 @@ const palette = {
     secondary: '#6E6E6E',
   },
   primary: {
-    main: '#37718E',
+    main: '#EF6A60',
     light: '#43AFBF',
     gradient: 'linear-gradient(180deg, #37718E 0%, #285469 100%)',
     contrastText: '#FFFFFF',
