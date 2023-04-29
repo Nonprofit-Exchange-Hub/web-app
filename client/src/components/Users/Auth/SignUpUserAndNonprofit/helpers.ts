@@ -2,13 +2,20 @@ import { FormData } from './FormData';
 
 export const toUser = (
   formData: FormData,
-): { email: string; password: string; firstName: string; last_name: string } => {
-  const { email, password, firstName, last_name } = formData;
+): {
+  email: string;
+  password: string;
+  firstName: string;
+  last_name: string;
+  email_notification_opt_out: boolean;
+} => {
+  const { email, password, firstName, last_name, email_notification_opt_out } = formData;
   return {
     email,
     password,
     firstName,
     last_name,
+    email_notification_opt_out,
   };
 };
 
