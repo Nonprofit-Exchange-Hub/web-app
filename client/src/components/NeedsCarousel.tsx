@@ -23,7 +23,7 @@ export default function NeedsCarousel(props: NeedsCarouselProps) {
   );
 
   return (
-    <div style={{ marginTop: '4em', minHeight: '300px' }}>
+    <div style={{ marginTop: '160px', minHeight: '300px' }}>
       <ResponsiveCarousel
         fetchMethod={fetchNeeds}
         renderCard={renderCard}
