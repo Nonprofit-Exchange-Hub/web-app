@@ -128,7 +128,7 @@ function SearchResults(): JSX.Element {
 
   React.useEffect(() => {
     fetchSearchData();
-  }, [querySearchText, querySearchCategory]);
+  }, [querySearchText, querySearchCategory, fetchSearchData]);
 
   return (
     <div className={classes.searchResultsContainer}>
