@@ -182,7 +182,7 @@ export const SignUpUserAndNonprofit = () => {
               align="left"
               gutterBottom
             >
-              Let's get started.
+              Let's get started
             </Typography>
           </Grid>
           <Grid item sx={{ marginBottom: '30px' }}>
@@ -266,7 +266,7 @@ export const SignUpUserAndNonprofit = () => {
                           label="Legal Name"
                           placeholder="Legal Name"
                           fullWidth
-                          disabled={true}
+                          disabled={false}
                         />
                       )}
                     />
@@ -438,7 +438,7 @@ export const SignUpUserAndNonprofit = () => {
                             displayEmpty
                           >
                             <MenuItem disabled value="">
-                              <em>Select classification</em>
+                              <em>Select Classification</em>
                             </MenuItem>
                             {classifications.map((option, index) => {
                               return (

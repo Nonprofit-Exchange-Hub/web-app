@@ -39,33 +39,33 @@ function Signup() {
 
   return (
     <Container className={classes.formBox}>
-      <Typography variant="h2" component="h2">
+      {/* <Typography variant="h2" component="h2">
         Welcome!
-      </Typography>
+      </Typography> */}
       <Typography variant="h2" component="h2">
-        Select your account type.
+        Account Type
       </Typography>
-      <Typography variant="body2" component="caption">
+      {/* <Typography variant="body2" component="caption">
         Already have an account? <Link to={routes.Login.path}>Log In</Link>{' '}
-      </Typography>
+      </Typography> */}
 
       <Grid container spacing={8}>
         <Grid item className={classes.positionOptions}>
-          <div className={classes.imageBackground}></div>
-          <Typography className={classes.caption} variant="body2" component="caption">
+          {/* <div className={classes.imageBackground}></div> */}
+          {/* <Typography className={classes.caption} variant="body2" component="caption">
             Are you a non-profit organization?
-          </Typography>
+          </Typography> */}
           <Link className={classes.linkText} to={routes.SignupNonProfit.path}>
-            <Button variant="contained">Create non-profit account</Button>
+            <Button variant="contained">Organization</Button>
           </Link>
         </Grid>
         <Grid item className={classes.positionOptions}>
-          <div className={classes.imageBackground}></div>
-          <Typography className={classes.caption} variant="body2" component="caption">
+          {/* <div className={classes.imageBackground}></div> */}
+          {/* <Typography className={classes.caption} variant="body2" component="caption">
             Are you an individual citizen?
-          </Typography>
+          </Typography> */}
           <Link className={classes.linkText} to={routes.SignupCitizen.path}>
-            <Button variant="contained">Create citizen account</Button>
+            <Button variant="contained">Individual</Button>
           </Link>
         </Grid>
       </Grid>
