@@ -1,0 +1,57 @@
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import { Box, Grid, Button } from '@mui/material';
+import type { Theme } from '@mui/material/styles';
+
+type HowItWorksCardProps = {
+  instructionList: { title: string; body: string; image: string; buttonText: string }[];
+};
+
+function HowItWorksCard(props: HowItWorksCardProps) {
+  return (
+    <Box
+      sx={{
+        textAlign: 'center',
+        mb: '20px',
+        border: '0px solid black',
+        flex: '1',
+      }}
+    >
+      <Box sx={{ height: '200px', display: 'flex', alignItems: 'bottom' }}>
+        <img src={props.image} alt="How It Works" width="100%" />
+      </Box>
+      <Box sx={{ marginX: '10px', minHeight: '230px' }}>
+        <Typography
+          sx={{
+            minHeight: '100px',
+            fontSize: '1.8rem',
+            fontWeight: 600,
+            mt: '0px',
+            mb: '10px',
+          }}
+        >
+          {title}
+        </Typography>
+        <Typography variant="body1">{body}</Typography>
+      </Box>
+      {/* reminder - make button template */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'bottom', mt: '30px' }}>
+        <Button
+          sx={{
+            padding: '0.4rem 1rem 0.4rem 1rem',
+            border: '1px solid #323232',
+            borderRadius: '8px',
+            color: '#323232',
+            fontWeight: '900',
+            fontSize: '1rem',
+          }}
+        >
+          {buttonText}
+        </Button>
+      </Box>
+    </Box>
+  );
+}
+
+export default HowItWorksCard;

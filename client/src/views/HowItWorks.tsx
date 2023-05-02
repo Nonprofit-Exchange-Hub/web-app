@@ -199,18 +199,20 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                   {instructionItem.body}
                 </Typography>
               </Box>
-              {/* reminder - make standard button template */}
-              <Button
-              sx={{
-                padding: '0.4rem 1rem 0.4rem 1rem',
-                border: '1px solid #323232',
-                borderRadius: '8px',
-                color: '#323232',
-                fontWeight: '900',
-                fontSize: '1rem',
-              }}>
-                {instructionItem.buttonText}
-              </Button>
+              {/* reminder - make button template */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'bottom', mt: '30px'}}>
+                <Button
+                sx={{
+                  padding: '0.4rem 1rem 0.4rem 1rem',
+                  border: '1px solid #323232',
+                  borderRadius: '8px',
+                  color: '#323232',
+                  fontWeight: '900',
+                  fontSize: '1rem',
+                }}>
+                  {instructionItem.buttonText}
+                </Button>
+              </Box>
             </Box>
           );
         })
