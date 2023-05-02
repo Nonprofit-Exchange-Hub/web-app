@@ -151,7 +151,7 @@ function HowItWorks() {
         lineHeight: '48px',
         textAlign: 'center',
         mt: '10px',
-        mb: '10px'
+        mb: '20px'
       }}>
         How it Works
       </Typography>
@@ -175,8 +175,8 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
       gridTemplateColumns: 'repeat(4, 1fr)',
       gap: '0px',
       justifyContent: 'center',
-      alignItems: 'center',
-      '@media (max-width: 960px)': {
+      alignItems: 'top',
+      '@media (max-width: 1111px)': {
         gridTemplateColumns: 'repeat(2, 1fr)',
       },
       '@media (max-width: 600px)': {
@@ -190,7 +190,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
               mb: '20px',
               backgroundColor: 'white',
             }}>
-              <Box sx={{ height: '200px', display: 'flex', alignItems: 'bottom', }}>
+              <Box sx={{ display: 'flex', alignItems: 'top', }}>
                 <img src={howItWorksImages[i]} alt="How It Works" width="100%"/>
               </Box>
               <Box sx={{marginX: '10px', minHeight: '230px'}}>
@@ -208,7 +208,8 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                 </Typography>
               </Box>
               {/* reminder - make button template */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'bottom', mt: '30px'}}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'bottom', mt: '10px',
+              mb: '20px',}}>
                 <Button
                 sx={{
                   padding: '0.4rem 1rem 0.4rem 1rem',
