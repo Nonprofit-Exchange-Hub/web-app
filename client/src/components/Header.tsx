@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: 'white!important',
     borderRadius: '10px',
     border: '1px solid #EF6A60!important',
-    marginRight: '1rem!important',
+    marginRight: '10px!important',
     width: '100px',
   },
   signIn: {
@@ -90,6 +90,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   logo: {
     height: '30px',
+    minWidth: 'fit-content',
   },
 }));
 
@@ -232,6 +233,7 @@ function Header() {
               sx={{
                 textTransform: 'capitalize',
                 color: '#323232',
+                marginRight: '5px',
               }}
             >
               About
@@ -461,10 +463,22 @@ function Header() {
           ) : (
             <>
               <NavLink className={classes.navLink} to={routes.Signup.path}>
-                <Button className={classes.signUp}>Join Now</Button>
+                <Button
+                  className={classes.signUp}
+                  sx={{
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  Join Now
+                </Button>
               </NavLink>
               <NavLink className={classes.navLink} to={routes.Login.path}>
-                <Button className={classes.signIn} variant="contained">
+                <Button
+                  className={classes.signIn}
+                  sx={{
+                    textTransform: 'capitalize',
+                  }}
+                >
                   Sign In
                 </Button>
               </NavLink>
