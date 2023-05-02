@@ -150,7 +150,8 @@ function HowItWorks() {
         fontSize: '40px',
         lineHeight: '48px',
         textAlign: 'center',
-        marginY: '10px'
+        mt: '10px',
+        mb: '10px'
       }}>
         How it Works
       </Typography>
@@ -170,17 +171,24 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
   
   return (
     <Box sx={{
-      display: 'flex',
-      justifyContent: 'center',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
       gap: '0px',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '@media (max-width: 960px)': {
+        gridTemplateColumns: 'repeat(2, 1fr)',
+      },
+      '@media (max-width: 600px)': {
+        gridTemplateColumns: '1fr',
+      },
     }}>
       {props.instructionList.map((instructionItem, i) => {
           return (
             <Box sx={{
               textAlign: 'center',
               mb: '20px',
-              border: "0px solid black",
-              flex: '1' 
+              backgroundColor: 'white',
             }}>
               <Box sx={{ height: '200px', display: 'flex', alignItems: 'bottom', }}>
                 <img src={howItWorksImages[i]} alt="How It Works" width="100%"/>
