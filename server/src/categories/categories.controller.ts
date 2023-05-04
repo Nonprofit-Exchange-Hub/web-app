@@ -10,7 +10,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiQuery, ApiParam } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
 
 import { CategoriesService } from './categories.service';
@@ -27,6 +27,15 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
+  @ApiResponse({
+    description: 'Successfully created new category.',
+    status: HttpStatus.CREATED,
+    type: Category,
+  })
+  @ApiResponse({
+    description: 'Confict - category already exists.',
+    status: HttpStatus.CONFLICT,
+  })
   async create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
     try {
       const newCategory = await this.categoriesService.create(createCategoryDto);

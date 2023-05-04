@@ -45,7 +45,7 @@ export class AssetsController {
     type: Asset,
   })
   @ApiResponse({
-    description: 'Conflict.',
+    description: 'Conflict - asset not unique.',
     status: HttpStatus.CONFLICT,
   })
   async create(
