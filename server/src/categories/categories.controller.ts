@@ -129,8 +129,8 @@ export class CategoriesController {
 
   @Post('validate')
   @ApiOperation({ summary: 'Validate a category' })
-  @ApiBody({ type: String })
-  @ApiOkResponse({
+  @ApiBody({ type: String, isArray: true })
+  @ApiCreatedResponse({
     description: 'Category has been validated.',
     type: Boolean,
   })
