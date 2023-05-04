@@ -35,6 +35,7 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new category' })
   @ApiQuery({ type: CreateCategoryDto })
   @ApiResponse({
     description: 'Successfully created new category.',
@@ -58,11 +59,13 @@ export class CategoriesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Fetch categories' })
   get(@Query() getCategoriesDto: GetCategoriesDto): Promise<Category[]> {
     return this.categoriesService.getCategories(getCategoriesDto);
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Fetch a category via ID' })
   @ApiNotFoundResponse({ description: 'Category not found.' })
   async findOne(@Param('id') id: string): Promise<Category> {
     const foundCategory = await this.categoriesService.findOne(parseInt(id, 10));
@@ -77,6 +80,7 @@ export class CategoriesController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update a category' })
   @ApiBody({ type: UpdateCategoryDto })
   async update(
     @Param('id') id: string,
@@ -97,7 +101,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete a category.' })
+  @ApiOperation({ summary: 'Delete a category' })
   @ApiOkResponse({ description: 'Successfully deleted category.' })
   @ApiNotFoundResponse({ description: 'Category not found.' })
   async remove(@Param('id') id: string): Promise<DeleteResult> {
@@ -112,6 +116,12 @@ export class CategoriesController {
   }
 
   @Post('validate')
+  @ApiOperation({ summary: 'Validate a category' })
+  @ApiBody({ type: String })
+  @ApiOkResponse({
+    description: 'Category has been validated.',
+    type: Boolean,
+  })
   async validate(@Body() categories: string[]): Promise<boolean> {
     return this.categoriesService.validateCategories(categories);
   }
