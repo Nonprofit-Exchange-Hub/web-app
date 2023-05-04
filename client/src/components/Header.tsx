@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 0.75,
     width: 'inherit',
     marginRight: '5px',
+    minWidth: '340px',
   },
   userButtons: {
     borderRadius: theme.shape.borderRadius,
@@ -90,7 +91,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   logo: {
     height: '30px',
-    minWidth: 'fit-content',
   },
 }));
 
