@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Asset } from '../../assets/entities/asset.entity';
@@ -68,7 +68,7 @@ export class User {
   @Column({ type: 'text', nullable: true })
   profile_image_url?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @Column({
     type: 'jsonb',
     nullable: true,

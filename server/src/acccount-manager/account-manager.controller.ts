@@ -18,6 +18,17 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiBody,
+  ApiConsumes,
+  ApiResponse,
+  ApiOperation,
+  ApiExcludeEndpoint,
+  ApiCreatedResponse,
+  ApiBadRequestResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 
 import type { Request as RequestT, Response as ResponseT } from 'express';
@@ -40,7 +51,6 @@ import {
   ReturnSessionDto,
   ReturnUserDto,
 } from './dto/auth.dto';
-import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -60,6 +70,8 @@ export class AccountManagerController {
   ) {}
 
   @Patch('verify-email')
+  @ApiOperation({ summary: "Verify a user's email" })
+  @ApiBadRequestResponse({ description: 'Bad request - unknown value was passed.' })
   async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
@@ -71,6 +83,13 @@ export class AccountManagerController {
   }
 
   @Post('register')
+  @ApiOperation({ summary: 'Create a new user account' })
+  @ApiBody({ type: CreateUserDto })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Internal server error',
+  })
+  @ApiUnauthorizedResponse({ description: 'Internal server error - unauthorized service request' }) // SendGrid service
   async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
@@ -105,9 +124,12 @@ export class AccountManagerController {
     return user;
   }
 
-  @ApiBody({ type: LoginDto })
   @Post('login')
   @UseGuards(LoginAuthGuard)
+  @ApiOperation({ summary: 'User login' })
+  @ApiBody({ type: LoginDto })
+  @ApiCreatedResponse({ description: 'Login successful.', type: User })
+  @ApiUnauthorizedResponse({ description: 'Login failed.' })
   async login(
     @Request() request: AuthedRequest,
     @Response({ passthrough: true }) response: ResponseT,
@@ -145,6 +167,10 @@ export class AccountManagerController {
   }
 
   @Get('logout')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successfully logged out.',
+  })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
     response.clearCookie(COOKIE_KEY).send();
   }
