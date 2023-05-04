@@ -17,6 +17,8 @@ import {
   ApiResponse,
   ApiOperation,
   ApiOkResponse,
+  ApiCreatedResponse,
+  ApiConflictResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
@@ -37,15 +39,11 @@ export class CategoriesController {
   @Post()
   @ApiOperation({ summary: 'Create a new category' })
   @ApiQuery({ type: CreateCategoryDto })
-  @ApiResponse({
+  @ApiCreatedResponse({
     description: 'Successfully created new category.',
-    status: HttpStatus.CREATED,
     type: Category,
   })
-  @ApiResponse({
-    description: 'Confict - category already exists.',
-    status: HttpStatus.CONFLICT,
-  })
+  @ApiConflictResponse({ description: 'Confict - category already exists.' })
   async create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
     try {
       const newCategory = await this.categoriesService.create(createCategoryDto);
@@ -60,12 +58,21 @@ export class CategoriesController {
 
   @Get()
   @ApiOperation({ summary: 'Fetch categories' })
+  @ApiOkResponse({
+    description: 'Fetched categories.',
+    isArray: true,
+    type: Category,
+  })
   get(@Query() getCategoriesDto: GetCategoriesDto): Promise<Category[]> {
     return this.categoriesService.getCategories(getCategoriesDto);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Fetch a category via ID' })
+  @ApiOkResponse({
+    description: 'Fetched category.',
+    type: Category,
+  })
   @ApiNotFoundResponse({ description: 'Category not found.' })
   async findOne(@Param('id') id: string): Promise<Category> {
     const foundCategory = await this.categoriesService.findOne(parseInt(id, 10));
@@ -82,6 +89,11 @@ export class CategoriesController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update a category' })
   @ApiBody({ type: UpdateCategoryDto })
+  @ApiOkResponse({
+    description: 'Successfully updated category.',
+    type: Category,
+  })
+  @ApiConflictResponse({ description: 'Update failed - Category conflict.' })
   async update(
     @Param('id') id: string,
     @Body() updateCategoriesDto: UpdateCategoryDto,
