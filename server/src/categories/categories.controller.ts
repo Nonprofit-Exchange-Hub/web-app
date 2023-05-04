@@ -10,7 +10,15 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiResponse, ApiQuery, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBody,
+  ApiQuery,
+  ApiResponse,
+  ApiOperation,
+  ApiOkResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
 
 import { CategoriesService } from './categories.service';
@@ -27,6 +35,7 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
+  @ApiQuery({ type: CreateCategoryDto })
   @ApiResponse({
     description: 'Successfully created new category.',
     status: HttpStatus.CREATED,
@@ -54,6 +63,7 @@ export class CategoriesController {
   }
 
   @Get(':id')
+  @ApiNotFoundResponse({ description: 'Category not found.' })
   async findOne(@Param('id') id: string): Promise<Category> {
     const foundCategory = await this.categoriesService.findOne(parseInt(id, 10));
     if (!foundCategory) {
@@ -67,6 +77,7 @@ export class CategoriesController {
   }
 
   @Patch(':id')
+  @ApiBody({ type: UpdateCategoryDto })
   async update(
     @Param('id') id: string,
     @Body() updateCategoriesDto: UpdateCategoryDto,
@@ -86,6 +97,9 @@ export class CategoriesController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a category.' })
+  @ApiOkResponse({ description: 'Successfully deleted category.' })
+  @ApiNotFoundResponse({ description: 'Category not found.' })
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     const categoryToDelete = await this.categoriesService.remove(parseInt(id));
     if (categoryToDelete.affected === 0) {

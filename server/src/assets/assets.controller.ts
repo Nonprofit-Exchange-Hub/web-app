@@ -18,6 +18,7 @@ import {
   ApiResponse,
   PartialType,
   ApiOperation,
+  ApiOkResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
 
@@ -78,7 +79,7 @@ export class AssetsController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Fetch an asset' })
+  @ApiOperation({ summary: 'Fetch an asset by ID' })
   @ApiResponse({
     description: 'Fetched asset.',
     status: HttpStatus.OK,
@@ -133,11 +134,7 @@ export class AssetsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an asset' })
-  @ApiResponse({
-    description: 'Deleted asset.',
-    status: HttpStatus.OK,
-    type: PartialType(DeleteResult),
-  })
+  @ApiOkResponse({ description: 'Successfully deleted asset.' })
   @ApiNotFoundResponse({ description: 'Asset not found.' })
   async remove(@Param('id') id: string): Promise<DeleteResult | HttpException> {
     const assetToDelete = await this.assetsService.remove(parseInt(id));
