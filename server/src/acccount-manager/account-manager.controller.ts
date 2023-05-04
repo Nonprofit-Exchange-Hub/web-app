@@ -161,8 +161,8 @@ export class AccountManagerController {
   @Post('session')
   @UseGuards(CookieAuthGuard)
   @ApiOperation({ summary: 'Fetch user via session' })
-  @ApiOkResponse({
-    description: 'Fetched user.',
+  @ApiCreatedResponse({
+    description: 'Fetched user session.',
     type: ReturnSessionDto,
   })
   async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
