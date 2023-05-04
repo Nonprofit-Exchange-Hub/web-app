@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme: Theme) => {
       fontWeight: 'bold',
       textAlign: 'left',
     },
+    sublabel: {
+      color: '#6E6E6E',
+      fontSize: 14,
+      fontWeight: 300,
+      marginLeft: 5,
+    },
   };
 });
 
@@ -41,14 +47,24 @@ interface Props {
   error?: string | null;
   showStartAdornment?: boolean;
   showForgot?: boolean;
+  label?: string | null;
+  id?: string | null;
+  name?: string | null;
+  onBlur?: React.FocusEventHandler<HTMLInputElement> | null;
+  sublabel?: string | null;
 }
 
 function PasswordInput({
   onChange,
+  onBlur,
   value,
   error,
   showStartAdornment = false,
   showForgot = false,
+  label = null,
+  id = null,
+  name = null,
+  sublabel = null,
 }: Props) {
   const classes = useStyles();
 
@@ -59,11 +75,24 @@ function PasswordInput({
     setShowPassword(!showPassword);
   };
 
+  const getAdditionalProps = () => {
+    let additionalProps: { [key: string]: any } = {};
+
+    if (onBlur) {
+      additionalProps['onBlur'] = onBlur;
+    }
+
+    return additionalProps;
+  };
+
   return (
     <FormControl fullWidth error={Boolean(error)}>
-      <label className={classes.label} htmlFor="password">
+      <label className={classes.label} htmlFor={id || 'password'}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          Password
+          <div>
+            {label || 'Password'}
+            {sublabel && <span className={classes.sublabel}>{sublabel}</span>}
+          </div>
           {/* to prop to be updated to use routes once page is set up */}
           {showForgot && <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>}
         </div>
@@ -71,8 +100,8 @@ function PasswordInput({
       {error && <FormHelperText error>{error}</FormHelperText>}
       <Input
         className={classes.input}
-        id="password"
-        name="password"
+        id={id || 'password'}
+        name={name || 'password'}
         type={showPassword ? 'text' : 'password'}
         value={value}
         onChange={onChange}
@@ -99,6 +128,7 @@ function PasswordInput({
             </IconButton>
           </InputAdornment>
         }
+        {...getAdditionalProps()}
       />
     </FormControl>
   );
