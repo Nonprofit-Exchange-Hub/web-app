@@ -160,8 +160,9 @@ export class AccountManagerController {
 
   @Post('session')
   @UseGuards(CookieAuthGuard)
+  @ApiOperation({ summary: 'Fetch user via session' })
   @ApiOkResponse({
-    description: 'Initiate user session.',
+    description: 'Fetched user.',
     type: ReturnSessionDto,
   })
   async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
@@ -173,12 +174,14 @@ export class AccountManagerController {
   }
 
   @Get('logout')
+  @ApiOperation({ summary: 'Logout' })
   @ApiOkResponse({ description: 'Successfully logged out.' })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
     response.clearCookie(COOKIE_KEY).send();
   }
 
   @Post('reset_password')
+  @ApiOperation({ summary: 'Password reset' })
   @ApiBody({ type: ResetPasswordDto })
   @ApiOkResponse({ description: 'Password reset initiated - email for password reset sent.' })
   async resetPassword(
@@ -219,6 +222,7 @@ export class AccountManagerController {
   }
 
   @ApiConsumes('multipart/form-data')
+  @ApiOperation({ summary: 'Upload profile image' })
   @ApiBody({
     schema: {
       type: 'object',
@@ -238,7 +242,7 @@ export class AccountManagerController {
     }),
   )
   @ApiOkResponse({
-    description: 'Upload profile image',
+    description: 'Uploaded profile image.',
     type: ReturnUserDto,
   })
   async upsertProfile(
