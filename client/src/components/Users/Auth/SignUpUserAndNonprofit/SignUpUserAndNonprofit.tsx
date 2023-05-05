@@ -194,13 +194,7 @@ export const SignUpUserAndNonprofit = () => {
             </Typography>
           </Grid>
           <Grid item sx={{ marginBottom: '30px' }}>
-            <Typography
-              component="p"
-              align="left"
-              gutterBottom
-              fontSize={'15px'}
-              marginTop={'10px'}
-            >
+            <Typography component="p" gutterBottom>
               Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
             </Typography>
           </Grid>
@@ -248,7 +242,7 @@ export const SignUpUserAndNonprofit = () => {
                             label="Add location data here"
                             onKeyUp={() => {
                               if (!errors.ein) {
-                                // setTriggerEinSearch(true);E
+                                console.log('add validation here');
                               }
                             }}
                             error={!!errors.city?.message}
@@ -291,7 +285,7 @@ export const SignUpUserAndNonprofit = () => {
                             label="Add location data here"
                             onKeyUp={() => {
                               if (!errors.state) {
-                                // setTriggerEinSearch(true);
+                                console.log('add validation here');
                               }
                             }}
                             error={!!errors.state?.message}
@@ -374,7 +368,7 @@ export const SignUpUserAndNonprofit = () => {
                             fullWidth
                             onKeyUp={() => {
                               if (!errors.nonprofit_classification) {
-                                // setTriggerEinSearch(true);
+                                console.log('add validation here');
                               }
                             }}
                             error={!!errors.nonprofit_classification?.message}

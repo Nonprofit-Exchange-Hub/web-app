@@ -93,6 +93,11 @@ const components = {
   },
   MuiTypography: {
     styleOverrides: {
+      p: {
+        align: 'left',
+        fontSize: '15px',
+        marginTop: '10px',
+      },
       h3: {
         width: '100%',
         marginBottom: '35px',
