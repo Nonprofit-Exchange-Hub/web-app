@@ -1,51 +1,51 @@
 import * as React from 'react';
-const SvgSignUpStep2 = (props) => (
+const SvgSignUpLocationStep = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    id="sign-up-step-2_svg__Layer_1"
+    id="sign-up-location-step_svg__Layer_1"
     data-name="Layer 1"
     viewBox="0 0 256 570"
     {...props}
   >
     <defs>
-      <clipPath id="sign-up-step-2_svg__clip-path">
+      <clipPath id="sign-up-location-step_svg__clip-path">
         <path
           d="M127.47 329.17a23 23 0 1 0 16.28-6.74 23 23 0 0 0-16.28 6.74"
-          className="sign-up-step-2_svg__cls-1"
+          className="sign-up-location-step_svg__cls-1"
         />
       </clipPath>
-      <clipPath id="sign-up-step-2_svg__clip-path-2">
-        <path d="M120.51 322.18h80.84v46.62h-80.84z" className="sign-up-step-2_svg__cls-2" />
+      <clipPath id="sign-up-location-step_svg__clip-path-2">
+        <path d="M120.51 322.18h80.84v46.62h-80.84z" className="sign-up-location-step_svg__cls-2" />
       </clipPath>
-      <clipPath id="sign-up-step-2_svg__clip-path-3">
-        <path d="M120.71 322.38h46.22v46.22h-46.22z" className="sign-up-step-2_svg__cls-2" />
+      <clipPath id="sign-up-location-step_svg__clip-path-3">
+        <path d="M120.71 322.38h46.22v46.22h-46.22z" className="sign-up-location-step_svg__cls-2" />
       </clipPath>
-      <clipPath id="sign-up-step-2_svg__clip-path-4">
+      <clipPath id="sign-up-location-step_svg__clip-path-4">
         <path
           d="M141.27 319c-21.21 6-15 38.62-15.84 50.87-.82 11.68.38 54.17-20.13 67.14 15.26 6.57 72.51 11.25 89.22 11.25 6 0 13-49.85 11.37-71.57-1.42-19.38-4.11-50.54 13.47-54-20.11-2.49-78.09-3.69-78.09-3.69"
-          className="sign-up-step-2_svg__cls-1"
+          className="sign-up-location-step_svg__cls-1"
         />
       </clipPath>
-      <clipPath id="sign-up-step-2_svg__clip-path-6">
+      <clipPath id="sign-up-location-step_svg__clip-path-6">
         <path
           d="M134 346c-.68 9.27 4.73 17.23 12.11 17.79S160 357.26 160.67 348s-4.73-17.23-12.11-17.79-13.9 6.51-14.56 15.79"
-          className="sign-up-step-2_svg__cls-1"
+          className="sign-up-location-step_svg__cls-1"
         />
       </clipPath>
-      <clipPath id="sign-up-step-2_svg__clip-path-8">
+      <clipPath id="sign-up-location-step_svg__clip-path-8">
         <path
           d="M142.74 342.2c-.26 3.53 1.8 6.57 4.61 6.78s5.29-2.48 5.55-6-1.8-6.56-4.61-6.77-5.29 2.47-5.55 6"
-          className="sign-up-step-2_svg__cls-1"
+          className="sign-up-location-step_svg__cls-1"
         />
       </clipPath>
-      <clipPath id="sign-up-step-2_svg__clip-path-10">
+      <clipPath id="sign-up-location-step_svg__clip-path-10">
         <path
           d="M135.33 357.05c-.34 4.56 4.48 8.64 10.76 9.11s11.67-2.86 12-7.42-4.48-8.64-10.77-9.1-11.66 2.85-12 7.41"
-          className="sign-up-step-2_svg__cls-1"
+          className="sign-up-location-step_svg__cls-1"
         />
       </clipPath>
       <radialGradient
-        id="sign-up-step-2_svg__radial-gradient"
+        id="sign-up-location-step_svg__radial-gradient"
         cx={-504.06}
         cy={5230.06}
         r={20.8}
@@ -56,7 +56,7 @@ const SvgSignUpStep2 = (props) => (
         <stop offset={1} stopColor="#fff" />
       </radialGradient>
       <radialGradient
-        id="sign-up-step-2_svg__radial-gradient-2"
+        id="sign-up-location-step_svg__radial-gradient-2"
         cx={143.84}
         cy={345.58}
         r={23.15}
@@ -67,7 +67,7 @@ const SvgSignUpStep2 = (props) => (
       </radialGradient>
       <style>
         {
-          '.sign-up-step-2_svg__cls-1,.sign-up-step-2_svg__cls-2,.sign-up-step-2_svg__cls-26,.sign-up-step-2_svg__cls-39,.sign-up-step-2_svg__cls-41,.sign-up-step-2_svg__cls-42,.sign-up-step-2_svg__cls-43,.sign-up-step-2_svg__cls-44,.sign-up-step-2_svg__cls-45,.sign-up-step-2_svg__cls-58{fill:none}.sign-up-step-2_svg__cls-1{clip-rule:evenodd}.sign-up-step-2_svg__cls-4{fill:#527b84}.sign-up-step-2_svg__cls-5{fill:#7db1a8}.sign-up-step-2_svg__cls-6{fill:#799e96}.sign-up-step-2_svg__cls-8{fill:#5c878f}.sign-up-step-2_svg__cls-10{fill:#f3725f}.sign-up-step-2_svg__cls-11{fill:#f16254}.sign-up-step-2_svg__cls-12{fill:#ffc959}.sign-up-step-2_svg__cls-13,.sign-up-step-2_svg__cls-24,.sign-up-step-2_svg__cls-34,.sign-up-step-2_svg__cls-36{fill:#231f20}.sign-up-step-2_svg__cls-13{opacity:.29}.sign-up-step-2_svg__cls-14{fill:#f47f74}.sign-up-step-2_svg__cls-21{fill:#ffd384}.sign-up-step-2_svg__cls-22{fill:#febf4f}.sign-up-step-2_svg__cls-25{fill:#6f593b}.sign-up-step-2_svg__cls-26{stroke:#231f20}.sign-up-step-2_svg__cls-26,.sign-up-step-2_svg__cls-39,.sign-up-step-2_svg__cls-41,.sign-up-step-2_svg__cls-42,.sign-up-step-2_svg__cls-43,.sign-up-step-2_svg__cls-44,.sign-up-step-2_svg__cls-45,.sign-up-step-2_svg__cls-58{stroke-miterlimit:10}.sign-up-step-2_svg__cls-27{fill:#544255}.sign-up-step-2_svg__cls-28{fill:#675368}.sign-up-step-2_svg__cls-30{fill:#929497}.sign-up-step-2_svg__cls-32{fill:#ae8145}.sign-up-step-2_svg__cls-33{fill:#727375}.sign-up-step-2_svg__cls-34{opacity:.06}.sign-up-step-2_svg__cls-36{opacity:.08}.sign-up-step-2_svg__cls-37{fill:#ffebd3}.sign-up-step-2_svg__cls-38{fill:#fffaf5}.sign-up-step-2_svg__cls-39{stroke:#ffc959}.sign-up-step-2_svg__cls-39,.sign-up-step-2_svg__cls-45{stroke-width:.5px}.sign-up-step-2_svg__cls-40{fill:#a7a9ac}.sign-up-step-2_svg__cls-41{stroke:#b7b7b8}.sign-up-step-2_svg__cls-42,.sign-up-step-2_svg__cls-58{stroke:#bbbdbf}.sign-up-step-2_svg__cls-42,.sign-up-step-2_svg__cls-43,.sign-up-step-2_svg__cls-44,.sign-up-step-2_svg__cls-58{stroke-linecap:round}.sign-up-step-2_svg__cls-42,.sign-up-step-2_svg__cls-44{stroke-width:2px}.sign-up-step-2_svg__cls-43{stroke:#d0d2d3}.sign-up-step-2_svg__cls-44{stroke:#e6e7e7}.sign-up-step-2_svg__cls-45{stroke:#a7a9ac}.sign-up-step-2_svg__cls-46{fill:#daac78}.sign-up-step-2_svg__cls-47{fill:#bbbdbf}.sign-up-step-2_svg__cls-52{clip-path:url(#sign-up-step-2_svg__clip-path-3)}.sign-up-step-2_svg__cls-58{stroke-width:6px}.sign-up-step-2_svg__cls-61{fill:#ffe2c3}'
+          '.sign-up-location-step_svg__cls-1,.sign-up-location-step_svg__cls-2,.sign-up-location-step_svg__cls-26,.sign-up-location-step_svg__cls-41,.sign-up-location-step_svg__cls-43,.sign-up-location-step_svg__cls-45{fill:none}.sign-up-location-step_svg__cls-1{clip-rule:evenodd}.sign-up-location-step_svg__cls-4{fill:#527b84}.sign-up-location-step_svg__cls-5{fill:#7db1a8}.sign-up-location-step_svg__cls-6{fill:#799e96}.sign-up-location-step_svg__cls-8{fill:#5c878f}.sign-up-location-step_svg__cls-10{fill:#f3725f}.sign-up-location-step_svg__cls-11{fill:#f16254}.sign-up-location-step_svg__cls-12{fill:#ffc959}.sign-up-location-step_svg__cls-13,.sign-up-location-step_svg__cls-24,.sign-up-location-step_svg__cls-34,.sign-up-location-step_svg__cls-36{fill:#231f20}.sign-up-location-step_svg__cls-13{opacity:.29}.sign-up-location-step_svg__cls-14{fill:#f47f74}.sign-up-location-step_svg__cls-21{fill:#ffd384}.sign-up-location-step_svg__cls-22{fill:#febf4f}.sign-up-location-step_svg__cls-25{fill:#6f593b}.sign-up-location-step_svg__cls-26{stroke:#231f20}.sign-up-location-step_svg__cls-26,.sign-up-location-step_svg__cls-41,.sign-up-location-step_svg__cls-43,.sign-up-location-step_svg__cls-45{stroke-miterlimit:10}.sign-up-location-step_svg__cls-27{fill:#544255}.sign-up-location-step_svg__cls-28{fill:#675368}.sign-up-location-step_svg__cls-30{fill:#929497}.sign-up-location-step_svg__cls-32{fill:#ae8145}.sign-up-location-step_svg__cls-33{fill:#727375}.sign-up-location-step_svg__cls-34{opacity:.06}.sign-up-location-step_svg__cls-36{opacity:.08}.sign-up-location-step_svg__cls-37{fill:#ffebd3}.sign-up-location-step_svg__cls-38{fill:#fffaf5}.sign-up-location-step_svg__cls-45{stroke-width:.5px}.sign-up-location-step_svg__cls-40{fill:#a7a9ac}.sign-up-location-step_svg__cls-41{stroke:#b7b7b8}.sign-up-location-step_svg__cls-43{stroke-linecap:round;stroke:#d0d2d3}.sign-up-location-step_svg__cls-45{stroke:#a7a9ac}.sign-up-location-step_svg__cls-46{fill:#daac78}.sign-up-location-step_svg__cls-47{fill:#bbbdbf}.sign-up-location-step_svg__cls-52{clip-path:url(#sign-up-location-step_svg__clip-path-3)}.sign-up-location-step_svg__cls-61{fill:#ffe2c3}'
         }
       </style>
     </defs>
@@ -79,12 +79,12 @@ const SvgSignUpStep2 = (props) => (
     />
     <path
       d="M248.54 542.6c.49-19.14-53.76-25.55-120.06-25.55S8.45 520.36 8.42 542.6c0 19.12 53.75 25.55 120.06 25.55S248 565 248.54 542.6Z"
-      className="sign-up-step-2_svg__cls-4"
+      className="sign-up-location-step_svg__cls-4"
     />
-    <path d="M125.59 80.07h93.88v460.91h-93.88z" className="sign-up-step-2_svg__cls-5" />
+    <path d="M125.59 80.07h93.88v460.91h-93.88z" className="sign-up-location-step_svg__cls-5" />
     <path
       d="m232.73 527.99-13.26 12.99V80.07l12.93-12.99.33 460.91z"
-      className="sign-up-step-2_svg__cls-6"
+      className="sign-up-location-step_svg__cls-6"
     />
     <path
       d="M232.4 67.12h-93.28l-13.39 12.99h93.74l12.93-12.99z"
@@ -92,10 +92,10 @@ const SvgSignUpStep2 = (props) => (
         fill: '#8dbfb6',
       }}
     />
-    <path d="M84.49 230.73h85.63V552.4H84.49z" className="sign-up-step-2_svg__cls-8" />
+    <path d="M84.49 230.73h85.63V552.4H84.49z" className="sign-up-location-step_svg__cls-8" />
     <path
       d="m182.21 543.34-12.09 9.07V230.73l11.79-9.06.3 321.67z"
-      className="sign-up-step-2_svg__cls-4"
+      className="sign-up-location-step_svg__cls-4"
     />
     <path
       d="M181.91 221.67h-85.5l-12.22 9.06h85.51l12.21-9.06z"
@@ -103,38 +103,38 @@ const SvgSignUpStep2 = (props) => (
         fill: '#639196',
       }}
     />
-    <path d="M23.84 314.04h84.76v237.45H23.84z" className="sign-up-step-2_svg__cls-10" />
+    <path d="M23.84 314.04h84.76v237.45H23.84z" className="sign-up-location-step_svg__cls-10" />
     <path
       d="m119.31 544.65-11.97 6.7V313.89l11.68-6.69.29 237.45z"
-      className="sign-up-step-2_svg__cls-11"
+      className="sign-up-location-step_svg__cls-11"
     />
     <path
-      d="M203.85 435.41a45.15 45.15 0 0 0 18.6-9.3l-21-13.33-31 7L197 436.56a64 64 0 0 0 6.85-1.15ZM210.48 409.81l10.85-17.12a48.25 48.25 0 0 0-26.48-2.63l-17.18 27.1ZM202.71 412.5l20.49 13c8.68-7.37 13.61-16.49 13.27-20.55ZM169.13 420l-7.8 1.75c2.74 10.44 17.1 16.41 34.12 14.94ZM211.75 409.53l24.54-5.5c-1.08-3.36-6.47-7.85-14.08-11ZM176.41 417.44v-.08l17.14-27c-20.46 4.63-34.85 18.22-32.47 30.54Z"
-      className="sign-up-step-2_svg__cls-12"
+      d="M203.85 435.41a45.15 45.15 0 0 0 18.6-9.3l-21-13.33-31 7L197 436.56a64 64 0 0 0 6.85-1.15Zm6.63-25.6 10.85-17.12a48.25 48.25 0 0 0-26.48-2.63l-17.18 27.1Zm-7.77 2.69 20.49 13c8.68-7.37 13.61-16.49 13.27-20.55Zm-33.58 7.5-7.8 1.75c2.74 10.44 17.1 16.41 34.12 14.94Zm42.62-10.47 24.54-5.5c-1.08-3.36-6.47-7.85-14.08-11Zm-35.34 7.91v-.08l17.14-27c-20.46 4.63-34.85 18.22-32.47 30.54Z"
+      className="sign-up-location-step_svg__cls-12"
     />
     <path
-      d="M211 405.3a46.19 46.19 0 0 0 8.58-19.38l-25.17 3.17-19.9 25.61 31.79-4a68.71 68.71 0 0 0 4.7-5.4ZM199.56 380.88l-2.56-20.5a49.2 49.2 0 0 0-22.52 15.12l4.07 32.5ZM195.2 388l24.54-3c2-11.44 0-21.8-2.91-24.78ZM173.69 415.75l-5 6.44c8.94 6.43 24.11 1.8 36.53-10.41ZM200.38 379.83l15.72-20.25c-3-1.94-10.17-2-18.2.5ZM177.74 409a.29.29 0 0 1 0-.09l-4.08-32.38c-13.07 16.93-15.57 37-5.69 45.08Z"
-      className="sign-up-step-2_svg__cls-12"
+      d="M211 405.3a46.19 46.19 0 0 0 8.58-19.38l-25.17 3.17-19.9 25.61 31.79-4a68.71 68.71 0 0 0 4.7-5.4Zm-11.44-24.42-2.56-20.5a49.2 49.2 0 0 0-22.52 15.12l4.07 32.5ZM195.2 388l24.54-3c2-11.44 0-21.8-2.91-24.78Zm-21.51 27.75-5 6.44c8.94 6.43 24.11 1.8 36.53-10.41Zm26.69-35.92 15.72-20.25c-3-1.94-10.17-2-18.2.5ZM177.74 409a.29.29 0 0 1 0-.09l-4.08-32.38c-13.07 16.93-15.57 37-5.69 45.08Z"
+      className="sign-up-location-step_svg__cls-12"
     />
     <path
       d="M208.26 406.86h-1.38a1.42 1.42 0 0 1-1.39-1.09c-.07-.28-.15-.56-.23-.83a1.45 1.45 0 0 1 .66-1.66l1.14-.67a2.36 2.36 0 0 0 .85-3.21l-.8-1.41a2.34 2.34 0 0 0-3.2-.86l-1.18.68a1.44 1.44 0 0 1-1.76-.24c-.23-.25-.48-.49-.73-.72a1.46 1.46 0 0 1-.26-1.79l.61-1.08a2.36 2.36 0 0 0-.85-3.21l-1.4-.82a2.34 2.34 0 0 0-3.2.86l-.68 1.2a1.45 1.45 0 0 1-1.63.67l-.55-.15a1.43 1.43 0 0 1-1.11-1.4v-1.28a2.35 2.35 0 0 0-2.34-2.35h-1.61a2.35 2.35 0 0 0-2.34 2.35v1.28a1.44 1.44 0 0 1-1.1 1.4l-.33.09a1.46 1.46 0 0 1-1.61-.68l-.64-1.13a2.34 2.34 0 0 0-3.2-.81l-1.4.82a2.36 2.36 0 0 0-.85 3.21l.59 1a1.27 1.27 0 0 1-.26 1.58c-.35.32-.69.64-1 1a1.44 1.44 0 0 1-1.76.25l-1.21-.7a2.34 2.34 0 0 0-3.2.86l-.81 1.41a2.36 2.36 0 0 0 .86 3.21l1.17.69a1.44 1.44 0 0 1 .66 1.66q-.12.41-.21.81a1.44 1.44 0 0 1-1.4 1.09H168a2.35 2.35 0 0 0-2.33 2.36v1.63a2.35 2.35 0 0 0 2.33 2.32h1.11a1.43 1.43 0 0 1 1.4 1.11c.07.28.14.56.22.83a1.45 1.45 0 0 1-.67 1.65l-1.12.66a2.36 2.36 0 0 0-.86 3.21l.81 1.41a2.34 2.34 0 0 0 3.2.87l1.08-.64a1.43 1.43 0 0 1 1.76.26c.29.31.59.61.91.9a1.44 1.44 0 0 1 .26 1.78l-.59 1a2.37 2.37 0 0 0 .85 3.22l1.4.81a2.34 2.34 0 0 0 3.2-.86l.67-1.18a1.42 1.42 0 0 1 1.62-.67l.52.13a1.45 1.45 0 0 1 1.1 1.41v1.27a2.35 2.35 0 0 0 2.34 2.36h1.61a2.35 2.35 0 0 0 2.34-2.36v-1.27a1.45 1.45 0 0 1 1.11-1.41l.55-.14a1.43 1.43 0 0 1 1.63.67l.68 1.19a2.34 2.34 0 0 0 3.2.86l1.4-.81a2.37 2.37 0 0 0 .85-3.22l-.61-1.07a1.47 1.47 0 0 1 .27-1.8c.31-.29.62-.59.91-.91a1.43 1.43 0 0 1 1.77-.27l1.21.71a2.34 2.34 0 0 0 3.2-.87l.81-1.41a2.36 2.36 0 0 0-.86-3.21l-1.28-.71a1.45 1.45 0 0 1-.66-1.64c.07-.25.13-.5.19-.75a1.43 1.43 0 0 1 1.4-1.11h1.33a2.36 2.36 0 0 0 2.34-2.35v-1.63a2.36 2.36 0 0 0-2.34-2.36Zm-20 14.22a11.25 11.25 0 0 1-11.31-11.38A11.41 11.41 0 0 1 188 398.51a11.25 11.25 0 0 1 11.31 11.38 11.41 11.41 0 0 1-11.08 11.19Z"
-      className="sign-up-step-2_svg__cls-13"
+      className="sign-up-location-step_svg__cls-13"
     />
     <path
       d="M208.11 405.72h-1.38a1.42 1.42 0 0 1-1.39-1.09c-.07-.28-.15-.56-.23-.83a1.46 1.46 0 0 1 .66-1.67l1.14-.66a2.36 2.36 0 0 0 .85-3.21l-.81-1.41a2.33 2.33 0 0 0-3.19-.87l-1.18.69a1.44 1.44 0 0 1-1.76-.25c-.23-.24-.48-.48-.73-.71a1.46 1.46 0 0 1-.26-1.79l.61-1.08a2.36 2.36 0 0 0-.85-3.21l-1.4-.82a2.34 2.34 0 0 0-3.2.86l-.68 1.2a1.45 1.45 0 0 1-1.63.67l-.56-.15A1.44 1.44 0 0 1 191 390v-1.28a2.35 2.35 0 0 0-2.34-2.35h-1.61a2.35 2.35 0 0 0-2.34 2.35V390a1.44 1.44 0 0 1-1.1 1.4l-.33.09a1.46 1.46 0 0 1-1.61-.68l-.64-1.13a2.34 2.34 0 0 0-3.2-.86l-1.4.82a2.36 2.36 0 0 0-.85 3.21l.59 1a1.27 1.27 0 0 1-.26 1.58c-.35.32-.69.64-1 1a1.43 1.43 0 0 1-1.76.26l-1.22-.71a2.34 2.34 0 0 0-3.19.87l-.81 1.41a2.36 2.36 0 0 0 .86 3.21l1.17.69a1.44 1.44 0 0 1 .66 1.66c-.08.27-.15.53-.22.81a1.42 1.42 0 0 1-1.39 1.09h-1.16a2.36 2.36 0 0 0-2.34 2.35v1.63a2.36 2.36 0 0 0 2.34 2.36H169a1.43 1.43 0 0 1 1.4 1.11c.07.28.14.56.22.83a1.45 1.45 0 0 1-.67 1.65l-1.12.66a2.36 2.36 0 0 0-.86 3.21l.81 1.41a2.33 2.33 0 0 0 3.19.86l1.09-.63a1.43 1.43 0 0 1 1.76.26c.29.31.59.61.91.9a1.44 1.44 0 0 1 .26 1.78l-.59 1a2.37 2.37 0 0 0 .85 3.22l1.4.81a2.34 2.34 0 0 0 3.2-.86l.67-1.18a1.42 1.42 0 0 1 1.62-.67l.52.13a1.45 1.45 0 0 1 1.1 1.41v1.27a2.35 2.35 0 0 0 2.34 2.36h1.61a2.35 2.35 0 0 0 2.34-2.36V428a1.46 1.46 0 0 1 1.1-1.41l.56-.14a1.42 1.42 0 0 1 1.63.67l.68 1.19a2.34 2.34 0 0 0 3.2.86l1.4-.81a2.37 2.37 0 0 0 .85-3.22l-.61-1.08a1.46 1.46 0 0 1 .27-1.79c.31-.29.62-.59.91-.91a1.43 1.43 0 0 1 1.77-.27l1.21.7a2.34 2.34 0 0 0 3.2-.86l.81-1.41a2.36 2.36 0 0 0-.86-3.21l-1.29-.75a1.45 1.45 0 0 1-.66-1.65c.07-.24.13-.49.19-.74a1.43 1.43 0 0 1 1.4-1.11h1.33a2.35 2.35 0 0 0 2.33-2.36v-1.63a2.35 2.35 0 0 0-2.36-2.35Zm-20 14.22a11.25 11.25 0 0 1-11.31-11.38 11.42 11.42 0 0 1 11.12-11.2 11.26 11.26 0 0 1 11.31 11.39 11.41 11.41 0 0 1-11.15 11.19Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <path
       d="M197.17 376h-1a1 1 0 0 1-1-.81c-.05-.21-.11-.41-.17-.62a1.07 1.07 0 0 1 .49-1.23l.84-.49a1.76 1.76 0 0 0 .64-2.38l-.6-1.05a1.74 1.74 0 0 0-2.37-.64l-.88.51a1.06 1.06 0 0 1-1.3-.18l-.54-.54a1.07 1.07 0 0 1-.2-1.32l.46-.8a1.76 1.76 0 0 0-.64-2.39l-1-.6a1.72 1.72 0 0 0-2.36.64l-.51.88a1.06 1.06 0 0 1-1.21.5l-.41-.11a1.06 1.06 0 0 1-.82-1v-.94a1.75 1.75 0 0 0-1.73-1.75h-1.2a1.75 1.75 0 0 0-1.74 1.75v.94a1.05 1.05 0 0 1-.81 1l-.24.07a1.08 1.08 0 0 1-1.2-.51l-.48-.83a1.72 1.72 0 0 0-2.36-.64l-1 .6a1.76 1.76 0 0 0-.64 2.39l.44.76a.94.94 0 0 1-.19 1.17c-.26.24-.51.48-.75.73a1.06 1.06 0 0 1-1.31.19l-.9-.52a1.72 1.72 0 0 0-2.36.64l-.6 1.05a1.74 1.74 0 0 0 .63 2.38l.87.51a1.06 1.06 0 0 1 .49 1.23c-.06.2-.11.4-.16.6a1.07 1.07 0 0 1-1 .81h-.86a1.75 1.75 0 0 0-1.74 1.75V379a1.75 1.75 0 0 0 1.74 1.75h.82a1.08 1.08 0 0 1 1 .82c.05.21.1.42.16.62a1.07 1.07 0 0 1-.5 1.22l-.83.49a1.74 1.74 0 0 0-.63 2.38l.6 1.05a1.72 1.72 0 0 0 2.36.64l.81-.47a1.06 1.06 0 0 1 1.31.19c.21.23.43.45.67.67a1.08 1.08 0 0 1 .19 1.32l-.44.77a1.76 1.76 0 0 0 .64 2.39l1 .6a1.72 1.72 0 0 0 2.36-.64l.51-.87a1.06 1.06 0 0 1 1.2-.5l.38.1a1.06 1.06 0 0 1 .81 1v.94a1.75 1.75 0 0 0 1.74 1.75h1.2a1.75 1.75 0 0 0 1.73-1.75v-.94a1.06 1.06 0 0 1 .82-1l.41-.11a1.06 1.06 0 0 1 1.21.5l.51.88a1.72 1.72 0 0 0 2.36.64l1-.6a1.76 1.76 0 0 0 .64-2.39l-.46-.8a1.1 1.1 0 0 1 .2-1.33c.24-.21.46-.44.68-.67a1.05 1.05 0 0 1 1.31-.2l.9.52a1.74 1.74 0 0 0 2.37-.64l.6-1.05a1.75 1.75 0 0 0-.63-2.38l-1-.56a1.05 1.05 0 0 1-.49-1.21c.05-.19.09-.37.14-.56a1.06 1.06 0 0 1 1-.82h1a1.75 1.75 0 0 0 1.75-1.75v-1.2a1.75 1.75 0 0 0-1.73-1.8Zm-14.85 10.55a8.35 8.35 0 0 1-8.39-8.45 8.48 8.48 0 0 1 8.25-8.3 8.34 8.34 0 0 1 8.38 8.45 8.46 8.46 0 0 1-8.24 8.33Z"
-      className="sign-up-step-2_svg__cls-13"
+      className="sign-up-location-step_svg__cls-13"
     />
     <path
       d="M197.06 375.18h-1a1.07 1.07 0 0 1-1-.81c-.05-.2-.1-.41-.16-.61a1.08 1.08 0 0 1 .49-1.24l.84-.49a1.76 1.76 0 0 0 .64-2.38l-.6-1a1.74 1.74 0 0 0-2.37-.64l-.88.51a1.06 1.06 0 0 1-1.3-.18l-.54-.53a1.08 1.08 0 0 1-.2-1.33l.46-.8a1.76 1.76 0 0 0-.64-2.38l-1-.61a1.74 1.74 0 0 0-2.37.64l-.5.89a1.08 1.08 0 0 1-1.21.5l-.41-.11a1.08 1.08 0 0 1-.82-1.05v-.94a1.75 1.75 0 0 0-1.73-1.75h-1.2a1.75 1.75 0 0 0-1.74 1.75v.94a1.08 1.08 0 0 1-.81 1.05l-.24.06a1.07 1.07 0 0 1-1.2-.5l-.48-.84a1.73 1.73 0 0 0-2.37-.64l-1 .61a1.75 1.75 0 0 0-.63 2.38l.44.77a1 1 0 0 1-.19 1.17 10.31 10.31 0 0 0-.75.73 1.09 1.09 0 0 1-1.31.19l-.9-.53a1.74 1.74 0 0 0-2.37.64l-.6 1a1.76 1.76 0 0 0 .64 2.38l.87.51a1.07 1.07 0 0 1 .49 1.23c-.06.2-.11.4-.16.6a1.07 1.07 0 0 1-1 .81h-.85a1.75 1.75 0 0 0-1.74 1.75v1.21a1.74 1.74 0 0 0 1.74 1.74h.6a1.06 1.06 0 0 1 1 .83c.05.2.11.41.17.62a1.08 1.08 0 0 1-.5 1.22l-.83.48a1.77 1.77 0 0 0-.64 2.39l.6 1a1.73 1.73 0 0 0 2.37.64l.81-.47a1.06 1.06 0 0 1 1.3.19c.22.23.44.46.67.67a1.07 1.07 0 0 1 .2 1.32l-.44.78a1.75 1.75 0 0 0 .63 2.38l1 .6a1.73 1.73 0 0 0 2.37-.63l.5-.88a1.07 1.07 0 0 1 1.2-.5l.39.1a1.07 1.07 0 0 1 .81 1v.95a1.74 1.74 0 0 0 1.74 1.74h1.2a1.74 1.74 0 0 0 1.73-1.74v-.95a1.08 1.08 0 0 1 .82-1l.41-.11a1.08 1.08 0 0 1 1.21.5l.5.89a1.73 1.73 0 0 0 2.37.63l1-.6a1.76 1.76 0 0 0 .64-2.38l-.46-.8a1.09 1.09 0 0 1 .2-1.33c.23-.22.46-.44.68-.68a1.06 1.06 0 0 1 1.31-.2l.9.52a1.73 1.73 0 0 0 2.37-.64l.6-1a1.76 1.76 0 0 0-.64-2.39l-1-.55a1.09 1.09 0 0 1-.5-1.22c.06-.18.1-.37.15-.55a1.06 1.06 0 0 1 1-.83h1a1.74 1.74 0 0 0 1.73-1.74v-1.21a1.75 1.75 0 0 0-1.51-1.75Zm-14.85 10.55a8.34 8.34 0 0 1-8.39-8.44 8.47 8.47 0 0 1 8.25-8.3 8.33 8.33 0 0 1 8.38 8.44 8.46 8.46 0 0 1-8.24 8.3Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <path
       d="M119.02 307.45H34.37l-11.79 6.44h84.64l11.8-6.44z"
-      className="sign-up-step-2_svg__cls-14"
+      className="sign-up-location-step_svg__cls-14"
     />
     <path
       d="M62.73 409.24h128.73v147.73H62.73z"
@@ -174,35 +174,56 @@ const SvgSignUpStep2 = (props) => (
         fill: '#f9a566',
       }}
     />
-    <path d="M98.56 307.72H70.13v-31.41h28.39l.04 31.41z" className="sign-up-step-2_svg__cls-12" />
+    <path
+      d="M98.56 307.72H70.13v-31.41h28.39l.04 31.41z"
+      className="sign-up-location-step_svg__cls-12"
+    />
     <path
       d="M102.47 275.45H74.09l-3.96.86h28.39l3.95-.86z"
-      className="sign-up-step-2_svg__cls-21"
+      className="sign-up-location-step_svg__cls-21"
     />
-    <path d="m94.69 308.37-28.42.51v-21.32h28.42v20.81z" className="sign-up-step-2_svg__cls-12" />
-    <path d="M98.61 286.95H70.22l-3.95.58h28.38l3.96-.58z" className="sign-up-step-2_svg__cls-21" />
-    <path d="M62.45 298.3h28.43v11.11H62.45z" className="sign-up-step-2_svg__cls-12" />
+    <path
+      d="m94.69 308.37-28.42.51v-21.32h28.42v20.81z"
+      className="sign-up-location-step_svg__cls-12"
+    />
+    <path
+      d="M98.61 286.95H70.22l-3.95.58h28.38l3.96-.58z"
+      className="sign-up-location-step_svg__cls-21"
+    />
+    <path d="M62.45 298.3h28.43v11.11H62.45z" className="sign-up-location-step_svg__cls-12" />
     <path
       d="M94.69 297.99v-10.43l3.87-.6v-10.61l3.91-.9.1 31.89-5.04-.75 2.48-.45 2.55-2.29.01 3.49-11.69 2.06v-11.1l3.81-.31z"
-      className="sign-up-step-2_svg__cls-22"
+      className="sign-up-location-step_svg__cls-22"
     />
-    <path d="M94.8 297.98H66.41l-3.96.31h28.39l3.96-.31z" className="sign-up-step-2_svg__cls-21" />
-    <path d="M182.03 560.83h28.42v-31.4h-28.38l-.04 31.4z" className="sign-up-step-2_svg__cls-12" />
+    <path
+      d="M94.8 297.98H66.41l-3.96.31h28.39l3.96-.31z"
+      className="sign-up-location-step_svg__cls-21"
+    />
+    <path
+      d="M182.03 560.83h28.42v-31.4h-28.38l-.04 31.4z"
+      className="sign-up-location-step_svg__cls-12"
+    />
     <path
       d="M178.11 528.56h28.39l3.95.87h-28.38l-3.96-.87z"
-      className="sign-up-step-2_svg__cls-21"
+      className="sign-up-location-step_svg__cls-21"
     />
-    <path d="m185.89 561.48 28.42.51v-21.32h-28.42v20.81z" className="sign-up-step-2_svg__cls-12" />
+    <path
+      d="m185.89 561.48 28.42.51v-21.32h-28.42v20.81z"
+      className="sign-up-location-step_svg__cls-12"
+    />
     <path
       d="M181.97 540.07h28.39l3.95.58h-28.38l-3.96-.58z"
-      className="sign-up-step-2_svg__cls-21"
+      className="sign-up-location-step_svg__cls-21"
     />
-    <path d="M218.13 562.52H189.7v-11.11h28.43z" className="sign-up-step-2_svg__cls-12" />
+    <path d="M218.13 562.52H189.7v-11.11h28.43z" className="sign-up-location-step_svg__cls-12" />
     <path
       d="M185.89 551.11v-10.44l-3.86-.59v-10.62l-3.92-.9-.1 31.89 5.04-.74-2.48-.45-2.55-2.3-.01 3.49 11.69 2.07v-11.11l-3.81-.3z"
-      className="sign-up-step-2_svg__cls-22"
+      className="sign-up-location-step_svg__cls-22"
     />
-    <path d="M185.79 551.1h28.38l3.96.3h-28.39l-3.95-.3z" className="sign-up-step-2_svg__cls-21" />
+    <path
+      d="M185.79 551.1h28.38l3.96.3h-28.39l-3.95-.3z"
+      className="sign-up-location-step_svg__cls-21"
+    />
     <path
       d="M53.53 503.03h29.59l14.8 25.4-14.8 25.4H53.53l-6.73-47.57 6.73-3.23z"
       style={{
@@ -211,31 +232,34 @@ const SvgSignUpStep2 = (props) => (
     />
     <path
       d="m120.74 467.11-22.28 9.75-20.67-12.84-6.73 3.23 9.11 20.98-18.59 15.68 23.76 5.22 9.17 22.53 12.31-20.98 17.53 1.46 6.73-3.22-16.16-18.19 5.82-23.62z"
-      className="sign-up-step-2_svg__cls-11"
+      className="sign-up-location-step_svg__cls-11"
     />
     <path
       d="m134.43 560.07-6.73 3.22-34.36-29.18 6.75-20.2 6.59-3.24 27.75 49.4z"
-      className="sign-up-step-2_svg__cls-22"
+      className="sign-up-location-step_svg__cls-22"
     />
     <path
       d="m98.8 476.86-20.66-12.84-6.73 3.23 9.11 20.98 19.25 2.5-.97-13.87z"
-      className="sign-up-step-2_svg__cls-14"
+      className="sign-up-location-step_svg__cls-14"
     />
     <path
       d="M46.8 506.26h29.59l14.8 25.4-14.8 25.4H46.8L32 531.66l14.8-25.4z"
-      className="sign-up-step-2_svg__cls-5"
+      className="sign-up-location-step_svg__cls-5"
     />
     <path
       d="m114.02 470.34-22.29 9.74-20.67-12.83 2.38 24.21-18.59 15.68 23.76 5.22 9.17 22.53 12.31-20.98 24.26-1.77-16.16-18.18 5.83-23.62z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
-    <path d="M127.7 563.29H71.83l28.12-49.39 27.75 49.39z" className="sign-up-step-2_svg__cls-12" />
+    <path
+      d="M127.7 563.29H71.83l28.12-49.39 27.75 49.39z"
+      className="sign-up-location-step_svg__cls-12"
+    />
     <rect
       width={13.31}
       height={12.62}
       x={152.81}
       y={378.82}
-      className="sign-up-step-2_svg__cls-4"
+      className="sign-up-location-step_svg__cls-4"
       rx={6.31}
       transform="rotate(4.28 159.512 385.3)"
     />
@@ -244,76 +268,76 @@ const SvgSignUpStep2 = (props) => (
       height={12.62}
       x={151.69}
       y={378.65}
-      className="sign-up-step-2_svg__cls-8"
+      className="sign-up-location-step_svg__cls-8"
       rx={6.31}
       transform="rotate(4.28 158.432 385.072)"
     />
     <path
       d="M195.59 476.32c.07-.56 3.12-1.33 4.21-.48a6.19 6.19 0 0 1 1.51 6.11c-.92 2.19-.18 2.38.3 2.74a6.27 6.27 0 0 1-4.16.68c-2.78-.3-2.14-2.38-2.14-2.38Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="M200.7 485.67c-1.19-.31-2.39-.19-2.81-.38-.27-.13-.85-.12-.25-1.27s1.55-1.82 1.45-2.66-2-4.51-3.93-4.39c0 0-2.5.41-2.31 3.64.11 1.88.32 3.26.87 3.77.27.26.91.21 1.13.25s.16.39 0 .5c-.38.24-2.44 0-2.64.3s-.54 2.42.38 2.76a14.49 14.49 0 0 0 4.29.45c1.01-.09 3.82-2.97 3.82-2.97Z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M196.91 478.74s-2.3 2-4.23 1.51c-1.06-.26 0-2.49.83-3.38s3.09-.61 3.47-.48a3.71 3.71 0 0 1 2.35 2.18c1 2.62-.85 5.39-1.33 4.7-.21-.3 1.11-.9.69-2.11-.16-.46-.94.2-.94.2-.68-.36-.84-2.62-.84-2.62Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
-    <circle cx={193.59} cy={481.16} r={0.91} className="sign-up-step-2_svg__cls-26" />
-    <circle cx={195.78} cy={481.52} r={0.97} className="sign-up-step-2_svg__cls-26" />
-    <path d="M194.49 481.36c.23-.21.12-.15.33 0" className="sign-up-step-2_svg__cls-26" />
+    <circle cx={193.59} cy={481.16} r={0.91} className="sign-up-location-step_svg__cls-26" />
+    <circle cx={195.78} cy={481.52} r={0.97} className="sign-up-location-step_svg__cls-26" />
+    <path d="M194.49 481.36c.23-.21.12-.15.33 0" className="sign-up-location-step_svg__cls-26" />
     <path
       d="m195.05 524.73-.08 3.22-.76 1.15-1.25-1.07.6-3.3h1.49z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M194.84 529.72h-.42c-.41 0-.08-.6-.87-.74-.14 0-1 .74-1.24.74a8.89 8.89 0 0 1-1.92-.15c0-.12-.39-.89.34-.9s2.34-1.84 2.51-1.8-.12.66.67.79 1-.5 1.07-.43a15.46 15.46 0 0 1-.14 2.49Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="M192.65 527.34a.62.62 0 0 1 .11.95 1.74 1.74 0 0 1-.76.53c-.11 0-.66.12-.84-.29a10.3 10.3 0 0 0 1.49-1.19Z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M192.15 500.37s-.22 13.9-.07 14.91.95 9.05.87 9.77 2 1.23 2.39.29 1.06-10.17.35-11.33 3.61-14 3.61-14Z"
-      className="sign-up-step-2_svg__cls-27"
+      className="sign-up-location-step_svg__cls-27"
     />
     <path
       d="m206.51 508 1.52-.92 1.32-.06-.32 1.49-2.62.9.1-1.41z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="m210.21 505.83.22.36c.23.35-.45.39-.15 1.13.05.13 1.16.45 1.29.65a9.19 9.19 0 0 1 .9 1.7c-.1.06-.54.8-.94.19s-2.81-1-2.87-1.15.62-.26.3-1-.93-.53-.93-.68a17.64 17.64 0 0 1 2.18-1.2Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="M209.37 509a.63.63 0 0 1 .75-.61 1.88 1.88 0 0 1 .85.36c.09.07.46.5.21.87a9.05 9.05 0 0 0-1.81-.62Z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M192.15 500.37c.23 1.81 1.25 14.29 3.19 14.87s13.27-5.41 12.83-6-1.08-1.7-1.8-1.43-6.18 2.7-7.48 2.77.28-5.38.41-6.53.94-2.89 0-4-7.15.32-7.15.32Z"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
       d="M186.06 490.25s-2.73-1.28-3.09-2.14-.63-.95-.76-1.05c-.48-.36-.81-.74-.72-.48a6.62 6.62 0 0 1 0 1 .14.14 0 0 1-.07.14l-.39.21c-.09.05-.59.33-.89.47s.73.57 1.12.62c.61.08 1.85 1.32 4.06 4.17.16.2.74-2.94.74-2.94Z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M181.52 486.51c-.3-.23-.74-.77-.8-.65a.48.48 0 0 0 0 .49 1.44 1.44 0 0 0 .41.47 5.71 5.71 0 0 1 .38.85"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M192.18 485.43c-1.15.24-4.28 5.39-4.88 5.67s-.65-.73-1.24-.85-1.13 2.42-.73 2.95c.68.91 1.65 1.61 2.48 1.31s3.71-4.16 3.72-4a1.94 1.94 0 0 0 1 2.26c1 .45.26 4.72-.22 7.25 0 .15-.12.25-.13.36-.08 1.61 7.47.48 7.39 0-1-5.61-.65-9.93.63-11s3.94-.87 5.32-1.28c.92-.27 2-2 2.47-2.54.73-.94-1.36-1.92-1.94-1.82s-1.16 1.69-2.06 1.66-4.17.06-4.83 0-2.78 2.58-4 2.58-1.83-2.79-2.98-2.55Z"
-      className="sign-up-step-2_svg__cls-11"
+      className="sign-up-location-step_svg__cls-11"
     />
     <path
       d="M209.05 478.9a.57.57 0 0 1 0-.46 6.19 6.19 0 0 1 .75-1.2c.37-.38.53-.66.7-.63s-.08.44-.21.64a1.41 1.41 0 0 0-.19.51c0 .15 2.31-1.27 2.56-1s-1.51.91-1.55 1 1.89-1 2.09-.66-1.75.87-1.77 1.07 2-.94 2.11-.65-1.92.89-2 1 1.43-.62 1.47-.37-1.61 1-1.93 1.14a7.61 7.61 0 0 1-1.48.57c-.09.06-.4-.6-.55-.96Z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M206 483.77c-.11.57 1.62 1.56 2.09 1.48s1.42-5.35 1.85-5.4-.53-1.83-.9-1.41-3.04 5.33-3.04 5.33Z"
-      className="sign-up-step-2_svg__cls-25"
+      className="sign-up-location-step_svg__cls-25"
     />
     <path
       d="M185.61 522.11h5.68v4h-5.68z"
@@ -327,7 +351,7 @@ const SvgSignUpStep2 = (props) => (
       height={0.6}
       x={184.99}
       y={522.16}
-      className="sign-up-step-2_svg__cls-30"
+      className="sign-up-location-step_svg__cls-30"
       rx={0.3}
       transform="rotate(166.39 188.044 522.465)"
     />
@@ -336,7 +360,7 @@ const SvgSignUpStep2 = (props) => (
       height={0.6}
       x={185.79}
       y={525.47}
-      className="sign-up-step-2_svg__cls-30"
+      className="sign-up-location-step_svg__cls-30"
       rx={0.3}
       transform="rotate(166.39 188.841 525.77)"
     />
@@ -345,13 +369,13 @@ const SvgSignUpStep2 = (props) => (
       height={0.6}
       x={185.39}
       y={523.81}
-      className="sign-up-step-2_svg__cls-30"
+      className="sign-up-location-step_svg__cls-30"
       rx={0.3}
       transform="rotate(166.39 188.445 524.12)"
     />
     <path
       d="m192.51 528.898-5.52 1.337-.847-3.499 5.52-1.337z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <path
       d="m173.77 463.45-.11 11.61 4.43 6.23 1.09-7.56-5.41-10.28z"
@@ -361,84 +385,87 @@ const SvgSignUpStep2 = (props) => (
     />
     <path
       d="M174.27 474.22c.55-.13 1.19.55 1.42 1.51l2-.48c-.24-1 0-1.85.57-2a1 1 0 0 1 .93.47l.26 1.1.27 1.1 11 45.57-5.52 1.34-11-45.58-.27-1.1-.26-1.1a1 1 0 0 1 .6-.83Z"
-      className="sign-up-step-2_svg__cls-6"
+      className="sign-up-location-step_svg__cls-6"
     />
     <path
       d="M176.26 473.74c.55-.13 1.18.55 1.42 1.52L189 521.93l-2 .48-11.3-46.67c-.24-.97.01-1.86.56-2Z"
-      className="sign-up-step-2_svg__cls-5"
+      className="sign-up-location-step_svg__cls-5"
     />
     <path
       d="M173.77 463.45s1.09 2.11 1.61 3.07-1.65 1.16-1.65.59Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="m149.24 558.77.06 2.1 1.18 1.37 1.96-1.26-1.16-3.22-2.04 1.01z"
-      className="sign-up-step-2_svg__cls-32"
+      className="sign-up-location-step_svg__cls-32"
     />
     <path
       d="M149.3 562.73a4 4 0 0 0 1.29.39c.5 0 1.75-.19 1.91-.19s1.88.19 2.17.19 1.44 0 1.44-.19.27-1.62-.6-1.64a33.54 33.54 0 0 1-3.41-1c-.21 0-.47.88-1.41 1s-1.24-.51-1.39-.42a8.25 8.25 0 0 0 0 1.86Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="m140.14 557.46-1.19 1.73.14 1.8 2.33.14.96-3.27-2.24-.4z"
-      className="sign-up-step-2_svg__cls-32"
+      className="sign-up-location-step_svg__cls-32"
     />
     <path
       d="M146.09 546.89 142 559.14l-3.36-.75s2.21-12.93 2.37-13.47a63.89 63.89 0 0 1 4.17-13.87c.08-.21 4.81.83 4.81.83l-.09 4.48-2.12 5.07Z"
-      className="sign-up-step-2_svg__cls-5"
+      className="sign-up-location-step_svg__cls-5"
     />
     <path
       d="M142.47 515.42c.61-.21.08-.59.59-.67a11 11 0 0 0 1.58-.18c.28-.16.91-.77.19-1.91s-1.35-1.77-1.32-2.65 1.65-4.87 3.72-4.91c0 0 2.65.21 2.72 3.59.05 2 0 3.43-.58 4-.27.29-.93.29-1.16.36s-.21.76 0 .87a5.51 5.51 0 0 0 1.53.29c1 0 1.3.15 1.42.32s.37 3-.56 3.47a14.75 14.75 0 0 1-4.43.84c-1.09.01-3.7-3.42-3.7-3.42Z"
-      className="sign-up-step-2_svg__cls-32"
+      className="sign-up-location-step_svg__cls-32"
     />
     <path
       d="M145.58 508.54a7.42 7.42 0 0 0 4-.77c1.39-1 .27-1.86-.83-2.48a8.3 8.3 0 0 0-4.24-.46c-1.18.35-1.22 1-1.59 1.37s-.84.76-1 1.25.3.8.28 1.14c0 .55-.85.65-.81 1.15.06.9.87.9.9 1.26s-.67 1.49-.08 1.86a2.23 2.23 0 0 0 2.9-.23c.3-.4.05-.83-.2-1.18s-1.43-.91-.66-2.14c.36-.58 1.11.71 1.11.71a1.15 1.15 0 0 0 .22-1.48Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="m148 547.34.88 12.23 3.45.07s.95-13.07.92-13.64a64.42 64.42 0 0 0-.72-14.47 38.62 38.62 0 0 0-4.88-.34l-1 4.37.84 5.43Z"
-      className="sign-up-step-2_svg__cls-5"
+      className="sign-up-location-step_svg__cls-5"
     />
     <path
       d="M165.37 506.29a8.4 8.4 0 0 1 .11-1.9c.17-.58.18-.95.36-1s.16.49.14.76a1.55 1.55 0 0 0 .08.62c.05.16 1.65-2.52 2.05-2.41.2.06-1.05 1.73-1 1.88s1.38-2 1.76-1.79-1.3 1.82-1.21 2 1.52-2 1.78-1.79-1.46 1.92-1.41 2.1 1.11-1.4 1.28-1.17-1.09 1.88-1.34 2.19a8.53 8.53 0 0 1-1.19 1.37c-.24.14-1.41-.86-1.41-.86Z"
-      className="sign-up-step-2_svg__cls-32"
+      className="sign-up-location-step_svg__cls-32"
     />
     <path
       d="M150.91 514.29c-.39.76-1.37 2.35-.11 3.8s11.36-2.72 12.23-3.92 4.54-6.94 4.42-7.4-1.83-.51-2.21-.45-3.49 5.12-4.21 5.48-10.12 2.49-10.12 2.49Z"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
       d="M142.29 514.88c-1.86 1.15-.44 4.84-.07 5.84s1.65 12.5 2.07 12.84 8.8 0 9-.71-1.14-7.2-.52-12.42c.07-.64 1.43-6.71-.16-6.49-1 .14-2.21.1-3 .32s-2.18 2.28-2.55 2.28a28.65 28.65 0 0 0-3-1.79 4.36 4.36 0 0 0-1.71.13"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
       d="M144.66 515c-.34-.51-1.34-.53-1.53-.54-.93 0-1.95.68-2.71 2.22-1.31 2.65-3.27 9.58-2.3 10.69 1.21 1.4 7.59 4.38 8 4.08s.94-1.28.73-1.61-5.68-3.35-5.34-4.37c.19-.64 4.36-8.63 3.15-10.47Z"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
       d="M138.22 560.35a2.88 2.88 0 0 0 .68 1.23 13.63 13.63 0 0 1 1.15 1.37c.13.09.92 1.22 1.15 1.38s.74.88 1.12.94c1.16.19 2.56-.37 2.06-1.43-.17-.36-.61-.72-1.09-1.6s-1.13-2.55-1.24-2.6-.88.47-1.8.71-1.13-1.15-1.3-1.16-.73 1.16-.73 1.16Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
-    <path d="m150.617 530.677-2.892.4-.125-.901 2.893-.4z" className="sign-up-step-2_svg__cls-33" />
+    <path
+      d="m150.617 530.677-2.892.4-.125-.901 2.893-.4z"
+      className="sign-up-location-step_svg__cls-33"
+    />
     <path
       d="m163.743 529.616-13.504 1.115-.762-9.239 13.504-1.115z"
-      className="sign-up-step-2_svg__cls-33"
+      className="sign-up-location-step_svg__cls-33"
     />
     <path
       d="M146.63 529.93a8.07 8.07 0 0 1 1.88-.33c.6 0 1 0 1.07.13s-.45.26-.71.3a1.58 1.58 0 0 0-.59.22c-.14.09 2.21.24 2.19.64 0 .22-1.3.18-1.44.25s1.24-.27 1.1.16-1 .29-1.22.43 1-.33.82 0-.88.36-1 .45.83-.35.65-.13a2.64 2.64 0 0 1-1.67.3 9 9 0 0 1-1.6-.84c-.19-.21.52-1.58.52-1.58Z"
-      className="sign-up-step-2_svg__cls-32"
+      className="sign-up-location-step_svg__cls-32"
     />
     <path
       d="M155.8 526.27a.52.52 0 0 0 .47-.26.63.63 0 0 0-.57-1 1.25 1.25 0 0 1 1.27-.72 1.23 1.23 0 1 1-1.14 1.94Z"
-      className="sign-up-step-2_svg__cls-30"
+      className="sign-up-location-step_svg__cls-30"
     />
     <path
       d="M192.59 439.33c-10.1-8.64-30.6-17.09-36.52-18.58a.47.47 0 0 1-.24-.76c.54-.63.83-.94 1.92-2.17a.27.27 0 0 0-.19-.45c-7.81-.34-20.54-.7-29.31-.73a.27.27 0 0 0-.18.47c6.24 5.54 10 8.72 19.89 16.58a.43.43 0 0 0 .63-.11c.5-.85.65-1.12 1.59-2.83a.72.72 0 0 1 .67-.37c5.85.3 33.43 11 41.74 26.11Z"
-      className="sign-up-step-2_svg__cls-34"
+      className="sign-up-location-step_svg__cls-34"
     />
     <path
       d="M191.46 453.12c-10.1-8.64-30.6-17.09-36.52-18.58a.47.47 0 0 1-.24-.76c.54-.63.84-.94 1.93-2.17a.27.27 0 0 0-.2-.45c-7.81-.34-20.54-.7-29.31-.73a.27.27 0 0 0-.18.47c6.24 5.54 10 8.72 19.89 16.58a.43.43 0 0 0 .63-.11c.5-.85.65-1.12 1.59-2.83a.72.72 0 0 1 .67-.37c5.85.3 33.43 11 41.74 26.11Z"
-      className="sign-up-step-2_svg__cls-34"
+      className="sign-up-location-step_svg__cls-34"
     />
     <path
       d="M193.82 474.78a13.06 13.06 0 0 1-2.36 4.23V464.1c0-.91 3.36 3.35 3.36 3.35Z"
@@ -448,48 +475,53 @@ const SvgSignUpStep2 = (props) => (
     />
     <path
       d="M154.94 429.57a.47.47 0 0 1-.24-.76c.54-.63.83-.94 1.93-2.17a.27.27 0 0 0 .06-.12l.21-1.06-4 .31.27.31c-7.11-.28-16.6-.53-24-.59l-2.07-.89-.2 1a.26.26 0 0 0 .06.32c6.24 5.54 10 8.72 19.89 16.58a.43.43 0 0 0 .63-.11c.5-.85.65-1.12 1.59-2.83a.72.72 0 0 1 .67-.37c7 .36 45.2 15.58 44.1 35.58l3.28-17c2.06-10.77-34-26.13-42.18-28.2Z"
-      className="sign-up-step-2_svg__cls-11"
+      className="sign-up-location-step_svg__cls-11"
     />
     <path
       d="m194 473.71 3.29-17c2.08-10.77-34-26.13-42.16-28.19a.47.47 0 0 1-.25-.76c.55-.63.84-.94 1.93-2.17a.27.27 0 0 0-.19-.45c-7.82-.35-20.55-.7-29.31-.73a.27.27 0 0 0-.18.47c6.24 5.53 10 8.71 19.89 16.58a.43.43 0 0 0 .63-.11c.5-.86.65-1.13 1.58-2.83a.7.7 0 0 1 .68-.37c7.02.35 45.21 15.57 44.09 35.56Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <path
       d="M155.79 428.68c-.34-.09-.5-.14-.8-.2.54-.63 1.35-1.67 2.44-2.9a.27.27 0 0 0-.19-.45c-5.51-.25-13.46-.49-20.75-.63 3.4 2.88 7.14 5.92 13.08 10.66a.43.43 0 0 0 .63-.11c.5-.85.65-1.12 1.59-2.83a.72.72 0 0 1 .67-.37c6.64.34 40.94 13.12 43.54 31.6.42-2.16.42-3.37 1-6.39 2-11.27-33-26.31-41.21-28.38Z"
-      className="sign-up-step-2_svg__cls-36"
+      className="sign-up-location-step_svg__cls-36"
     />
     <path
       d="M157.57 417a.46.46 0 0 1-.24-.75c.54-.63.83-.94 1.92-2.17a.24.24 0 0 0 .07-.13l.21-1.07-4 .31.28.31c-7.11-.27-16.6-.52-24-.58l-2.07-.9-.19 1a.28.28 0 0 0 .06.33c6.24 5.53 10 8.71 19.89 16.58a.42.42 0 0 0 .63-.12c.5-.85.65-1.12 1.58-2.82a.71.71 0 0 1 .68-.37c7 .36 45.19 15.57 44.09 35.57l3.29-17c2.04-10.81-34.02-26.19-42.2-28.19Z"
-      className="sign-up-step-2_svg__cls-11"
+      className="sign-up-location-step_svg__cls-11"
     />
     <path
       d="m196.65 461.1 3.29-17c2.07-10.76-34-26.12-42.17-28.19a.47.47 0 0 1-.24-.76c.55-.63.84-.94 1.93-2.16a.28.28 0 0 0-.19-.46c-7.82-.34-20.55-.7-29.31-.73a.27.27 0 0 0-.18.47c6.24 5.54 10 8.72 19.89 16.58a.42.42 0 0 0 .63-.11c.49-.85.65-1.12 1.58-2.83a.74.74 0 0 1 .67-.37c7.01.34 45.2 15.56 44.1 35.56Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <path
       d="M170.25 331.14s18 .78 21.2 1.17c1.33.15 1.73.76 2.45 2-5.35-.34-14.4.35-19.13-.66-3.69-.76-4.52-2.51-4.52-2.51Z"
-      className="sign-up-step-2_svg__cls-37"
+      className="sign-up-location-step_svg__cls-37"
     />
     <path
       d="M144.2 330.12c-12.88 3.63-9.1 23.49-9.62 30.94-.5 7.11.23 32.95-12.23 40.84 9.28 4 44 6.84 54.19 6.84 3.67 0 7.88-30.32 6.91-43.53-.87-11.78-2.5-30.74 8.18-32.84-12.22-1.52-47.43-2.25-47.43-2.25Z"
-      className="sign-up-step-2_svg__cls-38"
+      className="sign-up-location-step_svg__cls-38"
     />
     <path
       d="M176.37 408.67c-1.83.33-4.17-1.95-4.17-1.95-10.14-1.13-45-9.11-51.77-9.78-.28 2.75-.65 2.95 1.72 5.28 4.37 4.3 53.54 6.72 54.22 6.45Z"
-      className="sign-up-step-2_svg__cls-37"
+      className="sign-up-location-step_svg__cls-37"
     />
     <path
-      d="M183.26 362.36c1.45-.05 1.65-.5 1.66-1.52a1.76 1.76 0 0 0-1.76-1.93c-1-.05-9.4-.59-10.06-.59a1.76 1.76 0 0 0-1.85 1.77 1.78 1.78 0 0 0 1.9 1.94c1.11.05 6.6.28 7.31.28a1.29 1.29 0 0 0 1.48-1.38c0-1-.85-1.28-1.54-1.34l-6.78-.39a1 1 0 0 0-1.26 1.05c0 .73.55.93 1.2 1l1.32.06c1.15.05 2.64.1 3.13.14M178.12 361.44l-.42-.02"
-      className="sign-up-step-2_svg__cls-39"
+      d="M183.26 362.36c1.45-.05 1.65-.5 1.66-1.52a1.76 1.76 0 0 0-1.76-1.93c-1-.05-9.4-.59-10.06-.59a1.76 1.76 0 0 0-1.85 1.77 1.78 1.78 0 0 0 1.9 1.94c1.11.05 6.6.28 7.31.28a1.29 1.29 0 0 0 1.48-1.38c0-1-.85-1.28-1.54-1.34l-6.78-.39a1 1 0 0 0-1.26 1.05c0 .73.55.93 1.2 1l1.32.06c1.15.05 2.64.1 3.13.14m.11-.01-.42-.02"
+      style={{
+        strokeWidth: '.5px',
+        stroke: '#ffc959',
+        strokeMiterlimit: 10,
+        fill: 'none',
+      }}
     />
     <path
       d="M183.41 331.64c-3.71 1.64-5.76 7.55-6.37 11.27a.2.2 0 0 1-.38.07c-1.14-1.94-2-3.08-2.65-4.09a.29.29 0 0 0-.45-.05 26.57 26.57 0 0 0-3.24 3.21.2.2 0 0 1-.35-.13c.14-3.18 1.42-10.92 4.61-10.78 5.09.24 8.83.5 8.83.5Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <ellipse
       cx={147.92}
       cy={347.19}
-      className="sign-up-step-2_svg__cls-40"
+      className="sign-up-location-step_svg__cls-40"
       rx={10.16}
       ry={8.16}
       transform="rotate(-85.72 147.917 347.186)"
@@ -497,7 +529,7 @@ const SvgSignUpStep2 = (props) => (
     <ellipse
       cx={148.13}
       cy={344.49}
-      className="sign-up-step-2_svg__cls-38"
+      className="sign-up-location-step_svg__cls-38"
       rx={3.82}
       ry={3.06}
       transform="rotate(-85.72 148.118 344.484)"
@@ -505,7 +537,7 @@ const SvgSignUpStep2 = (props) => (
     <ellipse
       cx={147.43}
       cy={353.82}
-      className="sign-up-step-2_svg__cls-38"
+      className="sign-up-location-step_svg__cls-38"
       rx={5.04}
       ry={6.88}
       transform="rotate(-85.72 147.421 353.816)"
@@ -513,25 +545,31 @@ const SvgSignUpStep2 = (props) => (
     <ellipse
       cx={147.92}
       cy={347.19}
-      className="sign-up-step-2_svg__cls-41"
+      className="sign-up-location-step_svg__cls-41"
       rx={10.16}
       ry={8.16}
       transform="rotate(-85.72 147.917 347.186)"
     />
     <path
-      d="m159.3 346.06 17.85 1.13M159.04 350.17l17.85 1.13M158.78 354.28l10.21.64"
-      className="sign-up-step-2_svg__cls-42"
+      d="m159.3 346.06 17.85 1.13m-18.11 2.98 17.85 1.13m-18.11 2.98 10.21.64"
+      style={{
+        strokeWidth: 2,
+        strokeLinecap: 'round',
+        stroke: '#bbbdbf',
+        strokeMiterlimit: 10,
+        fill: 'none',
+      }}
     />
     <path
-      d="m140.24 363.25 37.28 2.36M140.05 366.22l37.41 2.37M140.05 369.43l19.11 1.21"
-      className="sign-up-step-2_svg__cls-43"
+      d="m140.24 363.25 37.28 2.36m-37.47.61 37.41 2.37m-37.41.84 19.11 1.21"
+      className="sign-up-location-step_svg__cls-43"
     />
     <rect
       width={3.56}
       height={3.56}
       x={139.48}
       y={373.46}
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
       rx={0.92}
       transform="rotate(3.62 141.085 374.864)"
     />
@@ -540,134 +578,143 @@ const SvgSignUpStep2 = (props) => (
       height={3.56}
       x={157.71}
       y={374.61}
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
       rx={0.92}
       transform="rotate(3.62 159.336 376.03)"
     />
-    <path d="m144.78 375.38 8.84.56M163.54 376.56l8.85.56" className="sign-up-step-2_svg__cls-44" />
+    <path
+      d="m144.78 375.38 8.84.56m9.92.62 8.85.56"
+      style={{
+        stroke: '#e6e7e7',
+        strokeWidth: 2,
+        strokeLinecap: 'round',
+        strokeMiterlimit: 10,
+        fill: 'none',
+      }}
+    />
     <rect
       width={3.56}
       height={3.56}
       x={138.4}
       y={381.52}
-      className="sign-up-step-2_svg__cls-45"
+      className="sign-up-location-step_svg__cls-45"
       rx={1.78}
       transform="rotate(7.31 140.262 383.455)"
     />
     <path
       d="M139.39 382.57a.32.32 0 0 1 .21.1 1.49 1.49 0 0 1 .3.41 2 2 0 0 1 .13.34v.05h.05l.19-.26a5.14 5.14 0 0 1 1.71-1.57 2.43 2.43 0 0 1 .37-.16h.14l-.18.16a7.17 7.17 0 0 0-1.84 2.22 2.8 2.8 0 0 0-.19.43.2.2 0 0 1 0 .08.66.66 0 0 1-.49.24h-.05a.11.11 0 0 1-.1-.1 3.3 3.3 0 0 0-.2-.63 2.66 2.66 0 0 0-.42-.71 1.07 1.07 0 0 0-.36-.28h-.06v-.06l.06-.06a1.12 1.12 0 0 1 .42-.18.64.64 0 0 1 .31-.02Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <rect
       width={3.56}
       height={3.56}
       x={137.3}
       y={387.81}
-      className="sign-up-step-2_svg__cls-45"
+      className="sign-up-location-step_svg__cls-45"
       rx={1.78}
       transform="rotate(10.93 139.06 389.576)"
     />
     <path
       d="M138.34 388.81a.39.39 0 0 1 .2.12 1.63 1.63 0 0 1 .38.77v.06h.05l.2-.25A5.13 5.13 0 0 1 141 388a1.32 1.32 0 0 1 .38-.13h.14l-.19.15a6.93 6.93 0 0 0-2 2.09 2.74 2.74 0 0 0-.21.42.16.16 0 0 1-.06.08.65.65 0 0 1-.49.21h-.06a.12.12 0 0 1-.09-.1 2.94 2.94 0 0 0-.16-.65 2.54 2.54 0 0 0-.38-.73 1 1 0 0 0-.34-.3v-.06h.05a1.17 1.17 0 0 1 .44-.16.81.81 0 0 1 .31-.01Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <rect
       width={3.56}
       height={3.56}
       x={135.77}
       y={393.92}
-      className="sign-up-step-2_svg__cls-45"
+      className="sign-up-location-step_svg__cls-45"
       rx={1.78}
       transform="rotate(14 135.787 401.226)"
     />
     <path
       d="M136.85 394.88a.32.32 0 0 1 .2.13 1.45 1.45 0 0 1 .24.44 1.9 1.9 0 0 1 .09.36s0 0 0 .05h.05l.22-.24a5.13 5.13 0 0 1 1.9-1.34 1.26 1.26 0 0 1 .38-.1.33.33 0 0 1 .14 0l-.2.14a7 7 0 0 0-2.1 2 2.1 2.1 0 0 0-.24.41s0 0-.06.08a.73.73 0 0 1-.51.17c-.06 0-.09-.05-.09-.11a3.53 3.53 0 0 0-.11-.65 2.6 2.6 0 0 0-.34-.76.89.89 0 0 0-.32-.32s0 0 0-.06l.06-.05a1.17 1.17 0 0 1 .45-.13.79.79 0 0 1 .24-.02Z"
-      className="sign-up-step-2_svg__cls-10"
+      className="sign-up-location-step_svg__cls-10"
     />
     <path
-      d="m144.61 382.91 32.71 2.85M144.47 384.64l21.23 1.84M144.03 389.55l31.56 3.14M143.87 391.4l6.48.8M142.84 395.88l31.84 4M142.57 397.64l29.11 3.74"
-      className="sign-up-step-2_svg__cls-43"
+      d="m144.61 382.91 32.71 2.85m-32.85-1.12 21.23 1.84m-21.67 3.07 31.56 3.14m-31.72-1.29 6.48.8m-7.51 3.68 31.84 4m-32.11-2.24 29.11 3.74"
+      className="sign-up-location-step_svg__cls-43"
     />
     <path
       d="M21.65 356.1c10.11-8.64 30.61-17.09 36.52-18.58a.47.47 0 0 0 .25-.76c-.55-.63-.84-.94-1.93-2.17a.27.27 0 0 1 .19-.45c7.81-.34 20.55-.7 29.31-.73a.27.27 0 0 1 .18.47c-6.24 5.54-10 8.72-19.89 16.58a.43.43 0 0 1-.63-.11c-.5-.85-.65-1.12-1.58-2.83a.75.75 0 0 0-.68-.37c-5.84.3-33.43 11-41.74 26.11Z"
-      className="sign-up-step-2_svg__cls-34"
+      className="sign-up-location-step_svg__cls-34"
     />
     <path
       d="M24.17 368.5c10.11-8.63 30.61-17.08 36.53-18.58a.46.46 0 0 0 .24-.75c-.54-.64-.84-.94-1.93-2.17a.27.27 0 0 1 .19-.45c7.82-.35 20.55-.7 29.32-.74a.28.28 0 0 1 .18.48c-6.25 5.53-10 8.71-19.89 16.58a.42.42 0 0 1-.63-.12c-.5-.85-.65-1.12-1.59-2.82a.69.69 0 0 0-.67-.37c-5.85.3-33.44 10.95-41.75 26.1Z"
-      className="sign-up-step-2_svg__cls-34"
+      className="sign-up-location-step_svg__cls-34"
     />
     <path
       d="M21.82 390.16a13.22 13.22 0 0 0 2.35 4.24v-14.91c0-.91-3.35 3.34-3.35 3.34Z"
-      className="sign-up-step-2_svg__cls-6"
+      className="sign-up-location-step_svg__cls-6"
     />
     <path
       d="M60.7 345a.46.46 0 0 0 .24-.75c-.54-.63-.84-.94-1.93-2.17a.31.31 0 0 1-.06-.13l-.21-1.07 4 .31-.28.31c7.12-.27 16.61-.52 24-.58l2.07-.9.2 1a.28.28 0 0 1-.06.33c-6.25 5.53-10 8.71-19.89 16.58a.43.43 0 0 1-.63-.11c-.5-.86-.65-1.13-1.59-2.83a.69.69 0 0 0-.67-.37c-7 .36-45.2 15.57-44.1 35.57l-3.28-17C16.46 362.38 52.52 347 60.7 345Z"
-      className="sign-up-step-2_svg__cls-6"
+      className="sign-up-location-step_svg__cls-6"
     />
     <path
       d="m21.62 389.1-3.29-17c-2.08-10.76 34-26.12 42.16-28.19a.47.47 0 0 0 .24-.76c-.54-.63-.83-.94-1.92-2.16a.27.27 0 0 1 .19-.46c7.81-.34 20.54-.7 29.31-.73a.27.27 0 0 1 .18.47c-6.24 5.54-10 8.72-19.89 16.58a.42.42 0 0 1-.63-.11c-.5-.85-.65-1.12-1.58-2.83a.75.75 0 0 0-.68-.37c-7 .34-45.19 15.56-44.09 35.56Z"
-      className="sign-up-step-2_svg__cls-5"
+      className="sign-up-location-step_svg__cls-5"
     />
     <path
       d="m59.85 344.07.8-.21c-.54-.63-1.35-1.67-2.44-2.89a.27.27 0 0 1 .19-.46c5.51-.24 13.46-.49 20.75-.62-3.41 2.87-7.15 5.91-13.08 10.66a.43.43 0 0 1-.63-.12c-.5-.85-.65-1.12-1.59-2.82a.69.69 0 0 0-.67-.37c-6.65.34-40.94 13.11-43.55 31.59-.41-2.15-.42-3.36-1-6.39-2.01-11.27 33.04-26.31 41.22-28.37Z"
-      className="sign-up-step-2_svg__cls-36"
+      className="sign-up-location-step_svg__cls-36"
     />
     <path
       d="M58.07 332.34a.47.47 0 0 0 .24-.76c-.54-.63-.84-.94-1.93-2.17a.27.27 0 0 1-.06-.12l-.21-1.06 4 .31-.28.31c7.12-.27 16.61-.52 24-.59l2.07-.89.2 1a.26.26 0 0 1-.06.32c-6.25 5.54-10 8.72-19.89 16.58a.43.43 0 0 1-.63-.11c-.5-.85-.65-1.12-1.59-2.83a.72.72 0 0 0-.67-.37c-7 .36-45.2 15.58-44.1 35.58l-3.28-17c-2.05-10.77 34.01-26.13 42.19-28.2Z"
-      className="sign-up-step-2_svg__cls-6"
+      className="sign-up-location-step_svg__cls-6"
     />
     <path
       d="m19 376.48-3.29-17c-2.08-10.77 34-26.13 42.16-28.19a.47.47 0 0 0 .25-.76c-.55-.63-.84-.94-1.93-2.17a.27.27 0 0 1 .19-.45c7.81-.35 20.55-.7 29.31-.73a.27.27 0 0 1 .18.47c-6.24 5.54-10 8.71-19.89 16.58a.43.43 0 0 1-.63-.11c-.5-.85-.65-1.13-1.58-2.83a.73.73 0 0 0-.68-.37c-7.01.35-45.2 15.57-44.09 35.56Z"
-      className="sign-up-step-2_svg__cls-5"
+      className="sign-up-location-step_svg__cls-5"
     />
     <path
       d="M104.69 364.52c-.66.28-1.86 3.53-.54 4.45 3 2.12 4.56 3.84 6.36 4.1 1.16.17 6.21 1.41 6.38 1.05s.35-1.41.07-1.58-5.36-1.66-6-1.81-6.27-6.21-6.27-6.21Z"
-      className="sign-up-step-2_svg__cls-27"
+      className="sign-up-location-step_svg__cls-27"
     />
     <path
-      d="m103.36 404 .04 1.77.65 1.15 1.09-1.06-.64-2.7-1.14.84zM110.99 404.68l.04 1.77.76 1.15 1.26-1.06-.75-2.7-1.31.84z"
-      className="sign-up-step-2_svg__cls-46"
+      d="m103.36 404 .04 1.77.65 1.15 1.09-1.06-.64-2.7-1.14.84zm7.63.68.04 1.77.76 1.15 1.26-1.06-.75-2.7-1.31.84z"
+      className="sign-up-location-step_svg__cls-46"
     />
     <path
       d="M111.16 408.22h.42c.42 0 .09-.59.87-.73.14 0 1 .73 1.24.73a8.3 8.3 0 0 0 1.92-.15c0-.12.39-.88-.34-.9s-2.34-1.84-2.51-1.8.12.66-.67.79-1-.5-1.07-.42a16.56 16.56 0 0 0 .14 2.48Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="M111.91 393a85 85 0 0 0-4.76-14 40.79 40.79 0 0 0-4.91-.52l-.21 3.85a3.83 3.83 0 0 0 0 1.07 24.64 24.64 0 0 0 .78 3.44 4.17 4.17 0 0 1 .19 1.44l-.14 3.59c-.19 1.76-.43 13 0 13.62l11.14-1.07"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
       d="M102.76 364.31c.31-1.79.3-4.86.48-5.71a3.25 3.25 0 0 1 1.83-2.43c1-.34 3.85.18 4.16 1.34s.19 5-.85 5.21c-.73.17-1.38-.18-1.94 0-.34.09-.83 1.29-.72 2.19s-2.96-.6-2.96-.6Z"
-      className="sign-up-step-2_svg__cls-46"
+      className="sign-up-location-step_svg__cls-46"
     />
     <path
       d="M103 363.82c-1.12 1.32-1.06 5.6-.89 6.7.21 1.28-.13 7.47.21 7.9s4.41 1.2 4.73.48-.29-5.32 0-7.28c.07-.54 1.2-1.2 1.29-2.44 0-.73.11-1.55-1.9-4.27"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
       d="m118.1 375.33-4.24-4.25-35.37 35.37a9.46 9.46 0 0 0 4 4.11l.26.14Z"
-      className="sign-up-step-2_svg__cls-5"
+      className="sign-up-location-step_svg__cls-5"
     />
     <path
       d="m116.685 368.247 4.243 4.243-2.829 2.828-4.242-4.243z"
-      className="sign-up-step-2_svg__cls-47"
+      className="sign-up-location-step_svg__cls-47"
     />
     <path
       d="m124.224 362.133 2.829 2.828-7.071 7.071-2.829-2.828z"
-      className="sign-up-step-2_svg__cls-40"
+      className="sign-up-location-step_svg__cls-40"
     />
-    <circle cx={143.75} cy={345.44} r={26.01} className="sign-up-step-2_svg__cls-47" />
+    <circle cx={143.75} cy={345.44} r={26.01} className="sign-up-location-step_svg__cls-47" />
     <circle
       cx={143.75}
       cy={345.44}
       r={23.01}
       style={{
-        fill: 'url(#sign-up-step-2_svg__radial-gradient)',
+        fill: 'url(#sign-up-location-step_svg__radial-gradient)',
       }}
     />
     <g
       style={{
-        clipPath: 'url(#sign-up-step-2_svg__clip-path)',
+        clipPath: 'url(#sign-up-location-step_svg__clip-path)',
       }}
     >
       <g
@@ -677,58 +724,79 @@ const SvgSignUpStep2 = (props) => (
       >
         <g
           style={{
-            clipPath: 'url(#sign-up-step-2_svg__clip-path-2)',
+            clipPath: 'url(#sign-up-location-step_svg__clip-path-2)',
           }}
         >
-          <g className="sign-up-step-2_svg__cls-52">
+          <g className="sign-up-location-step_svg__cls-52">
             <path
               d="M120.51 322.18h46.62v46.62h-46.62z"
               style={{
                 fill: '#d8d9d8',
               }}
             />
-            <path d="M120.51 322.18h46.62v46.62h-46.62z" className="sign-up-step-2_svg__cls-8" />
+            <path
+              d="M120.51 322.18h46.62v46.62h-46.62z"
+              className="sign-up-location-step_svg__cls-8"
+            />
           </g>
           <g
-            className="sign-up-step-2_svg__cls-52"
+            className="sign-up-location-step_svg__cls-52"
             style={{
-              clipPath: 'url(#sign-up-step-2_svg__clip-path-4)',
+              clipPath: 'url(#sign-up-location-step_svg__clip-path-4)',
             }}
           >
-            <path d="M120.51 322.18h46.62v46.62h-46.62z" className="sign-up-step-2_svg__cls-38" />
+            <path
+              d="M120.51 322.18h46.62v46.62h-46.62z"
+              className="sign-up-location-step_svg__cls-38"
+            />
           </g>
           <g
-            className="sign-up-step-2_svg__cls-52"
+            className="sign-up-location-step_svg__cls-52"
             style={{
-              clipPath: 'url(#sign-up-step-2_svg__clip-path-6)',
+              clipPath: 'url(#sign-up-location-step_svg__clip-path-6)',
             }}
           >
-            <path d="M133.09 329.46h28.47v35.07h-28.47z" className="sign-up-step-2_svg__cls-40" />
+            <path
+              d="M133.09 329.46h28.47v35.07h-28.47z"
+              className="sign-up-location-step_svg__cls-40"
+            />
           </g>
           <g
-            className="sign-up-step-2_svg__cls-52"
+            className="sign-up-location-step_svg__cls-52"
             style={{
-              clipPath: 'url(#sign-up-step-2_svg__clip-path-8)',
+              clipPath: 'url(#sign-up-location-step_svg__clip-path-8)',
             }}
           >
-            <path d="M142.28 335.78h11.08v13.61h-11.08z" className="sign-up-step-2_svg__cls-38" />
+            <path
+              d="M142.28 335.78h11.08v13.61h-11.08z"
+              className="sign-up-location-step_svg__cls-38"
+            />
           </g>
           <g
-            className="sign-up-step-2_svg__cls-52"
+            className="sign-up-location-step_svg__cls-52"
             style={{
-              clipPath: 'url(#sign-up-step-2_svg__clip-path-10)',
+              clipPath: 'url(#sign-up-location-step_svg__clip-path-10)',
             }}
           >
-            <path d="M134.79 348.97h23.87v17.85h-23.87z" className="sign-up-step-2_svg__cls-38" />
+            <path
+              d="M134.79 348.97h23.87v17.85h-23.87z"
+              className="sign-up-location-step_svg__cls-38"
+            />
           </g>
-          <g className="sign-up-step-2_svg__cls-52">
+          <g className="sign-up-location-step_svg__cls-52">
             <path
               d="M134 346c-.68 9.27 4.73 17.23 12.11 17.79S160 357.26 160.67 348s-4.73-17.23-12.11-17.79-13.9 6.51-14.56 15.79Z"
-              className="sign-up-step-2_svg__cls-41"
+              className="sign-up-location-step_svg__cls-41"
             />
             <path
-              d="m166.13 345.19 29.21 1.6M165.73 351.99l29.21 1.6M165.33 358.8l16.81 1"
-              className="sign-up-step-2_svg__cls-58"
+              d="m166.13 345.19 29.21 1.6m-29.61 5.2 29.21 1.6m-29.61 5.21 16.81 1"
+              style={{
+                strokeWidth: 6,
+                strokeLinecap: 'round',
+                stroke: '#bbbdbf',
+                strokeMiterlimit: 10,
+                fill: 'none',
+              }}
             />
           </g>
         </g>
@@ -739,28 +807,28 @@ const SvgSignUpStep2 = (props) => (
       cy={345.58}
       r={23.15}
       style={{
-        fill: 'url(#sign-up-step-2_svg__radial-gradient-2)',
+        fill: 'url(#sign-up-location-step_svg__radial-gradient-2)',
       }}
     />
     <path
       d="M113.08 376.73a.53.53 0 0 1 .4-.22 5.55 5.55 0 0 1 1.41 0c.51.12.84.12.9.27s-.42.16-.66.16a1.32 1.32 0 0 0-.54.09c-.13.06 1.75.65 1.62 1.1 0 .18-.24.08-.31.2s-.07.16-.18.23-.22 0-.27 0-.07.14-.19.26-.25 0-.39.05-.07.14-.17.23-.66-.21-.94-.41a8.26 8.26 0 0 1-1.25-1c-.07-.04.34-.64.57-.96Z"
-      className="sign-up-step-2_svg__cls-46"
+      className="sign-up-location-step_svg__cls-46"
     />
     <path
       d="M105.16 364.52c-2.16-.7-3 1.77-2.74 3.43.75 4.73 3.63 7.94 4 8.08a59.74 59.74 0 0 0 6.14 1.88c.35-.05 1.06-1.24.87-1.4s-5.46-2.5-5.74-3.14c-.69-1.75-2.53-8.85-2.53-8.85Z"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
-      d="M120.31 372.65c.3.24.62.55.55.73s-.49-.16-.53-.13.48.26.24.57-.47-.18-.55-.16.48.29.25.5-.55-.2-.55-.2.2.16 0 .29-.26-.09-.51-.27c-.08-.06-.14-.26 0-.27s.53.29.49.25-.46-.55-.33-.66.7.43.63.36-.44-.46-.36-.62.57.16.67.21-.43-.51-.37-.67.22-.05.37.07ZM113.35 405.84a.63.63 0 0 0-.11 1 1.81 1.81 0 0 0 .76.52c.11 0 .66.12.84-.29a9.67 9.67 0 0 1-1.49-1.23Z"
-      className="sign-up-step-2_svg__cls-46"
+      d="M120.31 372.65c.3.24.62.55.55.73s-.49-.16-.53-.13.48.26.24.57-.47-.18-.55-.16.48.29.25.5-.55-.2-.55-.2.2.16 0 .29-.26-.09-.51-.27c-.08-.06-.14-.26 0-.27s.53.29.49.25-.46-.55-.33-.66.7.43.63.36-.44-.46-.36-.62.57.16.67.21-.43-.51-.37-.67.22-.05.37.07Zm-6.96 33.19a.63.63 0 0 0-.11 1 1.81 1.81 0 0 0 .76.52c.11 0 .66.12.84-.29a9.67 9.67 0 0 1-1.49-1.23Z"
+      className="sign-up-location-step_svg__cls-46"
     />
     <path
       d="M103.51 408.28h.42c.42 0 .09-.59.88-.73.13 0 1 .73 1.24.73a8.92 8.92 0 0 0 1.91-.14c0-.12.39-.89-.34-.9s-2.33-1.84-2.51-1.81.12.67-.67.79-1-.5-1.07-.42a16.56 16.56 0 0 0 .14 2.48Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="M105.7 405.9a.63.63 0 0 0-.11 1 1.88 1.88 0 0 0 .76.52c.11 0 .67.12.84-.29a9.1 9.1 0 0 1-1.49-1.23Z"
-      className="sign-up-step-2_svg__cls-46"
+      className="sign-up-location-step_svg__cls-46"
     />
     <path
       d="M106.65 359.61a4.6 4.6 0 0 0 2.88-1.24c1.28-1.23 1.32-3 .35-3.48s-2.06.12-2.89.23-1-.16-2.44 0a2.61 2.61 0 0 0-2.09 1.09c-.58.7 0 1.58-.69 2.08-.9.7-1.74 2.64-1.26 3.41s-.24 1.63-.7 2.42.16 1.47.41 2.06c.37.84-.25 1.33-.24 2.07s.55 1 1.55.89 2.58-1.35 2.3-2c-.13-.31 1-1.25 1-1.81s-.49-.75-.17-1.48a8.22 8.22 0 0 0 .91-1.09c.27-.53.3-1.5 0-1.72-.64-.44-.51-2 .12-1.73a1.18 1.18 0 0 1 .71.84Z"
@@ -770,47 +838,47 @@ const SvgSignUpStep2 = (props) => (
     />
     <path
       d="m81.32 420.61-.65 1.93.61 1.63 2.2-.49.02-3.3-2.18.23z"
-      className="sign-up-step-2_svg__cls-61"
+      className="sign-up-location-step_svg__cls-61"
     />
     <path
       d="M80.05 424.23a4.13 4.13 0 0 0 1 .78c.45.16 1.65.41 1.8.46s1.64.8 1.9.89 1.32.44 1.37.31.79-1.38 0-1.68a33.57 33.57 0 0 1-2.76-2.07c-.2 0-.72.64-1.62.46s-1-.88-1.12-.84a7.93 7.93 0 0 0-.57 1.69Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
       d="m75.54 421.39-.55 1.96.68 1.6 2.17-.59-.12-3.3-2.18.33z"
-      className="sign-up-step-2_svg__cls-61"
+      className="sign-up-location-step_svg__cls-61"
     />
     <path
       d="m83.66 410.39-2.33 10.24 2.4.82s6.47-10.27 5-14.14c-.53-1.35-6.09-2.85-11-5.32-.2-.1-4.72.22-4.72.22l-.46 4.3 3.26 3Z"
-      className="sign-up-step-2_svg__cls-27"
+      className="sign-up-location-step_svg__cls-27"
     />
     <path
       d="M77 425.88c-.15-.05-.88-.19-1.35-.26a3.92 3.92 0 0 1-1.18-.55 7.85 7.85 0 0 1 .27-1.78c.15-.07.1.48 1 .47 0 0 .3-.64.51-.66s1-.22 1.44.13a4 4 0 0 0 1.54 1c.83.14.39 1.84.29 1.94l-1.14-.08Z"
-      className="sign-up-step-2_svg__cls-24"
+      className="sign-up-location-step_svg__cls-24"
     />
     <path
-      d="M64.33 407.49a8 8 0 0 1-.39 1.8c-.25.53-.32.89-.5.91s-.07-.49 0-.74a1.61 1.61 0 0 0 0-.61c0-.16-2 2.17-2.32 2-.19-.09 1.26-1.5 1.25-1.65s-1.61 1.73-1.95 1.45 1.52-1.55 1.47-1.77-1.76 1.72-2 1.45 1.69-1.62 1.67-1.79-1.27 1.16-1.4.92 1.33-1.63 1.61-1.9a9.44 9.44 0 0 1 1.33-1.13c.25-.07 1.23 1.06 1.23 1.06ZM69.59 387.79c.6-.15.12-.57.62-.6a10.61 10.61 0 0 0 1.53-.06c.28-.13.94-.66.33-1.82s-1.16-1.81-1.07-2.65 2-4.57 4-4.46c0 0 2.54.41 2.35 3.67-.1 1.91-.3 3.3-.86 3.82-.28.26-.92.21-1.14.26s-.27.72-.08.84a5.23 5.23 0 0 0 1.46.39c.92.09 1.24.25 1.35.42s.12 3-.81 3.3a14.47 14.47 0 0 1-4.34.48c-1.09-.09-3.34-3.59-3.34-3.59Z"
-      className="sign-up-step-2_svg__cls-61"
+      d="M64.33 407.49a8 8 0 0 1-.39 1.8c-.25.53-.32.89-.5.91s-.07-.49 0-.74a1.61 1.61 0 0 0 0-.61c0-.16-2 2.17-2.32 2-.19-.09 1.26-1.5 1.25-1.65s-1.61 1.73-1.95 1.45 1.52-1.55 1.47-1.77-1.76 1.72-2 1.45 1.69-1.62 1.67-1.79-1.27 1.16-1.4.92 1.33-1.63 1.61-1.9a9.44 9.44 0 0 1 1.33-1.13c.25-.07 1.23 1.06 1.23 1.06Zm5.26-19.7c.6-.15.12-.57.62-.6a10.61 10.61 0 0 0 1.53-.06c.28-.13.94-.66.33-1.82s-1.16-1.81-1.07-2.65 2-4.57 4-4.46c0 0 2.54.41 2.35 3.67-.1 1.91-.3 3.3-.86 3.82-.28.26-.92.21-1.14.26s-.27.72-.08.84a5.23 5.23 0 0 0 1.46.39c.92.09 1.24.25 1.35.42s.12 3-.81 3.3a14.47 14.47 0 0 1-4.34.48c-1.09-.09-3.34-3.59-3.34-3.59Z"
+      className="sign-up-location-step_svg__cls-61"
     />
     <path
       d="m76.11 410.65-.86 11.22 2.61.33s3.31-9.29 3.31-13c0-1.45-1.17-3.12-6.26-6.42-.18-.12-5-.21-5-.21l-.52 3.93a1.38 1.38 0 0 0 0 .57l.43 1.6a.55.55 0 0 0 .39.39Z"
-      className="sign-up-step-2_svg__cls-28"
+      className="sign-up-location-step_svg__cls-28"
     />
     <path
       d="M69.15 387.23c-1.88.76-.79 3.65-.51 4.43s.69 11.23 1.06 11.52 7.46-.66 7.69-1.19-.56-4.54.43-8.46c.12-.48 1.55-6.36 0-6.29-1 .05-.81-.17-1.6-.05s-2.27 1.6-2.63 1.59a29.24 29.24 0 0 0-2.78-1.55 5.28 5.28 0 0 0-1.66 0"
-      className="sign-up-step-2_svg__cls-12"
+      className="sign-up-location-step_svg__cls-12"
     />
     <path
       d="M68.12 387.76a2.94 2.94 0 0 1 1.47-.52c.9 0 1.35.37 2 1.9.75 1.7-3.34 7-3.86 8.29-.68 1.72-2.8 10.48-3.16 10.18s-1.93-1.18-1.72-1.5 1.24-7.48 1.27-8.26c.05-1.05 2.82-9.05 4-10.09Z"
-      className="sign-up-step-2_svg__cls-12"
+      className="sign-up-location-step_svg__cls-12"
     />
     <path
       d="M91.41 380.77a8.32 8.32 0 0 1 .84-1.71c.39-.47.55-.8.74-.78s0 .51-.17.75a1.53 1.53 0 0 0-.18.6c0 .17 2.52-1.67 2.83-1.41s-1.55 1.12-1.55 1.28.27-.25.49.08-.19.34-.2.41.27-.28.42 0-.23.34-.21.39.16-.09.23.18-.33.55-.68.74a9.3 9.3 0 0 1-1.63.8c-.25.05-.93-1.33-.93-1.33Z"
-      className="sign-up-step-2_svg__cls-61"
+      className="sign-up-location-step_svg__cls-61"
     />
     <path
       d="M77.19 387.29c-.41.67-1.42 2-.37 3.47s10.61-1.67 11.49-2.71 4.52-5.65 4.44-6.09-1-1.44-1.34-1.42-4.07 4.91-4.76 5.2-9.46 1.55-9.46 1.55Z"
-      className="sign-up-step-2_svg__cls-12"
+      className="sign-up-location-step_svg__cls-12"
     />
     <path
       d="M75.17 377.56a5.31 5.31 0 0 0-2.92-.17 3.28 3.28 0 0 0-2.06 1 3.5 3.5 0 0 0-.76.69 2.27 2.27 0 0 0-.63 1.25 2.52 2.52 0 0 0 .45 1.62 13.86 13.86 0 0 1 .54 1.3 7.81 7.81 0 0 0 1.14 1.53c.38.46.76.25 1.09 0 1-.89.89-.76.79-.92s-.79-.92-.34-1.6 1.09.06 1.09.06l.23.59a2.07 2.07 0 0 1 .3-.79c.21-.24.55.23 1-.07s3.08-1.77 2.67-2.36a6.51 6.51 0 0 0-2.59-2.13Z"
@@ -820,4 +888,4 @@ const SvgSignUpStep2 = (props) => (
     />
   </svg>
 );
-export default SvgSignUpStep2;
+export default SvgSignUpLocationStep;

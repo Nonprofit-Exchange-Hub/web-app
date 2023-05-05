@@ -22,10 +22,11 @@ import { useStyles } from './styles';
 import { interests } from './interests';
 import { UserSignupData } from './UserSignupData';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../../../../configs';
-import SignUpStep1Image from '../../../../react-svg-assets/SignUpStep1';
-import SignUpStep2Image from '../../../../react-svg-assets/SignUpStep2';
-import SignUpStep3Image from '../../../../react-svg-assets/SignUpStep3';
-import SignUpStep4Image from '../../../../react-svg-assets/SignUpStep4';
+import SvgSignUpContactInfoStep from './SvgSignUpContactInfoStep';
+import SvgSignUpLocationStep from './SvgSignUpLocationStep';
+import SvgSignUpInterestsStep from './SvgSignUpInterestsStep';
+import SvgSignUpProfileStep from './SvgSignUpProfileStep';
+import SvgSignUpFinishedStep from './SvgSignUpFinishedStep';
 import EmailInput from '../EmailInput';
 import PasswordInput from '../PasswordInput';
 
@@ -137,11 +138,11 @@ function SignupCitizen() {
           padding: '19px 60px 120px 130px',
         }}
       >
-        {(activeStep === 0 && <SignUpStep1Image height={'569px'} width={'256px'} />) ||
-          (activeStep === 1 && <SignUpStep2Image height={'569px'} width={'256px'} />) ||
-          (activeStep === 2 && <SignUpStep3Image height={'569px'} width={'256px'} />) ||
-          (activeStep === 3 && <SignUpStep2Image height={'569px'} width={'256px'} />) ||
-          (activeStep === 4 && <SignUpStep4Image height={'569px'} width={'256px'} />)}
+        {(activeStep === 0 && <SvgSignUpContactInfoStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 1 && <SvgSignUpLocationStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 2 && <SvgSignUpInterestsStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 3 && <SvgSignUpProfileStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 4 && <SvgSignUpFinishedStep height={'569px'} width={'256px'} />)}
       </Box>
       <Box display={'flex'} flexDirection={'row'} justifyContent={'center'}>
         <Box
