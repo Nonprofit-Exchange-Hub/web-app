@@ -69,8 +69,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '30px',
   },
 }));
-
-function Header() {
+type Props = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+function Header({ onClick }: Props) {
   const LOGOUT_URL = `${APP_API_BASE_URL}/auth/logout`;
   const classes = useStyles();
   const { user, setUser } = React.useContext(UserContext);
@@ -302,11 +304,17 @@ function Header() {
                   Join Now
                 </Button>
               </NavLink>
-              <NavLink className={classes.navLink} to={routes.Login.path}>
-                <Button color="black" variant="outlined" sx={{ marginRight: '150px' }}>
-                  Sign In
-                </Button>
-              </NavLink>
+              {/* <NavLink className={classes.navLink} to={routes.Login.path}> */}
+              {/* <NavLink> */}
+              <Button
+                color="black"
+                variant="outlined"
+                sx={{ marginRight: '150px' }}
+                onClick={onClick}
+              >
+                Sign In
+              </Button>
+              {/* </NavLink> */}
             </>
           )}
         </div>

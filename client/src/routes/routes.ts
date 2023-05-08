@@ -5,7 +5,7 @@ import OurStory from '../views/OurStory';
 import TrustAndSafety from '../views/TrustAndSafety';
 import TermsOfService from '../views/TermsOfService';
 import PrivacyPolicy from '../views/PrivacyPolicy';
-import Login from '../views/Login';
+// import Login from '../views/Login';
 import Signup from '../views/Signup';
 import SignupCitizen from '../views/SignupCitizen';
 import SignupNonProfit from '../views/SignupNonProfit';
@@ -87,11 +87,11 @@ const routes: RouteMap = {
     roles: [],
     path: '/set-new-password',
   },
-  Login: {
-    component: Login,
-    roles: [],
-    path: '/login',
-  },
+  // Login: {
+  //   component: Login,
+  //   roles: [],
+  //   path: '/login',
+  // },
   Signup: {
     component: Signup,
     roles: [],

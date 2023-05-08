@@ -12,12 +12,17 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import './App.css';
-
+import Modal from './components/Modal/Modal';
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+  const handleModal = () => {
+    setIsModalOpen((prevModalStatus) => !prevModalStatus);
+  };
   return (
     <ThemeProvider theme={theme}>
+      {isModalOpen && <Modal />}
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
         <UserProvider>
@@ -34,7 +39,7 @@ function App(): JSX.Element {
               width="100vw"
               justifyContent="space-between"
             >
-              <Header />
+              <Header onClick={handleModal} />
               <Main />
               <Footer />
             </Grid>
