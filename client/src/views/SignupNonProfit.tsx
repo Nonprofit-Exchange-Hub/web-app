@@ -35,7 +35,6 @@ import {
   StepLabel,
   Select,
   MenuItem,
-  Chip,
   Avatar,
   TextField,
   OutlinedInput,
@@ -104,28 +103,8 @@ const initialFormData: UserSignupData = {
   email_notification_opt_out: false,
 };
 
-const interests = [
-  'Animal Care & Services',
-  'Poverty',
-  'Housing & Homeless',
-  'Youth & Children',
-  'Disaster Relief',
-  'Health Care & Welness',
-  'Environment & Sustainability',
-  'Sports & Recreation',
-  'Seniors',
-  'Religion, Faith & Spirituality',
-  'Civic Engagement',
-  'LGTBQIA+',
-  'Civil Rights & Advocacy',
-  'Military & Veterans',
-  'Social Justice',
-  'Education & Literacy',
-  'Arts & Culture',
-];
-
 function SignupNonProfit() {
-  const { sideImg, signUpContainer, button, header, input, label, chip } = useStyles();
+  const { sideImg, signUpContainer, button, header, input, label } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
@@ -134,23 +113,10 @@ function SignupNonProfit() {
   const { control } = useForm();
   const steps = [
     { label: 'Basic Information' },
-    { label: 'Location' },
-    { label: 'Focus Area' },
+    { label: 'Representative' },
+    { label: 'Organization' },
     { label: 'Profile' },
   ];
-
-  const makeChips = () => {
-    return interests.map((interest) => {
-      return (
-        <Chip
-          className={chip}
-          label={interest}
-          variant="outlined"
-          onClick={() => console.log(interest)}
-        />
-      );
-    });
-  };
 
   const makeStateSelectOptions = () => {
     return US_STATE_NAMES.map((state) => {
@@ -236,6 +202,14 @@ function SignupNonProfit() {
                   gutterBottom
                 >
                   Let's get started
+                </Typography>
+                <Typography
+                  component="p"
+                  align="left"
+                  gutterBottom
+                  sx={{ fontSize: '15px', color: '#404040', margin: '16px 0' }}
+                >
+                  Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
                 </Typography>
                 <Grid container item sx={{ paddingBottom: '16px' }}>
                   <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
@@ -323,18 +297,183 @@ function SignupNonProfit() {
                   </Grid>
                 </Grid>
                 <Grid container />
-                <EmailInput
-                  value={formData.email}
-                  placeholder="Organization Email"
-                  onChange={handleChange}
-                  showStartAdornment={true}
-                  error={emailError}
+              </>
+            )}
+
+            {/* PAGE TWO ######################################################## */}
+            {activeStep === 1 && (
+              <>
+                <Typography
+                  className={header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                >
+                  Tell us about yourself
+                </Typography>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  Representative Information
+                </Typography>
+                <Grid item xs={12} sx={{ height: '10px' }} />
+                <Grid container item xs={12} spacing={2}>
+                  <Grid item xs={6}>
+                    <Typography className={label}>First Name</Typography>
+                    <Input className={input} placeholder="Jane" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography className={label}>Last Name</Typography>
+                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={label}>Role</Typography>
+                    <Input
+                      className={input}
+                      placeholder="Event Coordinator"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <EmailInput
+                      value={formData.email}
+                      placeholder="Organization Email"
+                      onChange={handleChange}
+                      showStartAdornment={true}
+                      error={emailError}
+                    />
+                    <PasswordInput
+                      value={formData.password}
+                      onChange={handleChange}
+                      showStartAdornment={true}
+                    />
+                  </Grid>
+                </Grid>
+                <FormControlLabel
+                  style={{ textAlign: 'left', display: 'block' }}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={formData.email_notification_opt_out}
+                      onChange={handleChange}
+                      name="email_notification_opt_out"
+                      inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
+                    />
+                  }
+                  label={'Opt Out Of Email Notifications'}
                 />
-                <PasswordInput
-                  value={formData.password}
-                  onChange={handleChange}
-                  showStartAdornment={true}
-                />
+              </>
+            )}
+
+            {/* PAGE THREE ######################################################## */}
+            {activeStep === 2 && (
+              <>
+                <Typography
+                  className={header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                >
+                  Tell us about your organization
+                </Typography>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  Contact Information
+                </Typography>
+                <Grid item xs={12} sx={{ height: '10px' }} />
+                <Grid container item xs={12} spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography className={label}>Street address</Typography>
+                    <Input className={input} placeholder="Jane" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography className={label}>City</Typography>
+                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography className={label}>State</Typography>
+                    <Select className={input} placeholder="state" fullWidth>
+                      {makeStateSelectOptions()}
+                    </Select>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography className={label}>Zip Code</Typography>
+                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                    Online Information
+                  </Typography>
+                  <Grid item xs={12}>
+                    <Typography className={label}>Website</Typography>
+                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={label}>Instagram</Typography>
+                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={label}>Facebook</Typography>
+                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={label}>Twitter</Typography>
+                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                  </Grid>
+                </Grid>
+              </>
+            )}
+
+            {/* PAGE FOUR ######################################################## */}
+            {activeStep === 3 && (
+              <>
+                <Typography
+                  className={header}
+                  variant="h4"
+                  fontSize="58px"
+                  component="h1"
+                  align="left"
+                >
+                  Tell us about your organization
+                </Typography>
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  Add an image
+                </Typography>
+                <Typography>Upload an organization logo (optional)</Typography>
+                <Grid item xs={12} sx={{ height: '50px' }} />
+                <Grid container item xs={12} alignItems="center">
+                  <Grid item xs={3}>
+                    <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <input accept="image/*" hidden id="upload-file" type="file" />
+                    <label htmlFor="upload-file">
+                      <Button
+                        className={button}
+                        component="span"
+                        color="secondary"
+                        variant="contained"
+                      >
+                        Upload
+                      </Button>
+                    </label>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sx={{ height: '50px' }} />
+                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  Write a description
+                </Typography>
+                <Typography>
+                  You can update this information later in your account settings
+                </Typography>
+                <Grid item xs={10}>
+                  <TextField
+                    multiline
+                    rows={4}
+                    fullWidth
+                    placeholder="
+                  Tell us about your organization..."
+                  />
+                </Grid>
                 <FormControlLabel
                   style={{
                     textAlign: 'left',
@@ -358,151 +497,6 @@ function SignupNonProfit() {
                     </label>
                   }
                 />
-                <FormControlLabel
-                  style={{ textAlign: 'left', display: 'block' }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={formData.email_notification_opt_out}
-                      onChange={handleChange}
-                      name="email_notification_opt_out"
-                      inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
-                    />
-                  }
-                  label={'Opt Out Of Email Notifications'}
-                />
-                <Typography
-                  component="p"
-                  align="left"
-                  gutterBottom
-                  sx={{ fontSize: '15px', color: '#404040', margin: '16px 0' }}
-                >
-                  Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
-                </Typography>
-              </>
-            )}
-
-            {/* PAGE TWO ######################################################## */}
-            {activeStep === 1 && (
-              <>
-                <Typography
-                  className={header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
-                >
-                  Tell us about your organization's location
-                </Typography>
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
-                  Location
-                </Typography>
-                <Typography>
-                  You can update this information later in the settings of your account.
-                </Typography>
-                <Grid item xs={12} sx={{ height: '50px' }} />
-                <Grid container item xs={12} spacing={2}>
-                  <Grid item xs={12}>
-                    <label className={label}>Where is your organization located?</label>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Input className={input} placeholder="city" fullWidth disableUnderline></Input>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Select className={input} placeholder="state" fullWidth>
-                      {makeStateSelectOptions()}
-                    </Select>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Input className={input} placeholder="zip" fullWidth disableUnderline></Input>
-                  </Grid>
-                </Grid>
-              </>
-            )}
-
-            {/* PAGE THREE ######################################################## */}
-            {activeStep === 2 && (
-              <>
-                <Typography
-                  className={header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
-                >
-                  Tell us about your organization's focus area(s)
-                </Typography>
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
-                  Focus Area
-                </Typography>
-                <Typography>
-                  You can update this information later in the settings of your account.
-                </Typography>
-                <Grid item xs={12} sx={{ height: '50px' }} />
-                <Grid container item xs={12} spacing={2}>
-                  <Grid item xs={12}>
-                    <label className={label}>
-                      What type of services does your org provide? Please select one or more
-                      options.
-                    </label>
-                  </Grid>
-                  <Grid item xs={12}>
-                    {makeChips()}
-                  </Grid>
-                </Grid>
-              </>
-            )}
-
-            {/* PAGE FOUR ######################################################## */}
-            {activeStep === 3 && (
-              <>
-                <Typography
-                  className={header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
-                >
-                  Tell us about your organization
-                </Typography>
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
-                  Profile
-                </Typography>
-                <Typography>
-                  You can update this information later in the settings of your account.
-                </Typography>
-                <Grid item xs={12} sx={{ height: '50px' }} />
-                <Grid container item xs={12} alignItems="center">
-                  <Grid item xs={3}>
-                    <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <input accept="image/*" hidden id="upload-file" type="file" />
-                    <label htmlFor="upload-file">
-                      <Button
-                        className={button}
-                        component="span"
-                        color="secondary"
-                        variant="contained"
-                      >
-                        Upload
-                      </Button>
-                    </label>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sx={{ height: '50px' }} />
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
-                  Description
-                </Typography>
-                <Grid item xs={10}>
-                  <TextField
-                    multiline
-                    rows={4}
-                    fullWidth
-                    placeholder="
-                  Tell us about your organization..."
-                  />
-                </Grid>
               </>
             )}
 
