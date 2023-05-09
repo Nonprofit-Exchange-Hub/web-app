@@ -217,7 +217,7 @@ function SignupNonProfit() {
                 </Grid>
                 <TextDivider>or</TextDivider>
                 <Grid container item xs={12}>
-                  <Grid item xs={5}>
+                  <Grid item xs={12}>
                     <FormControl>
                       <label className={label} htmlFor="orgName">
                         Organization Name
@@ -237,7 +237,7 @@ function SignupNonProfit() {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={12}>
                     <FormControl>
                       <label className={label} htmlFor="employerIdentificationNumber">
                         Employer Identification Number (EIN)
@@ -257,7 +257,7 @@ function SignupNonProfit() {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={11}>
+                  <Grid item xs={12}>
                     <Controller
                       name="nonprofit_classification"
                       control={control}
