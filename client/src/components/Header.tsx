@@ -60,14 +60,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   infoButtons: {
     color: '#323232!important',
   },
-  signUp: {
-    backgroundColor: '#EF6A60!important',
-    color: 'white!important',
-    borderRadius: '10px',
-    border: '1px solid #EF6A60!important',
-    marginRight: '10px!important',
-    width: '100px',
-  },
   appBar: {
     backgroundColor: theme.palette.background.default,
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
@@ -458,11 +450,11 @@ function Header() {
                 <Button
                   sx={{
                     textTransform: 'capitalize',
-                    backgroundColor: '#EF6A60!important',
-                    color: 'white!important',
+                    backgroundColor: '#EF6A60',
+                    color: 'white',
                     borderRadius: '10px',
-                    border: '1px solid #EF6A60!important',
-                    marginRight: '10px!important',
+                    border: '1px solid #EF6A60',
+                    marginRight: '10px',
                     width: '100px',
                   }}
                 >
@@ -473,11 +465,11 @@ function Header() {
                 <Button
                   sx={{
                     textTransform: 'capitalize',
-                    backgroundColor: 'white!important',
-                    color: '#323232!important',
+                    backgroundColor: 'white',
+                    color: '#323232',
                     borderRadius: '10px',
-                    border: '1px solid #323232!important',
-                    marginLeft: '5px!important',
+                    border: '1px solid #323232',
+                    marginLeft: '5px',
                     width: '100px',
                   }}
                 >
