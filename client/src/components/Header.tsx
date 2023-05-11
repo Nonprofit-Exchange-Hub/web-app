@@ -57,9 +57,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: 'none',
     color: 'black',
   },
-  infoButtons: {
-    color: '#323232!important',
-  },
   appBar: {
     backgroundColor: theme.palette.background.default,
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
