@@ -68,14 +68,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: '10px!important',
     width: '100px',
   },
-  signIn: {
-    backgroundColor: 'white!important',
-    color: '#323232!important',
-    borderRadius: '10px',
-    border: '1px solid #323232!important',
-    marginLeft: '5px!important',
-    width: '100px',
-  },
   appBar: {
     backgroundColor: theme.palette.background.default,
     boxShadow: theme.shadows ? theme.shadows[1] : 'none',
@@ -464,9 +456,14 @@ function Header() {
             <>
               <NavLink className={classes.navLink} to={routes.Signup.path}>
                 <Button
-                  className={classes.signUp}
                   sx={{
                     textTransform: 'capitalize',
+                    backgroundColor: '#EF6A60!important',
+                    color: 'white!important',
+                    borderRadius: '10px',
+                    border: '1px solid #EF6A60!important',
+                    marginRight: '10px!important',
+                    width: '100px',
                   }}
                 >
                   Join Now
@@ -474,9 +471,14 @@ function Header() {
               </NavLink>
               <NavLink className={classes.navLink} to={routes.Login.path}>
                 <Button
-                  className={classes.signIn}
                   sx={{
                     textTransform: 'capitalize',
+                    backgroundColor: 'white!important',
+                    color: '#323232!important',
+                    borderRadius: '10px',
+                    border: '1px solid #323232!important',
+                    marginLeft: '5px!important',
+                    width: '100px',
                   }}
                 >
                   Sign In
