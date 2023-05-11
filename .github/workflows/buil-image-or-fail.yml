@@ -1,4 +1,4 @@
-name: Docker Image Build And Push
+name: Build dockerfile or fail
 
 on:
   pull_request:

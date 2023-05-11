@@ -1,4 +1,3 @@
-import { DeepRequired, FieldErrorsImpl } from 'react-hook-form';
 import * as Yup from 'yup';
 import { interests } from './interests';
 
@@ -24,4 +23,3 @@ export const validationSchema = Yup.object().shape({
     .required('Required'),
   aboutyourself: Yup.string().required('Required'),
 });
-

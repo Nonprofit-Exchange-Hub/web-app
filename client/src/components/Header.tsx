@@ -432,7 +432,6 @@ function Header() {
                     See Dashboard
                   </NavLink>
                 </MenuItem>
-                <Divider />
                 <MenuItem dense onClick={handleLogout} className={classes.menuItemIconRight}>
                   <ListItemText>Log Out</ListItemText>
                   <ListItemIcon>
