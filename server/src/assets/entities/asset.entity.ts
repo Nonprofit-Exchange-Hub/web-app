@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToMany,
   CreateDateColumn,
+  Index,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -43,6 +44,14 @@ export class Asset {
     default: Condition.NONE,
   })
   condition: Condition;
+
+  @Index('searchtitleindex', { synchronize: false }) // GIN type indexes are not supported by TypeOrm and require manual migration
+  @Column({
+    generatedType: 'STORED',
+    type: 'tsvector',
+    asExpression: `to_tsvector('english', title)`,
+  })
+  searchtitle: string;
 
   @ApiProperty()
   @Column({

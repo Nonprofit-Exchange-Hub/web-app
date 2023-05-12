@@ -22,5 +22,8 @@ export class GetAssetsDto {
 
   @ApiPropertyOptional()
   @IsOptional()
+  search: string;
+
+  @IsOptional()
   offset: number;
 }

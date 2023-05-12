@@ -1,4 +1,5 @@
 const typography = {
+  color: '#323232',
   fontFamily: ['Poppins', 'Mulish'].join(','),
   body1: {
     fontSize: '1.3rem',
