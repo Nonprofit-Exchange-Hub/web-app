@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Initial1683853418536 implements MigrationInterface {
-  name = 'Migrations1683853418536';
+export class Init1683855028140 implements MigrationInterface {
+  name = 'Migrations1683855028140';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -9,17 +9,6 @@ export class Initial1683853418536 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE TYPE "public"."assets_condition_enum" AS ENUM('Like new', 'Excellent', 'Good', '')`,
-    );
-    await queryRunner.query(
-      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES ($1, $2, $3, $4, $5, $6)`,
-      [
-        'test_db',
-        'public',
-        'assets',
-        'GENERATED_COLUMN',
-        'searchtitle',
-        "to_tsvector('english', title)",
-      ],
     );
     await queryRunner.query(
       `CREATE TABLE "assets" ("id" SERIAL NOT NULL, "title" text NOT NULL, "description" text NOT NULL, "type" "public"."assets_type_enum" NOT NULL DEFAULT 'request', "condition" "public"."assets_condition_enum" NOT NULL DEFAULT '', "searchtitle" tsvector GENERATED ALWAYS AS (to_tsvector('english', title)) STORED NOT NULL, "location" text, "datePosted" TIMESTAMP NOT NULL DEFAULT now(), "quantity" integer NOT NULL, "imgUrls" text, "posterId" integer, CONSTRAINT "PK_da96729a8b113377cfb6a62439c" PRIMARY KEY ("id"))`,
@@ -126,10 +115,6 @@ export class Initial1683853418536 implements MigrationInterface {
     await queryRunner.query(`DROP TYPE "public"."transactions_status_enum"`);
     await queryRunner.query(`DROP TABLE "messages"`);
     await queryRunner.query(`DROP TABLE "assets"`);
-    await queryRunner.query(
-      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "database" = $3 AND "schema" = $4 AND "table" = $5`,
-      ['GENERATED_COLUMN', 'searchtitle', 'test_db', 'public', 'assets'],
-    );
     await queryRunner.query(`DROP TYPE "public"."assets_condition_enum"`);
     await queryRunner.query(`DROP TYPE "public"."assets_type_enum"`);
   }
