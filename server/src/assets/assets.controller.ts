@@ -13,14 +13,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
-import {
-  ApiTags,
-  ApiResponse,
-  PartialType,
-  ApiOperation,
-  ApiOkResponse,
-  ApiNotFoundResponse,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import type { Request as ExpressRequest } from 'express';
 
@@ -40,15 +33,6 @@ export class AssetsController {
   @UseGuards(CookieAuthGuard)
   @Post()
   @ApiOperation({ summary: 'Create an asset' })
-  @ApiResponse({
-    description: 'Successfully created asset.',
-    status: HttpStatus.CREATED,
-    type: Asset,
-  })
-  @ApiResponse({
-    description: 'Conflict - asset not unique.',
-    status: HttpStatus.CONFLICT,
-  })
   async create(
     @Request() request: ExpressRequest,
     @Body() createAssetDto: CreateAssetDto,
@@ -68,24 +52,12 @@ export class AssetsController {
 
   @Get()
   @ApiOperation({ summary: 'Fetch assets' })
-  @ApiResponse({
-    description: 'Fetched assets.',
-    status: HttpStatus.OK,
-    isArray: true,
-    type: Asset,
-  })
   get(@Query() getAssetsDto: GetAssetsDto): Promise<Asset[]> {
     return this.assetsService.getAssets(getAssetsDto);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Fetch an asset by ID' })
-  @ApiResponse({
-    description: 'Fetched asset.',
-    status: HttpStatus.OK,
-    type: Asset,
-  })
-  @ApiNotFoundResponse({ description: 'Asset not found.' })
   async findOne(@Param('id') id: string): Promise<Asset | HttpException> {
     const foundAsset = await this.assetsService.findOne(parseInt(id));
     if (!foundAsset) {
@@ -101,15 +73,6 @@ export class AssetsController {
   @UseGuards(CookieAuthGuard)
   @Patch(':id')
   @ApiOperation({ summary: 'Update an asset' })
-  @ApiResponse({
-    description: 'Updated asset.',
-    status: HttpStatus.OK,
-    type: Asset,
-  })
-  @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: 'Asset update failed.',
-  })
   async update(
     @Request() request: ExpressRequest,
     @Param('id') id: string,
@@ -134,8 +97,6 @@ export class AssetsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an asset' })
-  @ApiOkResponse({ description: 'Successfully deleted asset.' })
-  @ApiNotFoundResponse({ description: 'Asset not found.' })
   async remove(@Param('id') id: string): Promise<DeleteResult | HttpException> {
     const assetToDelete = await this.assetsService.remove(parseInt(id));
 

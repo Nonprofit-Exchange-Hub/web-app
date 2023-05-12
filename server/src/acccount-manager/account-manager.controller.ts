@@ -18,18 +18,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiBody,
-  ApiConsumes,
-  ApiOkResponse,
-  ApiOperation,
-  ApiExcludeEndpoint,
-  ApiCreatedResponse,
-  ApiBadRequestResponse,
-  ApiUnauthorizedResponse,
-  ApiInternalServerErrorResponse,
-} from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiConsumes, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import type { Request as RequestT, Response as ResponseT } from 'express';
 
@@ -72,11 +61,6 @@ export class AccountManagerController {
 
   @Patch('verify-email')
   @ApiOperation({ summary: "Verify a user's email" })
-  @ApiOkResponse({
-    description: 'Email verified.',
-    type: Boolean,
-  })
-  @ApiBadRequestResponse({ description: 'Bad request - unknown value was passed.' })
   async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
@@ -89,9 +73,6 @@ export class AccountManagerController {
 
   @Post('register')
   @ApiOperation({ summary: 'Create a new user account' })
-  @ApiBody({ type: CreateUserDto })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  @ApiUnauthorizedResponse({ description: 'Internal server error - unauthorized service request' }) // SendGrid service
   async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
@@ -129,9 +110,6 @@ export class AccountManagerController {
   @Post('login')
   @UseGuards(LoginAuthGuard)
   @ApiOperation({ summary: 'User login' })
-  @ApiBody({ type: LoginDto })
-  @ApiCreatedResponse({ description: 'Login successful.', type: User })
-  @ApiUnauthorizedResponse({ description: 'Login failed.' })
   async login(
     @Request() request: AuthedRequest,
     @Response({ passthrough: true }) response: ResponseT,
@@ -161,10 +139,6 @@ export class AccountManagerController {
   @Post('session')
   @UseGuards(CookieAuthGuard)
   @ApiOperation({ summary: 'Fetch user via session' })
-  @ApiCreatedResponse({
-    description: 'Fetched user session.',
-    type: ReturnSessionDto,
-  })
   async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
     const { user } = request;
     const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
@@ -175,15 +149,12 @@ export class AccountManagerController {
 
   @Get('logout')
   @ApiOperation({ summary: 'Logout' })
-  @ApiOkResponse({ description: 'Successfully logged out.' })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
     response.clearCookie(COOKIE_KEY).send();
   }
 
   @Post('reset_password')
   @ApiOperation({ summary: 'Password reset' })
-  @ApiBody({ type: ResetPasswordDto })
-  @ApiOkResponse({ description: 'Password reset initiated - email for password reset sent.' })
   async resetPassword(
     @Request() req,
     @Response({ passthrough: true }) response: ResponseT,
@@ -241,10 +212,6 @@ export class AccountManagerController {
       limits: { fileSize: FileSizes.MB },
     }),
   )
-  @ApiOkResponse({
-    description: 'Uploaded profile image.',
-    type: ReturnUserDto,
-  })
   async upsertProfile(
     @Param('id') id: number,
     @UploadedFile()
