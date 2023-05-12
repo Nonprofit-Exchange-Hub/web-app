@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class migrations1680314012852 implements MigrationInterface {
-  name = 'migrations1680314012852';
+export class Initial1683853418536 implements MigrationInterface {
+  name = 'Migrations1683853418536';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -11,7 +11,18 @@ export class migrations1680314012852 implements MigrationInterface {
       `CREATE TYPE "public"."assets_condition_enum" AS ENUM('Like new', 'Excellent', 'Good', '')`,
     );
     await queryRunner.query(
-      `CREATE TABLE "assets" ("id" SERIAL NOT NULL, "title" text NOT NULL, "description" text NOT NULL, "type" "public"."assets_type_enum" NOT NULL DEFAULT 'request', "condition" "public"."assets_condition_enum" NOT NULL DEFAULT '', "location" text, "datePosted" TIMESTAMP NOT NULL DEFAULT now(), "quantity" integer NOT NULL, "imgUrls" text, "posterId" integer, CONSTRAINT "PK_da96729a8b113377cfb6a62439c" PRIMARY KEY ("id"))`,
+      `INSERT INTO "typeorm_metadata"("database", "schema", "table", "type", "name", "value") VALUES ($1, $2, $3, $4, $5, $6)`,
+      [
+        'test_db',
+        'public',
+        'assets',
+        'GENERATED_COLUMN',
+        'searchtitle',
+        "to_tsvector('english', title)",
+      ],
+    );
+    await queryRunner.query(
+      `CREATE TABLE "assets" ("id" SERIAL NOT NULL, "title" text NOT NULL, "description" text NOT NULL, "type" "public"."assets_type_enum" NOT NULL DEFAULT 'request', "condition" "public"."assets_condition_enum" NOT NULL DEFAULT '', "searchtitle" tsvector GENERATED ALWAYS AS (to_tsvector('english', title)) STORED NOT NULL, "location" text, "datePosted" TIMESTAMP NOT NULL DEFAULT now(), "quantity" integer NOT NULL, "imgUrls" text, "posterId" integer, CONSTRAINT "PK_da96729a8b113377cfb6a62439c" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "messages" ("id" SERIAL NOT NULL, "text" text NOT NULL, "created_date" TIMESTAMP NOT NULL DEFAULT ('now'::text)::timestamp(6) with time zone, "userId" integer, "transactionId" integer, CONSTRAINT "PK_18325f38ae6de43878487eff986" PRIMARY KEY ("id"))`,
@@ -23,7 +34,7 @@ export class migrations1680314012852 implements MigrationInterface {
       `CREATE TABLE "transactions" ("id" SERIAL NOT NULL, "status" "public"."transactions_status_enum" NOT NULL DEFAULT 'NEW_CLAIM', "created_date" TIMESTAMP NOT NULL DEFAULT now(), "donaterUserId" integer, "donaterOrganizationId" integer, "assetId" integer, "claimerId" integer, CONSTRAINT "PK_a219afd8dd77ed80f5a862f1db9" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "organizations" ("id" SERIAL NOT NULL, "name" text NOT NULL, "doing_business_as" text NOT NULL, "description" text NOT NULL, "website" text NOT NULL, "facebook" text, "twitter" text, "instagram" text, "address" text NOT NULL, "phone" text NOT NULL, "city" text NOT NULL, "state" text NOT NULL, "zip_code" text, "ein" text NOT NULL, "nonprofit_classification" text NOT NULL, "image_url" text, CONSTRAINT "UQ_59347062026e4a8d1448fb9ef5d" UNIQUE ("ein"), CONSTRAINT "PK_6b031fcd0863e3f6b44230163f9" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "organizations" ("id" SERIAL NOT NULL, "name" text NOT NULL, "doing_business_as" text NOT NULL, "description" text NOT NULL, "website" text NOT NULL, "facebook" text, "twitter" text, "instagram" text, "address" text NOT NULL, "phone" text NOT NULL, "city" text NOT NULL, "state" text NOT NULL, "zip_code" text, "ein" text NOT NULL, "nonprofit_classification" text NOT NULL, "image_url" text, "categories" jsonb, CONSTRAINT "UQ_59347062026e4a8d1448fb9ef5d" UNIQUE ("ein"), CONSTRAINT "PK_6b031fcd0863e3f6b44230163f9" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TYPE "public"."user_organizations_approvalstatus_enum" AS ENUM('APPROVED', 'PENDING', 'DENIED')`,
@@ -115,6 +126,10 @@ export class migrations1680314012852 implements MigrationInterface {
     await queryRunner.query(`DROP TYPE "public"."transactions_status_enum"`);
     await queryRunner.query(`DROP TABLE "messages"`);
     await queryRunner.query(`DROP TABLE "assets"`);
+    await queryRunner.query(
+      `DELETE FROM "typeorm_metadata" WHERE "type" = $1 AND "name" = $2 AND "database" = $3 AND "schema" = $4 AND "table" = $5`,
+      ['GENERATED_COLUMN', 'searchtitle', 'test_db', 'public', 'assets'],
+    );
     await queryRunner.query(`DROP TYPE "public"."assets_condition_enum"`);
     await queryRunner.query(`DROP TYPE "public"."assets_type_enum"`);
   }

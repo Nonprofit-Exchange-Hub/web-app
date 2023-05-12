@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Raw, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 import { Asset } from './entities/asset.entity';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CreateAssetDto } from './dto/create-asset.dto';
-import { Like } from 'typeorm';
 
 @Injectable()
 export class AssetsService {
