@@ -1,3 +1,4 @@
+
 import { User } from '../../src/acccount-manager/entities/user.entity';
 import { AssetType, Condition } from '../../src/assets/constants';
 import { Asset } from '../../src/assets/entities/asset.entity';
@@ -16,5 +17,6 @@ export const assetsStub = (poster: User, transactions: Transaction[]): Asset => 
     transactions,
     datePosted: new Date(),
     location: 'here',
+    searchtitle:"'faketitl':1"
   };
 };

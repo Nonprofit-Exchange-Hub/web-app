@@ -9,7 +9,7 @@ import { Organization } from './organizations/entities/organization.entity';
 import { UserOrganization } from './user-org/entities/user-org.entity';
 import { Transaction } from './transactions/entities/transaction.entity';
 import { Message } from './messages/entities/message.entity';
-import { migrations1680314012852 } from './migrations/1680314012852-migrations';
+import { Init1683855028140, addsearchtitleindex1683855184000 } from './migrations';
 dotenv.config();
 @Injectable()
 export class DatabaseConnectionService implements TypeOrmOptionsFactory {
@@ -36,7 +36,7 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
         PocChat,
         Message,
       ],
-      migrations: [migrations1680314012852],
+      migrations: [Init1683855028140, addsearchtitleindex1683855184000],
       ssl:
         process.env.MODE === 'production' // only require ssl when in production/
           ? {

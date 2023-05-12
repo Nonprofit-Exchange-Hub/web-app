@@ -24,8 +24,8 @@
         "prepare": "cd .. && husky install && cd server",
         "typeorm": "ts-node ./node_modules/typeorm/cli",
         "typeorm:migration-run": "npm run typeorm migration:run -- -d ./src/datasource.ts",
-        "typeorm:migration-generate": "npm run typeorm -- -d ./src/datasource.ts migration:generate ./src/migrations/migration",
-        "typeorm:migration-create": "npm run typeorm -- migration:create ./src/migrations/migration",
+        "typeorm:migration-generate": "npm run typeorm -- -d ./src/datasource.ts migration:generate ./src/migrations/migrations",
+        "typeorm:migration-create": "npm run typeorm -- migration:create ./src/migrations/migrations",
         "typeorm:migration-revert": "npm run typeorm -- -d ./src/datasource.ts migration:revert",
         "typeorm:schema-drop": "npm run typeorm -- -d ./src/datasource.ts schema:drop",
         "db:seed": "ts-node -r tsconfig-paths/register src/database/seeding/seed.ts"
