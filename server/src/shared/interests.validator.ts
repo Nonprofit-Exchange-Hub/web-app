@@ -3,11 +3,11 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { UserInterests } from './create-user.dto';
+import { Interests } from './interests.dto';
 
-@ValidatorConstraint({ name: 'UserInterestsProps', async: false })
-export class UserInterestsProps implements ValidatorConstraintInterface {
-  validate(interests: UserInterests, args: ValidationArguments) {
+@ValidatorConstraint({ name: 'InterestsProps', async: false })
+export class InterestsProps implements ValidatorConstraintInterface {
+  validate(interests: Interests, args: ValidationArguments) {
     const interestsKeys = Object.keys(interests);
     return interestsKeys.includes('names') && interestsKeys.length === 1;
   }
@@ -17,9 +17,9 @@ export class UserInterestsProps implements ValidatorConstraintInterface {
   }
 }
 
-@ValidatorConstraint({ name: 'UserInterestNamesIsArray', async: false })
-export class UserInterestNamesIsArray implements ValidatorConstraintInterface {
-  validate(interests: UserInterests, args: ValidationArguments) {
+@ValidatorConstraint({ name: 'InterestNamesIsArray', async: false })
+export class InterestNamesIsArray implements ValidatorConstraintInterface {
+  validate(interests: Interests, args: ValidationArguments) {
     const interestsKeys = Object.keys(interests);
     return Array.isArray(interests.names) && interests.names.every((k) => typeof k === 'string');
   }

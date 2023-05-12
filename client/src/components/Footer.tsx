@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     footer: {
       boxShadow: '0px -2px 1em grey',
+      position: 'relative',
+      bottom: 0,
+      left: 0,
+      right: 0,
     },
   };
 });

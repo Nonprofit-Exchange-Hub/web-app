@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) => {
       color: '#000000',
       fontWeight: 'bold',
       textAlign: 'left',
+      marginTop: '20px',
     },
   };
 });
@@ -42,7 +43,7 @@ function EmailInput({ onChange, value, placeholder, showStartAdornment = false, 
   return (
     <FormControl fullWidth error={Boolean(error)}>
       <label className={classes.label} htmlFor="email">
-        Email Address
+        Email
       </label>
       {error && <FormHelperText error>{error}</FormHelperText>}
       <Input

@@ -1,93 +1,71 @@
-import { useHistory } from 'react-router-dom';
 import { Grid, Typography, Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import type { Theme } from '@mui/material/styles';
+import MainImage from '../assets/banner-section-main.svg';
+import CTAButton from './Buttons/CTAButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
   gridTitle: {
     backgroundColor: 'red',
   },
-  gridButtons: {
-    color: 'white',
-    backgroundColor: '#C7244B',
-    borderRadius: '2rem',
-    fontFamily: 'Poppins',
-    fontSize: '22px',
-    fontWeight: 'semi-bold',
-    border: 'none',
-    padding: '0.8rem 2rem 0.8rem 2rem',
-    cursor: 'pointer',
+  bannerRight: {
+    padding: '1.8rem 2rem 2rem 2rem',
+    background: '#FFC958',
   },
-  gridContent: {
-    height: '45rem',
-    backgroundImage:
-      'url(https://images-ext-2.discordapp.net/external/TAfP2xMv2YzlJX7X1UtBTnb8MZ5lKcfTlL70XRUvOdg/https/t4.ftcdn.net/jpg/03/30/54/59/360_F_330545902_1guQc0CoC4R15HhWPpOuAWtxF3YCm58e.jpg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+  MainImage: {
+    width: '100%',
   },
 }));
 
+function BannerText() {
+  return (
+    <>
+      <Typography sx={{ fontSize: '3.5rem', margin: '0 0 0 0', letterSpacing: '0.005em' }}>
+        Support Local
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: '5.7rem',
+          lineHeight: '100px',
+          margin: '0 0 0 0',
+          letterSpacing: '-1.5px',
+        }}
+      >
+        Nonprofits
+      </Typography>
+      <Typography sx={{ fontSize: '1.5rem', margin: '30px 0 55px 0' }}>
+        Be part of our community of volunteers, nonprofits, and individuals through the Givingful
+        exchange platform.
+      </Typography>
+    </>
+  );
+}
+
 function BannerSection() {
   const classes = useStyles();
-  const history = useHistory();
 
   return (
-    <div className={classes.gridContent}>
-      <Box>
-        <Grid container spacing={3}>
-          <Grid item xs={1}>
-            <></>
-          </Grid>
-          <Grid item xs={5}>
-            <Typography sx={{ fontFamily: 'Poppins', fontSize: '54px', fontWeight: 'bold' }}>
-              One stop nonprofit exchange hub
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <></>
-          </Grid>
-          <Grid item xs={1}>
-            <></>
-          </Grid>
-          <Grid item xs={5}>
-            <Typography sx={{ fontSize: '28px', margin: '0.6rem 0 2.3rem 0' }}>
-              A free service to help you connect to resources in you community
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <></>
-          </Grid>
-          <Grid item xs={1}>
-            <></>
-          </Grid>
-          <Grid item xs={5}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                maxWidth: '800px',
-              }}
-            >
-              <button
-                onClick={() => history.push('/signup-nonprofit')}
-                className={classes.gridButtons}
-              >
-                Join as a Nonprofit
-              </button>
-              <button
-                onClick={() => history.push('/signup-citizen')}
-                className={classes.gridButtons}
-              >
-                Join as an Individual
-              </button>
-            </div>
-          </Grid>
-          <Grid item xs={6}>
-            <></>
-          </Grid>
+    <Box>
+      <Grid container spacing={3} sx={{ height: '600px' }}>
+        <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
+          <Box sx={{ width: '550px', mt: '180px', mb: '66px', ml: '40px' }}>
+            <BannerText />
+            <CTAButton text="Join Now" />
+          </Box>
         </Grid>
-      </Box>
-    </div>
+        <Grid
+          item
+          xs={6}
+          className={classes.bannerRight}
+          alignItems="center"
+          sx={{ display: 'flex', borderRadius: '0px 0px 0px 20px' }}
+        >
+          <Box sx={{ minWidth: '550px', mt: '180px', mb: '66px', ml: '20px' }}>
+            <img src={MainImage} alt="Banner" className={classes.MainImage} />
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
