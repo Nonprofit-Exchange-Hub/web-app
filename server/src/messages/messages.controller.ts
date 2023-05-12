@@ -11,6 +11,8 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
@@ -19,7 +21,6 @@ import { DeleteResult } from 'typeorm';
 import type { Request as ExpressRequest } from 'express';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('messages')
 @Controller('messages')
@@ -28,6 +29,7 @@ export class MessagesController {
 
   @UseGuards(CookieAuthGuard)
   @Post()
+  @ApiOperation({ summary: 'Create a message.' })
   async create(
     @Request() request: ExpressRequest,
     @Body() createMessageDto: CreateMessageDto,
@@ -38,11 +40,13 @@ export class MessagesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Fetch messages.' })
   async findAll(): Promise<Message[]> {
     return this.messagesService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Fetch messages via ID.' })
   async findOne(@Param('id') id: string): Promise<Message> {
     return this.messagesService.findOne(+id);
   }
@@ -50,6 +54,7 @@ export class MessagesController {
   // add find by user and find by transaction
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update a message.' })
   async update(
     @Param('id') id: string,
     @Body() updateMessageDto: UpdateMessageDto,
@@ -58,6 +63,7 @@ export class MessagesController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a message.' })
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.messagesService.remove(+id);
   }
