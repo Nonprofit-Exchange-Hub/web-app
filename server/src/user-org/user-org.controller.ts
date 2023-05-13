@@ -19,7 +19,7 @@ import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
 import { ApprovalStatus, Role } from './constants';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { UsersService } from '../acccount-manager/user.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('userOrganizations')
 @Controller('userOrganizations')
@@ -31,6 +31,7 @@ export class UserOrganizationsController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a user-org.' })
   async create(
     @Body() createUserOrganizationsDto: CreateUserOrganizationDto,
   ): Promise<UserOrganization> {
@@ -69,6 +70,7 @@ export class UserOrganizationsController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Fetch a user-org via ID.' })
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<UserOrganization> {
     const userOrg = await this.userOrganizationsService.findOne(id);
     if (!userOrg) {
@@ -81,6 +83,7 @@ export class UserOrganizationsController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update a user-org.' })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserOrganizationDto: UpdateUserOrganizationDto,
@@ -100,6 +103,7 @@ export class UserOrganizationsController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a user-org.' })
   async remove(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     const userOrgToDelete = await this.userOrganizationsService.remove(id);
     if (userOrgToDelete.affected === 0) {
