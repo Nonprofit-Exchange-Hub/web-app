@@ -150,7 +150,7 @@ function HowItWorks() {
         fontSize: '40px',
         lineHeight: '48px',
         textAlign: 'center',
-        mt: '10px',
+        mt: '20px',
         mb: '20px'
       }}>
         How it Works
