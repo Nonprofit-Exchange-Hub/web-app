@@ -1,9 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 
 type Props = {
   progress: number;
 };
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     width: '10em',
     height: 4,

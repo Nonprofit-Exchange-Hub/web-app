@@ -16,5 +16,8 @@ export class GetAssetsDto {
   limit: number;
 
   @IsOptional()
+  search: string;
+
+  @IsOptional()
   offset: number;
 }
