@@ -202,19 +202,22 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
             </Box>
             <Box
               sx={{
-                marginX: '10px',
-                minHeight: '210px',
-                '@media (max-width: 1411px)': {
-                  minHeight: '270px',
+                marginX: '15px',
+                minHeight: '180px',
+                '@media (max-width: 1611px)': {
+                  marginX: '10px',
+                  minHeight: '230px',
                   mt: '0px',
                   mb: '10px',
                 },
                 '@media (max-width: 1111px)': {
-                  minHeight: '170px',
+                  marginX: '10px',
+                  minHeight: '200px',
                   mt: '0px',
                   mb: '10px',
                 },
                 '@media (max-width: 600px)': {
+                  marginX: '0px',
                   minHeight: '80px',
                   mt: '0px',
                   mb: '0px',
@@ -231,7 +234,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                     mb: '10px',
                   },
                   '@media (max-width: 600px)': {
-                    minHeight: '100px',
+                    minHeight: '50px',
                     mt: '0px',
                     mb: '0px',
                   },
@@ -252,7 +255,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                   mb: '20px',
                 },
                 '@media (max-width: 600px)': {
-                  mt: '0px',
+                  mt: '20px',
                   mb: '10px',
                 },
               }}
