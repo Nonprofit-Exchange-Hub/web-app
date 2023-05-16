@@ -3,14 +3,13 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import { Box, Grid, Button } from '@mui/material';
-import type { Theme } from '@mui/material/styles'; 
+import type { Theme } from '@mui/material/styles';
 import HowItworks1 from '../assets/HowItWorks/HowItWorks1.svg';
 import HowItworks2 from '../assets/HowItWorks/HowItWorks2.svg';
 import HowItworks3 from '../assets/HowItWorks/HowItWorks3.svg';
 import HowItworks4 from '../assets/HowItWorks/HowItWorks4.svg';
 
-const loremIpsum =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
+const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
 
 const nonprofitInstructionList = [
   {
@@ -37,7 +36,7 @@ const nonprofitInstructionList = [
     image: 'https://picsum.photos/seed/nonprofit/600',
     buttonText: 'Read Testimonials',
   },
-]; 
+];
 
 const citizenInstructionList = [
   {
@@ -80,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   tabMenuLink: {
     padding: '10px',
     paddingBottom: '0!important',
-    minWidth: '200px'
+    minWidth: '200px',
   },
   button: {
     fontFamily: 'Poppins',
@@ -108,54 +107,58 @@ function HowItWorks() {
   };
 
   return (
-    <Box sx={{ margin: 'auto', width: '80%', marginY: '50px'}}>
+    <Box sx={{ margin: 'auto', width: '80%', marginY: '50px' }}>
       <Box className={`${classes.tabs}`}>
-          <Grid container className={`${classes.tabsGrid}`}>
-            <Grid
-              container
-              item
-              sm={2}
-              xs={6}
-              onClick={() => handleClickTab('nonprofit')}
-              className={classes.tabMenuLink}
+        <Grid container className={`${classes.tabsGrid}`}>
+          <Grid
+            container
+            item
+            sm={2}
+            xs={6}
+            onClick={() => handleClickTab('nonprofit')}
+            className={classes.tabMenuLink}
+          >
+            <Box
+              className={`${classes.button} ${tabSelected === 'nonprofit' ? classes.selected : ''}`}
             >
-              <Box
-                className={`${classes.button} ${
-                  tabSelected === 'nonprofit' ? classes.selected : ''
-                }`}
-              >
-                For Nonprofits
-              </Box>
-            </Grid>
-            <Grid
-              container
-              item
-              sm={2}
-              xs={6}
-              onClick={() => handleClickTab('citizen')}
-              className={classes.tabMenuLink}
-            >
-              <Box
-                className={`${classes.button} ${tabSelected === 'citizen' ? classes.selected : ''}`}
-              >
-                For Individuals
-              </Box>
-            </Grid>
+              For Nonprofits
+            </Box>
           </Grid>
+          <Grid
+            container
+            item
+            sm={2}
+            xs={6}
+            onClick={() => handleClickTab('citizen')}
+            className={classes.tabMenuLink}
+          >
+            <Box
+              className={`${classes.button} ${tabSelected === 'citizen' ? classes.selected : ''}`}
+            >
+              For Individuals
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
-      <Typography sx={{
-        fontFamily: 'Poppins',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        fontSize: '40px',
-        lineHeight: '48px',
-        textAlign: 'center',
-        mt: '20px',
-        mb: '20px'
-      }}>
+      <Typography
+        sx={{
+          fontFamily: 'Poppins',
+          fontStyle: 'normal',
+          fontWeight: 500,
+          fontSize: '40px',
+          lineHeight: '48px',
+          textAlign: 'center',
+          mt: '20px',
+          mb: '40px',
+        }}
+      >
         How it Works
       </Typography>
-      <HowItWorksCards instructionList={ tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList } />
+      <HowItWorksCards
+        instructionList={
+          tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList
+        }
+      />
     </Box>
   );
 }
@@ -163,54 +166,98 @@ function HowItWorks() {
 export default HowItWorks;
 
 type HowItWorksCardsProps = {
-  instructionList: { title: string; body: string; image: string, buttonText: string }[];
+  instructionList: { title: string; body: string; image: string; buttonText: string }[];
 };
 
 function HowItWorksCards(props: HowItWorksCardsProps) {
   const howItWorksImages = [HowItworks1, HowItworks2, HowItworks3, HowItworks4];
-  
+
   return (
-    <Box sx={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      gap: '0px',
-      justifyContent: 'center',
-      alignItems: 'top',
-      '@media (max-width: 1111px)': {
-        gridTemplateColumns: 'repeat(2, 1fr)',
-      },
-      '@media (max-width: 600px)': {
-        gridTemplateColumns: '1fr',
-      },
-    }}>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: '0px',
+        justifyContent: 'center',
+        alignItems: 'top',
+        '@media (max-width: 1111px)': {
+          gridTemplateColumns: 'repeat(2, 1fr)',
+        },
+        '@media (max-width: 600px)': {
+          gridTemplateColumns: '1fr',
+        },
+      }}
+    >
       {props.instructionList.map((instructionItem, i) => {
-          return (
-            <Box sx={{
+        return (
+          <Box
+            sx={{
               textAlign: 'center',
               mb: '20px',
               backgroundColor: 'white',
-            }}>
-              <Box sx={{ display: 'flex', alignItems: 'top', }}>
-                <img src={howItWorksImages[i]} alt="How It Works" width="100%"/>
-              </Box>
-              <Box sx={{marginX: '10px', minHeight: '230px'}}>
-                <Typography sx={{    
-                  minHeight: '100px',              
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'top' }}>
+              <img src={howItWorksImages[i]} alt="How It Works" width="100%" />
+            </Box>
+            <Box
+              sx={{
+                marginX: '10px',
+                minHeight: '210px',
+                '@media (max-width: 1411px)': {
+                  minHeight: '270px',
+                  mt: '0px',
+                  mb: '10px',
+                },
+                '@media (max-width: 1111px)': {
+                  minHeight: '170px',
+                  mt: '0px',
+                  mb: '10px',
+                },
+                '@media (max-width: 600px)': {
+                  minHeight: '80px',
+                  mt: '0px',
+                  mb: '0px',
+                },
+              }}
+            >
+              <Typography
+                sx={{
                   fontSize: '1.8rem',
                   fontWeight: 600,
+                  '@media (max-width: 1411px)': {
+                    minHeight: '90px',
+                    mt: '0px',
+                    mb: '10px',
+                  },
+                  '@media (max-width: 600px)': {
+                    minHeight: '100px',
+                    mt: '0px',
+                    mb: '0px',
+                  },
+                }}
+              >
+                {instructionItem.title}
+              </Typography>
+              <Typography variant="body1">{instructionItem.body}</Typography>
+            </Box>
+            {/* reminder - make button template */}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'bottom',
+                '@media (max-width: 1111px)': {
+                  mt: '10px',
+                  mb: '20px',
+                },
+                '@media (max-width: 600px)': {
                   mt: '0px',
-                  mb: '10px'
-                }}>
-                  {instructionItem.title}
-                </Typography>
-                <Typography variant='body1'>
-                  {instructionItem.body}
-                </Typography>
-              </Box>
-              {/* reminder - make button template */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'bottom', mt: '10px',
-              mb: '20px',}}>
-                <Button
+                  mb: '10px',
+                },
+              }}
+            >
+              <Button
                 sx={{
                   padding: '0.4rem 1rem 0.4rem 1rem',
                   border: '1px solid #323232',
@@ -218,14 +265,14 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                   color: '#323232',
                   fontWeight: '900',
                   fontSize: '1rem',
-                }}>
-                  {instructionItem.buttonText}
-                </Button>
-              </Box>
+                }}
+              >
+                {instructionItem.buttonText}
+              </Button>
             </Box>
-          );
-        })
-      }
-  </Box>
+          </Box>
+        );
+      })}
+    </Box>
   );
 }
