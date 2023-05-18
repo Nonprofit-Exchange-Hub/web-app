@@ -208,6 +208,91 @@ export const seedCategories = (): CreateCategoryDto[] => {
       applies_to_assets: true,
       applies_to_organizations: true,
     },
+    {
+      name: 'Animal Care & Services',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Poverty',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Housing & Homeless',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Youth & Children',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Disaster Relief',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Health Care & Welness',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Environment & Sustainability',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Sports & Recreation',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Seniors',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Religion, Faith & Spirituality',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Civic Engagement',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'LGTBQIA+',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Civil Rights & Advocacy',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Military & Veterans',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Social Justice',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Education & Literacy',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Arts & Culture',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
   ];
   return categories;
 };
