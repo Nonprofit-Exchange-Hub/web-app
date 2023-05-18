@@ -42,7 +42,7 @@ const initialFormData: UserSignupData = {
   email_notification_opt_out: false,
   state: '',
   zip: '',
-  aboutyourself: '',
+  bio: '',
 };
 
 function SignupCitizen() {
@@ -53,8 +53,6 @@ function SignupCitizen() {
   const [formData, setFormData] = React.useState(initialFormData);
   const { user, setUser } = React.useContext(UserContext);
 
-  console.log('rerender');
-
   const makeChips = () => {
     return interests.map((interest) => {
       // const variant = formData.interests.includes(interest) ? 'filled' : 'outlined';
@@ -63,14 +61,14 @@ function SignupCitizen() {
           className={chip}
           label={interest}
           sx={{ fontSize: '16px' }}
-          variant="filled"
+          variant="outlined"
           onClick={() => toggleInterest(interest)}
         />
       );
     });
   };
 
-  const toggleInterest = (interest: string) => {
+  const toggleInterest = (interest: string): void => {
     const existingInterestIdx = formData.interests.findIndex(
       (existingInterest) => existingInterest === interest,
     );
@@ -81,7 +79,6 @@ function SignupCitizen() {
       formData.interests.push(interest);
     }
 
-    console.log(formData);
     setFormData({ ...formData, interests: formData.interests });
   };
 
@@ -121,6 +118,7 @@ function SignupCitizen() {
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     setIsLoading(true);
+    console.log({ ...formData, interests: { names: formData.interests } });
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
     const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
@@ -128,7 +126,7 @@ function SignupCitizen() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, interests: { names: formData.interests } }),
     });
     const data = await res.json();
     setIsLoading(false);

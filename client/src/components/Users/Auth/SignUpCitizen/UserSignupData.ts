@@ -9,5 +9,5 @@ export interface UserSignupData {
   state: string;
   zip: string;
   interests: string[];
-  aboutyourself: string;
+  bio: string;
 }
