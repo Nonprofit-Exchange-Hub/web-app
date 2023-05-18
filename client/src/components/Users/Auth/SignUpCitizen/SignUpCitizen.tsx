@@ -74,8 +74,12 @@ function SignupCitizen() {
 
   const makeCitySelectOptions = (state: string) => {
     // TODO: get list of cities from state
-    let cities = Array.from(Array(50).keys()).map((num) => <MenuItem value={num}>{num}</MenuItem>);
-    return cities;
+    const citiesArray = ['Seattle', 'Detroit', 'Chicago', 'Nashville'];
+    return citiesArray.map((city) => {
+      return <MenuItem value={city}>{city}</MenuItem>;
+    });
+    // let cities = Array.from(Array(50).keys()).map((num) => <MenuItem value={num}>{num}</MenuItem>);
+    // return cities;
   };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -87,12 +91,15 @@ function SignupCitizen() {
     }));
   };
 
-  const handleSelectChange = (event: SelectChangeEvent<string>, child: React.ReactNode): void => {
+  const handleLocationSelectChange = (
+    event: SelectChangeEvent<string>,
+    child: React.ReactNode,
+  ): void => {
     const { name, value }: { name: string; value: string } = event.target;
+    const newKeyValuePair = name === 'city' ? { city: value } : { state: value };
     setFormData((fData) => ({
       ...fData,
-      [name]: name === 'city' && value,
-      [name]: name === 'state' && value,
+      ...newKeyValuePair,
     }));
   };
 
@@ -120,6 +127,7 @@ function SignupCitizen() {
 
   // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = () => {
+    console.log(formData);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -288,27 +296,7 @@ function SignupCitizen() {
                         className={input}
                         displayEmpty
                         fullWidth
-                        onChange={handleSelectChange}
-                        MenuProps={{
-                          anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
-                          sx: {
-                            borderRadius: '10px',
-                            padding: '20px',
-                            height: '240px',
-                          },
-                        }}
-                        name="city"
-                        renderValue={() => <MenuItem value="">City</MenuItem>}
-                      >
-                        {makeCitySelectOptions('WA')}
-                      </Select>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Select
-                        className={input}
-                        displayEmpty
-                        fullWidth
-                        onChange={handleSelectChange}
+                        onChange={handleLocationSelectChange}
                         MenuProps={{
                           anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                           sx: {
@@ -321,6 +309,26 @@ function SignupCitizen() {
                         renderValue={() => <MenuItem value="">State</MenuItem>}
                       >
                         {makeStateSelectOptions()}
+                      </Select>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Select
+                        className={input}
+                        displayEmpty
+                        fullWidth
+                        onChange={handleLocationSelectChange}
+                        MenuProps={{
+                          anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+                          sx: {
+                            borderRadius: '10px',
+                            padding: '20px',
+                            height: '240px',
+                          },
+                        }}
+                        name="city"
+                        renderValue={() => <MenuItem value="">City</MenuItem>}
+                      >
+                        {makeCitySelectOptions('WA')}
                       </Select>
                     </Grid>
                     <Grid item xs={4}>
