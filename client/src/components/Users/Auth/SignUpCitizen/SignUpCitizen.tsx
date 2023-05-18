@@ -41,7 +41,7 @@ const initialFormData: UserSignupData = {
   accept_terms: false,
   email_notification_opt_out: false,
   state: '',
-  zip: '',
+  zip_code: '',
   bio: '',
 };
 
@@ -349,7 +349,14 @@ function SignupCitizen() {
                       </Select>
                     </Grid>
                     <Grid item xs={4}>
-                      <Input className={input} placeholder="zip" fullWidth disableUnderline></Input>
+                      <Input
+                        className={input}
+                        placeholder="zip"
+                        fullWidth
+                        disableUnderline
+                        name="zip_code"
+                        onChange={handleChange}
+                      ></Input>
                     </Grid>
                   </Grid>
                 </Box>
@@ -437,6 +444,8 @@ function SignupCitizen() {
                       rows={4}
                       fullWidth
                       placeholder="Tell us about yourself..."
+                      name="bio"
+                      onChange={handleChange}
                     />
                   </Grid>
                 </Box>
