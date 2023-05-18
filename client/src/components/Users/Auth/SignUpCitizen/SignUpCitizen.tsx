@@ -55,7 +55,7 @@ function SignupCitizen() {
 
   const makeChips = () => {
     return interests.map((interest) => {
-      // const variant = formData.interests.includes(interest) ? 'filled' : 'outlined';
+      // TODO: toggle chip style when interest is chosen
       return (
         <Chip
           className={chip}
@@ -94,8 +94,6 @@ function SignupCitizen() {
     return citiesArray.map((city) => {
       return <MenuItem value={city}>{city}</MenuItem>;
     });
-    // let cities = Array.from(Array(50).keys()).map((num) => <MenuItem value={num}>{num}</MenuItem>);
-    // return cities;
   };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -118,7 +116,6 @@ function SignupCitizen() {
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     setIsLoading(true);
-    console.log({ ...formData, interests: { names: formData.interests } });
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
     const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
