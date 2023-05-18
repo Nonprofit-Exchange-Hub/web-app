@@ -14,6 +14,7 @@ import {
   SelectChangeEvent,
   MenuItem,
   Typography,
+  InputLabel,
 } from '@mui/material';
 import StyledLink from '../../../../components/StyledLink';
 import routes from '../../../../routes/routes';
@@ -34,7 +35,7 @@ const initialFormData: UserSignupData = {
   firstName: '',
   last_name: '',
   city: '',
-  interests: '',
+  interests: [],
   email: '',
   password: '',
   accept_terms: false,
@@ -52,18 +53,36 @@ function SignupCitizen() {
   const [formData, setFormData] = React.useState(initialFormData);
   const { user, setUser } = React.useContext(UserContext);
 
+  console.log('rerender');
+
   const makeChips = () => {
     return interests.map((interest) => {
+      // const variant = formData.interests.includes(interest) ? 'filled' : 'outlined';
       return (
         <Chip
           className={chip}
           label={interest}
           sx={{ fontSize: '16px' }}
-          variant="outlined"
-          onClick={() => console.log(interest)}
+          variant="filled"
+          onClick={() => toggleInterest(interest)}
         />
       );
     });
+  };
+
+  const toggleInterest = (interest: string) => {
+    const existingInterestIdx = formData.interests.findIndex(
+      (existingInterest) => existingInterest === interest,
+    );
+
+    if (existingInterestIdx !== -1) {
+      formData.interests.splice(existingInterestIdx, 1);
+    } else {
+      formData.interests.push(interest);
+    }
+
+    console.log(formData);
+    setFormData({ ...formData, interests: formData.interests });
   };
 
   const makeStateSelectOptions = () => {
@@ -91,15 +110,11 @@ function SignupCitizen() {
     }));
   };
 
-  const handleLocationSelectChange = (
-    event: SelectChangeEvent<string>,
-    child: React.ReactNode,
-  ): void => {
+  const handleSelectChange = (event: SelectChangeEvent<string>, child: React.ReactNode): void => {
     const { name, value }: { name: string; value: string } = event.target;
-    const newKeyValuePair = name === 'city' ? { city: value } : { state: value };
     setFormData((fData) => ({
       ...fData,
-      ...newKeyValuePair,
+      [name]: value,
     }));
   };
 
@@ -127,7 +142,6 @@ function SignupCitizen() {
 
   // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = () => {
-    console.log(formData);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -292,11 +306,14 @@ function SignupCitizen() {
                       <label className={label}>Where are you located?</label>
                     </Grid>
                     <Grid item xs={6}>
+                      <InputLabel id="state-select">State</InputLabel>
                       <Select
+                        labelId="state-select"
+                        label="State"
                         className={input}
                         displayEmpty
                         fullWidth
-                        onChange={handleLocationSelectChange}
+                        onChange={handleSelectChange}
                         MenuProps={{
                           anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                           sx: {
@@ -306,17 +323,19 @@ function SignupCitizen() {
                           },
                         }}
                         name="state"
-                        renderValue={() => <MenuItem value="">State</MenuItem>}
+                        value={formData.state}
                       >
                         {makeStateSelectOptions()}
                       </Select>
                     </Grid>
                     <Grid item xs={6}>
+                      <InputLabel id="city-select">City</InputLabel>
                       <Select
+                        labelId="city-select"
                         className={input}
                         displayEmpty
                         fullWidth
-                        onChange={handleLocationSelectChange}
+                        onChange={handleSelectChange}
                         MenuProps={{
                           anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                           sx: {
@@ -326,7 +345,7 @@ function SignupCitizen() {
                           },
                         }}
                         name="city"
-                        renderValue={() => <MenuItem value="">City</MenuItem>}
+                        value={formData.city}
                       >
                         {makeCitySelectOptions('WA')}
                       </Select>
