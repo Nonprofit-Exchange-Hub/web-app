@@ -88,14 +88,6 @@ function SignupCitizen() {
     });
   };
 
-  const makeCitySelectOptions = (state: string) => {
-    // TODO: get list of cities from state
-    const citiesArray = ['Seattle', 'Detroit', 'Chicago', 'Nashville'];
-    return citiesArray.map((city) => {
-      return <MenuItem value={city}>{city}</MenuItem>;
-    });
-  };
-
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
     setFormData((fData) => ({
@@ -115,6 +107,7 @@ function SignupCitizen() {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
+    console.log(formData);
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
@@ -303,12 +296,12 @@ function SignupCitizen() {
                     <Grid item xs={6}>
                       <InputLabel id="state-select">State</InputLabel>
                       <Select
-                        labelId="state-select"
                         label="State"
                         className={input}
                         displayEmpty
                         fullWidth
                         onChange={handleSelectChange}
+                        sx={{ marginTop: '10px', border: '1px solid' }}
                         MenuProps={{
                           anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                           sx: {
@@ -325,25 +318,14 @@ function SignupCitizen() {
                     </Grid>
                     <Grid item xs={6}>
                       <InputLabel id="city-select">City</InputLabel>
-                      <Select
-                        labelId="city-select"
+                      <Input
                         className={input}
-                        displayEmpty
+                        placeholder="city"
+                        disableUnderline
                         fullWidth
-                        onChange={handleSelectChange}
-                        MenuProps={{
-                          anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
-                          sx: {
-                            borderRadius: '10px',
-                            padding: '20px',
-                            height: '240px',
-                          },
-                        }}
+                        onChange={handleChange}
                         name="city"
-                        value={formData.city}
-                      >
-                        {makeCitySelectOptions('WA')}
-                      </Select>
+                      ></Input>
                     </Grid>
                     <Grid item xs={4}>
                       <Input
