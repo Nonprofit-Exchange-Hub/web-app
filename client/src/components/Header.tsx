@@ -282,7 +282,7 @@ function Header() {
         <div className={classes.userButtons}>
           {user ? (
             <>
-              <IconButton>
+              <IconButton size="large">
                 <NotificationsIcon />
               </IconButton>
               <IconButton

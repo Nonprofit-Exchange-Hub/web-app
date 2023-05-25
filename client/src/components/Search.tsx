@@ -100,6 +100,7 @@ function Search() {
           onClick={handleSearch}
           sx={{ paddingRight: '10px', marginLeft: 'auto' }}
           disabled={!searchText}
+          size="large"
         >
           <SearchIcon fontSize="large" />
         </IconButton>
