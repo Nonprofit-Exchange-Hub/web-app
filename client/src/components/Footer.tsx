@@ -3,12 +3,12 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Theme } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 import StyledLink from './StyledLink';
 import routes from '../routes/routes';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     main: {
       backgroundColor: 'white',
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 function Footer() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <footer className={classes.footer}>

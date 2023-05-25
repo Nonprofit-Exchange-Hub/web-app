@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { FormControl, FormLabel, Button } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   buttonText: {
     width: '100%',
     border: `1px solid grey`,
@@ -25,7 +25,7 @@ type CustomProps = {
 };
 
 function FileUploadInput(props: CustomProps) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <FormControl>

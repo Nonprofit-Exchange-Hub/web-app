@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
 
@@ -12,7 +12,7 @@ import { APP_API_BASE_URL } from '../../../configs';
 
 import SetNewPasswordImg from '../../../assets/set-new-password.svg';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   const yPadding = 6;
   const yMargin = 8;
 
@@ -74,7 +74,7 @@ const ERRORS = {
 
 function SetNewPassword() {
   const RESOURCE_URL = `${APP_API_BASE_URL}/auth/users`;
-  const classes = useStyles();
+  const { classes } = useStyles();
   const sublabel = `(${PASSWORD_MIN_LENGTH} or more characters)`;
 
   const [password, setPassword] = React.useState<string>('');

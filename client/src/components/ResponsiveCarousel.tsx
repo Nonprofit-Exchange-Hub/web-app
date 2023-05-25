@@ -4,11 +4,11 @@ import Typography from '@mui/material/Typography';
 import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   topBanner: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -42,7 +42,7 @@ type ResponsiveCarouselProps = {
 };
 
 function ResponsiveCarousel(props: ResponsiveCarouselProps) {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const noPadding = { padding: 0, margin: 0, minWidth: '32px' };
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [itemsPerRow, setItemsPerRow] = React.useState<number>(0);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { Box, Grid, Container } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -81,7 +81,7 @@ const citizenQuestions = [
   },
 ];
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   questionSection: {
     width: '100%',
     padding: '0 10px',
@@ -132,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function HowItWorks() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   type Tab = 'nonprofit' | 'citizen';
 

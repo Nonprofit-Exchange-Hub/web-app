@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 import SimpleSnackbar from '../../SimpleSnackbar';
 
@@ -11,7 +11,7 @@ import type { Theme } from '@mui/material/styles';
 import EmailInput from './EmailInput';
 import { APP_API_BASE_URL } from '../../../configs';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   const xPadding = 12;
   const yPadding = 6;
   const yMargin = 8;
@@ -47,7 +47,7 @@ const initialFormData: UserLoginData = {
 };
 
 function ForgotPassword() {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState(initialFormData);

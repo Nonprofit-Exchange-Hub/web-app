@@ -1,10 +1,10 @@
 import { Grid, Typography, Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 import MainImage from '../assets/banner-section-main.svg';
 import CTAButton from './Buttons/CTAButton';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   gridTitle: {
     backgroundColor: 'red',
   },
@@ -42,7 +42,7 @@ function BannerText() {
 }
 
 function BannerSection() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Box>

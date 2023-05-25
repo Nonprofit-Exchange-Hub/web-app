@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,7 +18,7 @@ import routes from '../routes/routes';
 import type { Asset as AssetT } from '../types';
 import { APP_API_BASE_URL } from '../configs';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   topBar: {
     backgroundColor: 'white',
     display: 'flex',
@@ -120,7 +120,7 @@ const useAsset = (id?: string): AssetT | null => {
 };
 
 function Asset(): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { assetId } = useParams<{ assetId?: string }>();
   const asset = useAsset(assetId);
   const [searchText, setSearchText] = React.useState<string>('');
