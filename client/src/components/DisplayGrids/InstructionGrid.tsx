@@ -37,14 +37,14 @@ function InstructionGrid(props: InstructionProps) {
   return (
     <Grid container justifyContent="space-between" className={`${classes.gridBoxes}`}>
       {props.instructionList.map((instructionItem, index) => {
-        var text = <GridText title={instructionItem.title} body={instructionItem.body}></GridText>;
-        var image = <GridImage image={instructionItem.image}></GridImage>;
+        var text = <GridText title={instructionItem.title} body={instructionItem.body} />;
+        var image = <GridImage image={instructionItem.image} />;
         return (
-          <>
+          <React.Fragment key={`${instructionItem.title}_${index}`}>
             {/* Set order of the two jsx items - odd number rows have text first, even have image first */}
             {index % 2 === 0 ? image : text}
             {index % 2 === 0 ? text : image}
-          </>
+          </React.Fragment>
         );
       })}
     </Grid>
