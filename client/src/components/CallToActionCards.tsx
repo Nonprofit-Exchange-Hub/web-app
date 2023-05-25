@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CallToActionCards() {
-  const classes = useStyles({});
+  const classes = useStyles();
 
   return (
     <Grid className={classes.grid} container gap="20px">

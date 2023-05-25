@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
