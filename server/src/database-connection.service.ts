@@ -11,41 +11,52 @@ import { Transaction } from './transactions/entities/transaction.entity';
 import { Message } from './messages/entities/message.entity';
 import { Init1683855028140, addsearchtitleindex1683855184000 } from './migrations';
 dotenv.config();
+
+export type AppEnvironment = 'staging' | 'development';
+
+const defaultOptions: Partial<TypeOrmModuleOptions> = {
+  name: 'default',
+  type: 'postgres',
+  host: process.env.DATABASE_HOST,
+  port: Number(process.env.DATABASE_PORT),
+  username: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_DB,
+  logging: process.env.DB_LOGGING === 'true',
+  synchronize: false, // set to false in all envs, because we want to use migrations
+  dropSchema: false, // set to false in all envs, because we want to use migrations
+  autoLoadEntities: true,
+  entities: [User, Category, Organization, UserOrganization, Transaction, Asset, PocChat, Message],
+  migrations: [Init1683855028140, addsearchtitleindex1683855184000],
+  ssl: false,
+};
+
+const appConfigs = (environment: AppEnvironment): TypeOrmModuleOptions => {
+  switch (environment) {
+    case 'staging':
+      return {
+        ...defaultOptions,
+        ssl: {
+          ca: process.env.POSTGRESQL_SSL_CA ?? '',
+          cert: process.env.POSTGRESQL_SSL_CERT ?? '',
+          key: process.env.POSTGRESQL_SSL_KEY ?? '',
+          rejectUnauthorized: false,
+        },
+      };
+
+    case 'development':
+      return {
+        ...defaultOptions,
+      };
+  }
+};
+
 @Injectable()
 export class DatabaseConnectionService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    return {
-      name: 'default',
-      type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_DB,
-      synchronize: false, //shouldn't be used in production
-      dropSchema: false, //toggle to true to clear database schema
-      logging: true,
-      autoLoadEntities: true,
-      entities: [
-        User,
-        Category,
-        Organization,
-        UserOrganization,
-        Transaction,
-        Asset,
-        PocChat,
-        Message,
-      ],
-      migrations: [Init1683855028140, addsearchtitleindex1683855184000],
-      ssl:
-        process.env.MODE === 'production' // only require ssl when in production/
-          ? {
-              ca: process.env.POSTGRESQL_SSL_CA ?? '',
-              cert: process.env.POSTGRESQL_SSL_CERT ?? '',
-              key: process.env.POSTGRESQL_SSL_KEY ?? '',
-              rejectUnauthorized: false,
-            }
-          : false,
-    };
+    if (!process.env.NODE_ENV) {
+      throw new Error('NODE_ENV not set');
+    }
+    return appConfigs(process.env.NODE_ENV as AppEnvironment);
   }
 }
