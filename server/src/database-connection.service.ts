@@ -51,12 +51,26 @@ const appConfigs = (environment: AppEnvironment): TypeOrmModuleOptions => {
   }
 };
 
+const validateOrFailNodeEnv = (environment: string): void => {
+  if (!environment) {
+    throw new Error('NODE_ENV not set');
+  }
+  if (!['staging', 'development'].includes(environment)) {
+    throw new Error(`NODE_ENV set to invalid environment: ${environment}`);
+  }
+};
+
+const coerceNodeEnv = (environment: string): AppEnvironment => {
+  if (['staging', 'development'].includes(environment)) {
+    return environment as AppEnvironment;
+  }
+  return 'development';
+};
+
 @Injectable()
 export class DatabaseConnectionService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    if (!process.env.NODE_ENV) {
-      throw new Error('NODE_ENV not set');
-    }
-    return appConfigs(process.env.NODE_ENV as AppEnvironment);
+    validateOrFailNodeEnv(process.env.NODE_ENV);
+    return appConfigs(coerceNodeEnv(process.env.NODE_ENV));
   }
 }
