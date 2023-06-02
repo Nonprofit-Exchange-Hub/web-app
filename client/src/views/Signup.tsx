@@ -40,7 +40,7 @@ function Signup() {
   return (
     <Container className={classes.formBox}>
       <Typography variant="h2" component="h2">
-        Welcome!
+        Welcome Test!
       </Typography>
       <Typography variant="h2" component="h2">
         Select your account type.
