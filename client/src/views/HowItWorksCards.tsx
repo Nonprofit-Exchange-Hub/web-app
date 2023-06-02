@@ -29,7 +29,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
         },
       }}
     >
-      {props.instructionList.map((instructionItem, i) => {
+      {props.instructionList.map((instructions, i) => {
         return (
           <Box
             sx={{
@@ -81,9 +81,9 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                   },
                 }}
               >
-                {instructionItem.title}
+                {instructions.title}
               </Typography>
-              <Typography variant="body1">{instructionItem.body}</Typography>
+              <Typography variant="body1">{instructions.body}</Typography>
             </Box>
             {/* reminder - make button template */}
             <Box
@@ -111,7 +111,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
                   fontSize: '1rem',
                 }}
               >
-                {instructionItem.buttonText}
+                {instructions.buttonText}
               </Button>
             </Box>
           </Box>

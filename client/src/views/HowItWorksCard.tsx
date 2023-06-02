@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Box, Button } from '@mui/material';
 
 type HowItWorksCardProps = {
-  instructionItem: { title: string; body: string; image: string; buttonText: string };
+  instructions: { title: string; body: string; image: string; buttonText: string };
 };
 
 function HowItWorksCard(props: HowItWorksCardProps) {
@@ -59,9 +59,9 @@ function HowItWorksCard(props: HowItWorksCardProps) {
             },
           }}
         >
-          {props.instructionItem.title}
+          {props.instructions.title}
         </Typography>
-        <Typography variant="body1">{props.instructionItem.body}</Typography>
+        <Typography variant="body1">{props.instructions.body}</Typography>
       </Box>
       {/* reminder - make button template */}
       <Box
@@ -89,7 +89,7 @@ function HowItWorksCard(props: HowItWorksCardProps) {
             fontSize: '1rem',
           }}
         >
-          {props.instructionItem.buttonText}
+          {props.instructions.buttonText}
         </Button>
       </Box>
     </Box>

@@ -36,9 +36,9 @@ function InstructionGrid(props: InstructionProps) {
 
   return (
     <Grid container justifyContent="space-between" className={`${classes.gridBoxes}`}>
-      {props.instructionList.map((instructionItem, index) => {
-        var text = <GridText title={instructionItem.title} body={instructionItem.body}></GridText>;
-        var image = <GridImage image={instructionItem.image}></GridImage>;
+      {props.instructionList.map((instructions, index) => {
+        var text = <GridText title={instructions.title} body={instructions.body}></GridText>;
+        var image = <GridImage image={instructions.image}></GridImage>;
         return (
           <>
             {/* Set order of the two jsx items - odd number rows have text first, even have image first */}
