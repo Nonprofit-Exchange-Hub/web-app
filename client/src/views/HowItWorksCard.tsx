@@ -14,7 +14,6 @@ function HowItWorksCard(props: HowItWorksCardProps) {
         textAlign: 'center',
         mb: '20px',
         backgroundColor: 'white',
-        height: '100%'
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'top' }}>
@@ -48,6 +47,7 @@ function HowItWorksCard(props: HowItWorksCardProps) {
           sx={{
             fontSize: '1.8rem',
             fontWeight: 600,
+            mb: '10px',
             '@media (max-width: 1411px)': {
               minHeight: '90px',
               mt: '0px',
@@ -66,17 +66,18 @@ function HowItWorksCard(props: HowItWorksCardProps) {
           variant="body1"
           sx={{
             pb: '10px',
+            flexGrow: 1,
           }}
         >
           {props.instructions.body}
         </Typography>
       </Box>
-      {/* reminder - make button template */}
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'bottom',
+          flexGrow: 1,
           '@media (max-width: 1111px)': {
             mt: '10px',
             mb: '20px',
@@ -94,7 +95,7 @@ function HowItWorksCard(props: HowItWorksCardProps) {
             borderRadius: '8px',
             color: '#323232',
             fontWeight: '900',
-            fontSize: '1rem',
+            fontSize: '1rem'
           }}
         >
           {props.instructions.buttonText}
