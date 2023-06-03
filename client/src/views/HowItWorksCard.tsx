@@ -10,89 +10,89 @@ type HowItWorksCardProps = {
 function HowItWorksCard(props: HowItWorksCardProps) {
   return (
     <Box
+    sx={{
+      textAlign: 'center',
+      mb: '20px',
+      backgroundColor: 'white',
+    }}
+  >
+    <Box sx={{ display: 'flex', alignItems: 'top' }}>
+      <img src={props.instructions.image} alt="How It Works" width="100%" />
+    </Box>
+    <Box
       sx={{
-        textAlign: 'center',
-        mb: '20px',
-        backgroundColor: 'white',
+        marginX: '15px',
+        minHeight: '180px',
+        '@media (max-width: 1611px)': {
+          marginX: '10px',
+          minHeight: '230px',
+          mt: '0px',
+          mb: '10px',
+        },
+        '@media (max-width: 1111px)': {
+          marginX: '10px',
+          minHeight: '200px',
+          mt: '0px',
+          mb: '10px',
+        },
+        '@media (max-width: 600px)': {
+          marginX: '0px',
+          minHeight: '80px',
+          mt: '0px',
+          mb: '0px',
+        },
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'top' }}>
-        <img src={props.instructions.image} alt="How It Works" width="100%" />
-      </Box>
-      <Box
+      <Typography
         sx={{
-          marginX: '15px',
-          minHeight: '180px',
-          '@media (max-width: 1611px)': {
-            marginX: '10px',
-            minHeight: '230px',
-            mt: '0px',
-            mb: '10px',
-          },
-          '@media (max-width: 1111px)': {
-            marginX: '10px',
-            minHeight: '200px',
+          fontSize: '1.8rem',
+          fontWeight: 600,
+          '@media (max-width: 1411px)': {
+            minHeight: '90px',
             mt: '0px',
             mb: '10px',
           },
           '@media (max-width: 600px)': {
-            marginX: '0px',
-            minHeight: '80px',
+            minHeight: '50px',
             mt: '0px',
             mb: '0px',
           },
         }}
       >
-        <Typography
-          sx={{
-            fontSize: '1.8rem',
-            fontWeight: 600,
-            '@media (max-width: 1411px)': {
-              minHeight: '90px',
-              mt: '0px',
-              mb: '10px',
-            },
-            '@media (max-width: 600px)': {
-              minHeight: '50px',
-              mt: '0px',
-              mb: '0px',
-            },
-          }}
-        >
-          {props.instructions.title}
-        </Typography>
-        <Typography variant="body1">{props.instructions.body}</Typography>
-      </Box>
-      {/* reminder - make button template */}
-      <Box
+        {props.instructions.title}
+      </Typography>
+      <Typography variant="body1">{props.instructions.body}</Typography>
+    </Box>
+    {/* reminder - make button template */}
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'bottom',
+        '@media (max-width: 1111px)': {
+          mt: '10px',
+          mb: '20px',
+        },
+        '@media (max-width: 600px)': {
+          mt: '20px',
+          mb: '10px',
+        },
+      }}
+    >
+      <Button
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'bottom',
-          '@media (max-width: 1111px)': {
-            mt: '10px',
-            mb: '20px',
-          },
-          '@media (max-width: 600px)': {
-            mt: '20px',
-            mb: '10px',
-          },
+          padding: '0.4rem 1rem 0.4rem 1rem',
+          border: '1px solid #323232',
+          borderRadius: '8px',
+          color: '#323232',
+          fontWeight: '900',
+          fontSize: '1rem',
         }}
       >
-        <Button
-          sx={{
-            padding: '0.4rem 1rem 0.4rem 1rem',
-            border: '1px solid #323232',
-            borderRadius: '8px',
-            color: '#323232',
-            fontWeight: '900',
-            fontSize: '1rem',
-          }}
-        >
-          {props.instructions.buttonText}
-        </Button>
-      </Box>
+        {props.instructions.buttonText}
+      </Button>
     </Box>
+  </Box>
   );
 }
 
