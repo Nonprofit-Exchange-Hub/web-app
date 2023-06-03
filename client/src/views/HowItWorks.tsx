@@ -11,7 +11,7 @@ import HowItworks4 from '../assets/HowItWorks/HowItWorks4.svg';
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
 
-const nonprofitInstructionList = [
+const nonprofitinstructionsArray = [
   {
     title: 'Sign up with Givingful',
     body: 'Create a profile to let our community know about your nonprofit.',
@@ -38,7 +38,7 @@ const nonprofitInstructionList = [
   },
 ];
 
-const citizenInstructionList = [
+const citizeninstructionsArray = [
   {
     title: 'Sign up with Givingful',
     body: 'Create a profile to let our community know about your nonprofit.',
@@ -155,8 +155,8 @@ function HowItWorks() {
         How it Works
       </Typography>
       <HowItWorksCards
-        instructionList={
-          tabSelected === 'nonprofit' ? nonprofitInstructionList : citizenInstructionList
+        instructionsArray={
+          tabSelected === 'nonprofit' ? nonprofitinstructionsArray : citizeninstructionsArray
         }
       />
     </Box>

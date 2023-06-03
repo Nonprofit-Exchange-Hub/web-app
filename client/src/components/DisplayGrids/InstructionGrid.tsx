@@ -28,7 +28,7 @@ const instructionStyles = makeStyles<Theme, InstructionProps>((theme: Theme) => 
 }));
 
 type InstructionProps = {
-  instructionList: { title: string; body: string; image: string }[];
+  instructionsArray: { title: string; body: string; image: string }[];
 };
 
 function InstructionGrid(props: InstructionProps) {
@@ -36,7 +36,7 @@ function InstructionGrid(props: InstructionProps) {
 
   return (
     <Grid container justifyContent="space-between" className={`${classes.gridBoxes}`}>
-      {props.instructionList.map((instructions, index) => {
+      {props.instructionsArray.map((instructions, index) => {
         var text = <GridText title={instructions.title} body={instructions.body}></GridText>;
         var image = <GridImage image={instructions.image}></GridImage>;
         return (

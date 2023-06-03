@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import HowItWorksCard from './HowItWorksCard';
 
 type HowItWorksCardsProps = {
-  instructionList: { title: string; body: string; image: string; buttonText: string }[];
+  instructionsArray: { title: string; body: string; image: string; buttonText: string }[];
 };
 
 function HowItWorksCards(props: HowItWorksCardsProps) {
@@ -23,7 +23,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
         },
       }}
     >
-      {props.instructionList.map((instructions, i) => {
+      {props.instructionsArray.map((instructions, i) => {
         return <HowItWorksCard key={i} instructions={instructions} />;
       })}
     </Box>
