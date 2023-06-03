@@ -17,7 +17,7 @@ function HowItWorksCard(props: HowItWorksCardProps) {
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'top' }}>
-        {/* <img src={howItWorksImages[i]} alt="How It Works" width="100%" /> */}
+        <img src={props.instructions.image} alt="How It Works" width="100%" />
       </Box>
       <Box
         sx={{

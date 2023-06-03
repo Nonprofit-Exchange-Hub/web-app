@@ -1,18 +1,12 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import { Box, Button } from '@mui/material';
-import HowItworks1 from '../assets/HowItWorks/HowItWorks1.svg';
-import HowItworks2 from '../assets/HowItWorks/HowItWorks2.svg';
-import HowItworks3 from '../assets/HowItWorks/HowItWorks3.svg';
-import HowItworks4 from '../assets/HowItWorks/HowItWorks4.svg';
 
 type HowItWorksCardsProps = {
   instructionList: { title: string; body: string; image: string; buttonText: string }[];
 };
 
 function HowItWorksCards(props: HowItWorksCardsProps) {
-  const howItWorksImages = [HowItworks1, HowItworks2, HowItworks3, HowItworks4];
-
   return (
     <Box
       sx={{
@@ -39,7 +33,7 @@ function HowItWorksCards(props: HowItWorksCardsProps) {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'top' }}>
-              <img src={howItWorksImages[i]} alt="How It Works" width="100%" />
+              <img src={instructions.image} alt="How It Works" width="100%" />
             </Box>
             <Box
               sx={{
