@@ -22,12 +22,24 @@ function HowItWorksCard(props: HowItWorksCardProps) {
       <Box
         sx={{
           marginX: '15px',
-          minHeight: '180px',
+          minHeight: '140px',
+          '@media (max-width: 2255px)': {
+            marginX: '10px',
+            minHeight: '200px',
+            mt: '0px',
+            mb: '10px',
+          },
           '@media (max-width: 1611px)': {
             marginX: '10px',
             minHeight: '230px',
             mt: '0px',
             mb: '10px',
+          },
+          '@media (max-width: 1365px)': {
+            marginX: '10px',
+            minHeight: '270px',
+            mt: '0px',
+            mb: '0px',
           },
           '@media (max-width: 1111px)': {
             marginX: '10px',
