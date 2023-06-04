@@ -21,6 +21,7 @@ import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
+import { ReturnAssetDto } from './dto/return-asset.dto';
 import { Asset } from './entities/asset.entity';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
@@ -36,7 +37,7 @@ export class AssetsController {
   async create(
     @Request() request: ExpressRequest,
     @Body() createAssetDto: CreateAssetDto,
-  ): Promise<Asset | HttpException> {
+  ): Promise<ReturnAssetDto> {
     const { user } = request;
 
     try {
@@ -52,13 +53,13 @@ export class AssetsController {
 
   @Get()
   @ApiOperation({ summary: 'Fetch assets' })
-  get(@Query() getAssetsDto: GetAssetsDto): Promise<Asset[]> {
+  get(@Query() getAssetsDto: GetAssetsDto): Promise<ReturnAssetDto[]> {
     return this.assetsService.getAssets(getAssetsDto);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Fetch an asset by ID' })
-  async findOne(@Param('id') id: string): Promise<Asset | HttpException> {
+  async findOne(@Param('id') id: string): Promise<ReturnAssetDto> {
     const foundAsset = await this.assetsService.findOne(parseInt(id));
     if (!foundAsset) {
       throw new HttpException(
@@ -77,7 +78,7 @@ export class AssetsController {
     @Request() request: ExpressRequest,
     @Param('id') id: string,
     @Body() updateAssetDto: UpdateAssetDto,
-  ): Promise<Asset | HttpException> {
+  ): Promise<ReturnAssetDto> {
     const { user } = request;
 
     try {
