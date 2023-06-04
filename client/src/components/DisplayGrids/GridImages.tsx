@@ -46,12 +46,13 @@ function GridImages(props: GridProps): JSX.Element {
   return (
     <Box className={`${classes.missionContent}`}>
       <GridImage src={props.wideImage} isWide={true} />
-      {props.smallImages.map((src) => {
-        return <GridImage src={src} isWide={false} />;
-      })}
+      {props.smallImages.map((src, idx) => (
+        <GridImage key={`${src}${idx}`} src={src} isWide={false} />
+      ))}
       {props.missionStatements.map((statementItem) => {
         return (
           <MissionStatement
+            key={statementItem.row}
             row={String(statementItem.row)}
             title={statementItem.title}
             text={statementItem.text}

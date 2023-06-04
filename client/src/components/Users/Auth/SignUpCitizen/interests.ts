@@ -1,4 +1,6 @@
 export const interests: string[] = [
+  'paper products',
+  'furniture',
   'Animal Care & Services',
   'Poverty',
   'Housing & Homeless',

@@ -100,7 +100,7 @@ export class AccountManagerController {
         <p>Thank you!!</p>
         <p>The Givingful Team</p>
       `,
-      mailSettings: { sandboxMode: { enable: process.env.MODE !== 'production' } },
+      mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'production' } },
     };
     await this.sendgridService.send(mail);
 
@@ -115,12 +115,12 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
-    if (!user.email_verified) {
-      throw new HttpException(
-        { status: HttpStatus.UNAUTHORIZED, message: 'Unauthorized' },
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
+    // if (!user.email_verified) {
+    //   throw new HttpException(
+    //     { status: HttpStatus.UNAUTHORIZED, message: 'Unauthorized' },
+    //     HttpStatus.UNAUTHORIZED,
+    //   );
+    // }
 
     const jwt = await this.accountManagerService.createJwt(user);
     response
