@@ -1,8 +1,9 @@
 import { IsOptional } from 'class-validator';
 
 import { AssetType } from '../constants';
+import { ReturnUserDto } from 'src/acccount-manager/dto/auth.dto';
 
-export class GetAssetsDto {
+export class ReturnAssetDto {
   @IsOptional()
   id: number;
 
@@ -13,11 +14,5 @@ export class GetAssetsDto {
   type: AssetType;
 
   @IsOptional()
-  limit: number;
-
-  @IsOptional()
-  search: string;
-
-  @IsOptional()
-  offset: number;
+  poster: ReturnUserDto;
 }
