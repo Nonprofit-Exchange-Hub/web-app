@@ -26,9 +26,10 @@ function BulletGrid(props: BulletProps) {
 
   return (
     <Grid container justifyContent="space-between">
-      {props.list.map((listItem) => {
+      {props.list.map((listItem, idx) => {
+        const key = `${listItem}_${idx}`;
         return (
-          <Grid container item md={6} xs={12} className={classes.grid}>
+          <Grid key={key} container item md={6} xs={12} className={classes.grid}>
             <Grid item>
               <Box className={classes.square}></Box>
             </Grid>
