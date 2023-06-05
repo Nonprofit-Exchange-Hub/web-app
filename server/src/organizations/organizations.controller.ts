@@ -1,25 +1,25 @@
 import {
-  Controller,
   Get,
   Post,
   Body,
   Patch,
   Param,
+  Query,
   Delete,
+  HttpStatus,
+  Controller,
   HttpException,
   BadRequestException,
-  HttpStatus,
-  Query,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { GetOrganizationDto } from './dto/get-organization.dto';
-import { Organization } from './entities/organization.entity';
+import { ReturnOrganizationDto } from './dto/return-organization.dto';
+import { ReturnPropublicaOrgDto } from './dto/return-propublica-org.dto';
 import { DeleteResult } from 'typeorm';
-import { PropublicaOrg } from './organizations.service';
 
 @ApiTags('organizations')
 @Controller('organizations')
@@ -28,7 +28,9 @@ export class OrganizationsController {
 
   @Post()
   @ApiOperation({ summary: 'Create an organization.' })
-  async create(@Body() createOrganizationDto: CreateOrganizationDto): Promise<Organization> {
+  async create(
+    @Body() createOrganizationDto: CreateOrganizationDto,
+  ): Promise<ReturnOrganizationDto> {
     if (createOrganizationDto.categories) {
       const res = await this.organizationsService.validateOrgCategories(
         createOrganizationDto.categories.names,
@@ -50,19 +52,19 @@ export class OrganizationsController {
 
   @Get()
   @ApiOperation({ summary: 'Fetch organizations.' })
-  find(@Query() getOrganizationDto: GetOrganizationDto): Promise<Organization[]> {
+  find(@Query() getOrganizationDto: GetOrganizationDto): Promise<ReturnOrganizationDto[]> {
     return this.organizationsService.find(getOrganizationDto);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Fetch organizations via ID.' })
-  findOne(@Param('id') id: string): Promise<Organization> {
+  findOne(@Param('id') id: string): Promise<ReturnOrganizationDto> {
     return this.organizationsService.findOne(+id);
   }
 
   @Get('ein/:ein')
   @ApiOperation({ summary: 'Fetch Propublica organization via EIN.' })
-  getProPublicaOrg(@Param('ein') ein: string): Promise<PropublicaOrg> {
+  getProPublicaOrg(@Param('ein') ein: string): Promise<ReturnPropublicaOrgDto> {
     return this.organizationsService.getProPublicaOrg(ein);
   }
 
@@ -71,7 +73,7 @@ export class OrganizationsController {
   async update(
     @Param('id') id: string,
     @Body() updateOrganizationDto: UpdateOrganizationDto,
-  ): Promise<Organization> {
+  ): Promise<ReturnOrganizationDto> {
     return this.organizationsService.update(+id, updateOrganizationDto);
   }
 
