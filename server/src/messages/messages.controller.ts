@@ -1,22 +1,21 @@
 import {
-  Controller,
   Get,
   Post,
   Body,
   Patch,
   Param,
   Delete,
-  HttpException,
-  HttpStatus,
   Request,
   UseGuards,
+  Controller,
+  HttpException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
-import { Message } from './entities/message.entity';
+import { ReturnMessageDto } from './dto/return-message.dto';
 import { DeleteResult } from 'typeorm';
 import type { Request as ExpressRequest } from 'express';
 import { User } from '../acccount-manager/entities/user.entity';
@@ -33,7 +32,7 @@ export class MessagesController {
   async create(
     @Request() request: ExpressRequest,
     @Body() createMessageDto: CreateMessageDto,
-  ): Promise<Message | HttpException> {
+  ): Promise<ReturnMessageDto> {
     const { user } = request;
     const newMessage = await this.messagesService.create(createMessageDto, user as User);
     return newMessage;
@@ -41,13 +40,13 @@ export class MessagesController {
 
   @Get()
   @ApiOperation({ summary: 'Fetch messages.' })
-  async findAll(): Promise<Message[]> {
+  async findAll(): Promise<ReturnMessageDto[]> {
     return this.messagesService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Fetch messages via ID.' })
-  async findOne(@Param('id') id: string): Promise<Message> {
+  async findOne(@Param('id') id: string): Promise<ReturnMessageDto> {
     return this.messagesService.findOne(+id);
   }
 
@@ -58,7 +57,7 @@ export class MessagesController {
   async update(
     @Param('id') id: string,
     @Body() updateMessageDto: UpdateMessageDto,
-  ): Promise<Message> {
+  ): Promise<ReturnMessageDto> {
     return this.messagesService.update(+id, updateMessageDto);
   }
 
