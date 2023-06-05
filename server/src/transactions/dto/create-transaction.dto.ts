@@ -1,35 +1,28 @@
 import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { TransactionStatus } from '../transaction-status.enum';
 
-import type { User } from '../../acccount-manager/entities/user.entity';
-import type { Organization } from '../../organizations/entities/organization.entity';
-import type { Asset } from '../../assets/entities/asset.entity';
-import { Message } from '../../messages/entities/message.entity';
+import { ReturnUserDto } from 'src/acccount-manager/dto/auth.dto';
+import { ReturnOrganizationDto } from 'src/organizations/dto/return-organization.dto';
+import { ReturnAssetDto } from 'src/assets/dto/return-asset.dto';
+import { ReturnMessageDto } from 'src/messages/dto/return-message.dto';
 
 export class CreateTransactionDto {
-  @ApiProperty()
   @IsNotEmpty()
-  donater_user: User;
+  donater_user: ReturnUserDto;
 
-  @ApiPropertyOptional()
   @IsOptional()
-  donater_organization?: Organization;
+  donater_organization?: ReturnOrganizationDto;
 
-  @ApiProperty()
   @IsNotEmpty({ message: 'asset is required' })
-  asset: Asset;
+  asset: ReturnAssetDto;
 
-  @ApiPropertyOptional()
   @IsOptional()
-  message?: Message;
+  message?: ReturnMessageDto;
 
-  @ApiPropertyOptional()
   @IsOptional()
-  recipient?: Organization;
+  recipient?: ReturnOrganizationDto;
 
-  @ApiPropertyOptional()
   @IsOptional()
   @IsEnum(TransactionStatus)
   status?: TransactionStatus;
