@@ -14,9 +14,16 @@ declare module '@mui/material/styles' {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    black: true;
+  }
+}
+
 const custom = {
   status: {
     danger: orange[500],
   },
 };
+
 export default custom;

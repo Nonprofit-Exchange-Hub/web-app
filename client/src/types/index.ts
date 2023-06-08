@@ -45,6 +45,10 @@ export type User = {
   last_name?: string;
   email?: string;
   profile_image_url?: string;
+  city?: string;
+  state?: string;
+  zip_code?: string;
+  interests?: { names: string[] };
 };
 
 export type Transaction = {
