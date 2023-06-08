@@ -261,13 +261,22 @@ export const SignUpUserAndNonprofit = () => {
                       control={control}
                       defaultValue={''}
                       render={({ field }) => (
-                        <TextField
-                          {...field}
-                          label="Legal Name"
-                          placeholder="Legal Name"
-                          fullWidth
-                          disabled={false}
-                        />
+                        <>
+                          <Typography sx={{ fontSize: '16px', marginBottom: '10px' }}>
+                            State
+                          </Typography>
+                          <TextField
+                            {...field}
+                            fullWidth
+                            label="Add location data here"
+                            onKeyUp={() => {
+                              if (!errors.state) {
+                                console.log('add validation here');
+                              }
+                            }}
+                            error={!!errors.state?.message}
+                          />
+                        </>
                       )}
                     />
                     {orgValidateEinQuery.isSuccess && !errors.ein && (
