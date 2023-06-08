@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import InfoIcon from '@mui/icons-material/Info';
 import RoomOutlined from '@mui/icons-material/RoomOutlined';

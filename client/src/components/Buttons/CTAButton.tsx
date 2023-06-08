@@ -1,4 +1,4 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import { useHistory } from 'react-router-dom';

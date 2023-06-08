@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import InputAdornment from '@mui/material/InputAdornment';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import type { Theme } from '@mui/material/styles';
