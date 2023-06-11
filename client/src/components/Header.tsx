@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -7,7 +8,6 @@ import { makeStyles } from '@mui/styles';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-
 import IconButton from '@mui/material/IconButton';
 import AppsIcon from '@mui/icons-material/Apps';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -29,6 +29,10 @@ import Logo from '../assets/GivingfulLogo.png';
 import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 import { UserAvatar } from './Users/UserAvatar';
+
+import { ModalContext } from './../providers/ModalProvider';
+import SignInModal from './Modals/SignInModal';
+// import SignUpModal from './Modals/SignUpModal';
 
 const useStyles = makeStyles((theme: Theme) => ({
   home: {
@@ -91,6 +95,14 @@ function Header() {
   const isAboutMenuOpen = Boolean(aboutAnchorEl);
   const isExchangeMenuOpen = Boolean(exchangeAnchorEl);
 
+  const modalContext = useContext(ModalContext);
+  const { openModal } = modalContext;
+
+  const handleOpenSignInModal = () => {
+    console.log('Runs handleOpenSignInModal');
+    openModal(SignInModal);
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     switch (event?.currentTarget?.id) {
       case 'navigation-button': {
@@ -138,6 +150,22 @@ function Header() {
             <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
           <div>
+            {/* / DELTE/ */}
+            <Button
+              sx={{
+                textTransform: 'capitalize',
+                backgroundColor: 'white',
+                color: '#323232',
+                borderRadius: '10px',
+                border: '1px solid #323232',
+                marginLeft: '5px',
+                width: '100px',
+              }}
+              onClick={handleOpenSignInModal}
+            >
+              Sign In
+            </Button>
+            {/* / DELTE/ */}
             <Button
               id="exchange-button"
               aria-label="exchange dropdown"

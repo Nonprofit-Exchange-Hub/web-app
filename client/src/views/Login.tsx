@@ -5,7 +5,11 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import type { Theme } from '@mui/material/styles';
 
 import EmailInput from '../components/Users/Auth/EmailInput';
@@ -69,6 +73,18 @@ function Login() {
 
   const [formData, setFormData] = React.useState<UserLoginData>(initialFormData);
 
+  const [open, setOpen] = React.useState(true);
+
+  const onClose = (e: any, reason: string) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+  };
+
+  const buttonClose = () => {
+    setOpen(false);
+  };
+
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;
     setFormData((fData) => ({
@@ -107,55 +123,68 @@ function Login() {
   };
 
   return (
-    <div className="Login" style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Paper elevation={3} className={classes.paper}>
-        <Grid container justifyContent="center" direction="column" spacing={2}>
-          <Grid item xs={12}>
-            <Typography className={classes.header} variant="h3" component="h1" align="center">
-              Welcome Back.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} container justifyContent="space-between">
-            <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn>
-            <FacebookAuthBtn>Sign In with Facebook</FacebookAuthBtn>
-          </Grid>
-          <Grid item xs={12}>
-            <TextDivider>or</TextDivider>
-          </Grid>
-          <Grid container item xs={12}>
-            <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-              <EmailInput
-                value={formData.email}
-                placeholder="jane@nonprofit.com"
-                onChange={handleChange}
-                error={error?.type === 'email' ? error.message : null}
-              />
-              <PasswordInput
-                value={formData.password}
-                onChange={handleChange}
-                showForgot={true}
-                error={error?.type === 'password' ? error.message : null}
-              />
-              <Button
-                className={classes.button}
-                style={{ backgroundColor: '#C4C4C4', color: 'white' }}
-                fullWidth
-                type="submit"
-              >
-                Sign In
-              </Button>
-              {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
-              {isLoading && <Typography>Loading</Typography>}
-            </form>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography align="left">
-              Not signed up yet? <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
-            </Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-    </div>
+    <Dialog disableEscapeKeyDown={true} open={open} onClose={onClose}>
+      <DialogTitle>Subscribe</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          {/* <LoginForm {...{ handleSubmit, formData, handleChange, error, classes, isLoading }} /> */}
+          <div className="Login" style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Paper elevation={3} className={classes.paper}>
+              <Grid container justifyContent="center" direction="column" spacing={2}>
+                <Grid item xs={12}>
+                  <Typography className={classes.header} variant="h3" component="h1" align="center">
+                    Welcome Back.
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} container justifyContent="space-between">
+                  <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn>
+                  <FacebookAuthBtn>Sign In with Facebook</FacebookAuthBtn>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextDivider>or</TextDivider>
+                </Grid>
+                <Grid container item xs={12}>
+                  <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                    <EmailInput
+                      value={formData.email}
+                      placeholder="jane@nonprofit.com"
+                      onChange={handleChange}
+                      error={error?.type === 'email' ? error.message : null}
+                    />
+                    <PasswordInput
+                      value={formData.password}
+                      onChange={handleChange}
+                      showForgot={true}
+                      error={error?.type === 'password' ? error.message : null}
+                    />
+                    <Button
+                      className={classes.button}
+                      style={{ backgroundColor: '#C4C4C4', color: 'white' }}
+                      fullWidth
+                      type="submit"
+                    >
+                      Sign In
+                    </Button>
+                    {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                    {isLoading && <Typography>Loading</Typography>}
+                  </form>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography align="left">
+                    Not signed up yet? <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Paper>
+            <div></div>
+          </div>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={buttonClose}>Cancel</Button>
+        <Button onClick={buttonClose}>Subscribe</Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
