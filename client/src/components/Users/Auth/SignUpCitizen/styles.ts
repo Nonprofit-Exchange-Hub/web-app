@@ -1,5 +1,5 @@
 import { Theme } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import { placeholderImg } from '../../../../assets/temp';
 
 export const useStyles = makeStyles((theme: Theme) => ({

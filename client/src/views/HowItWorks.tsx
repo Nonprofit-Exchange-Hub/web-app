@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import { Box, Grid } from '@mui/material';
+
 import type { Theme } from '@mui/material/styles';
 import HowItWorksCards from './HowItWorksCards';
 import HowItworks1 from '../assets/HowItWorks/HowItWorks1.svg';

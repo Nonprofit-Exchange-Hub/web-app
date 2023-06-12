@@ -45,6 +45,7 @@ function User() {
           return (
             <Chip
               sx={chip}
+              key={interest}
               label={interest}
               variant="outlined"
               onClick={() => console.log(interest)}

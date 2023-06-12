@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import { Box, Grid, Container } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -11,25 +11,25 @@ import { GridImages } from '../components/DisplayGrids';
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
 
-const bios: { name: string; image: string }[] = [
-  { name: 'Bob', image: '../blank-bio-pic.png' },
-  { name: 'Kathy', image: '../blank-bio-pic.png' },
-  { name: 'Fred', image: '../blank-bio-pic.png' },
-  { name: 'Alice', image: '../blank-bio-pic.png' },
-  { name: 'Zachary', image: '../blank-bio-pic.png' },
-  { name: 'Emily', image: '../blank-bio-pic.png' },
-  { name: 'Albert', image: '../blank-bio-pic.png' },
-  { name: 'Zoe', image: '../blank-bio-pic.png' },
+const bios: { id: number; name: string; image: string }[] = [
+  { id: 1, name: 'Bob', image: '../blank-bio-pic.png' },
+  { id: 2, name: 'Kathy', image: '../blank-bio-pic.png' },
+  { id: 3, name: 'Fred', image: '../blank-bio-pic.png' },
+  { id: 4, name: 'Alice', image: '../blank-bio-pic.png' },
+  { id: 5, name: 'Zachary', image: '../blank-bio-pic.png' },
+  { id: 6, name: 'Emily', image: '../blank-bio-pic.png' },
+  { id: 7, name: 'Albert', image: '../blank-bio-pic.png' },
+  { id: 8, name: 'Zoe', image: '../blank-bio-pic.png' },
 ];
-const orgs: { name: string; image: string }[] = [
-  { name: 'Google', image: '' },
-  { name: 'Twitter', image: '' },
-  { name: 'Facebook', image: '' },
-  { name: 'Chrome', image: '' },
-  { name: 'Amazon', image: '' },
-  { name: 'UnOrg', image: '' },
-  { name: 'Nonprofit', image: '' },
-  { name: 'GiveCycle', image: '' },
+const orgs: { id: number; name: string; image: string }[] = [
+  { id: 1, name: 'Google', image: '' },
+  { id: 2, name: 'Twitter', image: '' },
+  { id: 3, name: 'Facebook', image: '' },
+  { id: 4, name: 'Chrome', image: '' },
+  { id: 5, name: 'Amazon', image: '' },
+  { id: 6, name: 'UnOrg', image: '' },
+  { id: 7, name: 'Nonprofit', image: '' },
+  { id: 8, name: 'GiveCycle', image: '' },
 ];
 const missionStatements = [
   { row: 1, title: 'Mission Statement', text: loremIpsum.slice(0, 97) },
@@ -213,7 +213,7 @@ function AboutUs() {
         <Box className={`${classes.biosImagesContainer}`}>
           {bios.map((person) => {
             return (
-              <Box className={`${classes.biosItem}`}>
+              <Box key={person.id} className={`${classes.biosItem}`}>
                 <Box className={classes.biosImagePlaceholder}>
                   <img src={`${person.image}`} alt={`Bio pic for ${person.name}`} />
                 </Box>
@@ -256,9 +256,9 @@ function AboutUs() {
           {loremIpsum}
         </Typography>
         <Box className={`${classes.orgContent}`}>
-          {orgs.map((value) => {
-            return <Box className={classes.orgImage}></Box>;
-          })}
+          {orgs.map((value) => (
+            <Box key={value.id} className={classes.orgImage} />
+          ))}
         </Box>
       </Container>
     </>

@@ -3,13 +3,13 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@emotion/react": "^11.9.0",
-		"@emotion/styled": "^11.8.1",
+		"@emotion/react": "^11.11.0",
+		"@emotion/styled": "^11.11.0",
 		"@hookform/resolvers": "^2.9.7",
-		"@material-ui/core": "^4.12.4",
+		"@mui/base": "^5.0.0-beta.2",
 		"@mui/icons-material": "^5.11.16",
-		"@mui/material": "^5.13.0",
-		"@mui/styles": "^5.12.3",
+		"@mui/material": "^5.13.2",
+		"@mui/styles": "^5.13.2",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
@@ -65,14 +65,14 @@
 		"@types/react-router-dom": "^5.1.7",
 		"@typescript-eslint/eslint-plugin": "^5.5.0",
 		"@typescript-eslint/parser": "^5.5.0",
-		"react-scripts": "^5.0.1",
 		"eslint": "^8.0.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-config-react-app": "^7.0.1",
 		"eslint-plugin-prettier": "^4.0.0",
 		"husky": "^7.0.4",
 		"lint-staged": "^12.1.4",
-		"prettier": "^2.5.1"
+		"prettier": "^2.5.1",
+		"react-scripts": "^5.0.1"
 	},
 	"lint-staged": {
 		"./src/**/*.{ts,tsx}": [

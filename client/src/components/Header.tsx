@@ -3,7 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
@@ -282,7 +282,7 @@ function Header() {
         <div className={classes.userButtons}>
           {user ? (
             <>
-              <IconButton>
+              <IconButton size="large">
                 <NotificationsIcon />
               </IconButton>
               <IconButton
