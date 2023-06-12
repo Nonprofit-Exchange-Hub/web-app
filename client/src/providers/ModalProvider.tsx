@@ -1,17 +1,15 @@
 import React, { createContext, useState, ReactNode } from 'react';
 
-type ModalContent = React.FC<any>; // Replace with the actual type of your modal content
-type ModalProps = {}; // Replace with the actual type of your modal props
+type ModalType = 'SignIn' | 'SignUp'; // This replaces ModalContent
 
 interface IModalContext {
   modal: ModalState | null;
-  openModal: (component: ModalContent, props?: ModalProps) => void;
-  closeModal: (component?: ModalContent) => void;
+  openModal: (type: ModalType) => void;
+  closeModal: () => void;
 }
 
 interface ModalState {
-  component: ModalContent;
-  props: ModalProps;
+  type: ModalType;
 }
 
 const ModalContext = createContext({} as IModalContext);
@@ -21,12 +19,10 @@ interface ModalProviderProps {
 }
 
 const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
-  console.log('Runs ModalProvider');
-
   const [modal, setModal] = useState<ModalState | null>(null);
 
-  const openModal = (component: ModalContent, props: ModalProps = {}) => {
-    setModal({ component, props });
+  const openModal = (type: ModalType) => {
+    setModal({ type });
   };
 
   const closeModal = () => {

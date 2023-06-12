@@ -31,7 +31,7 @@ import { APP_API_BASE_URL } from '../configs';
 import { UserAvatar } from './Users/UserAvatar';
 
 import { ModalContext } from './../providers/ModalProvider';
-import SignInModal from './Modals/SignInModal';
+// import SignInModal from './Modals/SignInModal';
 // import SignUpModal from './Modals/SignUpModal';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -98,9 +98,12 @@ function Header() {
   const modalContext = useContext(ModalContext);
   const { openModal } = modalContext;
 
-  const handleOpenSignInModal = () => {
-    console.log('Runs handleOpenSignInModal');
-    openModal(SignInModal);
+  const handleoOpenModal = (modalType: 'SignIn' | 'SignUp') => {
+    if (modalType === 'SignIn') {
+      openModal('SignIn');
+    } else if (modalType === 'SignUp') {
+      openModal('SignUp');
+    }
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -150,22 +153,6 @@ function Header() {
             <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
           <div>
-            {/* / DELTE/ */}
-            <Button
-              sx={{
-                textTransform: 'capitalize',
-                backgroundColor: 'white',
-                color: '#323232',
-                borderRadius: '10px',
-                border: '1px solid #323232',
-                marginLeft: '5px',
-                width: '100px',
-              }}
-              onClick={handleOpenSignInModal}
-            >
-              Sign In
-            </Button>
-            {/* / DELTE/ */}
             <Button
               id="exchange-button"
               aria-label="exchange dropdown"
@@ -470,36 +457,38 @@ function Header() {
             </>
           ) : (
             <>
-              <NavLink className={classes.navLink} to={routes.Signup.path}>
-                <Button
-                  sx={{
-                    textTransform: 'capitalize',
-                    backgroundColor: '#EF6A60',
-                    color: 'white',
-                    borderRadius: '10px',
-                    border: '1px solid #EF6A60',
-                    marginRight: '10px',
-                    width: '100px',
-                  }}
-                >
-                  Join Now
-                </Button>
-              </NavLink>
-              <NavLink className={classes.navLink} to={routes.Login.path}>
-                <Button
-                  sx={{
-                    textTransform: 'capitalize',
-                    backgroundColor: 'white',
-                    color: '#323232',
-                    borderRadius: '10px',
-                    border: '1px solid #323232',
-                    marginLeft: '5px',
-                    width: '100px',
-                  }}
-                >
-                  Sign In
-                </Button>
-              </NavLink>
+              {/* <NavLink className={classes.navLink} to={routes.Signup.path}> */}
+              <Button
+                sx={{
+                  textTransform: 'capitalize',
+                  backgroundColor: '#EF6A60',
+                  color: 'white',
+                  borderRadius: '10px',
+                  border: '1px solid #EF6A60',
+                  marginRight: '10px',
+                  width: '100px',
+                }}
+                onClick={() => handleoOpenModal('SignUp')}
+              >
+                Join Now
+              </Button>
+              {/* </NavLink> */}
+              {/* <NavLink className={classes.navLink} to={routes.Login.path}> */}
+              <Button
+                sx={{
+                  textTransform: 'capitalize',
+                  backgroundColor: 'white',
+                  color: '#323232',
+                  borderRadius: '10px',
+                  border: '1px solid #323232',
+                  marginLeft: '5px',
+                  width: '100px',
+                }}
+                onClick={() => handleoOpenModal('SignIn')}
+              >
+                Sign In
+              </Button>
+              {/* </NavLink> */}
             </>
           )}
         </div>

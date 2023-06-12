@@ -44,10 +44,11 @@ function App(): JSX.Element {
                   width="100vw"
                   justifyContent="space-between"
                 >
+                  {/* move modal to below footer after troubleshooting */}
+                  <Modal />
                   <Header />
                   <Main />
                   <Footer />
-                  <Modal />
                 </Grid>
               </BrowserRouter>
             </ModalProvider>
