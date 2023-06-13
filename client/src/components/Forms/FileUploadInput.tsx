@@ -1,5 +1,5 @@
 import * as React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import { FormControl, FormLabel, Button } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';

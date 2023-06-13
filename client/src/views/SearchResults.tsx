@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 
 import type { Theme } from '@mui/material/styles';

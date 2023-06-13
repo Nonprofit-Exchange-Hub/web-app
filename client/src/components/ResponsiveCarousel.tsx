@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 
 import type { Theme } from '@mui/material/styles';
 
