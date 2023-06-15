@@ -14,6 +14,7 @@ import {
   SelectChangeEvent,
   MenuItem,
   Typography,
+  InputLabel,
 } from '@mui/material';
 import StyledLink from '../../../../components/StyledLink';
 import routes from '../../../../routes/routes';
@@ -34,14 +35,14 @@ const initialFormData: UserSignupData = {
   firstName: '',
   last_name: '',
   city: '',
-  interests: '',
+  interests: [],
   email: '',
   password: '',
   accept_terms: false,
   email_notification_opt_out: false,
   state: '',
-  zip: '',
-  aboutyourself: '',
+  zip_code: '',
+  bio: '',
 };
 
 function SignupCitizen() {
@@ -54,28 +55,37 @@ function SignupCitizen() {
 
   const makeChips = () => {
     return interests.map((interest) => {
+      // TODO: toggle chip style when interest is chosen
       return (
         <Chip
           className={classes.chip}
           label={interest}
           sx={{ fontSize: '16px' }}
           variant="outlined"
-          onClick={() => console.log(interest)}
+          onClick={() => toggleInterest(interest)}
         />
       );
     });
+  };
+
+  const toggleInterest = (interest: string): void => {
+    const existingInterestIdx = formData.interests.findIndex(
+      (existingInterest) => existingInterest === interest,
+    );
+
+    if (existingInterestIdx !== -1) {
+      formData.interests.splice(existingInterestIdx, 1);
+    } else {
+      formData.interests.push(interest);
+    }
+
+    setFormData({ ...formData, interests: formData.interests });
   };
 
   const makeStateSelectOptions = () => {
     return US_STATE_NAMES.map((state) => {
       return <MenuItem value={state}>{state}</MenuItem>;
     });
-  };
-
-  const makeCitySelectOptions = (state: string) => {
-    // TODO: get list of cities from state
-    let cities = Array.from(Array(50).keys()).map((num) => <MenuItem value={num}>{num}</MenuItem>);
-    return cities;
   };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -91,13 +101,13 @@ function SignupCitizen() {
     const { name, value }: { name: string; value: string } = event.target;
     setFormData((fData) => ({
       ...fData,
-      [name]: name === 'city' && value,
-      [name]: name === 'state' && value,
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
+    console.log(formData);
     setIsLoading(true);
     // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
@@ -106,7 +116,7 @@ function SignupCitizen() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, interests: { names: formData.interests } }),
     });
     const data = await res.json();
     setIsLoading(false);
@@ -284,31 +294,14 @@ function SignupCitizen() {
                       <label className={classes.label}>Where are you located?</label>
                     </Grid>
                     <Grid item xs={6}>
+                      <InputLabel id="state-select">State</InputLabel>
                       <Select
+                        label="State"
                         className={classes.input}
                         displayEmpty
                         fullWidth
                         onChange={handleSelectChange}
-                        MenuProps={{
-                          anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
-                          sx: {
-                            borderRadius: '10px',
-                            padding: '20px',
-                            height: '240px',
-                          },
-                        }}
-                        name="city"
-                        renderValue={() => <MenuItem value="">City</MenuItem>}
-                      >
-                        {makeCitySelectOptions('WA')}
-                      </Select>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Select
-                        className={classes.input}
-                        displayEmpty
-                        fullWidth
-                        onChange={handleSelectChange}
+                        sx={{ marginTop: '10px', border: '1px solid' }}
                         MenuProps={{
                           anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                           sx: {
@@ -318,18 +311,31 @@ function SignupCitizen() {
                           },
                         }}
                         name="state"
-                        renderValue={() => <MenuItem value="">State</MenuItem>}
+                        value={formData.state}
                       >
                         {makeStateSelectOptions()}
                       </Select>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <InputLabel id="city-select">City</InputLabel>
+                      <Input
+                        className={classes.input}
+                        placeholder="city"
+                        disableUnderline
+                        fullWidth
+                        onChange={handleChange}
+                        name="city"
+                      ></Input>
                     </Grid>
                     <Grid item xs={4}>
                       <Input
                         className={classes.input}
                         placeholder="zip"
-                        disableUnderline
                         fullWidth
-                      />
+                        disableUnderline
+                        name="zip_code"
+                        onChange={handleChange}
+                      ></Input>
                     </Grid>
                   </Grid>
                 </Box>
@@ -410,10 +416,7 @@ function SignupCitizen() {
                   <Grid item xs={12} sx={{ height: '50px' }} />
                   <Typography
                     className={classes.label}
-                    sx={{
-                      fontWeight: 'bold',
-                      marginBottom: '10px',
-                    }}
+                    sx={{ fontWeight: 'bold', marginBottom: '10px' }}
                   >
                     About Yourself
                   </Typography>
@@ -423,6 +426,8 @@ function SignupCitizen() {
                       rows={4}
                       fullWidth
                       placeholder="Tell us about yourself..."
+                      name="bio"
+                      onChange={handleChange}
                     />
                   </Grid>
                 </Box>
@@ -443,10 +448,7 @@ function SignupCitizen() {
                   </Typography>
                   <Typography
                     className={classes.label}
-                    sx={{
-                      fontWeight: 'bold',
-                      marginTop: '60px',
-                    }}
+                    sx={{ fontWeight: 'bold', marginTop: '60px' }}
                   >
                     {user && user.firstName} {user && user.last_name}
                   </Typography>
