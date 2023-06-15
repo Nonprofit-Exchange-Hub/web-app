@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import { Box, Button } from '@mui/material';
 
@@ -107,7 +105,7 @@ function HowItWorksCard(props: HowItWorksCardProps) {
             borderRadius: '8px',
             color: '#323232',
             fontWeight: '900',
-            fontSize: '1rem'
+            fontSize: '1rem',
           }}
         >
           {props.instructions.buttonText}
