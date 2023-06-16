@@ -5,10 +5,10 @@ import { Box, Grid } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 import HowItWorksCards from './HowItWorksCards';
-import HowItworks1 from '../assets/HowItWorks/HowItWorks1.svg';
-import HowItworks2 from '../assets/HowItWorks/HowItWorks2.svg';
-import HowItworks3 from '../assets/HowItWorks/HowItWorks3.svg';
-import HowItworks4 from '../assets/HowItWorks/HowItWorks4.svg';
+import HowItworksStep1 from '../assets/HowItWorks/how-it-works-step-1.svg';
+import HowItworksStep2 from '../assets/HowItWorks/how-it-works-step-2.svg';
+import HowItworksStep3 from '../assets/HowItWorks/how-it-works-step-3.svg';
+import HowItworksStep4 from '../assets/HowItWorks/how-it-works-step-4.svg';
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
 
@@ -16,25 +16,25 @@ const nonprofitinstructionsArray = [
   {
     title: 'Sign up with Givingful',
     body: 'Create a profile to let our community know about your nonprofit.',
-    image: HowItworks1,
+    image: HowItworksStep1,
     buttonText: 'View More',
   },
   {
     title: 'Share your nonprofit’s needs',
     body: 'Post a description of items and skills that can help your organization.',
-    image: HowItworks2,
+    image: HowItworksStep2,
     buttonText: 'Post a Need',
   },
   {
     title: 'Claim an offer',
     body: 'Coordinate to receive goods offered by those in the community.',
-    image: HowItworks3,
+    image: HowItworksStep3,
     buttonText: 'See Offers',
   },
   {
     title: 'Succeed in your goals',
     body: 'See your nonprofit thrive with your community’s help.',
-    image: HowItworks4,
+    image: HowItworksStep4,
     buttonText: 'Read Testimonials',
   },
 ];
@@ -43,25 +43,25 @@ const citizeninstructionsArray = [
   {
     title: 'Sign up with Givingful',
     body: 'Create a profile to let our community know about your nonprofit.',
-    image: HowItworks1,
+    image: HowItworksStep1,
     buttonText: 'View More',
   },
   {
     title: 'Post your donation',
     body: loremIpsum,
-    image: HowItworks2,
+    image: HowItworksStep2,
     buttonText: 'View More',
   },
   {
     title: 'Connect with nonprofits',
     body: loremIpsum,
-    image: HowItworks3,
+    image: HowItworksStep3,
     buttonText: 'View More',
   },
   {
     title: 'Make a difference',
     body: loremIpsum,
-    image: HowItworks4,
+    image: HowItworksStep4,
     buttonText: 'View More',
   },
 ];
