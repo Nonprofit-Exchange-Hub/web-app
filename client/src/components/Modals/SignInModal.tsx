@@ -5,9 +5,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-// import DialogTitle from '@mui/material/DialogTitle';
 
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
@@ -24,10 +22,11 @@ import { APP_API_BASE_URL } from '../../configs';
 interface SignInModalProps {
   closeModal: () => void;
   classes: {
+    outerShell: string;
     paper: string;
     content: string;
     header: string;
-    button: string;
+    loginButton: string;
     buttonContainer: string;
     closeButton: string;
   };
@@ -56,9 +55,21 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
 
     const [formData, setFormData] = React.useState<UserLoginData>(initialFormData);
 
-    const handleCloseModal = () => {
+    const handleCloseModal = React.useCallback(() => {
       closeModal();
-    };
+    }, [closeModal]);
+
+    React.useEffect(() => {
+      // This function is called every time the URL changes
+      const unlisten = history.listen(() => {
+        handleCloseModal();
+      });
+
+      // Cleanup function to be run when the component unmounts
+      return () => {
+        unlisten();
+      };
+    }, [history, handleCloseModal]);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
       const { name, value }: { name: string; value: string } = evt.target;
@@ -103,7 +114,7 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
           ref={ref}
           disableEscapeKeyDown={true}
           open={true}
-          PaperProps={{ style: { borderRadius: 20 } }}
+          PaperProps={{ className: classes.outerShell }}
         >
           <IconButton
             edge="end"
@@ -112,10 +123,10 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
             aria-label="close"
             className={classes.closeButton}
           >
-            <CloseIcon />
+            <CloseIcon style={{ fontSize: '1.1em' }} />
           </IconButton>
           <DialogContent className={classes.content}>
-            <Paper elevation={3} className={classes.paper}>
+            <Paper elevation={0} className={classes.paper}>
               <Grid container justifyContent="center" direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography
@@ -129,45 +140,62 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                 </Grid>
                 <Grid item xs={12} container justifyContent="space-between" wrap="nowrap">
                   <Grid item className={classes.buttonContainer}>
-                    <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn>
+                    <GoogleAuthBtn>Sign In</GoogleAuthBtn>
                   </Grid>
                   <Grid item className={classes.buttonContainer}>
-                    <FacebookAuthBtn>Sign In with Facebook</FacebookAuthBtn>
+                    <FacebookAuthBtn>Sign In</FacebookAuthBtn>
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <TextDivider>or</TextDivider>
                 </Grid>
-                <Grid container item xs={12}>
+                <Grid container item xs={12} style={{ paddingTop: 0 }}>
                   <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                     <EmailInput
                       value={formData.email}
                       placeholder="jane@nonprofit.com"
                       onChange={handleChange}
                       error={error?.type === 'email' ? error.message : null}
+                      showStartAdornment={true}
                     />
                     <PasswordInput
                       value={formData.password}
+                      placeholder="oooooo"
                       onChange={handleChange}
-                      showForgot={true}
                       error={error?.type === 'password' ? error.message : null}
+                      showStartAdornment={true}
                     />
-                    <Button
-                      className={classes.button}
-                      style={{ backgroundColor: '#C4C4C4', color: 'white' }}
-                      fullWidth
-                      type="submit"
+                    <Grid item xs={12} style={{ display: 'flex', paddingBottom: '30px' }}>
+                      <Grid item xs={12}>
+                        <Typography align="left" style={{ fontSize: '12px' }}>
+                          <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography align="right" style={{ fontSize: '12px' }}>
+                          Not signed up yet?{' '}
+                          <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ display: 'flex', paddingBottom: '30px', justifyContent: 'center' }}
                     >
-                      Sign In
-                    </Button>
-                    {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                      <Button
+                        className={classes.loginButton}
+                        style={{ backgroundColor: '#EF6A60', color: 'white' }}
+                        fullWidth
+                        type="submit"
+                      >
+                        Login
+                      </Button>
+                      {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                    </Grid>
+
                     {isLoading && <Typography>Loading</Typography>}
                   </form>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography align="left">
-                    Not signed up yet? <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
-                  </Typography>
                 </Grid>
               </Grid>
             </Paper>

@@ -4,10 +4,13 @@ import React from 'react';
 interface SignUpModalProps {
   closeModal: () => void;
   classes: {
+    outerShell: string;
     paper: string;
+    content: string;
     header: string;
-    button: string;
+    loginButton: string;
     buttonContainer: string;
+    closeButton: string;
   };
 }
 

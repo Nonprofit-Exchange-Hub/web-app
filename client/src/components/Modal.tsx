@@ -6,22 +6,22 @@ import SignIn from './Modals/SignInModal';
 import SignUp from './Modals/SignUpModal';
 
 const useStyles = makeStyles((theme: Theme) => {
-  const xPadding = 12;
+  const xPadding = 6;
   const yPadding = 6;
   //   const yMargin = 8;
 
   return {
-    paper: {
-      maxWidth: 821 - theme.spacing(xPadding),
+    outerShell: {
+      borderRadius: 20,
+      minWidth: 650,
+      minHeight: 700,
+      maxWidth: 732 - theme.spacing(xPadding),
       maxHeight: 732 - theme.spacing(yPadding),
-      borderRadius: '20px',
-      //   marginTop: theme.spacing(yMargin),
-      //   marginBottom: theme.spacing(yMargin),
-      paddingTop: theme.spacing(yPadding),
-      paddingBottom: theme.spacing(yPadding),
-      paddingLeft: theme.spacing(xPadding),
-      paddingRight: theme.spacing(xPadding),
-      margin: 'auto',
+    },
+    paper: {
+      marginTop: theme.spacing(yPadding),
+      marginBottom: theme.spacing(yPadding),
+      width: '80%',
     },
     content: {
       padding: 0,
@@ -29,21 +29,39 @@ const useStyles = makeStyles((theme: Theme) => {
       flexDirection: 'column',
       alignItems: 'center',
     },
-    header: { fontWeight: 'bold', marginBottom: 68 },
-    button: {
-      borderRadius: 0,
-      height: 62,
+    header: {
+      fontWeight: 'normal',
+      marginTop: 50,
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    loginButton: {
+      borderRadius: 10,
+      fontSize: 17,
+      width: 180,
+      height: 50,
       textTransform: 'none',
+      color: 'white',
+      backgroundColor: '#EF6A60',
+      fontFamily: 'Poppins',
+      fontWeight: 'semi-bold',
+      border: 'none',
+      '&:hover': {
+        backgroundColor: '#EF6A60',
+        cursor: 'pointer',
+      },
     },
     buttonContainer: {
-      padding: theme.spacing(2),
+      // padding: theme.spacing(2),
       marginBottom: theme.spacing(1),
       width: '65%',
+      display: 'flex',
+      justifyContent: 'center',
     },
     closeButton: {
       position: 'absolute',
-      right: 20,
-      top: 8,
+      right: 40,
+      top: 28,
       transition: 'background-color 0.3s',
       '&:hover': {
         backgroundColor: theme.palette.grey[700],
@@ -62,11 +80,10 @@ const Modal = () => {
     if (!modalContext || !modalContext.modal || !closeModal) return;
 
     const handleClickOutside = (event: any) => {
-      console.log('event.target', event.target);
-      console.log('modalRef.current', modalRef.current);
+      // console.log('event.target', event.target); //uncomment to event.target clicked html
+      // console.log('modalRef.current', modalRef.current); //uncomment to modalRef.current reference html aka the Modal itself
 
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        console.log('CLOSING');
         closeModal();
       }
     };
