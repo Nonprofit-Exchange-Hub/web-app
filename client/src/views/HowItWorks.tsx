@@ -5,10 +5,10 @@ import { Box, Grid } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 import HowItWorksCards from './HowItWorksCards';
-import HowItworksStep1 from '../assets/HowItWorks/how-it-works-step-1.svg';
-import HowItworksStep2 from '../assets/HowItWorks/how-it-works-step-2.svg';
-import HowItworksStep3 from '../assets/HowItWorks/how-it-works-step-3.svg';
-import HowItworksStep4 from '../assets/HowItWorks/how-it-works-step-4.svg';
+import HowItworksStep1 from '../assets/HowItWorks/people-signup.svg';
+import HowItworksStep2 from '../assets/HowItWorks/people-sharing.svg';
+import HowItworksStep3 from '../assets/HowItWorks/people-working.svg';
+import HowItworksStep4 from '../assets/HowItWorks/people-flag.svg';
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
 
