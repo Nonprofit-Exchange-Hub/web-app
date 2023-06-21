@@ -28,7 +28,7 @@ const instructionStyles = makeStyles<Theme, InstructionProps>((theme: Theme) => 
 }));
 
 type InstructionProps = {
-  instructionList: { title: string; body: string; image: string }[];
+  instructionsArray: { title: string; body: string; image: string }[];
 };
 
 function InstructionGrid(props: InstructionProps) {
@@ -36,11 +36,11 @@ function InstructionGrid(props: InstructionProps) {
 
   return (
     <Grid container justifyContent="space-between" className={`${classes.gridBoxes}`}>
-      {props.instructionList.map((instructionItem, index) => {
-        var text = <GridText title={instructionItem.title} body={instructionItem.body} />;
-        var image = <GridImage image={instructionItem.image} />;
+      {props.instructionsArray.map((instructions, index) => {
+        var text = <GridText title={instructions.title} body={instructions.body} />;
+        var image = <GridImage image={instructions.image} />;
         return (
-          <React.Fragment key={`${instructionItem.title}_${index}`}>
+          <React.Fragment key={`${instructions.title}_${index}`}>
             {/* Set order of the two jsx items - odd number rows have text first, even have image first */}
             {index % 2 === 0 ? image : text}
             {index % 2 === 0 ? text : image}
