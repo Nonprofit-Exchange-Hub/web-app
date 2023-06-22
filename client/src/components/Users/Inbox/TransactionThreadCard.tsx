@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -10,7 +10,7 @@ import type { Theme } from '@mui/material/styles';
 
 import type { Transaction, User } from '../../../types';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   threadCardSelected: {
     background: 'rgba(196, 196, 196, 0.3)',
     width: '95%',
@@ -46,7 +46,7 @@ function TransactionThreadCard({
   transaction: Transaction;
   user?: User;
 }): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const otherUser =
     user?.id === transaction.requester.id
       ? transaction.requester.firstName

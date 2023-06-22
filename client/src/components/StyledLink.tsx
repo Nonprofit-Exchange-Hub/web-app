@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 /**
  * Styled Link with RouterLink set as component for Browser Router.
  * Sets links to have black text, and default behavior of showing line on hover.
  */
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles()(() => {
   return {
     link: {
       color: '#000000',
@@ -23,7 +23,7 @@ interface Props {
 }
 
 function StyledLink({ to, target, children }: React.PropsWithChildren<Props>): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Link

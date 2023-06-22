@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import Card from '@mui/material/Card';
 import InfoIcon from '@mui/icons-material/Info';
 import RoomOutlined from '@mui/icons-material/RoomOutlined';
@@ -12,7 +12,7 @@ import type { Theme } from '@mui/material/styles';
 
 import type { Organization } from '../types';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   orgsHeaderSub: {
     display: 'flex',
     flexDirection: 'row',
@@ -51,7 +51,7 @@ type Props = {
 };
 
 function OrgsList(props: Props): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { orgs, headerContentRight, headerText } = props;
   if (!orgs) return <> </>;
 

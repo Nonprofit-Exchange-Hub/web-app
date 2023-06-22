@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 
 import type { Theme } from '@mui/material/styles';
@@ -18,7 +18,7 @@ import { UserContext } from '../providers';
 import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   const xPadding = 12;
   const yPadding = 6;
   const yMargin = 8;
@@ -61,7 +61,7 @@ interface Error {
 }
 
 function Login() {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);

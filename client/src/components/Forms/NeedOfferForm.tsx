@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { Box, Container } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   root: {
     '& .MuiFormLabel-root': {
       color: theme.palette.text.primary,
@@ -59,7 +59,7 @@ type FormProps = {
 };
 
 function NeedOfferForm(props: React.PropsWithChildren<FormProps>) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <>

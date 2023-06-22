@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     button: {
       height: 44,
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 function GoogleAuthBtn(props: React.PropsWithChildren<{}>) {
   const { children } = props;
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const googleSignIn = (evt: React.MouseEvent) => {
     // Handle googleSignIn

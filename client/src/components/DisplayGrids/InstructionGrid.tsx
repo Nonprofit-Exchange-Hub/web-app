@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { Grid } from '@mui/material';
 
-import type { Theme } from '@mui/material/styles';
-
-const instructionStyles = makeStyles<Theme, InstructionProps>((theme: Theme) => ({
+const instructionStyles = makeStyles()(() => ({
   gridBoxes: {
     '& > div': {
       width: '100%',
@@ -32,7 +30,7 @@ type InstructionProps = {
 };
 
 function InstructionGrid(props: InstructionProps) {
-  const classes = instructionStyles(props);
+  const { classes } = instructionStyles();
 
   return (
     <Grid container justifyContent="space-between" className={`${classes.gridBoxes}`}>

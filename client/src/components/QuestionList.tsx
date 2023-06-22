@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -26,7 +26,7 @@ function QuestionList(props: QuestionListProps) {
 
 // SUB-COMPONENT Question
 
-const questionStyles = makeStyles(() => ({
+const questionStyles = makeStyles()(() => ({
   questionWrapper: {
     // Overrides MUI Accordian Dividers
     '&:before': {
@@ -73,7 +73,7 @@ type QuestionProps = {
 };
 
 function Question(props: QuestionProps) {
-  const classes = questionStyles();
+  const { classes } = questionStyles();
 
   return (
     <Accordion elevation={0} className={classes.questionWrapper}>

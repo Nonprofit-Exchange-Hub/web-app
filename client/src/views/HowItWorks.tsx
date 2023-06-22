@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { Box, Grid } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -66,7 +66,7 @@ const citizeninstructionsArray = [
   },
 ];
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   columns: {
     display: 'flex',
   },
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function HowItWorks() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   type Tab = 'nonprofit' | 'citizen';
 
