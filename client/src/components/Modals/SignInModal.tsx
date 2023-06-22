@@ -11,11 +11,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 
 import EmailInput from '../../components/Users/Auth/EmailInput';
-import FacebookAuthBtn from '../../components/Users/Auth/FacebookAuthBtn';
-import GoogleAuthBtn from '../../components/Users/Auth/GoogleAuthBtn';
 import PasswordInput from '../../components/Users/Auth/PasswordInput';
 import StyledLink from '../../components/StyledLink';
-import TextDivider from '../../components/TextDivider';
+// import TextDivider from '../../components/TextDivider';
+import Divider from '@mui/material/Divider';
+
 import { UserContext } from '../../providers';
 import routes from '../../routes/routes';
 import { APP_API_BASE_URL } from '../../configs';
@@ -138,18 +138,17 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                     Welcome Back.
                   </Typography>
                 </Grid>
-                <Grid item xs={12} container justifyContent="space-between" wrap="nowrap">
-                  <Grid item className={classes.buttonContainer}>
-                    <GoogleAuthBtn>Sign In</GoogleAuthBtn>
-                  </Grid>
-                  <Grid item className={classes.buttonContainer}>
-                    <FacebookAuthBtn>Sign In</FacebookAuthBtn>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextDivider>or</TextDivider>
-                </Grid>
-                <Grid container item xs={12} style={{ paddingTop: 0 }}>
+                <Grid item xs={12}></Grid>
+                <Divider
+                  variant="middle"
+                  sx={{ marginLeft: 3, borderBottomWidth: 1.5, borderColor: '#000000' }}
+                ></Divider>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
+                >
                   <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                     <EmailInput
                       value={formData.email}

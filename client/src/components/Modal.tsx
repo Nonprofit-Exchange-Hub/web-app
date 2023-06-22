@@ -8,13 +8,12 @@ import SignUp from './Modals/SignUpModal';
 const useStyles = makeStyles((theme: Theme) => {
   const xPadding = 6;
   const yPadding = 6;
-  //   const yMargin = 8;
 
   return {
     outerShell: {
       borderRadius: 20,
       minWidth: 650,
-      minHeight: 700,
+      minHeight: 600,
       maxWidth: 732 - theme.spacing(xPadding),
       maxHeight: 732 - theme.spacing(yPadding),
     },
@@ -42,17 +41,15 @@ const useStyles = makeStyles((theme: Theme) => {
       height: 50,
       textTransform: 'none',
       color: 'white',
-      backgroundColor: '#EF6A60',
+      backgroundColor: theme.palette.primary.main,
       fontFamily: 'Poppins',
       fontWeight: 'semi-bold',
       border: 'none',
       '&:hover': {
-        backgroundColor: '#EF6A60',
         cursor: 'pointer',
       },
     },
     buttonContainer: {
-      // padding: theme.spacing(2),
       marginBottom: theme.spacing(1),
       width: '65%',
       display: 'flex',

@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import React from 'react';
 
 interface SignUpModalProps {
@@ -16,16 +16,18 @@ interface SignUpModalProps {
 
 const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
   ({ closeModal, classes }, ref) => {
-    const handleCloseModal = () => {
-      closeModal();
-    };
+    // const handleCloseModal = () => {
+    //   closeModal();
+    // };
 
     return (
-      <div>
-        <h2>Sign Up</h2>
-        {/* ... SIGNUP CODE ... */}
-        <Button onClick={handleCloseModal}>Cancel</Button>
-      </div>
+      <div
+      // <div>
+      //   <h2>Sign Up</h2>
+      //   {/* ... SIGNUP CODE ... */}
+      //   <Button onClick={handleCloseModal}>Cancel</Button>
+      // </div>
+      ></div>
     );
   },
 );
