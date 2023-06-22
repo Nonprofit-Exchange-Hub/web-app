@@ -1,13 +1,12 @@
 import React from 'react';
-import clsx from 'clsx';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Radio, { RadioProps } from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
 //still need to implement functionality of the filters
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   container: {
     background: 'linear-gradient(180deg, #37718E 0%, #285469 100%)',
     borderRadius: '20px',
@@ -47,13 +46,13 @@ const useStyles = makeStyles({
 
 // Inspired by blueprintjs
 function StyledRadio(props: RadioProps) {
-  const classes = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
     <Radio
       disableRipple
       color="default"
-      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+      checkedIcon={<span className={cx(classes.icon, classes.checkedIcon)} />}
       icon={<span className={classes.icon} />}
       {...props}
     />
@@ -61,7 +60,7 @@ function StyledRadio(props: RadioProps) {
 }
 
 export default function SearchCategoryCard() {
-  const classes = useStyles();
+  const { classes } = useStyles();
   let categories = ['All', 'Needs', 'Offers', 'Volunteer Opportunities', 'Nonprofits'];
   return (
     <FormControl component="fieldset">

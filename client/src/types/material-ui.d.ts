@@ -7,7 +7,7 @@ declare module '@mui/material/styles' {
     };
   }
 
-  interface ThemeOptions {
+  interface DeprecatedThemeOptions {
     form?: {
       borderRadius?: string;
       borderColor?: string;

@@ -1,8 +1,8 @@
-import { Theme } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { placeholderImg } from '../../../../assets/temp';
 
-export const useStyles = makeStyles((theme: Theme) => ({
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export const useStyles = makeStyles()((theme) => ({
   sideImg: {
     backgroundImage: `url("${placeholderImg}")`,
     backgroundSize: 'cover',

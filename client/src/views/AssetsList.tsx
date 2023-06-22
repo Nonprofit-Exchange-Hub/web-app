@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import SortBy from '../components/SortBy';
 
 import type { Theme } from '@mui/material/styles';
@@ -9,7 +9,7 @@ import type { Theme } from '@mui/material/styles';
 import type { Asset } from '../types';
 import NeedCard from '../components/Card/NeedCard';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   needsAndOffersSub: {
     display: 'flex',
     flexDirection: 'row',
@@ -49,7 +49,7 @@ type Props = {
 };
 
 function AssetsList(props: Props): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { assets, headerContentRight, headerText } = props;
   if (!assets) return <> </>;
 

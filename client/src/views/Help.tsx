@@ -1,8 +1,8 @@
 import { Theme } from '@mui/material/styles';
 import * as React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     main: {
       height: '100vh',
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 function Help() {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return <div className={classes.main}>Help</div>;
 }
 

@@ -4,10 +4,10 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { NavLink } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   wrapper: {
     borderRadius: 5,
   },
@@ -42,7 +42,7 @@ type Props = {
 };
 
 function CallToActionCard({ btnText, color, headerText, subText, to }: Props) {
-  const classes = useStyles({});
+  const { classes } = useStyles();
 
   return (
     <Card className={classes.wrapper} sx={{ height: '500px', width: '100%' }}>

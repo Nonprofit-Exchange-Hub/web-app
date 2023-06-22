@@ -1,4 +1,4 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
@@ -15,7 +15,7 @@ const faqQuestions = [
   { question: 'Other questions about this service?', answer: loremIpsum.slice(0, 150) },
 ];
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()(() => ({
   faqs: {
     display: 'flex',
     height: 'auto',
@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function FAQs() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div className={classes.faqs}>
