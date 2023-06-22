@@ -6,7 +6,7 @@ import { User } from '../acccount-manager/entities/user.entity';
 import { Message } from './entities/message.entity';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
-import { ReturnUserDto } from 'src/acccount-manager/dto/auth.dto';
+import { ReturnUserDto } from '../acccount-manager/dto/auth.dto';
 
 @Injectable()
 export class MessagesService {
