@@ -3,6 +3,7 @@ import BannerSection from '../components/BannerSection';
 import NeedsCarousel from '../components/NeedsCarousel';
 import DonationsCarousel from '../components/DonationsCarousel';
 import FAQs from '../components/FAQs';
+import HowItWorks from './HowItWorks';
 
 function Home(): JSX.Element {
   return (
@@ -11,6 +12,7 @@ function Home(): JSX.Element {
       <BannerSection />
       <NeedsCarousel label={'Recent Needs From Nonprofits'} />
       <DonationsCarousel label={'Recent Offers From Users'} />
+      <HowItWorks />
       <FAQs />
     </>
   );
