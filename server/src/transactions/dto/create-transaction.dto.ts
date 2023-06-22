@@ -2,14 +2,14 @@ import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 
 import { TransactionStatus } from '../transaction-status.enum';
 
-import { ReturnUserDto } from 'src/acccount-manager/dto/auth.dto';
+import { User } from 'src/acccount-manager/entities/user.entity';
 import { ReturnOrganizationDto } from 'src/organizations/dto/return-organization.dto';
 import { ReturnAssetDto } from 'src/assets/dto/return-asset.dto';
 import { ReturnMessageDto } from 'src/messages/dto/return-message.dto';
 
 export class CreateTransactionDto {
   @IsNotEmpty()
-  donater_user: ReturnUserDto;
+  donater_user: User;
 
   @IsOptional()
   donater_organization?: ReturnOrganizationDto;
