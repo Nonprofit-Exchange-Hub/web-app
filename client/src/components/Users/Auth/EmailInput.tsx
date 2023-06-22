@@ -3,12 +3,12 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import InputAdornment from '@mui/material/InputAdornment';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     input: {
       height: 44,
@@ -38,7 +38,7 @@ interface Props {
 }
 
 function EmailInput({ onChange, value, placeholder, showStartAdornment = false, error }: Props) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <FormControl fullWidth error={Boolean(error)}>

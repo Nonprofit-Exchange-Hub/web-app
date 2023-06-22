@@ -7,7 +7,7 @@ declare module '@mui/material/styles' {
     };
   }
   // allow configuration using `createTheme`
-  interface ThemeOptions {
+  interface DeprecatedThemeOptions {
     status?: {
       danger?: string;
     };

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { Box, Grid } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
-const bulletStyles = makeStyles<Theme, BulletProps>((theme: Theme) => ({
+const bulletStyles = makeStyles()((theme: Theme) => ({
   grid: {
     marginTop: '30px',
   },
@@ -22,7 +22,7 @@ type BulletProps = {
 };
 
 function BulletGrid(props: BulletProps) {
-  const classes = bulletStyles(props);
+  const { classes } = bulletStyles();
 
   return (
     <Grid container justifyContent="space-between">

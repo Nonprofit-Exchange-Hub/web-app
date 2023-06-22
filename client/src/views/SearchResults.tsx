@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 
 import type { Theme } from '@mui/material/styles';
@@ -17,7 +17,7 @@ import routes from '../routes/routes';
 
 import type { Asset, Organization } from '../types';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   searchResultsContainer: {
     display: 'grid',
     padding: '20px 10%',
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function SearchResults(): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const history = useHistory();
 
   const searchParams = new URLSearchParams(history.location.search);

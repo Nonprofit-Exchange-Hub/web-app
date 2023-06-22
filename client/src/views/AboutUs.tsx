@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { Box, Grid, Container } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -49,7 +49,7 @@ const smallImages = [
   '../small-images/green-forest.jpg',
 ];
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   titleBox: {
     height: 600,
     margin: 'auto',
@@ -164,7 +164,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function AboutUs() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <>

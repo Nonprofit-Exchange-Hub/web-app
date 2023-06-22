@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -14,7 +14,7 @@ import type { Theme } from '@mui/material/styles';
 import StyledLink from '../../StyledLink';
 import routes from '../../../routes/routes';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     input: {
       height: 44,
@@ -66,7 +66,7 @@ function PasswordInput({
   name = null,
   sublabel = null,
 }: Props) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [showPassword, setShowPassword] = React.useState(false);
 

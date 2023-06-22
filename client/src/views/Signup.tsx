@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { Grid, Container, Button } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
 import routes from '../routes/routes';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   imageBackground: {
     width: '200px',
     height: '200px',
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function Signup() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Container className={classes.formBox}>
