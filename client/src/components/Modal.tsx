@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { ModalContext } from './../providers/ModalProvider';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 import SignIn from './Modals/SignInModal';
 import SignUp from './Modals/SignUpModal';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   const xPadding = 6;
   const yPadding = 6;
 
   return {
     outerShell: {
       borderRadius: 20,
-      minWidth: 650,
+      minWidth: 600,
       minHeight: 600,
       maxWidth: 732 - theme.spacing(xPadding),
       maxHeight: 732 - theme.spacing(yPadding),
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) => {
 const Modal = () => {
   const modalContext = useContext(ModalContext);
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { modal, closeModal } = modalContext;
 
   useEffect(() => {
@@ -107,7 +107,7 @@ const Modal = () => {
 
   return (
     <div id="mango">
-      <SpecificModal ref={modalRef} closeModal={closeModal} classes={classes} />
+      <SpecificModal ref={modalRef} closeModal={closeModal} className={classes} />
     </div>
   );
 };

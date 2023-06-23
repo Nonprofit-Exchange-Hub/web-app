@@ -13,7 +13,6 @@ import IconButton from '@mui/material/IconButton';
 import EmailInput from '../../components/Users/Auth/EmailInput';
 import PasswordInput from '../../components/Users/Auth/PasswordInput';
 import StyledLink from '../../components/StyledLink';
-// import TextDivider from '../../components/TextDivider';
 import Divider from '@mui/material/Divider';
 
 import { UserContext } from '../../providers';
@@ -21,7 +20,7 @@ import routes from '../../routes/routes';
 import { APP_API_BASE_URL } from '../../configs';
 interface SignInModalProps {
   closeModal: () => void;
-  classes: {
+  className: {
     outerShell: string;
     paper: string;
     content: string;
@@ -47,7 +46,7 @@ interface Error {
   message: string;
 }
 const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
-  ({ closeModal, classes }, ref) => {
+  ({ closeModal, className }, ref) => {
     const history = useHistory();
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [error, setError] = React.useState<Error | null>(null);
@@ -110,38 +109,39 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
 
     return (
       <>
+        <div ref={ref}></div>
         <Dialog
           ref={ref}
           disableEscapeKeyDown={true}
           open={true}
-          PaperProps={{ className: classes.outerShell }}
+          PaperProps={{ className: className.outerShell }}
         >
           <IconButton
             edge="end"
             color="inherit"
             onClick={handleCloseModal}
             aria-label="close"
-            className={classes.closeButton}
+            className={className.closeButton}
           >
             <CloseIcon style={{ fontSize: '1.1em' }} />
           </IconButton>
-          <DialogContent className={classes.content}>
-            <Paper elevation={0} className={classes.paper}>
+          <DialogContent className={className.content}>
+            <Paper elevation={0} className={className.paper}>
               <Grid container justifyContent="center" direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography
-                    className={classes.header}
+                    className={className.header}
                     variant="h3"
                     component={'span'}
                     align="center"
                   >
-                    Welcome Back.
+                    Welcome Back!
                   </Typography>
                 </Grid>
                 <Grid item xs={12}></Grid>
                 <Divider
                   variant="middle"
-                  sx={{ marginLeft: 3, borderBottomWidth: 1.5, borderColor: '#000000' }}
+                  sx={{ marginLeft: 3, borderBottomWidth: 1, borderColor: '#000000' }}
                 ></Divider>
                 <Grid
                   container
@@ -164,7 +164,7 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                       error={error?.type === 'password' ? error.message : null}
                       showStartAdornment={true}
                     />
-                    <Grid item xs={12} style={{ display: 'flex', paddingBottom: '30px' }}>
+                    <Grid item xs={12} style={{ display: 'flex', paddingBottom: '60px' }}>
                       <Grid item xs={12}>
                         <Typography align="left" style={{ fontSize: '12px' }}>
                           <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>
@@ -183,7 +183,7 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                       style={{ display: 'flex', paddingBottom: '30px', justifyContent: 'center' }}
                     >
                       <Button
-                        className={classes.loginButton}
+                        className={className.loginButton}
                         style={{ backgroundColor: '#EF6A60', color: 'white' }}
                         fullWidth
                         type="submit"

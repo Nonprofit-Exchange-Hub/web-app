@@ -3,7 +3,7 @@ import React from 'react';
 
 interface SignUpModalProps {
   closeModal: () => void;
-  classes: {
+  className: {
     outerShell: string;
     paper: string;
     content: string;
@@ -15,19 +15,18 @@ interface SignUpModalProps {
 }
 
 const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
-  ({ closeModal, classes }, ref) => {
+  ({ closeModal, className }, ref) => {
     // const handleCloseModal = () => {
     //   closeModal();
     // };
 
     return (
-      <div
       // <div>
       //   <h2>Sign Up</h2>
       //   {/* ... SIGNUP CODE ... */}
       //   <Button onClick={handleCloseModal}>Cancel</Button>
       // </div>
-      ></div>
+      <div ref={ref}></div>
     );
   },
 );
