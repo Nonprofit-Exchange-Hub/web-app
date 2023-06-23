@@ -12,7 +12,7 @@ import { ReturnUserDto } from '../acccount-manager/dto/auth.dto';
 export class MessagesService {
   constructor(@InjectRepository(Message) private messagesRepository: Repository<Message>) {}
 
-  async create(createMessageDto: CreateMessageDto, user: ReturnUserDto): Promise<Message> {
+  async create(createMessageDto: CreateMessageDto, user: User): Promise<Message> {
     return this.messagesRepository.save({ ...createMessageDto, user });
   }
 
