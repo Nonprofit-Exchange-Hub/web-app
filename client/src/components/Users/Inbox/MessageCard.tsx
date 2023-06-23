@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
 
 import type { Message } from '../../../types';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   currentUserMessage: {
     alignSelf: 'flex-end',
     border: '1px solid black',
@@ -31,7 +31,7 @@ function MessageCard({
   isCurrentUser: boolean;
   message: Message;
 }): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div className={isCurrentUser ? classes.currentUserMessage : classes.otherUserMessage}>

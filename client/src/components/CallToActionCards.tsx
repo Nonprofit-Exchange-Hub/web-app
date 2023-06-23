@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import Grid from '@mui/material/Grid';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 import CallToActionCard from './CallToActionCard';
 import routes from '../routes/routes';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   grid: {
     justifyContent: 'center',
     paddingTop: '25px',
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CallToActionCards() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Grid className={classes.grid} container gap="20px">

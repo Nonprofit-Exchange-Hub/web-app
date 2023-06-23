@@ -46,7 +46,7 @@ const initialFormData: UserSignupData = {
 };
 
 function SignupCitizen() {
-  const { header, input, label, chip } = useStyles();
+  const { classes } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
@@ -58,7 +58,7 @@ function SignupCitizen() {
       // TODO: toggle chip style when interest is chosen
       return (
         <Chip
-          className={chip}
+          className={classes.chip}
           label={interest}
           sx={{ fontSize: '16px' }}
           variant="outlined"
@@ -171,7 +171,7 @@ function SignupCitizen() {
               {activeStep === 0 && (
                 <Box sx={{ height: '100%', minWidth: '780px' }}>
                   <Typography
-                    className={header}
+                    className={classes.header}
                     variant="h4"
                     fontSize="58px"
                     lineHeight="87px"
@@ -185,11 +185,11 @@ function SignupCitizen() {
                   <Box display={'flex'} flexDirection={'row'} width={'100%'}>
                     <Box marginRight={'20px'}>
                       <FormControl>
-                        <label className={label} htmlFor="firstName">
+                        <label className={classes.label} htmlFor="firstName">
                           First Name
                         </label>
                         <Input
-                          className={input}
+                          className={classes.input}
                           type="text"
                           id="firstName"
                           name="firstName"
@@ -205,11 +205,11 @@ function SignupCitizen() {
                     </Box>
                     <Box width={'100%'}>
                       <FormControl fullWidth>
-                        <label className={label} htmlFor="last_name">
+                        <label className={classes.label} htmlFor="last_name">
                           Last Name
                         </label>
                         <Input
-                          className={input}
+                          className={classes.input}
                           type="text"
                           id="last_name"
                           name="last_name"
@@ -275,7 +275,7 @@ function SignupCitizen() {
               {activeStep === 1 && (
                 <Box sx={{ height: '100%', minWidth: '780px' }}>
                   <Typography
-                    className={header}
+                    className={classes.header}
                     variant="h4"
                     fontSize="58px"
                     component="h1"
@@ -284,20 +284,20 @@ function SignupCitizen() {
                   >
                     Tell us about yourself
                   </Typography>
-                  <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                     Personal Information
                   </Typography>
                   <Typography>You can always update this information later as needed.</Typography>
                   <Grid item xs={12} sx={{ height: '50px' }} />
                   <Grid container item xs={12} spacing={2}>
                     <Grid item xs={12}>
-                      <label className={label}>Where are you located?</label>
+                      <label className={classes.label}>Where are you located?</label>
                     </Grid>
                     <Grid item xs={6}>
                       <InputLabel id="state-select">State</InputLabel>
                       <Select
                         label="State"
-                        className={input}
+                        className={classes.input}
                         displayEmpty
                         fullWidth
                         onChange={handleSelectChange}
@@ -319,7 +319,7 @@ function SignupCitizen() {
                     <Grid item xs={6}>
                       <InputLabel id="city-select">City</InputLabel>
                       <Input
-                        className={input}
+                        className={classes.input}
                         placeholder="city"
                         disableUnderline
                         fullWidth
@@ -329,7 +329,7 @@ function SignupCitizen() {
                     </Grid>
                     <Grid item xs={4}>
                       <Input
-                        className={input}
+                        className={classes.input}
                         placeholder="zip"
                         fullWidth
                         disableUnderline
@@ -345,7 +345,7 @@ function SignupCitizen() {
               {activeStep === 2 && (
                 <Box sx={{ height: '100%', minWidth: '780px' }}>
                   <Typography
-                    className={header}
+                    className={classes.header}
                     variant="h4"
                     fontSize="58px"
                     component="h1"
@@ -354,14 +354,14 @@ function SignupCitizen() {
                   >
                     Tell us about your interests
                   </Typography>
-                  <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                     Your Interests
                   </Typography>
                   <Typography>Please select one or more interest.</Typography>
                   <Grid item xs={12} sx={{ height: '50px' }} />
                   <Grid container item xs={12} spacing={2}>
                     <Grid item xs={12}>
-                      <label className={label}>
+                      <label className={classes.label}>
                         What type on nonprofits are you interested in?
                       </label>
                     </Grid>
@@ -376,7 +376,7 @@ function SignupCitizen() {
               {activeStep === 3 && (
                 <Box sx={{ height: '100%', minWidth: '780px' }}>
                   <Typography
-                    className={header}
+                    className={classes.header}
                     variant="h4"
                     fontSize="58px"
                     component="h1"
@@ -385,7 +385,7 @@ function SignupCitizen() {
                   >
                     Upload your profile icon
                   </Typography>
-                  <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                     Your Profile
                   </Typography>
                   <Typography>
@@ -414,7 +414,10 @@ function SignupCitizen() {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Typography className={label} sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
+                  <Typography
+                    className={classes.label}
+                    sx={{ fontWeight: 'bold', marginBottom: '10px' }}
+                  >
                     About Yourself
                   </Typography>
                   <Grid item xs={10}>
@@ -435,7 +438,7 @@ function SignupCitizen() {
               {activeStep === 4 && (
                 <Box sx={{ height: '100%', minWidth: '780px' }}>
                   <Typography
-                    className={header}
+                    className={classes.header}
                     variant="h4"
                     fontSize="58px"
                     component="h1"
@@ -443,7 +446,10 @@ function SignupCitizen() {
                   >
                     Sign up almost complete!
                   </Typography>
-                  <Typography className={label} sx={{ fontWeight: 'bold', marginTop: '60px' }}>
+                  <Typography
+                    className={classes.label}
+                    sx={{ fontWeight: 'bold', marginTop: '60px' }}
+                  >
                     {user && user.firstName} {user && user.last_name}
                   </Typography>
                   <Typography>{user && user.email}</Typography>

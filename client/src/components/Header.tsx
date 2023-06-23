@@ -4,7 +4,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
@@ -29,10 +29,9 @@ import Logo from '../assets/GivingfulLogo.png';
 import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 import { UserAvatar } from './Users/UserAvatar';
-
 import { ModalContext } from './../providers/ModalProvider';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   home: {
     minWidth: '25px',
     maxWidth: '100px',
@@ -100,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Header() {
   const LOGOUT_URL = `${APP_API_BASE_URL}/auth/logout`;
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { user, setUser } = React.useContext(UserContext);
   const history = useHistory();
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { Card, Box } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
@@ -10,7 +10,7 @@ const circleSize = 76;
 const width = 325;
 const height = 133;
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   smallDisplayCard: {
     maxWidth: `${width}px`,
     height: `${height}px`,
@@ -65,7 +65,7 @@ type Props = {
 };
 
 function SmallDisplayCard(props: Props): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { headerText, bodyText } = props;
 
   return (
