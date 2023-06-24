@@ -8,9 +8,11 @@ import {
   CreateDateColumn,
   Index,
 } from 'typeorm';
+
 import { User } from '../../acccount-manager/entities/user.entity';
-import { AssetType, Condition } from '../constants';
 import { Transaction } from '../../transactions/entities/transaction.entity';
+
+import { AssetType, Condition } from '../constants';
 
 @Entity('assets')
 export class Asset {

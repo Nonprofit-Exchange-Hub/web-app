@@ -18,9 +18,10 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { ApiTags, ApiBody, ApiConsumes, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
-
 import type { Request as RequestT, Response as ResponseT } from 'express';
+
 import { COOKIE_KEY } from './constants';
 import { SendgridService } from '../sendgrid/sendgrid.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -40,7 +41,6 @@ import {
   ReturnSessionDto,
   ReturnUserDto,
 } from './dto/auth.dto';
-import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -60,6 +60,7 @@ export class AccountManagerController {
   ) {}
 
   @Patch('verify-email')
+  @ApiOperation({ summary: "Verify a user's email" })
   async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
@@ -71,6 +72,7 @@ export class AccountManagerController {
   }
 
   @Post('register')
+  @ApiOperation({ summary: 'Create a new user account' })
   async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
@@ -105,9 +107,9 @@ export class AccountManagerController {
     return user;
   }
 
-  @ApiBody({ type: LoginDto })
   @Post('login')
   @UseGuards(LoginAuthGuard)
+  @ApiOperation({ summary: 'User login' })
   async login(
     @Request() request: AuthedRequest,
     @Response({ passthrough: true }) response: ResponseT,
@@ -136,6 +138,7 @@ export class AccountManagerController {
 
   @Post('session')
   @UseGuards(CookieAuthGuard)
+  @ApiOperation({ summary: 'Fetch user via session' })
   async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
     const { user } = request;
     const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
@@ -145,12 +148,13 @@ export class AccountManagerController {
   }
 
   @Get('logout')
+  @ApiOperation({ summary: 'Logout' })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
     response.clearCookie(COOKIE_KEY).send();
   }
 
-  @ApiBody({ type: ResetPasswordDto })
   @Post('reset_password')
+  @ApiOperation({ summary: 'Password reset' })
   async resetPassword(
     @Request() req,
     @Response({ passthrough: true }) response: ResponseT,
@@ -189,6 +193,7 @@ export class AccountManagerController {
   }
 
   @ApiConsumes('multipart/form-data')
+  @ApiOperation({ summary: 'Upload profile image' })
   @ApiBody({
     schema: {
       type: 'object',
@@ -207,7 +212,6 @@ export class AccountManagerController {
       limits: { fileSize: FileSizes.MB },
     }),
   )
-  @ApiResponse({ status: 200, type: ReturnUserDto })
   async upsertProfile(
     @Param('id') id: number,
     @UploadedFile()
