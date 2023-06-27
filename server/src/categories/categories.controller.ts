@@ -47,6 +47,7 @@ export class CategoriesController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Fetch a category via ID.' })
   async findOne(@Param('id') id: string): Promise<ReturnCategoryDto> {
     const foundCategory = await this.categoriesService.findOne(parseInt(id, 10));
     if (!foundCategory) {

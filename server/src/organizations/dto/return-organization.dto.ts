@@ -3,15 +3,15 @@ import { IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { Interests } from '../../shared/interests.dto';
 import { InterestNamesIsArray, InterestsProps } from '../../shared/interests.validator';
 
-export class CreateOrganizationDto {
+export class ReturnOrganizationDto {
+  @IsNotEmpty()
+  id: number;
+
   @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()
   doing_business_as: string;
-
-  @IsNotEmpty()
-  nonprofit_classification: string;
 
   @IsNotEmpty()
   description: string;
@@ -42,9 +42,6 @@ export class CreateOrganizationDto {
 
   @IsNotEmpty()
   zip_code: string;
-
-  @IsNotEmpty()
-  ein: string;
 
   @IsNotEmpty()
   image_url: string;
