@@ -83,7 +83,7 @@ function Signup() {
   };
 
   return (
-    <div className="Login" style={{ justifyContent: 'center', alignItems: 'center' }}>
+    <div className="Signup" style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Paper elevation={3} className={classes.paper}>
         <div>
           <Dialog disableEscapeKeyDown={true} open={open} onClose={onClose}>
