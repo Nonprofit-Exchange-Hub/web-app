@@ -208,9 +208,7 @@ function SignupNonProfit() {
                   align="left"
                   gutterBottom
                   sx={{ fontSize: '15px', color: '#404040', margin: '16px 0' }}
-                >
-                  Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
-                </Typography>
+                ></Typography>
                 <Grid container item sx={{ paddingBottom: '16px' }}>
                   <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
                   <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
