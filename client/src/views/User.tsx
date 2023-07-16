@@ -36,11 +36,8 @@ function User() {
   const { user } = React.useContext(UserContext);
 
   if (user) {
-    // temporarily fill interests with dummy data for styling
-    user.interests = { names: ['Environment', 'Homelessness', 'Food'] };
-
     const makeChips = () => {
-      if (user.interests) {
+      if (user.interests && user.interests.names) {
         return user.interests.names.map((interest) => {
           return (
             <Chip
@@ -64,7 +61,7 @@ function User() {
               <Grid item sx={{ marginTop: '2rem', marginBottom: '1rem' }}>
                 <Avatar src="/static/images/avatar/1.jpg" sx={{ width: 250, height: 250 }}></Avatar>
               </Grid>
-              <Typography>
+              <Typography align="center">
                 {user.city}, {user.state} {user.zip_code}
               </Typography>
               <Rating name="read-only" value={5} readOnly />
@@ -92,10 +89,19 @@ function User() {
           <Grid container xs={6.5} sx={{ height: '900px' }}>
             <Grid item xs={12} />
             <Grid item container xs={12}>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <Typography variant="h1">
-                  Hi, I'm {user.firstName} <Edit sx={editIcon} />
+                  {user.firstName} {user.last_name}
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Button>
+                  <Edit sx={editIcon} />
+                  Edit Profile
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography>{user.bio}</Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h5">My Offered Items</Typography>
