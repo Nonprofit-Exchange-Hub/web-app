@@ -48,6 +48,7 @@ export type User = {
   city?: string;
   state?: string;
   zip_code?: string;
+  bio?: string;
   interests?: { names: string[] };
 };
 
