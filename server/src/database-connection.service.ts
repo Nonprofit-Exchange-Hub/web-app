@@ -23,7 +23,7 @@ const defaultOptions: Partial<TypeOrmModuleOptions> = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_DB,
   logging: process.env.DB_LOGGING === 'true',
-  synchronize: false, // set to false in all envs, because we want to use migrations
+  synchronize: true, // set to false in all envs, because we want to use migrations
   dropSchema: false, // set to false in all envs, because we want to use migrations
   autoLoadEntities: true,
   entities: [User, Category, Organization, UserOrganization, Transaction, Asset, PocChat, Message],
