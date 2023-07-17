@@ -34,6 +34,7 @@ const styles = {
 function User() {
   const { button, chip, editIcon } = styles;
   const { user } = React.useContext(UserContext);
+  const profileImage = user?.profile_image_url || '/static/images/avatar/1.jpg';
 
   if (user) {
     const makeChips = () => {
@@ -59,7 +60,7 @@ function User() {
             <Grid item container xs={12} justifyContent="center" alignItems="center">
               <Grid item xs={12} />
               <Grid item sx={{ marginTop: '2rem', marginBottom: '1rem' }}>
-                <Avatar src="/static/images/avatar/1.jpg" sx={{ width: 250, height: 250 }}></Avatar>
+                <Avatar src={profileImage} sx={{ width: 250, height: 250 }}></Avatar>
               </Grid>
               <Typography align="center">
                 {user.city}, {user.state} {user.zip_code}
