@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -7,7 +8,6 @@ import { makeStyles } from 'tss-react/mui';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-
 import IconButton from '@mui/material/IconButton';
 import AppsIcon from '@mui/icons-material/Apps';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -29,6 +29,7 @@ import Logo from '../assets/GivingfulLogo.png';
 import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 import { UserAvatar } from './Users/UserAvatar';
+import { ModalContext } from './../providers/ModalProvider';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   home: {
@@ -73,6 +74,27 @@ const useStyles = makeStyles()((theme: Theme) => ({
   logo: {
     height: '30px',
   },
+  signUpButton: {
+    textTransform: 'capitalize',
+    backgroundColor: theme.palette.primary.main,
+    color: `${theme.palette.primary.contrastText}`,
+    borderRadius: '10px',
+    border: `1px solid ${theme.palette.primary.main}`,
+    marginLeft: '0px',
+    width: '100px',
+    '&:hover': {
+      color: `${theme.palette.text.primary}`,
+    },
+  },
+  signInButton: {
+    textTransform: 'capitalize',
+    backgroundColor: `${theme.palette.primary.contrastText}`,
+    color: `${theme.palette.text.primary}`,
+    borderRadius: '10px',
+    border: `1px solid ${theme.palette.black.light}`,
+    marginLeft: '10px',
+    width: '100px',
+  },
 }));
 
 function Header() {
@@ -90,6 +112,17 @@ function Header() {
   const isProfileMenuOpen = Boolean(profileAnchorEl);
   const isAboutMenuOpen = Boolean(aboutAnchorEl);
   const isExchangeMenuOpen = Boolean(exchangeAnchorEl);
+
+  const modalContext = useContext(ModalContext);
+  const { openModal } = modalContext;
+
+  const handleoOpenModal = (modalType: 'SignIn' | 'SignUp') => {
+    if (modalType === 'SignIn') {
+      openModal('SignIn');
+    } else if (modalType === 'SignUp') {
+      openModal('SignUp');
+    }
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     switch (event?.currentTarget?.id) {
@@ -149,6 +182,7 @@ function Header() {
               sx={{
                 textTransform: 'capitalize',
                 color: '#323232',
+                marginRight: '10px',
               }}
             >
               Exchange
@@ -442,36 +476,12 @@ function Header() {
             </>
           ) : (
             <>
-              <NavLink className={classes.navLink} to={routes.Signup.path}>
-                <Button
-                  sx={{
-                    textTransform: 'capitalize',
-                    backgroundColor: '#EF6A60',
-                    color: 'white',
-                    borderRadius: '10px',
-                    border: '1px solid #EF6A60',
-                    marginRight: '10px',
-                    width: '100px',
-                  }}
-                >
-                  Join Now
-                </Button>
-              </NavLink>
-              <NavLink className={classes.navLink} to={routes.Login.path}>
-                <Button
-                  sx={{
-                    textTransform: 'capitalize',
-                    backgroundColor: 'white',
-                    color: '#323232',
-                    borderRadius: '10px',
-                    border: '1px solid #323232',
-                    marginLeft: '5px',
-                    width: '100px',
-                  }}
-                >
-                  Sign In
-                </Button>
-              </NavLink>
+              <Button className={classes.signUpButton} onClick={() => handleoOpenModal('SignUp')}>
+                Join Now
+              </Button>
+              <Button className={classes.signInButton} onClick={() => handleoOpenModal('SignIn')}>
+                Sign In
+              </Button>
             </>
           )}
         </div>

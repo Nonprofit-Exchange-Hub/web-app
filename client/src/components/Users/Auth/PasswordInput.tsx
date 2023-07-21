@@ -47,6 +47,7 @@ interface Props {
   error?: string | null;
   showStartAdornment?: boolean;
   showForgot?: boolean;
+  placeholder?: string;
   label?: string | null;
   id?: string | null;
   name?: string | null;
@@ -61,6 +62,7 @@ function PasswordInput({
   error,
   showStartAdornment = false,
   showForgot = false,
+  placeholder,
   label = null,
   id = null,
   name = null,
@@ -101,6 +103,7 @@ function PasswordInput({
       <Input
         className={classes.input}
         id={id || 'password'}
+        placeholder={placeholder || 'oooooo'}
         name={name || 'password'}
         type={showPassword ? 'text' : 'password'}
         value={value}

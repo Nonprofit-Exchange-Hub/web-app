@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import GoogleIcon from '@mui/icons-material/Google';
 import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
@@ -7,7 +8,9 @@ import type { Theme } from '@mui/material/styles';
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     button: {
-      height: 44,
+      fontSize: 17,
+      width: 180,
+      height: 50,
       textTransform: 'none',
     },
   };
@@ -22,7 +25,12 @@ function GoogleAuthBtn(props: React.PropsWithChildren<{}>) {
   };
 
   return (
-    <Button className={classes.button} variant="outlined" onClick={googleSignIn}>
+    <Button
+      className={classes.button}
+      variant="outlined"
+      startIcon={<GoogleIcon />}
+      onClick={googleSignIn}
+    >
       {children}
     </Button>
   );
