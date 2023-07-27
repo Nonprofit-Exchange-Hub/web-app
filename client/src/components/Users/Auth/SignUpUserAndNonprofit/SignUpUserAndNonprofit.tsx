@@ -54,7 +54,7 @@ const defaultOrg: FormData = {
 };
 
 export const SignUpUserAndNonprofit = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [einStepIsValid, setEINStepIsValid] = React.useState(false);
   const [einApiValidateError, setEinApiValidateError] = React.useState('');

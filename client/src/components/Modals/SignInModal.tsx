@@ -5,29 +5,27 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-// import DialogTitle from '@mui/material/DialogTitle';
 
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 
 import EmailInput from '../../components/Users/Auth/EmailInput';
-import FacebookAuthBtn from '../../components/Users/Auth/FacebookAuthBtn';
-import GoogleAuthBtn from '../../components/Users/Auth/GoogleAuthBtn';
 import PasswordInput from '../../components/Users/Auth/PasswordInput';
 import StyledLink from '../../components/StyledLink';
-import TextDivider from '../../components/TextDivider';
+import Divider from '@mui/material/Divider';
+
 import { UserContext } from '../../providers';
 import routes from '../../routes/routes';
 import { APP_API_BASE_URL } from '../../configs';
 interface SignInModalProps {
   closeModal: () => void;
-  classes: {
+  className: {
+    outerShell: string;
     paper: string;
     content: string;
     header: string;
-    button: string;
+    loginButton: string;
     buttonContainer: string;
     closeButton: string;
   };
@@ -48,7 +46,7 @@ interface Error {
   message: string;
 }
 const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
-  ({ closeModal, classes }, ref) => {
+  ({ closeModal, className }, ref) => {
     const history = useHistory();
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [error, setError] = React.useState<Error | null>(null);
@@ -56,9 +54,21 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
 
     const [formData, setFormData] = React.useState<UserLoginData>(initialFormData);
 
-    const handleCloseModal = () => {
+    const handleCloseModal = React.useCallback(() => {
       closeModal();
-    };
+    }, [closeModal]);
+
+    React.useEffect(() => {
+      // This function is called every time the URL changes
+      const unlisten = history.listen(() => {
+        handleCloseModal();
+      });
+
+      // Cleanup function to be run when the component unmounts
+      return () => {
+        unlisten();
+      };
+    }, [history, handleCloseModal]);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
       const { name, value }: { name: string; value: string } = evt.target;
@@ -99,75 +109,92 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
 
     return (
       <>
+        <div ref={ref}></div>
         <Dialog
           ref={ref}
           disableEscapeKeyDown={true}
           open={true}
-          PaperProps={{ style: { borderRadius: 20 } }}
+          PaperProps={{ className: className.outerShell }}
         >
           <IconButton
             edge="end"
             color="inherit"
             onClick={handleCloseModal}
             aria-label="close"
-            className={classes.closeButton}
+            className={className.closeButton}
           >
-            <CloseIcon />
+            <CloseIcon style={{ fontSize: '1.1em' }} />
           </IconButton>
-          <DialogContent className={classes.content}>
-            <Paper elevation={3} className={classes.paper}>
+          <DialogContent className={className.content}>
+            <Paper elevation={0} className={className.paper}>
               <Grid container justifyContent="center" direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography
-                    className={classes.header}
+                    className={className.header}
                     variant="h3"
                     component={'span'}
                     align="center"
                   >
-                    Welcome Back.
+                    Welcome Back!
                   </Typography>
                 </Grid>
-                <Grid item xs={12} container justifyContent="space-between" wrap="nowrap">
-                  <Grid item className={classes.buttonContainer}>
-                    <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn>
-                  </Grid>
-                  <Grid item className={classes.buttonContainer}>
-                    <FacebookAuthBtn>Sign In with Facebook</FacebookAuthBtn>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextDivider>or</TextDivider>
-                </Grid>
-                <Grid container item xs={12}>
+                <Grid item xs={12}></Grid>
+                <Divider
+                  variant="middle"
+                  sx={{ marginLeft: 3, borderBottomWidth: 1, borderColor: '#000000' }}
+                ></Divider>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
+                >
                   <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                     <EmailInput
                       value={formData.email}
                       placeholder="jane@nonprofit.com"
                       onChange={handleChange}
                       error={error?.type === 'email' ? error.message : null}
+                      showStartAdornment={true}
                     />
                     <PasswordInput
                       value={formData.password}
+                      placeholder="oooooo"
                       onChange={handleChange}
-                      showForgot={true}
                       error={error?.type === 'password' ? error.message : null}
+                      showStartAdornment={true}
                     />
-                    <Button
-                      className={classes.button}
-                      style={{ backgroundColor: '#C4C4C4', color: 'white' }}
-                      fullWidth
-                      type="submit"
+                    <Grid item xs={12} style={{ display: 'flex', paddingBottom: '60px' }}>
+                      <Grid item xs={12}>
+                        <Typography align="left" style={{ fontSize: '12px' }}>
+                          <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography align="right" style={{ fontSize: '12px' }}>
+                          Not signed up yet?{' '}
+                          <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ display: 'flex', paddingBottom: '30px', justifyContent: 'center' }}
                     >
-                      Sign In
-                    </Button>
-                    {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                      <Button
+                        className={className.loginButton}
+                        style={{ backgroundColor: '#EF6A60', color: 'white' }}
+                        fullWidth
+                        type="submit"
+                      >
+                        Login
+                      </Button>
+                      {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                    </Grid>
+
                     {isLoading && <Typography>Loading</Typography>}
                   </form>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography align="left">
-                    Not signed up yet? <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
-                  </Typography>
                 </Grid>
               </Grid>
             </Paper>

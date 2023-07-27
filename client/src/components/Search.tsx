@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   searchBar: {
     gridArea: 'searchBar',
     boxShadow: 'none',
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function Search() {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const history = useHistory();
 
   const searchParams = new URLSearchParams(history.location.search);

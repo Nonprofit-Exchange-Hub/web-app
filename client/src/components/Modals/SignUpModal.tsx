@@ -1,6 +1,6 @@
-import Button from '@mui/material/Button';
 import React from 'react';
 import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,18 +13,19 @@ import routes from '../../routes/routes';
 
 interface SignUpModalProps {
   closeModal: () => void;
-  classes: {
+  className: {
+    outerShell: string;
     paper: string;
     content: string;
     header: string;
-    button: string;
+    loginButton: string;
     buttonContainer: string;
     closeButton: string;
   };
 }
 
 const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
-  ({ closeModal, classes }, ref) => {
+  ({ closeModal, className }, ref) => {
     const handleCloseModal = () => {
       closeModal();
     };
@@ -42,16 +43,16 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
             color="inherit"
             onClick={handleCloseModal}
             aria-label="close"
-            className={classes.closeButton}
+            className={className.closeButton}
           >
             <CloseIcon />
           </IconButton>
-          <DialogContent className={classes.content}>
-            <Paper elevation={3} className={classes.paper}>
+          <DialogContent className={className.content}>
+            <Paper elevation={3} className={className.paper}>
               <Grid container justifyContent="center" direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography
-                    className={classes.header}
+                    className={className.header}
                     variant="h3"
                     component={'span'}
                     align="center"
@@ -81,6 +82,7 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
             </Paper>
           </DialogContent>
         </Dialog>
+        <div ref={ref}></div>
       </div>
     );
   },

@@ -1,9 +1,9 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { Typography } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import { useHistory } from 'react-router-dom';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   CTAButton: {
     color: 'white',
     backgroundColor: '#EF6A60',
@@ -23,7 +23,7 @@ type Props = {
 };
 
 function CTAButton({ text }: Props) {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const history = useHistory();
 
   return (

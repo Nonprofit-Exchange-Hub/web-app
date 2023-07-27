@@ -10,7 +10,7 @@ import * as React from 'react';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Input from '@mui/material/Input';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -40,7 +40,7 @@ import {
   OutlinedInput,
 } from '@mui/material';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   sideImg: {
     backgroundImage: `url("${placeholderImg}")`,
     backgroundSize: 'cover',
@@ -104,7 +104,7 @@ const initialFormData: UserSignupData = {
 };
 
 function SignupNonProfit() {
-  const { sideImg, signUpContainer, button, header, input, label } = useStyles();
+  const { classes } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
@@ -168,9 +168,9 @@ function SignupNonProfit() {
     <div className="SignupCitizen">
       <Grid container>
         <Grid item xs={12} sx={{ height: '60px' }} />
-        <Grid className={sideImg} item xs={3} />
+        <Grid className={classes.sideImg} item xs={3} />
         <Grid item xs={1} />
-        <Grid container className={signUpContainer} item direction="column" xs={7}>
+        <Grid container className={classes.signUpContainer} item direction="column" xs={7}>
           <Grid container spacing={0} justifyContent="center" sx={{ marginY: '20px' }}>
             <Stepper activeStep={activeStep} alternativeLabel>
               {steps.map((step, index) => (
@@ -194,7 +194,7 @@ function SignupNonProfit() {
             {activeStep === 0 && (
               <>
                 <Typography
-                  className={header}
+                  className={classes.header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -217,11 +217,11 @@ function SignupNonProfit() {
                 <Grid container item xs={12}>
                   <Grid item xs={12}>
                     <FormControl>
-                      <label className={label} htmlFor="orgName">
+                      <label className={classes.label} htmlFor="orgName">
                         Organization Name
                       </label>
                       <Input
-                        className={input}
+                        className={classes.input}
                         type="text"
                         id="firstName"
                         name="firstName"
@@ -237,11 +237,11 @@ function SignupNonProfit() {
                   </Grid>
                   <Grid item xs={12}>
                     <FormControl>
-                      <label className={label} htmlFor="employerIdentificationNumber">
+                      <label className={classes.label} htmlFor="employerIdentificationNumber">
                         Employer Identification Number (EIN)
                       </label>
                       <Input
-                        className={input}
+                        className={classes.input}
                         type="text"
                         id="last_name"
                         name="last_name"
@@ -261,7 +261,7 @@ function SignupNonProfit() {
                       control={control}
                       render={({ field }) => (
                         <>
-                          <label className={label} htmlFor="irs_classificiation">
+                          <label className={classes.label} htmlFor="irs_classificiation">
                             IRS Nonprofit Organization Classification
                           </label>
                           <Select
@@ -302,7 +302,7 @@ function SignupNonProfit() {
             {activeStep === 1 && (
               <>
                 <Typography
-                  className={header}
+                  className={classes.header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -310,23 +310,33 @@ function SignupNonProfit() {
                 >
                   Tell us about yourself
                 </Typography>
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                   Representative Information
                 </Typography>
                 <Grid item xs={12} sx={{ height: '10px' }} />
                 <Grid container item xs={12} spacing={2}>
                   <Grid item xs={6}>
-                    <Typography className={label}>First Name</Typography>
-                    <Input className={input} placeholder="Jane" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>First Name</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Jane"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography className={label}>Last Name</Typography>
-                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>Last Name</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Doe"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography className={label}>Role</Typography>
+                    <Typography className={classes.label}>Role</Typography>
                     <Input
-                      className={input}
+                      className={classes.input}
                       placeholder="Event Coordinator"
                       fullWidth
                       disableUnderline
@@ -367,7 +377,7 @@ function SignupNonProfit() {
             {activeStep === 2 && (
               <>
                 <Typography
-                  className={header}
+                  className={classes.header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -375,47 +385,82 @@ function SignupNonProfit() {
                 >
                   Tell us about your organization
                 </Typography>
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                   Contact Information
                 </Typography>
                 <Grid item xs={12} sx={{ height: '10px' }} />
                 <Grid container item xs={12} spacing={2}>
                   <Grid item xs={12}>
-                    <Typography className={label}>Street address</Typography>
-                    <Input className={input} placeholder="Jane" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>Street address</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Jane"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography className={label}>City</Typography>
-                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>City</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Doe"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography className={label}>State</Typography>
-                    <Select className={input} placeholder="state" fullWidth>
+                    <Typography className={classes.label}>State</Typography>
+                    <Select className={classes.input} placeholder="state" fullWidth>
                       {makeStateSelectOptions()}
                     </Select>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography className={label}>Zip Code</Typography>
-                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>Zip Code</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Doe"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
-                  <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                     Online Information
                   </Typography>
                   <Grid item xs={12}>
-                    <Typography className={label}>Website</Typography>
-                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>Website</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Doe"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography className={label}>Instagram</Typography>
-                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>Instagram</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Doe"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography className={label}>Facebook</Typography>
-                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>Facebook</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Doe"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography className={label}>Twitter</Typography>
-                    <Input className={input} placeholder="Doe" fullWidth disableUnderline></Input>
+                    <Typography className={classes.label}>Twitter</Typography>
+                    <Input
+                      className={classes.input}
+                      placeholder="Doe"
+                      fullWidth
+                      disableUnderline
+                    ></Input>
                   </Grid>
                 </Grid>
               </>
@@ -425,7 +470,7 @@ function SignupNonProfit() {
             {activeStep === 3 && (
               <>
                 <Typography
-                  className={header}
+                  className={classes.header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -433,7 +478,7 @@ function SignupNonProfit() {
                 >
                   Tell us about your organization
                 </Typography>
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                   Add an image
                 </Typography>
                 <Typography>Upload an organization logo (optional)</Typography>
@@ -446,7 +491,7 @@ function SignupNonProfit() {
                     <input accept="image/*" hidden id="upload-file" type="file" />
                     <label htmlFor="upload-file">
                       <Button
-                        className={button}
+                        className={classes.button}
                         component="span"
                         color="secondary"
                         variant="contained"
@@ -457,7 +502,7 @@ function SignupNonProfit() {
                   </Grid>
                 </Grid>
                 <Grid item xs={12} sx={{ height: '50px' }} />
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                   Write a description
                 </Typography>
                 <Typography>
@@ -503,7 +548,7 @@ function SignupNonProfit() {
             {activeStep === 4 && (
               <>
                 <Typography
-                  className={header}
+                  className={classes.header}
                   variant="h4"
                   fontSize="58px"
                   component="h1"
@@ -511,7 +556,7 @@ function SignupNonProfit() {
                 >
                   Sign up Complete!
                 </Typography>
-                <Typography className={label} sx={{ fontWeight: 'bold' }}>
+                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
                   Name: {user && user.firstName} {user && user.last_name}
                 </Typography>
                 <Typography>Email: {user && user.email}</Typography>

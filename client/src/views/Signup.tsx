@@ -4,9 +4,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import { Grid, Container, Button } from '@mui/material';
-
 import type { Theme } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -18,58 +17,34 @@ import routes from '../routes/routes';
 // import TextDivider from '../components/TextDivider';
 // import DialogContentText from '@mui/material/DialogContentText';
 
-const useStyles = makeStyles((theme: Theme) => {
-  const xPadding = 12;
-  const yPadding = 6;
-  const yMargin = 8;
-
-  return {
-    imageBackground: {
-      width: '200px',
-      height: '200px',
-      background: '#C4C4C4',
-      borderRadius: '130px',
-      marginBottom: '1rem',
-    },
-    linkText: {
-      color: theme.palette.text.primary,
-      textDecoration: 'none',
-    },
-    formBox: {
-      textAlign: 'center',
-      width: '100%',
-    },
-    positionOptions: {
-      marginLeft: '20%',
-      marginTop: '5rem',
-      alignContent: 'center',
-    },
-    caption: {
-      width: '200px',
-    },
-    paper: {
-      maxWidth: 821 - theme.spacing(xPadding),
-      maxHeight: 732 - theme.spacing(yPadding),
-      borderRadius: 10,
-      marginTop: theme.spacing(yMargin),
-      marginBottom: theme.spacing(yMargin),
-      paddingTop: theme.spacing(yPadding),
-      paddingBottom: theme.spacing(yPadding),
-      paddingLeft: theme.spacing(xPadding),
-      paddingRight: theme.spacing(xPadding),
-      margin: 'auto',
-    },
-    header: { fontWeight: 'bold', marginBottom: 68 },
-    button: {
-      borderRadius: 0,
-      height: 62,
-      textTransform: 'none',
-    },
-  };
-});
+const useStyles = makeStyles()((theme: Theme) => ({
+  imageBackground: {
+    width: '200px',
+    height: '200px',
+    background: '#C4C4C4',
+    borderRadius: '130px',
+    marginBottom: '1rem',
+  },
+  linkText: {
+    color: theme.palette.text.primary,
+    textDecoration: 'none',
+  },
+  formBox: {
+    textAlign: 'center',
+    width: '100%',
+  },
+  positionOptions: {
+    marginLeft: '20%',
+    marginTop: '5rem',
+    alignContent: 'center',
+  },
+  caption: {
+    width: '200px',
+  },
+}));
 
 function Signup() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [open, setOpen] = React.useState(true);
   const onClose = (e: any, reason: string) => {
@@ -84,7 +59,7 @@ function Signup() {
 
   return (
     <div className="Signup" style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Paper elevation={3} className={classes.paper}>
+      <Paper elevation={3}>
         <div>
           <Dialog disableEscapeKeyDown={true} open={open} onClose={onClose}>
             <DialogTitle>Welcome!</DialogTitle>

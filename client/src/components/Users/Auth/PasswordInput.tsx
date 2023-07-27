@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -14,7 +14,7 @@ import type { Theme } from '@mui/material/styles';
 import StyledLink from '../../StyledLink';
 import routes from '../../../routes/routes';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     input: {
       height: 44,
@@ -47,6 +47,7 @@ interface Props {
   error?: string | null;
   showStartAdornment?: boolean;
   showForgot?: boolean;
+  placeholder?: string;
   label?: string | null;
   id?: string | null;
   name?: string | null;
@@ -61,12 +62,13 @@ function PasswordInput({
   error,
   showStartAdornment = false,
   showForgot = false,
+  placeholder,
   label = null,
   id = null,
   name = null,
   sublabel = null,
 }: Props) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -101,6 +103,7 @@ function PasswordInput({
       <Input
         className={classes.input}
         id={id || 'password'}
+        placeholder={placeholder || 'oooooo'}
         name={name || 'password'}
         type={showPassword ? 'text' : 'password'}
         value={value}
