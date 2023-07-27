@@ -5,11 +5,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogContent from '@mui/material/DialogContent';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import TextDivider from '../../components/TextDivider';
+import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 import routes from '../../routes/routes';
+import { makeStyles } from 'tss-react/mui';
+import type { Theme } from '@mui/material/styles';
 
 interface SignUpModalProps {
   closeModal: () => void;
@@ -24,11 +26,24 @@ interface SignUpModalProps {
   };
 }
 
+const useStyles = makeStyles()((theme: Theme) => ({
+  root: {
+    border: 0,
+    maxWidth: '1000px',
+    maxHeight: '100px',
+    minWidth: '100px',
+    minHeight: '100px',
+    padding: '0px',
+  },
+}));
+
 const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
   ({ closeModal, className }, ref) => {
     const handleCloseModal = () => {
       closeModal();
     };
+
+    const { classes } = useStyles();
 
     return (
       <div>
@@ -48,38 +63,46 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
             <CloseIcon />
           </IconButton>
           <DialogContent className={className.content}>
-            <Paper elevation={3} className={className.paper}>
-              <Grid container justifyContent="center" direction="column" spacing={2}>
-                <Grid item xs={12}>
-                  <Typography
-                    className={className.header}
-                    variant="h3"
-                    component={'span'}
-                    align="center"
-                  >
-                    Welcome Aboard.
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Link to={routes.SignupCitizen.path}>
-                    <Button onClick={handleCloseModal} fullWidth>
-                      Individual
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextDivider>or</TextDivider>
-                </Grid>
-                <Grid container item xs={12}></Grid>
-                <Grid item xs={12}>
-                  <Link to={routes.SignupNonProfit.path}>
-                    <Button onClick={handleCloseModal} fullWidth>
-                      Oganization
-                    </Button>
-                  </Link>
-                </Grid>
+            {/* <Paper elevation={3} className={className.paper}> */}
+            <Grid
+              container
+              item
+              xs={12}
+              style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
+            >
+              <Grid item xs={12}>
+                <Typography
+                  className={className.header}
+                  variant="h3"
+                  component={'span'}
+                  align="center"
+                >
+                  Welcome Aboard.
+                </Typography>
               </Grid>
-            </Paper>
+              <Grid item xs={12}>
+                <Link to={routes.SignupCitizen.path}>
+                  <Button onClick={handleCloseModal} fullWidth className={classes.root}>
+                    I am an individual citizen.
+                  </Button>
+                </Link>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider
+                  variant="middle"
+                  sx={{ marginLeft: 3, borderBottomWidth: 1, borderColor: '#000000' }}
+                ></Divider>
+              </Grid>
+              <Grid container item xs={12}></Grid>
+              <Grid item xs={12}>
+                <Link to={routes.SignupNonProfit.path}>
+                  <Button onClick={handleCloseModal} fullWidth className={classes.root}>
+                    I am part of an organization.
+                  </Button>
+                </Link>
+              </Grid>
+            </Grid>
+            {/* </Paper> */}
           </DialogContent>
         </Dialog>
         <div ref={ref}></div>
