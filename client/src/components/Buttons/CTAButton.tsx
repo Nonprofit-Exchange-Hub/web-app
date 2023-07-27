@@ -1,7 +1,8 @@
 import { makeStyles } from 'tss-react/mui';
 import { Typography } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { ModalContext } from '../../providers/ModalProvider';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   CTAButton: {
@@ -24,10 +25,11 @@ type Props = {
 
 function CTAButton({ text }: Props) {
   const { classes } = useStyles();
-  const history = useHistory();
+  const modalContext = useContext(ModalContext);
+  const { openModal } = modalContext;
 
   return (
-    <button onClick={() => history.push('/signup')} className={classes.CTAButton}>
+    <button onClick={() => openModal('SignUp')} className={classes.CTAButton}>
       <Typography
         sx={{
           fontSize: '22px',
