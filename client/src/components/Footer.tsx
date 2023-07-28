@@ -1,4 +1,3 @@
-// import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Theme } from '@mui/material/styles';
@@ -11,7 +10,7 @@ const useStyles = makeStyles()((theme: Theme) => {
   return {
     main: {
       backgroundColor: 'white',
-      padding: theme.spacing(3),
+      padding: theme.spacing(2),
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
@@ -26,14 +25,14 @@ const useStyles = makeStyles()((theme: Theme) => {
       fontWeight: 'bold',
     },
     footer: {
-      boxShadow: '0px -2px 1em grey',
+      boxShadow: '0px -2px 4px rgba(0, 0, 0, 0.25)',
       position: 'relative',
       bottom: 0,
       left: 0,
       right: 0,
     },
     textBox: {
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(1),
       width: '550px',
     },
     text: {
@@ -49,13 +48,13 @@ const useStyles = makeStyles()((theme: Theme) => {
       color: 'black',
       fontSize: '16px',
       lineHeight: '24px',
-      marginRight: '21px',
+      marginRight: '10px',
+      marginLeft: '10px',
       fontFamily: 'Poppins',
     },
     logo: {
-      width: '175px',
+      width: '174px',
       height: '40px',
-      // marginBottom: theme.spacing(1),
     },
   };
 });
