@@ -45,4 +45,7 @@ export const useStyles = makeStyles()((theme) => ({
     boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.25)',
     height: 44,
   },
+  error: {
+    border: '1px solid red',
+  },
 }));

@@ -2,11 +2,8 @@ import * as React from 'react';
 import {
   Box,
   Button,
-  Checkbox,
   Chip,
   Grid,
-  FormControl,
-  FormControlLabel,
   Input,
   Avatar,
   TextField,
@@ -16,8 +13,6 @@ import {
   Typography,
   InputLabel,
 } from '@mui/material';
-import StyledLink from '../../../../components/StyledLink';
-import routes from '../../../../routes/routes';
 import { UserContext } from '../../../../providers';
 import { useStyles } from './styles';
 import { interests } from './interests';
@@ -28,8 +23,8 @@ import SvgSignUpLocationStep from './SvgSignUpLocationStep';
 import SvgSignUpInterestsStep from './SvgSignUpInterestsStep';
 import SvgSignUpProfileStep from './SvgSignUpProfileStep';
 import SvgSignUpFinishedStep from './SvgSignUpFinishedStep';
-import EmailInput from '../EmailInput';
-import PasswordInput from '../PasswordInput';
+
+import StepOne from './StepOne';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -49,7 +44,6 @@ function SignupCitizen() {
   const { classes } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
   const { user, setUser } = React.useContext(UserContext);
 
@@ -121,7 +115,7 @@ function SignupCitizen() {
     const data = await res.json();
     setIsLoading(false);
     if (data.status === 409) {
-      setEmailError(data.message);
+      // setEmailError(data.message);
     } else {
       setUser(data);
       handleNext();
@@ -130,6 +124,7 @@ function SignupCitizen() {
 
   // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = () => {
+    console.log('HANDLENEXT');
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -138,7 +133,15 @@ function SignupCitizen() {
   };
 
   return (
-    <Box display={'flex'} flexDirection={'row'} justifyContent={'left'}>
+    <Box
+      display={'flex'}
+      flexDirection={'row'}
+      justifyContent={'left'}
+      sx={{
+        marginTop: '134px',
+        marginBottom: '160px',
+      }}
+    >
       <Box
         sx={{
           backgroundColor: '#FFC958',
@@ -168,108 +171,7 @@ function SignupCitizen() {
           >
             <Box>
               {/* PAGE ONE ###########################################################*/}
-              {activeStep === 0 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="58px"
-                    lineHeight="87px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                    gutterBottom
-                  >
-                    Let's get started
-                  </Typography>
-                  <Box display={'flex'} flexDirection={'row'} width={'100%'}>
-                    <Box marginRight={'20px'}>
-                      <FormControl>
-                        <label className={classes.label} htmlFor="firstName">
-                          First Name
-                        </label>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="firstName"
-                          name="firstName"
-                          autoComplete="given-name"
-                          placeholder="Jane"
-                          fullWidth
-                          value={formData.firstName}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Box>
-                    <Box width={'100%'}>
-                      <FormControl fullWidth>
-                        <label className={classes.label} htmlFor="last_name">
-                          Last Name
-                        </label>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="last_name"
-                          name="last_name"
-                          autoComplete="family-name"
-                          placeholder="Individual"
-                          fullWidth
-                          value={formData.last_name}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Box>
-                  </Box>
-                  <EmailInput
-                    value={formData.email}
-                    placeholder="jane@citizen.com"
-                    onChange={handleChange}
-                    showStartAdornment={true}
-                    error={emailError}
-                  />
-                  <PasswordInput
-                    value={formData.password}
-                    onChange={handleChange}
-                    showStartAdornment={true}
-                  />
-                  <FormControlLabel
-                    style={{
-                      textAlign: 'left',
-                      display: 'flex',
-                      alignContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    control={
-                      <Checkbox
-                        color="primary"
-                        checked={formData.accept_terms}
-                        onChange={handleChange}
-                        name="accept_terms"
-                        inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                        sx={{
-                          input: {
-                            "[(type = 'checkbox')]": {
-                              '::before': { outline: '1px solid black' },
-                            },
-                          },
-                        }}
-                      />
-                    }
-                    label={
-                      <label>
-                        Accept the{' '}
-                        <StyledLink to={routes.TermsOfService.path} target="_blank">
-                          Terms and Agreements
-                        </StyledLink>
-                      </label>
-                    }
-                  />
-                </Box>
-              )}
+              {activeStep === 0 && <StepOne handleNext={handleNext} />}
 
               {/* PAGE TWO ######################################################## */}
               {activeStep === 1 && (
