@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Checkbox, Typography, FormControlLabel } from '@mui/material';
-import { string, ValidationError } from 'yup';
+import { string, boolean, ValidationError, StringSchema, BooleanSchema } from 'yup';
 
 import StyledLink from '../../../../components/StyledLink';
 import routes from '../../../../routes/routes';
@@ -11,60 +11,51 @@ import NameInput from '../NameInput';
 import { useStyles } from './styles';
 
 const initialFormData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  passwordConfirm: '',
-  acceptTerms: false,
-};
-
-const validation = {
   firstName: {
-    isValid: (value: string | undefined) => {
-      const rule = string().required();
-      return rule.isValidSync(value);
-    },
+    value: '',
+    error: '',
+    rule: string().required('Required.'),
   },
   lastName: {
-    isValid: (value: string | undefined) => {
-      const rule = string().required();
-      return rule.isValidSync(value);
-    },
+    value: '',
+    error: '',
+    rule: string().required('Required.'),
   },
   email: {
-    isValid: (value: string | undefined) => {
-      const rule = string().email().required();
-      return rule.isValidSync(value);
-    },
+    value: '',
+    error: '',
+    rule: string().email('Invalid email.').required('Required.'),
   },
   password: {
-    isValid: (value: string | undefined) => {
-      const rule = string()
-        .min(8, 'Password is too short - should be 8 chars minimum.')
-        .required('Required');
-      try {
-        return rule.validateSync(value);
-      } catch (error) {
-        if (error instanceof ValidationError) {
-          return error.message;
-        }
-      }
-    },
+    value: '',
+    error: '',
+    rule: string()
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('Required.'),
   },
   passwordConfirm: {
-    isValid: (value: string | undefined) => {
-      const rule = string()
-        .min(8, 'Password is too short - should be 8 chars minimum.')
-        .required('Required');
-      return rule.isValidSync(value);
-    },
+    value: '',
+    error: '',
+    rule: string()
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('Required.'),
   },
   acceptTerms: {
-    isValid: (value: boolean) => {
-      return value;
-    },
+    value: false,
+    error: '',
+    rule: boolean().required('Required.'),
   },
+};
+
+const isValid = (rule: StringSchema | BooleanSchema, value: string | undefined) => {
+  try {
+    rule.validateSync(value);
+    return '';
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return error.message;
+    }
+  }
 };
 
 interface StepOneType {
@@ -76,38 +67,45 @@ export default function StepOne({ handleNext }: StepOneType) {
 
   const [formData, setFormData] = useState(initialFormData);
   const [nextDisabled, setNextDisabled] = React.useState(true);
-  const [emailError, setEmailError] = React.useState<string>('');
-  const [firstNameError, setFirstNameError] = React.useState(null);
-  const [lastNameError, setLastNameError] = React.useState(null);
-
-  useEffect(() => {
-    // yup validation
-  }, [formData]);
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
     setFormData((fData) => {
       return {
         ...fData,
-        [name]: name === 'acceptTerms' ? checked : value,
+        [name]: {
+          // @ts-ignore
+          ...fData[name],
+          value: name === 'acceptTerms' ? checked : value,
+        },
       };
     });
-    setEmailError('test');
     setNextDisabled(true);
   };
 
   const handleBlur = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-    // const { name }: { name: string } = evt.target;
-    console.log(evt.target);
-    setFirstNameError(null);
-    setLastNameError(null);
+    const { name }: { name: string } = evt.target;
+
+    console.log({ name });
+
+    if (Object.keys(initialFormData).includes(name)) {
+      setFormData((currFormData) => ({
+        ...currFormData,
+        [name]: {
+          // @ts-ignore
+          ...currFormData[name],
+          // @ts-ignore
+          error: isValid(currFormData[name].rule, currFormData[name].value),
+        },
+      }));
+    }
   };
 
-  console.log(validation.password.isValid(''));
+  console.log({ formData });
 
   return (
     <>
-      <Box component="form" sx={{ height: '100%', width: '100%' }}>
+      <Box sx={{ height: '100%', width: '100%' }}>
         <Typography
           sx={{ color: '#674E67' }}
           className={classes.header}
@@ -127,10 +125,10 @@ export default function StepOne({ handleNext }: StepOneType) {
               name="firstName"
               label="First Name"
               placeholder="Jane"
-              onChange={handleChange}
-              value={formData.firstName}
-              error={firstNameError}
               onBlur={handleBlur}
+              onChange={handleChange}
+              value={formData.firstName.value}
+              error={formData.firstName.error}
             />
           </Box>
           <Box width={'100%'}>
@@ -139,33 +137,35 @@ export default function StepOne({ handleNext }: StepOneType) {
               name="lastName"
               label="Last Name"
               placeholder="Dosis"
-              onChange={handleChange}
-              value={formData.lastName}
-              error={lastNameError}
               onBlur={handleBlur}
+              onChange={handleChange}
+              value={formData.lastName.value}
+              error={formData.lastName.error}
             />
           </Box>
         </Box>
         <EmailInput
-          value={formData.email}
-          placeholder="jane@citizen.com"
-          onChange={handleChange}
           showStartAdornment={true}
-          error={emailError}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={formData.email.value}
+          error={formData.email.error}
+          placeholder="jane@citizen.com"
         />
         <PasswordInput
           id="password"
-          value={formData.password}
+          value={formData.password.value}
           showStartAdornment={true}
           onChange={handleChange}
-          error="true"
+          error={formData.password.error}
         />
         <PasswordInput
           id="passwordConfirm"
           label="Confirm Password"
-          value={formData.passwordConfirm}
+          value={formData.passwordConfirm.value}
           showStartAdornment={true}
           onChange={handleChange}
+          error={formData.passwordConfirm.error}
         />
         <FormControlLabel
           style={{
@@ -177,7 +177,7 @@ export default function StepOne({ handleNext }: StepOneType) {
           control={
             <Checkbox
               color="primary"
-              checked={formData.acceptTerms}
+              checked={formData.acceptTerms.value}
               onChange={handleChange}
               name="acceptTerms"
               inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
