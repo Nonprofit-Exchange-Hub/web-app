@@ -38,6 +38,10 @@ const useStyles = makeStyles()((theme: Theme) => {
       fontWeight: 300,
       marginLeft: 5,
     },
+    error: {
+      border: '2px solid red',
+      marginBottom: 0,
+    },
   };
 });
 
@@ -53,6 +57,7 @@ interface Props {
   name?: string | null;
   onBlur?: React.FocusEventHandler<HTMLInputElement> | null;
   sublabel?: string | null;
+  required?: boolean | null;
 }
 
 function PasswordInput({
@@ -67,6 +72,7 @@ function PasswordInput({
   id = null,
   name = null,
   sublabel = null,
+  required = false,
 }: Props) {
   const { classes } = useStyles();
 
@@ -84,6 +90,10 @@ function PasswordInput({
       additionalProps['onBlur'] = onBlur;
     }
 
+    if (required) {
+      additionalProps['required'] = true;
+    }
+
     return additionalProps;
   };
 
@@ -99,9 +109,8 @@ function PasswordInput({
           {showForgot && <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>}
         </div>
       </label>
-      {error && <FormHelperText error>{error}</FormHelperText>}
       <Input
-        className={classes.input}
+        className={`${classes.input} ${Boolean(error) && classes.error}`}
         id={id || 'password'}
         placeholder={placeholder || 'oooooo'}
         name={name || 'password'}
@@ -133,6 +142,7 @@ function PasswordInput({
         }
         {...getAdditionalProps()}
       />
+      {error && <FormHelperText error>{error}</FormHelperText>}
     </FormControl>
   );
 }

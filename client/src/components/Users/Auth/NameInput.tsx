@@ -16,7 +16,7 @@ const useStyles = makeStyles()((theme: Theme) => {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
       fontSize: 14,
-      // marginBottom: 20,
+      marginBottom: 20,
     },
     label: {
       color: '#000000',
@@ -31,6 +31,7 @@ const useStyles = makeStyles()((theme: Theme) => {
     },
     error: {
       border: '2px solid red',
+      marginBottom: 0,
     },
   };
 });

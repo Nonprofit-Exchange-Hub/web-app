@@ -13,44 +13,44 @@ import { useStyles } from './styles';
 const initialFormData = {
   firstName: {
     value: '',
-    error: '',
+    error: null,
     rule: string().required('Required.'),
   },
   lastName: {
     value: '',
-    error: '',
+    error: null,
     rule: string().required('Required.'),
   },
   email: {
     value: '',
-    error: '',
+    error: null,
     rule: string().email('Invalid email.').required('Required.'),
   },
   password: {
     value: '',
-    error: '',
+    error: null,
     rule: string()
       .min(8, 'Password is too short - should be 8 chars minimum.')
       .required('Required.'),
   },
   passwordConfirm: {
     value: '',
-    error: '',
+    error: null,
     rule: string()
       .min(8, 'Password is too short - should be 8 chars minimum.')
       .required('Required.'),
   },
   acceptTerms: {
     value: false,
-    error: '',
+    error: null,
     rule: boolean().required('Required.'),
   },
 };
 
-const isValid = (rule: StringSchema | BooleanSchema, value: string | undefined) => {
+const getError = (rule: StringSchema | BooleanSchema, value: string | undefined) => {
   try {
     rule.validateSync(value);
-    return '';
+    return null;
   } catch (error) {
     if (error instanceof ValidationError) {
       return error.message;
@@ -66,7 +66,10 @@ export default function StepOne({ handleNext }: StepOneType) {
   const { classes } = useStyles();
 
   const [formData, setFormData] = useState(initialFormData);
-  const [nextDisabled, setNextDisabled] = React.useState(true);
+
+  const nextEnabled = Object.values(formData).every(
+    ({ value, error }) => error === null && Boolean(value),
+  );
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
@@ -80,28 +83,37 @@ export default function StepOne({ handleNext }: StepOneType) {
         },
       };
     });
-    setNextDisabled(true);
   };
 
   const handleBlur = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name }: { name: string } = evt.target;
-
-    console.log({ name });
-
     if (Object.keys(initialFormData).includes(name)) {
-      setFormData((currFormData) => ({
-        ...currFormData,
-        [name]: {
+      setFormData((currFormData) => {
+        let error = null;
+        if (name === 'passwordConfirm') {
+          const passwordConfirmError = getError(
+            currFormData.passwordConfirm.rule,
+            currFormData.passwordConfirm.value,
+          );
+          error = passwordConfirmError;
+          if (currFormData.password.value !== currFormData.passwordConfirm.value) {
+            error = `Password mismatch.`;
+          }
+        } else {
           // @ts-ignore
-          ...currFormData[name],
-          // @ts-ignore
-          error: isValid(currFormData[name].rule, currFormData[name].value),
-        },
-      }));
+          error = getError(currFormData[name].rule, currFormData[name].value);
+        }
+        return {
+          ...currFormData,
+          [name]: {
+            // @ts-ignore
+            ...currFormData[name],
+            error,
+          },
+        };
+      });
     }
   };
-
-  console.log({ formData });
 
   return (
     <>
@@ -154,18 +166,24 @@ export default function StepOne({ handleNext }: StepOneType) {
         />
         <PasswordInput
           id="password"
+          name="password"
+          onBlur={handleBlur}
           value={formData.password.value}
           showStartAdornment={true}
           onChange={handleChange}
           error={formData.password.error}
+          required
         />
         <PasswordInput
           id="passwordConfirm"
+          name="passwordConfirm"
           label="Confirm Password"
+          onBlur={handleBlur}
           value={formData.passwordConfirm.value}
           showStartAdornment={true}
           onChange={handleChange}
           error={formData.passwordConfirm.error}
+          required
         />
         <FormControlLabel
           style={{
@@ -201,7 +219,7 @@ export default function StepOne({ handleNext }: StepOneType) {
         />
       </Box>
       <Box>
-        <Button color="primary" variant="outlined" onClick={handleNext} disabled={nextDisabled}>
+        <Button color="primary" variant="outlined" onClick={handleNext} disabled={!nextEnabled}>
           Next
         </Button>
       </Box>
