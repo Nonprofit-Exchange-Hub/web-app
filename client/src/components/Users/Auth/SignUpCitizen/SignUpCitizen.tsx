@@ -1,23 +1,10 @@
 import * as React from 'react';
-import {
-  Box,
-  Button,
-  Chip,
-  Grid,
-  Input,
-  Avatar,
-  TextField,
-  Select,
-  SelectChangeEvent,
-  MenuItem,
-  Typography,
-  InputLabel,
-} from '@mui/material';
+import { Box, Button, Chip, Grid, Avatar, TextField, Typography } from '@mui/material';
 import { UserContext } from '../../../../providers';
 import { useStyles } from './styles';
 import { interests } from './interests';
 import { UserSignupData } from './UserSignupData';
-import { APP_API_BASE_URL, US_STATE_NAMES } from '../../../../configs';
+import { APP_API_BASE_URL } from '../../../../configs';
 import SvgSignUpContactInfoStep from './SvgSignUpContactInfoStep';
 import SvgSignUpLocationStep from './SvgSignUpLocationStep';
 import SvgSignUpInterestsStep from './SvgSignUpInterestsStep';
@@ -25,6 +12,7 @@ import SvgSignUpProfileStep from './SvgSignUpProfileStep';
 import SvgSignUpFinishedStep from './SvgSignUpFinishedStep';
 
 import StepOne from './StepOne';
+import StepTwo from './StepTwo';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -76,26 +64,12 @@ function SignupCitizen() {
     setFormData({ ...formData, interests: formData.interests });
   };
 
-  const makeStateSelectOptions = () => {
-    return US_STATE_NAMES.map((state) => {
-      return <MenuItem value={state}>{state}</MenuItem>;
-    });
-  };
-
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
     setFormData((fData) => ({
       ...fData,
       [name]: name === 'accept_terms' ? checked : value,
       [name]: name === 'email_notification_opt_out' ? checked : value,
-    }));
-  };
-
-  const handleSelectChange = (event: SelectChangeEvent<string>, child: React.ReactNode): void => {
-    const { name, value }: { name: string; value: string } = event.target;
-    setFormData((fData) => ({
-      ...fData,
-      [name]: value,
     }));
   };
 
@@ -174,74 +148,7 @@ function SignupCitizen() {
               {activeStep === 0 && <StepOne handleNext={handleNext} />}
 
               {/* PAGE TWO ######################################################## */}
-              {activeStep === 1 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="58px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                  >
-                    Tell us about yourself
-                  </Typography>
-                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                    Personal Information
-                  </Typography>
-                  <Typography>You can always update this information later as needed.</Typography>
-                  <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Grid container item xs={12} spacing={2}>
-                    <Grid item xs={12}>
-                      <label className={classes.label}>Where are you located?</label>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <InputLabel id="state-select">State</InputLabel>
-                      <Select
-                        label="State"
-                        className={classes.input}
-                        displayEmpty
-                        fullWidth
-                        onChange={handleSelectChange}
-                        sx={{ marginTop: '10px', border: '1px solid' }}
-                        MenuProps={{
-                          anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
-                          sx: {
-                            borderRadius: '10px',
-                            padding: '20px',
-                            height: '240px',
-                          },
-                        }}
-                        name="state"
-                        value={formData.state}
-                      >
-                        {makeStateSelectOptions()}
-                      </Select>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <InputLabel id="city-select">City</InputLabel>
-                      <Input
-                        className={classes.input}
-                        placeholder="city"
-                        disableUnderline
-                        fullWidth
-                        onChange={handleChange}
-                        name="city"
-                      ></Input>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Input
-                        className={classes.input}
-                        placeholder="zip"
-                        fullWidth
-                        disableUnderline
-                        name="zip_code"
-                        onChange={handleChange}
-                      ></Input>
-                    </Grid>
-                  </Grid>
-                </Box>
-              )}
+              {activeStep === 1 && <StepTwo handleBack={handleBack} handleNext={handleNext} />}
 
               {/* PAGE THREE ######################################################## */}
               {activeStep === 2 && (
