@@ -233,7 +233,7 @@ export default function StepOne({ initData, handleNext }: StepOneType) {
           }
         />
       </Box>
-      <Box>
+      <Box display="flex" flexDirection="row" justifyContent="flex-end" width="100%">
         <Button
           color="primary"
           variant="outlined"

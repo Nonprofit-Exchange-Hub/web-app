@@ -95,18 +95,25 @@ export default function StepFour({ initData, handleBack, handleNext }: StepFourT
           />
         </Grid>
       </Box>
-      <Box>
+      <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
         <Box>
           <Button color="primary" variant="outlined" onClick={handleClickBack}>
             Back
           </Button>
         </Box>
-        <Button color="primary" variant="outlined" onClick={handleClickNext}>
-          Skip
-        </Button>
-        <Button color="primary" variant="outlined" onClick={handleClickNext}>
-          Next
-        </Button>
+        <Box display="flex" flexDirection="row" justifyContent="space-between">
+          <Button
+            color="primary"
+            sx={{ marginRight: '12px' }}
+            variant="outlined"
+            onClick={handleClickNext}
+          >
+            Skip
+          </Button>
+          <Button color="primary" variant="outlined" onClick={handleClickNext}>
+            Next
+          </Button>
+        </Box>
       </Box>
     </>
   );
