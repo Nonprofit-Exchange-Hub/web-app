@@ -3,10 +3,6 @@ import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 
 import { useStyles } from './styles';
 
-const initialFormData = {
-  bio: '',
-};
-
 interface StepFourType {
   initData: { bio: string };
   handleBack: () => void;
@@ -16,9 +12,9 @@ interface StepFourType {
 export default function StepFour({ initData, handleBack, handleNext }: StepFourType) {
   const { classes } = useStyles();
 
-  initialFormData.bio = initData.bio;
+  const [formData, setFormData] = useState(initData);
 
-  const [formData, setFormData] = useState(initialFormData);
+  console.log({ initData, formData });
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;

@@ -10,4 +10,5 @@ export interface UserSignupData {
   zipCode: string;
   interests: string[];
   bio: string;
+  passwordConfirm: string;
 }

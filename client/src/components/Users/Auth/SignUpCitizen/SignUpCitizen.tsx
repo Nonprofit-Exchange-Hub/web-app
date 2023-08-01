@@ -22,6 +22,7 @@ const initialFormData: UserSignupData = {
   interests: [],
   email: '',
   password: '',
+  passwordConfirm: '',
   acceptTerms: false,
   email_notification_opt_out: false,
   state: '',
