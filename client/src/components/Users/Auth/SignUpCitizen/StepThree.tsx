@@ -10,16 +10,20 @@ const initialFormData = {
 };
 
 interface StepThreeType {
+  initData: {};
   handleBack: () => void;
   handleNext: (formData: {}) => void;
 }
 
-export default function StepThree({ handleBack, handleNext }: StepThreeType) {
+export default function StepThree({ initData, handleBack, handleNext }: StepThreeType) {
   const { classes } = useStyles();
 
-  const [formData, setFormData] = useState<{ interests: string[] }>(initialFormData);
+  Object.keys(initialFormData).forEach((key) => {
+    //@ts-ignore
+    initialFormData[key].value = initData[key];
+  });
 
-  console.log({ formData });
+  const [formData, setFormData] = useState<{ interests: string[] }>(initialFormData);
 
   const makeChips = () => {
     return interests.map((interest) => {

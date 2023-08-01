@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { UserContext } from '../../../../providers';
 import { UserSignupData } from './UserSignupData';
 import { APP_API_BASE_URL } from '../../../../configs';
@@ -17,15 +17,15 @@ import StepFive from './StepFive';
 
 const initialFormData: UserSignupData = {
   firstName: '',
-  last_name: '',
+  lastName: '',
   city: '',
   interests: [],
   email: '',
   password: '',
-  accept_terms: false,
+  acceptTerms: false,
   email_notification_opt_out: false,
   state: '',
-  zip_code: '',
+  zipCode: '',
   bio: '',
 };
 
@@ -37,12 +37,15 @@ function SignupCitizen() {
 
   console.log({ formData });
 
+  const imgHeight = '569px';
+  const imgWidth = '256px';
+
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     console.log(formData);
     setIsLoading(true);
-    // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
-    delete formData.accept_terms;
+    // Backend doesn't need acceptTerms. If a user is signed up they have agreed to the terms
+    delete formData.acceptTerms;
     const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -62,7 +65,6 @@ function SignupCitizen() {
 
   // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = (newFormData: {}) => {
-    console.log('HANDLENEXT');
     setFormData((currFormData) => ({
       ...currFormData,
       ...newFormData,
@@ -93,11 +95,11 @@ function SignupCitizen() {
           padding: '19px 60px 120px 130px',
         }}
       >
-        {(activeStep === 0 && <SvgSignUpContactInfoStep height={'569px'} width={'256px'} />) ||
-          (activeStep === 1 && <SvgSignUpLocationStep height={'569px'} width={'256px'} />) ||
-          (activeStep === 2 && <SvgSignUpInterestsStep height={'569px'} width={'256px'} />) ||
-          (activeStep === 3 && <SvgSignUpProfileStep height={'569px'} width={'256px'} />) ||
-          (activeStep === 4 && <SvgSignUpFinishedStep height={'569px'} width={'256px'} />)}
+        {activeStep === 0 && <SvgSignUpContactInfoStep height={imgHeight} width={imgWidth} />}
+        {activeStep === 1 && <SvgSignUpLocationStep height={imgHeight} width={imgWidth} />}
+        {activeStep === 2 && <SvgSignUpInterestsStep height={imgHeight} width={imgWidth} />}
+        {activeStep === 3 && <SvgSignUpProfileStep height={imgHeight} width={imgWidth} />}
+        {activeStep === 4 && <SvgSignUpFinishedStep height={imgHeight} width={imgWidth} />}
       </Box>
       <Box display={'flex'} flexDirection={'row'} justifyContent={'center'}>
         <Box
@@ -113,78 +115,26 @@ function SignupCitizen() {
           >
             <Box>
               {/* PAGE ONE ###########################################################*/}
-              {activeStep === 0 && <StepOne handleNext={handleNext} />}
+              {activeStep === 0 && <StepOne initData={formData} handleNext={handleNext} />}
 
               {/* PAGE TWO ######################################################## */}
-              {activeStep === 1 && <StepTwo handleBack={handleBack} handleNext={handleNext} />}
+              {activeStep === 1 && (
+                <StepTwo initData={formData} handleBack={handleBack} handleNext={handleNext} />
+              )}
 
               {/* PAGE THREE ######################################################## */}
-              {activeStep === 2 && <StepThree handleBack={handleBack} handleNext={handleNext} />}
+              {activeStep === 2 && (
+                <StepThree initData={formData} handleBack={handleBack} handleNext={handleNext} />
+              )}
 
               {/* PAGE FOUR ######################################################## */}
-              {activeStep === 3 && <StepFour handleBack={handleBack} handleNext={handleNext} />}
+              {activeStep === 3 && (
+                <StepFour initData={formData} handleBack={handleBack} handleNext={handleNext} />
+              )}
 
               {/* PAGE FIVE ######################################################## */}
               {/* SHOWN WHEN SIGNUP DONE ######################################################## */}
               {activeStep === 4 && <StepFive user={user} />}
-            </Box>
-            <Box marginTop={'60px'}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: activeStep === 0 ? 'right' : 'space-between',
-                }}
-              >
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  onClick={handleBack}
-                  sx={{ display: activeStep === 0 ? 'none' : 'inherit', mr: 1 }}
-                >
-                  Back
-                </Button>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent:
-                      activeStep === 1 || activeStep === 2 || activeStep === 3
-                        ? 'right'
-                        : 'space-between',
-                  }}
-                >
-                  {(activeStep === 1 || activeStep === 2 || activeStep === 3) && (
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      onClick={handleNext}
-                      sx={{ marginRight: '20px' }}
-                    >
-                      Skip
-                    </Button>
-                  )}
-                  {(activeStep === 0 ||
-                    activeStep === 1 ||
-                    activeStep === 2 ||
-                    activeStep === 3) && (
-                    <Button color="primary" variant="outlined" onClick={handleNext}>
-                      Next
-                    </Button>
-                  )}
-                  <Box />
-                </Box>
-                {activeStep === 4 && (
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                    disabled={!formData.accept_terms}
-                  >
-                    Sign Up
-                  </Button>
-                )}
-              </Box>
             </Box>
             {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
             {isLoading && <Typography>Loading</Typography>}

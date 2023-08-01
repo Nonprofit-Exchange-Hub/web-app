@@ -1,13 +1,13 @@
 export interface UserSignupData {
   firstName: string;
-  last_name: string;
+  lastName: string;
   email: string;
   password: string;
-  accept_terms?: boolean;
+  acceptTerms?: boolean;
   email_notification_opt_out?: boolean;
   city: string;
   state: string;
-  zip_code: string;
+  zipCode: string;
   interests: string[];
   bio: string;
 }

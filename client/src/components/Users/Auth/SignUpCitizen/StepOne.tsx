@@ -59,11 +59,17 @@ const getError = (rule: StringSchema | BooleanSchema, value: string | undefined)
 };
 
 interface StepOneType {
+  initData: {};
   handleNext: (formData: {}) => void;
 }
 
-export default function StepOne({ handleNext }: StepOneType) {
+export default function StepOne({ initData, handleNext }: StepOneType) {
   const { classes } = useStyles();
+
+  Object.keys(initialFormData).forEach((key) => {
+    //@ts-ignore
+    initialFormData[key].value = initData[key];
+  });
 
   const [formData, setFormData] = useState(initialFormData);
 
@@ -116,7 +122,11 @@ export default function StepOne({ handleNext }: StepOneType) {
   };
 
   const handleClickNext = () => {
-    const formValues = Object.values(formData).map((inputObj) => inputObj.value);
+    const formValues = Object.entries(formData).reduce((acc, [key, val]) => {
+      // @ts-ignore
+      acc[key] = val.value;
+      return acc;
+    }, {});
     handleNext(formValues);
   };
 

@@ -8,12 +8,15 @@ const initialFormData = {
 };
 
 interface StepFourType {
+  initData: { bio: string };
   handleBack: () => void;
   handleNext: (formData: {}) => void;
 }
 
-export default function StepFour({ handleBack, handleNext }: StepFourType) {
+export default function StepFour({ initData, handleBack, handleNext }: StepFourType) {
   const { classes } = useStyles();
+
+  initialFormData.bio = initData.bio;
 
   const [formData, setFormData] = useState(initialFormData);
 
