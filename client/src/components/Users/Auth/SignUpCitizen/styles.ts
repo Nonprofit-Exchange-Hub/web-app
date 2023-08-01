@@ -48,4 +48,7 @@ export const useStyles = makeStyles()((theme) => ({
   error: {
     border: '1px solid red',
   },
+  selectedChip: {
+    backgroundColor: '#C4C4C4',
+  },
 }));

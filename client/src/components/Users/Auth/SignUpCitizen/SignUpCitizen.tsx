@@ -65,6 +65,7 @@ function SignupCitizen() {
 
   // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = (newFormData: {}) => {
+    console.log({ newFormData });
     setFormData((currFormData) => ({
       ...currFormData,
       ...newFormData,

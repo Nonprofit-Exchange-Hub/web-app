@@ -5,12 +5,8 @@ import { interests } from './interests';
 
 import { useStyles } from './styles';
 
-const initialFormData = {
-  interests: [],
-};
-
 interface StepThreeType {
-  initData: {};
+  initData: { interests: string[] };
   handleBack: () => void;
   handleNext: (formData: {}) => void;
 }
@@ -18,19 +14,15 @@ interface StepThreeType {
 export default function StepThree({ initData, handleBack, handleNext }: StepThreeType) {
   const { classes } = useStyles();
 
-  Object.keys(initialFormData).forEach((key) => {
-    //@ts-ignore
-    initialFormData[key].value = initData[key];
-  });
-
-  const [formData, setFormData] = useState<{ interests: string[] }>(initialFormData);
+  const [formData, setFormData] = useState<{ interests: string[] }>(initData);
 
   const makeChips = () => {
     return interests.map((interest) => {
       // TODO: toggle chip style when interest is chosen
+      const isSelected = formData.interests.includes(interest);
       return (
         <Chip
-          className={classes.chip}
+          className={`${classes.chip} ${isSelected && classes.selectedChip}`}
           label={interest}
           sx={{ fontSize: '16px' }}
           variant="outlined"
