@@ -59,7 +59,7 @@ const getError = (rule: StringSchema | BooleanSchema, value: string | undefined)
 };
 
 interface StepOneType {
-  handleNext: () => void;
+  handleNext: (formData: {}) => void;
 }
 
 export default function StepOne({ handleNext }: StepOneType) {
@@ -113,6 +113,11 @@ export default function StepOne({ handleNext }: StepOneType) {
         };
       });
     }
+  };
+
+  const handleClickNext = () => {
+    const formValues = Object.values(formData).map((inputObj) => inputObj.value);
+    handleNext(formValues);
   };
 
   return (
@@ -219,7 +224,12 @@ export default function StepOne({ handleNext }: StepOneType) {
         />
       </Box>
       <Box>
-        <Button color="primary" variant="outlined" onClick={handleNext} disabled={!nextEnabled}>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={handleClickNext}
+          disabled={!nextEnabled}
+        >
           Next
         </Button>
       </Box>

@@ -27,7 +27,7 @@ const initialFormData = {
 
 interface StepTwoType {
   handleBack: () => void;
-  handleNext: () => void;
+  handleNext: (formData: {}) => void;
 }
 
 export default function StepTwo({ handleBack, handleNext }: StepTwoType) {
@@ -72,7 +72,8 @@ export default function StepTwo({ handleBack, handleNext }: StepTwoType) {
   };
 
   const handleClickNext = () => {
-    handleNext();
+    const formValues = Object.values(formData).map((inputObj) => inputObj.value);
+    handleNext(formValues);
   };
 
   return (

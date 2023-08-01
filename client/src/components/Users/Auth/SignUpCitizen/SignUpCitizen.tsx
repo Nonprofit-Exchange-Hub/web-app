@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { Box, Button, Chip, Grid, Avatar, TextField, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { UserContext } from '../../../../providers';
-import { useStyles } from './styles';
-import { interests } from './interests';
 import { UserSignupData } from './UserSignupData';
 import { APP_API_BASE_URL } from '../../../../configs';
 import SvgSignUpContactInfoStep from './SvgSignUpContactInfoStep';
@@ -13,6 +11,9 @@ import SvgSignUpFinishedStep from './SvgSignUpFinishedStep';
 
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
+import StepThree from './StepThree';
+import StepFour from './StepFour';
+import StepFive from './StepFive';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -29,49 +30,12 @@ const initialFormData: UserSignupData = {
 };
 
 function SignupCitizen() {
-  const { classes } = useStyles();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState(initialFormData);
   const { user, setUser } = React.useContext(UserContext);
 
-  const makeChips = () => {
-    return interests.map((interest) => {
-      // TODO: toggle chip style when interest is chosen
-      return (
-        <Chip
-          className={classes.chip}
-          label={interest}
-          sx={{ fontSize: '16px' }}
-          variant="outlined"
-          onClick={() => toggleInterest(interest)}
-        />
-      );
-    });
-  };
-
-  const toggleInterest = (interest: string): void => {
-    const existingInterestIdx = formData.interests.findIndex(
-      (existingInterest) => existingInterest === interest,
-    );
-
-    if (existingInterestIdx !== -1) {
-      formData.interests.splice(existingInterestIdx, 1);
-    } else {
-      formData.interests.push(interest);
-    }
-
-    setFormData({ ...formData, interests: formData.interests });
-  };
-
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
-    setFormData((fData) => ({
-      ...fData,
-      [name]: name === 'accept_terms' ? checked : value,
-      [name]: name === 'email_notification_opt_out' ? checked : value,
-    }));
-  };
+  console.log({ formData });
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
@@ -92,13 +56,17 @@ function SignupCitizen() {
       // setEmailError(data.message);
     } else {
       setUser(data);
-      handleNext();
+      // handleNext();
     }
   };
 
   // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
-  const handleNext = () => {
+  const handleNext = (newFormData: {}) => {
     console.log('HANDLENEXT');
+    setFormData((currFormData) => ({
+      ...currFormData,
+      ...newFormData,
+    }));
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -151,123 +119,14 @@ function SignupCitizen() {
               {activeStep === 1 && <StepTwo handleBack={handleBack} handleNext={handleNext} />}
 
               {/* PAGE THREE ######################################################## */}
-              {activeStep === 2 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="58px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                  >
-                    Tell us about your interests
-                  </Typography>
-                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                    Your Interests
-                  </Typography>
-                  <Typography>Please select one or more interest.</Typography>
-                  <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Grid container item xs={12} spacing={2}>
-                    <Grid item xs={12}>
-                      <label className={classes.label}>
-                        What type on nonprofits are you interested in?
-                      </label>
-                    </Grid>
-                    <Grid item xs={12}>
-                      {makeChips()}
-                    </Grid>
-                  </Grid>
-                </Box>
-              )}
+              {activeStep === 2 && <StepThree handleBack={handleBack} handleNext={handleNext} />}
 
               {/* PAGE FOUR ######################################################## */}
-              {activeStep === 3 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="58px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                  >
-                    Upload your profile icon
-                  </Typography>
-                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                    Your Profile
-                  </Typography>
-                  <Typography>
-                    You can update this information later in the settings of your account.
-                  </Typography>
-                  <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Grid container item xs={12} lg={6} alignItems="center">
-                    <Grid item xs={3}>
-                      <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <input accept="image/*" hidden id="upload-file" type="file" />
-                      <label htmlFor="upload-file">
-                        <Button
-                          sx={{
-                            backgroundColor: '#EF6A60',
-                            color: 'white',
-                            borderRadius: '4px',
-                            padding: '10px',
-                          }}
-                          color="primary"
-                        >
-                          Upload
-                        </Button>
-                      </label>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Typography
-                    className={classes.label}
-                    sx={{ fontWeight: 'bold', marginBottom: '10px' }}
-                  >
-                    About Yourself
-                  </Typography>
-                  <Grid item xs={10}>
-                    <TextField
-                      multiline
-                      rows={4}
-                      fullWidth
-                      placeholder="Tell us about yourself..."
-                      name="bio"
-                      onChange={handleChange}
-                    />
-                  </Grid>
-                </Box>
-              )}
+              {activeStep === 3 && <StepFour handleBack={handleBack} handleNext={handleNext} />}
 
               {/* PAGE FIVE ######################################################## */}
               {/* SHOWN WHEN SIGNUP DONE ######################################################## */}
-              {activeStep === 4 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="58px"
-                    component="h1"
-                    align="left"
-                  >
-                    Sign up almost complete!
-                  </Typography>
-                  <Typography
-                    className={classes.label}
-                    sx={{ fontWeight: 'bold', marginTop: '60px' }}
-                  >
-                    {user && user.firstName} {user && user.last_name}
-                  </Typography>
-                  <Typography>{user && user.email}</Typography>
-                  <Typography sx={{ marginBottom: '60px' }}>
-                    <strong>Please check your e-mail</strong> to finish the identity verification
-                    process. Afterwards, start contributing!
-                  </Typography>
-                </Box>
-              )}
+              {activeStep === 4 && <StepFive user={user} />}
             </Box>
             <Box marginTop={'60px'}>
               <Box
