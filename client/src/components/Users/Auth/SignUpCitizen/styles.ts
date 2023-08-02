@@ -25,6 +25,14 @@ export const useStyles = makeStyles()((theme) => ({
     fontWeight: 'bold',
     paddingBottom: '40px',
   },
+  subHeader: {
+    fontWeight: '600',
+    paddingBottom: 0,
+  },
+  text: {
+    fontWeight: '400',
+    paddingBottom: '40px',
+  },
   input: {
     height: 44,
     border: '1px solid #C4C4C4',

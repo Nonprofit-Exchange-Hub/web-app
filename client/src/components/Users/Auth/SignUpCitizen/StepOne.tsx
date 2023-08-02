@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button, Checkbox, Typography, FormControlLabel } from '@mui/material';
 import { string, boolean, ValidationError, StringSchema, BooleanSchema } from 'yup';
 
-import StyledLink from '../../../../components/StyledLink';
+import StyledLink from '../../../StyledLink';
 import routes from '../../../../routes/routes';
 import PasswordInput from '../PasswordInput';
 import EmailInput from '../EmailInput';
@@ -144,6 +144,26 @@ export default function StepOne({ initData, handleNext }: StepOneType) {
           gutterBottom
         >
           Let's get started
+        </Typography>
+        <Typography
+          sx={{ color: '#323232' }}
+          className={classes.subHeader}
+          lineHeight="1.4"
+          fontSize="22px"
+          align="left"
+        >
+          Basic Information
+        </Typography>
+        <Typography
+          sx={{ color: '#323232' }}
+          className={classes.text}
+          lineHeight="1.4"
+          fontSize="16px"
+          align="left"
+          gutterBottom
+        >
+          {/* TODO: Add link to "Login", this will open the login modal */}
+          Already have an account?
         </Typography>
         <Box display={'flex'} flexDirection={'row'} width={'100%'}>
           <Box marginRight={'20px'}>

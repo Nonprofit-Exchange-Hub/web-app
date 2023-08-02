@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Grid, Select, MenuItem, Typography, SelectChangeEvent } from '@mui/material';
-import { string } from 'yup';
+import { string, ValidationError, StringSchema, BooleanSchema } from 'yup';
 
 import { US_STATE_NAMES } from '../../../../configs';
 import NameInput from '../NameInput';
@@ -21,8 +21,21 @@ const initialFormData = {
   zipCode: {
     value: '',
     error: null,
-    rule: string().email('Invalid email.').required('Required.'),
+    rule: string()
+      .required('Required.')
+      .min(5, 'Zipcode is too short - should be 5 digits minimum.'),
   },
+};
+
+const getError = (rule: StringSchema | BooleanSchema, value: string | undefined) => {
+  try {
+    rule.validateSync(value);
+    return null;
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return error.message;
+    }
+  }
 };
 
 interface StepTwoType {
@@ -40,6 +53,9 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
   });
 
   const [formData, setFormData] = useState(initialFormData);
+  const nextIsDisabled = !Object.values(formData).every(
+    (inputData) => inputData.error !== null && inputData.value !== '',
+  );
 
   const makeStateSelectOptions = () => {
     return US_STATE_NAMES.map((state) => {
@@ -71,6 +87,24 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
         },
       };
     });
+  };
+
+  const handleBlur = (evt: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const { name }: { name: string } = evt.target;
+    if (Object.keys(initialFormData).includes(name)) {
+      setFormData((currFormData) => {
+        // @ts-ignore
+        let error = getError(currFormData[name].rule, currFormData[name].value);
+        return {
+          ...currFormData,
+          [name]: {
+            // @ts-ignore
+            ...currFormData[name],
+            error,
+          },
+        };
+      });
+    }
   };
 
   const handleClickBack = () => {
@@ -131,6 +165,8 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
               }}
               name="state"
               value={formData.state.value}
+              onBlur={handleBlur}
+              required
             >
               {makeStateSelectOptions()}
             </Select>
@@ -144,6 +180,7 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
               onChange={handleChange}
               value={formData.city.value}
               error={formData.city.error}
+              onBlur={handleBlur}
             />
           </Grid>
           <Grid item xs={4}>
@@ -155,6 +192,7 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
               onChange={handleChange}
               value={formData.zipCode.value}
               error={formData.zipCode.error}
+              onBlur={handleBlur}
             />
           </Grid>
         </Grid>
@@ -165,16 +203,13 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
             Back
           </Button>
         </Box>
-        <Box display="flex" flexDirection="row" justifyContent="space-between">
+        <Box display="flex" flexDirection="row" justifyContent="flex-end">
           <Button
             color="primary"
-            sx={{ marginRight: '12px' }}
             variant="outlined"
             onClick={handleClickNext}
+            disabled={nextIsDisabled}
           >
-            Skip
-          </Button>
-          <Button color="primary" variant="outlined" onClick={handleClickNext}>
             Next
           </Button>
         </Box>

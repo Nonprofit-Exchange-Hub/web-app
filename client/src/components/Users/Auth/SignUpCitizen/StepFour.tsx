@@ -100,7 +100,7 @@ export default function StepFour({ initData, handleBack, handleNext }: StepFourT
         <Box display="flex" flexDirection="row" justifyContent="space-between">
           <Button
             color="primary"
-            sx={{ marginRight: '12px' }}
+            sx={{ marginRight: '20px' }}
             variant="outlined"
             onClick={handleClickNext}
           >
