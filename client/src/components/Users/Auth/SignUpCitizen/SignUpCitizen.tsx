@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import { UserContext } from '../../../../providers';
+import { useSelector } from 'react-redux';
+
 import { UserSignupData } from './UserSignupData';
-import { APP_API_BASE_URL } from '../../../../configs';
 import SvgSignUpContactInfoStep from './SvgSignUpContactInfoStep';
 import SvgSignUpLocationStep from './SvgSignUpLocationStep';
 import SvgSignUpInterestsStep from './SvgSignUpInterestsStep';
@@ -14,6 +14,10 @@ import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import StepFour from './StepFour';
 import StepFive from './StepFive';
+
+import Actions from '../../../../actions/user';
+import { useAppDispatch } from '../../../../hooks/redux';
+import { selectUser, selectUserIsLoading } from '../../../../selectors/user';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -30,41 +34,42 @@ const initialFormData: UserSignupData = {
   bio: '',
 };
 
-function SignupCitizen() {
-  const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [formData, setFormData] = React.useState(initialFormData);
-  const { user, setUser } = React.useContext(UserContext);
+const useMapToState = () => {
+  const user = useSelector(selectUser);
+  const userIsLoading = useSelector(selectUserIsLoading);
 
-  console.log({ formData });
+  return {
+    user,
+    userIsLoading,
+  };
+};
+
+function SignupCitizen() {
+  const { user, userIsLoading } = useMapToState();
+
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const [formData, setFormData] = useState(initialFormData);
 
   const imgHeight = '569px';
   const imgWidth = '256px';
 
+  const dispatch = useAppDispatch();
+
+  console.log({ user });
+
+  useEffect(() => {
+    if (user.id) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+  }, [user]);
+
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    console.log(formData);
-    setIsLoading(true);
-    // Backend doesn't need acceptTerms. If a user is signed up they have agreed to the terms
-    delete formData.acceptTerms;
-    const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...formData, interests: { names: formData.interests } }),
-    });
-    const data = await res.json();
-    setIsLoading(false);
-    if (data.status === 409) {
-      // setEmailError(data.message);
-    } else {
-      setUser(data);
-      // handleNext();
-    }
+    console.log(formData, evt);
+    // @ts-ignore
+    dispatch(Actions.userSignup(formData));
   };
 
-  // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = (newFormData: {}) => {
     console.log({ newFormData });
     setFormData((currFormData) => ({
@@ -139,7 +144,7 @@ function SignupCitizen() {
               {activeStep === 4 && <StepFive user={user} />}
             </Box>
             {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
-            {isLoading && <Typography>Loading</Typography>}
+            {userIsLoading && <Typography>Loading</Typography>}
           </form>
         </Box>
       </Box>

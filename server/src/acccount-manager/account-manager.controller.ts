@@ -74,6 +74,7 @@ export class AccountManagerController {
   @Post('register')
   @ApiOperation({ summary: 'Create a new user account' })
   async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
+    console.log({ createUserDto });
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
       if (!res) {
@@ -102,7 +103,7 @@ export class AccountManagerController {
       `,
       mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'production' } },
     };
-    await this.sendgridService.send(mail);
+    // await this.sendgridService.send(mail);
 
     return user;
   }

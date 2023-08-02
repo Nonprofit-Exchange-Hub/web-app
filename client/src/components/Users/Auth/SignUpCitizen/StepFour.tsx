@@ -106,7 +106,7 @@ export default function StepFour({ initData, handleBack, handleNext }: StepFourT
           >
             Skip
           </Button>
-          <Button color="primary" variant="outlined" onClick={handleClickNext}>
+          <Button type="submit" color="primary" variant="outlined">
             Next
           </Button>
         </Box>
