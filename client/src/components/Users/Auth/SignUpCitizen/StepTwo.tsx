@@ -54,13 +54,15 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
 
   const [formData, setFormData] = useState(initialFormData);
   const nextIsDisabled = !Object.values(formData).every(
-    (inputData) => inputData.error !== null && inputData.value !== '',
+    (inputData) => inputData.error === null && inputData.value !== '',
   );
 
   const makeStateSelectOptions = () => {
-    return US_STATE_NAMES.map((state) => {
-      return <MenuItem value={state}>{state}</MenuItem>;
-    });
+    return US_STATE_NAMES.map((state) => (
+      <MenuItem key={state} value={state}>
+        {state}
+      </MenuItem>
+    ));
   };
 
   const handleSelectChange = (event: SelectChangeEvent<string>, child: React.ReactNode): void => {
