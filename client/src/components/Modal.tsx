@@ -5,6 +5,23 @@ import type { Theme } from '@mui/material/styles';
 import SignIn from './Modals/SignInModal';
 import SignUp from './Modals/SignUpModal';
 
+import { ErrorBoundary } from 'react-error-boundary';
+
+type ErrorFallbackProps = {
+  error: Error;
+  resetErrorBoundary: () => void;
+};
+
+const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary }) => {
+  return (
+    <div>
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+};
+
 const useStyles = makeStyles()((theme: Theme) => {
   const xPadding = 6;
   const yPadding = 6;
@@ -106,8 +123,15 @@ const Modal = () => {
   }
 
   return (
-    <div id="mango">
-      <SpecificModal ref={modalRef} closeModal={closeModal} className={classes} />
+    <div>
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => {
+          /* reset logic here */
+        }}
+      >
+        <SpecificModal ref={modalRef} closeModal={closeModal} className={classes} />
+      </ErrorBoundary>
     </div>
   );
 };
