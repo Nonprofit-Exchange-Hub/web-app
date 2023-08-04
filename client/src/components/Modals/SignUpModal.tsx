@@ -73,7 +73,7 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
               <Grid item xs={12}>
                 <Typography
                   className={className.header}
-                  variant="h3"
+                  variant="h4"
                   component={'span'}
                   align="center"
                 >

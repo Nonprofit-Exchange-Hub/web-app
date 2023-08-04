@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 // import { SignUpUserAndNonprofit } from '../components/Users/Auth/SignUpUserAndNonprofit/SignUpUserAndNonprofit';
-
 // function SignupNonProfit() {
 //   return <SignUpUserAndNonprofit />;
 // }
-
 // export default SignupNonProfit;
 
 import * as React from 'react';
@@ -28,6 +28,12 @@ import { UserContext } from '../providers';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../configs';
 import { Controller, useForm } from 'react-hook-form';
 import { classifications } from '../components/Users/Auth/SignUpUserAndNonprofit/Classifications';
+import SvgSignUpContactInfoStep from '../components/Icons/SvgSignUpContactInfoStep';
+import SvgSignUpLocationStep from '../components/Icons/SvgSignUpLocationStep';
+import SvgSignUpfocusAreasStep from '../components/Icons/SvgSignUpFocusAreasStep';
+import SvgSignUpProfileStep from '../components/Icons/SvgSignUpProfileStep';
+import SvgSignUpFinishedStep from '../components/Icons/SvgSignUpFinishedStep';
+import { focusAreas } from './focusAreas';
 import {
   Box,
   Stepper,
@@ -38,6 +44,9 @@ import {
   Avatar,
   TextField,
   OutlinedInput,
+  InputLabel,
+  SelectChangeEvent,
+  Chip,
 } from '@mui/material';
 
 const useStyles = makeStyles()((theme: Theme) => ({
@@ -88,6 +97,12 @@ const useStyles = makeStyles()((theme: Theme) => ({
 interface UserSignupData {
   firstName: string;
   last_name: string;
+  state: string;
+  city: string;
+  focusAreas: string[];
+  role: string;
+  zip_code: string;
+  bio: string;
   email: string;
   password: string;
   accept_terms?: boolean;
@@ -97,10 +112,16 @@ interface UserSignupData {
 const initialFormData: UserSignupData = {
   firstName: '',
   last_name: '',
+  city: '',
+  focusAreas: [],
+  role: '',
   email: '',
   password: '',
   accept_terms: false,
   email_notification_opt_out: false,
+  state: '',
+  zip_code: '',
+  bio: '',
 };
 
 function SignupNonProfit() {
@@ -118,10 +139,47 @@ function SignupNonProfit() {
     { label: 'Profile' },
   ];
 
+  const makeChips = () => {
+    return focusAreas.map((focusArea) => {
+      // TODO: toggle chip style when focusArea is chosen
+      return (
+        <Chip
+          className={classes.chip}
+          label={focusArea}
+          sx={{ fontSize: '16px' }}
+          variant="outlined"
+          onClick={() => togglefocusArea(focusArea)}
+        />
+      );
+    });
+  };
+
+  const togglefocusArea = (focusArea: string): void => {
+    const existingfocusAreaIdx = formData.focusAreas.findIndex(
+      (existingfocusArea) => existingfocusArea === focusArea,
+    );
+
+    if (existingfocusAreaIdx !== -1) {
+      formData.focusAreas.splice(existingfocusAreaIdx, 1);
+    } else {
+      formData.focusAreas.push(focusArea);
+    }
+
+    setFormData({ ...formData, focusAreas: formData.focusAreas });
+  };
+
   const makeStateSelectOptions = () => {
     return US_STATE_NAMES.map((state) => {
       return <MenuItem value={state}>{state}</MenuItem>;
     });
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string>, child: React.ReactNode): void => {
+    const { name, value }: { name: string; value: string } = event.target;
+    setFormData((fData) => ({
+      ...fData,
+      [name]: value,
+    }));
   };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -165,107 +223,126 @@ function SignupNonProfit() {
   };
 
   return (
-    <div className="SignupCitizen">
-      <Grid container>
-        <Grid item xs={12} sx={{ height: '60px' }} />
-        <Grid className={classes.sideImg} item xs={3} />
-        <Grid item xs={1} />
-        <Grid container className={classes.signUpContainer} item direction="column" xs={7}>
-          <Grid container spacing={0} justifyContent="center" sx={{ marginY: '20px' }}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepLabel
-                    optional={
-                      index === steps.length - 1 ? (
-                        <Typography variant="caption">Last Step</Typography>
-                      ) : null
-                    }
+    <Box display={'flex'} flexDirection={'row'} justifyContent={'left'}>
+      <Box
+        sx={{
+          backgroundColor: '#FFC958',
+          borderRadius: '0 20px 20px 0',
+          maxHeight: '690px',
+          maxWidth: '446px',
+          padding: '19px 60px 120px 130px',
+        }}
+      >
+        {(activeStep === 0 && <SvgSignUpContactInfoStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 1 && <SvgSignUpLocationStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 2 && <SvgSignUpfocusAreasStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 3 && <SvgSignUpProfileStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 4 && <SvgSignUpFinishedStep height={'569px'} width={'256px'} />)}
+      </Box>
+      <Box display={'flex'} flexDirection={'row'} justifyContent={'center'}>
+        <Box
+          display={'flex'}
+          flexDirection={'column'}
+          height={'690px'}
+          justifyContent={'center'}
+          sx={{ marginLeft: '84px', marginBottom: '78px', marginRight: '130px' }}
+        >
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+          >
+            <Box>
+              {activeStep === 0 && (
+                <Box sx={{ height: '100%', minWidth: '780px' }}>
+                  <Typography
+                    className={classes.header}
+                    variant="h4"
+                    fontSize="40px"
+                    lineHeight="87px"
+                    component="h1"
+                    align="left"
+                    sx={{ color: '#674E67' }}
+                    gutterBottom
                   >
-                    {step.label}
-                  </StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Grid>
-
-          <form onSubmit={handleSubmit}>
-            {/* PAGE ONE ###########################################################*/}
-            {activeStep === 0 && (
-              <>
-                <Typography
-                  className={classes.header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
-                  gutterBottom
-                >
-                  Let's get started
-                </Typography>
-                <Typography
-                  component="p"
-                  align="left"
-                  gutterBottom
-                  sx={{ fontSize: '15px', color: '#404040', margin: '16px 0' }}
-                ></Typography>
-                <Grid container item sx={{ paddingBottom: '16px' }}>
-                  <GoogleAuthBtn>Sign Up with Google</GoogleAuthBtn>
-                  <FacebookAuthBtn>Sign Up With Facebook</FacebookAuthBtn>
-                </Grid>
-                <TextDivider>or</TextDivider>
-                <Grid container item xs={12}>
-                  <Grid item xs={12}>
-                    <FormControl>
-                      <label className={classes.label} htmlFor="orgName">
-                        Organization Name
-                      </label>
-                      <Input
-                        className={classes.input}
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        autoComplete="given-name"
-                        placeholder="..."
-                        fullWidth
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        disableUnderline
-                        required
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControl>
-                      <label className={classes.label} htmlFor="employerIdentificationNumber">
-                        Employer Identification Number (EIN)
-                      </label>
-                      <Input
-                        className={classes.input}
-                        type="text"
-                        id="last_name"
-                        name="last_name"
-                        autoComplete="family-name"
-                        placeholder="..."
-                        fullWidth
-                        value={formData.last_name}
-                        onChange={handleChange}
-                        disableUnderline
-                        required
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Controller
-                      name="nonprofit_classification"
-                      control={control}
-                      render={({ field }) => (
-                        <>
-                          <label className={classes.label} htmlFor="irs_classificiation">
-                            IRS Nonprofit Organization Classification
-                          </label>
+                    Let's get started!
+                  </Typography>
+                  <Box display={'flex'} flexDirection={'row'} width={'100%'}>
+                    <Box width={'100%'}>
+                      <label className={classes.label}> About Your Organization</label>
+                      <Grid container item xs={12} spacing={2}>
+                        <Grid item xs={12}>
+                          <InputLabel id="state-select">Organization Name</InputLabel>
+                          <FormControl fullWidth>
+                            <Input
+                              className={classes.input}
+                              type="text"
+                              id="last_name"
+                              name="last_name"
+                              autoComplete="family-name"
+                              fullWidth
+                              value={formData.last_name}
+                              onChange={handleChange}
+                              disableUnderline
+                              required
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <InputLabel id="city-select">City</InputLabel>
+                          <Input
+                            className={classes.input}
+                            placeholder="city"
+                            disableUnderline
+                            fullWidth
+                            onChange={handleChange}
+                            name="city"
+                          ></Input>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <InputLabel id="state-select">State</InputLabel>
                           <Select
-                            {...field}
+                            label="State"
+                            className={classes.input}
+                            displayEmpty
+                            fullWidth
+                            onChange={handleSelectChange}
+                            sx={{ marginTop: '10px', border: '1px solid' }}
+                            MenuProps={{
+                              anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+                              sx: {
+                                borderRadius: '10px',
+                                padding: '20px',
+                                height: '240px',
+                              },
+                            }}
+                            name="state"
+                            value={formData.state}
+                          >
+                            {makeStateSelectOptions()}
+                          </Select>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <InputLabel id="employer-identification-number">
+                            Employer Identification Number (EIN)
+                          </InputLabel>
+                          <Input
+                            className={classes.input}
+                            type="text"
+                            id="last_name"
+                            name="last_name"
+                            autoComplete="family-name"
+                            fullWidth
+                            value={formData.last_name}
+                            onChange={handleChange}
+                            disableUnderline
+                            required
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <InputLabel id="irs-nonprofit-organization-classfication">
+                            IRS Nonprofit Organization Classification
+                          </InputLabel>
+                          <Select
                             placeholder="Select classification"
                             variant="outlined"
                             autoWidth
@@ -284,355 +361,288 @@ function SignupNonProfit() {
                               );
                             })}
                           </Select>
-                        </>
-                      )}
-                    />
-                    {/* <FormHelperText error>
-                      {errors.nonprofit_classification
-                        ? errors.nonprofit_classification.message
-                        : ''}
-                    </FormHelperText> */}
-                  </Grid>
-                </Grid>
-                <Grid container />
-              </>
-            )}
-
-            {/* PAGE TWO ######################################################## */}
-            {activeStep === 1 && (
-              <>
-                <Typography
-                  className={classes.header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
-                >
-                  Tell us about yourself
-                </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                  Representative Information
-                </Typography>
-                <Grid item xs={12} sx={{ height: '10px' }} />
-                <Grid container item xs={12} spacing={2}>
-                  <Grid item xs={6}>
-                    <Typography className={classes.label}>First Name</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Jane"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography className={classes.label}>Last Name</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Doe"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.label}>Role</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Event Coordinator"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <EmailInput
-                      value={formData.email}
-                      placeholder="Organization Email"
-                      onChange={handleChange}
-                      showStartAdornment={true}
-                      error={emailError}
-                    />
-                    <PasswordInput
-                      value={formData.password}
-                      onChange={handleChange}
-                      showStartAdornment={true}
-                    />
-                  </Grid>
-                </Grid>
-                <FormControlLabel
-                  style={{ textAlign: 'left', display: 'block' }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={formData.email_notification_opt_out}
-                      onChange={handleChange}
-                      name="email_notification_opt_out"
-                      inputProps={{ 'aria-label': 'email_notification_opt_out_checkbox' }}
-                    />
-                  }
-                  label={'Opt Out Of Email Notifications'}
-                />
-              </>
-            )}
-
-            {/* PAGE THREE ######################################################## */}
-            {activeStep === 2 && (
-              <>
-                <Typography
-                  className={classes.header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
-                >
-                  Tell us about your organization
-                </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                  Contact Information
-                </Typography>
-                <Grid item xs={12} sx={{ height: '10px' }} />
-                <Grid container item xs={12} spacing={2}>
-                  <Grid item xs={12}>
-                    <Typography className={classes.label}>Street address</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Jane"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography className={classes.label}>City</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Doe"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography className={classes.label}>State</Typography>
-                    <Select className={classes.input} placeholder="state" fullWidth>
-                      {makeStateSelectOptions()}
-                    </Select>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography className={classes.label}>Zip Code</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Doe"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                    Online Information
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Box>
+                </Box>
+              )}
+              {activeStep === 1 && (
+                <Box sx={{ height: '100%', minWidth: '780px' }}>
+                  <Typography
+                    className={classes.header}
+                    variant="h4"
+                    fontSize="40px"
+                    component="h1"
+                    align="left"
+                    sx={{ color: '#674E67' }}
+                  >
+                    Tell us about yourself.
                   </Typography>
-                  <Grid item xs={12}>
-                    <Typography className={classes.label}>Website</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Doe"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.label}>Instagram</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Doe"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.label}>Facebook</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Doe"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.label}>Twitter</Typography>
-                    <Input
-                      className={classes.input}
-                      placeholder="Doe"
-                      fullWidth
-                      disableUnderline
-                    ></Input>
-                  </Grid>
-                </Grid>
-              </>
-            )}
-
-            {/* PAGE FOUR ######################################################## */}
-            {activeStep === 3 && (
-              <>
-                <Typography
-                  className={classes.header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
-                >
-                  Tell us about your organization
-                </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                  Add an image
-                </Typography>
-                <Typography>Upload an organization logo (optional)</Typography>
-                <Grid item xs={12} sx={{ height: '50px' }} />
-                <Grid container item xs={12} alignItems="center">
-                  <Grid item xs={3}>
-                    <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <input accept="image/*" hidden id="upload-file" type="file" />
-                    <label htmlFor="upload-file">
-                      <Button
-                        className={classes.button}
-                        component="span"
-                        color="secondary"
-                        variant="contained"
-                      >
-                        Upload
-                      </Button>
-                    </label>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sx={{ height: '50px' }} />
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                  Write a description
-                </Typography>
-                <Typography>
-                  You can update this information later in your account settings
-                </Typography>
-                <Grid item xs={10}>
-                  <TextField
-                    multiline
-                    rows={4}
-                    fullWidth
-                    placeholder="
-                  Tell us about your organization..."
-                  />
-                </Grid>
-                <FormControlLabel
-                  style={{
-                    textAlign: 'left',
-                    display: 'block',
-                  }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={formData.accept_terms}
-                      onChange={handleChange}
-                      name="accept_terms"
-                      inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                  <label className={classes.label}> Representative Information </label>
+                  <Grid item xs={12} sx={{ height: '50px' }} />
+                  <Grid container item xs={12} spacing={2}>
+                    <Grid item xs={6}>
+                      <InputLabel id="state-select">First Name</InputLabel>
+                      <FormControl fullWidth>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="last_name"
+                          name="last_name"
+                          autoComplete="family-name"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <InputLabel id="state-select">Last Name</InputLabel>
+                      <FormControl fullWidth>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="last_name"
+                          name="last_name"
+                          autoComplete="family-name"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <InputLabel id="state-select">Role/Position</InputLabel>
+                      <FormControl fullWidth>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="role_position"
+                          name="role_position"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <EmailInput
+                        value={formData.email}
+                        placeholder="Organization Email"
+                        onChange={handleChange}
+                        showStartAdornment={true}
+                        error={emailError}
+                      />
+                      <PasswordInput
+                        value={formData.password}
+                        onChange={handleChange}
+                        showStartAdornment={true}
+                      />
+                    </Grid>
+                    <FormControlLabel
+                      style={{
+                        textAlign: 'left',
+                        display: 'block',
+                      }}
+                      control={
+                        <Checkbox
+                          color="primary"
+                          checked={formData.accept_terms}
+                          onChange={handleChange}
+                          name="accept_terms"
+                          inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                        />
+                      }
+                      label={
+                        <label>
+                          Accept the{' '}
+                          <StyledLink to={routes.TermsOfService.path} target="_blank">
+                            Terms of Service
+                          </StyledLink>
+                        </label>
+                      }
                     />
-                  }
-                  label={
-                    <label>
-                      Accept the{' '}
-                      <StyledLink to={routes.TermsOfService.path} target="_blank">
-                        Terms of Service
-                      </StyledLink>
-                    </label>
-                  }
-                />
-              </>
-            )}
-
-            {/* PAGE FIVE ######################################################## */}
-            {/* SHOWN WHEN SIGNUP DONE ######################################################## */}
-            {activeStep === 4 && (
-              <>
-                <Typography
-                  className={classes.header}
-                  variant="h4"
-                  fontSize="58px"
-                  component="h1"
-                  align="left"
+                  </Grid>
+                </Box>
+              )}
+              {activeStep === 2 && (
+                <Box sx={{ height: '100%', minWidth: '780px' }}>
+                  <Typography
+                    className={classes.header}
+                    variant="h4"
+                    fontSize="40px"
+                    component="h1"
+                    align="left"
+                    sx={{ color: '#674E67' }}
+                  >
+                    Tell us about your focus area.
+                  </Typography>
+                  <Grid item xs={12} sx={{ height: '50px' }} />
+                  <Grid container item xs={12} spacing={2}>
+                    <Grid item xs={12}>
+                      <label className={classes.label}>
+                        What type of work is your organization invovled with?
+                      </label>
+                    </Grid>
+                    <Grid item xs={12}>
+                      {makeChips()}
+                    </Grid>
+                  </Grid>
+                </Box>
+              )}
+              {activeStep === 3 && (
+                <Box sx={{ height: '100%', minWidth: '780px' }}>
+                  <Typography
+                    className={classes.header}
+                    variant="h4"
+                    fontSize="40px"
+                    component="h1"
+                    align="left"
+                    sx={{ color: '#674E67' }}
+                  >
+                    Finalize your organization's profile.
+                  </Typography>
+                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
+                    Photo
+                  </Typography>
+                  <Typography>A logo, image, or icon that represents your organization.</Typography>
+                  <Grid item xs={12} sx={{ height: '10px' }} />
+                  <Grid container item xs={12} lg={6} alignItems="center">
+                    <Grid item xs={3}>
+                      <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <input accept="image/*" hidden id="upload-file" type="file" />
+                      <label htmlFor="upload-file">
+                        <Button
+                          sx={{
+                            backgroundColor: '#EF6A60',
+                            color: 'white',
+                            borderRadius: '4px',
+                            padding: '10px',
+                          }}
+                          color="primary"
+                        >
+                          Upload
+                        </Button>
+                      </label>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} sx={{ height: '50px' }} />
+                  <Typography
+                    className={classes.label}
+                    sx={{ fontWeight: 'bold', marginBottom: '10px' }}
+                  >
+                    About
+                  </Typography>
+                  <Typography>A summary about your organization at a glance.</Typography>
+                  <Grid item xs={12}>
+                    <TextField
+                      multiline
+                      rows={4}
+                      fullWidth
+                      placeholder="Tell us about your organization..."
+                      name="bio"
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                </Box>
+              )}
+              {activeStep === 4 && (
+                <Box sx={{ height: '100%', minWidth: '780px' }}>
+                  <Typography
+                    className={classes.header}
+                    variant="h4"
+                    fontSize="58px"
+                    component="h1"
+                    align="left"
+                  >
+                    Sign up almost complete!
+                  </Typography>
+                  <Typography
+                    className={classes.label}
+                    sx={{ fontWeight: 'bold', marginTop: '60px' }}
+                  >
+                    {user && user.firstName} {user && user.last_name}
+                  </Typography>
+                  <Typography>{user && user.email}</Typography>
+                  <Typography sx={{ marginBottom: '60px' }}>
+                    <strong>Please check your e-mail</strong> to finish the identity verification
+                    process. Afterwards, start contributing!
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+            <Box marginTop={'60px'}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: activeStep === 0 ? 'right' : 'space-between',
+                }}
+              >
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  onClick={handleBack}
+                  sx={{ display: activeStep === 0 ? 'none' : 'inherit', mr: 1 }}
                 >
-                  Sign up Complete!
-                </Typography>
-                <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                  Name: {user && user.firstName} {user && user.last_name}
-                </Typography>
-                <Typography>Email: {user && user.email}</Typography>
-                <Grid item xs={12} sx={{ height: '50px' }} />
-                <Typography>
-                  Please check your email to finish the identity verification process. Otherwise,
-                  start posting your organization needs.
-                </Typography>
-              </>
-            )}
-
-            {activeStep !== 4 && (
-              <Grid container spacing={5}>
-                <Grid item xs={12} sx={{ mt: 2, mb: 6 }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+                  Back
+                </Button>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent:
+                      activeStep === 1 || activeStep === 2 || activeStep === 3
+                        ? 'right'
+                        : 'space-between',
+                  }}
+                >
+                  {(activeStep === 1 || activeStep === 2 || activeStep === 3) && (
                     <Button
                       color="primary"
                       variant="outlined"
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      sx={{ mr: 1 }}
+                      onClick={handleNext}
+                      sx={{ marginRight: '20px' }}
                     >
-                      Back
+                      Skip
                     </Button>
-                    <Box />
-                    {activeStep === 0 && (
-                      <Button color="primary" variant="outlined" onClick={handleNext}>
-                        Next
-                      </Button>
-                    )}
-                    {activeStep === 1 && (
-                      <Button color="primary" variant="outlined" onClick={handleNext}>
-                        Next
-                      </Button>
-                    )}
-                    {activeStep === 2 && (
-                      <Button color="primary" variant="outlined" onClick={handleNext}>
-                        Next
-                      </Button>
-                    )}
-                    {activeStep === 3 && (
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        type="submit"
-                        disabled={!formData.accept_terms}
-                      >
-                        Sign Up
-                      </Button>
-                    )}
-                  </Box>
-                </Grid>
-              </Grid>
-            )}
-            {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                  )}
+                  {(activeStep === 0 ||
+                    activeStep === 1 ||
+                    activeStep === 2 ||
+                    activeStep === 3) && (
+                    <Button color="primary" variant="outlined" onClick={handleNext}>
+                      Next
+                    </Button>
+                  )}
+                  <Box />
+                </Box>
+                {activeStep === 4 && (
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    disabled={!formData.accept_terms}
+                  >
+                    Sign Up
+                  </Button>
+                )}
+              </Box>
+            </Box>
             {isLoading && <Typography>Loading</Typography>}
           </form>
-        </Grid>
-        <Grid item xs={12} sx={{ height: '65px' }} />
-      </Grid>
-      {activeStep === 4 && (
-        <>
-          <Grid container xs={12} justifyContent="center">
-            <Grid container xs={10} justifyContent="space-between">
-              <Button color="primary" variant="outlined">
-                Back To Home Page
-              </Button>
-              <Button color="primary" variant="outlined">
-                View Your Profile
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sx={{ height: '30px' }} />
-        </>
-      )}
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
