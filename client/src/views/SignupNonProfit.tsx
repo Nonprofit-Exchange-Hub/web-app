@@ -7,38 +7,32 @@
 // export default SignupNonProfit;
 
 import * as React from 'react';
-import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Input from '@mui/material/Input';
-import { makeStyles } from 'tss-react/mui';
-import Typography from '@mui/material/Typography';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
-import { placeholderImg } from '../assets/temp';
-import EmailInput from '../components/Users/Auth/EmailInput';
-import FacebookAuthBtn from '../components/Users/Auth/FacebookAuthBtn';
-import GoogleAuthBtn from '../components/Users/Auth/GoogleAuthBtn';
-import PasswordInput from '../components/Users/Auth/PasswordInput';
-import StyledLink from '../components/StyledLink';
-import TextDivider from '../components/TextDivider';
-import routes from '../routes/routes';
+import { useForm } from 'react-hook-form';
+import { focusAreas } from './focusAreas';
+import { makeStyles } from 'tss-react/mui';
 import { UserContext } from '../providers';
-import { APP_API_BASE_URL, US_STATE_NAMES } from '../configs';
-import { Controller, useForm } from 'react-hook-form';
+import { placeholderImg } from '../assets/temp';
 import { classifications } from '../components/Users/Auth/SignUpUserAndNonprofit/Classifications';
+import { APP_API_BASE_URL, US_STATE_NAMES } from '../configs';
+import routes from '../routes/routes';
+import EmailInput from '../components/Users/Auth/EmailInput';
+import StyledLink from '../components/StyledLink';
+import PasswordInput from '../components/Users/Auth/PasswordInput';
 import SvgSignUpContactInfoStep from '../components/Icons/SvgSignUpContactInfoStep';
 import SvgSignUpLocationStep from '../components/Icons/SvgSignUpLocationStep';
 import SvgSignUpfocusAreasStep from '../components/Icons/SvgSignUpFocusAreasStep';
 import SvgSignUpProfileStep from '../components/Icons/SvgSignUpProfileStep';
 import SvgSignUpFinishedStep from '../components/Icons/SvgSignUpFinishedStep';
-import { focusAreas } from './focusAreas';
 import {
   Box,
-  Stepper,
-  Step,
-  StepLabel,
   Select,
   MenuItem,
   Avatar,
