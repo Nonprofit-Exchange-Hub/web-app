@@ -8,7 +8,6 @@ import {
   Request,
   UseGuards,
   Controller,
-  HttpException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
