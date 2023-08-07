@@ -229,9 +229,10 @@ function SignupNonProfit() {
       >
         {(activeStep === 0 && <SvgSignUpContactInfoStep height={'569px'} width={'256px'} />) ||
           (activeStep === 1 && <SvgSignUpLocationStep height={'569px'} width={'256px'} />) ||
-          (activeStep === 2 && <SvgSignUpfocusAreasStep height={'569px'} width={'256px'} />) ||
-          (activeStep === 3 && <SvgSignUpProfileStep height={'569px'} width={'256px'} />) ||
-          (activeStep === 4 && <SvgSignUpFinishedStep height={'569px'} width={'256px'} />)}
+          (activeStep === 2 && <SvgSignUpProfileStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 3 && <SvgSignUpfocusAreasStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 4 && <SvgSignUpProfileStep height={'569px'} width={'256px'} />) ||
+          (activeStep === 5 && <SvgSignUpFinishedStep height={'569px'} width={'256px'} />)}
       </Box>
       <Box display={'flex'} flexDirection={'row'} justifyContent={'center'}>
         <Box
@@ -252,7 +253,7 @@ function SignupNonProfit() {
                     className={classes.header}
                     variant="h4"
                     fontSize="40px"
-                    lineHeight="87px"
+                    lineHeight="60px"
                     component="h1"
                     align="left"
                     sx={{ color: '#674E67' }}
@@ -263,7 +264,7 @@ function SignupNonProfit() {
                   <Box display={'flex'} flexDirection={'row'} width={'100%'}>
                     <Box width={'100%'}>
                       <label className={classes.label}> About Your Organization</label>
-                      <Grid container item xs={12} spacing={2}>
+                      <Grid container item xs={12} spacing={1}>
                         <Grid item xs={12}>
                           <InputLabel id="state-select">Organization Name</InputLabel>
                           <FormControl fullWidth>
@@ -281,18 +282,27 @@ function SignupNonProfit() {
                             />
                           </FormControl>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={7}>
+                          <InputLabel id="street-address">Street Address</InputLabel>
+                          <Input
+                            className={classes.input}
+                            disableUnderline
+                            fullWidth
+                            onChange={handleChange}
+                            name="street-address"
+                          ></Input>
+                        </Grid>
+                        <Grid item xs={3}>
                           <InputLabel id="city-select">City</InputLabel>
                           <Input
                             className={classes.input}
-                            placeholder="city"
                             disableUnderline
                             fullWidth
                             onChange={handleChange}
                             name="city"
                           ></Input>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={2}>
                           <InputLabel id="state-select">State</InputLabel>
                           <Select
                             label="State"
@@ -337,16 +347,25 @@ function SignupNonProfit() {
                             IRS Nonprofit Organization Classification
                           </InputLabel>
                           <Select
-                            placeholder="Select classification"
-                            variant="outlined"
-                            autoWidth
                             input={<OutlinedInput />}
                             inputProps={{ 'aria-label': 'Without label' }}
+                            className={classes.input}
                             displayEmpty
+                            fullWidth
+                            onChange={handleSelectChange}
+                            sx={{ marginTop: '10px', border: '1px solid' }}
+                            MenuProps={{
+                              anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+                              sx: {
+                                borderRadius: '10px',
+                                padding: '20px',
+                                height: '240px',
+                              },
+                            }}
                           >
-                            <MenuItem disabled value="">
+                            {/* <MenuItem disabled value="">
                               <em>Select Classification</em>
-                            </MenuItem>
+                            </MenuItem> */}
                             {classifications.map((option, index) => {
                               return (
                                 <MenuItem key={option.text} value={option.text}>
@@ -374,8 +393,7 @@ function SignupNonProfit() {
                     Tell us about yourself.
                   </Typography>
                   <label className={classes.label}> Representative Information </label>
-                  <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Grid container item xs={12} spacing={2}>
+                  <Grid container item xs={12} spacing={1}>
                     <Grid item xs={6}>
                       <InputLabel id="state-select">First Name</InputLabel>
                       <FormControl fullWidth>
@@ -429,7 +447,7 @@ function SignupNonProfit() {
                     <Grid item xs={12}>
                       <EmailInput
                         value={formData.email}
-                        placeholder="Organization Email"
+                        placeholder=""
                         onChange={handleChange}
                         showStartAdornment={true}
                         error={emailError}
@@ -476,17 +494,75 @@ function SignupNonProfit() {
                     align="left"
                     sx={{ color: '#674E67' }}
                   >
-                    Tell us about your focus area.
+                    Tell us about your organization.
                   </Typography>
-                  <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Grid container item xs={12} spacing={2}>
+                  <label className={classes.label}> Contact Information </label>
+                  <Grid container item xs={12} spacing={1}>
                     <Grid item xs={12}>
-                      <label className={classes.label}>
-                        What type of work is your organization invovled with?
-                      </label>
+                      <InputLabel id="state-select">Website</InputLabel>
+                      <FormControl fullWidth>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="last_name"
+                          name="last_name"
+                          autoComplete="family-name"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                      {makeChips()}
+                      <InputLabel id="state-select">Instagram</InputLabel>
+                      <FormControl fullWidth>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="last_name"
+                          name="last_name"
+                          autoComplete="family-name"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <InputLabel id="state-select">Facebook</InputLabel>
+                      <FormControl fullWidth>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="role_position"
+                          name="role_position"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <InputLabel id="state-select">X</InputLabel>
+                      <FormControl fullWidth>
+                        <Input
+                          className={classes.input}
+                          type="text"
+                          id="role_position"
+                          name="role_position"
+                          fullWidth
+                          value={formData.last_name}
+                          onChange={handleChange}
+                          disableUnderline
+                          required
+                        />
+                      </FormControl>
                     </Grid>
                   </Grid>
                 </Box>
@@ -501,11 +577,33 @@ function SignupNonProfit() {
                     align="left"
                     sx={{ color: '#674E67' }}
                   >
+                    Tell us about your focus area.
+                  </Typography>
+                  <Grid container item xs={12} spacing={1}>
+                    <Grid item xs={12}>
+                      <label className={classes.label}>
+                        What type of work is your organization invovled with?
+                      </label>
+                    </Grid>
+                    <Grid item xs={12}>
+                      {makeChips()}
+                    </Grid>
+                  </Grid>
+                </Box>
+              )}
+              {activeStep === 4 && (
+                <Box sx={{ height: '100%', minWidth: '780px' }}>
+                  <Typography
+                    className={classes.header}
+                    variant="h4"
+                    fontSize="40px"
+                    component="h1"
+                    align="left"
+                    sx={{ color: '#674E67' }}
+                  >
                     Finalize your organization's profile.
                   </Typography>
-                  <Typography className={classes.label} sx={{ fontWeight: 'bold' }}>
-                    Photo
-                  </Typography>
+                  <label className={classes.label}> Photo </label>
                   <Typography>A logo, image, or icon that represents your organization.</Typography>
                   <Grid item xs={12} sx={{ height: '10px' }} />
                   <Grid container item xs={12} lg={6} alignItems="center">
@@ -530,12 +628,7 @@ function SignupNonProfit() {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} sx={{ height: '50px' }} />
-                  <Typography
-                    className={classes.label}
-                    sx={{ fontWeight: 'bold', marginBottom: '10px' }}
-                  >
-                    About
-                  </Typography>
+                  <label className={classes.label}> About </label>
                   <Typography>A summary about your organization at a glance.</Typography>
                   <Grid item xs={12}>
                     <TextField
@@ -549,7 +642,7 @@ function SignupNonProfit() {
                   </Grid>
                 </Box>
               )}
-              {activeStep === 4 && (
+              {activeStep === 5 && (
                 <Box sx={{ height: '100%', minWidth: '780px' }}>
                   <Typography
                     className={classes.header}
@@ -595,12 +688,15 @@ function SignupNonProfit() {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent:
-                      activeStep === 1 || activeStep === 2 || activeStep === 3
+                      activeStep === 1 || activeStep === 2 || activeStep === 3 || activeStep === 4
                         ? 'right'
                         : 'space-between',
                   }}
                 >
-                  {(activeStep === 1 || activeStep === 2 || activeStep === 3) && (
+                  {(activeStep === 1 ||
+                    activeStep === 2 ||
+                    activeStep === 3 ||
+                    activeStep === 4) && (
                     <Button
                       color="primary"
                       variant="outlined"
@@ -613,14 +709,15 @@ function SignupNonProfit() {
                   {(activeStep === 0 ||
                     activeStep === 1 ||
                     activeStep === 2 ||
-                    activeStep === 3) && (
+                    activeStep === 3 ||
+                    activeStep === 4) && (
                     <Button color="primary" variant="outlined" onClick={handleNext}>
                       Next
                     </Button>
                   )}
                   <Box />
                 </Box>
-                {activeStep === 4 && (
+                {activeStep === 5 && (
                   <Button
                     color="primary"
                     variant="contained"
