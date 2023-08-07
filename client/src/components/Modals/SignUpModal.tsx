@@ -1,15 +1,14 @@
 import React from 'react';
+import routes from '../../routes/routes';
+import Grid from '@mui/material/Grid';
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import DialogContent from '@mui/material/DialogContent';
-import Grid from '@mui/material/Grid';
-// import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import DialogContent from '@mui/material/DialogContent';
 import { Link } from 'react-router-dom';
-import routes from '../../routes/routes';
 import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 
@@ -63,7 +62,6 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
             <CloseIcon />
           </IconButton>
           <DialogContent className={className.content}>
-            {/* <Paper elevation={3} className={className.paper}> */}
             <Grid
               container
               item
@@ -77,13 +75,13 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                   component={'span'}
                   align="center"
                 >
-                  Welcome Aboard.
+                  Welcome Aboard!
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Link to={routes.SignupCitizen.path}>
                   <Button onClick={handleCloseModal} fullWidth className={classes.root}>
-                    I am an individual citizen.
+                    I am an individual citizen
                   </Button>
                 </Link>
               </Grid>
@@ -97,7 +95,7 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
               <Grid item xs={12}>
                 <Link to={routes.SignupNonProfit.path}>
                   <Button onClick={handleCloseModal} fullWidth className={classes.root}>
-                    I am part of an organization.
+                    I am part of an organization
                   </Button>
                 </Link>
               </Grid>

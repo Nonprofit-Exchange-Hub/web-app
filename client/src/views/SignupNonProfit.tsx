@@ -394,7 +394,7 @@ function SignupNonProfit() {
                   </Typography>
                   <label className={classes.label}> Representative Information </label>
                   <Grid container item xs={12} spacing={1}>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <InputLabel id="state-select">First Name</InputLabel>
                       <FormControl fullWidth>
                         <Input
@@ -411,7 +411,7 @@ function SignupNonProfit() {
                         />
                       </FormControl>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <InputLabel id="state-select">Last Name</InputLabel>
                       <FormControl fullWidth>
                         <Input
@@ -428,7 +428,7 @@ function SignupNonProfit() {
                         />
                       </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={4}>
                       <InputLabel id="state-select">Role/Position</InputLabel>
                       <FormControl fullWidth>
                         <Input
