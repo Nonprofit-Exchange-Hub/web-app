@@ -15,8 +15,10 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
+import { useContext } from 'react';
+import { ModalContext } from '../providers/ModalProvider';
 import { useForm } from 'react-hook-form';
-import { focusAreas } from './focusAreas';
+import { focusAreas } from './FocusAreas';
 import { makeStyles } from 'tss-react/mui';
 import { UserContext } from '../providers';
 import { placeholderImg } from '../assets/temp';
@@ -89,33 +91,49 @@ const useStyles = makeStyles()((theme: Theme) => ({
 }));
 
 interface UserSignupData {
-  firstName: string;
+  organization_name: string;
+  first_name: string;
   last_name: string;
-  state: string;
+  street: string;
   city: string;
-  focusAreas: string[];
-  role: string;
+  state: string;
   zip_code: string;
-  bio: string;
+  role: string;
   email: string;
   password: string;
   accept_terms?: boolean;
   email_notification_opt_out?: boolean;
+  bio: string;
+  employer_identification_number: string;
+  irs_classification: string;
+  website: string;
+  instagram: string;
+  facebook: string;
+  twitter: string;
+  focusAreas: string[];
 }
 
 const initialFormData: UserSignupData = {
-  firstName: '',
+  organization_name: '',
+  first_name: '',
   last_name: '',
+  street: '',
   city: '',
-  focusAreas: [],
+  state: '',
+  zip_code: '',
   role: '',
   email: '',
   password: '',
   accept_terms: false,
   email_notification_opt_out: false,
-  state: '',
-  zip_code: '',
+  employer_identification_number: '',
+  irs_classification: '',
   bio: '',
+  website: '',
+  instagram: '',
+  facebook: '',
+  twitter: '',
+  focusAreas: [],
 };
 
 function SignupNonProfit() {
@@ -125,6 +143,8 @@ function SignupNonProfit() {
   const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
   const { user, setUser } = React.useContext(UserContext);
+  const modalContext = useContext(ModalContext);
+  const { openModal } = modalContext;
   const { control } = useForm();
   const steps = [
     { label: 'Basic Information' },
@@ -188,7 +208,6 @@ function SignupNonProfit() {
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     setIsLoading(true);
-    // Backend doesn't need accept_terms. If a user is signed up they have agreed to the terms
     delete formData.accept_terms;
     const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
       method: 'POST',
@@ -207,7 +226,6 @@ function SignupNonProfit() {
     }
   };
 
-  // handleNext and handleBack are also in SignUpUserAndNonProfit, refactor later
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -261,6 +279,18 @@ function SignupNonProfit() {
                   >
                     Let's get started!
                   </Typography>
+                  <Typography align="left" style={{ fontSize: '12px' }}>
+                    Already have an account?
+                    <button onClick={() => openModal('SignUp')}>
+                      <Typography
+                        sx={{
+                          fontSize: '10px',
+                        }}
+                      >
+                        Sign Up
+                      </Typography>
+                    </button>
+                  </Typography>
                   <Box display={'flex'} flexDirection={'row'} width={'100%'}>
                     <Box width={'100%'}>
                       <label className={classes.label}> About Your Organization</label>
@@ -275,7 +305,7 @@ function SignupNonProfit() {
                               name="last_name"
                               autoComplete="family-name"
                               fullWidth
-                              value={formData.last_name}
+                              value={formData.organization_name}
                               onChange={handleChange}
                               disableUnderline
                               required
@@ -289,7 +319,8 @@ function SignupNonProfit() {
                             disableUnderline
                             fullWidth
                             onChange={handleChange}
-                            name="street-address"
+                            name="street"
+                            value={formData.street}
                           ></Input>
                         </Grid>
                         <Grid item xs={3}>
@@ -300,12 +331,13 @@ function SignupNonProfit() {
                             fullWidth
                             onChange={handleChange}
                             name="city"
+                            value={formData.city}
                           ></Input>
                         </Grid>
                         <Grid item xs={2}>
                           <InputLabel id="state-select">State</InputLabel>
                           <Select
-                            label="State"
+                            label="state"
                             className={classes.input}
                             displayEmpty
                             fullWidth
@@ -400,11 +432,11 @@ function SignupNonProfit() {
                         <Input
                           className={classes.input}
                           type="text"
-                          id="last_name"
-                          name="last_name"
+                          id="first_name"
+                          name="first_name"
                           autoComplete="family-name"
                           fullWidth
-                          value={formData.last_name}
+                          value={formData.first_name}
                           onChange={handleChange}
                           disableUnderline
                           required
@@ -429,15 +461,15 @@ function SignupNonProfit() {
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
-                      <InputLabel id="state-select">Role/Position</InputLabel>
+                      <InputLabel id="state-select">Role</InputLabel>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
                           type="text"
-                          id="role_position"
-                          name="role_position"
+                          id="role"
+                          name="role"
                           fullWidth
-                          value={formData.last_name}
+                          value={formData.role}
                           onChange={handleChange}
                           disableUnderline
                           required
@@ -504,11 +536,10 @@ function SignupNonProfit() {
                         <Input
                           className={classes.input}
                           type="text"
-                          id="last_name"
-                          name="last_name"
-                          autoComplete="family-name"
+                          id="website"
+                          name="website"
                           fullWidth
-                          value={formData.last_name}
+                          value={formData.website}
                           onChange={handleChange}
                           disableUnderline
                           required
@@ -521,11 +552,10 @@ function SignupNonProfit() {
                         <Input
                           className={classes.input}
                           type="text"
-                          id="last_name"
-                          name="last_name"
-                          autoComplete="family-name"
+                          id="instagram"
+                          name="instagram"
                           fullWidth
-                          value={formData.last_name}
+                          value={formData.instagram}
                           onChange={handleChange}
                           disableUnderline
                           required
@@ -538,10 +568,10 @@ function SignupNonProfit() {
                         <Input
                           className={classes.input}
                           type="text"
-                          id="role_position"
-                          name="role_position"
+                          id="facebook"
+                          name="facebook"
                           fullWidth
-                          value={formData.last_name}
+                          value={formData.facebook}
                           onChange={handleChange}
                           disableUnderline
                           required
@@ -549,15 +579,15 @@ function SignupNonProfit() {
                       </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                      <InputLabel id="state-select">X</InputLabel>
+                      <InputLabel id="state-select">Twitter</InputLabel>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
                           type="text"
-                          id="role_position"
-                          name="role_position"
+                          id="twitter"
+                          name="twitter"
                           fullWidth
-                          value={formData.last_name}
+                          value={formData.twitter}
                           onChange={handleChange}
                           disableUnderline
                           required
@@ -605,12 +635,12 @@ function SignupNonProfit() {
                   </Typography>
                   <label className={classes.label}> Photo </label>
                   <Typography>A logo, image, or icon that represents your organization.</Typography>
-                  <Grid item xs={12} sx={{ height: '10px' }} />
+                  <Grid item xs={12} sx={{ height: '30px' }} />
                   <Grid container item xs={12} lg={6} alignItems="center">
                     <Grid item xs={3}>
                       <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={3} sx={{ position: 'absolute' }}>
                       <input accept="image/*" hidden id="upload-file" type="file" />
                       <label htmlFor="upload-file">
                         <Button
@@ -619,6 +649,8 @@ function SignupNonProfit() {
                             color: 'white',
                             borderRadius: '4px',
                             padding: '10px',
+                            // position: 'relative',
+                            left: '150px',
                           }}
                           color="primary"
                         >
@@ -627,7 +659,7 @@ function SignupNonProfit() {
                       </label>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} sx={{ height: '50px' }} />
+                  <Grid item xs={12} sx={{ height: '30px' }} />
                   <label className={classes.label}> About </label>
                   <Typography>A summary about your organization at a glance.</Typography>
                   <Grid item xs={12}>
@@ -657,10 +689,10 @@ function SignupNonProfit() {
                     className={classes.label}
                     sx={{ fontWeight: 'bold', marginTop: '60px' }}
                   >
-                    {user && user.firstName} {user && user.last_name}
+                    {formData.first_name} {formData.last_name}
                   </Typography>
-                  <Typography>{user && user.email}</Typography>
-                  <Typography sx={{ marginBottom: '60px' }}>
+                  <Typography>{formData.email}</Typography>
+                  <Typography>
                     <strong>Please check your e-mail</strong> to finish the identity verification
                     process. Afterwards, start contributing!
                   </Typography>
