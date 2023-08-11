@@ -2,26 +2,26 @@ import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 
 import { TransactionStatus } from '../transaction-status.enum';
 
-import type { User } from '../../acccount-manager/entities/user.entity';
-import type { Organization } from '../../organizations/entities/organization.entity';
-import type { Asset } from '../../assets/entities/asset.entity';
-import { Message } from '../../messages/entities/message.entity';
+import { User } from 'src/acccount-manager/entities/user.entity';
+import { ReturnOrganizationDto } from 'src/organizations/dto/return-organization.dto';
+import { ReturnAssetDto } from 'src/assets/dto/return-asset.dto';
+import { ReturnMessageDto } from 'src/messages/dto/return-message.dto';
 
 export class CreateTransactionDto {
   @IsNotEmpty()
   donater_user: User;
 
   @IsOptional()
-  donater_organization?: Organization;
+  donater_organization?: ReturnOrganizationDto;
 
   @IsNotEmpty({ message: 'asset is required' })
-  asset: Asset;
+  asset: ReturnAssetDto;
 
   @IsOptional()
-  message?: Message;
+  message?: ReturnMessageDto;
 
   @IsOptional()
-  recipient?: Organization;
+  recipient?: ReturnOrganizationDto;
 
   @IsOptional()
   @IsEnum(TransactionStatus)

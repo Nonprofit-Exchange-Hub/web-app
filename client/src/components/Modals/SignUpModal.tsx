@@ -100,7 +100,6 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                 </Link>
               </Grid>
             </Grid>
-            {/* </Paper> */}
           </DialogContent>
         </Dialog>
         <div ref={ref}></div>
