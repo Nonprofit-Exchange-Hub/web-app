@@ -5,7 +5,7 @@ WORKDIR /app/temp/client
 
 COPY ./client .
 
-RUN npm i --legacy-peer-deps && npm run build
+RUN npm ci && npm run build
 
 
 
@@ -15,7 +15,7 @@ WORKDIR /app/server
 
 COPY ./server .
 
-RUN npm i
+RUN npm ci
 
 RUN mkdir -p /app/client
 
