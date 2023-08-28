@@ -92,6 +92,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
 
 interface UserSignupData {
   organization_name: string;
+  organization_phone: string;
   first_name: string;
   last_name: string;
   street: string;
@@ -115,6 +116,7 @@ interface UserSignupData {
 
 const initialFormData: UserSignupData = {
   organization_name: '',
+  organization_phone: '',
   first_name: '',
   last_name: '',
   street: '',
@@ -147,15 +149,15 @@ function SignupNonProfit() {
   const { openModal } = modalContext;
   const { control } = useForm();
   const steps = [
-    { label: 'Basic Information' },
-    { label: 'Representative' },
     { label: 'Organization' },
+    { label: 'Representative' },
+    { label: 'Contact' },
+    { label: 'Focus' },
     { label: 'Profile' },
   ];
 
   const makeChips = () => {
     return focusAreas.map((focusArea) => {
-      // TODO: toggle chip style when focusArea is chosen
       return (
         <Chip
           className={classes.chip}
@@ -271,39 +273,24 @@ function SignupNonProfit() {
                     className={classes.header}
                     variant="h4"
                     fontSize="40px"
-                    lineHeight="60px"
-                    component="h1"
+                    lineHeight="10px"
                     align="left"
                     sx={{ color: '#674E67' }}
-                    gutterBottom
                   >
                     Let's get started!
                   </Typography>
-                  <Typography align="left" style={{ fontSize: '12px' }}>
-                    Already have an account?
-                    <button onClick={() => openModal('SignUp')}>
-                      <Typography
-                        sx={{
-                          fontSize: '10px',
-                        }}
-                      >
-                        Sign Up
-                      </Typography>
-                    </button>
-                  </Typography>
                   <Box display={'flex'} flexDirection={'row'} width={'100%'}>
                     <Box width={'100%'}>
-                      <label className={classes.label}> About Your Organization</label>
+                      <Typography sx={{ fontWeight: 'bold' }}>About Your Organization</Typography>
                       <Grid container item xs={12} spacing={1}>
-                        <Grid item xs={12}>
-                          <InputLabel id="state-select">Organization Name</InputLabel>
+                        <Grid item xs={7}>
+                          <label>Organization Name</label>
                           <FormControl fullWidth>
                             <Input
                               className={classes.input}
                               type="text"
-                              id="last_name"
-                              name="last_name"
-                              autoComplete="family-name"
+                              id="org_name"
+                              name="org_name"
                               fullWidth
                               value={formData.organization_name}
                               onChange={handleChange}
@@ -312,8 +299,24 @@ function SignupNonProfit() {
                             />
                           </FormControl>
                         </Grid>
+                        <Grid item xs={5}>
+                          <label>Phone Number</label>
+                          <FormControl fullWidth>
+                            <Input
+                              className={classes.input}
+                              type="text"
+                              id="org_phone"
+                              name="org_phone"
+                              fullWidth
+                              value={formData.organization_phone}
+                              onChange={handleChange}
+                              disableUnderline
+                              required
+                            />
+                          </FormControl>
+                        </Grid>
                         <Grid item xs={7}>
-                          <InputLabel id="street-address">Street Address</InputLabel>
+                          <label>Street Address</label>
                           <Input
                             className={classes.input}
                             disableUnderline
@@ -324,7 +327,7 @@ function SignupNonProfit() {
                           ></Input>
                         </Grid>
                         <Grid item xs={3}>
-                          <InputLabel id="city-select">City</InputLabel>
+                          <label>City</label>
                           <Input
                             className={classes.input}
                             disableUnderline
@@ -335,7 +338,7 @@ function SignupNonProfit() {
                           ></Input>
                         </Grid>
                         <Grid item xs={2}>
-                          <InputLabel id="state-select">State</InputLabel>
+                          <label>State</label>
                           <Select
                             label="state"
                             className={classes.input}
@@ -358,15 +361,10 @@ function SignupNonProfit() {
                           </Select>
                         </Grid>
                         <Grid item xs={12}>
-                          <InputLabel id="employer-identification-number">
-                            Employer Identification Number (EIN)
-                          </InputLabel>
+                          <label>Employer Identification Number (EIN)</label>
                           <Input
                             className={classes.input}
                             type="text"
-                            id="last_name"
-                            name="last_name"
-                            autoComplete="family-name"
                             fullWidth
                             value={formData.last_name}
                             onChange={handleChange}
@@ -375,9 +373,7 @@ function SignupNonProfit() {
                           />
                         </Grid>
                         <Grid item xs={12}>
-                          <InputLabel id="irs-nonprofit-organization-classfication">
-                            IRS Nonprofit Organization Classification
-                          </InputLabel>
+                          <label>IRS Nonprofit Organization Classification</label>
                           <Select
                             input={<OutlinedInput />}
                             inputProps={{ 'aria-label': 'Without label' }}
@@ -406,6 +402,23 @@ function SignupNonProfit() {
                               );
                             })}
                           </Select>
+                          <Typography align="left" style={{ fontSize: '14px' }}>
+                            Already have an account?
+                            <Typography
+                              display="inline"
+                              sx={{
+                                fontSize: '14px',
+                                padding: '5px',
+                                textDecoration: 'underline',
+                                '&:hover': {
+                                  cursor: 'pointer',
+                                },
+                              }}
+                              onClick={() => openModal('SignIn')}
+                            >
+                              Sign In
+                            </Typography>
+                          </Typography>
                         </Grid>
                       </Grid>
                     </Box>
@@ -424,17 +437,16 @@ function SignupNonProfit() {
                   >
                     Tell us about yourself.
                   </Typography>
-                  <label className={classes.label}> Representative Information </label>
+                  <Typography sx={{ fontWeight: 'bold' }}>Representative Information</Typography>
                   <Grid container item xs={12} spacing={1}>
                     <Grid item xs={4}>
-                      <InputLabel id="state-select">First Name</InputLabel>
+                      <label>First Name</label>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
                           type="text"
                           id="first_name"
                           name="first_name"
-                          autoComplete="family-name"
                           fullWidth
                           value={formData.first_name}
                           onChange={handleChange}
@@ -444,14 +456,13 @@ function SignupNonProfit() {
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
-                      <InputLabel id="state-select">Last Name</InputLabel>
+                      <label>Last Name</label>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
                           type="text"
                           id="last_name"
                           name="last_name"
-                          autoComplete="family-name"
                           fullWidth
                           value={formData.last_name}
                           onChange={handleChange}
@@ -461,7 +472,7 @@ function SignupNonProfit() {
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
-                      <InputLabel id="state-select">Role</InputLabel>
+                      <label>Role</label>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
@@ -526,12 +537,12 @@ function SignupNonProfit() {
                     align="left"
                     sx={{ color: '#674E67' }}
                   >
-                    Tell us about your organization.
+                    How can others reach you?
                   </Typography>
-                  <label className={classes.label}> Contact Information </label>
+                  <Typography sx={{ fontWeight: 'bold' }}>Contact Information</Typography>
                   <Grid container item xs={12} spacing={1}>
                     <Grid item xs={12}>
-                      <InputLabel id="state-select">Website</InputLabel>
+                      <label> Website </label>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
@@ -547,7 +558,7 @@ function SignupNonProfit() {
                       </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                      <InputLabel id="state-select">Instagram</InputLabel>
+                      <label> Instagram </label>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
@@ -563,7 +574,7 @@ function SignupNonProfit() {
                       </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                      <InputLabel id="state-select">Facebook</InputLabel>
+                      <label> Facebook </label>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
@@ -579,7 +590,7 @@ function SignupNonProfit() {
                       </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                      <InputLabel id="state-select">Twitter</InputLabel>
+                      <label> Twitter </label>
                       <FormControl fullWidth>
                         <Input
                           className={classes.input}
@@ -607,13 +618,14 @@ function SignupNonProfit() {
                     align="left"
                     sx={{ color: '#674E67' }}
                   >
-                    Tell us about your focus area.
+                    Tell us about your organization's focus area(s).
                   </Typography>
                   <Grid container item xs={12} spacing={1}>
                     <Grid item xs={12}>
-                      <label className={classes.label}>
+                      <Typography sx={{ fontWeight: 'bold' }}>
                         What type of work is your organization invovled with?
-                      </label>
+                      </Typography>
+                      <label> Please choose one or more options</label>
                     </Grid>
                     <Grid item xs={12}>
                       {makeChips()}
