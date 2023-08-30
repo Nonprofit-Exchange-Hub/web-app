@@ -40,7 +40,6 @@ import {
   Avatar,
   TextField,
   OutlinedInput,
-  InputLabel,
   SelectChangeEvent,
   Chip,
 } from '@mui/material';
@@ -174,13 +173,11 @@ function SignupNonProfit() {
     const existingfocusAreaIdx = formData.focusAreas.findIndex(
       (existingfocusArea) => existingfocusArea === focusArea,
     );
-
     if (existingfocusAreaIdx !== -1) {
       formData.focusAreas.splice(existingfocusAreaIdx, 1);
     } else {
       formData.focusAreas.push(focusArea);
     }
-
     setFormData({ ...formData, focusAreas: formData.focusAreas });
   };
 
