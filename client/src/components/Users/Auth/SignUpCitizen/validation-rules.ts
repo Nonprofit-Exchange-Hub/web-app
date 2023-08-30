@@ -21,5 +21,5 @@ export const validationSchema = Yup.object().shape({
   image_url: Yup.string()
     .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/, 'Please use a valid image url')
     .required('Required'),
-  aboutyourself: Yup.string().required('Required'),
+  bio: Yup.string().required('Required'),
 });

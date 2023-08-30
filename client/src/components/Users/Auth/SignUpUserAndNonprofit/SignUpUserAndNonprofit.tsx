@@ -10,6 +10,7 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
+  SelectChangeEvent,
   TextField,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -489,11 +490,17 @@ export const SignUpUserAndNonprofit = () => {
                     <Controller
                       name="nonprofit_classification"
                       control={control}
-                      render={({ field }) => (
+                      render={({ field: { onChange, value } }) => (
                         <>
                           <FormLabel>IRS Nonprofit Organization Classification</FormLabel>
                           <Select
-                            {...field}
+                            value={value}
+                            onChange={
+                              onChange as (
+                                event: SelectChangeEvent<string>,
+                                child: React.ReactNode,
+                              ) => void
+                            }
                             placeholder="Select classification"
                             variant="outlined"
                             autoWidth
