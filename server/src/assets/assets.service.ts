@@ -5,22 +5,26 @@ import { DeleteResult, Repository } from 'typeorm';
 import { Asset } from './entities/asset.entity';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
+import { ReturnAssetDto } from './dto/return-asset.dto';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CreateAssetDto } from './dto/create-asset.dto';
 
 @Injectable()
 export class AssetsService {
-  constructor(@InjectRepository(Asset) private assetsRepository: Repository<Asset>) {}
+  constructor(
+    @InjectRepository(Asset)
+    private assetsRepository: Repository<Asset>,
+  ) {}
 
-  async create(createAssetDto: CreateAssetDto, poster: User): Promise<Asset> {
-    return this.assetsRepository.save({ ...createAssetDto, poster });
+  async create(createAssetDto: CreateAssetDto, poster: User): Promise<ReturnAssetDto> {
+    return await this.assetsRepository.save({ ...createAssetDto, poster });
   }
 
   async findOne(id: number): Promise<Asset> {
     return this.assetsRepository.findOneBy({ id });
   }
 
-  async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
+  async getAssets(getAssetsDto: GetAssetsDto): Promise<ReturnAssetDto[]> {
     const { limit, offset, search, ...rest } = getAssetsDto;
     if (search) {
       return this.assetsRepository
