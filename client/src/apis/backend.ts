@@ -21,7 +21,6 @@ const Endpoints = {
         names: userData.interests,
       },
     };
-    console.log({ body });
     return client
       .post('/auth/register', body)
       .then((res) => res.data)

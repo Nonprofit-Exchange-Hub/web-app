@@ -1,4 +1,4 @@
-import { Types } from '../actions/user';
+import { ActionTypes } from '../actions/user';
 
 const initialState = {
   id: null,
@@ -21,20 +21,13 @@ interface ActionType {
 
 const reducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
-    case Types.USER_SIGNUP_START: {
+    case ActionTypes.USER_SIGNUP_PENDING: {
       return {
         ...state,
         isLoading: true,
       };
     }
-    case Types.USER_SIGNUP_IN_PROGRESS: {
-      return {
-        ...state,
-        isLoading: true,
-        error: null,
-      };
-    }
-    case Types.USER_SIGNUP_SUCCESS: {
+    case ActionTypes.USER_SIGNUP_SUCCESS: {
       return {
         ...state,
         isLoading: false,
@@ -42,7 +35,7 @@ const reducer = (state = initialState, action: ActionType) => {
         ...action.payload,
       };
     }
-    case Types.USER_SIGNUP_ERROR: {
+    case ActionTypes.USER_SIGNUP_ERROR: {
       return {
         ...state,
         isLoading: false,
