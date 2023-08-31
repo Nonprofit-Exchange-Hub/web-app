@@ -55,8 +55,6 @@ function SignupCitizen() {
 
   const dispatch = useAppDispatch();
 
-  console.log({ user });
-
   useEffect(() => {
     if (user.id) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -65,13 +63,11 @@ function SignupCitizen() {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    console.log(formData, evt);
     // @ts-ignore
     dispatch(Actions.userSignup(formData));
   };
 
   const handleNext = (newFormData: {}) => {
-    console.log({ newFormData });
     setFormData((currFormData) => ({
       ...currFormData,
       ...newFormData,

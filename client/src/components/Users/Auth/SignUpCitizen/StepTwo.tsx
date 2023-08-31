@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Button, Grid, Select, MenuItem, Typography, SelectChangeEvent } from '@mui/material';
-import { string, ValidationError, StringSchema, BooleanSchema } from 'yup';
+import { string } from 'yup';
 
-import { US_STATE_NAMES } from '../../../../configs';
 import NameInput from '../NameInput';
+import { US_STATE_NAMES } from '../../../../configs';
+import { ValidationUtils } from '../../../../utils';
 
 import { useStyles } from './styles';
 
@@ -25,17 +26,6 @@ const initialFormData = {
       .required('Required.')
       .min(5, 'Zipcode is too short - should be 5 digits minimum.'),
   },
-};
-
-const getError = (rule: StringSchema | BooleanSchema, value: string | undefined) => {
-  try {
-    rule.validateSync(value);
-    return null;
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      return error.message;
-    }
-  }
 };
 
 interface StepTwoType {
@@ -96,7 +86,7 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
     if (Object.keys(initialFormData).includes(name)) {
       setFormData((currFormData) => {
         // @ts-ignore
-        let error = getError(currFormData[name].rule, currFormData[name].value);
+        let error = ValidationUtils.getError(currFormData[name].rule, currFormData[name].value);
         return {
           ...currFormData,
           [name]: {
@@ -152,7 +142,7 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
             </label>
             <Select
               id="state"
-              className={classes.input}
+              className={classes.select}
               displayEmpty
               fullWidth
               onChange={handleSelectChange}

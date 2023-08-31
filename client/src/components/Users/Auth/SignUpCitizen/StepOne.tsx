@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Button, Checkbox, Typography, FormControlLabel } from '@mui/material';
-import { string, boolean, ValidationError, StringSchema, BooleanSchema } from 'yup';
+import { string, boolean } from 'yup';
 
 import StyledLink from '../../../StyledLink';
 import routes from '../../../../routes/routes';
 import PasswordInput from '../PasswordInput';
 import EmailInput from '../EmailInput';
 import NameInput from '../NameInput';
+import { ValidationUtils } from '../../../../utils';
 
 import { useStyles } from './styles';
 
@@ -45,20 +46,6 @@ const initialFormData = {
     error: null,
     rule: boolean().required('Required.'),
   },
-};
-
-const getError = (
-  rule: StringSchema | BooleanSchema,
-  value: string | undefined,
-): string | null | undefined => {
-  try {
-    rule.validateSync(value);
-    return null;
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      return error.message;
-    }
-  }
 };
 
 interface StepOneType {
@@ -102,7 +89,7 @@ export default function StepOne({ initData, handleNext }: StepOneType) {
         let passwordMismatched = false;
 
         if (name === 'passwordConfirm') {
-          const passwordConfirmError = getError(
+          const passwordConfirmError = ValidationUtils.getError(
             currFormData.passwordConfirm.rule,
             currFormData.passwordConfirm.value,
           );
@@ -112,7 +99,7 @@ export default function StepOne({ initData, handleNext }: StepOneType) {
           passwordMismatched = currFormData.password.value !== currFormData.passwordConfirm.value;
         } else {
           // @ts-ignore
-          error = getError(currFormData[name].rule, currFormData[name].value);
+          error = ValidationUtils.getError(currFormData[name].rule, currFormData[name].value);
         }
 
         const passwordConfirmError = {
