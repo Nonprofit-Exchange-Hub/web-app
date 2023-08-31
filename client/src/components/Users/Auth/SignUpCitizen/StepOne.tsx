@@ -47,7 +47,10 @@ const initialFormData = {
   },
 };
 
-const getError = (rule: StringSchema | BooleanSchema, value: string | undefined) => {
+const getError = (
+  rule: StringSchema | BooleanSchema,
+  value: string | undefined,
+): string | null | undefined => {
   try {
     rule.validateSync(value);
     return null;
@@ -96,27 +99,39 @@ export default function StepOne({ initData, handleNext }: StepOneType) {
     if (Object.keys(initialFormData).includes(name)) {
       setFormData((currFormData) => {
         let error = null;
+        let passwordMismatched = false;
+
         if (name === 'passwordConfirm') {
           const passwordConfirmError = getError(
             currFormData.passwordConfirm.rule,
             currFormData.passwordConfirm.value,
           );
           error = passwordConfirmError;
-          if (currFormData.password.value !== currFormData.passwordConfirm.value) {
-            error = `Password mismatch.`;
-          }
+          passwordMismatched = currFormData.password.value !== currFormData.passwordConfirm.value;
+        } else if (name === 'password' && currFormData.passwordConfirm.value.length > 0) {
+          passwordMismatched = currFormData.password.value !== currFormData.passwordConfirm.value;
         } else {
           // @ts-ignore
           error = getError(currFormData[name].rule, currFormData[name].value);
         }
-        return {
-          ...currFormData,
+
+        const passwordConfirmError = {
+          passwordConfirm: {
+            ...currFormData.passwordConfirm,
+            error: passwordMismatched ? 'Passwords must match.' : null,
+          },
+        };
+
+        const newFormData = Object.assign({}, currFormData, {
           [name]: {
             // @ts-ignore
             ...currFormData[name],
             error,
           },
-        };
+          ...passwordConfirmError,
+        });
+
+        return newFormData;
       });
     }
   };
