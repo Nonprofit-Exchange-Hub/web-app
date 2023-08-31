@@ -59,4 +59,18 @@ export const useStyles = makeStyles()((theme) => ({
   selectedChip: {
     backgroundColor: '#C4C4C4',
   },
+  select: {
+    position: 'relative',
+    top: 1,
+    height: 44,
+    // border: '1px solid #C4C4C4',
+    borderColor: '#C4C4C4',
+    borderRadius: 10,
+    boxSizing: 'border-box',
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    fontSize: 14,
+    marginBottom: 20,
+  },
 }));

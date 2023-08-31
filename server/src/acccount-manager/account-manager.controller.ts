@@ -74,7 +74,6 @@ export class AccountManagerController {
   @Post('register')
   @ApiOperation({ summary: 'Create a new user account' })
   async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
-    console.log({ createUserDto });
     if (createUserDto.interests) {
       const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
       if (!res) {

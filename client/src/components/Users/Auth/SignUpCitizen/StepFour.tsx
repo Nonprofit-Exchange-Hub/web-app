@@ -11,10 +11,7 @@ interface StepFourType {
 
 export default function StepFour({ initData, handleBack, handleNext }: StepFourType) {
   const { classes } = useStyles();
-
   const [formData, setFormData] = useState(initData);
-
-  console.log({ initData, formData });
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;

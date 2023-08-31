@@ -11,10 +11,8 @@ export const ActionTypes = {
 
 const Actions = {
   userSignup: (userData: UserSignupData) => (dispatch: AppDispatch, getState: RootState) => {
-    console.log('ACTION: ', userData);
-    dispatch({ type: ActionTypes.USER_SIGNUP_PENDING });
-
     async function registerUser() {
+      dispatch({ type: ActionTypes.USER_SIGNUP_PENDING });
       const user = await Endpoints.userRegister(userData);
       if (user) {
         dispatch({ type: ActionTypes.USER_SIGNUP_SUCCESS, payload: user });
