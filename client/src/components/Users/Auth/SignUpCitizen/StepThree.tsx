@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Chip, Button, Grid, Typography } from '@mui/material';
 
-import { interests } from './interests';
+import { interests } from './constants/interests';
 
-import { useStyles } from './styles';
+import { useStyles } from './styles/styles';
 
 interface StepThreeType {
   initData: { interests: string[] };

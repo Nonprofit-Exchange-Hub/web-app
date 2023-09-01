@@ -9,7 +9,7 @@ import EmailInput from '../EmailInput';
 import NameInput from '../NameInput';
 import { ValidationUtils } from '../../../../utils';
 
-import { useStyles } from './styles';
+import { useStyles } from './styles/styles';
 
 const initialFormData = {
   firstName: {
@@ -44,7 +44,7 @@ const initialFormData = {
   acceptTerms: {
     value: false,
     error: null,
-    rule: boolean().required('Required.'),
+    rule: boolean().required('The terms and conditions must be accepted.'),
   },
 };
 

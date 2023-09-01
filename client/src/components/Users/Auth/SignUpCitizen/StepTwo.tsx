@@ -6,7 +6,7 @@ import NameInput from '../NameInput';
 import { US_STATE_NAMES } from '../../../../configs';
 import { ValidationUtils } from '../../../../utils';
 
-import { useStyles } from './styles';
+import { useStyles } from './styles/styles';
 
 const initialFormData = {
   city: {
@@ -146,7 +146,7 @@ export default function StepTwo({ initData, handleBack, handleNext }: StepTwoTyp
               displayEmpty
               fullWidth
               onChange={handleSelectChange}
-              sx={{ marginTop: '16px' }}
+              sx={{ marginTop: '16px', paddingLeft: '0px' }}
               MenuProps={{
                 anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
                 sx: {

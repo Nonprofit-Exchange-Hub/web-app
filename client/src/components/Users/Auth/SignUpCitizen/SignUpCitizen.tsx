@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
+// import { useMutation, useQuery } from 'react-query';
 
-import { UserSignupData } from './UserSignupData';
-import SvgSignUpContactInfoStep from './SvgSignUpContactInfoStep';
-import SvgSignUpLocationStep from './SvgSignUpLocationStep';
-import SvgSignUpInterestsStep from './SvgSignUpInterestsStep';
-import SvgSignUpProfileStep from './SvgSignUpProfileStep';
-import SvgSignUpFinishedStep from './SvgSignUpFinishedStep';
+import { UserSignupData } from './types/UserSignupData';
+import SvgSignUpContactInfoStep from './assets/SvgSignUpContactInfoStep';
+import SvgSignUpLocationStep from './assets/SvgSignUpLocationStep';
+import SvgSignUpInterestsStep from './assets/SvgSignUpInterestsStep';
+import SvgSignUpProfileStep from './assets/SvgSignUpProfileStep';
+import SvgSignUpFinishedStep from './assets/SvgSignUpFinishedStep';
 
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
@@ -54,6 +55,41 @@ function SignupCitizen() {
   const imgWidth = '256px';
 
   const dispatch = useAppDispatch();
+
+  // const orgValidateEinQuery = useQuery<
+  //   AxiosResponse<any, any>,
+  //   any,
+  //   { ein: string; name: string },
+  //   string[]
+  // >({
+  //   enabled: triggerEinSearch,
+  //   queryKey: ['orgValidateEinQuery', getValues().ein],
+  //   queryFn: ({ queryKey }) => {
+  //     const [, ein] = queryKey;
+  //     return httpGetValidateEin(ein);
+  //   },
+  //   onSuccess: (res: any) => {
+  //     setTriggerEinSearch(false);
+  //     setEINStepIsValid(true);
+  //     setValue('name', res.data.name);
+  //   },
+  //   onError: (res: any) => {
+  //     setEINStepIsValid(false);
+  //     setTriggerEinSearch(false);
+  //     setValue('name', '');
+  //     handleEinApiValidationError(res);
+  //   },
+  //   retry: 0,
+  // });
+
+  // const { isLoading, error, data } = useQuery({
+  //   queryKey: ['registerUser'],
+  //   queryFn: async () =>
+  //     // fetch('https://api.github.com/repos/TanStack/query').then(
+  //     //   (res) => res.json(),
+  //     // ),
+  //     const response = await fetch('');
+  // });
 
   useEffect(() => {
     if (user.id) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { UserSignupData } from '../components/Users/Auth/SignUpCitizen/types/UserSignupData';
+import { UserSignupData } from '../types/UserSignupData';
 
 const client = axios.create({
   baseURL: '/api',

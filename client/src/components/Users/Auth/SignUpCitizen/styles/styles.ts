@@ -1,5 +1,5 @@
 import { makeStyles } from 'tss-react/mui';
-import { placeholderImg } from '../../../../assets/temp';
+import { placeholderImg } from '../../../../../assets/temp';
 
 // TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
 export const useStyles = makeStyles()((theme) => ({

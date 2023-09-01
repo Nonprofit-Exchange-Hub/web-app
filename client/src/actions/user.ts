@@ -1,7 +1,7 @@
 import Endpoints from '../apis/backend';
 
 import type { RootState, AppDispatch } from '../reducers/store';
-import { UserSignupData } from '../components/Users/Auth/SignUpCitizen/UserSignupData';
+import { UserSignupData } from '../components/Users/Auth/SignUpCitizen/types/UserSignupData';
 
 export const ActionTypes = {
   USER_SIGNUP_PENDING: 'USER_SIGNUP_PENDING',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-import { useStyles } from './styles';
+import { useStyles } from './styles/styles';
 
 interface StepFiveType {
   user?: {

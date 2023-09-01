@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { interests } from './interests';
+import { interests } from './constants/interests';
 
 export const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
