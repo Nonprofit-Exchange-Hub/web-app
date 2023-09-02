@@ -181,9 +181,9 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                             sx={{
                               fontSize: '12px',
                               padding: '0px',
-                              textDecoration: 'underline',
                               '&:hover': {
                                 cursor: 'pointer',
+                                textDecoration: 'underline',
                               },
                             }}
                             onClick={() => openModal('SignUp')}

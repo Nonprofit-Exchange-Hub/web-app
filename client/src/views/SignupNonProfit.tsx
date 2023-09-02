@@ -16,6 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
 import { useContext } from 'react';
+import { useEffect } from 'react';
 import { ModalContext } from '../providers/ModalProvider';
 import { useForm } from 'react-hook-form';
 import { focusAreas } from './FocusAreas';
@@ -139,6 +140,7 @@ const initialFormData: UserSignupData = {
 
 function SignupNonProfit() {
   const { classes } = useStyles();
+  const [disableNext, setDisableNext] = React.useState<boolean>(true);
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
@@ -193,15 +195,18 @@ function SignupNonProfit() {
       ...fData,
       [name]: value,
     }));
+    skipStepOrNot(activeStep);
   };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    console.log('handleChange!');
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
     setFormData((fData) => ({
       ...fData,
       [name]: name === 'accept_terms' ? checked : value,
       [name]: name === 'email_notification_opt_out' ? checked : value,
     }));
+    skipStepOrNot(activeStep);
   };
 
   const handleSubmit = async (evt: React.FormEvent) => {
@@ -226,12 +231,44 @@ function SignupNonProfit() {
   };
 
   const handleNext = () => {
+    setDisableNext(true);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  const skipStepOrNot = (step: number) => {
+    if (step === 0) {
+      if (
+        formData.organization_name.length > 0 &&
+        formData.organization_phone.length > 0 &&
+        formData.street.length > 0 &&
+        formData.city.length > 0 &&
+        formData.state.length > 0 &&
+        formData.employer_identification_number.length > 0 &&
+        formData.irs_classification.length > 0
+      ) {
+        setDisableNext(false);
+      }
+    }
+    if (step === 1) {
+      if (
+        formData.first_name.length > 0 &&
+        formData.last_name.length > 0 &&
+        formData.role.length > 0 &&
+        formData.email.length > 0 &&
+        formData.password.length > 0
+      ) {
+        setDisableNext(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    skipStepOrNot(activeStep);
+  });
 
   return (
     <Box display={'flex'} flexDirection={'row'} justifyContent={'left'}>
@@ -282,35 +319,29 @@ function SignupNonProfit() {
                       <Grid container item xs={12} spacing={1}>
                         <Grid item xs={7}>
                           <label>Organization Name</label>
-                          <FormControl fullWidth>
-                            <Input
-                              className={classes.input}
-                              type="text"
-                              id="org_name"
-                              name="org_name"
-                              fullWidth
-                              value={formData.organization_name}
-                              onChange={handleChange}
-                              disableUnderline
-                              required
-                            />
-                          </FormControl>
+                          <Input
+                            className={classes.input}
+                            type="text"
+                            id="organization_name"
+                            name="organization_name"
+                            fullWidth
+                            onChange={handleChange}
+                            value={formData.organization_name}
+                            disableUnderline
+                          />
                         </Grid>
                         <Grid item xs={5}>
                           <label>Phone Number</label>
-                          <FormControl fullWidth>
-                            <Input
-                              className={classes.input}
-                              type="text"
-                              id="org_phone"
-                              name="org_phone"
-                              fullWidth
-                              value={formData.organization_phone}
-                              onChange={handleChange}
-                              disableUnderline
-                              required
-                            />
-                          </FormControl>
+                          <Input
+                            className={classes.input}
+                            type="text"
+                            id="organization_phone"
+                            name="organization_phone"
+                            fullWidth
+                            onChange={handleChange}
+                            value={formData.organization_phone}
+                            disableUnderline
+                          />
                         </Grid>
                         <Grid item xs={7}>
                           <label>Street Address</label>
@@ -362,8 +393,10 @@ function SignupNonProfit() {
                           <Input
                             className={classes.input}
                             type="text"
+                            id="employer_identification_number"
+                            name="employer_identification_number"
                             fullWidth
-                            value={formData.last_name}
+                            value={formData.employer_identification_number}
                             onChange={handleChange}
                             disableUnderline
                             required
@@ -375,8 +408,12 @@ function SignupNonProfit() {
                             input={<OutlinedInput />}
                             inputProps={{ 'aria-label': 'Without label' }}
                             className={classes.input}
+                            value={formData.irs_classification}
                             displayEmpty
                             fullWidth
+                            type="text"
+                            id="irs_classification"
+                            name="irs_classification"
                             onChange={handleSelectChange}
                             sx={{ marginTop: '10px', border: '1px solid' }}
                             MenuProps={{
@@ -405,10 +442,10 @@ function SignupNonProfit() {
                               display="inline"
                               sx={{
                                 fontSize: '14px',
-                                padding: '5px',
-                                textDecoration: 'underline',
+                                padding: '4px',
                                 '&:hover': {
                                   cursor: 'pointer',
+                                  textDecoration: 'underline',
                                 },
                               }}
                               onClick={() => openModal('SignIn')}
@@ -658,7 +695,6 @@ function SignupNonProfit() {
                             color: 'white',
                             borderRadius: '4px',
                             padding: '10px',
-                            // position: 'relative',
                             left: '150px',
                           }}
                           color="primary"
@@ -734,10 +770,7 @@ function SignupNonProfit() {
                         : 'space-between',
                   }}
                 >
-                  {(activeStep === 1 ||
-                    activeStep === 2 ||
-                    activeStep === 3 ||
-                    activeStep === 4) && (
+                  {(activeStep === 2 || activeStep === 3 || activeStep === 4) && (
                     <Button
                       color="primary"
                       variant="outlined"
@@ -752,7 +785,12 @@ function SignupNonProfit() {
                     activeStep === 2 ||
                     activeStep === 3 ||
                     activeStep === 4) && (
-                    <Button color="primary" variant="outlined" onClick={handleNext}>
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      onClick={handleNext}
+                      disabled={disableNext}
+                    >
                       Next
                     </Button>
                   )}
