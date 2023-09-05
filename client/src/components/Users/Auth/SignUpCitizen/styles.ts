@@ -34,7 +34,6 @@ export const useStyles = makeStyles()((theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     fontSize: 14,
-    marginBottom: 20,
   },
   label: {
     color: '#000000',

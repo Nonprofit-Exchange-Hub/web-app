@@ -1,6 +1,20 @@
 import * as Yup from 'yup';
 import { interests } from './interests';
 
+const MAX_PROFILE_SIZE = 1000 * 102400;
+
+export const letsGetStartedSchema = Yup.object().shape({
+  firstName: Yup.string().required('Required'),
+  last_name: Yup.string().required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string()
+    .min(8, 'Password is too short - should be 8 chars minimum.')
+    .required('Required'),
+  accept_terms: Yup.boolean()
+    .required('The terms and conditions must be accepted.')
+    .oneOf([true], 'The terms and conditions must be accepted.'),
+});
+
 export const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
   last_name: Yup.string().required('Required'),
@@ -22,4 +36,11 @@ export const validationSchema = Yup.object().shape({
     .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/, 'Please use a valid image url')
     .required('Required'),
   bio: Yup.string().required('Required'),
+  image: Yup.object().shape({
+    attachment: Yup.mixed().test(
+      'is-valid-size',
+      'Max allowed size is 1MB',
+      (value) => value && value.size <= MAX_PROFILE_SIZE,
+    ),
+  }),
 });
