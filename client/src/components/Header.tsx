@@ -76,6 +76,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
   },
   signUpButton: {
     textTransform: 'capitalize',
+    textDecoration: 'none',
     backgroundColor: theme.palette.primary.main,
     color: `${theme.palette.primary.contrastText}`,
     borderRadius: '10px',
@@ -476,7 +477,11 @@ function Header() {
             </>
           ) : (
             <>
-              <Button className={classes.signUpButton} onClick={() => handleoOpenModal('SignUp')}>
+              {/* TODO: Change to signup modal once it has been implemented */}
+              <Button
+                className={classes.signUpButton}
+                onClick={() => history.push('/signup-citizen')}
+              >
                 Join Now
               </Button>
               <Button className={classes.signInButton} onClick={() => handleoOpenModal('SignIn')}>
