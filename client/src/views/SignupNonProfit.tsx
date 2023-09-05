@@ -45,6 +45,54 @@ import {
   Chip,
 } from '@mui/material';
 
+interface UserSignupData {
+  organization_name: string;
+  organization_phone: string;
+  street: string;
+  city: string;
+  state: string;
+  zip_code: string;
+  employer_identification_number: string;
+  irs_classification: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+  email: string;
+  password: string;
+  accept_terms?: boolean;
+  email_notification_opt_out?: boolean;
+  website: string;
+  instagram: string;
+  facebook: string;
+  twitter: string;
+  focusAreas: string[];
+  bio: string;
+}
+
+const initialFormData: UserSignupData = {
+  organization_name: '',
+  organization_phone: '',
+  street: '',
+  city: '',
+  state: '',
+  zip_code: '',
+  employer_identification_number: '',
+  irs_classification: '',
+  first_name: '',
+  last_name: '',
+  role: '',
+  email: '',
+  password: '',
+  accept_terms: false,
+  email_notification_opt_out: false,
+  website: '',
+  instagram: '',
+  facebook: '',
+  twitter: '',
+  focusAreas: [],
+  bio: '',
+};
+
 const useStyles = makeStyles()((theme: Theme) => ({
   sideImg: {
     backgroundImage: `url("${placeholderImg}")`,
@@ -90,56 +138,9 @@ const useStyles = makeStyles()((theme: Theme) => ({
   },
 }));
 
-interface UserSignupData {
-  organization_name: string;
-  organization_phone: string;
-  first_name: string;
-  last_name: string;
-  street: string;
-  city: string;
-  state: string;
-  zip_code: string;
-  role: string;
-  email: string;
-  password: string;
-  accept_terms?: boolean;
-  email_notification_opt_out?: boolean;
-  bio: string;
-  employer_identification_number: string;
-  irs_classification: string;
-  website: string;
-  instagram: string;
-  facebook: string;
-  twitter: string;
-  focusAreas: string[];
-}
-
-const initialFormData: UserSignupData = {
-  organization_name: '',
-  organization_phone: '',
-  first_name: '',
-  last_name: '',
-  street: '',
-  city: '',
-  state: '',
-  zip_code: '',
-  role: '',
-  email: '',
-  password: '',
-  accept_terms: false,
-  email_notification_opt_out: false,
-  employer_identification_number: '',
-  irs_classification: '',
-  bio: '',
-  website: '',
-  instagram: '',
-  facebook: '',
-  twitter: '',
-  focusAreas: [],
-};
-
 function SignupNonProfit() {
   const { classes } = useStyles();
+  const [selectedChips, setSelectedChips] = React.useState<string[]>([]);
   const [disableNext, setDisableNext] = React.useState<boolean>(true);
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -166,6 +167,7 @@ function SignupNonProfit() {
           sx={{ fontSize: '16px' }}
           variant="outlined"
           onClick={() => togglefocusArea(focusArea)}
+          color={selectedChips.includes(focusArea) ? 'primary' : 'default'}
         />
       );
     });
@@ -177,10 +179,13 @@ function SignupNonProfit() {
     );
     if (existingfocusAreaIdx !== -1) {
       formData.focusAreas.splice(existingfocusAreaIdx, 1);
+      setSelectedChips(formData.focusAreas);
     } else {
       formData.focusAreas.push(focusArea);
+      setSelectedChips(formData.focusAreas);
     }
     setFormData({ ...formData, focusAreas: formData.focusAreas });
+    console.log(formData.focusAreas);
   };
 
   const makeStateSelectOptions = () => {
@@ -195,7 +200,7 @@ function SignupNonProfit() {
       ...fData,
       [name]: value,
     }));
-    skipStepOrNot(activeStep);
+    nextOrNot(activeStep);
   };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
@@ -206,7 +211,7 @@ function SignupNonProfit() {
       [name]: name === 'accept_terms' ? checked : value,
       [name]: name === 'email_notification_opt_out' ? checked : value,
     }));
-    skipStepOrNot(activeStep);
+    nextOrNot(activeStep);
   };
 
   const handleSubmit = async (evt: React.FormEvent) => {
@@ -239,7 +244,7 @@ function SignupNonProfit() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const skipStepOrNot = (step: number) => {
+  const nextOrNot = (step: number) => {
     if (step === 0) {
       if (
         formData.organization_name.length > 0 &&
@@ -259,15 +264,18 @@ function SignupNonProfit() {
         formData.last_name.length > 0 &&
         formData.role.length > 0 &&
         formData.email.length > 0 &&
-        formData.password.length > 0
+        formData.password.length > 0 &&
+        !formData.accept_terms
       ) {
         setDisableNext(false);
       }
+    } else {
+      setDisableNext(false);
     }
   };
 
   useEffect(() => {
-    skipStepOrNot(activeStep);
+    nextOrNot(activeStep);
   });
 
   return (
@@ -350,6 +358,8 @@ function SignupNonProfit() {
                             disableUnderline
                             fullWidth
                             onChange={handleChange}
+                            type="text"
+                            id="street"
                             name="street"
                             value={formData.street}
                           ></Input>
@@ -361,6 +371,8 @@ function SignupNonProfit() {
                             disableUnderline
                             fullWidth
                             onChange={handleChange}
+                            type="text"
+                            id="city"
                             name="city"
                             value={formData.city}
                           ></Input>
@@ -770,7 +782,11 @@ function SignupNonProfit() {
                         : 'space-between',
                   }}
                 >
-                  {(activeStep === 2 || activeStep === 3 || activeStep === 4) && (
+                  {(activeStep === 0 ||
+                    activeStep === 1 ||
+                    activeStep === 2 ||
+                    activeStep === 3 ||
+                    activeStep === 4) && (
                     <Button
                       color="primary"
                       variant="outlined"
