@@ -15,6 +15,7 @@ const {
   ForgotPassword,
   SetNewPassword,
   SignupCitizen,
+  SignupCitizenV2,
   SignupNonProfit,
   Inbox,
   User,
@@ -55,6 +56,7 @@ function Main() {
         <Route exact path={ForgotPassword.path} component={ForgotPassword.component} />
         <Route exact path={SetNewPassword.path} component={SetNewPassword.component} />
         <Route exact path={SignupCitizen.path} component={SignupCitizen.component} />
+        <Route exact path={SignupCitizenV2.path} component={SignupCitizenV2.component} />
         <Route exact path={SignupNonProfit.path} component={SignupNonProfit.component} />
 
         {/* action: assets */}

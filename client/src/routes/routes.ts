@@ -7,6 +7,7 @@ import TermsOfService from '../views/TermsOfService';
 import PrivacyPolicy from '../views/PrivacyPolicy';
 import Signup from '../views/Signup';
 import SignupCitizen from '../views/SignupCitizen';
+import SignupCitizenV2 from '../views/SignupCitizenV2';
 import SignupNonProfit from '../views/SignupNonProfit';
 import Inbox from '../views/Inbox';
 import User from '../views/User';
@@ -95,6 +96,11 @@ const routes: RouteMap = {
     component: SignupCitizen,
     roles: [],
     path: '/signup-citizen',
+  },
+  SignupCitizenV2: {
+    component: SignupCitizenV2,
+    roles: [],
+    path: '/signup-citizen-v2',
   },
   SignupNonProfit: {
     component: SignupNonProfit,
