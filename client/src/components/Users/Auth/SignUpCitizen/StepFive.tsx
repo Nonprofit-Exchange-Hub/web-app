@@ -14,9 +14,6 @@ export interface IStepFive {
 
 export default function StepFive({ user }: IStepFive) {
   const { classes } = useStyles();
-
-  console.log('StepFive: ', { user });
-
   return (
     <Box sx={{ height: '100%', minWidth: '780px' }}>
       <Typography
