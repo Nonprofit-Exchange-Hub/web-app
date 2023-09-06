@@ -43,12 +43,12 @@ interface Props {
 }
 
 function EmailInput({
-  onChange,
   value,
-  placeholder,
-  showStartAdornment = false,
   error,
+  onChange,
+  placeholder,
   onBlur = null,
+  showStartAdornment = false,
 }: Props) {
   const { classes } = useStyles();
 

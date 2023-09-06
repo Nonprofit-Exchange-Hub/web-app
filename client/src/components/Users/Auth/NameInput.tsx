@@ -51,14 +51,14 @@ interface Props {
 }
 
 export default function NameInput({
-  onChange,
-  onBlur,
   value,
   error,
-  placeholder,
-  label = null,
+  onBlur,
+  onChange,
   id = null,
   name = null,
+  placeholder,
+  label = null,
   sublabel = null,
 }: Props) {
   const { classes } = useStyles();
