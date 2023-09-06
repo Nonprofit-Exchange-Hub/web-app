@@ -24,7 +24,8 @@ const initialFormData = {
     error: null,
     rule: string()
       .required('Required.')
-      .min(5, 'Zipcode is too short - should be 5 digits minimum.'),
+      .min(5, 'Zipcode should be 5 digits minimum.')
+      .matches(/^\d{5}(?:[-\s]\d{4})?$/, 'Must be a valid zip code.'),
   },
 };
 

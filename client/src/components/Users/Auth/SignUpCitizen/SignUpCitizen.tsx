@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useMutation } from 'react-query';
 
@@ -14,8 +14,8 @@ import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import StepFour from './StepFour';
 import StepFive from './StepFive';
-
 import Endpoints from './apis/backend';
+
 import { AxiosError } from 'axios';
 
 const imgHeight = '569px';
@@ -39,15 +39,19 @@ const initialFormData: UserSignupData = {
 function SignupCitizen() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [formData, setFormData] = useState(initialFormData);
-  const [user, setUser] = useState<UserSignupData | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [user, setUser] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+  }, [user]);
 
   const registerUserMutation = useMutation({
     mutationFn: Endpoints.userRegister,
-    onSuccess: (user) => {
-      // @ts-ignore
+    onSuccess: ({ data: user }) => {
       setUser(user);
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     },
     onError: (error: AxiosError) => {
       console.log('WE HAVE AN ERROR', { error });

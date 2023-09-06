@@ -3,16 +3,19 @@ import { Box, Typography } from '@mui/material';
 
 import { useStyles } from './styles/styles';
 
-interface StepFiveType {
+export interface IStepFive {
   user?: {
     firstName?: string;
     lastName?: string;
+    last_name?: string;
     email?: string;
   } | null;
 }
 
-export default function StepFive({ user }: StepFiveType) {
+export default function StepFive({ user }: IStepFive) {
   const { classes } = useStyles();
+
+  console.log('StepFive: ', { user });
 
   return (
     <Box sx={{ height: '100%', minWidth: '780px' }}>
@@ -26,7 +29,7 @@ export default function StepFive({ user }: StepFiveType) {
         Sign up almost complete!
       </Typography>
       <Typography className={classes.label} sx={{ fontWeight: 'bold', marginTop: '60px' }}>
-        {user && user.firstName} {user && user.lastName}
+        {user && user.firstName} {user && (user.lastName || user.last_name)}
       </Typography>
       <Typography>{user && user.email}</Typography>
       <Typography sx={{ marginBottom: '60px' }}>
