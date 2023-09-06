@@ -22,6 +22,7 @@ export default function StepThree({ initData, handleBack, handleNext }: StepThre
       const isSelected = formData.interests.includes(interest);
       return (
         <Chip
+          key={interest}
           className={`${classes.chip} ${isSelected && classes.selectedChip}`}
           label={interest}
           sx={{ fontSize: '16px' }}
