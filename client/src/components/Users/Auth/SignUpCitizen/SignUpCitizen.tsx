@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
-// import { useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 
 import { UserSignupData } from './types/UserSignupData';
 import SvgSignUpContactInfoStep from './assets/SvgSignUpContactInfoStep';
@@ -16,9 +15,10 @@ import StepThree from './StepThree';
 import StepFour from './StepFour';
 import StepFive from './StepFive';
 
-import Actions from '../../../../actions/user';
-import { useAppDispatch } from '../../../../hooks/redux';
-import { selectUser, selectUserIsLoading } from '../../../../selectors/user';
+import Endpoints from './apis/backend';
+
+const imgHeight = '569px';
+const imgWidth = '256px';
 
 const initialFormData: UserSignupData = {
   firstName: '',
@@ -35,72 +35,26 @@ const initialFormData: UserSignupData = {
   bio: '',
 };
 
-const useMapToState = () => {
-  const user = useSelector(selectUser);
-  const userIsLoading = useSelector(selectUserIsLoading);
-
-  return {
-    user,
-    userIsLoading,
-  };
-};
-
 function SignupCitizen() {
-  const { user, userIsLoading } = useMapToState();
-
   const [activeStep, setActiveStep] = useState<number>(0);
   const [formData, setFormData] = useState(initialFormData);
+  const [user, setUser] = useState(null);
 
-  const imgHeight = '569px';
-  const imgWidth = '256px';
-
-  const dispatch = useAppDispatch();
-
-  // const orgValidateEinQuery = useQuery<
-  //   AxiosResponse<any, any>,
-  //   any,
-  //   { ein: string; name: string },
-  //   string[]
-  // >({
-  //   enabled: triggerEinSearch,
-  //   queryKey: ['orgValidateEinQuery', getValues().ein],
-  //   queryFn: ({ queryKey }) => {
-  //     const [, ein] = queryKey;
-  //     return httpGetValidateEin(ein);
-  //   },
-  //   onSuccess: (res: any) => {
-  //     setTriggerEinSearch(false);
-  //     setEINStepIsValid(true);
-  //     setValue('name', res.data.name);
-  //   },
-  //   onError: (res: any) => {
-  //     setEINStepIsValid(false);
-  //     setTriggerEinSearch(false);
-  //     setValue('name', '');
-  //     handleEinApiValidationError(res);
-  //   },
-  //   retry: 0,
-  // });
-
-  // const { isLoading, error, data } = useQuery({
-  //   queryKey: ['registerUser'],
-  //   queryFn: async () =>
-  //     // fetch('https://api.github.com/repos/TanStack/query').then(
-  //     //   (res) => res.json(),
-  //     // ),
-  //     const response = await fetch('');
-  // });
-
-  useEffect(() => {
-    if (user.id) {
+  const registerUserMutation = useMutation({
+    mutationFn: Endpoints.userRegister,
+    onSuccess: (user) => {
+      console.log(user);
+      setUser(user);
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
-  }, [user]);
+    },
+    onError: (error) => {
+      console.log({ error });
+    },
+  });
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    // @ts-ignore
-    dispatch(Actions.userSignup(formData));
+    registerUserMutation.mutate(formData);
   };
 
   const handleNext = (newFormData: {}) => {
@@ -176,7 +130,7 @@ function SignupCitizen() {
               {activeStep === 4 && <StepFive user={user} />}
             </Box>
             {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
-            {userIsLoading && <Typography>Loading</Typography>}
+            {registerUserMutation.isLoading && <Typography>Loading</Typography>}
           </form>
         </Box>
       </Box>
