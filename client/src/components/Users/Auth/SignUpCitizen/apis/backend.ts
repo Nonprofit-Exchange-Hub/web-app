@@ -23,6 +23,9 @@ const Endpoints = {
     };
     return client.post('/auth/register', body);
   },
+  checkUserEmail: (userEmail: string) => {
+    return client.get(`/auth/user-email-exists/${userEmail}`);
+  },
 };
 
 export default Endpoints;

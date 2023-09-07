@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Checkbox, Typography, FormControlLabel } from '@mui/material';
 import { string, boolean } from 'yup';
+import { useQuery } from 'react-query';
 
 import StyledLink from '../../../StyledLink';
 import routes from '../../../../routes/routes';
@@ -8,6 +9,7 @@ import PasswordInput from '../PasswordInput';
 import EmailInput from '../EmailInput';
 import NameInput from '../NameInput';
 import { ValidationUtils } from '../../../../utils';
+import Endpoints from './apis/backend';
 
 import { useStyles } from './styles/styles';
 
@@ -62,6 +64,26 @@ export default function StepOne({ initData, handleNext }: StepOneType) {
   });
 
   const [formData, setFormData] = useState(initialFormData);
+  const [userEmailQueryEnabled, setUserEmailQueryEnabled] = useState(false);
+
+  const { status, data } = useQuery({
+    queryKey: ['user-email-exists', formData['email'].value],
+    queryFn: () => Endpoints.checkUserEmail(formData['email'].value),
+    enabled: userEmailQueryEnabled,
+  });
+
+  useEffect(() => {
+    setUserEmailQueryEnabled(false);
+    if (status === 'success' && data.data === true) {
+      const newEmailObj = {
+        email: {
+          ...formData.email,
+          error: 'Email already exists.',
+        },
+      };
+      setFormData((currFormData) => Object.assign({}, currFormData, newEmailObj));
+    }
+  }, [status, data]);
 
   const nextEnabled = Object.values(formData).every(
     ({ value, error }) => error === null && Boolean(value),
@@ -100,6 +122,10 @@ export default function StepOne({ initData, handleNext }: StepOneType) {
         } else {
           // @ts-ignore
           error = ValidationUtils.getError(currFormData[name].rule, currFormData[name].value);
+        }
+
+        if (name === 'email') {
+          setUserEmailQueryEnabled(true);
         }
 
         const passwordConfirmError = {

@@ -71,6 +71,17 @@ export class AccountManagerController {
     }
   }
 
+  @Get('user-email-exists/:email')
+  @ApiOperation({ summary: 'Check if a user email already exists.' })
+  async userEmailExists(@Param('email') email: string) {
+    try {
+      const user = await this.usersService.findByEmail(email);
+      return Boolean(user);
+    } catch (error) {
+      return false;
+    }
+  }
+
   @Post('register')
   @ApiOperation({ summary: 'Create a new user account' })
   async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
