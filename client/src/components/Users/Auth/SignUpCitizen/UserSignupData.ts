@@ -11,3 +11,16 @@ export interface UserSignupData {
   interests: string[];
   bio?: string;
 }
+export const emptyUserSignupData: UserSignupData = {
+  firstName: '',
+  last_name: '',
+  email: '',
+  password: '',
+  accept_terms: false,
+  email_notification_opt_out: false,
+  city: '',
+  state: '',
+  zip_code: '',
+  interests: [],
+  bio: '',
+};
