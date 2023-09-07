@@ -15,6 +15,14 @@ export const letsGetStartedSchema = Yup.object().shape({
     .oneOf([true], 'The terms and conditions must be accepted.'),
 });
 
+export const aboutYourselfSchema = Yup.object().shape({
+  city: Yup.string(),
+  state: Yup.string(),
+  zip_code: Yup.string()
+    .required('Required')
+    .min(5, 'Zipcode is too short - should be 5 digits minimum.'),
+});
+
 export const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
   last_name: Yup.string().required('Required'),
