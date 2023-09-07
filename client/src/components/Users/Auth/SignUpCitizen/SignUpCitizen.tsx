@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { UserSignupData } from './types/UserSignupData';
 import SvgSignUpContactInfoStep from './assets/SvgSignUpContactInfoStep';
