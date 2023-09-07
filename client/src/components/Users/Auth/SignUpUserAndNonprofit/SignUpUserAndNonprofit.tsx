@@ -19,7 +19,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import routes from '../../../../routes/routes';
 import StyledLink from '../../../StyledLink';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { green } from '@mui/material/colors';
 import SimpleSnackbar from '../../../SimpleSnackbar';

@@ -9,7 +9,6 @@
 		"@mui/base": "^5.0.0-beta.2",
 		"@mui/icons-material": "^5.11.16",
 		"@mui/material": "^5.13.2",
-		"@tanstack/react-query": "^4.33.0",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
@@ -25,6 +24,7 @@
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.34.0",
 		"react-input-mask": "^3.0.0-alpha.2",
+		"react-query": "^3.39.3",
 		"react-router-dom": "^5.2.0",
 		"socket.io-client": "^4.5.1",
 		"tss-react": "^4.8.4",
@@ -56,7 +56,6 @@
 		]
 	},
 	"devDependencies": {
-		"@tanstack/react-query-devtools": "^4.35.0",
 		"@types/jest": "^26.0.23",
 		"@types/jsonwebtoken": "^8.5.4",
 		"@types/node": "^15.6.0",

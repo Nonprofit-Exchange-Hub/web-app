@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Checkbox, Typography, FormControlLabel } from '@mui/material';
 import { string, boolean } from 'yup';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from 'react-query';
 
 import StyledLink from '../../../StyledLink';
 import routes from '../../../../routes/routes';
