@@ -36,7 +36,7 @@ const useStyles = makeStyles()((theme: Theme) => {
   };
 });
 
-interface Props {
+type TNameInputProps = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
   error?: string | null;
@@ -48,7 +48,7 @@ interface Props {
   name?: string | null;
   onBlur?: React.FocusEventHandler<HTMLInputElement> | null;
   sublabel?: string | null;
-}
+};
 
 export default function NameInput({
   value,
@@ -60,7 +60,7 @@ export default function NameInput({
   placeholder,
   label = null,
   sublabel = null,
-}: Props) {
+}: TNameInputProps) {
   const { classes } = useStyles();
 
   const getAdditionalProps = () => {
