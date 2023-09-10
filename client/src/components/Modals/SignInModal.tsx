@@ -19,10 +19,6 @@ import { UserContext } from '../../providers';
 import routes from '../../routes/routes';
 import { APP_API_BASE_URL } from '../../configs';
 
-const handleErrorClick = () => {
-  throw new Error('An intentional error');
-};
-
 interface SignInModalProps {
   closeModal: () => void;
   className: {
@@ -195,7 +191,6 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                       >
                         Login
                       </Button>
-                      <button onClick={handleErrorClick}>Click to throw error</button>
                       {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
                     </Grid>
 
