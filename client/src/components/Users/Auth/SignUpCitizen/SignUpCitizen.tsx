@@ -72,10 +72,7 @@ function SignupCitizen() {
       ...newFormData,
     }));
 
-    // eslint-disable-next-line prettier/prettier
-    doSubmit
-      ? setSubmitForm(true)
-      : setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    doSubmit ? setSubmitForm(true) : setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
