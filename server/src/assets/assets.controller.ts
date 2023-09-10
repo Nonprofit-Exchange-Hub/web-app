@@ -22,7 +22,6 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { ReturnAssetDto } from './dto/return-asset.dto';
-import { Asset } from './entities/asset.entity';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
 

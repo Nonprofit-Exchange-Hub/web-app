@@ -4,8 +4,6 @@ import {
   Response,
   Request,
   UseGuards,
-  HttpException,
-  HttpStatus,
   Get,
   Body,
   Param,
@@ -34,13 +32,7 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
-import {
-  LoginDto,
-  ResetPasswordDto,
-  VerifyEmailDto,
-  ReturnSessionDto,
-  ReturnUserDto,
-} from './dto/auth.dto';
+import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto } from './dto/auth.dto';
 
 type AuthedRequest = RequestT & { user: User };
 
