@@ -6,7 +6,7 @@ import { useStyles } from './styles/styles';
 interface StepFourType {
   initData: { bio: string };
   handleBack: () => void;
-  handleNext: (formData: {}) => void;
+  handleNext: (formData: {}, submitForm?: boolean) => void;
 }
 
 export default function StepFour({ initData, handleBack, handleNext }: StepFourType) {
@@ -23,12 +23,8 @@ export default function StepFour({ initData, handleBack, handleNext }: StepFourT
     });
   };
 
-  const handleClickBack = () => {
-    handleBack();
-  };
-
   const handleClickNext = () => {
-    handleNext(formData);
+    handleNext(formData, true);
   };
 
   return (
@@ -90,20 +86,12 @@ export default function StepFour({ initData, handleBack, handleNext }: StepFourT
       </Box>
       <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
         <Box>
-          <Button color="primary" variant="outlined" onClick={handleClickBack}>
+          <Button color="primary" variant="outlined" onClick={handleBack}>
             Back
           </Button>
         </Box>
         <Box display="flex" flexDirection="row" justifyContent="space-between">
-          <Button
-            color="primary"
-            sx={{ marginRight: '20px' }}
-            variant="outlined"
-            onClick={handleClickNext}
-          >
-            Skip
-          </Button>
-          <Button type="submit" color="primary" variant="outlined">
+          <Button color="primary" variant="outlined" onClick={handleClickNext}>
             Next
           </Button>
         </Box>

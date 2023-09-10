@@ -17,6 +17,7 @@ const Endpoints = {
       email_notification_opt_out: true,
       email: userData.email,
       password: userData.password,
+      bio: userData.bio,
       interests: {
         names: userData.interests,
       },

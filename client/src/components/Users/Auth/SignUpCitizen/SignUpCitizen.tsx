@@ -39,6 +39,7 @@ const initialFormData: UserSignupData = {
 function SignupCitizen() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [formData, setFormData] = useState(initialFormData);
+  const [submitForm, setSubmitForm] = useState(false);
   const [user, setUser] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -48,28 +49,33 @@ function SignupCitizen() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (submitForm) {
+      registerUserMutation.mutate(formData);
+      setSubmitForm(false);
+    }
+  }, [submitForm]);
+
   const registerUserMutation = useMutation({
     mutationFn: Endpoints.userRegister,
     onSuccess: ({ data: user }) => {
       setUser(user);
     },
     onError: (error: AxiosError) => {
-      console.log('WE HAVE AN ERROR', { error });
       setErrorMsg(error?.response?.data?.message);
     },
   });
 
-  const handleSubmit = async (evt: React.FormEvent) => {
-    evt.preventDefault();
-    registerUserMutation.mutate(formData);
-  };
-
-  const handleNext = (newFormData: {}) => {
+  const handleNext = (newFormData: {}, doSubmit = false) => {
     setFormData((currFormData) => ({
       ...currFormData,
       ...newFormData,
     }));
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+    // eslint-disable-next-line prettier/prettier
+    doSubmit
+      ? setSubmitForm(true)
+      : setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
@@ -110,7 +116,6 @@ function SignupCitizen() {
           sx={{ marginLeft: '84px', marginBottom: '78px', marginRight: '130px' }}
         >
           <form
-            onSubmit={handleSubmit}
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
             {/* Placeholder for loading and error - waiting on UI/UX response as to what they want. */}
