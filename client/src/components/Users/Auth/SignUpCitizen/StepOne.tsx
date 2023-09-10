@@ -48,12 +48,12 @@ const initialFormData = {
   },
 };
 
-interface StepOneType {
+type TStepOneProps = {
   initData: {};
   handleNext: (formData: {}) => void;
-}
+};
 
-export default function StepOne({ initData, handleNext }: StepOneType) {
+export default function StepOne({ initData, handleNext }: TStepOneProps) {
   const { classes } = useStyles();
 
   Object.keys(initialFormData).forEach((key) => {

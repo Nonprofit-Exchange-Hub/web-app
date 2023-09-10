@@ -29,13 +29,13 @@ const initialFormData = {
   },
 };
 
-interface StepTwoType {
+type TStepTwoProps = {
   initData: {};
   handleBack: () => void;
   handleNext: (formData: {}) => void;
-}
+};
 
-export default function StepTwo({ initData, handleBack, handleNext }: StepTwoType) {
+export default function StepTwo({ initData, handleBack, handleNext }: TStepTwoProps) {
   const { classes } = useStyles();
 
   Object.keys(initialFormData).forEach((key) => {

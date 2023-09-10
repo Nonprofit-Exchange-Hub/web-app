@@ -3,16 +3,16 @@ import { Box, Typography } from '@mui/material';
 
 import { useStyles } from './styles/styles';
 
-export interface IStepFive {
+type TStepFiveProps = {
   user?: {
     firstName?: string;
     lastName?: string;
     last_name?: string;
     email?: string;
   } | null;
-}
+};
 
-export default function StepFive({ user }: IStepFive) {
+export default function StepFive({ user }: TStepFiveProps) {
   const { classes } = useStyles();
   return (
     <Box sx={{ height: '100%', minWidth: '780px' }}>

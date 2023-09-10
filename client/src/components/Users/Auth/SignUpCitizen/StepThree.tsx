@@ -5,13 +5,13 @@ import { interests } from './constants/interests';
 
 import { useStyles } from './styles/styles';
 
-interface StepThreeType {
+type TStepThreeProps = {
   initData: { interests: string[] };
   handleBack: () => void;
   handleNext: (formData: {}) => void;
-}
+};
 
-export default function StepThree({ initData, handleBack, handleNext }: StepThreeType) {
+export default function StepThree({ initData, handleBack, handleNext }: TStepThreeProps) {
   const { classes } = useStyles();
 
   const [formData, setFormData] = useState<{ interests: string[] }>(initData);

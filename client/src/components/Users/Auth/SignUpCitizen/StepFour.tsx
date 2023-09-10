@@ -3,13 +3,13 @@ import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 
 import { useStyles } from './styles/styles';
 
-interface StepFourType {
+interface StepFourProps {
   initData: { bio: string };
   handleBack: () => void;
   handleNext: (formData: {}, submitForm?: boolean) => void;
 }
 
-export default function StepFour({ initData, handleBack, handleNext }: StepFourType) {
+export default function StepFour({ initData, handleBack, handleNext }: StepFourProps) {
   const { classes } = useStyles();
   const [formData, setFormData] = useState(initData);
 
