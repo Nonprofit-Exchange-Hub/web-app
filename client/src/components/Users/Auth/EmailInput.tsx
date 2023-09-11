@@ -27,6 +27,10 @@ const useStyles = makeStyles()((theme: Theme) => {
       textAlign: 'left',
       marginTop: '20px',
     },
+    error: {
+      marginBottom: 0,
+      border: '2px solid red',
+    },
   };
 });
 interface Props {
@@ -35,19 +39,32 @@ interface Props {
   placeholder: string;
   showStartAdornment?: boolean;
   error: string | null;
+  onBlur?: React.ChangeEventHandler<HTMLInputElement> | null;
 }
 
-function EmailInput({ onChange, value, placeholder, showStartAdornment = false, error }: Props) {
+function EmailInput({
+  value,
+  error,
+  onChange,
+  placeholder,
+  onBlur = null,
+  showStartAdornment = false,
+}: Props) {
   const { classes } = useStyles();
+
+  let additionalProps: { [key: string]: any } = {};
+
+  if (onBlur) {
+    additionalProps['onBlur'] = onBlur;
+  }
 
   return (
     <FormControl fullWidth error={Boolean(error)}>
       <label className={classes.label} htmlFor="email">
         Email
       </label>
-      {error && <FormHelperText error>{error}</FormHelperText>}
       <Input
-        className={classes.input}
+        className={`${classes.input} ${Boolean(error) && classes.error}`}
         type="email"
         id="email"
         name="email"
@@ -66,7 +83,9 @@ function EmailInput({ onChange, value, placeholder, showStartAdornment = false, 
             </InputAdornment>
           )
         }
+        {...additionalProps}
       />
+      {error && <FormHelperText error>{error}</FormHelperText>}
     </FormControl>
   );
 }

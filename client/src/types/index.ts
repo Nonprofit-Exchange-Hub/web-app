@@ -83,3 +83,16 @@ export type Category = {
   applies_to_assets: boolean;
   applies_to_organizations: boolean;
 };
+
+export type StoreUser = {
+  id?: number;
+  firstName: string;
+  lastName?: string;
+  email?: string;
+  profileImageUrl?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  interests?: { names: string[] };
+  isLoading: boolean;
+};
