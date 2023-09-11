@@ -102,7 +102,7 @@ export class AccountManagerController {
       `,
       mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'production' } },
     };
-    // await this.sendgridService.send(mail);
+    await this.sendgridService.send(mail);
 
     return user;
   }
