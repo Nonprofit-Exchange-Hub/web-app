@@ -7,9 +7,10 @@ import Header from './components/Header';
 import Main from './views/Main';
 import Footer from './components/Footer';
 import Modal from './components/Modal';
-import ErrorFallback from './components/ErrorBoundary';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import GeneralError from './components/ErrorBoundary/GeneralError';
+import NotFound from './components/ErrorBoundary/NotFoundError';
 
-import { ErrorBoundary } from 'react-error-boundary';
 import { UserProvider } from './providers';
 import { ModalProvider } from './providers/ModalProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -25,12 +26,7 @@ function App(): JSX.Element {
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools />
-          <ErrorBoundary
-            FallbackComponent={ErrorFallback}
-            onReset={() => {
-              /* reset logic here */
-            }}
-          >
+          <ErrorBoundary fallback={GeneralError}>
             <UserProvider>
               <ModalProvider>
                 <BrowserRouter
@@ -46,11 +42,12 @@ function App(): JSX.Element {
                     width="100vw"
                     justifyContent="space-between"
                   >
-                    {/* move modal to below footer after troubleshooting */}
-                    <Modal />
                     <Header />
-                    <Main />
+                    <ErrorBoundary fallback={NotFound}>
+                      <Main />
+                    </ErrorBoundary>
                     <Footer />
+                    <Modal />
                   </Grid>
                 </BrowserRouter>
               </ModalProvider>
