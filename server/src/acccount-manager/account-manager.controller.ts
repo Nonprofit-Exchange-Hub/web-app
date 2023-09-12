@@ -33,6 +33,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
 import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto } from './dto/auth.dto';
+import { UpdateUserInternal } from './dto/create-user.internal';
+import { MapTo } from '../shared/serialize.interceptor';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -56,13 +58,14 @@ export class AccountManagerController {
   async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
-      this.usersService.update(user.id, { ...user, email_verified: true });
+      this.usersService.update(user.id, { email_verified: true } as UpdateUserInternal);
       return true;
     } catch {
       throw Error('jwt verify fail');
     }
   }
 
+  @MapTo(ReturnUserDto)
   @Post('register')
   @ApiOperation({ summary: 'Create a new user account' })
   async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
