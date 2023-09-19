@@ -21,8 +21,7 @@ import Logout from '@mui/icons-material/Logout';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-
-import type { Theme } from '@mui/material/styles';
+import theme from '../theme';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/GivingfulLogo.png';
@@ -31,7 +30,7 @@ import { APP_API_BASE_URL } from '../configs';
 import { UserAvatar } from './Users/UserAvatar';
 import { ModalContext } from './../providers/ModalProvider';
 
-const useStyles = makeStyles()((theme: Theme) => ({
+const useStyles = makeStyles()(() => ({
   home: {
     minWidth: '25px',
     maxWidth: '100px',
@@ -92,19 +91,12 @@ const useStyles = makeStyles()((theme: Theme) => ({
     backgroundColor: `${theme.palette.primary.contrastText}`,
     color: `${theme.palette.text.primary}`,
     borderRadius: '10px',
-    border: `1px solid ${theme.palette.black.light}`,
+    border: `1px solid ${theme.palette.primary.dark}`,
     marginLeft: '10px',
     width: '100px',
   },
   menuButton: {
-    color: '#323232',
-    fontFamily: 'Poppins',
-    fontSize: '1rem',
-    fontStyle: 'normal',
-    fontWeight: 400,
-    lineHeight: 'normal',
-    letterSpacing: '0.00938rem',
-    width: '100%',
+    width: '94%',
     margin: '0 5px 0 5px',
   },
 }));
@@ -242,11 +234,7 @@ function Header() {
                 }}
               >
                 <MenuItem onClick={handleClose} className={classes.menuButton}>
-                  <NavLink
-                    className={classes.navLink}
-                    to={routes.Help.path}
-                    activeStyle={{ fontWeight: 'bold' }}
-                  >
+                  <NavLink className={classes.navLink} to={routes.Help.path}>
                     FAQs
                   </NavLink>
                 </MenuItem>
@@ -261,7 +249,6 @@ function Header() {
                 endIcon={isAboutMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 sx={{
                   textTransform: 'capitalize',
-                  color: '#323232',
                   fontWeight: 400,
                   marginRight: '1.5em',
                   border: 0,
@@ -281,7 +268,6 @@ function Header() {
                 onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'about-button',
-                  // For inner text box layout:
                   sx: {
                     display: 'inline-flex',
                     flexDirection: 'column',
