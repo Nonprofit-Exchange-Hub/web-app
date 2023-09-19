@@ -9,7 +9,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import AppsIcon from '@mui/icons-material/Apps';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
@@ -18,11 +18,10 @@ import Loop from '@mui/icons-material/LoopOutlined';
 import Widgets from '@mui/icons-material/WidgetsOutlined';
 import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
 import Logout from '@mui/icons-material/Logout';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-
-import type { Theme } from '@mui/material/styles';
+import theme from '../theme';
 
 import { UserContext } from '../providers';
 import Logo from '../assets/GivingfulLogo.png';
@@ -31,7 +30,7 @@ import { APP_API_BASE_URL } from '../configs';
 import { UserAvatar } from './Users/UserAvatar';
 import { ModalContext } from './../providers/ModalProvider';
 
-const useStyles = makeStyles()((theme: Theme) => ({
+const useStyles = makeStyles()(() => ({
   home: {
     minWidth: '25px',
     maxWidth: '100px',
@@ -52,6 +51,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   navLink: {
     fontWeight: 'normal',
@@ -80,7 +80,7 @@ const useStyles = makeStyles()((theme: Theme) => ({
     color: `${theme.palette.primary.contrastText}`,
     borderRadius: '10px',
     border: `1px solid ${theme.palette.primary.main}`,
-    marginLeft: '0px',
+    marginRight: '1.5em',
     width: '100px',
     '&:hover': {
       color: `${theme.palette.text.primary}`,
@@ -91,9 +91,13 @@ const useStyles = makeStyles()((theme: Theme) => ({
     backgroundColor: `${theme.palette.primary.contrastText}`,
     color: `${theme.palette.text.primary}`,
     borderRadius: '10px',
-    border: `1px solid ${theme.palette.black.light}`,
+    border: `1px solid ${theme.palette.primary.dark}`,
     marginLeft: '10px',
     width: '100px',
+  },
+  menuButton: {
+    width: '94%',
+    margin: '0 5px 0 5px',
   },
 }));
 
@@ -171,154 +175,158 @@ function Header() {
             <img className={classes.logo} src={Logo} alt="NEH logo placeholder" />
           </NavLink>
           <div>
-            <Button
-              id="exchange-button"
-              aria-label="exchange dropdown"
-              aria-controls={isExchangeMenuOpen ? 'about-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={isExchangeMenuOpen ? 'true' : undefined}
-              onClick={handleClick}
-              endIcon={isExchangeMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              sx={{
-                textTransform: 'capitalize',
-                color: '#323232',
-                marginRight: '10px',
-              }}
-            >
-              Exchange
-            </Button>
-            <Menu
-              id="exchange-menu"
-              anchorEl={exchangeAnchorEl}
-              keepMounted
-              open={isExchangeMenuOpen}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'exchange-button',
-              }}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: 'visible',
-                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                  mt: 1,
-                  marginLeft: '0.7em',
-                  '&:before': {
-                    content: '""',
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    right: 20,
-                    width: 10,
-                    height: 10,
-                    bgcolor: 'background.paper',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
-                    marginLeft: '0.7em',
+            <>
+              <IconButton size="large">{/* Mailbox icon here */}</IconButton>
+              <IconButton size="large">{/* Bell icon here */}</IconButton>
+              <IconButton size="large">{/* Profile icon here */}</IconButton>
+
+              <Button
+                id="exchange-button"
+                aria-label="exchange dropdown"
+                aria-controls={isExchangeMenuOpen ? 'about-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={isExchangeMenuOpen ? 'true' : undefined}
+                onClick={handleClick}
+                endIcon={isExchangeMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                sx={{
+                  textTransform: 'capitalize',
+                  color: '#323232',
+                  fontWeight: 400,
+                  marginRight: '1.5em',
+                  border: 0,
+                  '&:hover, &:active, &[aria-expanded="true"]': {
+                    fontWeight: 600,
+                    backgroundColor: 'transparent',
                   },
-                },
-              }}
-            >
-              <MenuItem>
-                <NavLink
-                  className={classes.navLink}
-                  to={routes.Help.path}
-                  activeStyle={{ fontWeight: 'bold' }}
-                >
-                  FAQs
-                </NavLink>
-              </MenuItem>
-            </Menu>
-            <Button
-              id="about-button"
-              aria-label="about dropdown"
-              aria-controls={isAboutMenuOpen ? 'about-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={isAboutMenuOpen ? 'true' : undefined}
-              onClick={handleClick}
-              endIcon={isAboutMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              sx={{
-                textTransform: 'capitalize',
-                color: '#323232',
-                marginRight: '5px',
-              }}
-            >
-              About
-            </Button>
-            <Menu
-              id="about-menu"
-              anchorEl={aboutAnchorEl}
-              keepMounted
-              open={isAboutMenuOpen}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'about-button',
-              }}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: 'visible',
-                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                  mt: 1,
-                  marginLeft: '0.7em',
-                  '&:before': {
-                    content: '""',
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    right: 20,
-                    width: 10,
-                    height: 10,
-                    bgcolor: 'background.paper',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
+                }}
+              >
+                Exchange
+              </Button>
+              <Menu
+                id="exchange-menu"
+                anchorEl={exchangeAnchorEl}
+                keepMounted
+                open={isExchangeMenuOpen}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'exchange-button',
+                }}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 1,
+                    minWidth: '120px',
+                    marginTop: '1.5em',
+                    borderRadius: '.625em',
+                    alignItems: 'center',
+                    flexShrink: 0,
                   },
-                },
-              }}
-            >
-              <MenuItem>
-                <NavLink
-                  className={classes.navLink}
-                  to={routes.AboutUs.path}
-                  activeStyle={{ fontWeight: 'bold' }}
-                >
-                  About Us
-                </NavLink>
-              </MenuItem>
-              <MenuItem>
-                <NavLink
-                  className={classes.navLink}
-                  to={routes.HowItWorks.path}
-                  activeStyle={{ fontWeight: 'bold' }}
-                >
-                  How It Works
-                </NavLink>
-              </MenuItem>
-            </Menu>
+                }}
+              >
+                <MenuItem onClick={handleClose} className={classes.menuButton}>
+                  <NavLink className={classes.navLink} to={routes.Help.path}>
+                    FAQs
+                  </NavLink>
+                </MenuItem>
+              </Menu>
+              <Button
+                id="about-button"
+                aria-label="about dropdown"
+                aria-controls={isAboutMenuOpen ? 'about-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={isAboutMenuOpen ? 'true' : undefined}
+                onClick={handleClick}
+                endIcon={isAboutMenuOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                sx={{
+                  textTransform: 'capitalize',
+                  fontWeight: 400,
+                  marginRight: '1.5em',
+                  border: 0,
+                  '&:hover, &:active, &[aria-expanded="true"]': {
+                    fontWeight: 600,
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
+                About
+              </Button>
+              <Menu
+                id="about-menu"
+                anchorEl={aboutAnchorEl}
+                keepMounted
+                open={isAboutMenuOpen}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'about-button',
+                  sx: {
+                    display: 'inline-flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: '.5rem',
+                    margin: '5px 0 5px 0',
+                  },
+                }}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    gap: 0,
+                    marginLeft: '2.5em',
+                    marginTop: '1.5em',
+                    borderRadius: '.625em',
+                    alignItems: 'center',
+                    flexShrink: 0,
+                  },
+                }}
+              >
+                <MenuItem onClick={handleClose} className={classes.menuButton}>
+                  <NavLink
+                    className={classes.navLink}
+                    to={routes.AboutUs.path}
+                    activeStyle={{
+                      fontStyle: 'bold',
+                    }}
+                  >
+                    About Us
+                  </NavLink>
+                </MenuItem>
+                <MenuItem onClick={handleClose} className={classes.menuButton}>
+                  <NavLink
+                    className={classes.navLink}
+                    to={routes.HowItWorks.path}
+                    activeStyle={{
+                      fontStyle: 'bold',
+                    }}
+                  >
+                    How It Works
+                  </NavLink>
+                </MenuItem>
+              </Menu>
+            </>
           </div>
         </div>
         <div className={classes.userButtons}>
           {user ? (
             <>
-              <IconButton size="large">
-                <NotificationsIcon />
-              </IconButton>
               <IconButton
                 id="navigation-button"
                 aria-label="navigation dropdown"
@@ -326,9 +334,24 @@ function Header() {
                 aria-haspopup="true"
                 aria-expanded={isNavMenuOpen ? 'true' : undefined}
                 onClick={handleClick}
-                size="large"
+                style={{
+                  transform: 'scale(1.5)',
+                  color: 'black',
+                  marginRight: '1em',
+                  maxHeight: '40px',
+                }}
               >
-                <AppsIcon />
+                <MailOutlineIcon />
+              </IconButton>
+              <IconButton
+                style={{
+                  transform: 'scale(1.5)',
+                  color: 'black',
+                  marginRight: '.7em',
+                  maxHeight: '40px',
+                }}
+              >
+                <NotificationsNoneIcon />
               </IconButton>
               <Menu
                 id="navigation-menu"
@@ -411,11 +434,12 @@ function Header() {
                 aria-haspopup="true"
                 aria-expanded={isProfileMenuOpen ? 'true' : undefined}
                 onClick={handleClick}
-                size="large"
+                sx={{ marginRight: '.5em', fill: 'black' }}
               >
                 <UserAvatar
                   userFirstName={user.firstName}
                   profileImageUrl={user.profile_image_url ?? ''}
+                  style={{ backgroundColor: 'black' }}
                 />
               </IconButton>
               <Menu
