@@ -15,8 +15,7 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
-import { useContext } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { ModalContext } from '../providers/ModalProvider';
 import { useForm } from 'react-hook-form';
 import { focusAreas } from './FocusAreas';
@@ -813,16 +812,6 @@ function SignupNonProfit() {
                   )}
                   <Box />
                 </Box>
-                {activeStep === 5 && (
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                    disabled={!formData.accept_terms}
-                  >
-                    Sign Up
-                  </Button>
-                )}
               </Box>
             </Box>
             {isLoading && <Typography>Loading</Typography>}
