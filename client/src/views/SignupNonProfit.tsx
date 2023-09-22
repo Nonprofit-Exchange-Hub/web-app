@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-// import { SignUpUserAndNonprofit } from '../components/Users/Auth/SignUpUserAndNonprofit/SignUpUserAndNonprofit';
-// function SignupNonProfit() {
-//   return <SignUpUserAndNonprofit />;
-// }
-// export default SignupNonProfit;
 
 import * as React from 'react';
+import routes from '../routes/routes';
+import EmailInput from '../components/Users/Auth/EmailInput';
+import StyledLink from '../components/StyledLink';
+import PasswordInput from '../components/Users/Auth/PasswordInput';
+import SvgSignUpContactInfoStep from '../components/Icons/SvgSignUpContactInfoStep';
+import SvgSignUpLocationStep from '../components/Icons/SvgSignUpLocationStep';
+import SvgSignUpfocusAreasStep from '../components/Icons/SvgSignUpFocusAreasStep';
+import SvgSignUpProfileStep from '../components/Icons/SvgSignUpProfileStep';
+import SvgSignUpFinishedStep from '../components/Icons/SvgSignUpFinishedStep';
 import Grid from '@mui/material/Grid';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
@@ -17,22 +21,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
 import { useEffect, useContext } from 'react';
 import { ModalContext } from '../providers/ModalProvider';
-import { useForm } from 'react-hook-form';
 import { focusAreas } from './FocusAreas';
 import { makeStyles } from 'tss-react/mui';
 import { UserContext } from '../providers';
 import { placeholderImg } from '../assets/temp';
 import { classifications } from '../components/Users/Auth/SignUpUserAndNonprofit/Classifications';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../configs';
-import routes from '../routes/routes';
-import EmailInput from '../components/Users/Auth/EmailInput';
-import StyledLink from '../components/StyledLink';
-import PasswordInput from '../components/Users/Auth/PasswordInput';
-import SvgSignUpContactInfoStep from '../components/Icons/SvgSignUpContactInfoStep';
-import SvgSignUpLocationStep from '../components/Icons/SvgSignUpLocationStep';
-import SvgSignUpfocusAreasStep from '../components/Icons/SvgSignUpFocusAreasStep';
-import SvgSignUpProfileStep from '../components/Icons/SvgSignUpProfileStep';
-import SvgSignUpFinishedStep from '../components/Icons/SvgSignUpFinishedStep';
 import {
   Box,
   Select,
@@ -148,14 +142,6 @@ function SignupNonProfit() {
   const { user, setUser } = React.useContext(UserContext);
   const modalContext = useContext(ModalContext);
   const { openModal } = modalContext;
-  const { control } = useForm();
-  const steps = [
-    { label: 'Organization' },
-    { label: 'Representative' },
-    { label: 'Contact' },
-    { label: 'Focus' },
-    { label: 'Profile' },
-  ];
 
   const makeChips = () => {
     return focusAreas.map((focusArea) => {
@@ -416,6 +402,7 @@ function SignupNonProfit() {
                         </Grid>
                         <Grid item xs={12}>
                           <label>IRS Nonprofit Organization Classification</label>
+                          {/* @ts-ignore */}
                           <Select
                             input={<OutlinedInput />}
                             inputProps={{ 'aria-label': 'Without label' }}
@@ -437,9 +424,6 @@ function SignupNonProfit() {
                               },
                             }}
                           >
-                            {/* <MenuItem disabled value="">
-                              <em>Select Classification</em>
-                            </MenuItem> */}
                             {classifications.map((option, index) => {
                               return (
                                 <MenuItem key={option.text} value={option.text}>
