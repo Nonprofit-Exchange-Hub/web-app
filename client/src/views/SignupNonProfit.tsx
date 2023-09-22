@@ -21,7 +21,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
 import { useEffect, useContext } from 'react';
 import { ModalContext } from '../providers/ModalProvider';
-import { focusAreas } from './FocusAreas';
+import { focusAreas } from './focusAreas';
 import { makeStyles } from 'tss-react/mui';
 import { UserContext } from '../providers';
 import { placeholderImg } from '../assets/temp';
