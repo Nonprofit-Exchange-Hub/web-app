@@ -106,7 +106,7 @@ const Modal = () => {
   }
 
   return (
-    <div id="mango">
+    <div>
       <SpecificModal ref={modalRef} closeModal={closeModal} className={classes} />
     </div>
   );

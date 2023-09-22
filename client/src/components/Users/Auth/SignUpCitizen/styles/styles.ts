@@ -1,5 +1,5 @@
 import { makeStyles } from 'tss-react/mui';
-import { placeholderImg } from '../../../../assets/temp';
+import { placeholderImg } from '../../../../../assets/temp';
 
 // TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
 export const useStyles = makeStyles()((theme) => ({
@@ -25,6 +25,14 @@ export const useStyles = makeStyles()((theme) => ({
     fontWeight: 'bold',
     paddingBottom: '40px',
   },
+  subHeader: {
+    fontWeight: '600',
+    paddingBottom: 0,
+  },
+  text: {
+    fontWeight: '400',
+    paddingBottom: '40px',
+  },
   input: {
     height: 44,
     border: '1px solid #C4C4C4',
@@ -44,5 +52,25 @@ export const useStyles = makeStyles()((theme) => ({
   chip: {
     boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.25)',
     height: 44,
+  },
+  error: {
+    border: '1px solid red',
+  },
+  selectedChip: {
+    backgroundColor: '#C4C4C4',
+  },
+  select: {
+    position: 'relative',
+    top: 1,
+    height: 44,
+    // border: '1px solid #C4C4C4',
+    borderColor: '#C4C4C4',
+    borderRadius: 10,
+    boxSizing: 'border-box',
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    fontSize: 14,
+    marginBottom: 20,
   },
 }));

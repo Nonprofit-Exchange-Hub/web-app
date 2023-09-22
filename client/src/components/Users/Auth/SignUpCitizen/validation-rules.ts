@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { interests } from './interests';
+import { interests } from './constants/interests';
 
 export const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
@@ -21,5 +21,5 @@ export const validationSchema = Yup.object().shape({
   image_url: Yup.string()
     .matches(/https:\/\/\S+.(jpeg|jpg|png|svg)/, 'Please use a valid image url')
     .required('Required'),
-  aboutyourself: Yup.string().required('Required'),
+  bio: Yup.string().required('Required'),
 });

@@ -48,6 +48,7 @@ export type User = {
   city?: string;
   state?: string;
   zip_code?: string;
+  bio?: string;
   interests?: { names: string[] };
 };
 
@@ -81,4 +82,17 @@ export type Category = {
   name: string;
   applies_to_assets: boolean;
   applies_to_organizations: boolean;
+};
+
+export type StoreUser = {
+  id?: number;
+  firstName: string;
+  lastName?: string;
+  email?: string;
+  profileImageUrl?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  interests?: { names: string[] };
+  isLoading: boolean;
 };
