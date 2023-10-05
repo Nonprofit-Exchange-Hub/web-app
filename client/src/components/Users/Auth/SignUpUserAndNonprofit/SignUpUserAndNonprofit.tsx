@@ -32,6 +32,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { classifications } from './Classifications';
 import { httpGetValidateEin, httpPostNonprofitSignup } from './http-sing-up-nonprofit';
 import InputMask from 'react-input-mask';
+import { ModalContext } from '../../../../providers/ModalProvider';
+import { useContext } from 'react';
 
 const defaultOrg: FormData = {
   name: '',
@@ -56,6 +58,7 @@ const defaultOrg: FormData = {
 
 export const SignUpUserAndNonprofit = () => {
   const { classes } = useStyles();
+  const { openModal } = useContext(ModalContext);
   const [activeStep, setActiveStep] = React.useState(0);
   const [einStepIsValid, setEINStepIsValid] = React.useState(false);
   const [einApiValidateError, setEinApiValidateError] = React.useState('');
@@ -196,7 +199,8 @@ export const SignUpUserAndNonprofit = () => {
           </Grid>
           <Grid item sx={{ marginBottom: '30px' }}>
             <Typography component="p" gutterBottom>
-              Already have an account? <StyledLink to={routes.Login.path}>Log In</StyledLink>
+              Already have an account?&nbsp;
+              <button onClick={() => openModal('SignIn')}>Login</button>{' '}
             </Typography>
           </Grid>
 
