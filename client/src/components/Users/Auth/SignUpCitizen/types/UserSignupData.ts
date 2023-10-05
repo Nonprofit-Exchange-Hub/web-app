@@ -12,3 +12,8 @@ export interface UserSignupData {
   bio: string;
   passwordConfirm: string;
 }
+
+export interface Profile {
+  file: File;
+  userId: number;
+}
