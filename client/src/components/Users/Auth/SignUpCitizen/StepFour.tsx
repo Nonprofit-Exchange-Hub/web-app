@@ -14,7 +14,7 @@ type TStepFourProps = {
 export default function StepFour({ initData, handleBack, handleNext, setImage }: TStepFourProps) {
   const { classes } = useStyles();
   const [formData, setFormData] = useState(initData);
-  const [imageError, setImageError] = useState<'too-big' | 'unsupported-ext' | ''>('');
+  const [imageError, setImageError] = useState<'too-big' | 'unsupported-text' | ''>('');
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;
@@ -35,7 +35,7 @@ export default function StepFour({ initData, handleBack, handleNext, setImage }:
       return;
     }
     if (!['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(evt.target.files[0].type)) {
-      setImageError('unsupported-ext');
+      setImageError('unsupported-text');
       return;
     }
     setImage(evt.target.files![0]);
@@ -81,8 +81,8 @@ export default function StepFour({ initData, handleBack, handleNext, setImage }:
           <Grid item xs={12}>
             {imageError === 'too-big' ? (
               <Alert severity="error">Please upload a file up to 1 megabyte in size.</Alert>
-            ) : imageError === 'unsupported-ext' ? (
-              <Alert severity="error">Supported files: jpeg, jpgm png and gif</Alert>
+            ) : imageError === 'unsupported-text' ? (
+              <Alert severity="error">Supported files: jpeg, jpg png and gif</Alert>
             ) : null}
           </Grid>
         </Grid>
