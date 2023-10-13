@@ -38,6 +38,7 @@ export default function StepFour({ initData, handleBack, handleNext, setImage }:
       setImageError('unsupported-text');
       return;
     }
+    setImageError('');
     setImage(evt.target.files![0]);
   };
 
