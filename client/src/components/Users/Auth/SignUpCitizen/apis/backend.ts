@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { UserSignupData } from '../types/UserSignupData';
+import { Profile, UserSignupData } from '../types/UserSignupData';
 
 const client = axios.create({
   baseURL: '/api',
@@ -26,6 +26,12 @@ const Endpoints = {
   },
   checkUserEmail: (userEmail: string) => {
     return client.get(`/auth/user-email-exists/${userEmail}`);
+  },
+  userUpdateProfile: (profile: Profile) => {
+    const { file, userId } = profile;
+    const formData = new FormData();
+    formData.append('profile_image', file);
+    return client.put(`/auth/users/profile/${userId}`, formData);
   },
 };
 
