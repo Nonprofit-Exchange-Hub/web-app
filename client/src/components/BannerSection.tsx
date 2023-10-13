@@ -2,7 +2,8 @@ import { Grid, Typography, Box } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 import MainImage from '../assets/banner-section-main.svg';
-import CTAButton from './Buttons/CTAButton';
+import { CTAHeroButton } from './Buttons/Button';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   gridTitle: {
@@ -43,6 +44,7 @@ function BannerText() {
 
 function BannerSection() {
   const { classes } = useStyles();
+  const history = useHistory();
 
   return (
     <Box>
@@ -50,7 +52,7 @@ function BannerSection() {
         <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
           <Box sx={{ width: '550px', mt: '180px', mb: '66px', ml: '40px' }}>
             <BannerText />
-            <CTAButton text="Join Now" />
+            <CTAHeroButton text="Join Now" onClick={() => history.push('/signup-citizen')} />
           </Box>
         </Grid>
         <Grid

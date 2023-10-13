@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui';
 import { FormControl, FormLabel, Button } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
+import { CTAHeroButton, PrimaryCTAButton } from '../Buttons/Button';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   buttonText: {
@@ -20,6 +21,7 @@ type CustomProps = {
   id: string;
   label: string;
   text: string;
+  buttonVariant?: 'CTAHeroButton' | 'primaryCTAButton';
   onChange: (event: any) => void;
 };
 
@@ -36,11 +38,18 @@ function FileUploadInput(props: CustomProps) {
         id="raised-button-file"
         multiple
         type="file"
+        onChange={props.onChange}
       />
       <label htmlFor="raised-button-file">
-        <Button component="span" className={classes.buttonText}>
-          {props.text}
-        </Button>
+        {props.buttonVariant === 'primaryCTAButton' ? (
+          <PrimaryCTAButton text={props.text}></PrimaryCTAButton>
+        ) : props.buttonVariant === 'CTAHeroButton' ? (
+          <CTAHeroButton text={props.text}></CTAHeroButton>
+        ) : (
+          <Button component="span" className={classes.buttonText}>
+            {props.text}
+          </Button>
+        )}
       </label>
     </FormControl>
   );

@@ -29,6 +29,7 @@ import routes from '../routes/routes';
 import { APP_API_BASE_URL } from '../configs';
 import { UserAvatar } from './Users/UserAvatar';
 import { ModalContext } from './../providers/ModalProvider';
+import { PrimaryCTAButton } from './Buttons/Button';
 
 const useStyles = makeStyles()(() => ({
   home: {
@@ -73,18 +74,6 @@ const useStyles = makeStyles()(() => ({
   },
   logo: {
     height: '30px',
-  },
-  signUpButton: {
-    textTransform: 'capitalize',
-    backgroundColor: theme.palette.primary.main,
-    color: `${theme.palette.primary.contrastText}`,
-    borderRadius: '10px',
-    border: `1px solid ${theme.palette.primary.main}`,
-    marginRight: '1.5em',
-    width: '100px',
-    '&:hover': {
-      color: `${theme.palette.text.primary}`,
-    },
   },
   signInButton: {
     textTransform: 'capitalize',
@@ -500,9 +489,11 @@ function Header() {
             </>
           ) : (
             <>
-              <Button className={classes.signUpButton} onClick={() => handleoOpenModal('SignUp')}>
-                Join Now
-              </Button>
+              {/* TODO: Use () => handleoOpenModal('SignUp') when implemented */}
+              <PrimaryCTAButton
+                text="Join Now"
+                onClick={() => history.push('/signup-citizen')}
+              ></PrimaryCTAButton>
               <Button className={classes.signInButton} onClick={() => handleoOpenModal('SignIn')}>
                 Sign In
               </Button>
