@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, Button, Checkbox, Typography, FormControlLabel } from '@mui/material';
 import { string, boolean } from 'yup';
 
@@ -8,6 +8,7 @@ import PasswordInput from '../PasswordInput';
 import EmailInput from '../EmailInput';
 import NameInput from '../NameInput';
 import { ValidationUtils } from '../../../../utils';
+import { ModalContext } from '../../../../providers/ModalProvider';
 
 import { useStyles } from './styles/styles';
 
@@ -55,6 +56,7 @@ type TStepOneProps = {
 
 export default function StepOne({ initData, handleNext }: TStepOneProps) {
   const { classes } = useStyles();
+  const { openModal } = useContext(ModalContext);
 
   Object.keys(initialFormData).forEach((key) => {
     //@ts-ignore
@@ -164,9 +166,12 @@ export default function StepOne({ initData, handleNext }: TStepOneProps) {
           align="left"
           gutterBottom
         >
-          {/* TODO: Add link to "Login", this will open the login modal */}
-          Already have an account?
+          Already have an account?&nbsp;
+          <button onClick={() => openModal('SignIn')} className={classes.link}>
+            Login
+          </button>
         </Typography>
+
         <Box display={'flex'} flexDirection={'row'} width={'100%'}>
           <Box marginRight={'20px'}>
             <NameInput
