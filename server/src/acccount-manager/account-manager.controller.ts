@@ -95,9 +95,11 @@ export class AccountManagerController {
         <p>Thank you!!</p>
         <p>The Givingful Team</p>
       `,
-      mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'production' } },
+      mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'staging' } },
     };
-    await this.sendgridService.send(mail);
+    if (process.env.NODE_ENV === 'staging') {
+      await this.sendgridService.send(mail);
+    }
 
     return user;
   }
