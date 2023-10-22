@@ -15,7 +15,7 @@ export class AccountManagerService {
 
   async validateUser(email: string, password: string): Promise<Omit<User, 'password'>> {
     try {
-      const user = (await this.usersService.findByEmail(email, true)) as User;
+      const user = (await this.usersService.findByEmailOrFail(email, true)) as User;
 
       // Check if password from client matches password associated with
       // the user retrieved from database

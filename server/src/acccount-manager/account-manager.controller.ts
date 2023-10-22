@@ -15,6 +15,8 @@ import {
   UploadedFile,
   BadRequestException,
   InternalServerErrorException,
+  Logger,
+  ConflictException,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
@@ -24,7 +26,7 @@ import type { Request as RequestT, Response as ResponseT } from 'express';
 
 import { COOKIE_KEY } from './constants';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, SignupDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
@@ -106,6 +108,61 @@ export class AccountManagerController {
     return user;
   }
 
+  @MapTo(ReturnUserDto)
+  @Post('signup')
+  async signup(@Body() signupDto: SignupDto): Promise<ReturnUserDto> {
+    const exists = await this.usersService.userEmailExists(signupDto.email);
+
+    if (exists) {
+      Logger.debug(
+        `Singup: found existing user: ${signupDto.email}`,
+        AccountManagerController.name,
+      );
+      throw new ConflictException('Email already exists');
+    }
+
+    let user;
+    let jwt;
+
+    try {
+      user = await this.usersService.create({
+        email: signupDto.email,
+        password: signupDto.password,
+        firstName: signupDto.firstName,
+        last_name: signupDto.last_name,
+      } as CreateUserDto);
+      jwt = await this.jwtService.sign(
+        { ...user },
+        {
+          expiresIn: '1h',
+          secret: process.env.JWT_SECRET,
+        },
+      );
+    } catch (error) {
+      Logger.log(error, AccountManagerController.name);
+      throw new InternalServerErrorException('There was an unexpected error with your request');
+    }
+
+    const mail = {
+      to: user.email,
+      subject: 'Givingful Email Verification',
+      from: 'admin@nonprofitcircle.org',
+      html: `
+        <p>Hello ${user.firstName} ${user.last_name}</p>
+        <p>Please click <a href="${process.env.FE_DOMAIN}/email-verification?token=${jwt}">here</a> to verify your email.</p>
+        <p>(this link is valid for 1 hour)</p>
+        <p>Thank you!!</p>
+        <p>The Givingful Team</p>
+      `,
+      mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'staging' } },
+    };
+    if (process.env.NODE_ENV === 'staging') {
+      await this.sendgridService.send(mail);
+    }
+
+    return user;
+  }
+
   @Post('login')
   @UseGuards(LoginAuthGuard)
   @ApiOperation({ summary: 'User login' })
@@ -160,7 +217,7 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     try {
-      const user = await this.usersService.findByEmail(req.body.email);
+      const user = await this.usersService.findByEmailOrFail(req.body.email);
       if (!user) {
         // any error hits catch, error type and msg not important
         throw new Error();

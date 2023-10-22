@@ -36,3 +36,17 @@ export class CreateUserDto {
   @Validate(InterestNamesIsArray)
   interests?: Interests;
 }
+export class SignupDto {
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsNotEmpty()
+  last_name: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  password: string;
+}
