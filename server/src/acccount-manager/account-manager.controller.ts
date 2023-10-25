@@ -26,7 +26,6 @@ import type { Request as RequestT, Response as ResponseT } from 'express';
 
 import { COOKIE_KEY } from './constants';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { CreateUserDto, SignupDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
@@ -39,6 +38,7 @@ import { FilesStorageService } from '../file-storage/file-storage.service';
 import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto } from './dto/auth.dto';
 import { UpdateUserInternal } from './dto/create-user.internal';
 import { MapTo } from '../shared/serialize.interceptor';
+import { CreateUserDto } from './dto/create-user.dto';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -64,53 +64,15 @@ export class AccountManagerController {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
       this.usersService.update(user.id, { email_verified: true } as UpdateUserInternal);
       return true;
-    } catch {
+    } catch (e) {
+      Logger.error(`Unexpected error: ${e}`, AccountManagerController.name);
       throw Error('jwt verify fail');
     }
   }
 
   @MapTo(ReturnUserDto)
-  @Post('register')
-  @ApiOperation({ summary: 'Create a new user account' })
-  async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
-    if (createUserDto.interests) {
-      const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
-      if (!res) {
-        throw new BadRequestException('Invalid Categories');
-      }
-    }
-    const user = await this.usersService.create(createUserDto);
-
-    const jwt = await this.jwtService.sign(
-      { ...user },
-      {
-        expiresIn: '1h',
-        secret: process.env.JWT_SECRET,
-      },
-    );
-    const mail = {
-      to: user.email,
-      subject: 'Givingful Email Verification',
-      from: 'admin@nonprofitcircle.org',
-      html: `
-        <p>Hello ${user.firstName} ${user.last_name}</p>
-        <p>Please click <a href="${process.env.FE_DOMAIN}/email-verification?token=${jwt}">here</a> to verify your email.</p>
-        <p>(this link is valid for 1 hour)</p>
-        <p>Thank you!!</p>
-        <p>The Givingful Team</p>
-      `,
-      mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'staging' } },
-    };
-    if (process.env.NODE_ENV === 'staging') {
-      await this.sendgridService.send(mail);
-    }
-
-    return user;
-  }
-
-  @MapTo(ReturnUserDto)
   @Post('signup')
-  async signup(@Body() signupDto: SignupDto): Promise<ReturnUserDto> {
+  async signup(@Body() signupDto: CreateUserDto): Promise<ReturnUserDto> {
     const exists = await this.usersService.userEmailExists(signupDto.email);
 
     if (exists) {
@@ -303,18 +265,29 @@ export class AccountManagerController {
     return await this.usersService.update(id, { ...dbUser, profile_image_url: fileUrl });
   }
 
+  @UseGuards(CookieAuthGuard)
+  @MapTo(ReturnUserDto)
+  @Put('users/:id')
+  async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.usersService.findOne(id);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    if (updateUserDto.interests) {
+      const res = await this.accountManagerService.validateInterests(updateUserDto.interests.names);
+      if (!res) {
+        throw new BadRequestException('Invalid Categories');
+      }
+    }
+    return await this.usersService.update(id, updateUserDto);
+  }
+
   @ApiExcludeEndpoint()
   @UseGuards(CookieAuthGuard)
   @Get('users/:id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
-  }
-
-  @ApiExcludeEndpoint()
-  @UseGuards(CookieAuthGuard)
-  @Patch('users/:id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
   }
 
   @ApiExcludeEndpoint()
