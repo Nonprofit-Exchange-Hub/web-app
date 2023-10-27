@@ -1,4 +1,4 @@
-export const focusAreas: string[] = [
+export const FocusAreas: string[] = [
   'Animal Care & Services',
   'Poverty',
   'Housing & Homeless',
