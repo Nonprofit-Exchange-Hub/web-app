@@ -35,7 +35,7 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
-import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto } from './dto/auth.dto';
+import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto, LoginDto } from './dto/auth.dto';
 import { UpdateUserInternal } from './dto/create-user.internal';
 import { MapTo } from '../shared/serialize.interceptor';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -127,6 +127,7 @@ export class AccountManagerController {
 
   @Post('login')
   @UseGuards(LoginAuthGuard)
+  @ApiBody({ type: LoginDto })
   @ApiOperation({ summary: 'User login' })
   async login(
     @Request() request: AuthedRequest,
