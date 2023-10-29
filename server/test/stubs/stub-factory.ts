@@ -21,10 +21,6 @@ export class StubGen {
       email: faker.internet.email(),
       password: 'Secret1234%',
       email_verified: true,
-      email_notification_opt_out: false,
-      city: 'Seattle',
-      state: 'WA',
-      zip_code: '98101',
     };
   }
 
