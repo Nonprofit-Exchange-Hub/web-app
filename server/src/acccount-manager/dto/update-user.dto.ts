@@ -15,7 +15,7 @@ export class UpdateUserDto {
   @IsNotEmpty()
   city: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   state: string;
 
   @IsNotEmpty()

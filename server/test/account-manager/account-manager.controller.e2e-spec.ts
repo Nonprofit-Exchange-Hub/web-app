@@ -14,6 +14,7 @@ import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manag
 import { AccountManagerController } from '../../src/acccount-manager/account-manager.controller';
 import { SendgridService } from '../../src/sendgrid/sendgrid.service';
 import { FileStorageModule } from '../../src/file-storage/file-storage.module';
+import * as cookieParser from 'cookie-parser';
 
 describe('AccountManagerController', () => {
   let app: INestApplication;
@@ -57,7 +58,7 @@ describe('AccountManagerController', () => {
     app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
     usersService = module.get<UsersService>(UsersService);
     repository = module.get(getRepositoryToken(User));
-    // jest.clearAllMocks();
+    app.use(cookieParser('secret_placeholder'));
     await app.init();
   });
 
@@ -170,31 +171,54 @@ describe('AccountManagerController', () => {
     });
   });
 
-  describe('PATCH users/{id}', () => {
+  describe('PUT users/{id}', () => {
     beforeEach(async () => await bootstrapBeforeEach());
     afterEach(async () => await bootstrapAfterEach());
 
-    it.skip('should return 403 when email validations fails', async () => {
+    it('should update fields', async () => {
+      const loginRes = await supertest
+        .agent(app.getHttpServer())
+        .post(`/auth/login`)
+        .send({ email: seed().email, password: seed().password })
+        .set('Content-Type', 'application/json')
+        .expect(201);
+      const cookie = loginRes.headers['set-cookie'];
+
       await supertest
         .agent(app.getHttpServer())
-        .patch(`/auth/users/${existingRecordId}`)
+        .put(`/auth/users/${existingRecordId}`)
         .send({
-          ...userCreateDtoStub(),
-          email: 'bademail.com',
+          firstName: 'nonprofit',
+          last_name: 'circle',
+          bio: 'I am nonprofit circle',
+          city: 'Seattle',
+          state: 'WA',
+          zip_code: '98101',
+          email_notification_opt_out: true,
+          interests: { names: ['animals', 'environment'] },
         })
         .set('Accept', 'application/json')
+        .set('Cookie', cookie)
+        .set('Content-Type', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(403);
+        .expect(200);
     });
   });
 
   const bootstrapBeforeEach = async () => {
     // seed data
     const { id } = await usersService.create({ ...seed() });
+    await repository.query(
+      `INSERT INTO categories (name, applies_to_assets, applies_to_organizations)
+      VALUES
+      ('animals', true, true),
+      ('environment', true, true)`,
+    );
     existingRecordId = id;
   };
 
   const bootstrapAfterEach = async () => {
     await repository.query(`TRUNCATE users CASCADE;`);
+    await repository.query(`TRUNCATE categories CASCADE;`);
   };
 });
