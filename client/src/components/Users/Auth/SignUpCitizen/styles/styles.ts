@@ -73,4 +73,16 @@ export const useStyles = makeStyles()((theme) => ({
     fontSize: 14,
     marginBottom: 20,
   },
+  link: {
+    background: 'none',
+    border: 'none',
+    padding: '0',
+    font: 'inherit',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    color: 'inherit',
+    ':hover': {
+      fontWeight: 'bold',
+    },
+  },
 }));

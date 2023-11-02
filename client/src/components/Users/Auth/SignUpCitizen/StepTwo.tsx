@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Box, Button, Grid, Select, MenuItem, Typography, SelectChangeEvent } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  Select,
+  MenuItem,
+  Typography,
+  SelectChangeEvent,
+  FormHelperText,
+} from '@mui/material';
 import { string } from 'yup';
 
 import NameInput from '../NameInput';
@@ -163,6 +172,7 @@ export default function StepTwo({ initData, handleBack, handleNext }: TStepTwoPr
             >
               {makeStateSelectOptions()}
             </Select>
+            {formData.state.error && <FormHelperText error>{formData.state.error}</FormHelperText>}
           </Grid>
           <Grid item xs={6}>
             <NameInput

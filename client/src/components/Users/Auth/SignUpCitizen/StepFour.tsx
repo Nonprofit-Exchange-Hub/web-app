@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
 
 import { useStyles } from './styles/styles';
+import { FileUploadInput } from '../../../Forms';
 
 type TStepFourProps = {
   initData: { bio: string };
   handleBack: () => void;
   handleNext: (formData: {}, submitForm?: boolean) => void;
+  setImage: (image: File | null) => void;
 };
 
-export default function StepFour({ initData, handleBack, handleNext }: TStepFourProps) {
+export default function StepFour({ initData, handleBack, handleNext, setImage }: TStepFourProps) {
   const { classes } = useStyles();
   const [formData, setFormData] = useState(initData);
+  const [imageError, setImageError] = useState<'too-big' | 'unsupported-text' | ''>('');
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = evt.target;
@@ -21,6 +24,22 @@ export default function StepFour({ initData, handleBack, handleNext }: TStepFour
         [name]: value,
       };
     });
+  };
+
+  const handleImageChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    if (!evt.target.files || evt.target.files.length === 0) {
+      return;
+    }
+    if (evt.target.files[0].size > 1000000) {
+      setImageError('too-big');
+      return;
+    }
+    if (!['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(evt.target.files[0].type)) {
+      setImageError('unsupported-text');
+      return;
+    }
+    setImageError('');
+    setImage(evt.target.files![0]);
   };
 
   const handleClickNext = () => {
@@ -48,24 +67,24 @@ export default function StepFour({ initData, handleBack, handleNext }: TStepFour
         </Typography>
         <Grid item xs={12} sx={{ height: '50px' }} />
         <Grid container item xs={12} lg={6} alignItems="center">
-          <Grid item xs={3}>
+          <Grid item xs={12}>
             <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
           </Grid>
-          <Grid item xs={3}>
-            <input accept="image/*" hidden id="upload-file" type="file" />
-            <label htmlFor="upload-file">
-              <Button
-                sx={{
-                  backgroundColor: '#EF6A60',
-                  color: 'white',
-                  borderRadius: '4px',
-                  padding: '10px',
-                }}
-                color="primary"
-              >
-                Upload
-              </Button>
-            </label>
+          <Grid item xs={12}>
+            <FileUploadInput
+              label=""
+              id="upload-file"
+              text="Upload"
+              onChange={handleImageChange}
+              buttonVariant="primaryCTAButton"
+            ></FileUploadInput>
+          </Grid>
+          <Grid item xs={12}>
+            {imageError === 'too-big' ? (
+              <Alert severity="error">Please upload a file up to 1 megabyte in size.</Alert>
+            ) : imageError === 'unsupported-text' ? (
+              <Alert severity="error">Supported files: jpeg, jpg png and gif</Alert>
+            ) : null}
           </Grid>
         </Grid>
         <Grid item xs={12} sx={{ height: '50px' }} />

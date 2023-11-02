@@ -40,8 +40,10 @@ function SignupCitizen() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [formData, setFormData] = useState(initialFormData);
   const [submitForm, setSubmitForm] = useState(false);
+  const [submitProfile, setSubmitProfile] = useState(false);
   const [user, setUser] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -56,14 +58,28 @@ function SignupCitizen() {
     }
   }, [submitForm]);
 
+  useEffect(() => {
+    if (submitProfile) {
+      updateProfileMutation.mutate({ file: image!, userId: user!['id'] });
+      setSubmitProfile(false);
+    }
+  }, [submitProfile]);
+
   const registerUserMutation = useMutation({
     mutationFn: Endpoints.userRegister,
     onSuccess: ({ data: user }) => {
       setUser(user);
+      setSubmitProfile(true);
     },
     onError: (error: AxiosError) => {
       setErrorMsg(error?.response?.data?.message);
     },
+  });
+
+  const updateProfileMutation = useMutation({
+    mutationFn: Endpoints.userUpdateProfile,
+    onSuccess: () => console.log('Profile updated!'),
+    onError: (error: AxiosError) => console.log(error),
   });
 
   const handleNext = (newFormData: {}, doSubmit = false) => {
@@ -141,7 +157,12 @@ function SignupCitizen() {
 
                 {/* PAGE FOUR ######################################################## */}
                 {activeStep === 3 && (
-                  <StepFour initData={formData} handleBack={handleBack} handleNext={handleNext} />
+                  <StepFour
+                    initData={formData}
+                    handleBack={handleBack}
+                    handleNext={handleNext}
+                    setImage={setImage}
+                  />
                 )}
 
                 {/* PAGE FIVE ######################################################## */}
