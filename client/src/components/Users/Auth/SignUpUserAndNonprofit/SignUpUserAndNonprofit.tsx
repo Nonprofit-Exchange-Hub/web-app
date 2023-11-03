@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-
 import * as React from 'react';
 import StepZero from './StepZero';
 import routes from '../../../../routes/routes';
@@ -20,23 +17,13 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
-import { useEffect, useContext } from 'react';
-import { ModalContext } from '../../../../providers/ModalProvider';
+import { useEffect } from 'react';
 import { focusAreas } from '../../../../views/FocusAreas';
 import { makeStyles } from 'tss-react/mui';
 import { UserContext } from '../../../../providers';
 import { placeholderImg } from '../../../../assets/temp';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../../../../configs';
-import {
-  Box,
-  Select,
-  MenuItem,
-  Avatar,
-  TextField,
-  OutlinedInput,
-  SelectChangeEvent,
-  Chip,
-} from '@mui/material';
+import { Box, MenuItem, Avatar, TextField, SelectChangeEvent, Chip } from '@mui/material';
 
 interface UserSignupData {
   organization_name: string;
@@ -139,9 +126,7 @@ function SignupNonProfit() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [emailError, setEmailError] = React.useState<string>('');
   const [formData, setFormData] = React.useState(initialFormData);
-  const { user, setUser } = React.useContext(UserContext);
-  const modalContext = useContext(ModalContext);
-  const { openModal } = modalContext;
+  const { setUser } = React.useContext(UserContext);
 
   const makeChips = () => {
     return focusAreas.map((focusArea) => {
