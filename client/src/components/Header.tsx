@@ -109,7 +109,7 @@ function Header() {
   const modalContext = useContext(ModalContext);
   const { openModal } = modalContext;
 
-  const handleoOpenModal = (modalType: 'SignIn' | 'SignUp') => {
+  const handleOpenModal = (modalType: 'SignIn' | 'SignUp') => {
     if (modalType === 'SignIn') {
       openModal('SignIn');
     } else if (modalType === 'SignUp') {
@@ -489,12 +489,11 @@ function Header() {
             </>
           ) : (
             <>
-              {/* TODO: Use () => handleoOpenModal('SignUp') when implemented */}
               <PrimaryCTAButton
                 text="Join Now"
-                onClick={() => history.push('/signup-citizen')}
+                onClick={() => handleOpenModal('SignUp')}
               ></PrimaryCTAButton>
-              <Button className={classes.signInButton} onClick={() => handleoOpenModal('SignIn')}>
+              <Button className={classes.signInButton} onClick={() => handleOpenModal('SignIn')}>
                 Sign In
               </Button>
             </>

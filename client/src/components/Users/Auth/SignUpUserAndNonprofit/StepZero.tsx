@@ -3,7 +3,8 @@ import Grid from '@mui/material/Grid';
 import Input from '@mui/material/Input';
 import Typography from '@mui/material/Typography';
 import { ModalContext } from '../../../../providers/ModalProvider';
-import { Box, Select, MenuItem, OutlinedInput } from '@mui/material';
+import { classifications } from '../../../Users/Auth/SignUpUserAndNonprofit/Classifications';
+import { Box, Select, MenuItem, OutlinedInput, SelectChangeEvent } from '@mui/material';
 
 type TStepOneProps = {
   formData: {
@@ -16,26 +17,17 @@ type TStepOneProps = {
     employer_identification_number: string;
     irs_classification: string;
   };
-  classes: {
-    sideImg: {};
-    signUpContainer: {};
-    button: {};
-    header: {};
-    input: {};
-    label: {};
-    chip: {};
-  };
-  classifications: [];
-  handleNext: (formData: {}) => void;
-  handleChange: (formData: {}) => void;
-  handleSelectChange: () => void;
+  classes: Record<'header' | 'input', string>;
+  handleNext: () => void;
+  handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectChange: (event: SelectChangeEvent<string>, child: React.ReactNode) => void;
   makeStateSelectOptions: () => any;
 };
 
 export default function StepZero({
   classes,
   formData,
-  classifications,
+  handleNext,
   handleChange,
   handleSelectChange,
   makeStateSelectOptions,

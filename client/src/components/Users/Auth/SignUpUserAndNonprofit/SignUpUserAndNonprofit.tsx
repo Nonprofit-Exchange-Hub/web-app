@@ -26,7 +26,6 @@ import { focusAreas } from '../../../../views/FocusAreas';
 import { makeStyles } from 'tss-react/mui';
 import { UserContext } from '../../../../providers';
 import { placeholderImg } from '../../../../assets/temp';
-import { classifications } from '../../../Users/Auth/SignUpUserAndNonprofit/Classifications';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../../../../configs';
 import {
   Box,
@@ -299,7 +298,6 @@ function SignupNonProfit() {
                 <StepZero
                   classes={classes}
                   formData={formData}
-                  classifications={classifications}
                   handleNext={handleNext}
                   handleChange={handleChange}
                   handleSelectChange={handleSelectChange}
