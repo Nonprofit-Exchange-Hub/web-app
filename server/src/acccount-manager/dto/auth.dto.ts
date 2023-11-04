@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 
 export class VerifyEmailDto {
   @IsString()
@@ -18,6 +18,10 @@ export class ResetPasswordDto {
   email: string;
 }
 
+export class Interests {
+  @Expose()
+  names: string[];
+}
 export class ReturnUserDto {
   @Expose()
   id: number;
@@ -41,6 +45,9 @@ export class ReturnUserDto {
   email_verified: boolean;
   @Expose()
   profile_image_url?: string;
+  @Expose()
+  @Type(() => Interests)
+  interests?: Interests;
 }
 
 export class ReturnSessionDto {

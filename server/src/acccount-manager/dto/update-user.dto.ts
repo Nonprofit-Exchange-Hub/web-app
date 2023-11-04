@@ -1,7 +1,11 @@
 import { IsBoolean, IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { InterestsProps, InterestNamesIsArray } from '../../shared/interests.validator';
-import { Interests } from '../../shared/interests.dto';
+import { Expose } from 'class-transformer';
 
+export class Interests {
+  @Expose()
+  names: string[];
+}
 export class UpdateUserDto {
   @IsNotEmpty()
   firstName: string;
