@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Grid, ThemeProvider, StyledEngineProvider } from '@mui/material';
 
@@ -17,6 +16,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import './App.css';
+import { SettingsProvider } from './providers/SettingsProvider';
 
 const queryClient = new QueryClient();
 
@@ -28,29 +28,31 @@ function App(): JSX.Element {
           <ReactQueryDevtools />
           <ErrorBoundary fallback={GeneralError}>
             <UserProvider>
-              <ModalProvider>
-                <BrowserRouter
-                  getUserConfirmation={() => {
-                    // intentionally left empty callback to block the default browser prompt.
-                  }}
-                >
-                  <Grid
-                    className="App"
-                    display="flex"
-                    flexDirection="column"
-                    height="100vh"
-                    width="100vw"
-                    justifyContent="space-between"
+              <SettingsProvider>
+                <ModalProvider>
+                  <BrowserRouter
+                    getUserConfirmation={() => {
+                      // intentionally left empty callback to block the default browser prompt.
+                    }}
                   >
-                    <Header />
-                    <ErrorBoundary fallback={NotFound}>
-                      <Main />
-                    </ErrorBoundary>
-                    <Footer />
-                    <Modal />
-                  </Grid>
-                </BrowserRouter>
-              </ModalProvider>
+                    <Grid
+                      className="App"
+                      display="flex"
+                      flexDirection="column"
+                      height="100vh"
+                      width="100vw"
+                      justifyContent="space-between"
+                    >
+                      <Header />
+                      <ErrorBoundary fallback={NotFound}>
+                        <Main />
+                      </ErrorBoundary>
+                      <Footer />
+                      <Modal />
+                    </Grid>
+                  </BrowserRouter>
+                </ModalProvider>
+              </SettingsProvider>
             </UserProvider>
           </ErrorBoundary>
         </QueryClientProvider>
