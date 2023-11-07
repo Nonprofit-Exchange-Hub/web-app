@@ -279,7 +279,7 @@ export class AccountManagerController {
     @Request() request: AuthedRequest,
     @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
-  ) {
+  ): Promise<ReturnUserDto> {
     const { user } = request;
     if (user.id !== id) {
       throw new BadRequestException('You can only update your own user');
