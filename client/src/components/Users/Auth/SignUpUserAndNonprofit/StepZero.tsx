@@ -27,7 +27,6 @@ type TStepOneProps = {
 export default function StepZero({
   classes,
   formData,
-  handleNext,
   handleChange,
   handleSelectChange,
   makeStateSelectOptions,

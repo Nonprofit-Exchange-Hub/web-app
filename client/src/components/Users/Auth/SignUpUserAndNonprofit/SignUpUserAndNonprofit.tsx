@@ -1,21 +1,17 @@
 import * as React from 'react';
 import StepZero from './StepZero';
-import routes from '../../../../routes/routes';
-import EmailInput from '../../../Users/Auth/EmailInput';
-import StyledLink from '../../../StyledLink';
-import PasswordInput from '../../../Users/Auth/PasswordInput';
+import StepOne from './StepOne';
+import StepTwo from './StepTwo';
+import StepThree from './StepThree';
+import StepFour from './StepFour';
+import StepFive from './StepFive';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import SvgSignUpContactInfoStep from '../../../Icons/SvgSignUpContactInfoStep';
 import SvgSignUpLocationStep from '../../../Icons/SvgSignUpLocationStep';
 import SvgSignUpfocusAreasStep from '../../../Icons/SvgSignUpFocusAreasStep';
 import SvgSignUpProfileStep from '../../../Icons/SvgSignUpProfileStep';
 import SvgSignUpFinishedStep from '../../../Icons/SvgSignUpFinishedStep';
-import Grid from '@mui/material/Grid';
-import Input from '@mui/material/Input';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import type { Theme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { focusAreas } from '../../../../views/FocusAreas';
@@ -23,7 +19,7 @@ import { makeStyles } from 'tss-react/mui';
 import { UserContext } from '../../../../providers';
 import { placeholderImg } from '../../../../assets/temp';
 import { APP_API_BASE_URL, US_STATE_NAMES } from '../../../../configs';
-import { Box, MenuItem, Avatar, TextField, SelectChangeEvent, Chip } from '@mui/material';
+import { Box, MenuItem, SelectChangeEvent, Chip } from '@mui/material';
 
 interface UserSignupData {
   organization_name: string;
@@ -290,289 +286,23 @@ function SignupNonProfit() {
                 />
               )}
               {activeStep === 1 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="40px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                  >
-                    Tell us about yourself.
-                  </Typography>
-                  <Typography sx={{ fontWeight: 'bold' }}>Representative Information</Typography>
-                  <Grid container item xs={12} spacing={1}>
-                    <Grid item xs={4}>
-                      <label>First Name</label>
-                      <FormControl fullWidth>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="first_name"
-                          name="first_name"
-                          fullWidth
-                          value={formData.first_name}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <label>Last Name</label>
-                      <FormControl fullWidth>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="last_name"
-                          name="last_name"
-                          fullWidth
-                          value={formData.last_name}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <label>Role</label>
-                      <FormControl fullWidth>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="role"
-                          name="role"
-                          fullWidth
-                          value={formData.role}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <EmailInput
-                        value={formData.email}
-                        placeholder=""
-                        onChange={handleChange}
-                        showStartAdornment={true}
-                        error={emailError}
-                      />
-                      <PasswordInput
-                        value={formData.password}
-                        onChange={handleChange}
-                        showStartAdornment={true}
-                      />
-                    </Grid>
-                    <FormControlLabel
-                      style={{
-                        textAlign: 'left',
-                        display: 'block',
-                      }}
-                      control={
-                        <Checkbox
-                          color="primary"
-                          checked={formData.accept_terms}
-                          onChange={handleChange}
-                          name="accept_terms"
-                          inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                        />
-                      }
-                      label={
-                        <label>
-                          Accept the{' '}
-                          <StyledLink to={routes.TermsOfService.path} target="_blank">
-                            Terms of Service
-                          </StyledLink>
-                        </label>
-                      }
-                    />
-                  </Grid>
-                </Box>
+                <StepOne
+                  classes={classes}
+                  formData={formData}
+                  emailError={emailError}
+                  handleChange={handleChange}
+                />
               )}
               {activeStep === 2 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="40px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                  >
-                    How can others reach you?
-                  </Typography>
-                  <Typography sx={{ fontWeight: 'bold' }}>Contact Information</Typography>
-                  <Grid container item xs={12} spacing={1}>
-                    <Grid item xs={12}>
-                      <label> Website </label>
-                      <FormControl fullWidth>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="website"
-                          name="website"
-                          fullWidth
-                          value={formData.website}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <label> Instagram </label>
-                      <FormControl fullWidth>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="instagram"
-                          name="instagram"
-                          fullWidth
-                          value={formData.instagram}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <label> Facebook </label>
-                      <FormControl fullWidth>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="facebook"
-                          name="facebook"
-                          fullWidth
-                          value={formData.facebook}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <label> Twitter </label>
-                      <FormControl fullWidth>
-                        <Input
-                          className={classes.input}
-                          type="text"
-                          id="twitter"
-                          name="twitter"
-                          fullWidth
-                          value={formData.twitter}
-                          onChange={handleChange}
-                          disableUnderline
-                          required
-                        />
-                      </FormControl>
-                    </Grid>
-                  </Grid>
-                </Box>
+                <StepTwo classes={classes} formData={formData} handleChange={handleChange} />
               )}
               {activeStep === 3 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="40px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                  >
-                    Tell us about your organization's focus area(s).
-                  </Typography>
-                  <Grid container item xs={12} spacing={1}>
-                    <Grid item xs={12}>
-                      <Typography sx={{ fontWeight: 'bold' }}>
-                        What type of work is your organization invovled with?
-                      </Typography>
-                      <label> Please choose one or more options</label>
-                    </Grid>
-                    <Grid item xs={12}>
-                      {makeChips()}
-                    </Grid>
-                  </Grid>
-                </Box>
+                <StepThree classes={classes} formData={formData} makeChips={makeChips} />
               )}
               {activeStep === 4 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="40px"
-                    component="h1"
-                    align="left"
-                    sx={{ color: '#674E67' }}
-                  >
-                    Finalize your organization's profile.
-                  </Typography>
-                  <label className={classes.label}> Photo </label>
-                  <Typography>A logo, image, or icon that represents your organization.</Typography>
-                  <Grid item xs={12} sx={{ height: '30px' }} />
-                  <Grid container item xs={12} lg={6} alignItems="center">
-                    <Grid item xs={3}>
-                      <Avatar sx={{ bgcolor: 'gray', width: 110, height: 110 }} />
-                    </Grid>
-                    <Grid item xs={3} sx={{ position: 'absolute' }}>
-                      <input accept="image/*" hidden id="upload-file" type="file" />
-                      <label htmlFor="upload-file">
-                        <Button
-                          sx={{
-                            backgroundColor: '#EF6A60',
-                            color: 'white',
-                            borderRadius: '4px',
-                            padding: '10px',
-                            left: '150px',
-                          }}
-                          color="primary"
-                        >
-                          Upload
-                        </Button>
-                      </label>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} sx={{ height: '30px' }} />
-                  <label className={classes.label}> About </label>
-                  <Typography>A summary about your organization at a glance.</Typography>
-                  <Grid item xs={12}>
-                    <TextField
-                      multiline
-                      rows={4}
-                      fullWidth
-                      placeholder="Tell us about your organization..."
-                      name="bio"
-                      onChange={handleChange}
-                    />
-                  </Grid>
-                </Box>
+                <StepFour classes={classes} formData={formData} handleChange={handleChange} />
               )}
-              {activeStep === 5 && (
-                <Box sx={{ height: '100%', minWidth: '780px' }}>
-                  <Typography
-                    className={classes.header}
-                    variant="h4"
-                    fontSize="58px"
-                    component="h1"
-                    align="left"
-                  >
-                    Sign up almost complete!
-                  </Typography>
-                  <Typography
-                    className={classes.label}
-                    sx={{ fontWeight: 'bold', marginTop: '60px' }}
-                  >
-                    {formData.first_name} {formData.last_name}
-                  </Typography>
-                  <Typography>{formData.email}</Typography>
-                  <Typography>
-                    <strong>Please check your e-mail</strong> to finish the identity verification
-                    process. Afterwards, start contributing!
-                  </Typography>
-                </Box>
-              )}
+              {activeStep === 5 && <StepFive classes={classes} formData={formData} />}
             </Box>
             <Box marginTop={'60px'}>
               <Box
