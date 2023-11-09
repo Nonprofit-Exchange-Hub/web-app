@@ -5,20 +5,13 @@ import { Box } from '@mui/material';
 
 type TStepOneProps = {
   formData: {
-    organization_name: string;
-    organization_phone: string;
-    street: string;
-    city: string;
-    state: string;
-    zip_code: string;
-    employer_identification_number: string;
-    irs_classification: string;
+    focusAreas: string[];
   };
   classes: Record<'header' | 'input', string>;
   makeChips: () => any;
 };
 
-export default function StepZero({ classes, formData, makeChips }: TStepOneProps) {
+export default function StepThree({ classes, formData, makeChips }: TStepOneProps) {
   return (
     <Box sx={{ height: '100%', minWidth: '780px' }}>
       <Typography

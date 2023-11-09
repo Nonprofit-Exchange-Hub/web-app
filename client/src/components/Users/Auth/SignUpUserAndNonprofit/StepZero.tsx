@@ -141,7 +141,6 @@ export default function StepZero({
             </Grid>
             <Grid item xs={12}>
               <label>IRS Nonprofit Organization Classification</label>
-              {/* @ts-ignore */}
               <Select
                 input={<OutlinedInput />}
                 inputProps={{ 'aria-label': 'Without label' }}

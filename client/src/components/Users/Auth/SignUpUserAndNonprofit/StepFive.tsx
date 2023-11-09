@@ -11,7 +11,8 @@ type TStepOneProps = {
   classes: Record<'header' | 'input' | 'label', string>;
 };
 
-export default function StepZero({ classes, formData }: TStepOneProps) {
+export default function StepFive({ classes, formData }: TStepOneProps) {
+  console.log('FINAL FORM BRO', formData);
   return (
     <Box sx={{ height: '100%', minWidth: '780px' }}>
       <Typography

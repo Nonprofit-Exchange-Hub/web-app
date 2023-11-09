@@ -16,7 +16,7 @@ type TStepOneProps = {
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function StepZero({ classes, formData, handleChange }: TStepOneProps) {
+export default function StepTwo({ classes, formData, handleChange }: TStepOneProps) {
   return (
     <Box sx={{ height: '100%', minWidth: '780px' }}>
       <Typography

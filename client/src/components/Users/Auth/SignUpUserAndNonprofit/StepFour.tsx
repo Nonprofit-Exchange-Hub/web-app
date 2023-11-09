@@ -6,20 +6,13 @@ import { Box, Avatar, TextField } from '@mui/material';
 
 type TStepOneProps = {
   formData: {
-    organization_name: string;
-    organization_phone: string;
-    street: string;
-    city: string;
-    state: string;
-    zip_code: string;
-    employer_identification_number: string;
-    irs_classification: string;
+    bio: string;
   };
   classes: Record<'header' | 'input' | 'label', string>;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function StepZero({ classes, formData, handleChange }: TStepOneProps) {
+export default function StepFour({ classes, formData, handleChange }: TStepOneProps) {
   return (
     <Box sx={{ height: '100%', minWidth: '780px' }}>
       <Typography
@@ -67,6 +60,7 @@ export default function StepZero({ classes, formData, handleChange }: TStepOnePr
           fullWidth
           placeholder="Tell us about your organization..."
           name="bio"
+          value={formData.bio}
           onChange={handleChange}
         />
       </Grid>

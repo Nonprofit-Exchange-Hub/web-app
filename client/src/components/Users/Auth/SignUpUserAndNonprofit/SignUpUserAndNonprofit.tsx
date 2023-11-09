@@ -128,6 +128,7 @@ function SignupNonProfit() {
     return focusAreas.map((focusArea) => {
       return (
         <Chip
+          key={focusArea}
           className={classes.chip}
           label={focusArea}
           sx={{ fontSize: '16px' }}
@@ -171,6 +172,7 @@ function SignupNonProfit() {
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked }: { name: string; value: string; checked: boolean } = evt.target;
+    console.log('CHECK IS HERE', checked);
     setFormData((fData) => ({
       ...fData,
       [name]: name === 'accept_terms' ? checked : value,
