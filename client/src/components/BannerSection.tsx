@@ -4,6 +4,7 @@ import type { Theme } from '@mui/material/styles';
 import MainImage from '../assets/banner-section-main.svg';
 import { CTAHeroButton } from './Buttons/Button';
 import { useHistory } from 'react-router-dom';
+import { useMarketingText } from './../providers/MarketingTextProvider';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   gridTitle: {
@@ -19,10 +20,12 @@ const useStyles = makeStyles()((theme: Theme) => ({
 }));
 
 function BannerText() {
+  const { banner } = useMarketingText();
+
   return (
     <>
       <Typography sx={{ fontSize: '3.5rem', margin: '0 0 0 0', letterSpacing: '0.005em' }}>
-        Support Local
+        {banner.mainHigh}
       </Typography>
       <Typography
         sx={{
@@ -32,17 +35,17 @@ function BannerText() {
           letterSpacing: '-1.5px',
         }}
       >
-        Nonprofits
+        {banner.mainLow}
       </Typography>
       <Typography sx={{ fontSize: '1.5rem', margin: '30px 0 55px 0' }}>
-        Be part of our community of volunteers, nonprofits, and individuals through the Givingful
-        exchange platform.
+        {banner.mainSubtext}
       </Typography>
     </>
   );
 }
 
 function BannerSection() {
+  const { banner } = useMarketingText();
   const { classes } = useStyles();
   const history = useHistory();
 
@@ -52,7 +55,10 @@ function BannerSection() {
         <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
           <Box sx={{ width: '550px', mt: '180px', mb: '66px', ml: '40px' }}>
             <BannerText />
-            <CTAHeroButton text="Join Now" onClick={() => history.push('/signup-citizen')} />
+            <CTAHeroButton
+              text={banner.CTAButton}
+              onClick={() => history.push('/signup-citizen')}
+            />
           </Box>
         </Grid>
         <Grid
