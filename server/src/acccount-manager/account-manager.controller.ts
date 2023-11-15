@@ -183,8 +183,9 @@ export class AccountManagerController {
           <p>The Givingful Team</p>
         `,
       };
-
-      await this.sendgridService.send(mail);
+      if (process.env.NODE_ENV === 'staging') {
+        await this.sendgridService.send(mail);
+      }
       response.status(200);
     } catch (e) {
       // always respond 200 so hackerz don't know which emails are active and not
