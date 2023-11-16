@@ -17,6 +17,7 @@ import {
   InternalServerErrorException,
   HttpException,
   HttpStatus,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiConsumes, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
@@ -114,6 +115,10 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
     // TODO: we probably need a better solution for this
     if (!user.email_verified && process.env.NODE_ENV === 'staging') {
       throw new HttpException(

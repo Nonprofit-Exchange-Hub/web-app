@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { User } from './entities/user.entity';
@@ -24,12 +24,11 @@ export class AccountManagerService {
         delete user.password;
         return user;
       } else {
-        throw new Error();
+        Logger.error(`Error validating login for user ${email}`, AccountManagerService.name);
+        throw new Error('Error Validating user login');
       }
     } catch (err) {
-      err.status = HttpStatus.UNAUTHORIZED;
-      err.response.status = HttpStatus.UNAUTHORIZED;
-      throw err;
+      return null;
     }
   }
 
