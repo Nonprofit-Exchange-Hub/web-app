@@ -108,8 +108,8 @@ const routes: RouteMap = {
   },
   User: {
     component: User,
-    roles: ['OWNER', 'ADMIN'],
-    path: '/profile/:id?',
+    roles: [],
+    path: '/my-profile',
   },
   ActionForm: {
     component: ActionForm,
