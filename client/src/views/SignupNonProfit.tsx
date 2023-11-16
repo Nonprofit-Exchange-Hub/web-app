@@ -1,7 +1,7 @@
-import { SignUpUserAndNonprofit } from '../components/Users/Auth/SignUpUserAndNonprofit/SignUpUserAndNonprofit';
+import SignUpUserAndNonprofit from '../components/Users/Auth/SignUpUserAndNonprofit/SignUpUserAndNonprofit';
 
-function SignupNonProfit() {
+function SignUpUserAndNonprofitView() {
   return <SignUpUserAndNonprofit />;
 }
 
-export default SignupNonProfit;
+export default SignUpUserAndNonprofitView;
