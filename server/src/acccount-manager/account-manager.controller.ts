@@ -125,7 +125,7 @@ export class AccountManagerController {
     const jwt = await this.accountManagerService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {
-        domain: 'localhost',
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
         expires: new Date(new Date().getTime() + 60 * 60 * 1000), // 1 hour
         httpOnly: true,
         path: '/',
