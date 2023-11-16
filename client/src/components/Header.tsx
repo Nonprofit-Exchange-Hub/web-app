@@ -423,12 +423,11 @@ function Header() {
                 aria-haspopup="true"
                 aria-expanded={isProfileMenuOpen ? 'true' : undefined}
                 onClick={handleClick}
-                sx={{ marginRight: '.5em', fill: 'black' }}
+                sx={{ marginRight: '.5em' }}
               >
                 <UserAvatar
                   userFirstName={user.firstName}
                   profileImageUrl={user.profile_image_url ?? ''}
-                  style={{ backgroundColor: 'black' }}
                 />
               </IconButton>
               <Menu
