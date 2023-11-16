@@ -26,6 +26,22 @@ export class UsersService {
     }
   }
 
+  async updatePasswod(id: number, createUserInternal: Partial<CreateUserInternal>): Promise<User> {
+    try {
+      const hashedPw = await bcrypt.hash(createUserInternal.password, parseInt(BCRYPT_WORK_FACTOR));
+      await this.usersRepository.update(id, {
+        ...createUserInternal,
+        password: hashedPw,
+      });
+      const user = await this.usersRepository.findOneBy({ id });
+      delete user.password;
+      return user;
+    } catch (err: any) {
+      Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);
+      throw new Error(`Error updating user password for user ${id}`);
+    }
+  }
+
   async findOne(id: number): Promise<Omit<User, 'password'>> {
     const user = await this.usersRepository.findOneBy({ id });
     if (user) {
