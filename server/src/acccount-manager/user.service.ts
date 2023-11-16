@@ -29,12 +29,10 @@ export class UsersService {
   async updatePasswod(id: number, createUserInternal: Partial<CreateUserInternal>): Promise<User> {
     try {
       const hashedPw = await bcrypt.hash(createUserInternal.password, parseInt(BCRYPT_WORK_FACTOR));
-      await this.usersRepository.update(id, {
-        ...createUserInternal,
-        password: hashedPw,
-      });
+      await this.usersRepository.update(id, { password: hashedPw });
       const user = await this.usersRepository.findOneBy({ id });
       delete user.password;
+      Logger.log(`Updating password for user: ${id}`);
       return user;
     } catch (err: any) {
       Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);

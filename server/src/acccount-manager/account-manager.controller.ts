@@ -172,7 +172,7 @@ export class AccountManagerController {
       }
 
       const jwt = await this.jwtService.sign(
-        { valid: true },
+        { valid: true, id: user.id },
         { expiresIn: '1h', secret: process.env.JWT_SECRET },
       );
 
@@ -202,12 +202,13 @@ export class AccountManagerController {
   async resetPassword(
     @Body() resetPasswordDtO: ResetPasswordDto,
   ): Promise<boolean | BadRequestException> {
+    console.log(resetPasswordDtO);
     try {
-      const user = await this.jwtService.verify(resetPasswordDtO.token, {
+      const { id } = await this.jwtService.verify(resetPasswordDtO.token, {
         secret: process.env.JWT_SECRET,
       });
-      if (user.id) {
-        this.usersService.updatePasswod(user.id, { password: resetPasswordDtO.password });
+      if (id) {
+        this.usersService.updatePasswod(id, { password: resetPasswordDtO.password });
       }
       return true;
     } catch {
