@@ -34,7 +34,7 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
-import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto } from './dto/auth.dto';
+import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto, ResetPasswordDto } from './dto/auth.dto';
 import { UpdateUserInternal } from './dto/create-user.internal';
 import { MapTo } from '../shared/serialize.interceptor';
 
@@ -153,9 +153,9 @@ export class AccountManagerController {
     response.clearCookie(COOKIE_KEY).send();
   }
 
-  @Post('reset_password')
-  @ApiOperation({ summary: 'Password reset' })
-  async resetPassword(
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Password reset Request' })
+  async resetPasswordRequest(
     @Request() req,
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
@@ -190,6 +190,23 @@ export class AccountManagerController {
     } catch (e) {
       // always respond 200 so hackerz don't know which emails are active and not
       response.status(200);
+    }
+  }
+
+  @Put('reset-password')
+  async resetPassword(
+    @Body() resetPasswordDtO: ResetPasswordDto,
+  ): Promise<boolean | BadRequestException> {
+    try {
+      const user = await this.jwtService.verify(resetPasswordDtO.token, {
+        secret: process.env.JWT_SECRET,
+      });
+      if (user) {
+        this.usersService.updatePasswod(user.id, { password: resetPasswordDtO.password });
+      }
+      return true;
+    } catch {
+      throw new BadRequestException('jwt verify fail');
     }
   }
 
