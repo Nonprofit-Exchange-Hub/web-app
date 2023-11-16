@@ -206,7 +206,7 @@ export class AccountManagerController {
       const user = await this.jwtService.verify(resetPasswordDtO.token, {
         secret: process.env.JWT_SECRET,
       });
-      if (user) {
+      if (user.id) {
         this.usersService.updatePasswod(user.id, { password: resetPasswordDtO.password });
       }
       return true;
