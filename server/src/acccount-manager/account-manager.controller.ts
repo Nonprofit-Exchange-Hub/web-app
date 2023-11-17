@@ -155,7 +155,12 @@ export class AccountManagerController {
   @Get('logout')
   @ApiOperation({ summary: 'Logout' })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
-    response.clearCookie(COOKIE_KEY).send();
+    response
+      .clearCookie(COOKIE_KEY, {
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
+        path: '/',
+      })
+      .send();
   }
 
   @Post('forgot-password')
@@ -202,7 +207,6 @@ export class AccountManagerController {
   async resetPassword(
     @Body() resetPasswordDtO: ResetPasswordDto,
   ): Promise<boolean | BadRequestException> {
-    console.log(resetPasswordDtO);
     try {
       const { id } = await this.jwtService.verify(resetPasswordDtO.token, {
         secret: process.env.JWT_SECRET,
