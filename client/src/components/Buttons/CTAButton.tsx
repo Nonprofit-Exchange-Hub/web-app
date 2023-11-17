@@ -25,8 +25,7 @@ type Props = {
 
 function CTAButton({ text }: Props) {
   const { classes } = useStyles();
-  const modalContext = useContext(ModalContext);
-  const { openModal } = modalContext;
+  const { openModal } = useContext(ModalContext);
 
   return (
     <button onClick={() => openModal('SignUp')} className={classes.CTAButton}>

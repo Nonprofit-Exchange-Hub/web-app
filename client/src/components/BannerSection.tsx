@@ -45,8 +45,7 @@ function BannerText() {
 
 function BannerSection() {
   const { classes } = useStyles();
-  const modalContext = useContext(ModalContext);
-  const { openModal } = modalContext;
+  const { openModal } = useContext(ModalContext);
 
   const handleOpenModal = (modalType: 'SignIn' | 'SignUp') => {
     if (modalType === 'SignIn') {
