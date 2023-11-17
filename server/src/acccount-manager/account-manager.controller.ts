@@ -158,7 +158,10 @@ export class AccountManagerController {
     response
       .clearCookie(COOKIE_KEY, {
         domain: process.env.COOKIE_DOMAIN ?? 'localhost',
+        httpOnly: true,
         path: '/',
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV !== 'development',
       })
       .send();
   }
