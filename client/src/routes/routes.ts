@@ -26,6 +26,7 @@ import SetNewPassword from '../components/Users/Auth/SetNewPassword';
 import CookiePolicy from '../views/CookiePolicy';
 import TempChat from '../views/TempChat';
 import EmailVerification from '../views/EmailVerification';
+import Login from '../views/Login';
 
 type RouteMap = {
   [componentName: string]: {
@@ -90,6 +91,11 @@ const routes: RouteMap = {
     component: Signup,
     roles: [],
     path: '/signup',
+  },
+  Login: {
+    component: Login,
+    roles: [],
+    path: '/login',
   },
   SignupCitizen: {
     component: SignupCitizen,
