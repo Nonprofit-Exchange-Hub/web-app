@@ -142,7 +142,6 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                     Welcome Back!
                   </Typography>
                 </Grid>
-                <Grid item xs={12}></Grid>
                 <Divider
                   variant="middle"
                   sx={{ marginLeft: 3, borderBottomWidth: 1, borderColor: '#000000' }}
@@ -205,7 +204,7 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                         fullWidth
                         type="submit"
                       >
-                        Login
+                        Sign In
                       </Button>
                       {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
                     </Grid>

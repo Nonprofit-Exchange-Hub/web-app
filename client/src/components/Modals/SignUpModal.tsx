@@ -6,7 +6,7 @@ import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import DialogContent from '@mui/material/DialogContent';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 import PasswordInput from '../Users/Auth/PasswordInput';
@@ -14,7 +14,8 @@ import EmailInput from '../Users/Auth/EmailInput';
 import NameInput from '../Users/Auth/NameInput';
 import { ValidationUtils } from '../../utils';
 import { string, boolean } from 'yup';
-import { Button, Checkbox, Typography, FormControlLabel } from '@mui/material';
+import { Button, Checkbox, Typography, Paper, FormControlLabel } from '@mui/material';
+// import { APP_API_BASE_URL } from '../../configs';
 import StyledLink from '../StyledLink';
 
 interface SignUpModalProps {
@@ -87,6 +88,7 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
     const { classes } = useStyles();
 
     const [signUpMode, setSignUpMode] = useState('');
+    // const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
     const handleSignUpIndividualMode = () => {
       setSignUpMode('individual');
@@ -157,8 +159,38 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
       });
     };
 
+    // const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
+    //   evt.preventDefault();
+    //   setIsLoading(true);
+    //   const res = await fetch(`${APP_API_BASE_URL}/auth/login`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(formData),
+    //     credentials: 'include',
+    //   });
+    //   // const response = await res.json();
+    //   setIsLoading(false);
+
+    //   if (!res.ok) {
+    //     if (response.error === 'Email not found') {
+    //       setError({ type: 'email', message: response.error });
+    //     } else if (response.error === 'Invalid password') {
+    //       setError({ type: 'password', message: response.error });
+    //     } else {
+    //       setError({ type: '', message: 'an unknown error occurred' });
+    //     }
+    //   } else {
+    //     setUser(response.user, false, true);
+    //     setError(null);
+    //     history.push('/');
+    //   }
+    // };
+
     return (
-      <div>
+      <>
+        <div ref={ref}></div>
         <Dialog
           ref={ref}
           disableEscapeKeyDown={true}
@@ -172,42 +204,40 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
             aria-label="close"
             className={className.closeButton}
           >
-            <CloseIcon />
+            <CloseIcon style={{ fontSize: '1.1em' }} />
           </IconButton>
           {signUpMode === '' && (
             <DialogContent className={className.content}>
-              <Grid
-                container
-                item
-                xs={12}
-                style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
-              >
-                <Grid item xs={12}>
-                  <Typography
-                    className={className.header}
-                    variant="h4"
-                    component={'span'}
-                    align="center"
-                  >
-                    Welcome Aboard!
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  {/* <Link to={routes.SignupCitizen.path}> */}
-                  <Button onClick={handleSignUpIndividualMode} fullWidth className={classes.root}>
-                    I am an individual citizen
-                  </Button>
-                  {/* </Link> */}
-                </Grid>
-                <Grid item xs={12}>
-                  <Divider
-                    variant="middle"
-                    sx={{ marginLeft: 3, borderBottomWidth: 1, borderColor: '#000000' }}
-                  ></Divider>
-                </Grid>
-                <Grid container item xs={12}></Grid>
-                <Grid item xs={12}>
-                  <Link to={routes.SignupNonProfit.path}>
+              <Paper elevation={0} className={className.paper}>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
+                >
+                  <Grid item xs={12}>
+                    <Typography
+                      className={className.header}
+                      variant="h4"
+                      component={'span'}
+                      align="center"
+                    >
+                      Welcome Aboard!
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button onClick={handleSignUpIndividualMode} fullWidth className={classes.root}>
+                      I am an individual citizen
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider
+                      variant="middle"
+                      sx={{ marginLeft: 3, borderBottomWidth: 1, borderColor: '#000000' }}
+                    ></Divider>
+                  </Grid>
+                  <Grid container item xs={12}></Grid>
+                  <Grid item xs={12}>
                     <Button
                       onClick={handleSignUpOrganizationMode}
                       fullWidth
@@ -215,144 +245,161 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                     >
                       I am part of an organization
                     </Button>
-                  </Link>
+                  </Grid>
                 </Grid>
-              </Grid>
+              </Paper>
             </DialogContent>
           )}
           {signUpMode === 'individual' && (
             <DialogContent className={className.content}>
-              <Grid
-                container
-                item
-                xs={12}
-                style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
-              >
-                <Grid item xs={12}>
-                  <Typography
-                    className={className.header}
-                    variant="h4"
-                    component={'span'}
-                    align="center"
-                  >
-                    Individual Sign Up
-                  </Typography>
+              <Paper elevation={0} className={className.paper}>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
+                >
+                  <Grid item xs={12}>
+                    <Typography
+                      className={className.header}
+                      variant="h3"
+                      component={'span'}
+                      align="center"
+                    >
+                      Individual Sign Up
+                    </Typography>
+                  </Grid>
+                  {/* <Grid item xs={12}>
+                    <Link to={routes.SignupCitizen.path}></Link>
+                  </Grid> */}
+                  <Grid item xs={12}>
+                    <Divider
+                      variant="middle"
+                      sx={{ marginLeft: 0, borderBottomWidth: 1, borderColor: '#000000' }}
+                    ></Divider>
+                  </Grid>
+                  <Grid item xs={12} style={{ paddingTop: '30px', justifyContent: 'center' }}>
+                    <NameInput
+                      id="firstName"
+                      name="firstName"
+                      label="First Name"
+                      placeholder="Jane"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={formData.firstName.value}
+                      error={formData.firstName.error}
+                    />
+                    <NameInput
+                      id="lastName"
+                      name="lastName"
+                      label="Last Name"
+                      placeholder="Dosis"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={formData.lastName.value}
+                      error={formData.lastName.error}
+                    />
+                    <EmailInput
+                      showStartAdornment={true}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={formData.email.value}
+                      error={formData.email.error}
+                      placeholder="jane@citizen.com"
+                    />
+                    <PasswordInput
+                      id="password"
+                      name="password"
+                      onBlur={handleBlur}
+                      value={formData.password.value}
+                      showStartAdornment={true}
+                      onChange={handleChange}
+                      error={formData.password.error}
+                      required
+                    />
+                  </Grid>
                 </Grid>
-                {/* <Grid item xs={12}>
-                  <Link to={routes.SignupCitizen.path}>
-                    <Button onClick={handleSignUpIndividualMode} fullWidth className={classes.root}>
-                      I am an individual citizen
-                    </Button>
-                  </Link>
-                </Grid> */}
-                <NameInput
-                  id="firstName"
-                  name="firstName"
-                  label="First Name"
-                  placeholder="Jane"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={formData.firstName.value}
-                  error={formData.firstName.error}
-                />
-                <NameInput
-                  id="lastName"
-                  name="lastName"
-                  label="Last Name"
-                  placeholder="Dosis"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={formData.lastName.value}
-                  error={formData.lastName.error}
-                />
-                <EmailInput
-                  showStartAdornment={true}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={formData.email.value}
-                  error={formData.email.error}
-                  placeholder="jane@citizen.com"
-                />
-                <PasswordInput
-                  id="password"
-                  name="password"
-                  onBlur={handleBlur}
-                  value={formData.password.value}
-                  showStartAdornment={true}
-                  onChange={handleChange}
-                  error={formData.password.error}
-                  required
-                />
-              </Grid>
-              <FormControlLabel
-                style={{
-                  textAlign: 'left',
-                  display: 'flex',
-                  alignContent: 'center',
-                  alignItems: 'center',
-                }}
-                control={
-                  <Checkbox
-                    color="primary"
-                    checked={formData.acceptTerms.value}
-                    onChange={handleChange}
-                    name="acceptTerms"
-                    inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
-                    sx={{
-                      input: {
-                        "[(type = 'checkbox')]": {
-                          '::before': { outline: '1px solid black' },
-                        },
-                      },
+                <Grid
+                  item
+                  xs={12}
+                  style={{ paddingBottom: '30px', paddingLeft: '25px', justifyContent: 'center' }}
+                >
+                  <FormControlLabel
+                    style={{
+                      textAlign: 'left',
+                      display: 'flex',
+                      alignContent: 'center',
+                      alignItems: 'center',
                     }}
+                    control={
+                      <Checkbox
+                        color="primary"
+                        checked={formData.acceptTerms.value}
+                        onChange={handleChange}
+                        name="acceptTerms"
+                        inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                        sx={{
+                          input: {
+                            "[(type = 'checkbox')]": {
+                              '::before': { outline: '1px solid black' },
+                            },
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <label style={{ fontSize: '15px' }}>
+                        Accept the{' '}
+                        <StyledLink to={routes.TermsOfService.path} target="_blank">
+                          Terms and Agreements
+                        </StyledLink>
+                      </label>
+                    }
                   />
-                }
-                label={
-                  <label>
-                    Accept the{' '}
-                    <StyledLink to={routes.TermsOfService.path} target="_blank">
-                      Terms and Agreements
-                    </StyledLink>
-                  </label>
-                }
-              />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  style={{ display: 'flex', paddingBottom: '30px', justifyContent: 'center' }}
+                >
+                  <Button
+                    className={className.loginButton}
+                    style={{ backgroundColor: '#EF6A60', color: 'white' }}
+                    fullWidth
+                    type="submit"
+                  >
+                    Sign Up
+                  </Button>
+                  {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                </Grid>
+              </Paper>
             </DialogContent>
           )}
           {signUpMode === 'organization' && (
             <DialogContent className={className.content}>
-              <Grid
-                container
-                item
-                xs={12}
-                style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
-              >
-                <Grid item xs={12}>
-                  <Typography
-                    className={className.header}
-                    variant="h4"
-                    component={'span'}
-                    align="center"
-                  >
-                    Organization Sign Up
-                  </Typography>
-                </Grid>
-                {/* <Grid item xs={12}>
-                  <Link to={routes.SignupNonProfit.path}>
-                    <Button
-                      onClick={handleSignUpOrganizationMode}
-                      fullWidth
-                      className={classes.root}
+              <Paper elevation={0} className={className.paper}>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
+                >
+                  <Grid item xs={12}>
+                    <Typography
+                      className={className.header}
+                      variant="h4"
+                      component={'span'}
+                      align="center"
                     >
-                      I am part of an organization
-                    </Button>
-                  </Link>
-                </Grid> */}
-              </Grid>
+                      Organization Sign Up
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
             </DialogContent>
           )}
         </Dialog>
-        <div ref={ref}></div>
-      </div>
+      </>
     );
   },
 );
