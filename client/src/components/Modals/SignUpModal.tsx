@@ -6,7 +6,8 @@ import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import DialogContent from '@mui/material/DialogContent';
-// import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 import PasswordInput from '../Users/Auth/PasswordInput';
@@ -15,8 +16,9 @@ import NameInput from '../Users/Auth/NameInput';
 import { ValidationUtils } from '../../utils';
 import { string, boolean } from 'yup';
 import { Button, Checkbox, Typography, Paper, FormControlLabel } from '@mui/material';
-// import { APP_API_BASE_URL } from '../../configs';
+import { APP_API_BASE_URL } from '../../configs';
 import StyledLink from '../StyledLink';
+import { UserContext } from '../../providers';
 
 interface SignUpModalProps {
   closeModal: () => void;
@@ -29,6 +31,11 @@ interface SignUpModalProps {
     buttonContainer: string;
     closeButton: string;
   };
+}
+
+interface Error {
+  type: '' | 'email' | 'password';
+  message: string;
 }
 
 const useStyles = makeStyles()((theme: Theme) => ({
@@ -86,18 +93,18 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
     };
 
     const { classes } = useStyles();
-
+    const history = useHistory();
     const [signUpMode, setSignUpMode] = useState('');
-    // const [isLoading, setIsLoading] = React.useState<boolean>(false);
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+    const [error, setError] = React.useState<Error | null>(null);
+    const { setUser } = React.useContext(UserContext);
 
     const handleSignUpIndividualMode = () => {
       setSignUpMode('individual');
-      console.log('sign up mode', signUpMode);
     };
 
     const handleSignUpOrganizationMode = () => {
       setSignUpMode('organization');
-      console.log('sign up mode', signUpMode);
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -159,34 +166,29 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
       });
     };
 
-    // const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
-    //   evt.preventDefault();
-    //   setIsLoading(true);
-    //   const res = await fetch(`${APP_API_BASE_URL}/auth/login`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(formData),
-    //     credentials: 'include',
-    //   });
-    //   // const response = await res.json();
-    //   setIsLoading(false);
+    const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
+      evt.preventDefault();
+      setIsLoading(true);
+      console.log('sign up user inputs', formData);
+      const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include',
+      });
+      const response = await res.json();
+      setIsLoading(false);
 
-    //   if (!res.ok) {
-    //     if (response.error === 'Email not found') {
-    //       setError({ type: 'email', message: response.error });
-    //     } else if (response.error === 'Invalid password') {
-    //       setError({ type: 'password', message: response.error });
-    //     } else {
-    //       setError({ type: '', message: 'an unknown error occurred' });
-    //     }
-    //   } else {
-    //     setUser(response.user, false, true);
-    //     setError(null);
-    //     history.push('/');
-    //   }
-    // };
+      if (!res.ok) {
+        setError({ type: '', message: 'an unknown error occurred' });
+      } else {
+        setUser(response.user, false, true);
+        setError(null);
+        history.push('/');
+      }
+    };
 
     return (
       <>
@@ -269,9 +271,6 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                       Individual Sign Up
                     </Typography>
                   </Grid>
-                  {/* <Grid item xs={12}>
-                    <Link to={routes.SignupCitizen.path}></Link>
-                  </Grid> */}
                   <Grid item xs={12}>
                     <Divider
                       variant="middle"
@@ -304,8 +303,8 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={formData.email.value}
-                      error={formData.email.error}
                       placeholder="jane@citizen.com"
+                      error={error?.type === 'email' ? error.message : null}
                     />
                     <PasswordInput
                       id="password"
@@ -314,7 +313,7 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                       value={formData.password.value}
                       showStartAdornment={true}
                       onChange={handleChange}
-                      error={formData.password.error}
+                      error={error?.type === 'password' ? error.message : null}
                       required
                     />
                   </Grid>
@@ -367,11 +366,13 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                     style={{ backgroundColor: '#EF6A60', color: 'white' }}
                     fullWidth
                     type="submit"
+                    onClick={handleSubmit}
                   >
                     Sign Up
                   </Button>
-                  {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
+                  <Link to={routes.Home.path}></Link>
                 </Grid>
+                {isLoading && <Typography>Loading...</Typography>}
               </Paper>
             </DialogContent>
           )}
