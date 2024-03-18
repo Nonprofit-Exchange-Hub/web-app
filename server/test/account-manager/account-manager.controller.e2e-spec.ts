@@ -25,7 +25,7 @@ describe('AccountManagerController', () => {
   let existingRecordId = 0;
   const seed = () => ({
     firstName: 'peter',
-    last_name: 'parker',
+    lastName: 'parker',
     email: 'peter.parker@example.com',
     bio: 'I am Spiderman',
     city: 'New York City',
@@ -83,7 +83,7 @@ describe('AccountManagerController', () => {
       expect(body.id).not.toBeNull();
       expect(body.email).toEqual(userToCreate.email);
       expect(body.firstName).toEqual(userToCreate.firstName);
-      expect(body.last_name).toEqual(userToCreate.last_name);
+      expect(body.lastName).toEqual(userToCreate.lastName);
       expect(body.password).toBeUndefined();
     });
 
@@ -129,7 +129,7 @@ describe('AccountManagerController', () => {
       expect(body.id).not.toBeNull();
       expect(body.email).toEqual(seed().email);
       expect(body.firstName).toEqual(seed().firstName);
-      expect(body.last_name).toEqual(seed().last_name);
+      expect(body.lastName).toEqual(seed().lastName);
     });
 
     it.skip('should not return password hash', async () => {

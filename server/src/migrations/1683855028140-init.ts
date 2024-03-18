@@ -35,7 +35,7 @@ export class Init1683855028140 implements MigrationInterface {
       `CREATE TABLE "user_organizations" ("id" SERIAL NOT NULL, "approvalStatus" "public"."user_organizations_approvalstatus_enum" NOT NULL DEFAULT 'PENDING', "role" "public"."user_organizations_role_enum" NOT NULL DEFAULT 'ADMIN', "created_date" TIMESTAMP NOT NULL DEFAULT now(), "organizationId" integer, "userId" integer, CONSTRAINT "PK_51ed3f60fdf013ee5041d2d4d3d" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "users" ("id" SERIAL NOT NULL, "firstName" text NOT NULL, "last_name" text NOT NULL, "email" text NOT NULL, "password" text NOT NULL, "bio" text, "city" text, "state" text, "zip_code" text, "email_notification_opt_out" boolean NOT NULL DEFAULT false, "email_verified" boolean NOT NULL DEFAULT false, "profile_image_url" text, "interests" jsonb, CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "users" ("id" SERIAL NOT NULL, "firstName" text NOT NULL, "lastName" text NOT NULL, "email" text NOT NULL, "password" text NOT NULL, "bio" text, "city" text, "state" text, "zip_code" text, "email_notification_opt_out" boolean NOT NULL DEFAULT false, "email_verified" boolean NOT NULL DEFAULT false, "profile_image_url" text, "interests" jsonb, CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "poc_chat" ("id" SERIAL NOT NULL, "text" text NOT NULL, "name" text NOT NULL, "created_date" TIMESTAMP NOT NULL DEFAULT ('now'::text)::timestamp(6) with time zone, CONSTRAINT "PK_6bef3650cec8dcf6810d7b10943" PRIMARY KEY ("id"))`,
