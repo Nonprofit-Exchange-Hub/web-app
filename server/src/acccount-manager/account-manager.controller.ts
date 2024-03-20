@@ -92,7 +92,7 @@ export class AccountManagerController {
       subject: 'Givingful Email Verification',
       from: 'admin@nonprofitcircle.org',
       html: `
-        <p>Hello ${user.firstName} ${user.lastName}</p>
+        <p>Hello ${user.firstName} ${user.last_name}</p>
         <p>Please click <a href="${process.env.FE_DOMAIN}/email-verification?token=${jwt}">here</a> to verify your email.</p>
         <p>(this link is valid for 1 hour)</p>
         <p>Thank you!!</p>
@@ -146,10 +146,10 @@ export class AccountManagerController {
   @ApiOperation({ summary: 'Fetch user via session' })
   async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
     const { user } = request;
-    const { firstName, lastName, email, profile_image_url } = await this.usersService.findOne(
+    const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
       user.id,
     );
-    return { user: { ...user, firstName, lastName, email, profile_image_url } };
+    return { user: { ...user, firstName, last_name, email, profile_image_url } };
   }
 
   @Get('logout')
@@ -189,7 +189,7 @@ export class AccountManagerController {
         subject: 'Givingful Password Reset',
         from: 'admin@nonprofitcircle.org',
         html: `
-          <p>Hello ${user.firstName} ${user.lastName}</p>
+          <p>Hello ${user.firstName} ${user.last_name}</p>
           <p>Please click <a href="${process.env.FE_DOMAIN}/set-new-password?token=${jwt}">here</a> to reset your password</p>
           <p>(this link is valid for 1 hour)</p>
           <p>Thank you!!</p>

@@ -15,7 +15,7 @@ export const seedUsers = (): CreateUserInternal[] => {
   const users: CreateUserInternal[] = [
     {
       firstName: 'user1First',
-      lastName: 'user1Last',
+      last_name: 'user1Last',
       email: 'user1First@example.com',
       email_verified: true,
       password: 'Secret1234%',
@@ -27,7 +27,7 @@ export const seedUsers = (): CreateUserInternal[] => {
     },
     {
       firstName: 'user2First',
-      lastName: 'user2Last',
+      last_name: 'user2Last',
       email: 'user2First@example.com',
       email_verified: true,
       password: 'Secret1234%',

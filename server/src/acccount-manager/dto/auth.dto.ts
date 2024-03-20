@@ -34,7 +34,7 @@ export class ReturnUserDto {
   @Expose()
   firstName: string;
   @Expose()
-  lastName?: string;
+  last_name?: string;
   @Expose()
   email: string;
   @Expose()

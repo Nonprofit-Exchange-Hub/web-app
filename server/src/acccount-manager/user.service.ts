@@ -13,6 +13,10 @@ export class UsersService {
 
   async create(createUserDto: CreateUserInternal): Promise<User> {
     try {
+      console.log('createUserDto type', typeof createUserDto.password); // Log to verify the structure and types
+      if (typeof createUserDto.password !== 'string') {
+        throw new Error('Password must be a string');
+      }
       const hashedPw = await bcrypt.hash(createUserDto.password, parseInt(BCRYPT_WORK_FACTOR));
       createUserDto.password = hashedPw;
       const user = await this.usersRepository.save(createUserDto);
@@ -20,7 +24,7 @@ export class UsersService {
     } catch (err) {
       Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);
       throw new HttpException(
-        { status: HttpStatus.CONFLICT, message: 'Email already exists' },
+        { status: HttpStatus.CONFLICT, message: 'Email already exists 1' },
         HttpStatus.CONFLICT,
       );
     }
