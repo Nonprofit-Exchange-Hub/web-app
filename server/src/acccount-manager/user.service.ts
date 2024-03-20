@@ -13,7 +13,6 @@ export class UsersService {
 
   async create(createUserDto: CreateUserInternal): Promise<User> {
     try {
-      console.log('createUserDto type', typeof createUserDto.password); // Log to verify the structure and types
       if (typeof createUserDto.password !== 'string') {
         throw new Error('Password must be a string');
       }
@@ -24,7 +23,7 @@ export class UsersService {
     } catch (err) {
       Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);
       throw new HttpException(
-        { status: HttpStatus.CONFLICT, message: 'Http Individual User Signup Error' },
+        { status: HttpStatus.CONFLICT, message: 'createUserDto HTTP signup error' },
         HttpStatus.CONFLICT,
       );
     }
