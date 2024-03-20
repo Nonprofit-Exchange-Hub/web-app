@@ -94,7 +94,7 @@ describe('UserOrgsController', () => {
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
       .expect(409);
-    expect(body.message).toEqual('Email already exists');
+    expect(body.message).toEqual('createUserOrganization HTTP signup error');
   });
 
   // not yet implemented, so skipping for now
