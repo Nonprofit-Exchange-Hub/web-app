@@ -24,7 +24,7 @@ export class UsersService {
     } catch (err) {
       Logger.error(`${err.message}: \n${err.stack}`, UsersService.name);
       throw new HttpException(
-        { status: HttpStatus.CONFLICT, message: 'Email already exists 1' },
+        { status: HttpStatus.CONFLICT, message: 'Http Individual User Signup Error' },
         HttpStatus.CONFLICT,
       );
     }
