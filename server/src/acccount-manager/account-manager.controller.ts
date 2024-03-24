@@ -19,6 +19,7 @@ import {
   ConflictException,
   HttpException,
   HttpStatus,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiConsumes, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
@@ -35,7 +36,13 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
-import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto, LoginDto } from './dto/auth.dto';
+import {
+  VerifyEmailDto,
+  ReturnSessionDto,
+  ReturnUserDto,
+  ResetPasswordDto,
+  LoginDto,
+} from './dto/auth.dto';
 import { UpdateUserInternal } from './dto/create-user.internal';
 import { MapTo } from '../shared/serialize.interceptor';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -134,6 +141,10 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
     // TODO: we probably need a better solution for this
     if (!user.email_verified && process.env.NODE_ENV === 'staging') {
       throw new HttpException(
@@ -145,12 +156,12 @@ export class AccountManagerController {
     const jwt = await this.accountManagerService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {
-        domain: 'localhost',
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
         expires: new Date(new Date().getTime() + 60 * 60 * 1000), // 1 hour
         httpOnly: true,
         path: '/',
         sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV !== 'development',
         signed: true,
       })
       .send({ user });
@@ -170,12 +181,20 @@ export class AccountManagerController {
   @Get('logout')
   @ApiOperation({ summary: 'Logout' })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
-    response.clearCookie(COOKIE_KEY).send();
+    response
+      .clearCookie(COOKIE_KEY, {
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
+        httpOnly: true,
+        path: '/',
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV !== 'development',
+      })
+      .send();
   }
 
-  @Post('reset_password')
-  @ApiOperation({ summary: 'Password reset' })
-  async resetPassword(
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Password reset Request' })
+  async resetPasswordRequest(
     @Request() req,
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
@@ -187,7 +206,7 @@ export class AccountManagerController {
       }
 
       const jwt = await this.jwtService.sign(
-        { valid: true },
+        { valid: true, id: user.id },
         { expiresIn: '1h', secret: process.env.JWT_SECRET },
       );
 
@@ -203,12 +222,30 @@ export class AccountManagerController {
           <p>The Givingful Team</p>
         `,
       };
-
-      await this.sendgridService.send(mail);
+      if (process.env.NODE_ENV === 'staging') {
+        await this.sendgridService.send(mail);
+      }
       response.status(200);
     } catch (e) {
       // always respond 200 so hackerz don't know which emails are active and not
       response.status(200);
+    }
+  }
+
+  @Put('reset-password')
+  async resetPassword(
+    @Body() resetPasswordDtO: ResetPasswordDto,
+  ): Promise<boolean | BadRequestException> {
+    try {
+      const { id } = await this.jwtService.verify(resetPasswordDtO.token, {
+        secret: process.env.JWT_SECRET,
+      });
+      if (id) {
+        this.usersService.updatePasswod(id, { password: resetPasswordDtO.password });
+      }
+      return true;
+    } catch {
+      throw new BadRequestException('jwt verify fail');
     }
   }
 
@@ -233,10 +270,16 @@ export class AccountManagerController {
     }),
   )
   async upsertProfile(
+    @Request() request: AuthedRequest,
     @Param('id') id: number,
     @UploadedFile()
     file: Express.Multer.File,
   ): Promise<ReturnUserDto | BadRequestException> {
+    const { user } = request;
+    if (user.id !== id) {
+      throw new BadRequestException('You can only update your own user');
+    }
+
     if (/\.(jpe?g|png|gif)$/i.test(file.filename)) {
       return new BadRequestException(
         'Only valid image extensions allowed (.jpg, .jpeg, .png, .gif)',
@@ -272,6 +315,17 @@ export class AccountManagerController {
   async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
     const user = await this.usersService.findOne(id);
     if (!user) {
+//   async update(
+//     @Request() request: AuthedRequest,
+//     @Param('id') id: number,
+//     @Body() updateUserDto: UpdateUserDto,
+//   ): Promise<ReturnUserDto> {
+//     const { user } = request;
+//     if (user.id !== id) {
+//       throw new BadRequestException('You can only update your own user');
+//     }
+//     const dbUser = await this.usersService.findOne(id);
+//     if (!dbUser) {
       throw new BadRequestException('User not found');
     }
 

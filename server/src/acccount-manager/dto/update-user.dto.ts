@@ -1,6 +1,7 @@
 import { IsBoolean, IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { InterestsProps, InterestNamesIsArray } from '../../shared/interests.validator';
 import { Expose } from 'class-transformer';
+import { Interests } from '../../shared/interests.dto';
 
 export class Interests {
   @Expose()

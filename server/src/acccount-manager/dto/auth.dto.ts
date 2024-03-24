@@ -13,7 +13,7 @@ export class LoginDto {
   password: string;
 }
 
-export class ResetPasswordDto {
+export class ResetPasswordRequestDto {
   @IsEmail()
   email: string;
 }
@@ -22,6 +22,17 @@ export class Interests {
   @Expose()
   names: string[];
 }
+
+export class ResetPasswordDto {
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+
+  @IsNotEmpty()
+  @IsString()
+  token: string;
+}
+
 export class ReturnUserDto {
   @Expose()
   id: number;

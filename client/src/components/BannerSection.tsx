@@ -1,9 +1,10 @@
+import React, { useContext } from 'react';
 import { Grid, Typography, Box } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 import MainImage from '../assets/banner-section-main.svg';
 import { CTAHeroButton } from './Buttons/Button';
-import { useHistory } from 'react-router-dom';
+import { ModalContext } from './../providers/ModalProvider';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   gridTitle: {
@@ -44,15 +45,23 @@ function BannerText() {
 
 function BannerSection() {
   const { classes } = useStyles();
-  const history = useHistory();
+  const modalContext = useContext(ModalContext);
+  const { openModal } = modalContext;
 
+  const handleOpenModal = (modalType: 'SignIn' | 'SignUp') => {
+    if (modalType === 'SignIn') {
+      openModal('SignIn');
+    } else if (modalType === 'SignUp') {
+      openModal('SignUp');
+    }
+  };
   return (
     <Box>
       <Grid container spacing={3} sx={{ height: '600px' }}>
         <Grid xs={6} item justifyContent="center" sx={{ display: 'flex' }}>
           <Box sx={{ width: '550px', mt: '180px', mb: '66px', ml: '40px' }}>
             <BannerText />
-            <CTAHeroButton text="Join Now" onClick={() => history.push('/signup-citizen')} />
+            <CTAHeroButton text="Join Now" onClick={() => handleOpenModal('SignUp')} />
           </Box>
         </Grid>
         <Grid
