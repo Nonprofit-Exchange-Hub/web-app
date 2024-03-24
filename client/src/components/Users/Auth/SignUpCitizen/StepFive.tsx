@@ -6,7 +6,6 @@ import { useStyles } from './styles/styles';
 type TStepFiveProps = {
   user?: {
     firstName?: string;
-    lastName?: string;
     last_name?: string;
     email?: string;
   } | null;
@@ -26,7 +25,7 @@ export default function StepFive({ user }: TStepFiveProps) {
         Sign up almost complete!
       </Typography>
       <Typography className={classes.label} sx={{ fontWeight: 'bold', marginTop: '60px' }}>
-        {user && user.firstName} {user && (user.lastName || user.last_name)}
+        {user && user.firstName} {user && (user.last_name || user.last_name)}
       </Typography>
       <Typography>{user && user.email}</Typography>
       <Typography sx={{ marginBottom: '60px' }}>

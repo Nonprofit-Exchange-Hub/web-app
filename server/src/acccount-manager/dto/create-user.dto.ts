@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsBoolean, IsOptional, Validate } from 'class-validator';
+import { IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { InterestsProps, InterestNamesIsArray } from '../../shared/interests.validator';
 import { Interests } from '../../shared/interests.dto';
 
@@ -10,7 +10,7 @@ export class CreateUserDto {
   last_name: string;
 
   @IsNotEmpty()
-  @IsEmail()
+  // @IsEmail()
   email: string;
 
   @IsNotEmpty()
@@ -19,16 +19,16 @@ export class CreateUserDto {
   @IsOptional()
   bio?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   city: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   state: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   zip_code: string;
 
-  @IsBoolean()
+  @IsOptional()
   email_notification_opt_out: boolean;
 
   @IsOptional()
