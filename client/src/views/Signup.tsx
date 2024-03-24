@@ -1,12 +1,19 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
-import { Grid, Container, Button } from '@mui/material';
-
+import { Grid, Button } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import routes from '../routes/routes';
+// import { Container } from '@mui/material'; keep for future commits
+// import StyledLink from '../components/StyledLink';
+// import TextDivider from '../components/TextDivider';
+// import DialogContentText from '@mui/material/DialogContentText';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   imageBackground: {
@@ -37,39 +44,49 @@ const useStyles = makeStyles()((theme: Theme) => ({
 function Signup() {
   const { classes } = useStyles();
 
-  return (
-    <Container className={classes.formBox}>
-      <Typography variant="h2" component="h2">
-        Welcome!
-      </Typography>
-      <Typography variant="h2" component="h2">
-        Select your account type.
-      </Typography>
-      <Typography variant="body2" component="caption">
-        Already have an account? <Link to={routes.Login.path}>Log In</Link>{' '}
-      </Typography>
+  const [open, setOpen] = React.useState(true);
+  const onClose = (e: any, reason: string) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+  };
 
-      <Grid container spacing={8}>
-        <Grid item className={classes.positionOptions}>
-          <div className={classes.imageBackground}></div>
-          <Typography className={classes.caption} variant="body2" component="caption">
-            Are you a non-profit organization?
-          </Typography>
-          <Link className={classes.linkText} to={routes.SignupNonProfit.path}>
-            <Button variant="contained">Create non-profit account</Button>
-          </Link>
-        </Grid>
-        <Grid item className={classes.positionOptions}>
-          <div className={classes.imageBackground}></div>
-          <Typography className={classes.caption} variant="body2" component="caption">
-            Are you an individual citizen?
-          </Typography>
-          <Link className={classes.linkText} to={routes.SignupCitizen.path}>
-            <Button variant="contained">Create citizen account</Button>
-          </Link>
-        </Grid>
-      </Grid>
-    </Container>
+  const buttonClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div className="Signup" style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Paper elevation={3}>
+        <div>
+          <Dialog disableEscapeKeyDown={true} open={open} onClose={onClose}>
+            <DialogTitle>Welcome!</DialogTitle>
+            <DialogContent>
+              {/* <Container className={classes.formBox}> */}
+              <Typography variant="h3" component="h3">
+                Account Type
+              </Typography>
+              <Grid container spacing={8}>
+                <Grid item className={classes.positionOptions}>
+                  <Link className={classes.linkText} to={routes.SignupNonProfit.path}>
+                    <Button variant="contained">Organization</Button>
+                  </Link>
+                </Grid>
+                <Grid item className={classes.positionOptions}>
+                  <Link className={classes.linkText} to={routes.SignupCitizen.path}>
+                    <Button variant="contained">Individual</Button>
+                  </Link>
+                </Grid>
+              </Grid>
+              {/* </Container> */}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={buttonClose}>Cancel</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      </Paper>
+    </div>
   );
 }
 

@@ -19,6 +19,7 @@ import {
   ConflictException,
   HttpException,
   HttpStatus,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiConsumes, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
@@ -134,6 +135,10 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
     // TODO: we probably need a better solution for this
     if (!user.email_verified && process.env.NODE_ENV === 'staging') {
       throw new HttpException(
@@ -145,12 +150,12 @@ export class AccountManagerController {
     const jwt = await this.accountManagerService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {
-        domain: 'localhost',
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
         expires: new Date(new Date().getTime() + 60 * 60 * 1000), // 1 hour
         httpOnly: true,
         path: '/',
         sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV !== 'development',
         signed: true,
       })
       .send({ user });
@@ -170,12 +175,20 @@ export class AccountManagerController {
   @Get('logout')
   @ApiOperation({ summary: 'Logout' })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
-    response.clearCookie(COOKIE_KEY).send();
+    response
+      .clearCookie(COOKIE_KEY, {
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
+        httpOnly: true,
+        path: '/',
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV !== 'development',
+      })
+      .send();
   }
 
-  @Post('reset_password')
-  @ApiOperation({ summary: 'Password reset' })
-  async resetPassword(
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Password reset Request' })
+  async resetPasswordRequest(
     @Request() req,
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
@@ -187,7 +200,7 @@ export class AccountManagerController {
       }
 
       const jwt = await this.jwtService.sign(
-        { valid: true },
+        { valid: true, id: user.id },
         { expiresIn: '1h', secret: process.env.JWT_SECRET },
       );
 
@@ -203,12 +216,30 @@ export class AccountManagerController {
           <p>The Givingful Team</p>
         `,
       };
-
-      await this.sendgridService.send(mail);
+      if (process.env.NODE_ENV === 'staging') {
+        await this.sendgridService.send(mail);
+      }
       response.status(200);
     } catch (e) {
       // always respond 200 so hackerz don't know which emails are active and not
       response.status(200);
+    }
+  }
+
+  @Put('reset-password')
+  async resetPassword(
+    @Body() resetPasswordDtO: ResetPasswordDto,
+  ): Promise<boolean | BadRequestException> {
+    try {
+      const { id } = await this.jwtService.verify(resetPasswordDtO.token, {
+        secret: process.env.JWT_SECRET,
+      });
+      if (id) {
+        this.usersService.updatePasswod(id, { password: resetPasswordDtO.password });
+      }
+      return true;
+    } catch {
+      throw new BadRequestException('jwt verify fail');
     }
   }
 

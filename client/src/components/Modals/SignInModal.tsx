@@ -6,7 +6,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-
+import { useContext } from 'react';
+import { ModalContext } from '../../providers/ModalProvider';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 
@@ -46,13 +47,15 @@ interface Error {
   type: '' | 'email' | 'password';
   message: string;
 }
+
 const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
   ({ closeModal, className }, ref) => {
     const history = useHistory();
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [error, setError] = React.useState<Error | null>(null);
     const { setUser } = React.useContext(UserContext);
-
+    const modalContext = useContext(ModalContext);
+    const { openModal } = modalContext;
     const [formData, setFormData] = React.useState<UserLoginData>(initialFormData);
 
     const handleCloseModal = React.useCallback(() => {
@@ -174,7 +177,20 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                       <Grid item xs={12}>
                         <Typography align="right" style={{ fontSize: '12px' }}>
                           Not signed up yet?{' '}
-                          <StyledLink to={routes.Signup.path}>Sign Up</StyledLink>
+                          <Typography
+                            display="inline"
+                            sx={{
+                              fontSize: '12px',
+                              padding: '0px',
+                              '&:hover': {
+                                cursor: 'pointer',
+                                textDecoration: 'underline',
+                              },
+                            }}
+                            onClick={() => openModal('SignUp')}
+                          >
+                            Sign Up
+                          </Typography>
                         </Typography>
                       </Grid>
                     </Grid>

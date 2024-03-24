@@ -1,6 +1,4 @@
-export const interests: string[] = [
-  'paper products',
-  'furniture',
+export const focusAreas: string[] = [
   'Animal Care & Services',
   'Poverty',
   'Housing & Homeless',
