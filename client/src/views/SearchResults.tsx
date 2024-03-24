@@ -128,7 +128,7 @@ function SearchResults(): JSX.Element {
 
   React.useEffect(() => {
     fetchSearchData();
-  }, [querySearchText, querySearchCategory, fetchSearchData]);
+  }, [querySearchText, querySearchCategory, volunteer, offers, orgs]);
 
   return (
     <div className={classes.searchResultsContainer}>
