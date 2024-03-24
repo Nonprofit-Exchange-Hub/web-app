@@ -206,8 +206,10 @@ const SignInModal = React.forwardRef<HTMLDivElement, SignInModalProps>(
                       >
                         Sign In
                       </Button>
+                      {/* Placeholder for loading  - waiting on UI/UX response as to what they want. */}
                     </Grid>
-                    {isLoading && <Typography>Loading...</Typography>}
+
+                    {isLoading && <Typography>Loading</Typography>}
                   </form>
                 </Grid>
               </Grid>

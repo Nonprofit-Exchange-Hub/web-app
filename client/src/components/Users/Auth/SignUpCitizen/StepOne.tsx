@@ -18,7 +18,7 @@ const initialFormData = {
     error: null,
     rule: string().required('Required.'),
   },
-  lastName: {
+  last_name: {
     value: '',
     error: null,
     rule: string().required('Required.'),
@@ -187,14 +187,14 @@ export default function StepOne({ initData, handleNext }: TStepOneProps) {
           </Box>
           <Box width={'100%'}>
             <NameInput
-              id="lastName"
-              name="lastName"
+              id="last_name"
+              name="last_name"
               label="Last Name"
               placeholder="Dosis"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={formData.lastName.value}
-              error={formData.lastName.error}
+              value={formData.last_name.value}
+              error={formData.last_name.error}
             />
           </Box>
         </Box>

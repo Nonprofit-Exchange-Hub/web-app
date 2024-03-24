@@ -13,8 +13,6 @@ import type { Theme } from '@mui/material/styles';
 import PasswordInput from '../Users/Auth/PasswordInput';
 import EmailInput from '../Users/Auth/EmailInput';
 import NameInput from '../Users/Auth/NameInput';
-import { ValidationUtils } from '../../utils';
-import { string, boolean } from 'yup';
 import { Button, Checkbox, Typography, Paper, FormControlLabel } from '@mui/material';
 import { APP_API_BASE_URL } from '../../configs';
 import StyledLink from '../StyledLink';
@@ -33,11 +31,6 @@ interface SignUpModalProps {
   };
 }
 
-interface Error {
-  type: '' | 'email' | 'password';
-  message: string;
-}
-
 const useStyles = makeStyles()((theme: Theme) => ({
   root: {
     border: 0,
@@ -50,41 +43,17 @@ const useStyles = makeStyles()((theme: Theme) => ({
 }));
 
 const initialFormData = {
-  firstName: {
-    value: '',
-    error: null,
-    rule: string().required('Required.'),
-  },
-  lastName: {
-    value: '',
-    error: null,
-    rule: string().required('Required.'),
-  },
-  email: {
-    value: '',
-    error: null,
-    rule: string().email('Invalid email.').required('Required.'),
-  },
-  password: {
-    value: '',
-    error: null,
-    rule: string()
-      .min(8, 'Password is too short - should be 8 chars minimum.')
-      .required('Required.'),
-  },
-  passwordConfirm: {
-    value: '',
-    error: null,
-    rule: string()
-      .min(8, 'Password is too short - should be 8 chars minimum.')
-      .required('Required.'),
-  },
-  acceptTerms: {
-    value: false,
-    error: null,
-    rule: boolean().required('The terms and conditions must be accepted.'),
-  },
+  firstName: '',
+  last_name: '',
+  email: '',
+  password: '',
+  acceptTerms: false,
 };
+
+interface Error {
+  type: '' | 'email' | 'password';
+  message: string;
+}
 
 const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
   ({ closeModal, className }, ref) => {
@@ -107,49 +76,11 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
       setSignUpMode('organization');
     };
 
-    const [formData, setFormData] = useState(initialFormData);
-
-    const handleBlur = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-      const { name }: { name: string } = evt.target;
-      if (Object.keys(initialFormData).includes(name)) {
-        setFormData((currFormData) => {
-          let error = null;
-          let passwordMismatched = false;
-
-          if (name === 'passwordConfirm') {
-            const passwordConfirmError = ValidationUtils.getError(
-              currFormData.passwordConfirm.rule,
-              currFormData.passwordConfirm.value,
-            );
-            error = passwordConfirmError;
-            passwordMismatched = currFormData.password.value !== currFormData.passwordConfirm.value;
-          } else if (name === 'password' && currFormData.passwordConfirm.value.length > 0) {
-            passwordMismatched = currFormData.password.value !== currFormData.passwordConfirm.value;
-          } else {
-            // @ts-ignore
-            error = ValidationUtils.getError(currFormData[name].rule, currFormData[name].value);
-          }
-
-          const passwordConfirmError = {
-            passwordConfirm: {
-              ...currFormData.passwordConfirm,
-              error: passwordMismatched ? 'Passwords must match.' : null,
-            },
-          };
-
-          const newFormData = Object.assign({}, currFormData, {
-            [name]: {
-              // @ts-ignore
-              ...currFormData[name],
-              error,
-            },
-            ...passwordConfirmError,
-          });
-
-          return newFormData;
-        });
-      }
+    const handleSignUpCompleteMode = () => {
+      setSignUpMode('complete');
     };
+
+    const [formData, setFormData] = useState(initialFormData);
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
       const { name, value, checked }: { name: string; value: string; checked: boolean } =
@@ -157,11 +88,7 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
       setFormData((fData) => {
         return {
           ...fData,
-          [name]: {
-            // @ts-ignore
-            ...fData[name],
-            value: name === 'acceptTerms' ? checked : value,
-          },
+          [name]: name === 'acceptTerms' ? checked : value, // Correctly update the value
         };
       });
     };
@@ -169,7 +96,6 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
     const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
       evt.preventDefault();
       setIsLoading(true);
-      console.log('sign up user inputs', formData);
       const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -178,14 +104,16 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
         body: JSON.stringify(formData),
         credentials: 'include',
       });
+      console.log('sign up user inputs', formData);
       const response = await res.json();
       setIsLoading(false);
-
       if (!res.ok) {
+        console.log(response);
         setError({ type: '', message: 'an unknown error occurred' });
       } else {
         setUser(response.user, false, true);
         setError(null);
+        handleSignUpCompleteMode();
         history.push('/');
       }
     };
@@ -283,34 +211,28 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                       name="firstName"
                       label="First Name"
                       placeholder="Jane"
-                      onBlur={handleBlur}
                       onChange={handleChange}
-                      value={formData.firstName.value}
-                      error={formData.firstName.error}
+                      value={formData.firstName}
                     />
                     <NameInput
-                      id="lastName"
-                      name="lastName"
+                      id="last_name"
+                      name="last_name"
                       label="Last Name"
                       placeholder="Dosis"
-                      onBlur={handleBlur}
                       onChange={handleChange}
-                      value={formData.lastName.value}
-                      error={formData.lastName.error}
+                      value={formData.last_name}
                     />
                     <EmailInput
                       showStartAdornment={true}
-                      onBlur={handleBlur}
                       onChange={handleChange}
-                      value={formData.email.value}
+                      value={formData.email}
                       placeholder="jane@citizen.com"
                       error={error?.type === 'email' ? error.message : null}
                     />
                     <PasswordInput
                       id="password"
                       name="password"
-                      onBlur={handleBlur}
-                      value={formData.password.value}
+                      value={formData.password}
                       showStartAdornment={true}
                       onChange={handleChange}
                       error={error?.type === 'password' ? error.message : null}
@@ -333,7 +255,7 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                     control={
                       <Checkbox
                         color="primary"
-                        checked={formData.acceptTerms.value}
+                        checked={formData.acceptTerms}
                         onChange={handleChange}
                         name="acceptTerms"
                         inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
@@ -388,11 +310,129 @@ const SignUpModal = React.forwardRef<HTMLDivElement, SignUpModalProps>(
                   <Grid item xs={12}>
                     <Typography
                       className={className.header}
-                      variant="h4"
+                      variant="h3"
                       component={'span'}
                       align="center"
                     >
                       Organization Sign Up
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider
+                      variant="middle"
+                      sx={{ marginLeft: 0, borderBottomWidth: 1, borderColor: '#000000' }}
+                    ></Divider>
+                  </Grid>
+                  <Grid item xs={12} style={{ paddingTop: '30px', justifyContent: 'center' }}>
+                    <NameInput
+                      id="firstName"
+                      name="firstName"
+                      label="First Name"
+                      placeholder="Jane"
+                      onChange={handleChange}
+                      value={formData.firstName}
+                    />
+                    <NameInput
+                      id="last_name"
+                      name="last_name"
+                      label="Last Name"
+                      placeholder="Dosis"
+                      onChange={handleChange}
+                      value={formData.last_name}
+                    />
+                    <EmailInput
+                      showStartAdornment={true}
+                      onChange={handleChange}
+                      value={formData.email}
+                      placeholder="jane@citizen.com"
+                      error={error?.type === 'email' ? error.message : null}
+                    />
+                    <PasswordInput
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      showStartAdornment={true}
+                      onChange={handleChange}
+                      error={error?.type === 'password' ? error.message : null}
+                      required
+                    />
+                  </Grid>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  style={{ paddingBottom: '30px', paddingLeft: '25px', justifyContent: 'center' }}
+                >
+                  <FormControlLabel
+                    style={{
+                      textAlign: 'left',
+                      display: 'flex',
+                      alignContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    control={
+                      <Checkbox
+                        color="primary"
+                        checked={formData.acceptTerms}
+                        onChange={handleChange}
+                        name="acceptTerms"
+                        inputProps={{ 'aria-label': 'accept_terms_checkbox' }}
+                        sx={{
+                          input: {
+                            "[(type = 'checkbox')]": {
+                              '::before': { outline: '1px solid black' },
+                            },
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <label style={{ fontSize: '15px' }}>
+                        Accept the{' '}
+                        <StyledLink to={routes.TermsOfService.path} target="_blank">
+                          Terms and Agreements
+                        </StyledLink>
+                      </label>
+                    }
+                  />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  style={{ display: 'flex', paddingBottom: '30px', justifyContent: 'center' }}
+                >
+                  <Button
+                    className={className.loginButton}
+                    style={{ backgroundColor: '#EF6A60', color: 'white' }}
+                    fullWidth
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    Sign Up
+                  </Button>
+                  <Link to={routes.Home.path}></Link>
+                </Grid>
+                {isLoading && <Typography>Loading...</Typography>}
+              </Paper>
+            </DialogContent>
+          )}
+          {signUpMode === 'complete' && (
+            <DialogContent className={className.content}>
+              <Paper elevation={0} className={className.paper}>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  style={{ paddingTop: 0, paddingLeft: 22, paddingRight: 16 }}
+                >
+                  <Grid item xs={12}>
+                    <Typography
+                      className={className.header}
+                      variant="h3"
+                      component={'span'}
+                      align="center"
+                    >
+                      Sign Up Complete! Please return to homepage to sign in!
                     </Typography>
                   </Grid>
                 </Grid>

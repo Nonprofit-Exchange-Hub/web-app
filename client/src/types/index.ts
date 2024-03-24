@@ -87,7 +87,7 @@ export type Category = {
 export type StoreUser = {
   id?: number;
   firstName: string;
-  lastName?: string;
+  last_name?: string;
   email?: string;
   profileImageUrl?: string;
   city?: string;
