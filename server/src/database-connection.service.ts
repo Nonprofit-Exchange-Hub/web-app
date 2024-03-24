@@ -36,12 +36,7 @@ const appConfigs = (environment: AppEnvironment): TypeOrmModuleOptions => {
     case 'staging':
       return {
         ...defaultOptions,
-        ssl: {
-          ca: process.env.POSTGRESQL_SSL_CA ?? '',
-          cert: process.env.POSTGRESQL_SSL_CERT ?? '',
-          key: process.env.POSTGRESQL_SSL_KEY ?? '',
-          rejectUnauthorized: false,
-        },
+        ssl: true,
       };
 
     case 'development':

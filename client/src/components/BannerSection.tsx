@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import { Grid, Typography, Box } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
@@ -5,6 +6,7 @@ import MainImage from '../assets/banner-section-main.svg';
 import { CTAHeroButton } from './Buttons/Button';
 import { useHistory } from 'react-router-dom';
 import { useMarketingText } from './../providers/MarketingTextProvider';
+import { ModalContext } from './../providers/ModalProvider';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   gridTitle: {
@@ -47,8 +49,16 @@ function BannerText() {
 function BannerSection() {
   const { banner } = useMarketingText();
   const { classes } = useStyles();
-  const history = useHistory();
+  const modalContext = useContext(ModalContext);
+  const { openModal } = modalContext;
 
+  const handleOpenModal = (modalType: 'SignIn' | 'SignUp') => {
+    if (modalType === 'SignIn') {
+      openModal('SignIn');
+    } else if (modalType === 'SignUp') {
+      openModal('SignUp');
+    }
+  };
   return (
     <Box>
       <Grid container spacing={3} sx={{ height: '600px' }}>

@@ -31,6 +31,7 @@ const {
   Help,
   TempChat,
   EmailVerification,
+  Login,
 } = routes;
 
 function Main() {
@@ -52,6 +53,7 @@ function Main() {
         <Route exact path={CookiePolicy.path} component={CookiePolicy.component} />
 
         {/* users */}
+        <Route exact path={Login.path} component={Login.component} />
         <Route exact path={ForgotPassword.path} component={ForgotPassword.component} />
         <Route exact path={SetNewPassword.path} component={SetNewPassword.component} />
         <Route exact path={SignupCitizen.path} component={SignupCitizen.component} />
