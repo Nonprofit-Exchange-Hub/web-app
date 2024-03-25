@@ -312,17 +312,20 @@ export class AccountManagerController {
   @UseGuards(CookieAuthGuard)
   @MapTo(ReturnUserDto)
   @Put('users/:id')
-  async update(
-    @Request() request: AuthedRequest,
-    @Param('id') id: number,
-    @Body() updateUserDto: UpdateUserDto,
-  ): Promise<ReturnUserDto> {
-    const { user } = request;
-    if (user.id !== id) {
-      throw new BadRequestException('You can only update your own user');
-    }
-    const dbUser = await this.usersService.findOne(id);
-    if (!dbUser) {
+  async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.usersService.findOne(id);
+    if (!user) {
+      //   async update(
+      //     @Request() request: AuthedRequest,
+      //     @Param('id') id: number,
+      //     @Body() updateUserDto: UpdateUserDto,
+      //   ): Promise<ReturnUserDto> {
+      //     const { user } = request;
+      //     if (user.id !== id) {
+      //       throw new BadRequestException('You can only update your own user');
+      //     }
+      //     const dbUser = await this.usersService.findOne(id);
+      //     if (!dbUser) {
       throw new BadRequestException('User not found');
     }
 
