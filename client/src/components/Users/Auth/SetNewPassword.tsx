@@ -7,10 +7,11 @@ import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 
 import PasswordInput from './PasswordInput';
-import { UserContext } from '../../../providers';
 import { APP_API_BASE_URL } from '../../../configs';
 
 import SetNewPasswordImg from '../../../assets/set-new-password.svg';
+import { useHistory } from 'react-router-dom';
+import { FormHelperText } from '@mui/material';
 
 const useStyles = makeStyles()((theme: Theme) => {
   const yPadding = 6;
@@ -73,15 +74,21 @@ const ERRORS = {
 };
 
 function SetNewPassword() {
-  const RESOURCE_URL = `${APP_API_BASE_URL}/auth/users`;
+  const RESOURCE_URL = `${APP_API_BASE_URL}/auth/reset-password`;
   const { classes } = useStyles();
   const sublabel = `(${PASSWORD_MIN_LENGTH} or more characters)`;
 
   const [password, setPassword] = React.useState<string>('');
   const [confirmPassword, setConfirmPassword] = React.useState<string>('');
 
+  const [globalError, setGlobalError] = React.useState('');
+
   const [error, setError] = React.useState<string | null>(null);
   const [confirmPasswordError, setConfirmPasswordError] = React.useState<string | null>(null);
+
+  const history = useHistory();
+  const searchParams = new URLSearchParams(history.location.search);
+  const token = searchParams.get('token');
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     setPassword(evt.target.value);
@@ -114,8 +121,6 @@ function SetNewPassword() {
     setConfirmPasswordError(null);
   };
 
-  const { user } = React.useContext(UserContext);
-
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault();
 
@@ -129,19 +134,17 @@ function SetNewPassword() {
       return;
     }
 
-    // ternary in url temporary. User should be logged in(?) id should be available once BE is built
-    fetch(`${RESOURCE_URL}/${user ? user.id : null}`, {
-      method: 'PATCH',
+    fetch(`${RESOURCE_URL}`, {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-      credentials: 'include',
+      body: JSON.stringify({ password, token }),
     }).then((resp) => {
       if (resp.ok) {
         resp.json().then((data) => {
           // send user to home page/message lets them know password was changed successfully
         });
       } else {
-        resp.json().then((errors) => setError(errors));
+        setGlobalError('Unable to reset password');
       }
     });
   };
@@ -175,6 +178,9 @@ function SetNewPassword() {
             id="confirmPassword"
             showStartAdornment
           />
+
+          {globalError && <FormHelperText error={true}>{globalError}</FormHelperText>}
+
           <div className={classes.ctaContainer}>
             <Button
               onClick={handleClickReset}

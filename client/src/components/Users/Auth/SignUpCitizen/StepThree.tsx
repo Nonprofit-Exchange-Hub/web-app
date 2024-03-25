@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box, Chip, Button, Grid, Typography } from '@mui/material';
 
-import { interests } from './constants/interests';
-
 import { useStyles } from './styles/styles';
+import { SettingsContext } from '../../../../providers/SettingsProvider';
 
 type TStepThreeProps = {
   initData: { interests: string[] };
@@ -15,19 +14,20 @@ export default function StepThree({ initData, handleBack, handleNext }: TStepThr
   const { classes } = useStyles();
 
   const [formData, setFormData] = useState<{ interests: string[] }>(initData);
+  const { orgCategories } = useContext(SettingsContext);
 
   const makeChips = () => {
-    return interests.map((interest) => {
-      // TODO: toggle chip style when interest is chosen
-      const isSelected = formData.interests.includes(interest);
+    console.log('orgCategories', orgCategories);
+    return orgCategories().map((interest) => {
+      const isSelected = formData.interests.includes(interest.name);
       return (
         <Chip
-          key={interest}
+          key={interest.id}
           className={`${classes.chip} ${isSelected && classes.selectedChip}`}
-          label={interest}
+          label={interest.name}
           sx={{ fontSize: '16px' }}
           variant="outlined"
-          onClick={() => toggleInterest(interest)}
+          onClick={() => toggleInterest(interest.name)}
         />
       );
     });
