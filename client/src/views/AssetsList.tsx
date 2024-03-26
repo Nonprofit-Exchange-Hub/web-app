@@ -51,7 +51,7 @@ type Props = {
 function AssetsList(props: Props): JSX.Element {
   const { classes } = useStyles();
   const { assets, headerContentRight, headerText } = props;
-  if (!assets) return <> </>;
+  if (!assets || !Array.isArray(assets)) return <> No Results</>;
 
   return (
     <div style={{ width: '100%' }}>
