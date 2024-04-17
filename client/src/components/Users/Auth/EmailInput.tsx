@@ -3,12 +3,12 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import InputAdornment from '@mui/material/InputAdornment';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     input: {
       height: 44,
@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme: Theme) => {
       color: '#000000',
       fontWeight: 'bold',
       textAlign: 'left',
+      marginTop: '20px',
+    },
+    error: {
+      marginBottom: 0,
+      border: '2px solid red',
     },
   };
 });
@@ -34,19 +39,32 @@ interface Props {
   placeholder: string;
   showStartAdornment?: boolean;
   error: string | null;
+  onBlur?: React.ChangeEventHandler<HTMLInputElement> | null;
 }
 
-function EmailInput({ onChange, value, placeholder, showStartAdornment = false, error }: Props) {
-  const classes = useStyles();
+function EmailInput({
+  value,
+  error,
+  onChange,
+  placeholder,
+  onBlur = null,
+  showStartAdornment = false,
+}: Props) {
+  const { classes } = useStyles();
+
+  let additionalProps: { [key: string]: any } = {};
+
+  if (onBlur) {
+    additionalProps['onBlur'] = onBlur;
+  }
 
   return (
     <FormControl fullWidth error={Boolean(error)}>
       <label className={classes.label} htmlFor="email">
-        Email Address
+        Email
       </label>
-      {error && <FormHelperText error>{error}</FormHelperText>}
       <Input
-        className={classes.input}
+        className={`${classes.input} ${Boolean(error) && classes.error}`}
         type="email"
         id="email"
         name="email"
@@ -65,7 +83,9 @@ function EmailInput({ onChange, value, placeholder, showStartAdornment = false, 
             </InputAdornment>
           )
         }
+        {...additionalProps}
       />
+      {error && <FormHelperText error>{error}</FormHelperText>}
     </FormControl>
   );
 }

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
 
 import { Typography } from '@mui/material';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   currentUserMessage: {
     alignSelf: 'flex-end',
     border: '1px solid lightgrey',
@@ -36,7 +36,8 @@ function MessageCard({
   isCurrentUser: boolean;
   dateString: string;
 }): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
+
   return (
     <div className={isCurrentUser ? classes.currentUserMessage : classes.otherUserMessage}>
       <Typography variant="subtitle2" color="text.primary">

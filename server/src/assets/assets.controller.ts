@@ -13,6 +13,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import type { Request as ExpressRequest } from 'express';
 
@@ -20,10 +21,9 @@ import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-import { Asset } from './entities/asset.entity';
+import { ReturnAssetDto } from './dto/return-asset.dto';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CookieAuthGuard } from '../acccount-manager/guards/cookie-auth.guard';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('assets')
 @Controller('assets')
@@ -32,10 +32,11 @@ export class AssetsController {
 
   @UseGuards(CookieAuthGuard)
   @Post()
+  @ApiOperation({ summary: 'Create an asset' })
   async create(
     @Request() request: ExpressRequest,
     @Body() createAssetDto: CreateAssetDto,
-  ): Promise<Asset | HttpException> {
+  ): Promise<ReturnAssetDto> {
     const { user } = request;
 
     try {
@@ -50,12 +51,14 @@ export class AssetsController {
   }
 
   @Get()
-  get(@Query() getAssetsDto: GetAssetsDto): Promise<Asset[]> {
+  @ApiOperation({ summary: 'Fetch assets' })
+  get(@Query() getAssetsDto: GetAssetsDto): Promise<ReturnAssetDto[]> {
     return this.assetsService.getAssets(getAssetsDto);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Asset | HttpException> {
+  @ApiOperation({ summary: 'Fetch an asset by ID' })
+  async findOne(@Param('id') id: string): Promise<ReturnAssetDto> {
     const foundAsset = await this.assetsService.findOne(parseInt(id));
     if (!foundAsset) {
       throw new HttpException(
@@ -69,11 +72,12 @@ export class AssetsController {
 
   @UseGuards(CookieAuthGuard)
   @Patch(':id')
+  @ApiOperation({ summary: 'Update an asset' })
   async update(
     @Request() request: ExpressRequest,
     @Param('id') id: string,
     @Body() updateAssetDto: UpdateAssetDto,
-  ): Promise<Asset | HttpException> {
+  ): Promise<ReturnAssetDto> {
     const { user } = request;
 
     try {
@@ -92,6 +96,7 @@ export class AssetsController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete an asset' })
   async remove(@Param('id') id: string): Promise<DeleteResult | HttpException> {
     const assetToDelete = await this.assetsService.remove(parseInt(id));
 

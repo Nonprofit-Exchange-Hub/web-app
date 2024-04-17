@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { Box, Grid, Container } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
 import { TextLink } from '../../types';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   borderBox: {
     width: '100%',
     maxWidth: '800px',
@@ -39,7 +39,7 @@ type FormProps = {
 };
 
 function LinkPage(props: React.PropsWithChildren<FormProps>) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <>

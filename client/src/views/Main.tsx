@@ -14,8 +14,6 @@ const {
   CookiePolicy,
   ForgotPassword,
   SetNewPassword,
-  Login,
-  Signup,
   SignupCitizen,
   SignupNonProfit,
   Inbox,
@@ -32,6 +30,7 @@ const {
   ContactUs,
   Help,
   EmailVerification,
+  Login,
 } = routes;
 
 function Main() {
@@ -56,7 +55,6 @@ function Main() {
         <Route exact path={Login.path} component={Login.component} />
         <Route exact path={ForgotPassword.path} component={ForgotPassword.component} />
         <Route exact path={SetNewPassword.path} component={SetNewPassword.component} />
-        <Route exact path={Signup.path} component={Signup.component} />
         <Route exact path={SignupCitizen.path} component={SignupCitizen.component} />
         <Route exact path={SignupNonProfit.path} component={SignupNonProfit.component} />
 

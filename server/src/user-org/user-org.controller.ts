@@ -11,15 +11,15 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { UserOrganization } from './entities/user-org.entity';
 import { UserOrganizationsService } from './user-org.service';
 import { CreateUserOrganizationDto } from './dto/create-user-org.dto';
 import { UpdateUserOrganizationDto } from './dto/update-user-org.dto';
+import { ReturnUserOrganizationDto } from './dto/return-user-org.dto';
 import { ApprovalStatus, Role } from './constants';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { UsersService } from '../acccount-manager/user.service';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('userOrganizations')
 @Controller('userOrganizations')
@@ -31,9 +31,10 @@ export class UserOrganizationsController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a user-org.' })
   async create(
     @Body() createUserOrganizationsDto: CreateUserOrganizationDto,
-  ): Promise<UserOrganization> {
+  ): Promise<ReturnUserOrganizationDto> {
     if (await this.userService.userEmailExists(createUserOrganizationsDto.user.email)) {
       throw new HttpException(
         { status: HttpStatus.CONFLICT, message: 'Email already exists' },
@@ -69,7 +70,8 @@ export class UserOrganizationsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<UserOrganization> {
+  @ApiOperation({ summary: 'Fetch a user-org via ID.' })
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ReturnUserOrganizationDto> {
     const userOrg = await this.userOrganizationsService.findOne(id);
     if (!userOrg) {
       throw new HttpException(
@@ -81,10 +83,11 @@ export class UserOrganizationsController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update a user-org.' })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserOrganizationDto: UpdateUserOrganizationDto,
-  ): Promise<UserOrganization> {
+  ): Promise<ReturnUserOrganizationDto> {
     try {
       const updatedUserOrg = await this.userOrganizationsService.update(
         id,
@@ -100,6 +103,7 @@ export class UserOrganizationsController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a user-org.' })
   async remove(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     const userOrgToDelete = await this.userOrganizationsService.remove(id);
     if (userOrgToDelete.affected === 0) {

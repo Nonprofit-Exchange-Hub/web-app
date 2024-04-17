@@ -7,10 +7,16 @@ declare module '@mui/material/styles' {
     };
   }
   // allow configuration using `createTheme`
-  interface ThemeOptions {
+  interface DeprecatedThemeOptions {
     status?: {
       danger?: string;
     };
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    black: true;
   }
 }
 
@@ -19,4 +25,5 @@ const custom = {
     danger: orange[500],
   },
 };
+
 export default custom;

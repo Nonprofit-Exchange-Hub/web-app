@@ -5,7 +5,6 @@ import OurStory from '../views/OurStory';
 import TrustAndSafety from '../views/TrustAndSafety';
 import TermsOfService from '../views/TermsOfService';
 import PrivacyPolicy from '../views/PrivacyPolicy';
-import Login from '../views/Login';
 import Signup from '../views/Signup';
 import SignupCitizen from '../views/SignupCitizen';
 import SignupNonProfit from '../views/SignupNonProfit';
@@ -26,6 +25,7 @@ import ForgotPassword from '../components/Users/Auth/ForgotPassword';
 import SetNewPassword from '../components/Users/Auth/SetNewPassword';
 import CookiePolicy from '../views/CookiePolicy';
 import EmailVerification from '../views/EmailVerification';
+import Login from '../views/Login';
 
 type RouteMap = {
   [componentName: string]: {
@@ -86,15 +86,15 @@ const routes: RouteMap = {
     roles: [],
     path: '/set-new-password',
   },
-  Login: {
-    component: Login,
-    roles: [],
-    path: '/login',
-  },
   Signup: {
     component: Signup,
     roles: [],
     path: '/signup',
+  },
+  Login: {
+    component: Login,
+    roles: [],
+    path: '/login',
   },
   SignupCitizen: {
     component: SignupCitizen,
@@ -113,8 +113,8 @@ const routes: RouteMap = {
   },
   User: {
     component: User,
-    roles: ['OWNER', 'ADMIN'],
-    path: '/profile/:id?',
+    roles: [],
+    path: '/my-profile',
   },
   ActionForm: {
     component: ActionForm,

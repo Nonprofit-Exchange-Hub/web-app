@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -14,7 +14,7 @@ import type { Theme } from '@mui/material/styles';
 import StyledLink from '../../StyledLink';
 import routes from '../../../routes/routes';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     input: {
       height: 44,
@@ -32,6 +32,16 @@ const useStyles = makeStyles((theme: Theme) => {
       fontWeight: 'bold',
       textAlign: 'left',
     },
+    sublabel: {
+      color: '#6E6E6E',
+      fontSize: 14,
+      fontWeight: 300,
+      marginLeft: 5,
+    },
+    error: {
+      border: '2px solid red',
+      marginBottom: 0,
+    },
   };
 });
 
@@ -41,16 +51,30 @@ interface Props {
   error?: string | null;
   showStartAdornment?: boolean;
   showForgot?: boolean;
+  placeholder?: string;
+  label?: string | null;
+  id?: string | null;
+  name?: string | null;
+  onBlur?: React.FocusEventHandler<HTMLInputElement> | null;
+  sublabel?: string | null;
+  required?: boolean | null;
 }
 
 function PasswordInput({
   onChange,
+  onBlur,
   value,
   error,
   showStartAdornment = false,
   showForgot = false,
+  placeholder,
+  label = null,
+  id = null,
+  name = null,
+  sublabel = null,
+  required = false,
 }: Props) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -59,20 +83,37 @@ function PasswordInput({
     setShowPassword(!showPassword);
   };
 
+  const getAdditionalProps = () => {
+    let additionalProps: { [key: string]: any } = {};
+
+    if (onBlur) {
+      additionalProps['onBlur'] = onBlur;
+    }
+
+    if (required) {
+      additionalProps['required'] = true;
+    }
+
+    return additionalProps;
+  };
+
   return (
     <FormControl fullWidth error={Boolean(error)}>
-      <label className={classes.label} htmlFor="password">
+      <label className={classes.label} htmlFor={id || 'password'}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          Password
+          <div>
+            {label || 'Password'}
+            {sublabel && <span className={classes.sublabel}>{sublabel}</span>}
+          </div>
           {/* to prop to be updated to use routes once page is set up */}
           {showForgot && <StyledLink to={routes.ForgotPassword.path}>Forgot Password?</StyledLink>}
         </div>
       </label>
-      {error && <FormHelperText error>{error}</FormHelperText>}
       <Input
-        className={classes.input}
-        id="password"
-        name="password"
+        className={`${classes.input} ${Boolean(error) && classes.error}`}
+        id={id || 'password'}
+        placeholder={placeholder || 'oooooo'}
+        name={name || 'password'}
         type={showPassword ? 'text' : 'password'}
         value={value}
         onChange={onChange}
@@ -99,7 +140,9 @@ function PasswordInput({
             </IconButton>
           </InputAdornment>
         }
+        {...getAdditionalProps()}
       />
+      {error && <FormHelperText error>{error}</FormHelperText>}
     </FormControl>
   );
 }

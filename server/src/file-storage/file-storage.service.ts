@@ -40,10 +40,10 @@ export class FilesStorageService {
    * @returns the stored file path
    */
   public async storeImage(storageArgs: FileStorageArgs): Promise<string> {
-    if (process.env.MODE === 'production') {
-      return await this.azureStorage.uploadFile(storageArgs);
-    } else {
+    if (process.env.NODE_ENV === 'development') {
       return await this.diskStorage.uploadFile(storageArgs);
+    } else {
+      return await this.azureStorage.uploadFile(storageArgs);
     }
   }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 
@@ -18,7 +18,7 @@ import { APP_API_BASE_URL } from '../configs';
 import { fetchInbox } from '../FetchActions';
 import TempChat from './TempChat';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   inboxWrapper: {
     maxWidth: '90%',
     margin: 'auto',
@@ -93,7 +93,7 @@ const fetchMessages = async (id: number): Promise<Message[]> => {
 
 // maybe call it SearchBar and have an optional leftContent prop?
 function MessageInboxView(): JSX.Element {
-  const classes: any = useStyles();
+  const { classes } = useStyles();
   const { user } = React.useContext(UserContext);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | null>(null);

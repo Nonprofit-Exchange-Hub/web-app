@@ -38,9 +38,5 @@ export const userCreateDtoStub = (): CreateUserDto => {
     last_name: 'fakeLast',
     email: 'fakeUser@test.com',
     password: 'Secret1234$',
-    city: 'Seattle',
-    state: 'WA',
-    zip_code: '98101',
-    email_notification_opt_out: false,
   };
 };

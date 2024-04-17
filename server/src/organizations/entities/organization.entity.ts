@@ -65,4 +65,10 @@ export class Organization {
 
   @Column({ type: 'text', nullable: true })
   image_url: string;
+
+  @Column({
+    type: 'jsonb',
+    nullable: true,
+  })
+  categories: { names: string[] };
 }

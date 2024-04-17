@@ -1,10 +1,9 @@
-import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     separator: {
       display: 'flex',
@@ -39,7 +38,7 @@ interface TextDividerProps {
 }
 
 function TextDivider({ children }: TextDividerProps) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div className={classes.separator}>

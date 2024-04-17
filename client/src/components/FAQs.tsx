@@ -1,9 +1,9 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import QuestionList from './QuestionList';
-import FAQsImage from '../assets/Sign-Step4.svg';
+import FAQsImage from '../assets/sign-up-finished-step.svg';
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
@@ -15,7 +15,7 @@ const faqQuestions = [
   { question: 'Other questions about this service?', answer: loremIpsum.slice(0, 150) },
 ];
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()(() => ({
   faqs: {
     display: 'flex',
     height: 'auto',
@@ -53,12 +53,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 function FAQs() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div className={classes.faqs}>
       <div className={classes.faqsVisual}>
-        <img src={FAQsImage} alt="FAQs Image" className={classes.faqsImage} />
+        <img src={FAQsImage} alt="FAQs" className={classes.faqsImage} />
       </div>
       <div className={classes.faqsInfo}>
         <Typography variant="h4" component="h4">

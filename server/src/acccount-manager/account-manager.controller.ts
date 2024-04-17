@@ -4,8 +4,6 @@ import {
   Response,
   Request,
   UseGuards,
-  HttpException,
-  HttpStatus,
   Get,
   Body,
   Param,
@@ -17,13 +15,18 @@ import {
   UploadedFile,
   BadRequestException,
   InternalServerErrorException,
+  Logger,
+  ConflictException,
+  HttpException,
+  HttpStatus,
+  UnauthorizedException,
 } from '@nestjs/common';
+import { ApiTags, ApiBody, ApiConsumes, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
-
 import type { Request as RequestT, Response as ResponseT } from 'express';
+
 import { COOKIE_KEY } from './constants';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
@@ -34,13 +37,15 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
 import {
-  LoginDto,
-  ResetPasswordDto,
   VerifyEmailDto,
   ReturnSessionDto,
   ReturnUserDto,
+  ResetPasswordDto,
+  LoginDto,
 } from './dto/auth.dto';
-import { ApiBody, ApiConsumes, ApiExcludeEndpoint, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UpdateUserInternal } from './dto/create-user.internal';
+import { MapTo } from '../shared/serialize.interceptor';
+import { CreateUserDto } from './dto/create-user.dto';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -60,33 +65,53 @@ export class AccountManagerController {
   ) {}
 
   @Patch('verify-email')
+  @ApiOperation({ summary: "Verify a user's email" })
   async verifyEmail(@Body() body: VerifyEmailDto): Promise<boolean> {
     try {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
-      this.usersService.update(user.id, { ...user, email_verified: true });
+      this.usersService.update(user.id, { email_verified: true } as UpdateUserInternal);
       return true;
-    } catch {
+    } catch (e) {
+      Logger.error(`Unexpected error: ${e}`, AccountManagerController.name);
       throw Error('jwt verify fail');
     }
   }
 
-  @Post('register')
-  async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
-    if (createUserDto.interests) {
-      const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
-      if (!res) {
-        throw new BadRequestException('Invalid Categories');
-      }
-    }
-    const user = await this.usersService.create(createUserDto);
+  @MapTo(ReturnUserDto)
+  @Post('signup')
+  async signup(@Body() signupDto: CreateUserDto): Promise<ReturnUserDto> {
+    const exists = await this.usersService.userEmailExists(signupDto.email);
 
-    const jwt = await this.jwtService.sign(
-      { ...user },
-      {
-        expiresIn: '1h',
-        secret: process.env.JWT_SECRET,
-      },
-    );
+    if (exists) {
+      Logger.debug(
+        `Singup: found existing user: ${signupDto.email}`,
+        AccountManagerController.name,
+      );
+      throw new ConflictException('Email already exists');
+    }
+
+    let user;
+    let jwt;
+
+    try {
+      user = await this.usersService.create({
+        email: signupDto.email,
+        password: signupDto.password,
+        firstName: signupDto.firstName,
+        last_name: signupDto.last_name,
+      } as CreateUserDto);
+      jwt = await this.jwtService.sign(
+        { ...user },
+        {
+          expiresIn: '1h',
+          secret: process.env.JWT_SECRET,
+        },
+      );
+    } catch (error) {
+      Logger.log(error, AccountManagerController.name);
+      throw new InternalServerErrorException('There was an unexpected error with your request');
+    }
+
     const mail = {
       to: user.email,
       subject: 'Givingful Email Verification',
@@ -98,22 +123,30 @@ export class AccountManagerController {
         <p>Thank you!!</p>
         <p>The Givingful Team</p>
       `,
-      mailSettings: { sandboxMode: { enable: process.env.MODE !== 'production' } },
+      mailSettings: { sandboxMode: { enable: process.env.NODE_ENV !== 'staging' } },
     };
-    await this.sendgridService.send(mail);
+    if (process.env.NODE_ENV === 'staging') {
+      await this.sendgridService.send(mail);
+    }
 
     return user;
   }
 
-  @ApiBody({ type: LoginDto })
   @Post('login')
   @UseGuards(LoginAuthGuard)
+  @ApiBody({ type: LoginDto })
+  @ApiOperation({ summary: 'User login' })
   async login(
     @Request() request: AuthedRequest,
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     const { user } = request;
-    if (!user.email_verified) {
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    // TODO: we probably need a better solution for this
+    if (!user.email_verified && process.env.NODE_ENV === 'staging') {
       throw new HttpException(
         { status: HttpStatus.UNAUTHORIZED, message: 'Unauthorized' },
         HttpStatus.UNAUTHORIZED,
@@ -123,12 +156,12 @@ export class AccountManagerController {
     const jwt = await this.accountManagerService.createJwt(user);
     response
       .cookie(COOKIE_KEY, jwt, {
-        domain: 'localhost',
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
         expires: new Date(new Date().getTime() + 60 * 60 * 1000), // 1 hour
         httpOnly: true,
         path: '/',
         sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV !== 'development',
         signed: true,
       })
       .send({ user });
@@ -136,6 +169,7 @@ export class AccountManagerController {
 
   @Post('session')
   @UseGuards(CookieAuthGuard)
+  @ApiOperation({ summary: 'Fetch user via session' })
   async session(@Request() request: AuthedRequest): Promise<ReturnSessionDto> {
     const { user } = request;
     const { firstName, last_name, email, profile_image_url } = await this.usersService.findOne(
@@ -145,25 +179,34 @@ export class AccountManagerController {
   }
 
   @Get('logout')
+  @ApiOperation({ summary: 'Logout' })
   logout(@Response({ passthrough: true }) response: ResponseT): void {
-    response.clearCookie(COOKIE_KEY).send();
+    response
+      .clearCookie(COOKIE_KEY, {
+        domain: process.env.COOKIE_DOMAIN ?? 'localhost',
+        httpOnly: true,
+        path: '/',
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV !== 'development',
+      })
+      .send();
   }
 
-  @ApiBody({ type: ResetPasswordDto })
-  @Post('reset_password')
-  async resetPassword(
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Password reset Request' })
+  async resetPasswordRequest(
     @Request() req,
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     try {
-      const user = await this.usersService.findByEmail(req.body.email);
+      const user = await this.usersService.findByEmailOrFail(req.body.email);
       if (!user) {
         // any error hits catch, error type and msg not important
         throw new Error();
       }
 
       const jwt = await this.jwtService.sign(
-        { valid: true },
+        { valid: true, id: user.id },
         { expiresIn: '1h', secret: process.env.JWT_SECRET },
       );
 
@@ -179,8 +222,9 @@ export class AccountManagerController {
           <p>The Givingful Team</p>
         `,
       };
-
-      await this.sendgridService.send(mail);
+      if (process.env.NODE_ENV === 'staging') {
+        await this.sendgridService.send(mail);
+      }
       response.status(200);
     } catch (e) {
       // always respond 200 so hackerz don't know which emails are active and not
@@ -188,7 +232,25 @@ export class AccountManagerController {
     }
   }
 
+  @Put('reset-password')
+  async resetPassword(
+    @Body() resetPasswordDtO: ResetPasswordDto,
+  ): Promise<boolean | BadRequestException> {
+    try {
+      const { id } = await this.jwtService.verify(resetPasswordDtO.token, {
+        secret: process.env.JWT_SECRET,
+      });
+      if (id) {
+        this.usersService.updatePasswod(id, { password: resetPasswordDtO.password });
+      }
+      return true;
+    } catch {
+      throw new BadRequestException('jwt verify fail');
+    }
+  }
+
   @ApiConsumes('multipart/form-data')
+  @ApiOperation({ summary: 'Upload profile image' })
   @ApiBody({
     schema: {
       type: 'object',
@@ -207,12 +269,17 @@ export class AccountManagerController {
       limits: { fileSize: FileSizes.MB },
     }),
   )
-  @ApiResponse({ status: 200, type: ReturnUserDto })
   async upsertProfile(
+    @Request() request: AuthedRequest,
     @Param('id') id: number,
     @UploadedFile()
     file: Express.Multer.File,
   ): Promise<ReturnUserDto | BadRequestException> {
+    const { user } = request;
+    if (user.id !== id) {
+      throw new BadRequestException('You can only update your own user');
+    }
+
     if (/\.(jpe?g|png|gif)$/i.test(file.filename)) {
       return new BadRequestException(
         'Only valid image extensions allowed (.jpg, .jpeg, .png, .gif)',
@@ -242,18 +309,40 @@ export class AccountManagerController {
     return await this.usersService.update(id, { ...dbUser, profile_image_url: fileUrl });
   }
 
+  @UseGuards(CookieAuthGuard)
+  @MapTo(ReturnUserDto)
+  @Put('users/:id')
+  async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.usersService.findOne(id);
+    if (!user) {
+      //   async update(
+      //     @Request() request: AuthedRequest,
+      //     @Param('id') id: number,
+      //     @Body() updateUserDto: UpdateUserDto,
+      //   ): Promise<ReturnUserDto> {
+      //     const { user } = request;
+      //     if (user.id !== id) {
+      //       throw new BadRequestException('You can only update your own user');
+      //     }
+      //     const dbUser = await this.usersService.findOne(id);
+      //     if (!dbUser) {
+      throw new BadRequestException('User not found');
+    }
+
+    if (updateUserDto.interests) {
+      const res = await this.accountManagerService.validateInterests(updateUserDto.interests.names);
+      if (!res) {
+        throw new BadRequestException('Invalid Categories');
+      }
+    }
+    return await this.usersService.update(id, updateUserDto);
+  }
+
   @ApiExcludeEndpoint()
   @UseGuards(CookieAuthGuard)
   @Get('users/:id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
-  }
-
-  @ApiExcludeEndpoint()
-  @UseGuards(CookieAuthGuard)
-  @Patch('users/:id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
   }
 
   @ApiExcludeEndpoint()

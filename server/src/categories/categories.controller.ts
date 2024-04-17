@@ -10,14 +10,14 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
 
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { GetCategoriesDto } from './dto/get-categories-filter.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Category } from './entities/category.entity';
+import { ReturnCategoryDto } from './dto/return-category.dto';
 
 // TODO ticket for adding auth guards https://github.com/Nonprofit-Exchange-Hub/web-app/issues/84
 
@@ -27,7 +27,8 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  async create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
+  @ApiOperation({ summary: 'Create a new category' })
+  async create(@Body() createCategoryDto: CreateCategoryDto): Promise<ReturnCategoryDto> {
     try {
       const newCategory = await this.categoriesService.create(createCategoryDto);
       return newCategory;
@@ -40,12 +41,14 @@ export class CategoriesController {
   }
 
   @Get()
-  get(@Query() getCategoriesDto: GetCategoriesDto): Promise<Category[]> {
+  @ApiOperation({ summary: 'Fetch categories' })
+  get(@Query() getCategoriesDto: GetCategoriesDto): Promise<ReturnCategoryDto[]> {
     return this.categoriesService.getCategories(getCategoriesDto);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Category> {
+  @ApiOperation({ summary: 'Fetch a category via ID.' })
+  async findOne(@Param('id') id: string): Promise<ReturnCategoryDto> {
     const foundCategory = await this.categoriesService.findOne(parseInt(id, 10));
     if (!foundCategory) {
       throw new HttpException(
@@ -58,10 +61,11 @@ export class CategoriesController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update a category' })
   async update(
     @Param('id') id: string,
     @Body() updateCategoriesDto: UpdateCategoryDto,
-  ): Promise<Category> {
+  ): Promise<ReturnCategoryDto> {
     try {
       const updatedCategories = await this.categoriesService.update(
         parseInt(id, 10),
@@ -77,6 +81,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a category' })
   async remove(@Param('id') id: string): Promise<DeleteResult> {
     const categoryToDelete = await this.categoriesService.remove(parseInt(id));
     if (categoryToDelete.affected === 0) {
@@ -89,6 +94,7 @@ export class CategoriesController {
   }
 
   @Post('validate')
+  @ApiOperation({ summary: 'Validate a category' })
   async validate(@Body() categories: string[]): Promise<boolean> {
     return this.categoriesService.validateCategories(categories);
   }

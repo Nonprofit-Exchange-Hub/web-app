@@ -1,40 +1,54 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import type { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 import { Asset } from './entities/asset.entity';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { GetAssetsDto } from './dto/get-asset.dto';
+import { ReturnAssetDto } from './dto/return-asset.dto';
 import { User } from '../acccount-manager/entities/user.entity';
 import { CreateAssetDto } from './dto/create-asset.dto';
-import { Like } from 'typeorm';
 
 @Injectable()
 export class AssetsService {
-  constructor(@InjectRepository(Asset) private assetsRepository: Repository<Asset>) {}
+  constructor(
+    @InjectRepository(Asset)
+    private assetsRepository: Repository<Asset>,
+  ) {}
 
-  async create(createAssetDto: CreateAssetDto, poster: User): Promise<Asset> {
-    return this.assetsRepository.save({ ...createAssetDto, poster });
+  async create(createAssetDto: CreateAssetDto, poster: User): Promise<ReturnAssetDto> {
+    return await this.assetsRepository.save({ ...createAssetDto, poster });
   }
 
   async findOne(id: number): Promise<Asset> {
     return this.assetsRepository.findOneBy({ id });
   }
 
-  async getAssets(getAssetsDto: GetAssetsDto): Promise<Asset[]> {
-    const { limit, offset, title, ...rest } = getAssetsDto;
-    const whereParams = title ? { title: Like(`%${title}%`), ...rest } : { ...rest };
-
-    return (
-      this.assetsRepository.find({
-        where: whereParams,
-        order: {
-          datePosted: 'DESC',
-        },
-        skip: offset,
-        take: limit,
-      }) || []
-    );
+  async getAssets(getAssetsDto: GetAssetsDto): Promise<ReturnAssetDto[]> {
+    const { limit, offset, search, ...rest } = getAssetsDto;
+    if (search) {
+      return this.assetsRepository
+        .createQueryBuilder()
+        .select('asset')
+        .from(Asset, 'asset')
+        .where(`"asset"."searchtitle" @@ plainto_tsquery('english', :query)`, {
+          query: `${search}`,
+        })
+        .orderBy(`plainto_tsquery('english', :query)`, 'DESC')
+        .limit(limit)
+        .getMany();
+    } else {
+      return (
+        this.assetsRepository.find({
+          where: { ...rest },
+          order: {
+            datePosted: 'DESC',
+          },
+          skip: offset,
+          take: limit,
+        }) || []
+      );
+    }
   }
 
   async update(id: number, updateAssetDto: UpdateAssetDto, poster: User): Promise<Asset> {

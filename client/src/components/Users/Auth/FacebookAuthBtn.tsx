@@ -1,14 +1,16 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles()((theme: Theme) => {
   return {
     button: {
-      height: 44,
+      fontSize: 17,
+      width: 180,
+      height: 50,
       textTransform: 'none',
     },
   };
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 function FacebookAuthBtn(props: React.PropsWithChildren<{}>) {
   const { children } = props;
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const facebookSignIn = (evt: React.MouseEvent) => {
     // Handle facebook sign up/in

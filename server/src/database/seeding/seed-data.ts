@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../acccount-manager/dto/create-user.dto';
+import { CreateUserInternal } from '../../acccount-manager/dto/create-user.internal';
 import { CreateAssetDto } from '../../assets/dto/create-asset.dto';
 import { CreateCategoryDto } from '../../categories/dto/create-category.dto';
 import { CreateMessageDto } from '../../messages/dto/create-message.dto';
@@ -11,29 +11,21 @@ import { ApprovalStatus, Role } from '../../user-org/constants';
 
 const assetImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-newsletter.png';
 
-export const seedUsers = (): CreateUserDto[] => {
-  const users: CreateUserDto[] = [
+export const seedUsers = (): CreateUserInternal[] => {
+  const users: CreateUserInternal[] = [
     {
-      firstName: 'user1First',
-      last_name: 'user1Last',
-      email: 'user1First@example.com',
+      firstName: 'first1',
+      last_name: 'last1',
+      email: 'one@example.com',
+      email_verified: true,
       password: 'Secret1234%',
-      bio: 'The first user',
-      city: 'Seattle',
-      state: 'Washington',
-      zip_code: '98101',
-      email_notification_opt_out: false,
     },
     {
-      firstName: 'user2First',
-      last_name: 'user2Last',
-      email: 'user2First@example.com',
+      firstName: 'first2',
+      last_name: 'last2',
+      email: 'two@example.com',
+      email_verified: true,
       password: 'Secret1234%',
-      bio: 'The second user',
-      city: 'Seattle',
-      state: 'Washington',
-      zip_code: '98101',
-      email_notification_opt_out: true,
     },
   ];
   return users;
@@ -203,6 +195,91 @@ export const seedCategories = (): CreateCategoryDto[] => {
     },
     {
       name: 'furniture',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Animal Care & Services',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Poverty',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Housing & Homeless',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Youth & Children',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Disaster Relief',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Health Care & Welness',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Environment & Sustainability',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Sports & Recreation',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Seniors',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Religion, Faith & Spirituality',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Civic Engagement',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'LGTBQIA+',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Civil Rights & Advocacy',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Military & Veterans',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Social Justice',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Education & Literacy',
+      applies_to_assets: true,
+      applies_to_organizations: true,
+    },
+    {
+      name: 'Arts & Culture',
       applies_to_assets: true,
       applies_to_organizations: true,
     },

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { Box } from '@mui/material';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles<Theme, GridProps>((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   missionContent: {
     display: 'grid',
     gridTemplateColumns: 'repeat(7, 132px)',
@@ -41,17 +41,18 @@ type GridProps = {
 };
 
 function GridImages(props: GridProps): JSX.Element {
-  const classes = useStyles(props);
+  const { classes } = useStyles();
 
   return (
     <Box className={`${classes.missionContent}`}>
       <GridImage src={props.wideImage} isWide={true} />
-      {props.smallImages.map((src) => {
-        return <GridImage src={src} isWide={false} />;
-      })}
+      {props.smallImages.map((src, idx) => (
+        <GridImage key={`${src}${idx}`} src={src} isWide={false} />
+      ))}
       {props.missionStatements.map((statementItem) => {
         return (
           <MissionStatement
+            key={statementItem.row}
             row={String(statementItem.row)}
             title={statementItem.title}
             text={statementItem.text}
@@ -64,13 +65,14 @@ function GridImages(props: GridProps): JSX.Element {
 
 // SUB-COMPONENT GridImage
 
-const imageStyles = makeStyles<Theme, ImageProps>({
+// TODO jss-to-tss-react codemod: Unable to handle style definition reliably. ArrowFunctionExpression in CSS prop.
+const imageStyles = makeStyles<{ src: string }>()((_theme, { src }) => ({
   gridImage: {
     width: '100%',
     height: '109px',
     border: '1px solid black',
     backgroundColor: '#C4C4C4',
-    backgroundImage: (props) => `url(${props.src})`,
+    backgroundImage: `url(${src})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -83,7 +85,7 @@ const imageStyles = makeStyles<Theme, ImageProps>({
       gridRow: 'auto / span 1',
     },
   },
-});
+}));
 
 type ImageProps = {
   src: string;
@@ -91,7 +93,7 @@ type ImageProps = {
 };
 
 function GridImage(props: ImageProps): JSX.Element {
-  const classes = imageStyles(props);
+  const { classes } = imageStyles({ src: props.src });
 
   let wideClass = props.isWide === true ? classes.wideImage : '';
 
@@ -100,33 +102,36 @@ function GridImage(props: ImageProps): JSX.Element {
 
 // SUB-COMPONENT MissionStatement
 
-const missionStyles = makeStyles<Theme, MissionProps>({
-  missionText: {
-    gridColumn: '5 / span 3',
-    gridRow: (props) => `${props.row} / span 1`,
-    textAlign: 'left',
-    fontSize: '1.4rem',
-  },
-  '@media screen and (max-width: 1100px)': {
+// TODO jss-to-tss-react codemod: Unable to handle style definition reliably. ArrowFunctionExpression in CSS prop.
+const missionStyles = makeStyles<{ row: string }>()((_theme, { row }) => {
+  return {
     missionText: {
-      gridColumn: '4 / span 3',
+      gridColumn: '5 / span 3',
+      gridRow: `${row} / span 1`,
+      textAlign: 'left',
+      fontSize: '1.4rem',
     },
-  },
-  '@media screen and (max-width: 820px)': {
-    missionText: {
-      gridColumn: '1 / span 4',
-      gridRow: 'auto / span 1',
+    '@media screen and (max-width: 1100px)': {
+      missionText: {
+        gridColumn: '4 / span 3',
+      },
     },
-  },
-  '@media screen and (max-width: 520px)': {
-    missionText: {
-      gridColumn: '1 / span 3',
+    '@media screen and (max-width: 820px)': {
+      missionText: {
+        gridColumn: '1 / span 4',
+        gridRow: 'auto / span 1',
+      },
     },
-  },
-  missionTitle: {
-    fontWeight: 'bold',
-    fontSize: '1.4rem',
-  },
+    '@media screen and (max-width: 520px)': {
+      missionText: {
+        gridColumn: '1 / span 3',
+      },
+    },
+    missionTitle: {
+      fontWeight: 'bold',
+      fontSize: '1.4rem',
+    },
+  };
 });
 
 type MissionProps = {
@@ -136,7 +141,7 @@ type MissionProps = {
 };
 
 function MissionStatement(props: MissionProps): JSX.Element {
-  const classes = missionStyles(props);
+  const { classes } = missionStyles({ row: props.row });
 
   return (
     <Box className={`${classes.missionText}`}>

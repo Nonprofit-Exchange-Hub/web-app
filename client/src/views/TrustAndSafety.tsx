@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import { Box, Grid, Container } from '@mui/material/';
 
 import type { Theme } from '@mui/material/styles';
@@ -10,7 +10,7 @@ import SmallDisplayCard from '../components/SmallDisplayCard';
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis placerat et, at vel tristique. Ac, gravida in quam gravida. Vel pretium nunc cursus donec enim. Sapien facilisis mauris justo, augue pharetra. Dignissim euismod fermentum sit gravida ut.';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   titleBox: {
     height: 400,
     display: 'flex',
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function TrustAndSafety() {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <>

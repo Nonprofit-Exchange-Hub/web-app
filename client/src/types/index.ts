@@ -55,6 +55,11 @@ export type User = {
   email?: string;
   profile_image_url?: string;
   organizations: UserOrg[];
+  city?: string;
+  state?: string;
+  zip_code?: string;
+  bio?: string;
+  interests?: { names: string[] };
 };
 
 export type Transaction = {
@@ -91,4 +96,17 @@ export type Category = {
   name: string;
   applies_to_assets: boolean;
   applies_to_organizations: boolean;
+};
+
+export type StoreUser = {
+  id?: number;
+  firstName: string;
+  lastName?: string;
+  email?: string;
+  profileImageUrl?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  interests?: { names: string[] };
+  isLoading: boolean;
 };

@@ -6,11 +6,13 @@ import {
   JoinColumn,
   OneToMany,
   CreateDateColumn,
+  Index,
 } from 'typeorm';
+
 import { User } from '../../acccount-manager/entities/user.entity';
+import { Transaction } from '../../transactions/entities/transaction.entity';
 
 import { AssetType, Condition } from '../constants';
-import { Transaction } from '../../transactions/entities/transaction.entity';
 
 @Entity('assets')
 export class Asset {
@@ -36,6 +38,14 @@ export class Asset {
     default: Condition.NONE,
   })
   condition: Condition;
+
+  @Index('searchtitleindex', { synchronize: false }) // GIN type indexes are not supported by TypeOrm and require manual migration
+  @Column({
+    generatedType: 'STORED',
+    type: 'tsvector',
+    asExpression: `to_tsvector('english', title)`,
+  })
+  searchtitle: string;
 
   @Column({
     type: 'text',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Typography from '@mui/material/Typography';
@@ -7,7 +7,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   wrapper: {
     padding: '0px 0px 5px 0px',
     position: 'relative',
@@ -34,7 +34,7 @@ type Props = {
 };
 
 function FilterGroup(props: Props): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { filters, header, onHandleCheck, selectedFilters } = props;
   let [expand, setExpand] = React.useState<boolean>(false);
 

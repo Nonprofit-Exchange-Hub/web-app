@@ -1,6 +1,25 @@
-import { grey } from '@mui/material/colors';
-
 const components = {
+  MuiAccordion: {
+    defaultProps: {
+      disableGutters: true,
+    },
+  },
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        border: '1px solid #323232',
+        borderRadius: '10px',
+        fontSize: '16px',
+        fontWeight: '600',
+        lineHeight: '24px',
+        padding: '8px, 10px, 8px, 20px',
+        color: '#323232',
+      },
+    },
+    defaultProps: {
+      disableElevation: true,
+    },
+  },
   MuiCard: {
     styleOverrides: {
       root: {
@@ -37,34 +56,10 @@ const components = {
     styleOverrides: {
       root: {
         margin: 5,
+        background: '#FFFFFF',
+        border: 'none',
         borderRadius: 10,
-      },
-    },
-  },
-  MuiButton: {
-    styleOverrides: {
-      root: {
-        borderRadius: '10px',
-      },
-      containedSecondary: {
-        '&:hover': {
-          backgroundColor: grey[100],
-        },
-      },
-    },
-    defaultProps: {
-      disableElevation: true,
-    },
-  },
-  MuiAccordion: {
-    defaultProps: {
-      disableGutters: true,
-    },
-  },
-  MuiOutlinedInput: {
-    styleOverrides: {
-      root: {
-        borderRadius: 10,
+        boxShadow: '#000000 0px 1px 4px 1px rgba(0, 0, 0, 0.25)',
       },
     },
   },
@@ -81,8 +76,28 @@ const components = {
       },
     },
   },
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: 10,
+      },
+    },
+  },
+  MuiInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: '10px',
+        marginTop: '10px',
+      },
+    },
+  },
   MuiTypography: {
     styleOverrides: {
+      p: {
+        align: 'left',
+        fontSize: '15px',
+        marginTop: '10px',
+      },
       h3: {
         width: '100%',
         marginBottom: '35px',

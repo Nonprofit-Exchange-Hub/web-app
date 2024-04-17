@@ -1,0 +1,26 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: load default env variables
+        run: cp server/sample.env server/.env
+
+      - name: lint-client?
+        run: cd client && npm ci && npm run lint
+
+      - name: lint-server?
+        run: cd server && npm ci && npm run lint

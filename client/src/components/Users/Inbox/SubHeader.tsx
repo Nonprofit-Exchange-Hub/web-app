@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,7 +9,7 @@ import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 import type { Theme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   wrapper: {
     backgroundColor: 'white',
     display: 'flex',
@@ -40,7 +40,7 @@ type Props = {
 };
 
 function SubHeader(props: Props): JSX.Element {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { backTo, searchTo } = props;
 
   const [searchText, setSearchText] = React.useState<string>('');

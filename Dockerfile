@@ -1,21 +1,21 @@
 # Multi-stage build to take advantage of stage caching
-FROM node:14-alpine as embeddedFrontEnd
+FROM node:16-alpine as embeddedFrontEnd
 
 WORKDIR /app/temp/client
 
 COPY ./client .
 
-RUN npm i  && npm run build
+RUN npm ci && npm run build
 
 
 
-FROM node:14-alpine
+FROM node:16-alpine
 
 WORKDIR /app/server
 
 COPY ./server .
 
-RUN npm i
+RUN npm ci
 
 RUN mkdir -p /app/client
 
