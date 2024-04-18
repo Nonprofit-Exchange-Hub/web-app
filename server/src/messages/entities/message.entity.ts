@@ -43,10 +43,11 @@ export class Message {
   @Column({ nullable: true })
   sendingOrgId: number;
 
+  @Column()
+  read: boolean
+
   @ManyToOne(() => Transaction, (transaction) => transaction.messages)
   @JoinColumn()
   transaction: Transaction;
 
-  @OneToMany(() => Receivedmessage, (userMessage) => userMessage.message)
-  readReceipts?: Receivedmessage[];
 }

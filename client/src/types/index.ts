@@ -78,6 +78,7 @@ export type Message = {
   sendingUserId: number | null;
   sendingOrgId: number | null;
   created_date: string;
+  read: boolean;
 };
 
 export type Option = {

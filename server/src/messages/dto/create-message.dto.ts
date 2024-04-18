@@ -8,6 +8,9 @@ export class CreateMessageDto {
   @IsNotEmpty()
   text: string;
 
+  @IsOptional()
+  read: boolean
+
   @IsNotEmpty()
   transaction: Transaction;
 
@@ -15,5 +18,5 @@ export class CreateMessageDto {
   sending_user: User;
 
   @IsOptional()
-  sending_org: Organization;
+  sending_org?: Organization;
 }

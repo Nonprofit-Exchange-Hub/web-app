@@ -1,4 +1,4 @@
-import { Get, Post, Body, Query, Param, Patch, Delete, Controller } from '@nestjs/common';
+import { Get, Post, Body, Query, Param, Patch, Delete, Controller, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { TransactionsService } from './transactions.service';

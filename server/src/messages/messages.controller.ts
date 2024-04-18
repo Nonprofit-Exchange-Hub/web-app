@@ -30,7 +30,7 @@ export class MessagesController {
   async create(
     @Request() request: ExpressRequest,
     @Body() createMessageDto: CreateMessageDto,
-  ): Promise<Message> {
+  ): Promise<ReturnMessageDto> {
     const newMessage = await this.messagesService.create(createMessageDto);
     return newMessage;
   }
@@ -52,10 +52,10 @@ export class MessagesController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update a message.' })
   async update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateMessageDto: UpdateMessageDto,
   ): Promise<ReturnMessageDto> {
-    return this.messagesService.update(+id, updateMessageDto);
+    return this.messagesService.update(id, updateMessageDto);
   }
 
   @Delete(':id')

@@ -4,6 +4,7 @@ import { makeStyles } from 'tss-react/mui';
 import type { Theme } from '@mui/material/styles';
 
 import { Typography } from '@mui/material';
+import { Button } from '@mui/base';
 
 const useStyles = makeStyles()((theme: Theme) => ({
   currentUserMessage: {
@@ -30,14 +31,15 @@ function MessageCard({
   senderName,
   isCurrentUser,
   dateString,
+  messageReadCallback,
 }: {
   senderName: string;
   text: string;
   isCurrentUser: boolean;
   dateString: string;
+  messageReadCallback: React.MouseEventHandler<HTMLButtonElement>;
 }): JSX.Element {
   const { classes } = useStyles();
-
   return (
     <div className={isCurrentUser ? classes.currentUserMessage : classes.otherUserMessage}>
       <Typography variant="subtitle2" color="text.primary">
@@ -46,6 +48,7 @@ function MessageCard({
       <Typography variant="body2" color="text.primary">
         {dateString}
       </Typography>
+      <Button onClick={messageReadCallback}> Read </Button>
     </div>
   );
 }
