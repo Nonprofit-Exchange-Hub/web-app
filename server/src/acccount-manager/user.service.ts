@@ -69,7 +69,10 @@ export class UsersService {
 
   // Search database for user with matching email.
   // Returns user on success, throws 404 error if user does not exist
-  async findByEmail(email: string, includePw = false): Promise<User | Omit<User, 'password'>> {
+  async findByEmailOrFail(
+    email: string,
+    includePw = false,
+  ): Promise<User | Omit<User, 'password'>> {
     const user = await this.usersRepository.findOneBy({ email });
 
     if (!user) {

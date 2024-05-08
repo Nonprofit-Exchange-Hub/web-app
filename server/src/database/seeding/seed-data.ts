@@ -14,28 +14,18 @@ const assetImg = 'https://optinmonster.com/wp-content/uploads/2019/09/nonprofit-
 export const seedUsers = (): CreateUserInternal[] => {
   const users: CreateUserInternal[] = [
     {
-      firstName: 'user1First',
-      last_name: 'user1Last',
-      email: 'user1First@example.com',
+      firstName: 'first1',
+      last_name: 'last1',
+      email: 'one@example.com',
       email_verified: true,
       password: 'Secret1234%',
-      bio: 'The first user',
-      city: 'Seattle',
-      state: 'Washington',
-      zip_code: '98101',
-      email_notification_opt_out: false,
     },
     {
-      firstName: 'user2First',
-      last_name: 'user2Last',
-      email: 'user2First@example.com',
+      firstName: 'first2',
+      last_name: 'last2',
+      email: 'two@example.com',
       email_verified: true,
       password: 'Secret1234%',
-      bio: 'The second user',
-      city: 'Seattle',
-      state: 'Washington',
-      zip_code: '98101',
-      email_notification_opt_out: true,
     },
   ];
   return users;

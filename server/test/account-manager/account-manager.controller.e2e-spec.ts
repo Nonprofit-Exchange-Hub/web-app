@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as supertest from 'supertest';
 import { Repository } from 'typeorm';
 import { JwtModule } from '@nestjs/jwt';
@@ -13,14 +13,13 @@ import { UsersService } from '../../src/acccount-manager/user.service';
 import { AcccountManagerModule } from '../../src/acccount-manager/acccount-manager.module';
 import { AccountManagerController } from '../../src/acccount-manager/account-manager.controller';
 import { SendgridService } from '../../src/sendgrid/sendgrid.service';
-import { FilesStorageService } from '../../src/file-storage/file-storage.service';
 import { FileStorageModule } from '../../src/file-storage/file-storage.module';
+import * as cookieParser from 'cookie-parser';
 
 describe('AccountManagerController', () => {
   let app: INestApplication;
   let usersService: UsersService;
   let repository: Repository<User>;
-  let fileStorageService: FilesStorageService;
 
   let existingRecordId = 0;
   const seed = () => ({
@@ -52,14 +51,14 @@ describe('AccountManagerController', () => {
       providers: [{ provide: getRepositoryToken(User), useClass: Repository }],
     })
       .overrideProvider(SendgridService)
-      .useValue({ send: (mailObj) => true })
+      .useValue({ send: () => true })
       .compile();
 
     app = module.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe({ transform: true, forbidUnknownValues: true }));
     usersService = module.get<UsersService>(UsersService);
     repository = module.get(getRepositoryToken(User));
-    fileStorageService = module.get<FilesStorageService>(FilesStorageService);
-    // jest.clearAllMocks();
+    app.use(cookieParser('secret_placeholder'));
     await app.init();
   });
 
@@ -67,7 +66,7 @@ describe('AccountManagerController', () => {
     await app.close();
   });
 
-  describe('POST /auth/register', () => {
+  describe('POST /auth/signup', () => {
     beforeEach(async () => await bootstrapBeforeEach());
     afterEach(async () => await bootstrapAfterEach());
 
@@ -75,7 +74,7 @@ describe('AccountManagerController', () => {
       const userToCreate = userCreateDtoStub();
       const { body } = await supertest
         .agent(app.getHttpServer())
-        .post(`/auth/register`)
+        .post(`/auth/signup`)
         .send(userCreateDtoStub())
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
@@ -87,26 +86,43 @@ describe('AccountManagerController', () => {
       expect(body.password).toBeUndefined();
     });
 
-    // not yet implemented, so skipping for now
-    it.skip('should return 403 when email validations fails', async () => {
+    it('should return 400 when email validations fails', async () => {
       await supertest
         .agent(app.getHttpServer())
-        .post(`/auth/register`)
+        .post(`/auth/signup`)
         .send({
           ...userCreateDtoStub(),
           email: 'bademail.com',
         })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(403);
+        .expect(400);
+    });
+
+    it('should return 400 when email is null', async () => {
+      await supertest
+        .agent(app.getHttpServer())
+        .post(`/auth/signup`)
+        .send({
+          ...userCreateDtoStub(),
+          email: '',
+        })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(400);
     });
 
     // not yet implemented, so skipping for now
     it.skip('should return 409 with message when email already exists', async () => {
       const { body } = await supertest
         .agent(app.getHttpServer())
-        .post(`/auth/register`)
-        .send({ ...seed })
+        .post(`/auth/signup`)
+        .send({
+          firstName: 'peter',
+          last_name: 'parker',
+          email: 'peter.parker@example.com',
+          password: 'secret1234',
+        })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(409);
@@ -156,31 +172,54 @@ describe('AccountManagerController', () => {
     });
   });
 
-  describe('PATCH users/{id}', () => {
+  describe('PUT users/{id}', () => {
     beforeEach(async () => await bootstrapBeforeEach());
     afterEach(async () => await bootstrapAfterEach());
 
-    it.skip('should return 403 when email validations fails', async () => {
+    it('should update fields', async () => {
+      const loginRes = await supertest
+        .agent(app.getHttpServer())
+        .post(`/auth/login`)
+        .send({ email: seed().email, password: seed().password })
+        .set('Content-Type', 'application/json')
+        .expect(201);
+      const cookie = loginRes.headers['set-cookie'];
+
       await supertest
         .agent(app.getHttpServer())
-        .patch(`/auth/users/${existingRecordId}`)
+        .put(`/auth/users/${existingRecordId}`)
         .send({
-          ...userCreateDtoStub(),
-          email: 'bademail.com',
+          firstName: 'nonprofit',
+          last_name: 'circle',
+          bio: 'I am nonprofit circle',
+          city: 'Seattle',
+          state: 'WA',
+          zip_code: '98101',
+          email_notification_opt_out: true,
+          interests: { names: ['animals', 'environment'] },
         })
         .set('Accept', 'application/json')
+        .set('Cookie', cookie)
+        .set('Content-Type', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(403);
+        .expect(200);
     });
   });
 
   const bootstrapBeforeEach = async () => {
     // seed data
     const { id } = await usersService.create({ ...seed() });
+    await repository.query(
+      `INSERT INTO categories (name, applies_to_assets, applies_to_organizations)
+      VALUES
+      ('animals', true, true),
+      ('environment', true, true)`,
+    );
     existingRecordId = id;
   };
 
   const bootstrapAfterEach = async () => {
     await repository.query(`TRUNCATE users CASCADE;`);
+    await repository.query(`TRUNCATE categories CASCADE;`);
   };
 });

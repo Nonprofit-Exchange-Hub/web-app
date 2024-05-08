@@ -1,3 +1,4 @@
+
 import { IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { InterestsProps, InterestNamesIsArray } from '../../shared/interests.validator';
 import { Interests } from '../../shared/interests.dto';
@@ -35,4 +36,5 @@ export class CreateUserDto {
   @Validate(InterestsProps)
   @Validate(InterestNamesIsArray)
   interests?: Interests;
+
 }

@@ -15,6 +15,8 @@ import {
   UploadedFile,
   BadRequestException,
   InternalServerErrorException,
+  Logger,
+  ConflictException,
   HttpException,
   HttpStatus,
   UnauthorizedException,
@@ -25,7 +27,6 @@ import type { Request as RequestT, Response as ResponseT } from 'express';
 
 import { COOKIE_KEY } from './constants';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { AccountManagerService } from './account-manager.service';
@@ -35,9 +36,16 @@ import { UsersService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizes } from '../file-storage/domain';
 import { FilesStorageService } from '../file-storage/file-storage.service';
-import { VerifyEmailDto, ReturnSessionDto, ReturnUserDto, ResetPasswordDto } from './dto/auth.dto';
+import {
+  VerifyEmailDto,
+  ReturnSessionDto,
+  ReturnUserDto,
+  ResetPasswordDto,
+  LoginDto,
+} from './dto/auth.dto';
 import { UpdateUserInternal } from './dto/create-user.internal';
 import { MapTo } from '../shared/serialize.interceptor';
+import { CreateUserDto } from './dto/create-user.dto';
 
 type AuthedRequest = RequestT & { user: User };
 
@@ -63,30 +71,47 @@ export class AccountManagerController {
       const user = await this.jwtService.verify(body.token, { secret: process.env.JWT_SECRET });
       this.usersService.update(user.id, { email_verified: true } as UpdateUserInternal);
       return true;
-    } catch {
+    } catch (e) {
+      Logger.error(`Unexpected error: ${e}`, AccountManagerController.name);
       throw Error('jwt verify fail');
     }
   }
 
   @MapTo(ReturnUserDto)
-  @Post('register')
-  @ApiOperation({ summary: 'Create a new user account' })
-  async register(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
-    if (createUserDto.interests) {
-      const res = await this.accountManagerService.validateInterests(createUserDto.interests.names);
-      if (!res) {
-        throw new BadRequestException('Invalid Categories');
-      }
-    }
-    const user = await this.usersService.create(createUserDto);
+  @Post('signup')
+  async signup(@Body() signupDto: CreateUserDto): Promise<ReturnUserDto> {
+    const exists = await this.usersService.userEmailExists(signupDto.email);
 
-    const jwt = await this.jwtService.sign(
-      { ...user },
-      {
-        expiresIn: '1h',
-        secret: process.env.JWT_SECRET,
-      },
-    );
+    if (exists) {
+      Logger.debug(
+        `Singup: found existing user: ${signupDto.email}`,
+        AccountManagerController.name,
+      );
+      throw new ConflictException('Email already exists');
+    }
+
+    let user;
+    let jwt;
+
+    try {
+      user = await this.usersService.create({
+        email: signupDto.email,
+        password: signupDto.password,
+        firstName: signupDto.firstName,
+        last_name: signupDto.last_name,
+      } as CreateUserDto);
+      jwt = await this.jwtService.sign(
+        { ...user },
+        {
+          expiresIn: '1h',
+          secret: process.env.JWT_SECRET,
+        },
+      );
+    } catch (error) {
+      Logger.log(error, AccountManagerController.name);
+      throw new InternalServerErrorException('There was an unexpected error with your request');
+    }
+
     const mail = {
       to: user.email,
       subject: 'Givingful Email Verification',
@@ -109,6 +134,7 @@ export class AccountManagerController {
 
   @Post('login')
   @UseGuards(LoginAuthGuard)
+  @ApiBody({ type: LoginDto })
   @ApiOperation({ summary: 'User login' })
   async login(
     @Request() request: AuthedRequest,
@@ -173,7 +199,7 @@ export class AccountManagerController {
     @Response({ passthrough: true }) response: ResponseT,
   ): Promise<void> {
     try {
-      const user = await this.usersService.findByEmail(req.body.email);
+      const user = await this.usersService.findByEmailOrFail(req.body.email);
       if (!user) {
         // any error hits catch, error type and msg not important
         throw new Error();
@@ -244,10 +270,16 @@ export class AccountManagerController {
     }),
   )
   async upsertProfile(
+    @Request() request: AuthedRequest,
     @Param('id') id: number,
     @UploadedFile()
     file: Express.Multer.File,
   ): Promise<ReturnUserDto | BadRequestException> {
+    const { user } = request;
+    if (user.id !== id) {
+      throw new BadRequestException('You can only update your own user');
+    }
+
     if (/\.(jpe?g|png|gif)$/i.test(file.filename)) {
       return new BadRequestException(
         'Only valid image extensions allowed (.jpg, .jpeg, .png, .gif)',
@@ -277,18 +309,40 @@ export class AccountManagerController {
     return await this.usersService.update(id, { ...dbUser, profile_image_url: fileUrl });
   }
 
+  @UseGuards(CookieAuthGuard)
+  @MapTo(ReturnUserDto)
+  @Put('users/:id')
+  async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.usersService.findOne(id);
+    if (!user) {
+      //   async update(
+      //     @Request() request: AuthedRequest,
+      //     @Param('id') id: number,
+      //     @Body() updateUserDto: UpdateUserDto,
+      //   ): Promise<ReturnUserDto> {
+      //     const { user } = request;
+      //     if (user.id !== id) {
+      //       throw new BadRequestException('You can only update your own user');
+      //     }
+      //     const dbUser = await this.usersService.findOne(id);
+      //     if (!dbUser) {
+      throw new BadRequestException('User not found');
+    }
+
+    if (updateUserDto.interests) {
+      const res = await this.accountManagerService.validateInterests(updateUserDto.interests.names);
+      if (!res) {
+        throw new BadRequestException('Invalid Categories');
+      }
+    }
+    return await this.usersService.update(id, updateUserDto);
+  }
+
   @ApiExcludeEndpoint()
   @UseGuards(CookieAuthGuard)
   @Get('users/:id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
-  }
-
-  @ApiExcludeEndpoint()
-  @UseGuards(CookieAuthGuard)
-  @Patch('users/:id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
   }
 
   @ApiExcludeEndpoint()

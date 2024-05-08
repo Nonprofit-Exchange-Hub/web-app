@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
 import { UpdateUserDto } from './update-user.dto';
 
@@ -9,6 +10,7 @@ export class CreateUserInternal extends CreateUserDto {
   email_verified?: boolean;
 }
 
-export class UpdateUserInternal extends UpdateUserDto {
+export class UpdateUserInternal extends PartialType(UpdateUserDto) {
   emai_verified?: boolean;
+  profile_image_url?: string;
 }
