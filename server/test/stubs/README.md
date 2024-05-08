@@ -23,6 +23,7 @@ export const sampleStub: SampleEntity = {
 ```
 
 How this impacts test? -> if you mutate a mutable stub, it will dirty other tests.
+
 ```typescript
     // Passes
     it('immuntable should not dirty test', async () => {
