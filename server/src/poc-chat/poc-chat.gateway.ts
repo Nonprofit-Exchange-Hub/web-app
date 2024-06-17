@@ -117,8 +117,9 @@ export class PocChatGateway {
       transaction,
       sending_org,
       sending_user,
+      read: false,
     });
-    if (receiving_org) {
+    if (receiving_org) { 
       // TODO: create seen message record
     }
     return message;

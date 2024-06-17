@@ -1,10 +1,11 @@
 import { Get, Post, Body, Query, Param, Patch, Delete, Controller, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-
+import { Request } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { GetTransactionsDto } from './dto/get-transactions-filter.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { Transaction } from './entities/transaction.entity';
 import { CookieAuthGuard } from 'src/acccount-manager/guards/cookie-auth.guard';
 import { ReturnTransactionDto } from './dto/return-transaction.dto';
 
@@ -28,7 +29,7 @@ export class TransactionsController {
   @UseGuards(CookieAuthGuard)
   @Get('/inbox')
   // returns trasnactions with latest messages
-  async userInbox(@Request() req: Request): Promise<Transaction[]> {
+  async userInbox(  @Request() req: Request): Promise<Transaction[]> {
     const user = req['user'];
     const userOrgs = await user.organizations;
     const org_id = userOrgs && userOrgs.length > 0 ? userOrgs[0].organizationId : false;

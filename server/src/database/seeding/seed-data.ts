@@ -294,12 +294,15 @@ export const seedMessages = (): CreateMessageDto[] => {
       transaction: null,
       sending_user: null,
       sending_org: null,
+      read: false,
     },
     {
       text: 'I would like to accept the furniture.',
       transaction: null,
       sending_user: null,
       sending_org: null,
+      read: false,
+      
     },
   ];
   return messages;

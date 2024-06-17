@@ -13,7 +13,6 @@ import {
 import { User } from '../../acccount-manager/entities/user.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
 import { IsOptional } from 'class-validator';
-import { Receivedmessage } from '../../received-messages/entities/received-messages.entity';
 
 @Entity('messages')
 export class Message {

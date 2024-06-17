@@ -9,7 +9,7 @@ export class CreateMessageDto {
   text: string;
 
   @IsOptional()
-  read: boolean
+  read: boolean;
 
   @IsNotEmpty()
   transaction: Transaction;

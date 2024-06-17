@@ -4,7 +4,6 @@ import { UserOrganization } from '../../user-org/entities/user-org.entity';
 import { Asset } from '../../assets/entities/asset.entity';
 import { Message } from '../../messages/entities/message.entity';
 import { Transaction } from '../../transactions/entities/transaction.entity';
-import { Receivedmessage } from '../../received-messages/entities/received-messages.entity';
 
 @Entity('users')
 export class User {
@@ -49,9 +48,6 @@ export class User {
 
   @OneToMany(() => Message, (message) => message.sending_user)
   sentMessages: Message[];
-
-  @OneToMany(() => Receivedmessage, (received) => received.message)
-  receivedMessages: Message[];
 
   @OneToMany(() => UserOrganization, (user_org) => user_org.user, { eager: true })
   organizations: UserOrganization[];

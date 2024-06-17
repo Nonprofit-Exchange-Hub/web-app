@@ -70,17 +70,17 @@ function SignupCitizen() {
 
   useEffect(() => {
     if (submitForm) {
-      registerUserMutation.mutate(formData);
       setSubmitForm(false);
+      registerUserMutation.mutate(formData);
     }
-  }, [submitForm, setSubmitForm, registerUserMutation, formData]);
+  }, [submitForm, setSubmitForm, formData]);
 
   useEffect(() => {
     if (submitProfile) {
       updateProfileMutation.mutate({ file: image!, userId: user!['id'] });
       setSubmitProfile(false);
     }
-  }, [submitProfile, updateProfileMutation, formData, image, user]);
+  }, [submitProfile, formData, image, user]);
 
   const handleNext = (newFormData: {}, doSubmit = false) => {
     setFormData((currFormData) => ({
