@@ -18,6 +18,7 @@ const {
   SignupNonProfit,
   Inbox,
   User,
+  MakePost,
   ActionForm,
   Assets,
   Asset,
@@ -62,6 +63,9 @@ function Main() {
         {/* action: assets */}
         <Route exact path={Assets.path} component={Assets.component} />
         <Route exact path={Asset.path} component={Asset.component} />
+
+        {/*Make a post Route */}
+        <Route exact path={MakePost.path} component={MakePost.component} />
 
         {/* Private Routes */}
         <Route exact path={User.path} render={renderPrivateRoute(User.roles, User.component)} />
