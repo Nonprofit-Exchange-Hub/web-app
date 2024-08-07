@@ -10,18 +10,11 @@ const Endpoints = {
   userRegister: (userData: UserSignupData) => {
     const body = {
       firstName: userData.firstName,
-      last_name: userData.lastName,
-      city: userData.city,
-      state: userData.state,
-      zip_code: userData.zipCode,
-      email_notification_opt_out: true,
+      last_name: userData.last_name,
       email: userData.email,
       password: userData.password,
-      bio: userData.bio,
-      interests: {
-        names: userData.interests,
-      },
     };
+    console.log('backend ts body', body);
     return client.post('/auth/register', body);
   },
   checkUserEmail: (userEmail: string) => {

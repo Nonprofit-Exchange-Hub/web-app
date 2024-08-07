@@ -37,7 +37,7 @@ export class UserOrganizationsController {
   ): Promise<ReturnUserOrganizationDto> {
     if (await this.userService.userEmailExists(createUserOrganizationsDto.user.email)) {
       throw new HttpException(
-        { status: HttpStatus.CONFLICT, message: 'Email already exists' },
+        { status: HttpStatus.CONFLICT, message: 'createUserOrganization HTTP signup error' },
         HttpStatus.CONFLICT,
       );
     }
