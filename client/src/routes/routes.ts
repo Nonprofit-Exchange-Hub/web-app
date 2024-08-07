@@ -10,6 +10,7 @@ import SignupCitizen from '../views/SignupCitizen';
 import SignupNonProfit from '../views/SignupNonProfit';
 import Inbox from '../views/Inbox';
 import User from '../views/User';
+import MakePost from '../views/MakePost';
 import ActionForm from '../views/ActionForm';
 import SearchResults from '../views/SearchResults';
 import Asset from '../views/Asset';
@@ -116,6 +117,11 @@ const routes: RouteMap = {
     component: User,
     roles: [],
     path: '/my-profile',
+  },
+  MakePost: {
+    component: MakePost,
+    roles: [],
+    path: '/make-a-post',
   },
   ActionForm: {
     component: ActionForm,

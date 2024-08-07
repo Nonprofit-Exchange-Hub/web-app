@@ -155,6 +155,10 @@ function Header() {
     history.push('/');
   };
 
+  const handleMakePostClick = () => {
+    history.push(routes.MakePost.path); // Ensure this matches your route definition
+  };
+
   return (
     <AppBar position="sticky" className={classes.appBar} color="inherit">
       {/* if no color defaults to primary */}
@@ -168,7 +172,22 @@ function Header() {
               <IconButton size="large">{/* Mailbox icon here */}</IconButton>
               <IconButton size="large">{/* Bell icon here */}</IconButton>
               <IconButton size="large">{/* Profile icon here */}</IconButton>
-
+              <Button
+                onClick={() => handleMakePostClick()}
+                sx={{
+                  textTransform: 'capitalize',
+                  color: '#323232',
+                  fontWeight: 400,
+                  marginRight: '1.5em',
+                  border: 0,
+                  '&:hover, &:active, &[aria-expanded="true"]': {
+                    fontWeight: 600,
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
+                Make a Post
+              </Button>
               <Button
                 id="exchange-button"
                 aria-label="exchange dropdown"
