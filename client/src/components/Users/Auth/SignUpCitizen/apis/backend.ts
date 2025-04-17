@@ -22,7 +22,7 @@ const Endpoints = {
         names: userData.interests,
       },
     };
-    return client.post('/auth/register', body);
+    return client.post('/auth/signup', body);
   },
   checkUserEmail: (userEmail: string) => {
     return client.get(`/auth/user-email-exists/${userEmail}`);

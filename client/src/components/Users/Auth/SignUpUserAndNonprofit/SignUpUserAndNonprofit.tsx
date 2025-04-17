@@ -185,12 +185,13 @@ function SignupNonProfit() {
     evt.preventDefault();
     setIsLoading(true);
     delete formData.accept_terms;
-    const res = await fetch(`${APP_API_BASE_URL}/auth/register`, {
+    const res = await fetch(`${APP_API_BASE_URL}/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
+      credentials: 'include',
     });
     const data = await res.json();
     setIsLoading(false);
