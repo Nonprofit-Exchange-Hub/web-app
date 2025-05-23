@@ -10,6 +10,7 @@ type CustomProps = {
   type?: string;
   errorText?: string;
   disabled?: boolean;
+  required?: boolean;
   onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLDivElement>;
@@ -27,6 +28,7 @@ function TextField({
   onBlur,
   onKeyUp,
   errorText,
+  required,
 }: CustomProps) {
   return (
     <FormControl style={{ width: '100%' }}>
@@ -47,6 +49,7 @@ function TextField({
         helperText={errorText}
         error={errorText === '' || errorText === undefined ? undefined : true}
         disabled={disabled}
+        required={required}
       />
     </FormControl>
   );

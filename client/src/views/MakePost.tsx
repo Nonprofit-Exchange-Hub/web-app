@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Grid, Typography, Card, Button } from '@mui/material';
+// import NeedsGoodsForm from '../components/Forms/NeedGoodsForm/NeedGoodsForm';
 
 const MakePost = () => {
   const [selected, setSelected] = useState<string | null>(null);
+  const [selectGoodsSkills, setSelectGoodsSkills] = useState<string | null>(null);
+  const [selectNeedOffer, setSelectNeedOffer] = useState<string | null>(null);
   const [step, setStep] = useState(1);
 
   const handleCardClick = (id: string) => {
     setSelected(id);
+    if (step === 1) {
+      setSelectGoodsSkills(id);
+    } else if (step === 2) {
+      setSelectNeedOffer(id);
+    }
   };
 
   const handleNextClick = () => {
     if (step === 1 && selected) {
       setStep(2);
-      setSelected(null);
+      setSelected(null); // Reset selection for the next step
     }
   };
 
   const handleBackClick = () => {
     if (step === 2) {
       setStep(1);
-      setSelected(null);
+      // setSelected(null);
     }
   };
 
@@ -99,7 +108,7 @@ const MakePost = () => {
 
   const title = step === 1 ? 'What is your post for?' : 'What would you like to do?';
   const cards =
-    step === 1
+    step === 1 // this needs to be changed so that we can access both the need/off and goods/skills
       ? [
           { id: 'goods', text: 'Goods' },
           { id: 'skills', text: 'Skills' },
@@ -130,19 +139,32 @@ const MakePost = () => {
         ))}
       </Grid>
       <Grid container sx={styles.buttonContainer}>
-        {step === 2 && (
-          <Button variant="contained" sx={styles.backButton} onClick={handleBackClick}>
-            Back
+        {step === 2 ? (
+          <>
+            <Button variant="contained" sx={styles.backButton} onClick={handleBackClick}>
+              Back
+            </Button>
+            <NavLink to={`/${selectNeedOffer}/${selectGoodsSkills}`}>
+              <Button
+                variant="contained"
+                sx={styles.button(!selected)}
+                disabled={!selected}
+                onClick={handleNextClick}
+              >
+                Next
+              </Button>
+            </NavLink>
+          </>
+        ) : (
+          <Button
+            variant="contained"
+            sx={styles.button(!selected)}
+            disabled={!selected}
+            onClick={handleNextClick}
+          >
+            Next
           </Button>
         )}
-        <Button
-          variant="contained"
-          sx={styles.button(!selected)}
-          disabled={!selected}
-          onClick={handleNextClick}
-        >
-          Next
-        </Button>
       </Grid>
     </Grid>
   );

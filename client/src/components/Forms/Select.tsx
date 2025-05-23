@@ -16,11 +16,12 @@ type CustomProps = {
   options: Option[];
   value: string;
   onChange: (event: any) => void;
+  required?: boolean;
 };
 
-function Select({ id, label, placeholder, options, value, onChange }: CustomProps) {
+function Select({ id, label, placeholder, options, value, onChange, required }: CustomProps) {
   return (
-    <FormControl>
+    <FormControl required={required}>
       <FormLabel>{label}</FormLabel>
       <MUISelect
         name={id}

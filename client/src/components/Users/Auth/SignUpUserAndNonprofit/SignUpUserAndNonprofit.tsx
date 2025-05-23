@@ -184,22 +184,53 @@ function SignupNonProfit() {
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     setIsLoading(true);
-    delete formData.accept_terms;
-    const res = await fetch(`${APP_API_BASE_URL}/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-      credentials: 'include',
-    });
-    const data = await res.json();
-    setIsLoading(false);
-    if (data.status === 409) {
-      setEmailError(data.message);
-    } else {
+    const signupData = {
+      firstName: formData.first_name,
+      last_name: formData.last_name,
+      email: formData.email,
+      password: formData.password,
+      organization_name: formData.organization_name,
+      organization_phone: formData.organization_phone,
+      street: formData.street,
+      city: formData.city,
+      state: formData.state,
+      zip_code: formData.zip_code,
+      employer_identification_number: formData.employer_identification_number,
+      irs_classification: formData.irs_classification,
+      role: formData.role,
+      email_notification_opt_out: formData.email_notification_opt_out,
+      website: formData.website,
+      instagram: formData.instagram,
+      facebook: formData.facebook,
+      twitter: formData.twitter,
+      focusAreas: formData.focusAreas,
+      bio: formData.bio,
+    };
+    try {
+      const res = await fetch(`${APP_API_BASE_URL}/auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupData),
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (res.status === 409) {
+        setEmailError(data.message);
+        return;
+      }
+      if (!res.ok) {
+        throw new Error(data.message || 'Signup failed');
+      }
       setUser(data);
       handleNext();
+    } catch (error: unknown) {
+      console.error('Signup error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      setEmailError(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 

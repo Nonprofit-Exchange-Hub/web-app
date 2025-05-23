@@ -1,8 +1,8 @@
 # Nonprofit Circle Front End Development
 
 ## `Backend API calls`
-When making http or websocket calls to the back-end use the api url contant found in `src/configs.ts`. This will ensure that the api URL can be changed in a single file and it will work both in development and in production
 
+When making http or websocket calls to the back-end use the api url contant found in `src/configs.ts`. This will ensure that the api URL can be changed in a single file and it will work both in development and in production
 
 # Getting Started with Create React App
 

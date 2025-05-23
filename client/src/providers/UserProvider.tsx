@@ -26,7 +26,7 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
   const [user, setUser] = React.useState<User | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  async function fetchUser(): Promise<User | null> {
+  const fetchUser = React.useCallback(async (): Promise<User | null> => {
     const res = await fetch(`${APP_API_BASE_URL}/auth/session`, {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -38,31 +38,34 @@ export function UserProvider(props: React.PropsWithChildren<{}>): JSX.Element {
     }
 
     return null;
-  }
+  }, []);
 
-  async function setUserTimeout(
-    currentUser: User | null,
-    shouldFetch = false,
-    shouldStartTimer = false,
-  ): Promise<void> {
-    let newUser: User | null = currentUser;
-    if (shouldFetch) {
-      newUser = await fetchUser();
-    }
+  const setUserTimeout = React.useCallback(
+    async (
+      currentUser: User | null,
+      shouldFetch = false,
+      shouldStartTimer = false,
+    ): Promise<void> => {
+      let newUser: User | null = currentUser;
+      if (shouldFetch) {
+        newUser = await fetchUser();
+      }
 
-    setUser(newUser);
-    setIsLoading(false);
+      setUser(newUser);
+      setIsLoading(false);
 
-    if (shouldStartTimer && newUser) {
-      setTimeout(() => {
-        setUserTimeout(null, true, true);
-      }, 59 * 60 * 1000);
-    }
-  }
+      if (shouldStartTimer && newUser) {
+        setTimeout(() => {
+          setUserTimeout(null, true, true);
+        }, 59 * 60 * 1000);
+      }
+    },
+    [fetchUser],
+  );
 
   React.useEffect(() => {
     setUserTimeout(null, true, true);
-  }, []);
+  }, [setUserTimeout]);
 
   return (
     <UserContext.Provider value={{ user, setUser: setUserTimeout, isLoading }}>

@@ -30,7 +30,7 @@ function EmailVerification() {
     if (token) {
       verifyEmail();
     }
-  }, [token]);
+  }, [token, history]);
 
   return (
     <Box>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
 import { Box, Container } from '@mui/material';
 
@@ -48,7 +48,6 @@ const useStyles = makeStyles()((theme: Theme) => ({
   },
   borderBox: {
     width: '100%',
-    border: '1px solid #C4C4C4',
     padding: '4rem 7rem',
     boxSizing: 'border-box',
   },
@@ -64,9 +63,9 @@ function NeedOfferForm(props: React.PropsWithChildren<FormProps>) {
   return (
     <>
       <Container className={classes.formBox}>
-        <Typography variant="h2" component="h2" align="left">
+        {/* <Typography variant="h2" component="h2" align="left">
           {props.title}
-        </Typography>
+        </Typography> */}
         <Box className={classes.borderBox}>
           <form className={classes.root}>{props.children}</form>
         </Box>

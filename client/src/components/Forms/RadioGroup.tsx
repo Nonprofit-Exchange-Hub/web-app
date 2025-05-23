@@ -10,11 +10,12 @@ type CustomProps = {
   options: Option[];
   value: string;
   onChange: (event: any) => void;
+  required?: boolean;
 };
 
-function RadioGroup({ id, label, options, value, onChange }: CustomProps) {
+function RadioGroup({ id, label, options, value, onChange, required }: CustomProps) {
   return (
-    <FormControl component="fieldset">
+    <FormControl component="fieldset" required={required}>
       <FormLabel>{label}</FormLabel>
       <MUIRadioGroup id={id} name={id} value={value} onChange={onChange}>
         {options.map((option, index) => {

@@ -11,7 +11,7 @@ const Login = () => {
 
   useEffect(() => {
     modalContext.openModal('SignIn');
-  }, []);
+  }, [modalContext]);
 
   return <span></span>;
 };
