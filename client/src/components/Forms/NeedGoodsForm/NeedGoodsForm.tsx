@@ -12,6 +12,8 @@ import type { Category, Option } from '../../../types';
 import { APP_API_BASE_URL } from '../../../configs';
 // import { validationSchema } from './validation-schema';
 import CheckIcon from '@mui/icons-material/Check';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const fetchCategories = async (): Promise<Option[]> => {
   const res = await fetch(`${APP_API_BASE_URL}/categories?applies_to_assets=true`);
@@ -36,7 +38,7 @@ const initialFormData = {
   quantity: '',
   needType: '',
   deliveryMethod: '',
-  imgUrls: [''],
+  imgUrls: [],
 };
 
 function NeedGoodsForm(): JSX.Element {
@@ -44,6 +46,8 @@ function NeedGoodsForm(): JSX.Element {
   const [categories, setCategories] = React.useState<Option[]>([]);
   const [searchTags, setSearchTags] = React.useState('');
   const [currentStep, setCurrentStep] = React.useState(0);
+  const [images, setImages] = React.useState<(File | null)[]>([null, null, null]);
+  const [imagePreviews, setImagePreviews] = React.useState<(string | null)[]>([null, null, null]);
 
   React.useEffect(() => {
     (async function () {
@@ -105,6 +109,32 @@ function NeedGoodsForm(): JSX.Element {
     }
     // Add more logic for other steps as needed
     return false;
+  };
+
+  // Handle image upload
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+      alert('Only JPG and PNG files are allowed.');
+      return;
+    }
+    const newImages = [...images];
+    newImages[idx] = file;
+    setImages(newImages);
+    const newPreviews = [...imagePreviews];
+    newPreviews[idx] = URL.createObjectURL(file);
+    setImagePreviews(newPreviews);
+  };
+
+  // Remove image
+  const handleRemoveImage = (idx: number) => {
+    const newImages = [...images];
+    newImages[idx] = null;
+    setImages(newImages);
+    const newPreviews = [...imagePreviews];
+    newPreviews[idx] = null;
+    setImagePreviews(newPreviews);
   };
 
   return (
@@ -339,9 +369,46 @@ function NeedGoodsForm(): JSX.Element {
                           background: '#FAFAFA',
                           cursor: 'pointer',
                           position: 'relative',
+                          overflow: 'hidden',
+                        }}
+                        onClick={() => {
+                          const input = document.getElementById(`image-input-${idx}`);
+                          if (input) (input as HTMLInputElement).click();
                         }}
                       >
-                        <span style={{ color: '#B0B0B0', fontSize: 32 }}>+</span>
+                        <input
+                          id={`image-input-${idx}`}
+                          type="file"
+                          accept="image/jpeg,image/png"
+                          style={{ display: 'none' }}
+                          onChange={(e) => handleImageChange(e, idx)}
+                        />
+                        {imagePreviews[idx] ? (
+                          <>
+                            <img
+                              src={imagePreviews[idx] as string}
+                              alt={`Preview ${idx + 1}`}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                            <IconButton
+                              size="small"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemoveImage(idx);
+                              }}
+                              style={{
+                                position: 'absolute',
+                                top: 2,
+                                right: 2,
+                                background: 'rgba(255,255,255,0.7)',
+                              }}
+                            >
+                              <CloseIcon fontSize="small" />
+                            </IconButton>
+                          </>
+                        ) : (
+                          <span style={{ color: '#B0B0B0', fontSize: 32 }}>+</span>
+                        )}
                       </div>
                     ))}
                     <div style={{ marginLeft: 24, color: '#674E67', fontWeight: 500 }}>
