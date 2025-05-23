@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { Grid, Button, FormControl, FormHelperText } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { Grid, Button } from '@mui/material';
+// import { useHistory } from 'react-router-dom';
+// import * as Yup from 'yup';
 
-import { FileUploadInput, RadioGroup, Select, TextField } from '..';
+import { Select, TextField } from '..';
 import NeedOfferForm from '../NeedOfferForm';
-import DetectFormData from '../../DetectFormData';
 import AlertDialog from '../../AlertDialog';
-import { UserContext } from '../../../providers';
+// import { UserContext } from '../../../providers';
 
 import type { Category, Option } from '../../../types';
 import { APP_API_BASE_URL } from '../../../configs';
-import { urlSchema, validationSchema } from './validation-schema';
+// import { validationSchema } from './validation-schema';
 
 const fetchCategories = async (): Promise<Option[]> => {
   const res = await fetch(`${APP_API_BASE_URL}/categories?applies_to_assets=true`);
@@ -26,35 +26,7 @@ const fetchCategories = async (): Promise<Option[]> => {
   return categories;
 };
 
-const conditions = [
-  { value: 'like-new', text: 'Like new' },
-  { value: 'excellent', text: 'Excellent' },
-  { value: 'good', text: 'Good' },
-];
-const needTypes = [
-  { value: 'donation', text: 'Donation' },
-  { value: 'short-term', text: 'Short term loan (<1 month)' },
-  { value: 'long-term', text: 'Long term loan (>1 month)' },
-];
-const deliveryTypes = [
-  { value: 'pick-up', text: 'Pick up only' },
-  { value: 'drop-off', text: 'Drop off only' },
-  { value: 'pick-up-drop-off', text: 'Pick up and drop off' },
-];
-
-interface ShareANeedData {
-  title: string;
-  location: string;
-  description: string;
-  category: string;
-  condition: string;
-  quantity: string;
-  needType: string;
-  deliveryMethod: string;
-  imgUrls: string[];
-}
-
-const initialFormData: ShareANeedData = {
+const initialFormData = {
   title: '',
   location: '',
   description: '',
@@ -67,17 +39,9 @@ const initialFormData: ShareANeedData = {
 };
 
 function NeedGoodsForm(): JSX.Element {
-  const [formData, setFormData] = React.useState<ShareANeedData>(initialFormData);
-  const [formInProgress, setFormInProgress] = React.useState<boolean>(false);
+  const [formData, setFormData] = React.useState(initialFormData);
   const [categories, setCategories] = React.useState<Option[]>([]);
-  const { user } = React.useContext(UserContext);
-  const [urlError, setUrlError] = React.useState({ '0': '' });
-
-  const history = useHistory();
-
-  React.useEffect(() => {
-    setFormInProgress(() => DetectFormData(formData));
-  }, [formData]);
+  const [searchTags, setSearchTags] = React.useState('');
 
   React.useEffect(() => {
     (async function () {
@@ -86,196 +50,256 @@ function NeedGoodsForm(): JSX.Element {
     })();
   }, []);
 
-  function addPhotoUrl() {
-    if (formData.imgUrls.length < 10) {
-      setFormData({ ...formData, imgUrls: [...formData.imgUrls, ''] });
-    }
-  }
-
-  const imageInputFields = formData.imgUrls.map((img, i) => {
-    return (
-      <FormControl key={i}>
-        <TextField
-          id={'imgUrls' + i}
-          label={`Photo ${i + 1}`}
-          placeholder="Insert photo url"
-          value={formData.imgUrls[i]}
-          onChange={(e) => handleChangePhotoUrl(e, i)}
-        />
-        <FormHelperText>{urlError[`${i}` as keyof typeof urlError]}</FormHelperText>
-      </FormControl>
-    );
-  });
-
-  // HTMLInputElement does not work for the MUISelect - This works, but can we find a better way of doing it?
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<{ name?: string | undefined; value: unknown }>,
-  ): void => {
-    let { name = '', value }: { name?: string | undefined; value: unknown } = event.target;
-    setFormData((fData) => ({
-      ...fData,
-      [name]: value,
-    }));
+  // Custom onChange for title and description to enforce max length
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.slice(0, 25);
+    setFormData((fData) => ({ ...fData, title: value }));
   };
-
-  const handleChangePhotoUrl = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    setFormData((fData) => {
-      urlSchema
-        .validate({ url: event.target.value })
-        .then(() => {
-          setUrlError((urlError) => ({
-            ...urlError,
-            [`${index}`]: '',
-          }));
-        })
-        .catch((error) => {
-          setUrlError((urlError) => ({
-            ...urlError,
-            [`${index}`]: error.message,
-          }));
-        });
-      let newImageUrls = [...fData.imgUrls];
-      newImageUrls[index] = event.target.value;
-      return {
-        ...fData,
-        imgUrls: newImageUrls,
-      };
-    });
-  };
-
-  const handleSubmit = async (evt: React.FormEvent) => {
-    evt.preventDefault();
-    const isValid = await validationSchema.isValid(formData);
-    if (isValid) {
-      const res = await fetch(`${APP_API_BASE_URL}/assets`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          poster: user,
-        }),
-      });
-      const data = await res.json();
-      if (res.status === 201) {
-        history.push('/asset/' + data.id);
-      } else {
-        // TODO: Display error modal
-        console.error(data.message);
-      }
-    }
+  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.slice(0, 2600);
+    setFormData((fData) => ({ ...fData, description: value }));
   };
 
   return (
-    <NeedOfferForm title="Share a Need: Goods">
-      <AlertDialog when={formInProgress} onConfirmation={() => true} onCancel={() => false} />
-      <Grid container spacing={5}>
-        <Grid item md={8} xs={12}>
-          <TextField
-            id="title"
-            label="Title"
-            placeholder="What goods do you need?"
-            value={formData.title}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <TextField
-            id="location"
-            label="Location"
-            placeholder="City, State"
-            value={formData.location}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item md={12} xs={12}>
-          <TextField
-            id="description"
-            label="Description"
-            placeholder="Describe what goods you are looking for"
-            value={formData.description}
-            onChange={handleChange}
-            isMultiline={true}
-          />
-        </Grid>
-        <Grid item md={8} xs={12}>
-          <Select
-            id="category"
-            label="Category"
-            placeholder="Select a category"
-            options={categories}
-            value={formData.category}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item md={8} xs={12}>
-          <Select
-            id="condition"
-            label="Condition"
-            placeholder="Select a preferred condition"
-            options={conditions}
-            value={formData.condition}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <TextField
-            id="quantity"
-            label="Quantity"
-            placeholder="# of goods needed"
-            value={formData.quantity}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item md={8} xs={12}>
-          <RadioGroup
-            label="Need Type"
-            id="needType"
-            options={needTypes}
-            value={formData.needType}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <RadioGroup
-            label="Delivery Method"
-            id="deliveryMethod"
-            options={deliveryTypes}
-            value={formData.deliveryMethod}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FileUploadInput
-            label="Photos"
-            id="photos"
-            text="Click here to upload photos"
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <p>Or link photos below</p>
-          {imageInputFields}
-          <Button onClick={addPhotoUrl}>click here to add another photo</Button>
-        </Grid>
-        <Grid item container xs={12} justifyContent="center">
-          <Grid item>
-            <Button variant="contained" color="secondary">
-              Save Draft
-            </Button>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+      {/* Sidebar Stepper */}
+      <div
+        style={{
+          background: '#FFFFFF',
+          borderRadius: '20px',
+          maxWidth: 320,
+          minWidth: 260,
+          padding: '32px 24px',
+          marginRight: 48,
+          minHeight: 600,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+        }}
+      >
+        {/* Placeholder for illustration */}
+        <div
+          style={{
+            width: '100%',
+            marginBottom: 32,
+            minHeight: 180,
+            background: '#FFE0B2',
+            borderRadius: 12,
+          }}
+        >
+          {/* Illustration goes here */}
+        </div>
+        {/* Stepper steps */}
+        {(() => {
+          const steps = [
+            {
+              label: 'Basic Information',
+              description: 'Includes a title, item category, description of item, and search tags.',
+              active: true,
+            },
+            {
+              label: 'Details',
+              description: 'Consists of photos, quantity, desired and condition of items.',
+              active: false,
+            },
+            {
+              label: 'Delivery',
+              description: 'Selection of the desired delivery method, date, and location.',
+              active: false,
+            },
+            {
+              label: 'Post Information',
+              description: 'Includes post type and duration of the post.',
+              active: false,
+            },
+          ];
+          return (
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+              }}
+            >
+              {steps.map((step, idx) => (
+                <div
+                  key={step.label}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    position: 'relative',
+                    marginBottom: 24,
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <div
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: '50%',
+                        background: step.active ? '#674E67' : '#FFFFFF',
+                        border: step.active ? '2px solid #674E67' : '2px solid #E0E0E0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: 16,
+                        zIndex: 1,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <div>
+                      <div style={{ fontWeight: 600 }}>{step.label}</div>
+                      <div style={{ fontSize: 13, color: '#555' }}>{step.description}</div>
+                    </div>
+                  </div>
+                  {/* Vertical line after each step except the last */}
+                  {idx < steps.length - 1 && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 12,
+                        top: 24,
+                        width: 0,
+                        height: 64,
+                        borderLeft: '2px solid #E0E0E0',
+                        zIndex: 0,
+                      }}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          );
+        })()}
+      </div>
+      {/* Main Content: Title above Form */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Main Title */}
+        <div style={{ width: '100%', marginBottom: 32 }}>
+          <h1
+            style={{
+              fontWeight: 800,
+              fontSize: '2.75rem',
+              color: '#674E67',
+              lineHeight: 1.1,
+              letterSpacing: '-0.5px',
+              margin: 0,
+              textAlign: 'left',
+              textShadow: '0px 2px 8px rgba(103, 78, 103, 0.08)',
+            }}
+          >
+            Share a Need: Goods
+          </h1>
+        </div>
+        <NeedOfferForm title="">
+          <AlertDialog when={false} onConfirmation={() => true} onCancel={() => false} />
+          <Grid container spacing={4}>
+            {/* Section Header */}
+            <Grid item xs={12}>
+              <div
+                style={{
+                  fontWeight: 700,
+                  fontSize: '1.25rem',
+                  marginBottom: 24,
+                  textAlign: 'left',
+                }}
+              >
+                Basic Information
+              </div>
+            </Grid>
+            {/* Title and Category on same row */}
+            <Grid item container spacing={2} alignItems="flex-end">
+              <Grid item md={8} xs={12} style={{ position: 'relative', width: '100%' }}>
+                <TextField
+                  id="title"
+                  label="Title*"
+                  placeholder="What type of goods do you need?"
+                  value={formData.title}
+                  onChange={handleTitleChange}
+                  errorText={undefined}
+                  required={true}
+                />
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 36,
+                    right: 16,
+                    fontSize: 12,
+                    color: '#888',
+                    background: '#fff',
+                    paddingLeft: 4,
+                  }}
+                >
+                  {formData.title.length}/25
+                </span>
+              </Grid>
+              <Grid item md={4} xs={12} style={{ width: '100%' }}>
+                <Select
+                  id="category"
+                  label="Category"
+                  placeholder="Search a Category"
+                  options={categories}
+                  value={formData.category}
+                  onChange={(e) => setFormData((fData) => ({ ...fData, category: e.target.value }))}
+                />
+              </Grid>
+            </Grid>
+            {/* Description with counter at bottom right */}
+            <Grid item xs={12} style={{ position: 'relative', marginTop: 24, width: '100%' }}>
+              <div style={{ minHeight: 180 }}>
+                <TextField
+                  id="description"
+                  label="Description (optional)"
+                  placeholder="Describe what you are looking for."
+                  value={formData.description}
+                  onChange={handleDescriptionChange}
+                  isMultiline={true}
+                  errorText={undefined}
+                />
+              </div>
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: 8,
+                  right: 16,
+                  fontSize: 12,
+                  color: '#888',
+                  background: '#fff',
+                  paddingLeft: 4,
+                }}
+              >
+                {formData.description.length}/2600
+              </span>
+            </Grid>
+            {/* Add Search Tags */}
+            <Grid item xs={12} style={{ marginTop: 24, width: '100%' }}>
+              <TextField
+                id="searchTags"
+                label="Add Search Tags (optional)"
+                placeholder="Search a tag"
+                value={searchTags}
+                onChange={(e) => setSearchTags(e.target.value)}
+              />
+            </Grid>
+            {/* Navigation Buttons */}
+            <Grid
+              item
+              xs={12}
+              style={{ display: 'flex', justifyContent: 'space-between', marginTop: 40 }}
+            >
+              <Button variant="outlined" color="primary" style={{ marginRight: 16 }}>
+                Back
+              </Button>
+              <Button variant="contained" color="secondary">
+                Next
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Submit Need
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-    </NeedOfferForm>
+        </NeedOfferForm>
+      </div>
+    </div>
   );
 }
 
