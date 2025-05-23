@@ -256,6 +256,7 @@ function NeedGoodsForm(): JSX.Element {
                   value={formData.description}
                   onChange={handleDescriptionChange}
                   isMultiline={true}
+                  rows={6}
                   errorText={undefined}
                 />
               </div>
@@ -292,7 +293,12 @@ function NeedGoodsForm(): JSX.Element {
               <Button variant="outlined" color="primary" style={{ marginRight: 16 }}>
                 Back
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ marginLeft: 16 }}
+                disabled={!formData.title || !formData.category}
+              >
                 Next
               </Button>
             </Grid>

@@ -6,6 +6,7 @@ type CustomProps = {
   label: string;
   placeholder: string;
   isMultiline?: boolean;
+  rows?: number;
   value: string;
   type?: string;
   errorText?: string;
@@ -21,6 +22,7 @@ function TextField({
   id,
   placeholder,
   isMultiline = false,
+  rows = 4,
   value,
   type,
   disabled,
@@ -42,6 +44,7 @@ function TextField({
         fullWidth
         InputLabelProps={{ shrink: true }}
         multiline={isMultiline}
+        rows={isMultiline ? rows : undefined}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
