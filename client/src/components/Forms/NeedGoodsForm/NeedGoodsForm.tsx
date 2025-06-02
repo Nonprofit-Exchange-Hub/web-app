@@ -14,6 +14,61 @@ import { APP_API_BASE_URL } from '../../../configs';
 import CheckIcon from '@mui/icons-material/Check';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import MenuItem from '@mui/material/MenuItem';
+import TextFieldMUI from '@mui/material/TextField';
+const states = [
+  { name: 'Alabama', abbreviation: 'AL' },
+  { name: 'Alaska', abbreviation: 'AK' },
+  { name: 'Arizona', abbreviation: 'AZ' },
+  { name: 'Arkansas', abbreviation: 'AR' },
+  { name: 'California', abbreviation: 'CA' },
+  { name: 'Colorado', abbreviation: 'CO' },
+  { name: 'Connecticut', abbreviation: 'CT' },
+  { name: 'Delaware', abbreviation: 'DE' },
+  { name: 'District Of Columbia', abbreviation: 'DC' },
+  { name: 'Florida', abbreviation: 'FL' },
+  { name: 'Georgia', abbreviation: 'GA' },
+  { name: 'Hawaii', abbreviation: 'HI' },
+  { name: 'Idaho', abbreviation: 'ID' },
+  { name: 'Illinois', abbreviation: 'IL' },
+  { name: 'Indiana', abbreviation: 'IN' },
+  { name: 'Iowa', abbreviation: 'IA' },
+  { name: 'Kansas', abbreviation: 'KS' },
+  { name: 'Kentucky', abbreviation: 'KY' },
+  { name: 'Louisiana', abbreviation: 'LA' },
+  { name: 'Maine', abbreviation: 'ME' },
+  { name: 'Maryland', abbreviation: 'MD' },
+  { name: 'Massachusetts', abbreviation: 'MA' },
+  { name: 'Michigan', abbreviation: 'MI' },
+  { name: 'Minnesota', abbreviation: 'MN' },
+  { name: 'Mississippi', abbreviation: 'MS' },
+  { name: 'Missouri', abbreviation: 'MO' },
+  { name: 'Montana', abbreviation: 'MT' },
+  { name: 'Nebraska', abbreviation: 'NE' },
+  { name: 'Nevada', abbreviation: 'NV' },
+  { name: 'New Hampshire', abbreviation: 'NH' },
+  { name: 'New Jersey', abbreviation: 'NJ' },
+  { name: 'New Mexico', abbreviation: 'NM' },
+  { name: 'New York', abbreviation: 'NY' },
+  { name: 'North Carolina', abbreviation: 'NC' },
+  { name: 'North Dakota', abbreviation: 'ND' },
+  { name: 'Ohio', abbreviation: 'OH' },
+  { name: 'Oklahoma', abbreviation: 'OK' },
+  { name: 'Oregon', abbreviation: 'OR' },
+  { name: 'Pennsylvania', abbreviation: 'PA' },
+  { name: 'Rhode Island', abbreviation: 'RI' },
+  { name: 'South Carolina', abbreviation: 'SC' },
+  { name: 'South Dakota', abbreviation: 'SD' },
+  { name: 'Tennessee', abbreviation: 'TN' },
+  { name: 'Texas', abbreviation: 'TX' },
+  { name: 'Utah', abbreviation: 'UT' },
+  { name: 'Vermont', abbreviation: 'VT' },
+  { name: 'Virginia', abbreviation: 'VA' },
+  { name: 'Washington', abbreviation: 'WA' },
+  { name: 'West Virginia', abbreviation: 'WV' },
+  { name: 'Wisconsin', abbreviation: 'WI' },
+  { name: 'Wyoming', abbreviation: 'WY' },
+];
 
 const fetchCategories = async (): Promise<Option[]> => {
   const res = await fetch(`${APP_API_BASE_URL}/categories?applies_to_assets=true`);
@@ -38,11 +93,18 @@ const initialFormData = {
   quantity: '',
   needType: '',
   deliveryMethod: '',
+  deliveryDate: '',
+  streetAddress: '',
+  aptSuite: '',
+  city: '',
+  state: '',
+  zipCode: '',
+  includeStreet: null as boolean | null,
   imgUrls: [],
 };
 
 function NeedGoodsForm(): JSX.Element {
-  const [formData, setFormData] = React.useState(initialFormData);
+  const [formData, setFormData] = React.useState<typeof initialFormData>(initialFormData);
   const [categories, setCategories] = React.useState<Option[]>([]);
   const [searchTags, setSearchTags] = React.useState('');
   const [currentStep, setCurrentStep] = React.useState(0);
@@ -106,6 +168,19 @@ function NeedGoodsForm(): JSX.Element {
     if (stepIdx === 1) {
       // Details: condition required
       return !!formData.condition;
+    }
+    if (stepIdx === 2) {
+      // Delivery: deliveryMethod, deliveryDate, city, state, zipCode required
+      if (
+        !formData.deliveryMethod ||
+        !formData.deliveryDate ||
+        !formData.city ||
+        !formData.state ||
+        !formData.zipCode
+      )
+        return false;
+      if (formData.includeStreet === true && !formData.streetAddress) return false;
+      return true;
     }
     // Add more logic for other steps as needed
     return false;
@@ -528,11 +603,174 @@ function NeedGoodsForm(): JSX.Element {
                 </Grid>
               </>
             )}
+            {currentStep === 2 && (
+              <>
+                <Grid container spacing={6} alignItems="flex-start">
+                  {/* Left column: method, date, toggle */}
+                  <Grid item xs={12} md={6}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 32,
+                        maxWidth: 400,
+                      }}
+                    >
+                      <TextFieldMUI
+                        select
+                        fullWidth
+                        label="Delivery Method*"
+                        value={formData.deliveryMethod}
+                        onChange={(e) =>
+                          setFormData((fData) => ({ ...fData, deliveryMethod: e.target.value }))
+                        }
+                        sx={{ mb: 3 }}
+                      >
+                        <MenuItem value="">Select a method to receive items</MenuItem>
+                        <MenuItem value="pickup">Pickup</MenuItem>
+                        <MenuItem value="dropoff">Dropoff</MenuItem>
+                        <MenuItem value="shipping">Shipping</MenuItem>
+                      </TextFieldMUI>
+                      <div>
+                        <TextFieldMUI
+                          fullWidth
+                          label="Delivery Date*"
+                          type="date"
+                          InputLabelProps={{ shrink: true }}
+                          value={formData.deliveryDate}
+                          onChange={(e) =>
+                            setFormData((fData) => ({ ...fData, deliveryDate: e.target.value }))
+                          }
+                        />
+                        <div style={{ color: '#888', fontSize: 12, marginTop: 4 }}>
+                          Note: This date lets user know the last that the items can be dropped off
+                          or picked up which is not the same as the expiration of the post.
+                        </div>
+                      </div>
+                      <div style={{ marginTop: 32 }}>
+                        <div style={{ fontWeight: 500, marginBottom: 16 }}>
+                          Do you want to include a street address on your public post?
+                        </div>
+                        <Grid container spacing={2}>
+                          <Grid item xs={6}>
+                            <Button
+                              variant={formData.includeStreet === true ? 'contained' : 'outlined'}
+                              color="primary"
+                              fullWidth
+                              size="large"
+                              style={{ height: 48 }}
+                              onClick={() =>
+                                setFormData((fData) => ({
+                                  ...fData,
+                                  includeStreet: true as boolean | null,
+                                }))
+                              }
+                            >
+                              Yes
+                            </Button>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Button
+                              variant={formData.includeStreet === false ? 'contained' : 'outlined'}
+                              color="primary"
+                              fullWidth
+                              size="large"
+                              style={{ height: 48 }}
+                              onClick={() =>
+                                setFormData((fData) => ({
+                                  ...fData,
+                                  includeStreet: false as boolean | null,
+                                  streetAddress: '',
+                                }))
+                              }
+                            >
+                              No
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    </div>
+                  </Grid>
+                  {/* Right column: address/location fields stacked with heading */}
+                  <Grid item xs={12} md={6}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 20,
+                        maxWidth: 400,
+                        marginLeft: 32,
+                      }}
+                    >
+                      <div style={{ fontWeight: 700, fontSize: 18, marginBottom: 12 }}>
+                        Delivery Location
+                      </div>
+                      <TextFieldMUI
+                        fullWidth
+                        label="Street Address"
+                        value={formData.streetAddress}
+                        onChange={(e) =>
+                          setFormData((fData) => ({ ...fData, streetAddress: e.target.value }))
+                        }
+                        required={formData.includeStreet === true}
+                        disabled={formData.includeStreet === false}
+                        sx={{ mb: 1 }}
+                      />
+                      <TextFieldMUI
+                        fullWidth
+                        label="Apt, Suite, etc. (optional)"
+                        value={formData.aptSuite}
+                        onChange={(e) =>
+                          setFormData((fData) => ({ ...fData, aptSuite: e.target.value }))
+                        }
+                        disabled={formData.includeStreet === false}
+                        sx={{ mb: 1 }}
+                      />
+                      <TextFieldMUI
+                        fullWidth
+                        label="City*"
+                        value={formData.city}
+                        onChange={(e) =>
+                          setFormData((fData) => ({ ...fData, city: e.target.value }))
+                        }
+                        sx={{ mb: 1 }}
+                      />
+                      <TextFieldMUI
+                        select
+                        fullWidth
+                        label="State*"
+                        value={formData.state}
+                        onChange={(e) =>
+                          setFormData((fData) => ({ ...fData, state: e.target.value }))
+                        }
+                        sx={{ mb: 1 }}
+                      >
+                        <MenuItem value="">Enter a State</MenuItem>
+                        {states.map((state) => (
+                          <MenuItem key={state.abbreviation} value={state.abbreviation}>
+                            {state.name}
+                          </MenuItem>
+                        ))}
+                      </TextFieldMUI>
+                      <TextFieldMUI
+                        fullWidth
+                        label="Zip Code*"
+                        value={formData.zipCode}
+                        onChange={(e) =>
+                          setFormData((fData) => ({ ...fData, zipCode: e.target.value }))
+                        }
+                        sx={{ mb: 1 }}
+                      />
+                    </div>
+                  </Grid>
+                </Grid>
+              </>
+            )}
             {/* Navigation Buttons */}
             <Grid
               item
               xs={12}
-              style={{ display: 'flex', justifyContent: 'space-between', marginTop: 40 }}
+              style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 40 }}
             >
               <Button
                 variant="outlined"
@@ -547,7 +785,11 @@ function NeedGoodsForm(): JSX.Element {
                 variant="outlined"
                 color="primary"
                 style={{ marginLeft: 16 }}
-                disabled={currentStep === 0 && (!formData.title || !formData.category)}
+                disabled={
+                  (currentStep === 0 && (!formData.title || !formData.category)) ||
+                  (currentStep === 1 && !formData.condition) ||
+                  (currentStep === 2 && !isStepComplete(2))
+                }
                 onClick={handleNext}
               >
                 {currentStep === steps.length - 1 ? 'Submit' : 'Next'}
