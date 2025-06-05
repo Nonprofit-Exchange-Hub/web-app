@@ -129,11 +129,11 @@ function NeedGoodsForm(): JSX.Element {
   };
 
   const handleNext = () => {
-    setCurrentStep((prev) => prev + 1);
+    setCurrentStep((step) => step + 1);
   };
 
   const handleBack = () => {
-    setCurrentStep((prev) => prev - 1);
+    setCurrentStep((step) => step - 1);
   };
 
   const steps = [
