@@ -91,7 +91,12 @@ function SearchResults(): JSX.Element {
       fetch(`${APP_API_BASE_URL}/organizations`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
-          setVolunteer(data);
+          if (Array.isArray(data)) {
+            setVolunteer(data);
+          }
+        })
+        .catch(() => {
+          // Keep existing state on error
         });
     } else if (querySearchCategory === 'Offers' || querySearchCategory === 'Needs') {
       const newSearchParams = new URLSearchParams();
@@ -100,11 +105,16 @@ function SearchResults(): JSX.Element {
       fetch(`${APP_API_BASE_URL}/assets?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
-          if (querySearchCategory === 'Needs') {
-            setNeeds(data);
-          } else {
-            setOffers(data);
+          if (Array.isArray(data)) {
+            if (querySearchCategory === 'Needs') {
+              setNeeds(data);
+            } else {
+              setOffers(data);
+            }
           }
+        })
+        .catch(() => {
+          // Keep existing state on error
         });
     } else if (querySearchCategory === 'Nonprofits') {
       const newSearchParams = new URLSearchParams();
@@ -112,7 +122,12 @@ function SearchResults(): JSX.Element {
       fetch(`${APP_API_BASE_URL}/organizations?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Organization[]) => {
-          setOrgs(data);
+          if (Array.isArray(data)) {
+            setOrgs(data);
+          }
+        })
+        .catch(() => {
+          // Keep existing state on error
         });
     } else {
       // TODO: Change API to fetch ALL combined data
