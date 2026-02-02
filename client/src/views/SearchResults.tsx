@@ -100,6 +100,7 @@ function SearchResults(): JSX.Element {
       fetch(`${APP_API_BASE_URL}/assets?${newSearchParams.toString()}`)
         .then((resp) => resp.json())
         .then((data: Asset[]) => {
+          if (!Array.isArray(data)) return;
           if (querySearchCategory === 'Needs') {
             setNeeds(data);
           } else {
